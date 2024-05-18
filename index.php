@@ -1,7 +1,5 @@
 <?php
 $action=$_GET;
-$query_string=$_SERVER['QUERY_STRINGS'];
-$_SERVER['REQUEST_URI'];
 switch($action){
     case '/':
         include_once('php/homePage.php');

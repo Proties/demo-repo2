@@ -15,13 +15,33 @@ function initialise_posts(){
         console.log(err);
     }
 }
+function search_user(){
+    let text=document.getElementById("search").value;
+    try{
+        let xml=new XMLHttpRequest();
+        xml.onload=function(){
+            let data=JSON.parse(this.responseText);
+            if(typeof data.search_results=='array'){
+                for(let i=0;i<data.search_results;i++){
+                    console.log(data.search_results[i]);
+                }
+            }
+            console.log(data.search_results);
+        }
+        xml.open('POST','/');
+        xml.send("action=search&q="+text);
+    }catch(err){
+        console.log(err);
+    }
+}
 function eventListener(){
     let likeBtn=document.getElementsByClassName("");
     let unLikeBtn=document.getElementsByClassName("");
     let viewCommentBtn=document.getElementsByClassName("");
     let commentBtn=document.getElementsByClassName("");
-    let bottom=document.getElementById("");
+    let search=document.getElementById("search");
 
+    search.addEventListener("change",search_user);
     for(let a=0;a<likeBtn.length;a++){
 
     }

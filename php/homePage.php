@@ -25,7 +25,7 @@ for($i=0;$i<5;$i++){
                     "userName"=>$post[$i]->set_userName()),
             )));
 }
-$action=$_POST['q'];
+$action=$_POST['action'];
 $postID=$_POST['id'];
 $comment=$_POST['comment'];
 $search_term=$_POST['search'];
