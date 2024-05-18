@@ -1,0 +1,147 @@
+/* Reset some default styles */
+body, h1, h2, h3, h4, h5, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #fafafa;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+}
+
+header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .profile-link, nav .settings-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 20px;
+    margin-top: 0px; /* Offset for fixed header */
+    margin-left: 220px; /* Offset for sidebar */
+    margin-right: 220px; /* Offset for control panel */
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+}
+
+.profile-picture {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin-right: 20px;
+    overflow: hidden;
+}
+
+.profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-info {
+    flex-grow: 1;
+}
+
+.profile-info h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.profile-info p {
+    font-size: 16px;
+    color: #777;
+}
+
+.profile-stats {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 16px;
+}
+
+.biography {
+    padding: 20px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 22px; /* Offset for fixed header */
+    margin-left: 10px; /* Offset for sidebar */
+    margin-right: 10px; /* Offset for control panel */
+}
+
+.post-section {
+    padding: 20px;
+}
+
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+.post {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+}
+
+.post img, .post video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+}
+
+.sidebar, .control-panel {
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    overflow-y: auto;
+}
+
+.sidebar {
+    left: 0;
+    width: 200px;
+}
+
+.control-panel {
+    right: 0;
+    width: 200px;
+}
