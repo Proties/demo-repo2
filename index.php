@@ -1,5 +1,5 @@
 <?php
-$action=$_GET;
+$action=$_SERVER['REQUEST_URI'];
 switch($action){
     case '/':
         include_once('php/homePage.php');
