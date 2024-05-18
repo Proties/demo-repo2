@@ -54,6 +54,17 @@ nav .settings-link{
     outline: none;
 }
 
+.search-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.search-button img {
+    width: 20px;
+    height: 20px;
+}
+
 .nav-center button {
     padding: 8px 15px;
     border: 1px solid #ccc;
@@ -76,11 +87,9 @@ main {
 }
 
 .post-feed {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
-    justify-content: center;
-    padding: 20px;
 }
 
 .post {
@@ -88,14 +97,40 @@ main {
     border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
-    width: 320px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
-.post video {
+.post img {
     display: block;
-    max-width: 100%;
+    width: 100%;
+    min-height: 300PX;
     border-bottom: 1px solid #ddd;
+}
+
+
+.post-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.post:hover {
+    transform: scale(1.05);
+}
+
+.like-button, .comment-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.like-button img, .comment-button img {
+    object-fit: fill;
+}
+
+.like-button:hover, .comment-button:hover {
+    background-color: #f0f0f0;
 }
 
 .post .post-info {
