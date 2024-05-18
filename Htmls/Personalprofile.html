@@ -9,53 +9,80 @@
   <body>
     <header>
       <nav>
-        <a href="Homepage.html">Home</a>
-        <a href="#">Profile</a>
-        <a href="#">Settings</a>
+        <div class="nav-left">
+          <a href="#" class="profile-link">Home</a>
+        </div>
+        <div class="nav-right">
+          <a href="#" class="settings-link">Settings</a>
+        </div>
       </nav>
     </header>
-    <main>
-      <aside class="css-control-panel">
-        <h2>CSS Controls</h2>
-        <!-- Add controls for customizing CSS -->
-        <label for="bg-color">Background Color:</label>
-        <input type="color" id="bg-color" name="bg-color" />
-        <label for="text-color">Text Color:</label>
-        <input type="color" id="text-color" name="text-color" />
-        <!-- Add more controls as needed -->
-      </aside>
-      <section class="profile-content">
-        <div class="profile-header">
-          <img
-            src="profile-pic.jpg"
-            alt="Profile Picture"
-            class="profile-pic"
-          />
-          <div class="profile-info">
-            <h1>Artist Name</h1>
-            <p>@artistusername</p>
-            <button>Edit Profile</button>
-          </div>
+    <div class="sidebar">
+      <h3>Drag and Drop Elements</h3>
+      <ul>
+        <li>Text Block</li>
+        <li>Image</li>
+        <li>Video</li>
+        <li>Gallery</li>
+        <!-- Add more elements as needed -->
+      </ul>
+    </div>
+    <div class="container">
+      <div class="profile-header">
+        <div class="profile-picture">
+          <img src="profile-picture.jpg" alt="Profile Picture" />
         </div>
-        <div class="posts">
+        <div class="profile-info">
+          <h1>Artist Name</h1>
+          <p>
+            Short bio or description about the artist. This can include
+            interests, specialties, or any other relevant information.
+          </p>
+        </div>
+        <div class="profile-stats">
+          <p>Followers: 1,234</p>
+          <p>Following: 567</p>
+        </div>
+      </div>
+      <div class="biography">
+        <h2>Biography</h2>
+        <p>
+          Detailed biography and information about the artist. This section can
+          include background, achievements, projects, and more.
+        </p>
+      </div>
+      <div class="post-section">
+        <div class="post-grid">
           <div class="post">
-            <video width="320" height="240" controls>
+            <video controls>
               <source src="dummy-video1.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="post">
+            <video controls>
+              <source src="dummy-video2.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="post">
+            <video controls>
+              <source src="dummy-video3.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
           <!-- Add more posts as needed -->
         </div>
-      </section>
-      <aside class="drag-drop-sidebar">
-        <h2>Drag & Drop Elements</h2>
-        <!-- Add drag and drop elements -->
-        <div class="draggable" draggable="true">Image</div>
-        <div class="draggable" draggable="true">Video</div>
-        <div class="draggable" draggable="true">Text Block</div>
-        <!-- Add more elements as needed -->
-      </aside>
-    </main>
-    <script src="dragdrop.js"></script>
+      </div>
+    </div>
+    <div class="control-panel">
+      <h3>Control Panel</h3>
+      <ul>
+        <li>Font Size</li>
+        <li>Colors</li>
+        <li>Layout</li>
+        <!-- Add more controls as needed -->
+      </ul>
+    </div>
   </body>
 </html>
