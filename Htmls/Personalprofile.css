@@ -58,16 +58,17 @@ nav .profile-link, nav .settings-link {
 
 .profile-picture {
     border-radius: 50%;
-    width: 150px;
-    height: 150px;
+    max-width: 140px;
+    max-height: 140px;
     margin-right: 20px;
+    margin-top: 20px;
     overflow: hidden;
 }
 
 .profile-picture img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: fill;
 }
 
 .profile-info {
@@ -102,12 +103,13 @@ nav .profile-link, nav .settings-link {
 
 .post-section {
     padding: 20px;
+    margin-top: 10px;
 }
 
 .post-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 10px;
+    gap: 30px;
 }
 
 .post {
@@ -116,6 +118,7 @@ nav .profile-link, nav .settings-link {
     border-radius: 8px;
     overflow: hidden;
     position: relative;
+    margin-top: 20px;
 }
 
 .post img, .post video {
