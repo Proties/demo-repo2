@@ -107,10 +107,15 @@ main {
     border-bottom: 1px solid #ddd;
 }
 
+
 .post-actions {
     display: flex;
     justify-content: space-between;
     padding: 10px;
+}
+
+.post:hover {
+    transform: scale(1.05);
 }
 
 .like-button, .comment-button {

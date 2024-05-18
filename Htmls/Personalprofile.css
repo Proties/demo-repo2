@@ -128,6 +128,10 @@ nav .profile-link, nav .settings-link {
     border-bottom: 1px solid #ddd;
 }
 
+.post:hover {
+    transform: scale(1.05);
+}
+
 .sidebar, .control-panel {
     padding: 20px;
     background-color: #ffffff;
