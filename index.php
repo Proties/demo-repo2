@@ -1,20 +1,29 @@
 <?php
 $action=$_GET;
+$query_string=$_SERVER['QUERY_STRINGS'];
+$_SERVER['REQUEST_URI'];
 switch($action){
-    case 'home':
-        include_once('backend/homePage.php');
+    case '/':
+        include_once('php/homePage.php');
         break;
-    case 'profile':
-        include_once('backend/profile.php');
+    case '/profile':
+        include_once('php/profile.php');
         break;
-    case 'category':
-        include_once('backend/categories.php');
+    case '/category':
+        include_once('php/categories.php');
         break;
-    case 'full_post':
-        include_once('backend/fullPagePost.php');
+    case '/full_post':
+        include_once('php/fullPagePost.php');
         break;
     default:
-        include_once('backend/homePage.php');
+        include_once('php/homePage.php');
         break;
 }
+
+// user page 
+// - addr/username
+// post page 
+// - addr/username/postid 
+// category page 
+// - addr/category#categoryname 
 ?>
