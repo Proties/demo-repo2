@@ -7,20 +7,14 @@ switch($action){
     case 'profile':
         include_once('backend/profile.php');
         break;
-    case 'post':
-        include_once('backend/addImage.php');
-        break;
-    case 'search':
-        include_once('backend/search.php');
-        break;
     case 'category':
-        include_once('backend/category.php');
+        include_once('backend/categories.php');
         break;
     case 'full_post':
         include_once('backend/fullPagePost.php');
         break;
     default:
-        include_once('backend/addImage.php');
+        include_once('backend/homePage.php');
         break;
 }
 ?>

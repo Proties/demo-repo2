@@ -8,7 +8,10 @@
 // create a whole file of css that the user owns
 // create a html that the user owns 
 // add user profile to our usersProlie directory
-
+if($_SERVER['REQUEST_METHOD']=='GET'){
+    include_once('Htmls/Personalprofile.html');
+    return;
+}
 switch($case){
     case 'addPost':
         break;

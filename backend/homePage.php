@@ -1,13 +1,10 @@
 <?php
-include_once('backend/database.php');
-// array of post 
 
 if($_SERVER['REQUEST_METHOD']=='GET'){
-    include_once('front/home.html');
+    include_once('Htmls/Homepage.html');
     return;
-}else{
-    
 }
+include_once('backend/database.php');
 $post=array();
 $list=chrono();
 
@@ -31,14 +28,9 @@ for($i=0;$i<5;$i++){
 $action=$_POST['q'];
 $postID=$_POST['id'];
 $comment=$_POST['comment'];
-$category=$_POST['category'];
 $search_term=$_POST['search'];
 switch($action){
-    case 'view_full_post':
-        break;
     case 'search':
-        break;
-    case 'view_category':
         break;
     case 'comment':
          break;

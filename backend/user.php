@@ -6,8 +6,6 @@ class Users{
     private $email;
     private $phone;
 
-    //user settings
-
     public function __construct(){}
 
     public function set_name(){}
