@@ -22,14 +22,30 @@ function initialise($arr){
     $this->likes=$arr[''];
     $this->comments=$arr[''];
 }
-public function set_categoryName(){}
-public function set_postID(){}
-public function set_caption(){}
-public function set_image(){}
-public function set_status(){}
-public function set_authorName(){}
-public function set_authorImage(){}
-public function set_alt(){}
+public function set_categoryName($nm){
+    $this->categoryName=$nm;
+}
+public function set_postID($id){
+    $this->postID=$id;
+}
+public function set_caption($cap){
+    $this->caption=$cap;
+}
+public function set_image($im){
+    $this->image=$im;
+}
+public function set_status($stt){
+    $this->status=$stt;
+}
+public function set_authorName($an){
+    $this->authorName=$an;
+}
+public function set_authorImage($im){
+    $this->authorImage=$im;
+}
+public function set_alt($al){
+    $ths->alt=$alt;
+}
 public function set_likes(){}
 public function set_comments(){}
 

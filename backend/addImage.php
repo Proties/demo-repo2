@@ -1,9 +1,10 @@
 <?php
-include('backend/database.php');
-include('backend/post.php');
 if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('front/addP.html');
+    return;
 }
+include('backend/database.php');
+include('backend/post.php');
 $p=new Post();
 $target_dir='userProfiles/';
 $target_file=$target_dir . basename($_FILES["fileToUpload"]["name"]);

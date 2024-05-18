@@ -16,6 +16,9 @@ switch($action){
     case 'category':
         include_once('backend/category.php');
         break;
+    case 'full_post':
+        include_once('backend/fullPagePost.php');
+        break;
     default:
         include_once('backend/addImage.php');
         break;
