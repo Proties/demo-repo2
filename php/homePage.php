@@ -5,41 +5,71 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
     return;
 }
 include_once('php/database.php');
-include_once('post.php');
+include_once('php/post.php');
+include_once('php/user.php');
+include_once('php/comment.php');
 
-$user;
-$data=array("home"=>"happy");
+$user=new User();
+$postsObjects=array();
+$data=array();
 // store posts and user data on session object
 
-// for($i=0;$i<5;$i++){
-//     $post[$i]=new Post();
-
-//     $post[$i]->initialise($list[$i]);
-//     array_push($data,array("posts"=>array(
-//                 array("likes"=>$post[$i]->set_likes(),
-//                     "img"=>$post[$i]->set_postImage(),
-//                     "caption"=>$post[$i]->set_caption(),
-//                     "alt"=>$post[$i]->set_postImageAlt(),
-//                     "userPic"=>$post[$i]->set_userPic(),
-//                     "userName"=>$post[$i]->set_userName()),
-//             )));
-// }
-echo json_encode($_SERVER['QUERY_STRING']);
-echo $_POST['action'];
-return;
 $action=$_POST['action'];
 switch($action){
+    case 'initialise':
+        for($i=0;$i<5;$i++){
+        $post[$i]=new Post();
+        $base=chrono();
+        $post[$i]->initialise($list[$i]);
+        array_push($data,array("posts"=>array(
+                    array("likes"=>$post[$i]->set_likes(),
+                        "img"=>$post[$i]->set_postImage(),
+                        "title"=>$post[$i]->set_title(),
+                        "description"=>$post[$i]->set_description(),
+                        "userName"=>$post[$i]->set_userName())
+                )));
+        }
+        
+        
+        break;
     case 'search':
+        $target=$_POST['q'];
+        $usernames=get_usernames();
+
         break;
     case 'comment':
-         break;
+        $text=$_POST['text'];
+        $postID=$_POST['postID'];
+        $comment=new Comment();
+        $comment->set_comment($text);
+        $comment->write_comment($text);
+        break;
     case 'like':
+        $postID=$_POST['postID'];
+        $post=find_post_obj($postID);
+        $post->write_like();
         break;
     case 'view_more_posts':
+        $more=chrono();
+        for($i=0;$i<5;$i++){
+            array(
+                "postID"=>$post->get_id(),
+                "image"=>$post->get_image(),
+                "username"=>$post->get_authorName(),
+                "description"=>$post->get_description(),
+                "title"=>$post->get_title()
+            );
+        }
+        array_push($data,$more);
         break;
-    default:
-    break;
 }
 return json_encode($data);
 
+function find_post_obj($id){
+    for($i=0;$i<count($postsObjects);$i++){
+        if($postsObjects[$i]->get_id()==$id){
+            return $postsObjects[$i];
+        }
+    }
+    }
 ?>

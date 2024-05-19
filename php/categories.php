@@ -28,12 +28,12 @@ class Category{
             $query="
                     INSERT INTO ()
                     VALUES;
-                "
+                ";
             $db->prepare($query;
             $db->execute();
         }
         catch(PDOExecption);
-        echo 'works well'
+        echo 'works well';
         echo $db->getMeesage();
     }
 

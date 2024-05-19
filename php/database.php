@@ -9,5 +9,16 @@ try{
     echo $err->getMessage();
 }
 
-
+function get_usernames(){
+    try{
+        $query="
+                SELECT username FROM user
+        ";
+        $db->prepare($query);
+        $results=$db->execute();
+        return $results->fetchall();
+    }catch(PDOExeception $err){
+        echo $err->getMessage();
+    }
+}
 ?>

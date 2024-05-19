@@ -4,13 +4,39 @@ function initialise_posts(){
         let xm=new XMLHttpRequest();
         xm.open("POST","/");
         xm.onload=function(){
-            let data=xm.responseText;
+            let data=this.responseText;
             data=JSON.parse(data);
-            for(let i=0;i<data.posts.length;i++){
-               console.log(data.posts[i]);
-            }
+            console.log(data);
+           
         }
-        xm.send("q=intialise");
+        xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xm.send("action=initialise");
+    }catch(err){
+        console.log(err);
+    }
+}
+function comment_on_post(){
+    try{
+        let xm=new XMLHttpRequest();
+        xm.open('POST','/');
+        xm.onload=function(){
+
+        }
+        xm.send("action=comment&text="+txt);
+    }catch(err){
+        console.log(err);
+    }
+}
+function like_post(){
+    try{
+
+    }catch(err){
+        console.log(err);
+    }
+}
+function unlike_post(){
+    try{
+
     }catch(err){
         console.log(err);
     }
@@ -29,6 +55,7 @@ function search_user(){
             console.log(data.search_results);
         }
         xml.open('POST','/');
+        xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xml.send("action=search&q="+text);
     }catch(err){
         console.log(err);
@@ -42,8 +69,9 @@ function eventListeners(){
     let search=document.getElementById("searchBtn");
 
     search.addEventListener("click",search_user);
+
     
 
 }
-
+initialise_posts();
 eventListeners();

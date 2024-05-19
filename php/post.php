@@ -52,7 +52,7 @@ public function set_likes($l){
 public function set_comments(){}
 
 public function get_categoryName(){
-    return $this->categoryName
+    return $this->categoryName;
 }
 public function get_postID(){
     return $this->postiID;
