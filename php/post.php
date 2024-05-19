@@ -46,18 +46,38 @@ public function set_authorImage($im){
 public function set_alt($al){
     $ths->alt=$alt;
 }
-public function set_likes(){}
+public function set_likes($l){
+    $this->likes=$l;
+}
 public function set_comments(){}
 
-public function get_categoryName(){}
-public function get_postID(){}
-public function get_caption(){}
-public function get_image(){}
-public function get_status(){}
-public function get_authorName(){}
-public function get_authorImage(){}
-public function get_alt(){}
-public function get_likes(){}
+public function get_categoryName(){
+    return $this->categoryName
+}
+public function get_postID(){
+    return $this->postiID;
+}
+public function get_caption(){
+    return $this->caption;
+}
+public function get_image(){
+    return $this->image;
+}
+public function get_status(){
+    return $this->status;
+}
+public function get_authorName(){
+    return $this->authorName;
+}
+public function get_authorImage(){
+    return this->authorImage;
+}
+public function get_alt(){
+    return $this->alt;
+}
+public function get_likes(){
+    return $this->likes;
+}
 public function get_comments(){}
 public function write_post(){
     try{

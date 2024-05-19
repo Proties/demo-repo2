@@ -45,11 +45,5 @@ function eventListeners(){
     
 
 }
-function send(e){
-    try{
 
-    }catch(err){
-        console.log(err);
-    }
-}
 eventListeners();

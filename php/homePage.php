@@ -24,7 +24,9 @@ $data=array("home"=>"happy");
 //                     "userName"=>$post[$i]->set_userName()),
 //             )));
 // }
-
+echo json_encode($_SERVER['QUERY_STRING']);
+echo $_POST['action'];
+return;
 $action=$_POST['action'];
 switch($action){
     case 'search':

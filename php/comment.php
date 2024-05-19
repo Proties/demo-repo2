@@ -22,6 +22,9 @@ class Comment{
     public function get_userID(){}
     public function get_text(){}
 
+    public function write_comment(){ 
+        
+    }
 }
 
 ?>
