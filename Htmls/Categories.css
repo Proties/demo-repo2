@@ -1,14 +1,14 @@
 /* Reset some default styles */
-body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
+body, h1, h2, h3, h4, h5, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
     margin: 0;
     padding: 0;
     font-weight: normal;
 }
 
 body {
-    font-family: Roboto; font-size: 16px;
+    font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-color: #f4f4f4;
+    background-color: #fafafa;
     color: #333;
 }
 
@@ -16,6 +16,10 @@ header {
     background-color: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
 nav {
@@ -24,40 +28,29 @@ nav {
     align-items: center;
 }
 
-nav .profile-link{
-    align-items: right;
-    text-decoration: none;
-    color: #be0202;
-    font-weight: bold;
-    margin: 0 10px;
-}
-
-nav .settings-link{
-    align-items: left;
-    text-decoration: none;
-    color: #be0202;
-    font-weight: bold;
-    margin: 0 10px;
+.nav-left, .nav-right {
+    display: flex;
+    align-items: center;
 }
 
 .nav-center {
-    flex-grow: 1;
     display: flex;
-    justify-content: center;
+    align-items: center;
 }
 
 .nav-center input[type="text"] {
-    width: 50%;
-    padding: 8px 15px;
+    padding: 5px;
+    font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 24px 0 0 24px;
-    outline: none;
+    border-radius: 4px;
+    width: 300px;
 }
 
 .search-button {
     background: none;
     border: none;
     cursor: pointer;
+    margin-left: 10px;
 }
 
 .search-button img {
@@ -65,52 +58,29 @@ nav .settings-link{
     height: 20px;
 }
 
-.nav-center button {
-    padding: 8px 15px;
-    border: 1px solid #ccc;
-    border-left: none;
-    border-radius: 0 24px 24px 0;
-    background-color: #f8f8f8;
-    cursor: pointer;
-}
-
-.nav-center button:hover {
-    background-color: #e8e8e8;
-}
-
-.nav-center input[type="text"]:focus {
-    border-color: #3ea6ff;
-}
-
 .container {
     padding: 20px;
-
+    margin-top: 60px; /* Offset for fixed header */
 }
 
-.progress-section {
-    padding: 20px;
-    background-color: #ffffff;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 1200px;
+.category-tags {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.progress-wrapper {
+.tags-wrapper {
     display: flex;
     overflow-x: auto;
     scrollbar-width: none; /* For Firefox */
     -ms-overflow-style: none;  /* For Internet Explorer and Edge */
-    width: 100%;
 }
 
-.progress-wrapper::-webkit-scrollbar {
+.tags-wrapper::-webkit-scrollbar {
     display: none; /* For Chrome, Safari, and Opera */
 }
 
-.progress-item {
+.tag {
     flex: 0 0 auto;
     text-align: center;
     margin-right: 10px;
@@ -118,30 +88,48 @@ nav .settings-link{
     position: relative;
 }
 
-.progress-item img {
+.tag img {
     display: block;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 2px solid #ccc;
+    width: 150px; /* Increased size */
+    height: 150px; /* Increased size */
+    border-radius: 8px;
     transition: transform 0.3s ease-in-out;
 }
 
-.progress-item span {
-    display: block;
-    margin-top: 5px;
-    font-size: 12px;
+.tag span {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
 }
 
-.progress-item:hover img {
+.tag:hover img {
     transform: scale(1.1);
-    border-color: #333;
+    opacity: 0.3;
 }
 
-.posts-section {
+.tag:hover span {
+    display: block;
+}
+
+.scroll-left, .scroll-right {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.popular-posts {
     margin-top: 20px;
-    width: 100%;
-    max-width: 600px;
+}
+
+.popular-posts h2 {
+    margin-bottom: 20px;
+    text-align: center; /* Centered the heading */
 }
 
 .posts-wrapper {
@@ -159,8 +147,6 @@ nav .settings-link{
     width: 300px; /* Reduced the width */
     position: relative;
     transition: transform 0.3s ease-in-out;
-    margin-top: 30px;
-    align-items: center;
 }
 
 .post:hover {
