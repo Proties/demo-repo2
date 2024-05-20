@@ -2,38 +2,29 @@
 $txt=$_SERVER['REQUEST_URI'];
 
 $userPattern="/\/@[a-zA-Z]{1,13}/i";
-$postPattern="/(\/@[a-zA-Z]{1,13})(\/[0-9]{1,20})/i";
-function validate_user($name){
-    try{
-        $query="
-                SELECT * FROM user
-                WHERE username=:username;
-        ";
-        $db->prepare($query);
-        $db->bindValue(':username',$name);
-        $result=$db->execute();
-        return $result;
-    }catch(PDOExecption $err){
-        echo $err->getMessage();
+$postPattern="/(\/@[a-zA-Z]{1,13})(\/[a-zA-Z0-9]{1,})/i";
+include_once('php/user.php');
+include_once('php/post.php');
+if(preg_match($postPattern,$txt)){
+    if(validate_user()==false){
+        return;
     }
+    if(validate_post()==false){
+        return;
+    }
+    include_once('php/fullPagePost.php');
+    return;
 }
-function validate_post($id){
-    try{
-        $query="
-                SELECT * FROM post
-                WHERE postId=:id;
-        ";
-        $db->prepare($query);
-        $db->bindValue(':id',$id);
-        $result=$db->execute();
-        return $result;
-    }catch(PDOExecption $err){
-        echo $err->getMessage();
+else if(preg_match($userPattern,$txt)){
+    if(validate_user()==false){
+        return;
     }
+    include_once('php/profile.php');
+    return;
+}else{
 
 }
-echo preg_filter($userPattern,'($0)',$txt);
-return;
+
 $action=$_SERVER['REQUEST_URI'];
 switch($action){
     case '/':

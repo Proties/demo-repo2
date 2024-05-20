@@ -1,17 +1,12 @@
 <?php
-// a single post object 
 $post=new Post();
-$user=new User();
-
+$user=new Users();
 $commentArray=array();
-
-// more info on post like comments, 
-
-// http url 
-// authorName(username)/postID 
+ 
 
 if($_SERVER['REQUEST_METHOD']=='GET'){
-    include('Htmls/fullPage.html');
+    // include('Htmls/fullPage.html');
+    echo 'full post page';
     return;
 }
 

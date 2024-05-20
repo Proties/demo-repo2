@@ -8,11 +8,11 @@ class Users{
 
     public function __construct(){}
 
-    public function set_name(){}
-    public function set_profilePicture(){}
-    public function set_password(){}
-    public function set_dateOfBirth(){}
-    public function set_posts(){}
+    public function set_name($nm){}
+    public function set_profilePicture($pic){}
+    public function set_password($pas){}
+    public function set_dateOfBirth($bi){}
+    public function set_posts($p){}
 
 
     public function get_name(){}

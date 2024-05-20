@@ -24,4 +24,35 @@ function get_usernames(){
 function get_categories(){
     
 }
+function validate_user($name){
+    try{
+        $query="
+                SELECT * FROM user
+                WHERE username=:username;
+        ";
+        $db->prepare($query);
+        $db->bindValue(':username',$name);
+        $result=$db->execute();
+        return $result;
+    }catch(PDOExecption $err){
+        echo $err->getMessage();
+        return false;
+    }
+}
+function validate_post($id){
+    try{
+        $query="
+                SELECT * FROM post
+                WHERE postId=:id;
+        ";
+        $db->prepare($query);
+        $db->bindValue(':id',$id);
+        $result=$db->execute();
+        return $result;
+    }catch(PDOExecption $err){
+        echo $err->getMessage();
+        return false;
+    }
+
+}
 ?>
