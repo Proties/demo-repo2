@@ -8,8 +8,9 @@ include_once('php/database.php');
 include_once('php/post.php');
 include_once('php/user.php');
 include_once('php/comment.php');
+include_once('php/rank.php');
 
-$user=new User();
+$user=new Users();
 $postsObjects=array();
 $data=array();
 // store posts and user data on session object
@@ -19,15 +20,9 @@ switch($action){
     case 'initialise':
         for($i=0;$i<5;$i++){
         $post[$i]=new Post();
-        $base=chrono();
+        // $base=chrono();
         $post[$i]->initialise($list[$i]);
-        array_push($data,array("posts"=>array(
-                    array("likes"=>$post[$i]->set_likes(),
-                        "img"=>$post[$i]->set_postImage(),
-                        "title"=>$post[$i]->set_title(),
-                        "description"=>$post[$i]->set_description(),
-                        "userName"=>$post[$i]->set_userName())
-                )));
+        
         }
         
         

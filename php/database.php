@@ -21,4 +21,7 @@ function get_usernames(){
         echo $err->getMessage();
     }
 }
+function get_categories(){
+    
+}
 ?>

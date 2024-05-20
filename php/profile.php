@@ -1,5 +1,5 @@
 <?php
-// profile pict 
+// profile picture
 // user bio 
 // array of post 
 // create a  directory that house all users profiles
@@ -12,12 +12,34 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('Htmls/Personalprofile.html');
     return;
 }
+
+include_once('php/user.php');
+include_once('php/post.php');
+$user=new Users();
+$data=array();
+$case=$_POST['action'];
 switch($case){
+    case 'initialise':
+        $user->set_username();
+        $user->read_user();
+        for($i=0;$i<$user->get_post();$i++){
+            $post=new Post();
+            $post->read_post();
+            array_push($data,$post);
+        }
+        
+
+
+        break;
     case 'addPost':
+        $post=new Post();
+        $post->set_image();
+        $post->set_categoryName();
+        $post->set_title();
+        $post->set_description();
         break;
-    case 'acountManagement':
-        break;
-    case 'viewPost':
+    case 'create_custom_profile':
         break;
 }
+return json_encode($data);
 ?>

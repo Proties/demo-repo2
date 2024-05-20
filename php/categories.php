@@ -7,7 +7,7 @@ class Category{
     private $posts;
     public function __construct(){
         $this->name='';
-        this->userID=0;
+        $this->userID=0;
     }
 
     public function set_name($nm){
@@ -17,28 +17,27 @@ class Category{
         $this->id=$id;
     }
     public function get_name(){
-        return $this->name
+        return $this->name;
     }
     public function get_id(){
-        return this->id;
+        return $this->id;
     }
 
-    public function write_name(){
+    public function write_category(){
         try{
             $query="
                     INSERT INTO ()
                     VALUES;
                 ";
-            $db->prepare($query;
+            $db->prepare($query);
             $db->execute();
-        }
-        catch(PDOExecption);
+        }catch(PDOExecption $err){
         echo 'works well';
-        echo $db->getMeesage();
+        echo $err->getMeesage();
     }
+}
+    public function read_category(){}
 
 }
-if($_SERVER['REQUEST_METHOD']=='GET'){
-    include_once('Htmls/category.html');
-}
+
 ?>
