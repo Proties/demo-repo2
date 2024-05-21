@@ -17,18 +17,32 @@ include_once('php/user.php');
 include_once('php/post.php');
 $user=new Users();
 $data=array();
-$case=$_POST['action'];
-switch($case){
+$action=$_POST['action'];
+
+switch($action){
     case 'initialise':
-        $user->set_username();
+        $z='';
+        $user->set_username($z);
         $user->read_user();
-        for($i=0;$i<$user->get_post();$i++){
+        for($i=0;$i<count($user->read_posts());$i++){
             $post=new Post();
             $post->read_post();
             array_push($data,$post);
         }
         
-
+        $data=array("user"=>array(
+            "userName"=>"",
+            "userRealName"=>"",
+            "userDescription"=>"",
+            "userBio"=>""  
+        ),"posts"=>array(
+            "postLink"=>"",
+            "postID"=>"",
+            "img"=>"",
+            "description"=>"",
+            "title"=>"",
+            "likeCount"=>""
+        ));
 
         break;
     case 'addPost':

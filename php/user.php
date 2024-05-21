@@ -1,6 +1,9 @@
 <?php 
 class Users{
     private $name;
+    private $username;
+    private $bio;
+    private $profileImage;
     private $dateOfBirth;
     private $password;
     private $email;
@@ -9,6 +12,7 @@ class Users{
     public function __construct(){}
 
     public function set_name($nm){}
+    public function set_username($nm){}
     public function set_profilePicture($pic){}
     public function set_password($pas){}
     public function set_dateOfBirth($bi){}
@@ -20,6 +24,12 @@ class Users{
     public function get_password(){}
     public function get_dateOfBirth(){}
     public function get_posts(){}
+
+    public function write_user(){}
+    public function read_user(){}
+    public function read_posts(){
+        $arr=array(3,3,4);
+    }
 
     
 }

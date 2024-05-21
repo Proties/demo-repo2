@@ -1,8 +1,11 @@
 <?php
 class Post{
-    private $caption;
+    private $description;
+    private $title;
     private $status;
     private $postID;
+    private $postLinkID;
+    private $postLink;
     private $img;
     private $authorID;
     private $alt;
@@ -16,10 +19,13 @@ public function __construct(){
    
 }
 function initialise($arr){
+    $this->authorName=$arr[''];
+    $this->title=$arr[''];
+    $this->description=$arr[''];
     $this->postID=$arr[''];
-    $this->picture=$arr[''];
+    $this->img=$arr[''];
     $this->userID=$arr[''];
-    $this->likes=$arr[''];
+    $this->likesCount=$arr[''];
     $this->comments=$arr[''];
 }
 public function set_categoryName($nm){
@@ -70,7 +76,7 @@ public function get_authorName(){
     return $this->authorName;
 }
 public function get_authorImage(){
-    return this->authorImage;
+    return $this->authorImage;
 }
 public function get_alt(){
     return $this->alt;
@@ -78,7 +84,13 @@ public function get_alt(){
 public function get_likes(){
     return $this->likes;
 }
-public function get_comments(){}
+public function get_comments(){
+    return $this->comments;
+}
+
+public function read_post(){}
+public function read_comments(){}
+public function read_likes(){}
 public function write_post(){
     try{
         $query="
@@ -123,16 +135,7 @@ public function write_like(){
         echo $err->getMessage();
     }
 }
-public function write_comment($msg){
-    try{
-        $query="
-                INSERT INTO comment
-                VALUES(:postID,:comment,:userID);
-        ";
-    }catch(PDOExecption $err){
-        echo $err->getMessage();
-    }
-}
+
 }
 
 ?>

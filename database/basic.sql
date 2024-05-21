@@ -1,12 +1,14 @@
 USE u203973307_wholedata;
 CREATE TABLE IF NOT EXISTS post(
     postID INT AUTO_INCREMENT,
-    caption VARCHAR(255),
+    postLinkID VARCHAR(20),
+    postDescription text,
+    postTitle varchar(15),
     picture BLOB NOT NULL,
     userID INT,
     postDate DATE NOT NULL,
     postTime TIME NOT NULL,
-    postLink VARCHAR(255),
+    postLink VARCHAR(45),
     PRIMARY KEY (postID)
     
 );
@@ -51,6 +53,7 @@ CREATE TABLE IF NOT EXISTS views(
 CREATE TABLE IF NOT EXISTS Users(
     userID INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(255) NOT NULL UNIQUE,
+    realName varchar(244) NOT NULL,
     email VARCHAR(255) UNIQUE,
     profilePicture BLOB,
     phone VARCHAR(12) UNIQUE,
