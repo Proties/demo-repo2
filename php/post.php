@@ -88,9 +88,27 @@ public function get_comments(){
     return $this->comments;
 }
 
-public function read_post(){}
-public function read_comments(){}
-public function read_likes(){}
+public function read_post(){
+    try{
+
+    }catch(PDOExecption $err){
+        echo 'Database error '.$err->getMessage();
+    }
+}
+public function read_comments(){
+    try{
+
+    }catch(PDOExecption $err){
+        echo 'Database error '.$err->getMessage();
+    }
+}
+public function read_likes(){
+    try{
+
+    }catch(PDOExecption $err){
+        echo 'Database error '.$err->getMessage();
+    }
+}
 public function write_post(){
     try{
         $query="

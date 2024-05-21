@@ -12,16 +12,23 @@ include_once('php/rank.php');
 $user=new Users();
 $postsObjects=array();
 $data=array();
-$list=chrono();
+
 // store posts and user data on session object
 
 $action=$_POST['action'];
 switch($action){
     case 'initialise':
+        $list=chrono();
         for($i=0;$i<5;$i++){
         $post[$i]=new Post();
         $post[$i]->initialise($list[$i]);
-        
+        array_push($postsObjects,$post[$i]);
+        array_push($data,array("posts"=>array(
+            "authorName"=>$post[$i]->get_userName(),
+            "description"=>$post[$i]->get_description(),
+            "title"=>$post[$i]->get_title(),
+            "img"=>$post[$i]->get_image()
+        )));
         }
         
         
@@ -29,14 +36,16 @@ switch($action){
     case 'search':
         $target=$_POST['q'];
         $usernames=get_usernames();
+        for($i=0;$i<count($usernames);$i++){
 
+        }
         break;
     case 'comment':
         $text=$_POST['text'];
         $postID=$_POST['postID'];
         $comment=new Comment();
         $comment->set_comment($text);
-        $comment->write_comment($text);
+        $comment->write_comment();
         break;
     case 'like':
         $postID=$_POST['postID'];
@@ -46,6 +55,9 @@ switch($action){
     case 'view_more_posts':
         $more=chrono();
         for($i=0;$i<5;$i++){
+            $post=new Post();
+            $post->initialise($more[$i]);
+            array_push($post,$postsObjects);
             array(
                 "postID"=>$post->get_id(),
                 "image"=>$post->get_image(),

@@ -58,5 +58,7 @@ CREATE TABLE IF NOT EXISTS Users(
     profilePicture BLOB,
     phone VARCHAR(12) UNIQUE,
     userPassword VARCHAR(255) NOT NULL,
+    dateMade date NOT NULL,
+    timeMade time NOT NULL,
     PRIMARY KEY (userID)
 );

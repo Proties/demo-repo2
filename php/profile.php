@@ -21,29 +21,13 @@ $action=$_POST['action'];
 
 switch($action){
     case 'initialise':
-        $z='';
-        $user->set_username($z);
+        $user->set_username();
         $user->read_user();
         for($i=0;$i<count($user->read_posts());$i++){
             $post=new Post();
             $post->read_post();
             array_push($data,$post);
         }
-        
-        $data=array("user"=>array(
-            "userName"=>"",
-            "userRealName"=>"",
-            "userDescription"=>"",
-            "userBio"=>""  
-        ),"posts"=>array(
-            "postLink"=>"",
-            "postID"=>"",
-            "img"=>"",
-            "description"=>"",
-            "title"=>"",
-            "likeCount"=>""
-        ));
-
         break;
     case 'addPost':
         $post=new Post();
@@ -51,6 +35,9 @@ switch($action){
         $post->set_categoryName();
         $post->set_title();
         $post->set_description();
+        $post->set_date();
+        $post->set_time();
+        $post->write_post();
         break;
     case 'create_custom_profile':
         break;
