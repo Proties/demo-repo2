@@ -30,7 +30,7 @@ nav {
     align-items: center;
 }
 
-nav .profile-link, nav .settings-link {
+nav .home-link, nav .settings-link {
     text-decoration: none;
     color: #333;
     font-weight: bold;
@@ -96,20 +96,15 @@ nav .profile-link, nav .settings-link {
     padding: 20px;
     background-color: #ffffff;
     border-bottom: 1px solid #ddd;
-    margin-bottom: 22px; /* Offset for fixed header */
-    margin-left: 10px; /* Offset for sidebar */
-    margin-right: 10px; /* Offset for control panel */
 }
 
 .post-section {
-    padding: 20px;
-    margin-top: 10px;
-}
-
-.post-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 30px;
+    padding: 30px;
+    background-color: #ffffff;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
 }
 
 .post {
@@ -117,19 +112,44 @@ nav .profile-link, nav .settings-link {
     border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
-    position: relative;
-    margin-top: 20px;
+    width: 300px; /* Reduced the width */
+    transition: transform 0.3s ease-in-out;
+    margin-top: 40px;
 }
 
 .post img, .post video {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-bottom: 1px solid #ddd;
-}
+        display: block;
+        width: 100%;
+        height: auto;
+        border-bottom: 1px solid #ddd;
+    }
 
 .post:hover {
     transform: scale(1.05);
+}
+
+
+.post-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.like-button, .comment-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.like-button img, .comment-button img {
+    width: 16px; /* Reduced size for smaller buttons */
+    height: 16px;
+}
+
+.like-button:hover, .comment-button:hover {
+    background-color: #f0f0f0;
 }
 
 .sidebar, .control-panel {

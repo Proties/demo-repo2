@@ -32,12 +32,41 @@ nav .profile-link{
     margin: 0 10px;
 }
 
-nav .settings-link{
-    align-items: left;
+.hamburger-menu {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.hamburger-menu img {
+    width: 40px;
+    height: 40px;
+}
+
+.dropdown {
+    display: none;
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.dropdown a {
+    display: block;
+    padding: 10px 20px;
     text-decoration: none;
-    color: #be0202;
-    font-weight: bold;
-    margin: 0 10px;
+    color: #333;
+    white-space: nowrap;
+}
+
+.dropdown a:hover {
+    background-color: #f0f0f0;
+}
+
+.nav-left:hover .dropdown {
+    display: block;
 }
 
 .nav-center {
@@ -82,24 +111,19 @@ nav .settings-link{
     border-color: #3ea6ff;
 }
 
-.container {
-    padding: 20px;
-
-}
 
 .progress-section {
-    padding: 20px;
+    padding: 30px;
     background-color: #ffffff;
     background-color: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 1200px;
     display: flex;
     justify-content: center;
 }
 
 .progress-wrapper {
     display: flex;
+    justify-content: center;
     overflow-x: auto;
     scrollbar-width: none; /* For Firefox */
     -ms-overflow-style: none;  /* For Internet Explorer and Edge */
@@ -138,17 +162,14 @@ nav .settings-link{
     border-color: #333;
 }
 
-.posts-section {
-    margin-top: 20px;
-    width: 100%;
-    max-width: 600px;
-}
 
-.posts-wrapper {
+.post-section {
+    padding: 30px;
+    background-color: #ffffff;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: column; /* Changed to vertical flex direction */
-    align-items: center; /* Center the posts */
-    gap: 20px;
+    justify-content: center;
 }
 
 .post {
@@ -157,10 +178,8 @@ nav .settings-link{
     border-radius: 8px;
     overflow: hidden;
     width: 300px; /* Reduced the width */
-    position: relative;
     transition: transform 0.3s ease-in-out;
-    margin-top: 30px;
-    align-items: center;
+    margin-top: 40px;
 }
 
 .post:hover {
