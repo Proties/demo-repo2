@@ -199,6 +199,12 @@ public function write_like(){
 }
 
 }
+
+function generate_ids(){
+    $list = '1234567890abcdefghijklmnopqrstuvwzyABCDEFGHIJKLMNOPQRSTUVWZY';
+    $random = str_shuffle($list);
+    $str = substr($random, 5, 13);
+}
 trait validatePost{
 
 }
