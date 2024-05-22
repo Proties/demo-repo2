@@ -1,5 +1,8 @@
 <?php 
+include('php/database.php');
+
 class Users{
+    use validateUser;
     private $name;
     private $username;
     private $bio;
@@ -8,8 +11,20 @@ class Users{
     private $password;
     private $email;
     private $phone;
+    private $date;
+    private $time;
+    private $status;
 
-    public function __construct(){}
+    public function __construct(){
+    $this->name='';
+    $this->username='';
+    $this->bio='';
+    $this->profileImage='';
+    $this->dateOfBirth='';
+    $this->password='';
+    $this->email='';
+    $this->phone='';
+    }
 
     public function set_name($nm){
         $this->name=$nm;
@@ -29,13 +44,18 @@ class Users{
     public function set_posts($p){
         $this->posts=$p;
     }
-
+    public function set_status($s){
+        $this->status=$s;
+    }
 
     public function get_name(){
         return $this->name;
     }
     public function get_username(){
         return $this->username;
+    }
+    public function get_email(){
+        return $this->email;
     }
     public function get_profilePicture(){
         return $this->profileImage;
@@ -50,32 +70,46 @@ class Users{
         return $this->post;
     }
 
+    public function get_status(){
+        return $this->status;
+    }
+    public function get_date(){
+        $this->date=date('Y:m:d');
+        return $this->date;
+    }
+    public function get_time(){
+        $this->time=date('h:i');
+        return $this->time;
+    }
     public function write_user(){
+        $database=new Database();
+        $db=$database->get_connection();
         try{
-            $query="
-                    INSERT INTO User
-                    VALUES(:name,:username,:email,:profilePicture,:userPassword,:dateMade,:timeMade);
-            ";
-            $statement=$db->prepare($query);
-            $statement->bindValue(':',$this->get_name());
-            $statement->bindValue(':',$this->get_username());
-            $statement->bindValue(':',$this->get_email());
-            $statement->bindValue(':',$this->get_phone());
-            $statement->bindValue(':',$this->get_password());
-            $statement->bindValue(':',$this->get_date());
-            $statement->bindValue(':',$this->get_time());
+            $query = "
+            INSERT INTO Users(fullname, username, userPassword,dateMade,timeMade)
+            VALUES(:name, :username, :userPassword, :dateMade, :timeMade);
+        ";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':name', $this->get_name());
+        $statement->bindValue(':username', $this->get_username());
+        $statement->bindValue(':userPassword', $this->get_password()); // Corrected
+        $statement->bindValue(':dateMade', $this->get_date()); // Corrected
+        $statement->bindValue(':timeMade', $this->get_time()); // Corrected
+        $this->set_status($statement->execute());
         }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();
         }
     }
     public function read_user(){
         try{
+            $database=new Database();
+            $db=$database->get_connection();
             $query="
                     SELECT * FROM User
                     WHERE userID=:id;
             ";
             $statement=$db->prepare($query);
-            $statement->bindValue(':',$this->get_());
+            $statement->bindValue(':id',$this->get_userID());
             $statement->execute();
         }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();
@@ -83,6 +117,8 @@ class Users{
     }
     public function read_posts(){
         try{
+            $database=new Database();
+            $db=$database->get_connection();
             $query="
                     SELECT * FROM post
                     WHERE ;
@@ -96,5 +132,10 @@ class Users{
     
 }
 
-
+trait validateUser{
+    function validate_username(){}
+    function validate_name(){}
+    function validate_email(){}
+    function validate_phone(){}
+}
 ?>

@@ -18,11 +18,23 @@ $data=array();
 $action=$_POST['action'];
 switch($action){
     case 'initialise':
-        $list=chrono();
+        $listOfPosts=chrono();
+        $listOfUsers=topUsers();
+        if(count($listOfPosts)==0){
+           echo json_encode(array('status'=>'ok','message'=>'no post yet'));
+            return;
+        }
+        
+        
         for($i=0;$i<5;$i++){
         $post[$i]=new Post();
-        $post[$i]->initialise($list[$i]);
+        $post[$i]->initialise($listOfPosts[$i]);
         array_push($postsObjects,$post[$i]);
+        array_push($data,array("topUser"=>array(
+            "userName"=>"",
+            "userImg"=>"",
+            "userLink"=>""
+        )));
         array_push($data,array("posts"=>array(
             "authorName"=>$post[$i]->get_userName(),
             "description"=>$post[$i]->get_description(),
@@ -69,7 +81,7 @@ switch($action){
         array_push($data,$more);
         break;
 }
-return json_encode($data);
+echo json_encode($data);
 
 function find_post_obj($id){
     for($i=0;$i<count($postsObjects);$i++){

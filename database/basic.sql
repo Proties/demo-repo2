@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS post(
     postLink VARCHAR(45),
     PRIMARY KEY (postID)
     
+    
 );
 
 CREATE TABLE IF NOT EXISTS category(
@@ -26,8 +27,10 @@ CREATE TABLE IF NOT EXISTS post_category(
 );
 
 CREATE TABLE IF NOT EXISTS likes(
+    likeID int AUTO_INCREMENT,
     postID INT NOT NULL,
-    userID INT NOT NULL
+    userID INT NOT NULL,
+    PRIMARY key (likeID)
 );
 
 CREATE TABLE IF NOT EXISTS comment(
@@ -53,11 +56,11 @@ CREATE TABLE IF NOT EXISTS views(
 CREATE TABLE IF NOT EXISTS Users(
     userID INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(255) NOT NULL UNIQUE,
-    realName varchar(244) NOT NULL,
+    fullname varchar(244) NOT NULL,
     email VARCHAR(255) UNIQUE,
     profilePicture BLOB,
     phone VARCHAR(12) UNIQUE,
-    userPassword VARCHAR(255) NOT NULL,
+    userPassword VARCHAR(255) ,
     dateMade date NOT NULL,
     timeMade time NOT NULL,
     PRIMARY KEY (userID)

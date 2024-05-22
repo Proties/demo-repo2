@@ -1,5 +1,8 @@
 <?php
+include_once('php/database.php');
+
 class Post{
+    use validatePost;
     private $description;
     private $title;
     private $status;
@@ -16,6 +19,15 @@ class Post{
 
 
 public function __construct(){
+    $this->description='';
+    $this->title='';
+    $this->status='';
+    $this->postID='';
+    $this->postLinkID='';
+    $this->postLink='';
+    $this->img='';
+    $this->authorID='';
+    $this->alt='';
    
 }
 function initialise($arr){
@@ -90,45 +102,75 @@ public function get_comments(){
 
 public function read_post(){
     try{
-
+        $database=new Database();
+        $db=$database->get_connection();
+        $query="
+                SELECT * FROM post
+                WHERE id=:postID;
+        ";
+        $stmt=$db->prepare($query);
+        $stmt->bindValue(':id',$this->get_id());
+        $stmt->execute();
+        $results=$stmt->fetch();
     }catch(PDOExecption $err){
         echo 'Database error '.$err->getMessage();
     }
 }
 public function read_comments(){
     try{
-
+        $database=new Database();
+        $db=$database->get_connection();
+        $query="
+                SELECT * FROM comment
+                WHERE commentID=:id;
+        ";
+        $stmt=$db->prepare($query);
+        $stmt->bindValue(':id',$this->get_id());
     }catch(PDOExecption $err){
         echo 'Database error '.$err->getMessage();
     }
 }
 public function read_likes(){
     try{
-
+        $database=new Database();
+        $db=$database->get_connection();
+        $query="
+                SELECT count(*) FROM likes
+                WHERE id=:id;
+        ";
+        $stmt=$db->prepare($query);
+        $stmt->bindValue(':id',$this->get_id());
+        $stmt->execute();
     }catch(PDOExecption $err){
         echo 'Database error '.$err->getMessage();
     }
 }
 public function write_post(){
     try{
+        $database=new Database();
+        $db=$database->get_connection();
         $query="
                 INSERT INTO post
                 VALUES();
                 ";
         $db->prepare($query);
-        $db->bindValue(':caption',$caption);
-        $db->bindValue(':picture',$pict);
-        $db->bindValue(':userID',$id);
-        $db->bindValue(':pdate',$pd);
-        $db->bindValue(':ptime',$pt);
-        $db->bindValue(':plink',$pl);
+        $db->bindValue(':title',$this->get_title);
+        $db->bindValue(':description',$this->get_description);
+        $db->bindValue(':image',$this->get_image);
+        $db->bindValue(':userID',$this->get_authorID());
+        $db->bindValue(':pdate',$this->get_date());
+        $db->bindValue(':ptime',$this->get_time());
+        $db->bindValue(':plink',$this->get_postLink());
         $db->execute();
         $query_two="
                 INSERT INTO Category
-                VALUES();
+                VALUES(:categoryName,:date,:time);
                 
                 ";
-        $db->prepare($query_two);
+        $stmt=$db->prepare($query_two);
+        $stmt->bindValue(':categoryName',$this->get_categoryName());
+        $stmt->bindValue(':date',$this->get_date());
+        $stmt->bindValue(':time',$this->get_time());
         $db->execute();
         $query_three="
                 INSERT INTO post_category
@@ -145,6 +187,8 @@ public function write_post(){
 }
 public function write_like(){
     try{
+        $database=new Database();
+        $db=$database->get_connection();
         $query="
                 INSERT INTO likes
                 VALUES(:postID,userID);
@@ -155,5 +199,7 @@ public function write_like(){
 }
 
 }
+trait validatePost{
 
+}
 ?>

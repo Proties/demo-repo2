@@ -1,12 +1,16 @@
 "strict"
+
 function initialise_posts(){
     try{
         let xm=new XMLHttpRequest();
         xm.open("POST","/");
         xm.onload=function(){
             let data=this.responseText;
-            data=JSON.parse(data);
-            console.log(data);
+            let fdata=JSON.parse(data);
+            console.log(fdata);
+    
+            // let postArray=data.posts;
+            // let userArrays=data.topUsers;
            
         }
         xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -34,13 +38,7 @@ function like_post(){
         console.log(err);
     }
 }
-function unlike_post(){
-    try{
-
-    }catch(err){
-        console.log(err);
-    }
-}
+function suggest_user(){}
 function search_user(){
     let text=document.getElementById("search").value;
     try{

@@ -1,6 +1,6 @@
 <?php 
 if($_SERVER['REQUEST_METHOD']=='GET'){
-    include_once('Htmls/category.html');
+    include_once('Htmls/CategoryPage.html');
     return;
 }
 include_once('php/categories');

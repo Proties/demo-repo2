@@ -1,4 +1,5 @@
 <?php
+session_start();
 $txt=$_SERVER['REQUEST_URI'];
 
 $userPattern="/\/@[a-zA-Z]{1,13}/i";
@@ -27,8 +28,14 @@ else if(preg_match($userPattern,$txt)){
 
 $action=$_SERVER['REQUEST_URI'];
 switch($action){
+    case'/test':
+        include_once('php/addimage.php');
+        break;
     case '/':
         include_once('php/homePage.php');
+        break;
+    case '/registration':
+        include_once('php/registration.php');
         break;
     case '/profile':
         include_once('php/profile.php');

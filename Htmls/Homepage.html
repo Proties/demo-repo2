@@ -10,7 +10,20 @@
     <header>
       <nav>
         <div class="nav-left">
-          <a href="#" class="settings-link">Settings</a>
+          <button class="hamburger-menu">
+            <img src="HTMLS/Image/Menu.png" alt="Menu" />
+          </button>
+          <div class="dropdown">
+            <a href="Settings.html">
+              <img src="HTMLS/Image/Settings.png" alt="Settings" />
+            </a>
+            <a href="/category">
+              <img src="HTMLS/Image/Categorize.png" alt="Categories" />
+            </a>
+            <a href="/registration">
+              <img src="HTMLS/Image/Registration.png" alt="Registration" />
+            </a>
+          </div>
         </div>
         <div class="nav-center">
           <input type="text" placeholder="Search" id="search"/>
@@ -19,110 +32,56 @@
           </button>
         </div>
         <div class="nav-right">
-          <a href="/profile" class="profile-link">Profile</a>
+          <a href="/profile" class="profile-link">
+            <img src="Htmls/Image/Test Account.png" alt="profile-link"
+          /></a>
         </div>
       </nav>
     </header>
 
     <main>
-      <div class="container">
-        <!-- Progress Section -->
-        <section class="progress-section">
-            <div class="progress-wrapper">
-                <div class="progress-item">
-                    <img src="story1.jpg" alt="Story 1">
-                    <span>User 1</span>
-                </div>
-                <div class="progress-item">
-                    <img src="story2.jpg" alt="Story 2">
-                    <span>User 2</span>
-                </div>
-                <div class="progress-item">
-                    <img src="story3.jpg" alt="Story 3">
-                    <span>User 3</span>
-                </div>
-                <!-- More progress items -->
+      <!-- Progress Section -->
+      <section class="progress-section">
+        <div class="progress-wrapper">
+          <div class="progress-item">
+            <img src="HTMLS/Image/Test Account.png" alt="My Account" />
+            <span>My Account</span>
+          </div>
+          <div class="progress-item">
+            <img src="Htmls/Image/Comic.png.png" alt="Story 1" />
+            <span>User 1</span>
+          </div>
+          <div class="progress-item">
+            <img src="Htmls/Image/Animation.png.jpg" alt="Story 2" />
+            <span>User 2</span>
+          </div>
+          <div class="progress-item">
+            <img src="Htmls/Image/Photography.png" alt="Story 3" />
+            <span>User 3</span>
+          </div>
+          <!-- More progress items -->
+        </div>
+      </section>
+
+      <section class="post-section">
+        <div class="postfeed-wrapper">
+          <div class="post">
+            <img src="Htmls/Image/Art.png" alt="Post Image" />
+            <div class="post-actions">
+              <button class="like-button">
+                <img src="Htmls/Image/Heart.png" alt="like-button" />
+              </button>
+              <button class="comment-button">
+                <img src="Htmls/Image/Speech Bubble.png" alt="comment-button" />
+              </button>
             </div>
-        </section>
-        
-      <section class="post-feed">
-        <div class="post">
-          <img src="Htmls/Image/Art.png" alt="Post Image" />
-          <div class="post-actions">
-            <button class="like-button">
-              <img src="Htmls/Image/Heart.png" alt="like-button" />
-            </button>
-            <button class="comment-button">
-              <img src="Htmls/Image/Speech Bubble.png" alt="comment-button" />
-            </button>
+            <div class="post-info">
+              <h3>Artist Name</h3>
+              <p>Description of the post or video.</p>
+            </div>
           </div>
-          <div class="post-info">
-            <h3>Artist Name</h3>
-            <p>Description of the post or video.</p>
-          </div>
-        </div>
-        <div class="post">
-          <img src="Htmls/Image/UI.png" alt="Post Image" />
-          <div class="post-actions">
-            <button class="like-button">
-              <img src="Htmls/Image/Heart.png" alt="like-button" />
-            </button>
-            <button class="comment-button">
-              <img src="Htmls/Image/Speech Bubble.png" alt="comment-button" />
-            </button>
-          </div>
-          <div class="post-info">
-            <h3>Artist Name</h3>
-            <p>Description of the post or video.</p>
-          </div>
-        </div>
-        <div class="post">
-          <img src="Htmls/Image/ux.png" alt="Post Image" />
-          <div class="post-actions">
-            <button class="like-button">
-              <img src="Htmls/Image/Heart.png" alt="like-button" />
-            </button>
-            <button class="comment-button">
-              <img src="Htmls/Image/Speech Bubble.png" alt="comment-button" />
-            </button>
-          </div>
-          <div class="post-info">
-            <h3>Artist Name</h3>
-            <p>Description of the post or video.</p>
-          </div>
-        </div>
-        <div class="post">
-          <img src="Htmls/Image/web design.png" alt="Post Image" />
-          <div class="post-actions">
-            <button class="like-button">
-              <img src="Htmls/Image/Heart.png" alt="like-button" />
-            </button>
-            <button class="comment-button">
-              <img src="Htmls/Image/Speech Bubble.png" alt="comment-button" />
-            </button>
-          </div>
-          <div class="post-info">
-            <h3>Artist Name</h3>
-            <p>Description of the post or video.</p>
-          </div>
-        </div>
-        <div class="post">
-          <img src="Htmls/Image/Art.png" alt="Post Image" />
-          <div class="post-actions">
-            <button class="like-button">
-              <img src="Htmls/Image/Heart.png" alt="like-button" />
-            </button>
-            <button class="comment-button">
-              <img src="Htmls/Image/Speech Bubble.png" alt="comment-button" />
-            </button>
-          </div>
-          <div class="post-info">
-            <h3>Artist Name</h3>
-            <p>Description of the post or video.</p>
-          </div>
-        </div>
-        <div class="post">
-          <img src="Htmls/Image/UI.png" alt="Post Image" />
+          <div class="post">
+          <img src="Image/UI.png" alt="Post Image" />
           <div class="post-actions">
             <button class="like-button">
               <img src="Htmls/Image/Heart.png" alt="like-button" />
@@ -226,7 +185,67 @@
             <p>Description of the post or video.</p>
           </div>
         </div>
-        <!-- Add more posts as needed -->
+        <div class="post">
+          <img src="Htmls/Image/Art.png" alt="Post Image" />
+          <div class="post-actions">
+            <button class="like-button">
+              <img src="Htmls/Image/Heart.png" alt="like-button" />
+            </button>
+            <button class="comment-button">
+              <img src="Htmls/Image/Speech Bubble.png" alt="comment-button" />
+            </button>
+          </div>
+          <div class="post-info">
+            <h3>Artist Name</h3>
+            <p>Description of the post or video.</p>
+          </div>
+        </div>
+        <div class="post">
+          <img src="Htmls/Image/UI.png" alt="Post Image" />
+          <div class="post-actions">
+            <button class="like-button">
+              <img src="Htmls/Image/Heart.png" alt="like-button" />
+            </button>
+            <button class="comment-button">
+              <img src="Htmls/Image/Speech Bubble.png" alt="comment-button" />
+            </button>
+          </div>
+          <div class="post-info">
+            <h3>Artist Name</h3>
+            <p>Description of the post or video.</p>
+          </div>
+        </div>
+        <div class="post">
+          <img src="Htmls/Image/ux.png" alt="Post Image" />
+          <div class="post-actions">
+            <button class="like-button">
+              <img src="Htmls/Image/Heart.png" alt="like-button" />
+            </button>
+            <button class="comment-button">
+              <img src="Htmls/Image/Speech Bubble.png" alt="comment-button" />
+            </button>
+          </div>
+          <div class="post-info">
+            <h3>Artist Name</h3>
+            <p>Description of the post or video.</p>
+          </div>
+        </div>
+        <div class="post">
+          <img src="Htmls/Image/web design.png" alt="Post Image" />
+          <div class="post-actions">
+            <button class="like-button">
+              <img src="Htmls/Image/Heart.png" alt="like-button" />
+            </button>
+            <button class="comment-button">
+              <img src="Htmls/Image/Speech Bubble.png" alt="comment-button" />
+            </button>
+          </div>
+          <div class="post-info">
+            <h3>Artist Name</h3>
+            <p>Description of the post or video.</p>
+          </div>
+          <!-- Add more posts as needed -->
+        </div>
       </section>
     </main>
     <script src="js/home.js"></script>

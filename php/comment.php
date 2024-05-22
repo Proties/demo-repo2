@@ -1,6 +1,7 @@
 <?php 
-
+include_once('php/database.php');
 class Comment{
+    use validateComment;
     private $date;
     private $time;
     private $text;
@@ -53,6 +54,8 @@ class Comment{
 
     public function write_comment(){
         try{
+            $database=new Database();
+            $db=$database->get_connection();
             $query="
                     INSERT INTO Comment
                     VALUES(:text,:date,:time,:userID,:postID);
@@ -69,6 +72,8 @@ class Comment{
     }
     public function read_comment(){
         try{
+            $database=new Database();
+            $db=$database->get_connection();
             $query="
                 SELECT * FROM Comment
                 WHERE postID=:id
@@ -81,5 +86,7 @@ class Comment{
         }
     }
 }
-
+trait validateComment{
+    function validate_text(){}
+}
 ?>
