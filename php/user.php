@@ -1,6 +1,5 @@
 <?php 
 include('php/database.php');
-
 class Users{
     use validateUser;
     private $name;
@@ -13,6 +12,7 @@ class Users{
     private $phone;
     private $date;
     private $time;
+    private $userProfileLink;
     private $status;
 
     public function __construct(){
@@ -48,6 +48,9 @@ class Users{
         $this->status=$s;
     }
 
+    public function set_profileLink($pl){
+        $this->userProfileLink;
+    }
     public function get_name(){
         return $this->name;
     }
@@ -80,6 +83,9 @@ class Users{
     public function get_time(){
         $this->time=date('h:i');
         return $this->time;
+    }
+    public function get_profileLink(){
+        return $this->userProfileLink;
     }
     public function write_user(){
         $database=new Database();
@@ -129,7 +135,10 @@ class Users{
         }
     }
 
-    
+    public function create_user_folder(){}
+    public function create_user_profile_page(){}
+    public function create_user_posts_folder(){}
+    public function create_user_profile_images_folder(){}
 }
 
 trait validateUser{

@@ -65,7 +65,7 @@ class Comment{
             $statement->bindValue(':date',$this->get_date());
             $statement->bindValue(':text',$this->get_text());
             $statement->bindValue(':userID',$this->get_userID());
-            $statement->execute();
+            $this->set_status($statement->execute());
         }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();
         }
@@ -80,7 +80,7 @@ class Comment{
             ";
             $statement=$db->prepare($query);
             $statement->bindValue(":id",$this->get_id());
-            $statement->execute();
+            $this->set_status($statement->execute());
         }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();
         }

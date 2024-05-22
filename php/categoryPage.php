@@ -3,9 +3,9 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('Htmls/CategoryPage.html');
     return;
 }
-include_once('php/categories');
+include_once('php/categories.php');
 include_once('php/post.php');
-
+$data=array();
 $categoriesArray=array();
 $action=$_POST['action'];
 
@@ -14,22 +14,23 @@ switch($action){
         $categories=get_categories();
         for($i=0;$i<count($categories);$i++){
             $category=new Category();
-            $category->initialise($categories[$i]);
-
-            array_push($category,$categoriesArray);
-            array_push($categoriesArray,$data);
+            $category->set_name($categories[$i]);
+            $categoriesArray[]=$category;
+            $data[]=$categoriesArray;
         }
         break;
     case 'select_category':
-        $categoryID=$_POST['categoryID'];
-        $cat=find_category_object($categoryID);
-        $cat->get_post();
-        array_push($data,$cat->get_post());
+        $categoryName=$_POST['categoryName'];
+        $category=new Category();
+        $category->set_name($categoryName);
+        $category->read_posts();
+        for($i=0;$i<count($category->get_post());$i++){
+
+        }
+        array_push($data,);
         break;
     
 }
-function find_category_object($id){
 
-}
 return json_encode($data);
 ?>

@@ -3,9 +3,14 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('front/addP.html');
     return;
 }
-include('backend/database.php');
-include('backend/post.php');
+include_once('php/database.php');
+include_once('php/post.php');
+include_once('php/categories.php');
+$category=new Category();
 $p=new Post();
+$category->set_name($_POST['categoryName']);
+$p->set_title($_POST['title']);
+$p->set_description($_POST['description']);
 $target_dir='userProfiles/';
 $target_file=$target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk=1;

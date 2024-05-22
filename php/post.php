@@ -1,6 +1,5 @@
 <?php
 include_once('php/database.php');
-
 class Post{
     use validatePost;
     private $description;
@@ -13,8 +12,11 @@ class Post{
     private $authorID;
     private $alt;
     private $likesCount;
+    private $date;
+    private $time;
     private $commentsCount;
     private $viewsCount;
+    private $categoryName;
     private $comments=array();
 
 
@@ -28,17 +30,17 @@ public function __construct(){
     $this->img='';
     $this->authorID='';
     $this->alt='';
+
    
 }
 function initialise($arr){
-    $this->authorName=$arr[''];
-    $this->title=$arr[''];
-    $this->description=$arr[''];
-    $this->postID=$arr[''];
-    $this->img=$arr[''];
-    $this->userID=$arr[''];
-    $this->likesCount=$arr[''];
-    $this->comments=$arr[''];
+    $this->authorID=$arr['userID'];
+    $this->title=$arr['postTitle'];
+    $this->description=$arr['postDescription'];
+    $this->postID=$arr['postID'];
+    $this->set_img($arr['picture']);
+    $this->postLink=$arr['postLink'];
+    $this->postLinkID=$arr['postLinkID'];
 }
 public function set_categoryName($nm){
     $this->categoryName=$nm;
@@ -46,8 +48,11 @@ public function set_categoryName($nm){
 public function set_postID($id){
     $this->postID=$id;
 }
-public function set_caption($cap){
-    $this->caption=$cap;
+public function set_title($cap){
+    $this->title=$cap;
+}
+public function set_description($cap){
+    $this->description=$cap;
 }
 public function set_image($im){
     $this->image=$im;
@@ -55,8 +60,8 @@ public function set_image($im){
 public function set_status($stt){
     $this->status=$stt;
 }
-public function set_authorName($an){
-    $this->authorName=$an;
+public function set_authorID($an){
+    $this->authorID=$an;
 }
 public function set_authorImage($im){
     $this->authorImage=$im;
@@ -64,19 +69,29 @@ public function set_authorImage($im){
 public function set_alt($al){
     $ths->alt=$alt;
 }
-public function set_likes($l){
-    $this->likes=$l;
+public function set_time($l){
+    $this->time=$l;
 }
-public function set_comments(){}
-
+public function set_date($dt){
+    $this->date=$dt;
+}
+public function set_postLink($dt){
+    $this->postLink=$dt;
+}
+public function set_img($im){
+    return $this->img=$im;
+}
 public function get_categoryName(){
     return $this->categoryName;
 }
 public function get_postID(){
     return $this->postiID;
 }
-public function get_caption(){
-    return $this->caption;
+public function get_title(){
+    return $this->title;
+}
+public function get_description(){
+    return $this->description;
 }
 public function get_image(){
     return $this->image;
@@ -84,8 +99,8 @@ public function get_image(){
 public function get_status(){
     return $this->status;
 }
-public function get_authorName(){
-    return $this->authorName;
+public function get_authorID(){
+    return $this->authorID;
 }
 public function get_authorImage(){
     return $this->authorImage;
@@ -93,13 +108,23 @@ public function get_authorImage(){
 public function get_alt(){
     return $this->alt;
 }
-public function get_likes(){
-    return $this->likes;
+public function get_time(){
+    $this->set_time(date('h:i'));
+    return $this->time;
 }
-public function get_comments(){
-    return $this->comments;
+public function get_date(){
+    $this->set_date(date('Y:m:d'));
+    return $this->date;
 }
-
+public function get_postLink(){
+    return $this->postLink;
+}
+public function get_postLinkID(){
+    return $this->postLinkID;
+}
+public function get_img(){
+    return $this->img;
+}
 public function read_post(){
     try{
         $database=new Database();
@@ -110,7 +135,7 @@ public function read_post(){
         ";
         $stmt=$db->prepare($query);
         $stmt->bindValue(':id',$this->get_id());
-        $stmt->execute();
+        $this->set_status($stmt->execute());
         $results=$stmt->fetch();
     }catch(PDOExecption $err){
         echo 'Database error '.$err->getMessage();
@@ -126,6 +151,7 @@ public function read_comments(){
         ";
         $stmt=$db->prepare($query);
         $stmt->bindValue(':id',$this->get_id());
+        $this->set_status($stmt->execute());
     }catch(PDOExecption $err){
         echo 'Database error '.$err->getMessage();
     }
@@ -140,7 +166,7 @@ public function read_likes(){
         ";
         $stmt=$db->prepare($query);
         $stmt->bindValue(':id',$this->get_id());
-        $stmt->execute();
+        $this->set_status($stmt->execute());
     }catch(PDOExecption $err){
         echo 'Database error '.$err->getMessage();
     }
@@ -149,39 +175,41 @@ public function write_post(){
     try{
         $database=new Database();
         $db=$database->get_connection();
+        $db->beginTransaction();
         $query="
-                INSERT INTO post
-                VALUES();
+                INSERT INTO post(postLinkID,postDescription,postTitle,picture,userID,postDate,postTime,postLink)
+                VALUES(:postLinkID,:description,:title,:image,:userID,:date,:time,:postLink);
                 ";
-        $db->prepare($query);
-        $db->bindValue(':title',$this->get_title);
-        $db->bindValue(':description',$this->get_description);
-        $db->bindValue(':image',$this->get_image);
-        $db->bindValue(':userID',$this->get_authorID());
-        $db->bindValue(':pdate',$this->get_date());
-        $db->bindValue(':ptime',$this->get_time());
-        $db->bindValue(':plink',$this->get_postLink());
-        $db->execute();
-        $query_two="
-                INSERT INTO Category
-                VALUES(:categoryName,:date,:time);
-                
-                ";
-        $stmt=$db->prepare($query_two);
-        $stmt->bindValue(':categoryName',$this->get_categoryName());
+        $stmt=$db->prepare($query);
+        $stmt->bindValue(':title',$this->get_title());
+        $stmt->bindValue(':description',$this->get_description());
+        $stmt->bindValue(':image',$this->get_image());
+        $stmt->bindValue(':userID',$this->get_authorID());
         $stmt->bindValue(':date',$this->get_date());
         $stmt->bindValue(':time',$this->get_time());
-        $db->execute();
+        $stmt->bindValue(':postLink',$this->get_postLink());
+        $stmt->bindValue(':postLinkID',$this->get_postLinkID());
+        $stmt->execute();
+        $postID=$db->lastInsertId();
+        $query_two="
+                INSERT INTO category(categoryName)
+                VALUES(:categoryName);
+                ";
+        $stmt_two=$db->prepare($query_two);
+        $stmt_two->bindValue(':categoryName',$this->get_categoryName());
+        $stmt_two->execute();
+        $categoryID=$db->lastInsertId();
         $query_three="
                 INSERT INTO post_category
-                 VALUES();
+                 VALUES(:categoryID,:postID);
                     ";
-        $db->prepare($query_three);
-        $db->execute();
-
-
-
+        $stmt_three=$db->prepare($query_three);
+        $stmt_three->bindValue(':postID',$postID);
+        $stmt_three->bindValue(':categoryID',$categoryID);
+        $stmt_three->execute();
+        $db->commit();
     }catch(PDOExecption $err){
+        $db->rollBack();
         echo $err->getMessage();
     }
 }
@@ -197,15 +225,14 @@ public function write_like(){
         echo $err->getMessage();
     }
 }
-
+    public function create_user_image_file(){}
 }
 
-function generate_ids(){
-    $list = '1234567890abcdefghijklmnopqrstuvwzyABCDEFGHIJKLMNOPQRSTUVWZY';
-    $random = str_shuffle($list);
-    $str = substr($random, 5, 13);
-}
+
 trait validatePost{
+function validate_image(){}
+function validate_title(){}
+function validate_description(){}
 
 }
 ?>

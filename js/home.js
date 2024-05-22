@@ -1,20 +1,39 @@
 "strict"
-
+function initialise_image(){
+    try{
+        let xml = new XMLHttpRequest();
+    xml.open('POST', '/');
+    xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xml.setRequestHeader("Accept", "image/jpeg"); // Set Accept header to image/jpeg
+    xml.onreadystatechange = function() {
+  if (this.readyState === 4 && this.status === 200) {
+    let response = this.response; // Get the response as an array buffer
+    let blob = new Blob([response], {type: 'image/jpeg'});
+    let url = URL.createObjectURL(blob);
+    let img = document.getElementById('image');
+    img.src = url;
+  }
+};
+xml.send('action=initialise_image');
+    }catch(err){
+        console.log(err);
+    }
+}
 function initialise_posts(){
     try{
         let xm=new XMLHttpRequest();
         xm.open("POST","/");
         xm.onload=function(){
             let data=this.responseText;
+            console.log(data);
             let fdata=JSON.parse(data);
             console.log(fdata);
-    
             // let postArray=data.posts;
             // let userArrays=data.topUsers;
            
         }
         xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xm.send("action=initialise");
+        xm.send("action=initialise_posts");
     }catch(err){
         console.log(err);
     }
@@ -72,4 +91,5 @@ function eventListeners(){
 
 }
 initialise_posts();
+// initialise_image();
 eventListeners();

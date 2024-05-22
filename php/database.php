@@ -32,9 +32,26 @@ class Database{
         return $this->pdo;
     }
 }
+function topUsers(){
+    try{
+        $database=new Database();
+        $db=$database->get_connection();
+        $query="
+                SELECT * FROM Users
+                LIMIT 5;
+        ";
 
+        $stmt=$db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchall();
+    }catch(PDOExecption $err){
+        echo 'Database error '.$err->getMessage();
+    }
+}
 function get_usernames(){
     try{
+        $database=new Database();
+        $db=$database->get_connection();
         $query="
                 SELECT username FROM user
         ";
@@ -46,10 +63,23 @@ function get_usernames(){
     }
 }
 function get_categories(){
-    
+    try{
+        $database=new Database();
+        $db=$database->get_connection();
+        $query="
+                SELECT categoryName FROM category
+            ";
+        $stmt=$db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchall();
+    }catch(PDOExecption $err){
+        echo 'Database error '.$err->getMessage();
+    }
 }
 function validate_user($name){
     try{
+        $database=new Database();
+        $db=$database->get_connection();
         $query="
                 SELECT * FROM user
                 WHERE username=:username;
@@ -65,6 +95,8 @@ function validate_user($name){
 }
 function validate_post($id){
     try{
+        $database=new Database();
+        $db=$database->get_connection();
         $query="
                 SELECT * FROM post
                 WHERE postId=:id;

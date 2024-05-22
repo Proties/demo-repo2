@@ -10,37 +10,52 @@ include_once('php/database.php');
 include_once('php/rank.php');
 
 $user=new Users();
+if(isset($_SESSION['userid'])){
+    $user->set_id($_SESSION['userid']);
+    $user->read_user();
+}
+
 $postsObjects=array();
-$data=array();
+$data=array('basic'=>'stats');
 
 // store posts and user data on session object
 
 $action=$_POST['action'];
 switch($action){
-    case 'initialise':
+    case 'initialise_image':
+        $listOfPosts=chrono();
+        $listOfUsers=topUsers();
+        for($i=0;$i<count($listOfPosts);$i++){
+
+        }
+        header('Content-Type: image/jpeg');
+        echo '';
+        return ;
+        break;
+    case 'initialise_posts':
         $listOfPosts=chrono();
         $listOfUsers=topUsers();
         if(count($listOfPosts)==0){
            echo json_encode(array('status'=>'ok','message'=>'no post yet'));
             return;
         }
-        
-        
-        for($i=0;$i<5;$i++){
-        $post[$i]=new Post();
-        $post[$i]->initialise($listOfPosts[$i]);
-        array_push($postsObjects,$post[$i]);
-        array_push($data,array("topUser"=>array(
+        for($i=0;$i<count($listOfPosts);$i++){
+        $post=new Post();
+        $post->initialise($listOfPosts[$i]);
+        $postsObjects[]=$post;
+ 
+        $data["data"]=array("posts"=>array(
+            "authorName"=>$post->get_authorID(),
+            "description"=>$post->get_description(),
+            "title"=>$post->get_title(),
+            "img"=>$post->get_img()
+        ),"user"=>array(
+            "userLink"=>$user->get_profileLink()
+        ),"topUsers"=>array(
             "userName"=>"",
             "userImg"=>"",
             "userLink"=>""
-        )));
-        array_push($data,array("posts"=>array(
-            "authorName"=>$post[$i]->get_userName(),
-            "description"=>$post[$i]->get_description(),
-            "title"=>$post[$i]->get_title(),
-            "img"=>$post[$i]->get_image()
-        )));
+        ));
         }
         
         
@@ -56,12 +71,13 @@ switch($action){
         $text=$_POST['text'];
         $postID=$_POST['postID'];
         $comment=new Comment();
+        $comment->set_postID($postID);
         $comment->set_comment($text);
         $comment->write_comment();
         break;
     case 'like':
         $postID=$_POST['postID'];
-        $post=find_post_obj($postID);
+        $post=set_id($postID);
         $post->write_like();
         break;
     case 'view_more_posts':
@@ -81,8 +97,9 @@ switch($action){
         array_push($data,$more);
         break;
 }
-echo json_encode($data);
 
+echo json_encode($data);
+// echo json_encode(array('works'));
 function find_post_obj($id){
     for($i=0;$i<count($postsObjects);$i++){
         if($postsObjects[$i]->get_id()==$id){
