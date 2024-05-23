@@ -25,11 +25,14 @@ switch($action){
     case 'initialise_image':
         $listOfPosts=chrono();
         $listOfUsers=topUsers();
+       
         for($i=0;$i<count($listOfPosts);$i++){
-
+            $post=new Post();
+            $post->set_img($listOfPosts[$i]['picture']);
+            $data['images']=array('image'=>$post->get_img());
         }
         header('Content-Type: image/jpeg');
-        echo '';
+        echo json_encode($data);
         return ;
         break;
     case 'initialise_posts':
@@ -46,7 +49,7 @@ switch($action){
         $post->initialise($listOfPosts[$i]);
         $postsObjects[]=$post;
  
-        $data["data"]=array("posts"=>array(
+        $a=array("posts"=>array(
             "authorName"=>$post->get_authorID(),
             "description"=>$post->get_description(),
             "title"=>$post->get_title(),
@@ -58,9 +61,10 @@ switch($action){
             "userImg"=>$Tuser->get_profilePicture(),
             "userLink"=>$Tuser->get_profileLink()
         ));
+        array_push($data,$a);
         }
         
-        
+        header('Content-Type: application/json');
         break;
     case 'search':
         $target=$_POST['q'];

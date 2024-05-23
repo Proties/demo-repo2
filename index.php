@@ -8,7 +8,8 @@ include_once('php/user.php');
 include_once('php/post.php');
 if(preg_match($postPattern,$txt)){
     if(validate_user()==false){
-        return;
+        header('Location: /');
+        exit();
     }
     if(validate_post()==false){
         return;
@@ -17,8 +18,9 @@ if(preg_match($postPattern,$txt)){
     return;
 }
 else if(preg_match($userPattern,$txt)){
-    if(validate_user()==false){
-        return;
+    if(validate_user(preg_filter($userPattern,'$(0)',$txt))==false){
+        header('Location: /');
+        exit();
     }
     include_once('php/profile.php');
     return;

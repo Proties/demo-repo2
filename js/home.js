@@ -7,6 +7,7 @@ function initialise_image(){
     xml.setRequestHeader("Accept", "image/jpeg"); // Set Accept header to image/jpeg
     xml.onreadystatechange = function() {
   if (this.readyState === 4 && this.status === 200) {
+    console.log(this.responseText);
     let response = this.response; // Get the response as an array buffer
     let blob = new Blob([response], {type: 'image/jpeg'});
     let url = URL.createObjectURL(blob);
@@ -110,5 +111,5 @@ function eventListeners(){
 
 }
 initialise_posts();
-// initialise_image();
+initialise_image();
 eventListeners();

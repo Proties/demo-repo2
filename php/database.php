@@ -81,15 +81,18 @@ function validate_user($name){
         $database=new Database();
         $db=$database->get_connection();
         $query="
-                SELECT * FROM user
+                SELECT username FROM Users
                 WHERE username=:username;
         ";
-        $db->prepare($query);
-        $db->bindValue(':username',$name);
-        $result=$db->execute();
-        return $result;
+        $stmt=$db->prepare($query);
+        $stmt->bindValue(':username',$name);
+        $stmt->execute();
+        if($stmt->fetch()){
+            return true;
+        }
+        return false;
     }catch(PDOExecption $err){
-        echo $err->getMessage();
+        echo 'Database error '.$err->getMessage();
         return false;
     }
 }
