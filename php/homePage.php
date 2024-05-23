@@ -16,7 +16,7 @@ if(isset($_SESSION['userid'])){
 }
 
 $postsObjects=array();
-$data=array('basic'=>'stats');
+$data=array();
 
 // store posts and user data on session object
 
@@ -41,6 +41,8 @@ switch($action){
         }
         for($i=0;$i<count($listOfPosts);$i++){
         $post=new Post();
+        $Tuser=new Users();
+        $Tuser->initialise($listOfUsers[$i]);
         $post->initialise($listOfPosts[$i]);
         $postsObjects[]=$post;
  
@@ -52,9 +54,9 @@ switch($action){
         ),"user"=>array(
             "userLink"=>$user->get_profileLink()
         ),"topUsers"=>array(
-            "userName"=>"",
-            "userImg"=>"",
-            "userLink"=>""
+            "userName"=>$Tuser->get_username(),
+            "userImg"=>$Tuser->get_profilePicture(),
+            "userLink"=>$Tuser->get_profileLink()
         ));
         }
         
@@ -63,9 +65,7 @@ switch($action){
     case 'search':
         $target=$_POST['q'];
         $usernames=get_usernames();
-        for($i=0;$i<count($usernames);$i++){
-
-        }
+        $data['searchResults']=$usernames;
         break;
     case 'comment':
         $text=$_POST['text'];
@@ -77,7 +77,8 @@ switch($action){
         break;
     case 'like':
         $postID=$_POST['postID'];
-        $post=set_id($postID);
+        $post=new Post();
+        $post->set_postID($postID);
         $post->write_like();
         break;
     case 'view_more_posts':

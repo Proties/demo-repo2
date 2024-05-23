@@ -26,6 +26,9 @@ class Users{
     $this->phone='';
     }
 
+    public function initialise($arr){
+        $this->set_username($arr['username']);
+    }
     public function set_name($nm){
         $this->name=$nm;
     }

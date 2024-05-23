@@ -53,11 +53,11 @@ function get_usernames(){
         $database=new Database();
         $db=$database->get_connection();
         $query="
-                SELECT username FROM user
+                SELECT username FROM Users
         ";
-        $db->prepare($query);
-        $results=$db->execute();
-        return $results->fetchall();
+        $stmt=$db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchall();
     }catch(PDOExeception $err){
         echo $err->getMessage();
     }

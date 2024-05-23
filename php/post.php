@@ -85,7 +85,7 @@ public function get_categoryName(){
     return $this->categoryName;
 }
 public function get_postID(){
-    return $this->postiID;
+    return $this->postID;
 }
 public function get_title(){
     return $this->title;
@@ -218,9 +218,13 @@ public function write_like(){
         $database=new Database();
         $db=$database->get_connection();
         $query="
-                INSERT INTO likes
-                VALUES(:postID,userID);
+                INSERT INTO likes(postID,userID)
+                VALUES(:postID,:userID);
         ";
+        $stmt=$db->prepare($query);
+        $stmt->bindValue(':postID',$this->get_postID());
+        $stmt->bindValue(':userID',$this->get_authorID());
+        $stmt->execute();
     }catch(PDOExecption $err){
         echo $err->getMessage();
     }

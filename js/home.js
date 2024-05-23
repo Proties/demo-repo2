@@ -38,7 +38,7 @@ function initialise_posts(){
         console.log(err);
     }
 }
-function comment_on_post(){
+function comment_on_post(evt){
     try{
         let xm=new XMLHttpRequest();
         xm.open('POST','/');
@@ -50,26 +50,42 @@ function comment_on_post(){
         console.log(err);
     }
 }
-function like_post(){
+function like_on_post(evt){
+    console.log('liked');
     try{
-
+        let ele=evt.target;
+        console.log(ele.parentNode);
+        id=6;
+        let xml=new XMLHttpRequest();
+        xml.open('POST','/');
+        xml.onload=function(){
+            console.log(this.responseText);
+        }
+        xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xml.send('action=like&postID='+id);
+        
     }catch(err){
         console.log(err);
     }
 }
-function suggest_user(){}
+function suggest_user(){
+    let container=document.getElementById('list_suggested');
+    let list=document.createElement('li');
+    let txt=document.createTextNode();
+    list.append(txt);
+    container.append(list);
+}
 function search_user(){
     let text=document.getElementById("search").value;
     try{
         let xml=new XMLHttpRequest();
         xml.onload=function(){
             let data=JSON.parse(this.responseText);
-            if(typeof data.search_results=='array'){
-                for(let i=0;i<data.search_results;i++){
-                    console.log(data.search_results[i]);
-                }
+            console.log(data);
+            console.log(data.searchResults);
+            for(let i=0;data.searchResults.length;i++){
+                console.log(data.searchResults[i].username);
             }
-            console.log(data.search_results);
         }
         xml.open('POST','/');
         xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -79,14 +95,17 @@ function search_user(){
     }
 }
 function eventListeners(){
-    // let likeBtn=document.getElementsByClassName("");
-    // let unLikeBtn=document.getElementsByClassName("");
-    // let viewCommentBtn=document.getElementsByClassName("");
-    // let commentBtn=document.getElementsByClassName("");
+    let likeBtn=document.getElementsByClassName("like-button");
+    let commentBtn=document.getElementsByClassName("");
     let search=document.getElementById("searchBtn");
-
-    search.addEventListener("click",search_user);
-
+    let search_input=document.getElementById("search");
+    search_input.addEventListener("input",search_user);
+    for(let i=0;i<commentBtn.length;i++){
+        commentBtn[i].addEventListener('click',comment_on_post);
+    }
+    for(let i=0;i<likeBtn.length;i++){
+        likeBtn[i].addEventListener('click',like_on_post);
+    }
     
 
 }
