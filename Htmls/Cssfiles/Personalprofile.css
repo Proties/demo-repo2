@@ -24,17 +24,75 @@ header {
     z-index: 1000;
 }
 
-nav {
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+    background-color: white;
+    color: white;
+    padding: 10px 20px;
 }
 
-nav .home-link, nav .settings-link {
+.nav-left a, .nav-right a {
+    color: white;
+    text-decoration: none;
+    padding: 0 10px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.push-button {
+    margin-right: 20px;
+    padding: 5px 10px;
+    background-color: #000000;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.hamburger-menu {
+    position: relative;
+    cursor: pointer;
+    color: #000;
+}
+
+.hamburger-menu .dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: #fff;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.hamburger-menu:hover .dropdown {
+    display: block;
+}
+
+.hamburger-menu .dropdown a {
+    display: block;
+    padding: 10px;
     text-decoration: none;
     color: #333;
-    font-weight: bold;
-    margin: 0 10px;
+}
+
+.hamburger-menu .dropdown a:hover {
+    background-color: #f0f0f0;
+}
+
+nav .home-link {
+    color: #000;
 }
 
 .container {
