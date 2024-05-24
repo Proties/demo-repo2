@@ -101,10 +101,13 @@ class Users{
         $statement = $db->prepare($query);
         $statement->bindValue(':name', $this->get_name());
         $statement->bindValue(':username', $this->get_username());
-        $statement->bindValue(':userPassword', $this->get_password()); // Corrected
-        $statement->bindValue(':dateMade', $this->get_date()); // Corrected
-        $statement->bindValue(':timeMade', $this->get_time()); // Corrected
+        $statement->bindValue(':userPassword', $this->get_password()); 
+        $statement->bindValue(':dateMade', $this->get_date()); 
+        $statement->bindValue(':timeMade', $this->get_time()); 
+
+        
         $this->set_status($statement->execute());
+        $this->set_id($db->lastinsertid);
         }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();
         }

@@ -14,28 +14,29 @@ if(isset($_SESSION['userid'])){
     $user->set_id($_SESSION['userid']);
     $user->read_user();
 }
-
-$postsObjects=array();
-$data=array();
-
 // store posts and user data on session object
 
 $action=$_POST['action'];
 switch($action){
     case 'initialise_image':
-        $listOfPosts=chrono();
-        $listOfUsers=topUsers();
        
-        for($i=0;$i<count($listOfPosts);$i++){
-            $post=new Post();
-            $post->set_img($listOfPosts[$i]['picture']);
-            $data['images']=array('image'=>$post->get_img());
+        $listOfPosts = chrono();
+        $data;
+        for ($i=0;$i<count($listOfPosts);$i++) {
+            $post = new Post();
+            $post->set_img($listOfPosts[$i][4]);
+            $post->set_postID($listOfPosts[$i][0]);
+            $post->set_title();
+            $post->set_description();
+            $post->set_postLink();
+            
+            $data[]=array('id'=>$post->get_postID(),'image'=>base64_encode($post->get_img()));
         }
-        header('Content-Type: image/jpeg');
+        // header('Content-type: image/jpeg');
         echo json_encode($data);
-        return ;
         break;
     case 'initialise_posts':
+        $info=array();
         $listOfPosts=chrono();
         $listOfUsers=topUsers();
         if(count($listOfPosts)==0){
@@ -47,28 +48,31 @@ switch($action){
         $Tuser=new Users();
         $Tuser->initialise($listOfUsers[$i]);
         $post->initialise($listOfPosts[$i]);
-        $postsObjects[]=$post;
  
-        $a=array("posts"=>array(
-            "authorName"=>$post->get_authorID(),
-            "description"=>$post->get_description(),
-            "title"=>$post->get_title(),
-            "img"=>$post->get_img()
-        ),"user"=>array(
-            "userLink"=>$user->get_profileLink()
-        ),"topUsers"=>array(
-            "userName"=>$Tuser->get_username(),
-            "userImg"=>$Tuser->get_profilePicture(),
-            "userLink"=>$Tuser->get_profileLink()
-        ));
-        array_push($data,$a);
+        $data = array(
+            'posts' => array(
+                'authorName' => 0,
+                'description' => 'really hot go',
+                'title' => 'hot'
+            ),
+            'user' => array(
+                'userLink' => null
+            ),
+            'topUsers' => array(
+                'userName' => 'hottie',
+                'userImg' => '',
+                'userLink' => null
+            )
+        );
+        array_push($info,$data);
         }
+        echo json_encode($info);
         
-        header('Content-Type: application/json');
         break;
     case 'search':
         $target=$_POST['q'];
         $usernames=get_usernames();
+        $pattern='//i';
         $data['searchResults']=$usernames;
         break;
     case 'comment':
@@ -91,25 +95,16 @@ switch($action){
             $post=new Post();
             $post->initialise($more[$i]);
             array_push($post,$postsObjects);
-            array(
-                "postID"=>$post->get_id(),
-                "image"=>$post->get_image(),
-                "username"=>$post->get_authorName(),
-                "description"=>$post->get_description(),
-                "title"=>$post->get_title()
+            $x=array(
+                'postID'=>$post->get_id(),
+                'image'=>$post->get_image(),
+                'username'=>$post->get_authorName(),
+                'description'=>$post->get_description(),
+                'title'=>$post->get_title()
             );
+            array_push($data,$x);
         }
-        array_push($data,$more);
+        
         break;
 }
-
-echo json_encode($data);
-// echo json_encode(array('works'));
-function find_post_obj($id){
-    for($i=0;$i<count($postsObjects);$i++){
-        if($postsObjects[$i]->get_id()==$id){
-            return $postsObjects[$i];
-        }
-    }
-    }
 ?>

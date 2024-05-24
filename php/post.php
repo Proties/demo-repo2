@@ -5,6 +5,7 @@ class Post{
     private $description;
     private $title;
     private $status;
+    private $errMsg;
     private $postID;
     private $postLinkID;
     private $postLink;
@@ -21,6 +22,7 @@ class Post{
 
 
 public function __construct(){
+    $this->errMsg;
     $this->description='';
     $this->title='';
     $this->status='';
@@ -44,6 +46,9 @@ function initialise($arr){
 }
 public function set_categoryName($nm){
     $this->categoryName=$nm;
+}
+public function set_errMsg($err){
+    $this->errMsg=$err;
 }
 public function set_postID($id){
     $this->postID=$id;
@@ -124,6 +129,9 @@ public function get_postLinkID(){
 }
 public function get_img(){
     return $this->img;
+}
+public function get_errMsg(){
+    return $this->errMsg;
 }
 public function read_post(){
     try{

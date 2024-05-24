@@ -4,17 +4,32 @@ function initialise_image(){
         let xml = new XMLHttpRequest();
     xml.open('POST', '/');
     xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xml.setRequestHeader("Accept", "image/jpeg"); // Set Accept header to image/jpeg
-    xml.onreadystatechange = function() {
-  if (this.readyState === 4 && this.status === 200) {
-    console.log(this.responseText);
-    let response = this.response; // Get the response as an array buffer
-    let blob = new Blob([response], {type: 'image/jpeg'});
-    let url = URL.createObjectURL(blob);
-    let img = document.getElementById('image');
-    img.src = url;
-  }
-};
+    xml.onload = function() {
+        
+        let data=JSON.parse(this.responseText);
+        console.log(data);
+        for(let i=0;i<data.length;i++){
+    
+        const base64Image = data[i]['image']; // your Base64-encoded image string
+
+        const binaryString = atob(base64Image);
+        const arrayBuffer = new ArrayBuffer(binaryString.length);
+        const uint8Array = new Uint8Array(arrayBuffer);
+        
+        for (let i = 0; i < binaryString.length; i++) {
+          uint8Array[i] = binaryString.charCodeAt(i);
+        }
+        
+        const blob = new Blob([uint8Array], { type: 'image/png' }); // or 'image/jpeg' or other image types
+        
+        // now you can use the blob object to display the image
+        const img = document.getElementsByClassName('post-image');
+        img[i].src = URL.createObjectURL(blob);
+        img[i].id=data[i]['id'];
+       
+    console.log(img[i]);
+        }
+}
 xml.send('action=initialise_image');
     }catch(err){
         console.log(err);
@@ -55,8 +70,11 @@ function like_on_post(evt){
     console.log('liked');
     try{
         let ele=evt.target;
-        console.log(ele.parentNode);
+        let parent=ele.parentNode;
+        let gran=parent.parentNode;
+        console.log(gran.parentNode.id);
         id=6;
+
         let xml=new XMLHttpRequest();
         xml.open('POST','/');
         xml.onload=function(){
@@ -110,6 +128,6 @@ function eventListeners(){
     
 
 }
-initialise_posts();
+// initialise_posts();
 initialise_image();
 eventListeners();

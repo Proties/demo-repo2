@@ -37,7 +37,7 @@ function topUsers(){
         $database=new Database();
         $db=$database->get_connection();
         $query="
-                SELECT * FROM Users
+                SELECT username FROM Users
                 LIMIT 5;
         ";
 

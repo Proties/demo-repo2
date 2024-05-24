@@ -13,10 +13,13 @@ $user->set_password($_POST['password']);
 $user->write_user();
 //if user succesfully registered direct them to homepage
 if($user->get_status()==1){
-    echo 'succes';
+    echo 'success';
+    $_SESSION['userID']=$user->get_id();
+    $_SESSION['username']=$user->get_username();
     header('Location: /');
+    exit();
 }else{
-    echo 'faile';
+    echo 'failed';
    return json_encode(array("status"=>"not ok","message"=>"incorrect details"));
 }
 ?>
