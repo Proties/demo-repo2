@@ -21,7 +21,8 @@ $action=$_POST['action'];
 
 switch($action){
     case 'initialise':
-        $user->set_username();
+
+        $user->set_username(substr($_SERVER['REQUEST_URI'],2));
         $user->read_user();
         for($i=0;$i<count($user->read_posts());$i++){
             $post=new Post();

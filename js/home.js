@@ -8,10 +8,10 @@ function initialise_image(){
         
         let data=JSON.parse(this.responseText);
         console.log(data);
-        for(let i=0;i<data.length;i++){
+        for(let i=0;i<data.posts.length;i++){
     
-        const base64Image = data[i]['image']; // your Base64-encoded image string
-
+        const base64Image = data.posts[i].image; // your Base64-encoded image string
+        console.log(data.posts[i].image);
         const binaryString = atob(base64Image);
         const arrayBuffer = new ArrayBuffer(binaryString.length);
         const uint8Array = new Uint8Array(arrayBuffer);
@@ -25,7 +25,8 @@ function initialise_image(){
         // now you can use the blob object to display the image
         const img = document.getElementsByClassName('post-image');
         img[i].src = URL.createObjectURL(blob);
-        img[i].id=data[i]['id'];
+        // img[i].id=data[i]['id'];
+        set_username(data.topUsers[i].userName);
        
     console.log(img[i]);
         }
@@ -35,24 +36,11 @@ xml.send('action=initialise_image');
         console.log(err);
     }
 }
-function initialise_posts(){
-    try{
-        let xm=new XMLHttpRequest();
-        xm.open("POST","/");
-        xm.onload=function(){
-            let data=this.responseText;
-            console.log(data);
-            let fdata=JSON.parse(data);
-            console.log(fdata);
-            // let postArray=data.posts;
-            // let userArrays=data.topUsers;
-           
-        }
-        xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xm.send("action=initialise_posts");
-    }catch(err){
-        console.log(err);
-    }
+function set_username(user){
+let username=document.getElementsByClassName('topUserusername');
+for(let x=0;x<username.length;x++){
+    username[x].innerHTML=user;
+}
 }
 function comment_on_post(evt){
     try{
@@ -87,13 +75,7 @@ function like_on_post(evt){
         console.log(err);
     }
 }
-function suggest_user(){
-    let container=document.getElementById('list_suggested');
-    let list=document.createElement('li');
-    let txt=document.createTextNode();
-    list.append(txt);
-    container.append(list);
-}
+
 function search_user(){
     let text=document.getElementById("search").value;
     try{
@@ -113,12 +95,22 @@ function search_user(){
         console.log(err);
     }
 }
+function openUserProfile(evt){
+    let username=evt.target.parentNode;
+    let name=username.getElementsByClassName('topUserusername')[0].textContent;
+    console.log(name);
+    window.location.href='@'+name;
+}
 function eventListeners(){
     let likeBtn=document.getElementsByClassName("like-button");
     let commentBtn=document.getElementsByClassName("");
-    let search=document.getElementById("searchBtn");
+    let topUserProfile=document.getElementsByClassName("pop-user-profile");
     let search_input=document.getElementById("search");
     search_input.addEventListener("input",search_user);
+    for(let i=0;i<topUserProfile.length;i++){
+        
+        topUserProfile[i].addEventListener('click',openUserProfile);
+    }
     for(let i=0;i<commentBtn.length;i++){
         commentBtn[i].addEventListener('click',comment_on_post);
     }
@@ -128,6 +120,5 @@ function eventListeners(){
     
 
 }
-// initialise_posts();
 initialise_image();
 eventListeners();

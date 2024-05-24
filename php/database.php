@@ -76,7 +76,7 @@ function get_categories(){
         echo 'Database error '.$err->getMessage();
     }
 }
-function validate_user($name){
+function validate_username($name){
     try{
         $database=new Database();
         $db=$database->get_connection();
@@ -87,7 +87,8 @@ function validate_user($name){
         $stmt=$db->prepare($query);
         $stmt->bindValue(':username',$name);
         $stmt->execute();
-        if($stmt->fetch()){
+        $id=$stmt->fetch();
+        if($id==true){
             return true;
         }
         return false;

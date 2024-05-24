@@ -11,6 +11,7 @@ class Post{
     private $postLink;
     private $img;
     private $authorID;
+    private $authorName;
     private $alt;
     private $likesCount;
     private $date;
@@ -30,6 +31,7 @@ public function __construct(){
     $this->postLinkID='';
     $this->postLink='';
     $this->img='';
+    $this->authorName='';
     $this->authorID='';
     $this->alt='';
 
@@ -68,8 +70,8 @@ public function set_status($stt){
 public function set_authorID($an){
     $this->authorID=$an;
 }
-public function set_authorImage($im){
-    $this->authorImage=$im;
+public function set_authorName($im){
+    $this->authorName=$im;
 }
 public function set_alt($al){
     $ths->alt=$alt;
@@ -107,8 +109,8 @@ public function get_status(){
 public function get_authorID(){
     return $this->authorID;
 }
-public function get_authorImage(){
-    return $this->authorImage;
+public function get_authorName(){
+    return $this->authorName;
 }
 public function get_alt(){
     return $this->alt;

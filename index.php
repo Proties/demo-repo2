@@ -6,10 +6,10 @@ $userPattern="/\/@[a-zA-Z]{1,13}/i";
 $postPattern="/(\/@[a-zA-Z]{1,13})(\/[a-zA-Z0-9]{1,})/i";
 include_once('php/user.php');
 include_once('php/post.php');
+include_once('php/database.php');
 if(preg_match($postPattern,$txt)){
     if(validate_user()==false){
-        header('Location: /');
-        exit();
+        
     }
     if(validate_post()==false){
         return;
@@ -18,21 +18,22 @@ if(preg_match($postPattern,$txt)){
     return;
 }
 else if(preg_match($userPattern,$txt)){
-    if(validate_user(preg_filter($userPattern,'$(0)',$txt))==false){
-        header('Location: /');
+        $f_txt=substr($txt,2);
+        if(validate_username($f_txt)==true){
+            include_once('php/profile.php');
+            exit();
+        }
+        header('Location: /');;
         exit();
-    }
-    include_once('php/profile.php');
-    return;
 }else{
 
 }
 
 $action=$_SERVER['REQUEST_URI'];
 switch($action){
-    case'/test':
-        include_once('php/addimage.php');
-        break;
+    // case'/test':
+    //     include_once('php/addimage.php');
+    //     break;
     case '/':
         include_once('php/homePage.php');
         break;
@@ -45,8 +46,11 @@ switch($action){
     case '/category':
         include_once('php/categoryPage.php');
         break;
-    case '/full_post':
-        include_once('php/fullPagePost.php');
+    case '/settings':
+        include_once('p');
+        break;
+    case '/editProfile':
+        include_once('php/editPage.php');
         break;
     default:
         include_once('php/homePage.php');

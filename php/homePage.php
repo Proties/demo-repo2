@@ -22,16 +22,39 @@ switch($action){
        
         $listOfPosts = chrono();
         $data;
+        $a=array();
+        $b=array();
+        $c=array();
+        if(count($listOfPosts)==0){
+            echo json_encode(array('status'=>'ok','message'=>'no post yet'));
+             return;
+         }
         for ($i=0;$i<count($listOfPosts);$i++) {
             $post = new Post();
             $post->set_img($listOfPosts[$i][4]);
             $post->set_postID($listOfPosts[$i][0]);
-            $post->set_title();
-            $post->set_description();
-            $post->set_postLink();
+        
+            $a[]=array(
+                'id'=>$post->get_postID(),
+                'image'=>base64_encode($post->get_img()),
+                'authorName'=>$post->get_authorName(),
+                'description'=>$post->get_description()
+            );
+           
             
-            $data[]=array('id'=>$post->get_postID(),'image'=>base64_encode($post->get_img()));
+            $b[]=array(
+                'userLink' => null
+            );
+            $c[]=array(
+                'userName' => 'hottie',
+                'userImg' => '',
+                'userLink' => null
+            );
+
         }
+        $data['posts']=$a;
+        $data['users']=$b;
+        $data['topUsers']=$c;
         // header('Content-type: image/jpeg');
         echo json_encode($data);
         break;
@@ -39,34 +62,18 @@ switch($action){
         $info=array();
         $listOfPosts=chrono();
         $listOfUsers=topUsers();
-        if(count($listOfPosts)==0){
-           echo json_encode(array('status'=>'ok','message'=>'no post yet'));
-            return;
-        }
+        
         for($i=0;$i<count($listOfPosts);$i++){
         $post=new Post();
         $Tuser=new Users();
+        $post->set_title();
+        $post->set_description();
+        $post->set_postLink();
         $Tuser->initialise($listOfUsers[$i]);
         $post->initialise($listOfPosts[$i]);
  
-        $data = array(
-            'posts' => array(
-                'authorName' => 0,
-                'description' => 'really hot go',
-                'title' => 'hot'
-            ),
-            'user' => array(
-                'userLink' => null
-            ),
-            'topUsers' => array(
-                'userName' => 'hottie',
-                'userImg' => '',
-                'userLink' => null
-            )
-        );
-        array_push($info,$data);
+       
         }
-        echo json_encode($info);
         
         break;
     case 'search':
@@ -74,6 +81,7 @@ switch($action){
         $usernames=get_usernames();
         $pattern='//i';
         $data['searchResults']=$usernames;
+        echo json_encode($data);
         break;
     case 'comment':
         $text=$_POST['text'];
@@ -89,6 +97,21 @@ switch($action){
         $post->set_postID($postID);
         $post->write_like();
         break;
+    case 'view_more_comments':
+        $data;
+        $post->set_id($_POST['postID']);
+        for($c=0;$c<count($post->get_comments());$c++){
+            $comment=new Comment();
+            $comment->set_id($post->get_comments()['id']);
+            $comment->read_comment();
+            $ele=array(
+            "username"=>post->get_authorName(),
+            "comment"=>$comment->get_comment()
+            );
+            array_push($ele,$data);
+        }
+        echo json_encode($data);
+        break; 
     case 'view_more_posts':
         $more=chrono();
         for($i=0;$i<5;$i++){
@@ -104,7 +127,7 @@ switch($action){
             );
             array_push($data,$x);
         }
-        
+        echo json_encode($data);
         break;
 }
 ?>
