@@ -47,7 +47,7 @@ header {
     align-items: center;
 }
 
-.push-button {
+.push-button, .upload-button {
     margin-right: 20px;
     padding: 5px 10px;
     background-color: #000000;
