@@ -228,6 +228,8 @@ nav .profile-link{
 .like-button:hover, .comment-button:hover {
     background-color: #f0f0f0;
 }
+<<<<<<< HEAD:Htmls/Homepage.css
+=======
 
 .modal {
     display: none;
@@ -267,3 +269,4 @@ nav .profile-link{
 .full-post {
     display: none;
 }
+>>>>>>> test:Htmls/Cssfiles/Homepage.css
