@@ -32,7 +32,7 @@
           </button>
         </div>
         <div class="nav-right">
-          <a href="/profile" class="profile-link">
+          <a href="Personalprofile.html" class="profile-link">
             <img src="Image/Test Account.png" alt="profile-link"
           /></a>
         </div>
@@ -42,7 +42,7 @@
     <main>
       <section class="top-container">
         <div class="category-tags">
-          <button class="scroll-left">&lt;</button>
+          <button class="scroll-button" id="scroll-left">&lt;</button>
           <div class="tags-wrapper">
             <div class="tag" onclick="fillSearchBar('Web Design')">
               <img src="Image/web design.png" alt="Web Design" />
@@ -109,66 +109,93 @@
               <span>Animation</span>
             </div>
           </div>
-          <button class="scroll-right">&gt;</button>
+          <button class="scroll-button" id="scroll-right">&gt;</button>
         </div>
       </section>
 
       <section class="post-section">
         <div class="postfeed-wrapper">
-          <div class="post" onclick="openModal('Post Image 1')">
-            <img class="post-image" src="Image/Art.png" alt="Post Image 1" />
+          <div class="post-container">
+            <div class="post">
+              <div class="top-post" onclick="openModal('Post Image 1')">
+                <img
+                  src="Image/Animation.png.jpg"
+                  alt="Post Image 1"
+                  class="post-image"
+                />
+              </div>
+              <div class="bottom-post" onclick="openModal('Post Image 2')">
+                <img
+                  src="Image/Comic.png.png"
+                  alt="Post Image 1"
+                  class="post-image"
+                />
+              </div>
+            </div>
             <div class="post-actions">
+              <div class="profile-button">
+                <img src="Image/Test Account.png" alt="Profile Icon" />
+              </div>
               <button class="like-button">
                 <img src="Image/Heart.png" alt="like-button" />
               </button>
               <button class="comment-button">
                 <img src="Image/Speech Bubble.png" alt="comment-button" />
               </button>
-            </div>
-            <div class="post-info">
-              <h3>Artist Name</h3>
-              <p>Description of the post or video.</p>
             </div>
           </div>
 
-          <div class="post" onclick="openModal('Post Image 2')">
-            <img class="post-image" src="Image/UI.png" alt="Post Image 2" />
+          <div class="post-container">
+            <div class="post">
+              <div class="top-post" onclick="openModal('Post Image 3')">
+                <img
+                  src="Image/Animation.png.jpg"
+                  alt="Post Image 1"
+                  class="post-image"
+                />
+              </div>
+              <div class="bottom-post" onclick="openModal('Post Image 4')">
+                <img
+                  src="Image/Comic.png.png"
+                  alt="Post Image 1"
+                  class="post-image"
+                />
+              </div>
+            </div>
             <div class="post-actions">
+              <div class="profile-button">
+                <img src="Image/Test Account.png" alt="Profile Icon" />
+              </div>
               <button class="like-button">
                 <img src="Image/Heart.png" alt="like-button" />
               </button>
               <button class="comment-button">
                 <img src="Image/Speech Bubble.png" alt="comment-button" />
               </button>
-            </div>
-            <div class="post-info">
-              <h3>Artist Name</h3>
-              <p>Description of the post or video.</p>
-            </div>
-          </div>
-          <div class="post" onclick="openModal('Post Image 3')">
-            <img class="post-image" src="Image/ux.png" alt="Post Image 3" />
-            <div class="post-actions">
-              <button class="like-button">
-                <img src="Image/Heart.png" alt="like-button" />
-              </button>
-              <button class="comment-button">
-                <img src="Image/Speech Bubble.png" alt="comment-button" />
-              </button>
-            </div>
-            <div class="post-info">
-              <h3>Artist Name</h3>
-              <p>Description of the post or video.</p>
             </div>
           </div>
 
-          <div class="post" onclick="openModal('Post Image 4')">
-            <img
-              class="post-image"
-              src="Image/web design.png"
-              alt="Post Image 4"
-            />
+          <div class="post-container">
+            <div class="post">
+              <div class="top-post" onclick="openModal('Post Image 5')">
+                <img
+                  src="Image/Animation.png.jpg"
+                  alt="Post Image 1"
+                  class="post-image"
+                />
+              </div>
+              <div class="bottom-post" onclick="openModal('Post Image 6')">
+                <img
+                  src="Image/Comic.png.png"
+                  alt="Post Image 1"
+                  class="post-image"
+                />
+              </div>
+            </div>
             <div class="post-actions">
+              <div class="profile-button">
+                <img src="Image/Test Account.png" alt="Profile Icon" />
+              </div>
               <button class="like-button">
                 <img src="Image/Heart.png" alt="like-button" />
               </button>
@@ -176,9 +203,35 @@
                 <img src="Image/Speech Bubble.png" alt="comment-button" />
               </button>
             </div>
-            <div class="post-info">
-              <h3>Artist Name</h3>
-              <p>Description of the post or video.</p>
+          </div>
+
+          <div class="post-container">
+            <div class="post">
+              <div class="top-post" onclick="openModal('Post Image 7')">
+                <img
+                  src="Image/Animation.png.jpg"
+                  alt="Post Image 1"
+                  class="post-image"
+                />
+              </div>
+              <div class="bottom-post" onclick="openModal('Post Image 8')">
+                <img
+                  src="Image/Comic.png.png"
+                  alt="Post Image 1"
+                  class="post-image"
+                />
+              </div>
+            </div>
+            <div class="post-actions">
+              <div class="profile-button">
+                <img src="Image/Test Account.png" alt="Profile Icon" />
+              </div>
+              <button class="like-button">
+                <img src="Image/Heart.png" alt="like-button" />
+              </button>
+              <button class="comment-button">
+                <img src="Image/Speech Bubble.png" alt="comment-button" />
+              </button>
             </div>
           </div>
         </div>
