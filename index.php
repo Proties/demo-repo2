@@ -1,6 +1,7 @@
 <?php
+
 require_once 'vendor/autoload.php';
-session_start();
+
 $txt=$_SERVER['REQUEST_URI'];
 
 $user=new Users();

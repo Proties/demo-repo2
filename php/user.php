@@ -13,6 +13,7 @@ class Users{
     private $time;
     private $userProfileLink;
     private $status;
+    private $id;
     private $errorMessages=array();
     private $errorMessage;
 
@@ -25,6 +26,7 @@ class Users{
     $this->password='';
     $this->email='';
     $this->phone='';
+    $this->id=0;
     }
 
     public function initialise($arr){
@@ -32,6 +34,9 @@ class Users{
     }
     public function set_name($nm){
         $this->name=$nm;
+    }
+    public function set_id($nm){
+        $this->id=$nm;
     }
     public function set_username($nm){
         $this->username=$nm;
@@ -76,7 +81,9 @@ class Users{
     public function get_posts(){
         return $this->post;
     }
-
+    public function get_id(){
+        return $this->id;
+    }
     public function get_status(){
         return $this->status;
     }
@@ -114,7 +121,7 @@ class Users{
 
         
         $this->set_status($statement->execute());
-        $this->set_id($db->lastinsertid);
+        $this->set_id($db->lastInsertId());
         }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();
         }

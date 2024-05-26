@@ -34,20 +34,7 @@ class Database{
 }
 
 
-function get_categories(){
-    try{
-        $database=new Database();
-        $db=$database->get_connection();
-        $query="
-                SELECT categoryName FROM category
-            ";
-        $stmt=$db->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchall();
-    }catch(PDOExecption $err){
-        echo 'Database error '.$err->getMessage();
-    }
-}
+
 
 
 

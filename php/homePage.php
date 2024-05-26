@@ -1,4 +1,5 @@
 <?php
+session_start();
 if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('Htmls/Homepage.html');
     return;
@@ -26,61 +27,35 @@ switch($action){
         echo json_encode($data);
         break;
     case 'initialise_image':
-       
-        $listOfPosts = Ranking::chrono();
-        $data;
-        $a=array();
-        $b=array();
-        $c=array();
-        if(count($listOfPosts)==0){
-            echo json_encode(array('status'=>'ok','message'=>'no post yet'));
-             return;
-         }
-        for ($i=0;$i<count($listOfPosts);$i++) {
-            $post = new Post();
-            
-
-            $post->set_img($listOfPosts[$i][4]);
-            $post->set_postID($listOfPosts[$i][0]);
+        $data=array();
+        for($x=0;$x<count(Ranking::chrono());$x++){
+            $user=new User();
+            $primary_post=new Post();
+            $secondary_post=new Post();
         
-            $a[]=array(
-                'id'=>$post->get_postID(),
-                'image'=>base64_encode($post->get_img()),
-                'authorName'=>$post->get_authorName(),
-                'description'=>$post->get_description()
-            );
-           
-            
-            $b[]=array(
-                'userLink' => null
-            );
-            $c[]=array(
-                'userName' => 'hottie',
-                'userImg' => '',
-                'userLink' => null
-            );
-
+                $data[]=array('user'=>array(
+                    'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
+                    'primary_post'=>array('img'=>$primary_post->base64_encode(get_img()),'title'=>$primary_post->get_title()),
+                    'secondary_post'=>array('img'=>$secondary_post->base64_encode(get_img()),'title'=>$secondary_post->get_title())
+                )
+                );
         }
-        $data['posts']=$a;
-        $data['users']=$b;
-        $data['topUsers']=$c;
         echo json_encode($data);
+      
         break;
-    case 'initialise_posts':
-        $info=array();
-        $listOfPosts=Ranking::chrono();
-        
-        for($i=0;$i<count($listOfPosts);$i++){
-        $post=new Post();
-        $Tuser=new Users();
-        $post->set_title();
-        $post->set_description();
-        $post->set_postLink();
-        $post->initialise($listOfPosts[$i]);
- 
-       
+    case 'select_category':
+        $category=new Category();
+        $category->set_categoryName($_POST['categoryName']);
+        $category->read_category();
+        $data=array();
+        for($i=0;$i<count($category->get_posts());$i++){
+            $data[]=array('user'=>array(
+                'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
+                'primary_post'=>array('img'=>$primary_post->base64_encode(get_img()),'title'=>$primary_post->get_title()),
+                'secondary_post'=>array('img'=>$secondary_post->base64_encode(get_img()),'title'=>$secondary_post->get_title())
+            )
         }
-        
+        echo json_encode($data);
         break;
     case 'search':
         $target=$_POST['q'];
@@ -121,17 +96,11 @@ switch($action){
     case 'view_more_posts':
         $more=chrono();
         for($i=0;$i<5;$i++){
-            $post=new Post();
-            $post->initialise($more[$i]);
-            array_push($post,$postsObjects);
-            $x=array(
-                'postID'=>$post->get_id(),
-                'image'=>$post->get_image(),
-                'username'=>$post->get_authorName(),
-                'description'=>$post->get_description(),
-                'title'=>$post->get_title()
-            );
-            array_push($data,$x);
+            $data[]=array('user'=>array(
+                'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
+                'primary_post'=>array('img'=>$primary_post->base64_encode(get_img()),'title'=>$primary_post->get_title()),
+                'secondary_post'=>array('img'=>$secondary_post->base64_encode(get_img()),'title'=>$secondary_post->get_title())
+            )
         }
         echo json_encode($data);
         break;

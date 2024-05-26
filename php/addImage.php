@@ -1,25 +1,10 @@
 <?php
+session_start();
 if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('front/addP.html');
     return;
 }
-include_once('php/database.php');
-include_once('php/post.php');
-include_once('php/categories.php');
-try{
-  $post=new Post();
-  if($post->validate_image($_POST['image'])==true){
-
-  }
-  if($post->validate_title($_POST['title'])==true){
-
-  }
-  if($post->validate_description($_POST['description'])==true){
-
-  }
-}catch(Execption $err){
-  echo $err->getMessage();
-}
+$p=new Post();
 $p->set_title($_POST['title']);
 $p->set_description($_POST['description']);
 $target_dir='userProfiles/';
@@ -70,6 +55,7 @@ if (file_exists($target_file)) {
     }
   }
 
-
+$p->set_authorID($_SESSION['userID']);
 $p->write_post();
+header('Location: /');
 ?>
