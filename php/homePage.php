@@ -29,7 +29,7 @@ switch($action){
     case 'initialise_image':
         $data=array();
         for($x=0;$x<count(Ranking::chrono());$x++){
-            $user=new User();
+            $user=new Users();
             $primary_post=new Post();
             $secondary_post=new Post();
         
@@ -53,7 +53,7 @@ switch($action){
                 'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
                 'primary_post'=>array('img'=>$primary_post->base64_encode(get_img()),'title'=>$primary_post->get_title()),
                 'secondary_post'=>array('img'=>$secondary_post->base64_encode(get_img()),'title'=>$secondary_post->get_title())
-            )
+            ));
         }
         echo json_encode($data);
         break;
@@ -100,7 +100,7 @@ switch($action){
                 'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
                 'primary_post'=>array('img'=>$primary_post->base64_encode(get_img()),'title'=>$primary_post->get_title()),
                 'secondary_post'=>array('img'=>$secondary_post->base64_encode(get_img()),'title'=>$secondary_post->get_title())
-            )
+            ));
         }
         echo json_encode($data);
         break;
