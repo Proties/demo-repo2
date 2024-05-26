@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ArtistHub Home</title>
+
+    <link rel="stylesheet" type="text/css" href="Cssfiles/Homepage.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="nav-left">
+          <div class="hamburger-menu">
+            <div class="dropdown">
+              <a href="/settings">
+                <img src="Image/Settings.png" alt="Settings" />
+              </a>
+              <a href="/category">
+                <img src="Image/Categorize.png" alt="Categories" />
+              </a>
+              <a href="/Registration">
+                <img src="Image/Registration.png" alt="Registration" />
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-center">
+          <input type="text" placeholder="Search" id="search" />
+          <button class="search-button" id="searchBtn">
+            <img src="Image/Search.png" alt="Search" />
+          </button>
+        </div>
+        <div class="nav-right">
+          <a href="/profile" class="profile-link">
+            <img src="Image/Test Account.png" alt="profile-link"
+          /></a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="top-container">
+        <div class="category-tags">
+          <button class="scroll-left">&lt;</button>
+          <div class="tags-wrapper">
+            <div class="tag" onclick="fillSearchBar('Web Design')">
+              <img src="Image/web design.png" alt="Web Design" />
+              <span>Web Design</span>
+            </div>
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="Image/Animation.png.jpg" alt="Animation" />
+              <span>Animation</span>
+            </div>
+            <div class="tag" onclick="fillSearchBar('Comic Art')">
+              <img src="Image/Comic.png.png" alt="Comic Art" />
+              <span>Comic Art</span>
+            </div>
+            <div class="tag" onclick="fillSearchBar('UI/UX Design')">
+              <img src="Image/ux.png" alt="UI/UX Design" />
+              <span>UI/UX Design</span>
+            </div>
+            <div class="tag" onclick="fillSearchBar('Photography')">
+              <img src="Image/Photography.png" alt="Photography" />
+              <span>Photography</span>
+            </div>
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="Image/Animation.png.jpg" alt="Animation" />
+              <span>Animation</span>
+            </div>
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="Image/Animation.png.jpg" alt="Animation" />
+              <span>Animation</span>
+            </div>
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="Image/Animation.png.jpg" alt="Animation" />
+              <span>Animation</span>
+            </div>
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="Image/Animation.png.jpg" alt="Animation" />
+              <span>Animation</span>
+            </div>
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="Image/Animation.png.jpg" alt="Animation" />
+              <span>Animation</span>
+            </div>
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="Image/Animation.png.jpg" alt="Animation" />
+              <span>Animation</span>
+            </div>
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="Image/Animation.png.jpg" alt="Animation" />
+              <span>Animation</span>
+            </div>
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="Image/Animation.png.jpg" alt="Animation" />
+              <span>Animation</span>
+            </div>
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="Image/Animation.png.jpg" alt="Animation" />
+              <span>Animation</span>
+            </div>
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="Image/Animation.png.jpg" alt="Animation" />
+              <span>Animation</span>
+            </div>
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="Image/Animation.png.jpg" alt="Animation" />
+              <span>Animation</span>
+            </div>
+          </div>
+          <button class="scroll-right">&gt;</button>
+        </div>
+      </section>
+
+      <section class="post-section">
+        <div class="postfeed-wrapper">
+          <div class="post" onclick="openModal('Post Image 1')">
+            <img class="post-image" src="Image/Art.png" alt="Post Image 1" />
+            <div class="post-actions">
+              <button class="like-button">
+                <img src="Image/Heart.png" alt="like-button" />
+              </button>
+              <button class="comment-button">
+                <img src="Image/Speech Bubble.png" alt="comment-button" />
+              </button>
+            </div>
+            <div class="post-info">
+              <h3>Artist Name</h3>
+              <p>Description of the post or video.</p>
+            </div>
+          </div>
+
+          <div class="post" onclick="openModal('Post Image 2')">
+            <img class="post-image" src="Image/UI.png" alt="Post Image 2" />
+            <div class="post-actions">
+              <button class="like-button">
+                <img src="Image/Heart.png" alt="like-button" />
+              </button>
+              <button class="comment-button">
+                <img src="Image/Speech Bubble.png" alt="comment-button" />
+              </button>
+            </div>
+            <div class="post-info">
+              <h3>Artist Name</h3>
+              <p>Description of the post or video.</p>
+            </div>
+          </div>
+          <div class="post" onclick="openModal('Post Image 3')">
+            <img class="post-image" src="Image/ux.png" alt="Post Image 3" />
+            <div class="post-actions">
+              <button class="like-button">
+                <img src="Image/Heart.png" alt="like-button" />
+              </button>
+              <button class="comment-button">
+                <img src="Image/Speech Bubble.png" alt="comment-button" />
+              </button>
+            </div>
+            <div class="post-info">
+              <h3>Artist Name</h3>
+              <p>Description of the post or video.</p>
+            </div>
+          </div>
+
+          <div class="post" onclick="openModal('Post Image 4')">
+            <img
+              class="post-image"
+              src="Image/web design.png"
+              alt="Post Image 4"
+            />
+            <div class="post-actions">
+              <button class="like-button">
+                <img src="Image/Heart.png" alt="like-button" />
+              </button>
+              <button class="comment-button">
+                <img src="Image/Speech Bubble.png" alt="comment-button" />
+              </button>
+            </div>
+            <div class="post-info">
+              <h3>Artist Name</h3>
+              <p>Description of the post or video.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Modal Window -->
+      <div id="postModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <div id="post1" class="full-post">
+            <img src="Image/Art.png" alt="Post 1" />
+            <p>Full post content for Post 1...</p>
+          </div>
+          <div id="post2" class="full-post">
+            <img src="Image/Animation.png.jpg" alt="Post 2" />
+            <p>Full post content for Post 2...</p>
+          </div>
+          <!-- Additional full posts -->
+        </div>
+      </div>
+    </main>
+    <script src="../js/home.js"></script>
+  </body>
+</html>

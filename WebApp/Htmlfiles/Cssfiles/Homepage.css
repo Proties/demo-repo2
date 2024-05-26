@@ -124,30 +124,39 @@ nav .profile-link{
     border-color: #3ea6ff;
 }
 
+.top-container {
+    padding: 20px;
+    background-color: #ffffff;
+    background-color: #ffffff;
 
-.pop-user-section {
-    padding: 30px;
-    background-color: #ffffff;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
 }
 
-.pop-user-wrapper {
+.bottom-container {
+    padding: 20px;
+    background-color: #ffffff;
+    background-color: #ffffff;
+
+}
+
+.category-tags {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.tags-wrapper {
     display: flex;
     justify-content: center;
     overflow-x: auto;
     scrollbar-width: none; /* For Firefox */
     -ms-overflow-style: none;  /* For Internet Explorer and Edge */
-    width: 100%;
 }
 
-.pop-user-wrapper::-webkit-scrollbar {
+.tags-wrapper::-webkit-scrollbar {
     display: none; /* For Chrome, Safari, and Opera */
 }
 
-.pop-user-profile {
+.tag {
     flex: 0 0 auto;
     text-align: center;
     margin-right: 10px;
@@ -155,26 +164,58 @@ nav .profile-link{
     position: relative;
 }
 
-.pop-user-profile img {
+.tag img {
     display: block;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 2px solid #ccc;
+    width: 150px; /* Increased size */
+    height: 150px; /* Increased size */
+    border-radius: 8px;
     transition: transform 0.3s ease-in-out;
 }
 
-.pop-user-profile span {
-    display: block;
-    margin-top: 5px;
-    font-size: 12px;
+.tag span {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
 }
 
-.pop-user-profile:hover img {
+.tag:hover img {
     transform: scale(1.1);
-    border-color: #333;
+    opacity: 0.3;
 }
 
+.tag:hover span {
+    display: block;
+}
+
+.tags-wrappers {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+}
+
+.tags-wrappers::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+.scroll-left, .scroll-right {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.scroll-lefter, .scroll-righter {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
 
 .post-section {
     padding: 30px;
@@ -228,45 +269,3 @@ nav .profile-link{
 .like-button:hover, .comment-button:hover {
     background-color: #f0f0f0;
 }
-<<<<<<< HEAD:Htmls/Homepage.css
-=======
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.full-post {
-    display: none;
-}
->>>>>>> test:Htmls/Cssfiles/Homepage.css
