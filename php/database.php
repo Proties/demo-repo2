@@ -97,7 +97,7 @@ function validate_username($name){
         return false;
     }
 }
-function validate_post($id){
+function validate_postID($id){
     try{
         $database=new Database();
         $db=$database->get_connection();
@@ -109,6 +109,24 @@ function validate_post($id){
         $db->bindValue(':id',$id);
         $result=$db->execute();
         return $result;
+    }catch(PDOExecption $err){
+        echo $err->getMessage();
+        return false;
+    }
+
+}
+function validate_postLink($link){
+    try{
+        $database=new Database();
+        $db=$database->get_connection();
+        $query="
+                SELECT postLink FROM post
+                WHERE postLink=:link;
+        ";
+        $stmt=$db->prepare($query);
+        $stmt->bindValue(':link',$link);
+        $stmt->execute();
+        return $stmt->fetch();
     }catch(PDOExecption $err){
         echo $err->getMessage();
         return false;

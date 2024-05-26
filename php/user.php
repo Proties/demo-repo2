@@ -14,6 +14,8 @@ class Users{
     private $time;
     private $userProfileLink;
     private $status;
+    private $errorMessages=array();
+    private $errorMessage;
 
     public function __construct(){
     $this->name='';
@@ -90,6 +92,12 @@ class Users{
     public function get_profileLink(){
         return $this->userProfileLink;
     }
+    public function get_errorMessage(){
+        return $this->errorMessage;
+    }
+    public function get_errorMessages(){
+        return $this->errorMessages;
+    }
     public function write_user(){
         $database=new Database();
         $db=$database->get_connection();
@@ -148,9 +156,38 @@ class Users{
 }
 
 trait validateUser{
-    function validate_username(){}
-    function validate_name(){}
-    function validate_email(){}
-    function validate_phone(){}
+    function validate_username($txt){
+        $pattern="/\/@[a-zA-Z]{1,13}/i";
+        if(preg_match($pattern,$txt)){
+            return true;
+        }
+        $msg='not valid username';
+        return $msg;
+        
+    }
+    function validate_name($txt){
+        $pattern='//i';
+        if(preg_match($pattern,$txt)){
+            return true;
+        }
+        $msg='not valid name';
+        return $msg;
+    }
+    function validate_email($txt){
+        $pattern='//i';
+        if(preg_match($pattern,$txt)){
+            return true;
+        }
+        $msg='not valid email';
+        return $msg;
+    }
+    function validate_phone($txt){
+        $pattern='//i';
+        if(preg_match($pattern,$txt)){
+            return true;
+        }
+        $msg='not valid phone';
+        return $msg;
+    }
 }
 ?>

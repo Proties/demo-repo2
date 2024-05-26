@@ -18,6 +18,19 @@ if(isset($_SESSION['userid'])){
 
 $action=$_POST['action'];
 switch($action){
+    case 'initialise_post_preview':
+        $post=new Post();
+        $post->set_postLink($_SERVER['REQUEST_URI']);
+        $post->read_postID();
+        $post->read_post();
+        $data=array(
+        'authorName'=>$post->get_authorName(),
+        'img'=>$post->get_img(),
+        'comments'=>$post->get_comments(),
+        'postID'=>$post->get_id()
+        );
+        echo json_encode($data);
+        break;
     case 'initialise_image':
        
         $listOfPosts = chrono();
@@ -31,6 +44,8 @@ switch($action){
          }
         for ($i=0;$i<count($listOfPosts);$i++) {
             $post = new Post();
+            
+
             $post->set_img($listOfPosts[$i][4]);
             $post->set_postID($listOfPosts[$i][0]);
         
