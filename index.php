@@ -1,22 +1,20 @@
 <?php
+require_once 'vendor/autoload.php';
 session_start();
 $txt=$_SERVER['REQUEST_URI'];
 
-include_once('php/user.php');
-include_once('php/post.php');
-include_once('php/database.php');
 $user=new Users();
 $post=new Post();
 
 
 if($post->validate_postLink($txt)==true){
-    if(validate_postLink($_SERVER['REQUEST_URI'])==true){
+    if(Post::validate_postLink($_SERVER['REQUEST_URI'])==true){
         include_once('php/homePage.php');
         exit();
     }
     }
 elseif($user->validate_username($txt)==true){
-    if(validate_username($txt)==true){
+    if(Users::validate_username_in_database($txt)==true){
         include_once('php/profile.php');
         exit();
     }
@@ -53,11 +51,4 @@ switch($action){
         include_once('php/homePage.php');
         break;
 }
-
-// user page 
-// - addr/username
-// post page 
-// - addr/username/postid 
-// category page 
-// - addr/category#categoryname 
 ?>

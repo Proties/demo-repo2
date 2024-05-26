@@ -1,5 +1,4 @@
 <?php 
-include('php/database.php');
 class Users{
     use validateUser;
     private $name;
@@ -148,7 +147,41 @@ class Users{
             echo 'Database error '.$err->getMessage();
         }
     }
-
+    public static function get_usernames(){
+        try{
+            $database=new Database();
+            $db=$database->get_connection();
+            $query="
+                    SELECT username FROM Users
+            ";
+            $stmt=$db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchall();
+        }catch(PDOExeception $err){
+            echo $err->getMessage();
+        }
+    }
+    public static function validate_username_in_database($name){
+        try{
+            $database=new Database();
+            $db=$database->get_connection();
+            $query="
+                    SELECT username FROM Users
+                    WHERE username=:username;
+            ";
+            $stmt=$db->prepare($query);
+            $stmt->bindValue(':username',$name);
+            $stmt->execute();
+            $id=$stmt->fetch();
+            if($id==true){
+                return true;
+            }
+            return false;
+        }catch(PDOExecption $err){
+            echo 'Database error '.$err->getMessage();
+            return false;
+        }
+    }
     public function create_user_folder(){}
     public function create_user_profile_page(){}
     public function create_user_posts_folder(){}

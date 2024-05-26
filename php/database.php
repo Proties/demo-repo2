@@ -32,36 +32,8 @@ class Database{
         return $this->pdo;
     }
 }
-function topUsers(){
-    try{
-        $database=new Database();
-        $db=$database->get_connection();
-        $query="
-                SELECT username FROM Users
-                LIMIT 5;
-        ";
 
-        $stmt=$db->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchall();
-    }catch(PDOExecption $err){
-        echo 'Database error '.$err->getMessage();
-    }
-}
-function get_usernames(){
-    try{
-        $database=new Database();
-        $db=$database->get_connection();
-        $query="
-                SELECT username FROM Users
-        ";
-        $stmt=$db->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchall();
-    }catch(PDOExeception $err){
-        echo $err->getMessage();
-    }
-}
+
 function get_categories(){
     try{
         $database=new Database();
@@ -76,61 +48,7 @@ function get_categories(){
         echo 'Database error '.$err->getMessage();
     }
 }
-function validate_username($name){
-    try{
-        $database=new Database();
-        $db=$database->get_connection();
-        $query="
-                SELECT username FROM Users
-                WHERE username=:username;
-        ";
-        $stmt=$db->prepare($query);
-        $stmt->bindValue(':username',$name);
-        $stmt->execute();
-        $id=$stmt->fetch();
-        if($id==true){
-            return true;
-        }
-        return false;
-    }catch(PDOExecption $err){
-        echo 'Database error '.$err->getMessage();
-        return false;
-    }
-}
-function validate_postID($id){
-    try{
-        $database=new Database();
-        $db=$database->get_connection();
-        $query="
-                SELECT * FROM post
-                WHERE postId=:id;
-        ";
-        $db->prepare($query);
-        $db->bindValue(':id',$id);
-        $result=$db->execute();
-        return $result;
-    }catch(PDOExecption $err){
-        echo $err->getMessage();
-        return false;
-    }
 
-}
-function validate_postLink($link){
-    try{
-        $database=new Database();
-        $db=$database->get_connection();
-        $query="
-                SELECT postLink FROM post
-                WHERE postLink=:link;
-        ";
-        $stmt=$db->prepare($query);
-        $stmt->bindValue(':link',$link);
-        $stmt->execute();
-        return $stmt->fetch();
-    }catch(PDOExecption $err){
-        echo $err->getMessage();
-        return false;
-    }
 
-}
+
 ?>

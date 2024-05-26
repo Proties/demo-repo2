@@ -27,7 +27,7 @@ function initialise_image(){
         const img = document.getElementsByClassName('post-image');
         img[i].src = URL.createObjectURL(blob);
         // img[i].id=data[i]['id'];
-        set_username(data.topUsers[i].userName);
+        
        
     console.log(img[i]);
         }
@@ -85,19 +85,31 @@ function search_user(){
 // this function direct the user to a users profile when a user account is selected
 function openUserProfile(evt){
     let username=evt.target.parentNode;
-    let name=username.getElementsByClassName('topUserusername')[0].textContent;
+    let name=username.getElementsByClassName();
     console.log(name);
     window.location.href='@'+name;
 }
-// this function listens to all events that take place ont the site and handles them
+//this function sends the category name a user has selected and returns post that match that cateogry
+function select_category(evt){
+    try{
 
+    }catch(err){
+        console.log(err);
+    }
+}
+// this function listens to all events that take place ont the site and handles them
 function eventListeners(){
-    let topUserProfile=document.getElementsByClassName("pop-user-profile");
+    let userProfile=document.getElementsByClassName("");
     let search_input=document.getElementById("search");
+    let category=document.getElementsByClassName("");
+    let like_post=document.getElementsByClassName("");
+
     search_input.addEventListener("input",search_user);
-    for(let i=0;i<topUserProfile.length;i++){
-        
-        topUserProfile[i].addEventListener('click',openUserProfile);
+    for(let i=0;i<category.length;i++){
+        category[i].addEventListener('click',select_category);
+    }
+    for(let i=0;i<userProfile.length;i++){
+        userProfile[i].addEventListener('click',openUserProfile);
     }
     
     

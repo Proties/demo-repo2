@@ -1,5 +1,4 @@
 <?php
-include_once('php/database.php');
 class Post{
     use validatePost;
     private $description;
@@ -240,6 +239,42 @@ public function write_like(){
     }catch(PDOExecption $err){
         echo $err->getMessage();
     }
+}
+public static function validate_postLink($link){
+    try{
+        $database=new Database();
+        $db=$database->get_connection();
+        $query="
+                SELECT postLink FROM post
+                WHERE postLink=:link;
+        ";
+        $stmt=$db->prepare($query);
+        $stmt->bindValue(':link',$link);
+        $stmt->execute();
+        return $stmt->fetch();
+    }catch(PDOExecption $err){
+        echo $err->getMessage();
+        return false;
+    }
+
+}
+public static function validate_postID($id){
+    try{
+        $database=new Database();
+        $db=$database->get_connection();
+        $query="
+                SELECT * FROM post
+                WHERE postId=:id;
+        ";
+        $db->prepare($query);
+        $db->bindValue(':id',$id);
+        $result=$db->execute();
+        return $result;
+    }catch(PDOExecption $err){
+        echo $err->getMessage();
+        return false;
+    }
+
 }
     public function create_user_image_file(){}
 }

@@ -3,12 +3,6 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('Htmls/Homepage.html');
     return;
 }
-include_once('php/post.php');
-include_once('php/user.php');
-include_once('php/comment.php');
-include_once('php/database.php');
-include_once('php/rank.php');
-
 $user=new Users();
 if(isset($_SESSION['userid'])){
     $user->set_id($_SESSION['userid']);
@@ -33,7 +27,7 @@ switch($action){
         break;
     case 'initialise_image':
        
-        $listOfPosts = chrono();
+        $listOfPosts = Ranking::chrono();
         $data;
         $a=array();
         $b=array();
@@ -70,13 +64,11 @@ switch($action){
         $data['posts']=$a;
         $data['users']=$b;
         $data['topUsers']=$c;
-        // header('Content-type: image/jpeg');
         echo json_encode($data);
         break;
     case 'initialise_posts':
         $info=array();
-        $listOfPosts=chrono();
-        $listOfUsers=topUsers();
+        $listOfPosts=Ranking::chrono();
         
         for($i=0;$i<count($listOfPosts);$i++){
         $post=new Post();
@@ -84,7 +76,6 @@ switch($action){
         $post->set_title();
         $post->set_description();
         $post->set_postLink();
-        $Tuser->initialise($listOfUsers[$i]);
         $post->initialise($listOfPosts[$i]);
  
        

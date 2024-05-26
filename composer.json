@@ -1,0 +1,11 @@
+{
+   
+    "require":{
+        "php":"8.1.11"
+    },
+    "autoload": {
+    
+       "classmap": ["php/","index.php","php/database.php"],
+       "files": ["index.php"]
+    }
+}
