@@ -28,15 +28,25 @@ switch($action){
         break;
     case 'initialise_image':
         $data=array();
-        for($x=0;$x<count(Ranking::chrono());$x++){
+        $info=Ranking::chrono();
+        print_r($info);
+        return ;
+        for($x=0;$x<count($info);$x++){
             $user=new Users();
+            
             $primary_post=new Post();
             $secondary_post=new Post();
+
+            $user->set_username($info[$x]['username']);
+            $primary_post->set_img($info[$x]['picture']);
+            $primary_post->set_title($info[$x]['postTitle']);
+            $secondary_post->set_img($info[$x]['picture']);
+            $secondary_post->set_title($info[$x]['postTitle']);
         
                 $data[]=array('user'=>array(
                     'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
-                    'primary_post'=>array('img'=>$primary_post->base64_encode(get_img()),'title'=>$primary_post->get_title()),
-                    'secondary_post'=>array('img'=>$secondary_post->base64_encode(get_img()),'title'=>$secondary_post->get_title())
+                    'primary_post'=>array('img'=>base64_encode($primary_post->get_img()),'title'=>$primary_post->get_title()),
+                    'secondary_post'=>array('img'=>base64_encode($secondary_post->get_img()),'title'=>$secondary_post->get_title())
                 )
                 );
         }
