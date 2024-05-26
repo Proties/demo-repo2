@@ -1,14 +1,10 @@
 <?php
+session_start();
 if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('front/addP.html');
     return;
 }
-include_once('php/database.php');
-include_once('php/post.php');
-include_once('php/categories.php');
-$category=new Category();
 $p=new Post();
-$category->set_name($_POST['categoryName']);
 $p->set_title($_POST['title']);
 $p->set_description($_POST['description']);
 $target_dir='userProfiles/';
@@ -59,6 +55,7 @@ if (file_exists($target_file)) {
     }
   }
 
-
+$p->set_authorID($_SESSION['userID']);
 $p->write_post();
+header('Location: /');
 ?>

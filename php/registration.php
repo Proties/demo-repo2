@@ -1,4 +1,5 @@
 <?php
+session_start();
 if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('account.html');
     return;

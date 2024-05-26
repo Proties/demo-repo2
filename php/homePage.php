@@ -1,14 +1,9 @@
 <?php
+session_start();
 if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('Htmls/Homepage.html');
     return;
 }
-include_once('php/post.php');
-include_once('php/user.php');
-include_once('php/comment.php');
-include_once('php/database.php');
-include_once('php/rank.php');
-
 $user=new Users();
 if(isset($_SESSION['userid'])){
     $user->set_id($_SESSION['userid']);
@@ -18,63 +13,49 @@ if(isset($_SESSION['userid'])){
 
 $action=$_POST['action'];
 switch($action){
-    case 'initialise_image':
-       
-        $listOfPosts = chrono();
-        $data;
-        $a=array();
-        $b=array();
-        $c=array();
-        if(count($listOfPosts)==0){
-            echo json_encode(array('status'=>'ok','message'=>'no post yet'));
-             return;
-         }
-        for ($i=0;$i<count($listOfPosts);$i++) {
-            $post = new Post();
-            $post->set_img($listOfPosts[$i][4]);
-            $post->set_postID($listOfPosts[$i][0]);
-        
-            $a[]=array(
-                'id'=>$post->get_postID(),
-                'image'=>base64_encode($post->get_img()),
-                'authorName'=>$post->get_authorName(),
-                'description'=>$post->get_description()
-            );
-           
-            
-            $b[]=array(
-                'userLink' => null
-            );
-            $c[]=array(
-                'userName' => 'hottie',
-                'userImg' => '',
-                'userLink' => null
-            );
-
-        }
-        $data['posts']=$a;
-        $data['users']=$b;
-        $data['topUsers']=$c;
-        // header('Content-type: image/jpeg');
+    case 'initialise_post_preview':
+        $post=new Post();
+        $post->set_postLink($_SERVER['REQUEST_URI']);
+        $post->read_postID();
+        $post->read_post();
+        $data=array(
+        'authorName'=>$post->get_authorName(),
+        'img'=>$post->get_img(),
+        'comments'=>$post->get_comments(),
+        'postID'=>$post->get_id()
+        );
         echo json_encode($data);
         break;
-    case 'initialise_posts':
-        $info=array();
-        $listOfPosts=chrono();
-        $listOfUsers=topUsers();
+    case 'initialise_image':
+        $data=array();
+        for($x=0;$x<count(Ranking::chrono());$x++){
+            $user=new Users();
+            $primary_post=new Post();
+            $secondary_post=new Post();
         
-        for($i=0;$i<count($listOfPosts);$i++){
-        $post=new Post();
-        $Tuser=new Users();
-        $post->set_title();
-        $post->set_description();
-        $post->set_postLink();
-        $Tuser->initialise($listOfUsers[$i]);
-        $post->initialise($listOfPosts[$i]);
- 
-       
+                $data[]=array('user'=>array(
+                    'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
+                    'primary_post'=>array('img'=>$primary_post->base64_encode(get_img()),'title'=>$primary_post->get_title()),
+                    'secondary_post'=>array('img'=>$secondary_post->base64_encode(get_img()),'title'=>$secondary_post->get_title())
+                )
+                );
         }
-        
+        echo json_encode($data);
+      
+        break;
+    case 'select_category':
+        $category=new Category();
+        $category->set_categoryName($_POST['categoryName']);
+        $category->read_category();
+        $data=array();
+        for($i=0;$i<count($category->get_posts());$i++){
+            $data[]=array('user'=>array(
+                'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
+                'primary_post'=>array('img'=>$primary_post->base64_encode(get_img()),'title'=>$primary_post->get_title()),
+                'secondary_post'=>array('img'=>$secondary_post->base64_encode(get_img()),'title'=>$secondary_post->get_title())
+            ));
+        }
+        echo json_encode($data);
         break;
     case 'search':
         $target=$_POST['q'];
@@ -115,17 +96,11 @@ switch($action){
     case 'view_more_posts':
         $more=chrono();
         for($i=0;$i<5;$i++){
-            $post=new Post();
-            $post->initialise($more[$i]);
-            array_push($post,$postsObjects);
-            $x=array(
-                'postID'=>$post->get_id(),
-                'image'=>$post->get_image(),
-                'username'=>$post->get_authorName(),
-                'description'=>$post->get_description(),
-                'title'=>$post->get_title()
-            );
-            array_push($data,$x);
+            $data[]=array('user'=>array(
+                'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
+                'primary_post'=>array('img'=>$primary_post->base64_encode(get_img()),'title'=>$primary_post->get_title()),
+                'secondary_post'=>array('img'=>$secondary_post->base64_encode(get_img()),'title'=>$secondary_post->get_title())
+            ));
         }
         echo json_encode($data);
         break;

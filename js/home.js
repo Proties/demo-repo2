@@ -1,4 +1,5 @@
 "strict"
+// this function get post data like images,athtorname form the server
 function initialise_image(){
     try{
         let xml = new XMLHttpRequest();
@@ -11,7 +12,7 @@ function initialise_image(){
         for(let i=0;i<data.posts.length;i++){
     
         const base64Image = data.posts[i].image; // your Base64-encoded image string
-        console.log(data.posts[i].image);
+
         const binaryString = atob(base64Image);
         const arrayBuffer = new ArrayBuffer(binaryString.length);
         const uint8Array = new Uint8Array(arrayBuffer);
@@ -26,7 +27,7 @@ function initialise_image(){
         const img = document.getElementsByClassName('post-image');
         img[i].src = URL.createObjectURL(blob);
         // img[i].id=data[i]['id'];
-        set_username(data.topUsers[i].userName);
+        
        
     console.log(img[i]);
         }
@@ -36,46 +37,32 @@ xml.send('action=initialise_image');
         console.log(err);
     }
 }
-function set_username(user){
-let username=document.getElementsByClassName('topUserusername');
-for(let x=0;x<username.length;x++){
-    username[x].innerHTML=user;
-}
-}
-function comment_on_post(evt){
+// this function checks the url to see if a post has been selected if so it will get data from the serve
+function open_postPreview(){
+    let url=window.location.href;
+    const pattern=/(\/@[a-zA-Z]{3,17})(\/[a-zA-Z0-9]){5,20}/;
+    console.log(url);
+    if(pattern.test(url)){
     try{
         let xm=new XMLHttpRequest();
         xm.open('POST','/');
+        xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xm.onload=function(){
+            let data=JSON.parse(this.responseText);
 
+            console.log(data);
+            console.log('hahaha');
         }
-        xm.send("action=comment&text="+txt);
+        xm.send('action=initialise_post_preview');
     }catch(err){
         console.log(err);
     }
 }
-function like_on_post(evt){
-    console.log('liked');
-    try{
-        let ele=evt.target;
-        let parent=ele.parentNode;
-        let gran=parent.parentNode;
-        console.log(gran.parentNode.id);
-        id=6;
+return false;
 
-        let xml=new XMLHttpRequest();
-        xml.open('POST','/');
-        xml.onload=function(){
-            console.log(this.responseText);
-        }
-        xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xml.send('action=like&postID='+id);
-        
-    }catch(err){
-        console.log(err);
-    }
 }
-
+// this function get called when user entres text on the search box it then takes the text to the serve
+// and preforms a search of matchin words on the database of usernames
 function search_user(){
     let text=document.getElementById("search").value;
     try{
@@ -95,30 +82,39 @@ function search_user(){
         console.log(err);
     }
 }
+// this function direct the user to a users profile when a user account is selected
 function openUserProfile(evt){
     let username=evt.target.parentNode;
-    let name=username.getElementsByClassName('topUserusername')[0].textContent;
+    let name=username.getElementsByClassName();
     console.log(name);
     window.location.href='@'+name;
 }
+//this function sends the category name a user has selected and returns post that match that cateogry
+function select_category(evt){
+    try{
+
+    }catch(err){
+        console.log(err);
+    }
+}
+// this function listens to all events that take place ont the site and handles them
 function eventListeners(){
-    let likeBtn=document.getElementsByClassName("like-button");
-    let commentBtn=document.getElementsByClassName("");
-    let topUserProfile=document.getElementsByClassName("pop-user-profile");
+    let userProfile=document.getElementsByClassName("");
     let search_input=document.getElementById("search");
+    let category=document.getElementsByClassName("");
+    let like_post=document.getElementsByClassName("");
+
     search_input.addEventListener("input",search_user);
-    for(let i=0;i<topUserProfile.length;i++){
-        
-        topUserProfile[i].addEventListener('click',openUserProfile);
+    for(let i=0;i<category.length;i++){
+        category[i].addEventListener('click',select_category);
     }
-    for(let i=0;i<commentBtn.length;i++){
-        commentBtn[i].addEventListener('click',comment_on_post);
+    for(let i=0;i<userProfile.length;i++){
+        userProfile[i].addEventListener('click',openUserProfile);
     }
-    for(let i=0;i<likeBtn.length;i++){
-        likeBtn[i].addEventListener('click',like_on_post);
-    }
+    
     
 
 }
+open_postPreview();
 initialise_image();
 eventListeners();

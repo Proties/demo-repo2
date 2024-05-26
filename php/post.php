@@ -1,11 +1,11 @@
 <?php
-include_once('php/database.php');
 class Post{
     use validatePost;
     private $description;
     private $title;
     private $status;
-    private $errMsg;
+    private $errorMessage;
+    private $errorMessages=array();
     private $postID;
     private $postLinkID;
     private $postLink;
@@ -23,7 +23,7 @@ class Post{
 
 
 public function __construct(){
-    $this->errMsg;
+    $this->errorMessage;
     $this->description='';
     $this->title='';
     $this->status='';
@@ -49,8 +49,8 @@ function initialise($arr){
 public function set_categoryName($nm){
     $this->categoryName=$nm;
 }
-public function set_errMsg($err){
-    $this->errMsg=$err;
+public function set_errorMessage($err){
+    $this->errorMessage=$err;
 }
 public function set_postID($id){
     $this->postID=$id;
@@ -132,8 +132,29 @@ public function get_postLinkID(){
 public function get_img(){
     return $this->img;
 }
-public function get_errMsg(){
-    return $this->errMsg;
+
+public function get_errorMessage(){
+    return $this->errorMessage;
+}
+public function get_errorMessages(){
+    return $this->errorMessages;
+}
+public function read_postID(){
+    try{
+        $database=new Database();
+        $db=$database->get_connection();
+        $query="
+                SELECT postID FROM post
+                WHERE postLink=:link
+        ";
+        $stmt=$db->prepare($query);
+        $stmt->bindValue(':link',$this->get_postLink());
+        $stmt->execute();
+        $id=$stmt->fetch();
+        $this->set_postID($id);
+    }catch(PDOExecption $err){
+        echo $err->getMessage();
+    }
 }
 public function read_post(){
     try{
@@ -144,7 +165,7 @@ public function read_post(){
                 WHERE id=:postID;
         ";
         $stmt=$db->prepare($query);
-        $stmt->bindValue(':id',$this->get_id());
+        $stmt->bindValue(':id',$this->get_postID());
         $this->set_status($stmt->execute());
         $results=$stmt->fetch();
     }catch(PDOExecption $err){
@@ -185,7 +206,6 @@ public function write_post(){
     try{
         $database=new Database();
         $db=$database->get_connection();
-        $db->beginTransaction();
         $query="
                 INSERT INTO post(postLinkID,postDescription,postTitle,picture,userID,postDate,postTime,postLink)
                 VALUES(:postLinkID,:description,:title,:image,:userID,:date,:time,:postLink);
@@ -200,26 +220,7 @@ public function write_post(){
         $stmt->bindValue(':postLink',$this->get_postLink());
         $stmt->bindValue(':postLinkID',$this->get_postLinkID());
         $stmt->execute();
-        $postID=$db->lastInsertId();
-        $query_two="
-                INSERT INTO category(categoryName)
-                VALUES(:categoryName);
-                ";
-        $stmt_two=$db->prepare($query_two);
-        $stmt_two->bindValue(':categoryName',$this->get_categoryName());
-        $stmt_two->execute();
-        $categoryID=$db->lastInsertId();
-        $query_three="
-                INSERT INTO post_category
-                 VALUES(:categoryID,:postID);
-                    ";
-        $stmt_three=$db->prepare($query_three);
-        $stmt_three->bindValue(':postID',$postID);
-        $stmt_three->bindValue(':categoryID',$categoryID);
-        $stmt_three->execute();
-        $db->commit();
     }catch(PDOExecption $err){
-        $db->rollBack();
         echo $err->getMessage();
     }
 }
@@ -239,14 +240,79 @@ public function write_like(){
         echo $err->getMessage();
     }
 }
+public static function validate_postLink($link){
+    try{
+        $database=new Database();
+        $db=$database->get_connection();
+        $query="
+                SELECT postLink FROM post
+                WHERE postLink=:link;
+        ";
+        $stmt=$db->prepare($query);
+        $stmt->bindValue(':link',$link);
+        $stmt->execute();
+        return $stmt->fetch();
+    }catch(PDOExecption $err){
+        echo $err->getMessage();
+        return false;
+    }
+
+}
+public static function validate_postID($id){
+    try{
+        $database=new Database();
+        $db=$database->get_connection();
+        $query="
+                SELECT * FROM post
+                WHERE postId=:id;
+        ";
+        $db->prepare($query);
+        $db->bindValue(':id',$id);
+        $result=$db->execute();
+        return $result;
+    }catch(PDOExecption $err){
+        echo $err->getMessage();
+        return false;
+    }
+
+}
     public function create_user_image_file(){}
 }
 
 
 trait validatePost{
-function validate_image(){}
-function validate_title(){}
-function validate_description(){}
+function validate_image($txt){
+    $pattern='//i';
+    if(preg_match($pattern,$txt)){
+        return true;
+    }
+    $msg='image not valid';
+    return msg;
+}
+function validate_title($txt){
+    $pattern='//i';
+    if(preg_match($pattern,$txt)){
+        return true;
+    }
+    $msg='not  a valid title';
+    return $msg;
+}
+function validate_postLink($txt){
+    $pattern="/(\/@[a-zA-Z]{1,13})(\/[a-zA-Z0-9]{1,})/i";
+    if(preg_match($pattern,$txt)){
+        return true;
+    }
+    $msg='';
+    return $msg;
+}
+function validate_description($txt){
+    $pattern='//i';
+    if(preg_match($pattern,$txt)){
+        return true;
+    }
+    $msg='not a valid description';
+    return $msg;
+}
 
 }
 ?>

@@ -32,87 +32,10 @@ class Database{
         return $this->pdo;
     }
 }
-function topUsers(){
-    try{
-        $database=new Database();
-        $db=$database->get_connection();
-        $query="
-                SELECT username FROM Users
-                LIMIT 5;
-        ";
 
-        $stmt=$db->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchall();
-    }catch(PDOExecption $err){
-        echo 'Database error '.$err->getMessage();
-    }
-}
-function get_usernames(){
-    try{
-        $database=new Database();
-        $db=$database->get_connection();
-        $query="
-                SELECT username FROM Users
-        ";
-        $stmt=$db->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchall();
-    }catch(PDOExeception $err){
-        echo $err->getMessage();
-    }
-}
-function get_categories(){
-    try{
-        $database=new Database();
-        $db=$database->get_connection();
-        $query="
-                SELECT categoryName FROM category
-            ";
-        $stmt=$db->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchall();
-    }catch(PDOExecption $err){
-        echo 'Database error '.$err->getMessage();
-    }
-}
-function validate_username($name){
-    try{
-        $database=new Database();
-        $db=$database->get_connection();
-        $query="
-                SELECT username FROM Users
-                WHERE username=:username;
-        ";
-        $stmt=$db->prepare($query);
-        $stmt->bindValue(':username',$name);
-        $stmt->execute();
-        $id=$stmt->fetch();
-        if($id==true){
-            return true;
-        }
-        return false;
-    }catch(PDOExecption $err){
-        echo 'Database error '.$err->getMessage();
-        return false;
-    }
-}
-function validate_post($id){
-    try{
-        $database=new Database();
-        $db=$database->get_connection();
-        $query="
-                SELECT * FROM post
-                WHERE postId=:id;
-        ";
-        $db->prepare($query);
-        $db->bindValue(':id',$id);
-        $result=$db->execute();
-        return $result;
-    }catch(PDOExecption $err){
-        echo $err->getMessage();
-        return false;
-    }
 
-}
+
+
+
+
 ?>

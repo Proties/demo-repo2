@@ -6,8 +6,7 @@ class Picture{
     private $dateModified;
     private $timeModified;
 
-    private $width;
-    private $height;
+    private $aspectRatio;
     
 
 

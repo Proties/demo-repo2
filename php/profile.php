@@ -1,4 +1,5 @@
 <?php
+session_start();
 // profile picture
 // user bio 
 // array of post 

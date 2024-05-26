@@ -1,13 +1,20 @@
 <?php
 include_once('database.php');
+class Ranking{
 
-function top_users(){
+public static function chrono(){
     try{
         $database=new Database();
         $db=$database->get_connection();
         $query="
-                SELECT * FROM Users
-                LIMIT 5;
+                SELECT Users.username,post.postTitle,post.postLink,post.picture FROM Users
+                INNER JOIN post on Users.userID=post.userID
+                LIMIT 2;
+
+                
+        ";
+        $query_two="
+                
         ";
         $d=$db->prepare($query);
         $d->execute();
@@ -17,21 +24,5 @@ function top_users(){
         echo $err;
     }
 }
-function chrono(){
-    try{
-        $database=new Database();
-        $db=$database->get_connection();
-        $query="
-                SELECT * FROM post
-                LIMIT 5;
-        ";
-        $d=$db->prepare($query);
-        $d->execute();
-        $arr=$d->fetchall();
-        return $arr;
-    }catch(PDOExecption $err){
-        echo $err;
-    }
 }
-
 ?>

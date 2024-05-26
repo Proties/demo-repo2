@@ -1,5 +1,4 @@
 <?php 
-include('php/database.php');
 class Users{
     use validateUser;
     private $name;
@@ -14,6 +13,9 @@ class Users{
     private $time;
     private $userProfileLink;
     private $status;
+    private $id;
+    private $errorMessages=array();
+    private $errorMessage;
 
     public function __construct(){
     $this->name='';
@@ -24,6 +26,7 @@ class Users{
     $this->password='';
     $this->email='';
     $this->phone='';
+    $this->id=0;
     }
 
     public function initialise($arr){
@@ -31,6 +34,9 @@ class Users{
     }
     public function set_name($nm){
         $this->name=$nm;
+    }
+    public function set_id($nm){
+        $this->id=$nm;
     }
     public function set_username($nm){
         $this->username=$nm;
@@ -75,7 +81,9 @@ class Users{
     public function get_posts(){
         return $this->post;
     }
-
+    public function get_id(){
+        return $this->id;
+    }
     public function get_status(){
         return $this->status;
     }
@@ -89,6 +97,12 @@ class Users{
     }
     public function get_profileLink(){
         return $this->userProfileLink;
+    }
+    public function get_errorMessage(){
+        return $this->errorMessage;
+    }
+    public function get_errorMessages(){
+        return $this->errorMessages;
     }
     public function write_user(){
         $database=new Database();
@@ -107,7 +121,7 @@ class Users{
 
         
         $this->set_status($statement->execute());
-        $this->set_id($db->lastinsertid);
+        $this->set_id($db->lastInsertId());
         }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();
         }
@@ -140,7 +154,41 @@ class Users{
             echo 'Database error '.$err->getMessage();
         }
     }
-
+    public static function get_usernames(){
+        try{
+            $database=new Database();
+            $db=$database->get_connection();
+            $query="
+                    SELECT username FROM Users
+            ";
+            $stmt=$db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchall();
+        }catch(PDOExeception $err){
+            echo $err->getMessage();
+        }
+    }
+    public static function validate_username_in_database($name){
+        try{
+            $database=new Database();
+            $db=$database->get_connection();
+            $query="
+                    SELECT username FROM Users
+                    WHERE username=:username;
+            ";
+            $stmt=$db->prepare($query);
+            $stmt->bindValue(':username',$name);
+            $stmt->execute();
+            $id=$stmt->fetch();
+            if($id==true){
+                return true;
+            }
+            return false;
+        }catch(PDOExecption $err){
+            echo 'Database error '.$err->getMessage();
+            return false;
+        }
+    }
     public function create_user_folder(){}
     public function create_user_profile_page(){}
     public function create_user_posts_folder(){}
@@ -148,9 +196,38 @@ class Users{
 }
 
 trait validateUser{
-    function validate_username(){}
-    function validate_name(){}
-    function validate_email(){}
-    function validate_phone(){}
+    function validate_username($txt){
+        $pattern="/\/@[a-zA-Z]{1,13}/i";
+        if(preg_match($pattern,$txt)){
+            return true;
+        }
+        $msg='not valid username';
+        return $msg;
+        
+    }
+    function validate_name($txt){
+        $pattern='//i';
+        if(preg_match($pattern,$txt)){
+            return true;
+        }
+        $msg='not valid name';
+        return $msg;
+    }
+    function validate_email($txt){
+        $pattern='//i';
+        if(preg_match($pattern,$txt)){
+            return true;
+        }
+        $msg='not valid email';
+        return $msg;
+    }
+    function validate_phone($txt){
+        $pattern='//i';
+        if(preg_match($pattern,$txt)){
+            return true;
+        }
+        $msg='not valid phone';
+        return $msg;
+    }
 }
 ?>
