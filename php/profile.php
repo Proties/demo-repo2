@@ -1,48 +1,57 @@
 <?php
 session_start();
-// profile picture
-// user bio 
-// array of post 
-// create a  directory that house all users profiles
-// create a user specific directory that is a child that he user owns
-
-// create a whole file of css that the user owns
-// create a html that the user owns 
-// add user profile to our usersProlie directory
 if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('Htmls/Personalprofile.html');
     return;
 }
-
-include_once('php/user.php');
-include_once('php/post.php');
 $user=new Users();
-$data=array();
+
 $action=$_POST['action'];
 
 switch($action){
     case 'initialise':
+        $data=array();
+        $data['user']=array('username'=>$user->get_username(),'userProfilePicture'=>$user->get_profilePicture(),
+                            'bio'=>get_bio());
+        $info=$user->get_post();
 
-        $user->set_username(substr($_SERVER['REQUEST_URI'],2));
-        $user->read_user();
-        for($i=0;$i<count($user->read_posts());$i++){
-            $post=new Post();
-            $post->read_post();
-            array_push($data,$post);
+        for ($i = 0; $i < count($info); $i++) {
+            $post = new Post();
+            $data['post'][] = array(
+                'postLink' => $post->get_postLink(),
+                'img' => $post->get_img(),
+                'title' => $post->get_title()
+            );
         }
+        echo json_encode($data);
+        break;
+    case 'initialise_post_preview':
+        $post=new Post();
+        $post->set_postLink($_SERVER['REQUEST_URI']);
+        $post->read_postID();
+        $post->read_post();
+        $data=array(
+        'title'=>$post->get_title(),
+        'authorName'=>$post->get_authorName(),
+        'description'=>$post->get_description(),
+        'img'=>$post->get_img(),
+        'comments'=>$post->get_comments(),
+        'postID'=>$post->get_id()
+        );
+        echo json_encode($data);
         break;
     case 'addPost':
         $post=new Post();
+        $post->set_authorID($user->get_id());
         $post->set_image();
-        $post->set_categoryName();
-        $post->set_title();
-        $post->set_description();
-        $post->set_date();
-        $post->set_time();
+        $post->set_categoryName($_POST['categoryName']);
+        $post->set_title($_POST['title']);
+        $post->set_description($_POST['description']);
+        $post->set_date($_POST['date']);
+        $post->set_time($_POST['time']);
         $post->write_post();
         break;
     case 'create_custom_profile':
         break;
 }
-return json_encode($data);
 ?>

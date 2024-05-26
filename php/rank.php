@@ -7,7 +7,14 @@ public static function chrono(){
         $database=new Database();
         $db=$database->get_connection();
         $query="
-         
+        SELECT username, postTitle, picture, postLink
+        FROM Users
+        INNER JOIN post ON Users.userID = post.userID
+        WHERE CASE
+            WHEN (SELECT COUNT(*) FROM post AS p2 WHERE p2.userID = Users.userID) <= 1 THEN 1
+            ELSE 0
+        END = 1
+        LIMIT 10;
         ";
        
         $d=$db->prepare($query);
@@ -19,4 +26,5 @@ public static function chrono(){
     }
 }
 }
+// query that will two post per user
 ?>

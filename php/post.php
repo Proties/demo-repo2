@@ -315,4 +315,5 @@ function validate_description($txt){
 }
 
 }
+
 ?>
