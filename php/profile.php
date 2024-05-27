@@ -1,19 +1,38 @@
 <?php
 session_start();
 if($_SERVER['REQUEST_METHOD']=='GET'){
-    include_once('Htmls/Personalprofile.html');
+    include_once('Htmlfiles/Personalprofile.html');
     return;
 }
 $user=new Users();
-
+if(isset($_SERVER['userID'])){
+    $user->set_userID($_SERVER['userID']);
+    $user->set_username($_SERVER['username']);
+    $user->read_user();
+}
 $action=$_POST['action'];
 
 switch($action){
-    case 'initialise':
+    case 'initialise_user':
+        $link=substr($_SERVER['REQUEST_URI'],1);
+        if($user->validate_username($link)==true && Users::validate_username_in_database($link)){
+            $user->set_username($link);
+            $user->read_userID();
+            $user->read_user();
+        }
+        
         $data=array();
         $data['user']=array('username'=>$user->get_username(),'userProfilePicture'=>$user->get_profilePicture(),
-                            'bio'=>get_bio());
-        $info=$user->get_post();
+                            'bio'=>$user->get_bio());
+        $data['posts']=array();
+        $post=new Post();
+        if($user->get_id()==null){
+            echo json_encode($data);
+            return;
+        }
+        $post->set_authorID($user->get_id());
+        $post->read_posts();
+        $info=$post->get_post();
 
         for ($i = 0; $i < count($info); $i++) {
             $post = new Post();
@@ -27,9 +46,12 @@ switch($action){
         break;
     case 'initialise_post_preview':
         $post=new Post();
-        $post->set_postLink($_SERVER['REQUEST_URI']);
-        $post->read_postID();
-        $post->read_post();
+        if($post->validate_postLink()){
+            $post->set_postLink($_SERVER['REQUEST_URI']);
+            $post->read_postID();
+            $post->read_post();
+        }
+        
         $data=array(
         'title'=>$post->get_title(),
         'authorName'=>$post->get_authorName(),

@@ -1,18 +1,23 @@
 <?php
 session_start();
+
+$mainUser=new Users();
+$GLOBALS['mainUser']=$mainUser;
+
 if($_SERVER['REQUEST_METHOD']=='GET'){
-    include_once('WebApp/Htmlfiles/Homepage.html');
+    include_once('Htmlfiles/Homepage.html');
     return;
 }
-$user=new Users();
-if(isset($_SESSION['userid'])){
-    $user->set_id($_SESSION['userid']);
-    $user->read_user();
+
+if(isset($_SESSION['userID'])){
+    $GLOBALS['mainUser']->set_id($_SESSION['userID']);
+    $GLOBALS['mainUser']->read_user();
+   
 }
-$userObjects=array();
 function find_userObject($username){
-    for($u=0;$u<count($userObjects);$u++){
-        if($userObjects[$u]->get_username()===$username){
+    $info=$GLOBALS['mainUser']->get_userObjects();
+    for($u=0;$u<count($info);$u++){
+        if($info[$u]->get_username()==$username){
             return true;
         }
        
@@ -20,9 +25,9 @@ function find_userObject($username){
     return false;
 }
 function get_userObject($username){
-    for($u=0;$u<count($userObjects);$u++){
-        if($userObjects[$u]->get_username()===$username){
-            return $userObjects[$u];
+    for($u=0;$u<count($GLOBALS['mainUser']->get_userObjects());$u++){
+        if($GLOBALS['mainUser']->get_userObjects()[$u]->get_username()==$username){
+            return $GLOBALS['mainUser']->get_userObjects()[$u];
         }
     }
     return false;
@@ -47,9 +52,9 @@ switch($action){
     case 'initialise_image':
         $data=array();
         $info=Ranking::chrono();
-        print_r($info);
     for($x=0;$x<count($info);$x++){
         if(find_userObject($info[$x]['username'])==true){
+    
             $user=get_userObject($info[$x]['username']);
             $secondary_post=new Post();
             $secondary_post->set_img($info[$x]['picture']);
@@ -61,6 +66,11 @@ switch($action){
             $user=new Users();
             $primary_post=new Post();
             $user->set_username($info[$x]['username']);
+            print_r(json_encode($GLOBALS['mainuser']));
+            return;
+            $GLOBALS['mainUser']->get_userObjects()['users']=$user;
+            print_r(json_encode($GLOBALS['mainUser']->get_userObjects()));
+            return;
             $primary_post->set_img($info[$x]['picture']);
             $primary_post->set_title($info[$x]['postTitle']);
             $data[]=array('user'=>array(

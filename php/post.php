@@ -20,6 +20,7 @@ class Post{
     private $viewsCount;
     private $categoryName;
     private $comments=array();
+    private $posts=array();
 
 
 public function __construct(){
@@ -86,7 +87,10 @@ public function set_postLink($dt){
     $this->postLink=$dt;
 }
 public function set_img($im){
-    return $this->img=$im;
+    $this->img=$im;
+}
+public function set_posts($p){
+    $this->posts=$p;
 }
 public function get_categoryName(){
     return $this->categoryName;
@@ -139,6 +143,9 @@ public function get_errorMessage(){
 public function get_errorMessages(){
     return $this->errorMessages;
 }
+public function get_posts(){
+    return $this->posts;
+}
 public function read_postID(){
     try{
         $database=new Database();
@@ -168,6 +175,23 @@ public function read_post(){
         $stmt->bindValue(':id',$this->get_postID());
         $this->set_status($stmt->execute());
         $results=$stmt->fetch();
+    }catch(PDOExecption $err){
+        echo 'Database error '.$err->getMessage();
+    }
+}
+public function read_posts(){
+    try{
+        $database=new Database();
+        $db=$database->get_connection();
+        $query="
+                SELECT * FROM post
+                WHERE userID=:userID;
+        ";
+        $stmt=$db->prepare($query);
+        $stmt->bindValue(':userID',$this->get_authorID());
+        $this->set_status($stmt->execute());
+        $results=$stmt->fetchall();
+        $this->set_posts($results);
     }catch(PDOExecption $err){
         echo 'Database error '.$err->getMessage();
     }

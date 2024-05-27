@@ -6,9 +6,10 @@ function initialise_image(){
     xml.open('POST', '/');
     xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xml.onload = function() {
-        
+        console.log(this.responseText);
         let data=JSON.parse(this.responseText);
         console.log(data);
+        return;
         for(let i=0;i<data.posts.length;i++){
     
         const base64Image = data.posts[i].image; // your Base64-encoded image string
@@ -97,20 +98,38 @@ function select_category(evt){
         console.log(err);
     }
 }
+function select_post(evt){
+   let link=evt.target.id;
+   window.loaction.href=link;
+}
 // this function listens to all events that take place ont the site and handles them
 function eventListeners(){
     let userProfile=document.getElementsByClassName("");
     let search_input=document.getElementById("search");
     let category=document.getElementsByClassName("");
-    let like_post=document.getElementsByClassName("");
+    let likePost=document.getElementsByClassName("");
+    let selectPost=document.getElementsByClassName("");
+    let commentPost=document.getElementsByClassName("");
+    // let morePosts=document.getElementById("");
 
     search_input.addEventListener("input",search_user);
+    // morePosts.addEventListener("click",more_posts);
     for(let i=0;i<category.length;i++){
         category[i].addEventListener('click',select_category);
     }
     for(let i=0;i<userProfile.length;i++){
         userProfile[i].addEventListener('click',openUserProfile);
     }
+    for(let i=0;i<likePost.length;i++){
+        likePost[i].addEventListener('click',like_post);
+    }
+    for(let i=0;i<selectPost.length;i++){
+        selectPost[i].addEventListener('click',select_post);
+    }
+     for(let i=0;i<commentPost.length;i++){
+        commentPost[i].addEventListener('click',comment_post);
+    }
+
     
     
 

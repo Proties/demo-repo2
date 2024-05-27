@@ -4,7 +4,7 @@ class Users{
     private $name;
     private $username;
     private $bio;
-    private $profileImage;
+    private $profilePicture;
     private $dateOfBirth;
     private $password;
     private $email;
@@ -16,17 +16,18 @@ class Users{
     private $id;
     private $errorMessages=array();
     private $errorMessage;
+    private $userObjects=array();
 
     public function __construct(){
     $this->name='';
     $this->username='';
     $this->bio='';
-    $this->profileImage='';
+    $this->profilePicture='';
     $this->dateOfBirth='';
     $this->password='';
     $this->email='';
     $this->phone='';
-    $this->id=0;
+    $this->id=null;
     }
 
     public function initialise($arr){
@@ -42,7 +43,7 @@ class Users{
         $this->username=$nm;
     }
     public function set_profilePicture($pic){
-        $this->profileImage=$pic;
+        $this->profilePicture=$pic;
     }
     public function set_password($pas){
         $this->password=$pas;
@@ -55,6 +56,9 @@ class Users{
     }
     public function set_status($s){
         $this->status=$s;
+    }
+    public function set_bio($s){
+        $this->bio=$s;
     }
 
     public function set_profileLink($pl){
@@ -70,7 +74,7 @@ class Users{
         return $this->email;
     }
     public function get_profilePicture(){
-        return $this->profileImage;
+        return $this->profilePicture;
     }
     public function get_password(){
         return $this->password;
@@ -103,6 +107,13 @@ class Users{
     }
     public function get_errorMessages(){
         return $this->errorMessages;
+    }
+
+    public function get_userObjects(){
+        return $this->userObjects;
+    }
+    public function get_bio(){
+        return $this->bio;
     }
     public function write_user(){
         $database=new Database();
@@ -138,6 +149,23 @@ class Users{
             $statement->bindValue(':id',$this->get_userID());
             $statement->execute();
         }catch(PDOExecption $err){
+            echo 'Database error '.$err->getMessage();
+        }
+    }
+    public function read_userID(){
+        try{
+            $database=new Database();
+            $db=$database->get_connection();
+            $query="
+                    SELECT userID FROM Users
+                    WHERE username=:uname;
+            ";
+            $stmt=$db->prepare($query);
+            $stmt->bindValue(':uname',$this->get_username());
+            $stmt->execute();
+            $this->set_userID($stmt->fetch());
+
+        }catch(PDOExeception $err){
             echo 'Database error '.$err->getMessage();
         }
     }

@@ -4,18 +4,38 @@ function initialise(){
         xm.open("POST","/profile");
         xm.onload=function(){
             let data=JSON.parse(this.responseText);
-            for(let a=0;a<data.length;a++){
-                
+            populate_user_info(data.user);
+      
+            for(let a=0;a<data.posts.length;a++){
+                populate_posts(info);
             }
 
         }
         xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xm.send("action=initialise");
+        xm.send("action=initialise_user");
 
     }catch(err){
         console.log(err);
     }
 }
+function populate_user_info(info){
+    let name=info.username;
+    let pic=info.userProfilePicture;
+    let bio=info.bio;
+    document.getElementById('username').textContent=name;
+    document.getElementById('userBio').textContent=bio;
+    // document.getElementById('userProfilePicture').src=pic;
+}
+function populate_posts(post){
+    let title=post.title;
+    let description=post.description;
+    let img=post.img;
+    let authorName=post.authorName;
+    let link=post.postLink;
+
+
+}
+
 function select_post_item(evt){
     try{
         let xm=new XMLHttpRequest();
@@ -23,9 +43,7 @@ function select_post_item(evt){
         xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xm.onload=function(){
             let data=JSON.parse(this.responseText);
-
             console.log(data);
-
         }
         xm.send("action=select_post&postID"+id);
     }catch(err){
