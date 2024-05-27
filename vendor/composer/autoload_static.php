@@ -11,6 +11,7 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
     );
 
     public static $classMap = array (
+        'Category' => __DIR__ . '/../..' . '/php/category.php',
         'Comment' => __DIR__ . '/../..' . '/php/comment.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Database' => __DIR__ . '/../..' . '/php/database.php',
@@ -20,6 +21,7 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         'Ranking' => __DIR__ . '/../..' . '/php/rank.php',
         'Users' => __DIR__ . '/../..' . '/php/user.php',
         'Videos' => __DIR__ . '/../..' . '/php/videos.php',
+        'validateCategory' => __DIR__ . '/../..' . '/php/category.php',
         'validateComment' => __DIR__ . '/../..' . '/php/comment.php',
         'validatePost' => __DIR__ . '/../..' . '/php/post.php',
         'validateUser' => __DIR__ . '/../..' . '/php/user.php',
