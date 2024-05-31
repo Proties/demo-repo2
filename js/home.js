@@ -6,9 +6,10 @@ function initialise_image(){
     xml.open('POST', '/');
     xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xml.onload = function() {
-        console.log(this.responseText);
+        // console.log(this.responseText);
         let data=JSON.parse(this.responseText);
-        console.log(data);
+        // console.log(data);
+        init_img();
         return;
         for(let i=0;i<data.posts.length;i++){
     
@@ -134,6 +135,19 @@ function eventListeners(){
     
 
 }
+function init_img(){
+
+    let p=document.getElementsByClassName("post-container");
+    for(let i=0;i<p.length;i++){
+        let pp=p[i].getElementsByClassName("post-image");
+        // let ppp=p[i+1].getElementsByClassName("post-image");
+        console.log(pp[i]);
+        console.log(pp);
+        console.log(pp[i+1]);
+    }
+
+}
 open_postPreview();
 initialise_image();
 eventListeners();
+

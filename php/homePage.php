@@ -1,37 +1,17 @@
 <?php
 session_start();
 
-$mainUser=new Users();
-$GLOBALS['mainUser']=$mainUser;
-
 if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('Htmlfiles/Homepage.html');
     return;
 }
+$mainUser=new Users();
+if(isset($_SESSION['userID']) && $_SESSION['userID']!==null){
+    $mainUser->set_id($_SESSION['userID']);
+    $mainUser->set_username($_SESSION['username']);
+    $mainUser->read_user();
+}
 
-if(isset($_SESSION['userID'])){
-    $GLOBALS['mainUser']->set_id($_SESSION['userID']);
-    $GLOBALS['mainUser']->read_user();
-   
-}
-function find_userObject($username){
-    $info=$GLOBALS['mainUser']->get_userObjects();
-    for($u=0;$u<count($info);$u++){
-        if($info[$u]->get_username()==$username){
-            return true;
-        }
-       
-    }
-    return false;
-}
-function get_userObject($username){
-    for($u=0;$u<count($GLOBALS['mainUser']->get_userObjects());$u++){
-        if($GLOBALS['mainUser']->get_userObjects()[$u]->get_username()==$username){
-            return $GLOBALS['mainUser']->get_userObjects()[$u];
-        }
-    }
-    return false;
-}
 $action=$_POST['action'];
 switch($action){
     case 'initialise_post_preview':
@@ -52,33 +32,22 @@ switch($action){
     case 'initialise_image':
         $data=array();
         $info=Ranking::chrono();
-    for($x=0;$x<count($info);$x++){
-        if(find_userObject($info[$x]['username'])==true){
-    
-            $user=get_userObject($info[$x]['username']);
-            $secondary_post=new Post();
-            $secondary_post->set_img($info[$x]['picture']);
-            $secondary_post->set_title($info[$x]['postTitle']);
-            $data[]=array(
+        $arrLen=count($info);
+    for($x=0;$x<$arrLen;$x++){
+       
+        $user=new Users();
+        $primary_post=new Post();
+        $user->set_username($info[$x]['username']);
+        $primary_post->set_img($info[$x]['picture']);
+        $primary_post->set_title($info[$x]['postTitle']);
+        $secondary_post=new Post();
+        $secondary_post->set_img($info[$x]['post2Pic']);
+        $secondary_post->set_title($info[$x]['post2Title']);
+        $data[]=array('user'=>array(
+            'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
+            'primary_post'=>array('img'=>base64_encode($primary_post->get_img()),'title'=>$primary_post->get_title()),
             'secondary_post'=>array('img'=>base64_encode($secondary_post->get_img()),'title'=>$secondary_post->get_title())
-            );
-        }else{
-            $user=new Users();
-            $primary_post=new Post();
-            $user->set_username($info[$x]['username']);
-            print_r(json_encode($GLOBALS['mainuser']));
-            return;
-            $GLOBALS['mainUser']->get_userObjects()['users']=$user;
-            print_r(json_encode($GLOBALS['mainUser']->get_userObjects()));
-            return;
-            $primary_post->set_img($info[$x]['picture']);
-            $primary_post->set_title($info[$x]['postTitle']);
-            $data[]=array('user'=>array(
-                'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
-                'primary_post'=>array('img'=>base64_encode($primary_post->get_img()),'title'=>$primary_post->get_title())
-            )
-            );
-            }
+        ));
             }
         echo json_encode($data);
         break;
@@ -162,5 +131,18 @@ switch($action){
                 }
         echo json_encode($data);
         break;
+}
+
+// a function that will take an array of user arrays
+// the function will check for arrays with the same username and join em
+// it will produce a new array that has a primary and secondary post
+function search_name($username,$arr){
+    for($i=0;$i<count($arr);$i++){
+        
+        if($arr[$i]['username']==$username){
+            print_r("worksssss");
+            return $arr[$i];
+        }
+    }
 }
 ?>

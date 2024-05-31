@@ -142,11 +142,11 @@ class Users{
             $database=new Database();
             $db=$database->get_connection();
             $query="
-                    SELECT * FROM User
+                    SELECT * FROM Users
                     WHERE userID=:id;
             ";
             $statement=$db->prepare($query);
-            $statement->bindValue(':id',$this->get_userID());
+            $statement->bindValue(':id',$this->get_id());
             $statement->execute();
         }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();

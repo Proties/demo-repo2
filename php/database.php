@@ -24,8 +24,10 @@ class Database{
             $this->pdo=new PDO($this->dsn,$this->user,$this->password);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }catch(PDOException $err){
-            echo "database error ".$err->getMessage();
+            echo "database error ".$err->getMessage() .' error code '.$err->getCode();
             exit();
+        }catch(Exeception $er){
+            echo 'general error occured '.$er->getMessage();
         }
     }
     public function get_connection(){

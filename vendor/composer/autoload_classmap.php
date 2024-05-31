@@ -11,6 +11,7 @@ return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Database' => $baseDir . '/php/database.php',
     'GenerateIDs' => $baseDir . '/php/generate_ids.php',
+    'MainUser' => $baseDir . '/php/mainUser.php',
     'Picture' => $baseDir . '/php/pictures.php',
     'Post' => $baseDir . '/php/post.php',
     'Ranking' => $baseDir . '/php/rank.php',

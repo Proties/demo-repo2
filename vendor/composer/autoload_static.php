@@ -16,6 +16,7 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Database' => __DIR__ . '/../..' . '/php/database.php',
         'GenerateIDs' => __DIR__ . '/../..' . '/php/generate_ids.php',
+        'MainUser' => __DIR__ . '/../..' . '/php/mainUser.php',
         'Picture' => __DIR__ . '/../..' . '/php/pictures.php',
         'Post' => __DIR__ . '/../..' . '/php/post.php',
         'Ranking' => __DIR__ . '/../..' . '/php/rank.php',
