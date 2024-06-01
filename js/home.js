@@ -33,7 +33,7 @@ function initialise_image(){
           }
         const blob = new Blob([uint8Array], { type: 'image/png' }); // or 'image/jpeg' or other image types
         const blob_two = new Blob([uint8Array_two], { type: 'image/png' }); // or 'image/jpeg' or other image types
-        let item={primary:blob,seconday:blob_two};
+        let item={primary:blob,seconday:blob_two,username:data[i].user.user_info.username};
         // now you can use the blob object to display the image
         // const img = document.getElementsByClassName('post-image');
         // img[i].src = URL.createObjectURL(blob);
@@ -96,9 +96,9 @@ function search_user(){
 // this function direct the user to a users profile when a user account is selected
 function openUserProfile(evt){
     let username=evt.target.parentNode;
-    let name=username.getElementsByClassName();
-    console.log(name);
-    window.location.href='@'+name;
+    console.log(username);
+    console.log(username.id);
+    window.location.href=username.id;
 }
 //this function sends the category name a user has selected and returns post that match that cateogry
 function select_category(evt){
@@ -114,7 +114,7 @@ function select_post(evt){
 }
 // this function listens to all events that take place ont the site and handles them
 function eventListeners(){
-    let userProfile=document.getElementsByClassName("");
+    let userProfile=document.getElementsByClassName("profile-button");
     let search_input=document.getElementById("search");
     let category=document.getElementsByClassName("");
     let likePost=document.getElementsByClassName("");
@@ -151,8 +151,7 @@ function init_img(arr){
 
         let ele=p[n].getElementsByClassName('post-image')[0];
         let ele_two=p[n].getElementsByClassName('post-image')[1];
-        console.log(ele);
-        console.log(arr[n]);
+        p[n].getElementsByClassName("profile-button")[0].id="/@"+arr[n].username;
         ele.src = URL.createObjectURL(arr[n].primary);
         ele_two.src = URL.createObjectURL(arr[n].seconday);
         

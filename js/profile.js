@@ -8,12 +8,22 @@ function initialise(){
         xm.onload=function(){
             console.log(this.responseText);
             let data=JSON.parse(this.responseText);
-            populate_user_info(data.user);
-      
-            for(let a=0;a<data.posts.length;a++){
-                populate_posts(info);
-            }
+            // populate_user_info(data.user);
+            let p=document.getElementsByClassName("post");
+            for(let i=0;i<p.length;i++){
+                let base64Image=data.post[i].img;
+                const binaryS=atob(base64Image);
+                const arrayBuffer = new ArrayBuffer(binaryS.length);
+                const uint8Array = new Uint8Array(arrayBuffer);
+                for (let i = 0; i < binaryS.length; i++) {
+                    uint8Array[i] = binaryS.charCodeAt(i);
+                  }
+                const blob = new Blob([uint8Array], { type: 'image/png' });
 
+                p[i].getElementsByTagName('img')[0].src=URL.createObjectURL(blob);
+                console.log(p[i]);
+            }
+           
         }
         xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xm.send("action=initialise_user");
