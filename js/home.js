@@ -9,7 +9,7 @@ function initialise_image(){
         // console.log(this.responseText);
         let data=JSON.parse(this.responseText);
         console.log(data);
-        
+        // document.getElementsByClassName('profile-link').href="@"+data.user.user_info.username;
         let dataItem=[];
       
         for(let i=0;i<data.length;i++){

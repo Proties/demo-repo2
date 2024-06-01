@@ -48,7 +48,7 @@ switch($action){
     case '/settings':
         include_once('p');
         break;
-    case '/editProfile':
+    case '/edit_profile':
         include_once('php/editPage.php');
         break;
     default:
