@@ -7,6 +7,9 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 $p=new Post();
 $p->set_title($_POST['title']);
 $p->set_description($_POST['description']);
+$img=$_FILES["files"];
+echo json_encode($img);
+return;
 $target_dir='userProfiles/';
 $target_file=$target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk=1;

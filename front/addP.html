@@ -7,7 +7,7 @@
 <h1>Add image</h1>
 <form action="/test" method="post" enctype="multipart/form-data">
     <label>Image</label>
-    <input type="file" name="fileToUpload">
+    <input type="file" name="fileToUpload" id="fileID" onchange="handler()">
     <br>
     <label>Category Name</label>
     <input type="text" name="categoryName">
@@ -21,5 +21,5 @@
     <button type="submit" name="submit">Submit</button>
 </form>
 </body>
-<!-- <script src="/js/post.js"></script> -->
+<script src="/js/post.js"></script>
 </html>
