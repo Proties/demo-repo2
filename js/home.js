@@ -8,31 +8,40 @@ function initialise_image(){
     xml.onload = function() {
         // console.log(this.responseText);
         let data=JSON.parse(this.responseText);
-        // console.log(data);
-        init_img();
-        return;
-        for(let i=0;i<data.posts.length;i++){
+        console.log(data);
+        
+        let dataItem=[];
+      
+        for(let i=0;i<data.length;i++){
     
-        const base64Image = data.posts[i].image; // your Base64-encoded image string
+        const base64Image = data[i].user.primary_post.img; // your Base64-encoded image string
+        const base64Image_two = data[i].user.primary_post.img;
 
         const binaryString = atob(base64Image);
         const arrayBuffer = new ArrayBuffer(binaryString.length);
         const uint8Array = new Uint8Array(arrayBuffer);
+
+        const binaryString_two = atob(base64Image_two);
+        const arrayBuffer_two = new ArrayBuffer(binaryString_two.length);
+        const uint8Array_two = new Uint8Array(arrayBuffer_two);
         
         for (let i = 0; i < binaryString.length; i++) {
           uint8Array[i] = binaryString.charCodeAt(i);
         }
-        
+        for (let i = 0; i < binaryString_two.length; i++) {
+            uint8Array_two[i] = binaryString_two.charCodeAt(i);
+          }
         const blob = new Blob([uint8Array], { type: 'image/png' }); // or 'image/jpeg' or other image types
-        
+        const blob_two = new Blob([uint8Array_two], { type: 'image/png' }); // or 'image/jpeg' or other image types
+        let item={primary:blob,seconday:blob_two};
         // now you can use the blob object to display the image
-        const img = document.getElementsByClassName('post-image');
-        img[i].src = URL.createObjectURL(blob);
+        // const img = document.getElementsByClassName('post-image');
+        // img[i].src = URL.createObjectURL(blob);
         // img[i].id=data[i]['id'];
         
-       
-    console.log(img[i]);
+        dataItem.push(item);
         }
+        init_img(dataItem);
 }
 xml.send('action=initialise_image');
     }catch(err){
@@ -135,16 +144,25 @@ function eventListeners(){
     
 
 }
-function init_img(){
+function init_img(arr){
 
     let p=document.getElementsByClassName("post-container");
-    for(let i=0;i<p.length;i++){
-        let pp=p[i].getElementsByClassName("post-image");
-        // let ppp=p[i+1].getElementsByClassName("post-image");
-        console.log(pp[i]);
-        console.log(pp);
-        console.log(pp[i+1]);
+    for(let n=0;n<p.length-1;n++){
+
+        let ele=p[n].getElementsByClassName('post-image')[0];
+        let ele_two=p[n].getElementsByClassName('post-image')[1];
+        console.log(ele);
+        console.log(arr[n]);
+        ele.src = URL.createObjectURL(arr[n].primary);
+        ele_two.src = URL.createObjectURL(arr[n].seconday);
+        
+        console.log("======= end ======");
     }
+    // let c=document.getElementsByClassName("post-image");
+    // for(let n=0;n<c.length-1;n++){
+    //     console.log(c[n]);
+    // }
+    
 
 }
 open_postPreview();

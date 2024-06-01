@@ -264,7 +264,7 @@ public function write_like(){
         echo $err->getMessage();
     }
 }
-public static function validate_postLink($link){
+public static function validate_in_db_postLink($link){
     try{
         $database=new Database();
         $db=$database->get_connection();
@@ -327,7 +327,7 @@ function validate_postLink($txt){
         return true;
     }
     $msg='';
-    return $msg;
+    return false;
 }
 function validate_description($txt){
     $pattern='//i';

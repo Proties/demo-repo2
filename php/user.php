@@ -147,7 +147,10 @@ class Users{
             ";
             $statement=$db->prepare($query);
             $statement->bindValue(':id',$this->get_id());
-            $statement->execute();
+            $this->set_status($statement->execute());
+            $data=$statement->fetch();
+            $this->set_username($data['username']);
+            $this->set_name($data['fullname']);
         }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();
         }
@@ -163,8 +166,8 @@ class Users{
             $stmt=$db->prepare($query);
             $stmt->bindValue(':uname',$this->get_username());
             $stmt->execute();
-            $this->set_userID($stmt->fetch());
-
+            $data=$stmt->fetch();
+            $this->set_id($data['userID']);
         }catch(PDOExeception $err){
             echo 'Database error '.$err->getMessage();
         }
@@ -174,10 +177,10 @@ class Users{
             $database=new Database();
             $db=$database->get_connection();
             $query="
-                    SELECT * FROM post
-                    WHERE ;
+                    SELECT postID FROM post
+                    WHERE userID=:id;
             ";
-            $statement->bindValue(':',);
+            $statement->bindValue(':id',$this->get_authorID());
         }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();
         }
@@ -225,12 +228,12 @@ class Users{
 
 trait validateUser{
     function validate_username($txt){
-        $pattern="/\/@[a-zA-Z]{1,13}/i";
+        $pattern="/\/@[a-zA-Z]{1,16}/i";
         if(preg_match($pattern,$txt)){
             return true;
         }
         $msg='not valid username';
-        return $msg;
+        return false;
         
     }
     function validate_name($txt){

@@ -4,45 +4,50 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('Htmlfiles/Personalprofile.html');
     return;
 }
-$user=new Users();
+$mainUser=new Users();
 if(isset($_SERVER['userID'])){
-    $user->set_userID($_SERVER['userID']);
-    $user->set_username($_SERVER['username']);
-    $user->read_user();
+    $mainUser->set_userID($_SERVER['userID']);
+    $mainUser->set_username($_SERVER['username']);
+    $mainUser->read_user();
 }
 $action=$_POST['action'];
-
 switch($action){
     case 'initialise_user':
-        $link=substr($_SERVER['REQUEST_URI'],1);
-        if($user->validate_username($link)==true && Users::validate_username_in_database($link)){
-            $user->set_username($link);
-            $user->read_userID();
-            $user->read_user();
-        }
-        
-        $data=array();
-        $data['user']=array('username'=>$user->get_username(),'userProfilePicture'=>$user->get_profilePicture(),
-                            'bio'=>$user->get_bio());
-        $data['posts']=array();
-        $post=new Post();
-        if($user->get_id()==null){
-            echo json_encode($data);
-            return;
-        }
-        $post->set_authorID($user->get_id());
-        $post->read_posts();
-        $info=$post->get_post();
+        $link=substr($_SERVER['REQUEST_URI'],2);
 
-        for ($i = 0; $i < count($info); $i++) {
-            $post = new Post();
-            $data['post'][] = array(
-                'postLink' => $post->get_postLink(),
-                'img' => $post->get_img(),
-                'title' => $post->get_title()
+        $author=new Users();
+        if($author->validate_username($_SERVER['REQUEST_URI'])==true){
+            if(Users::validate_username_in_database($link)==true){
+            $author->set_username($link);
+            $author->read_userID();
+            $author->read_user();
+        $data=array();
+        $data['user'][]=array('username'=>$author->get_username(),'userProfilePicture'=>$author->get_profilePicture(),
+                            'bio'=>$author->get_bio());
+        $post=new Post();
+       
+        $post->set_authorID($author->get_id());
+        $post->read_posts();
+        $info=$post->get_posts();
+        $lenArr=count($info);
+        for ($i = 0; $i < $lenArr; $i++) {
+            $postItem = new Post();
+            $postItem->set_postID($info[$i]['postID']);
+            $postItem->set_img(base64_encode($info[$i]['picture']));
+            $postItem->set_title($info[$i]['postTitle']);
+            $data['post'][$i] = array(
+                'postLink' => $postItem->get_postLink(),
+                'img' => $postItem->get_img(),
+                'title' => $postItem->get_title()
             );
         }
         echo json_encode($data);
+        return;
+    }}else{
+        echo 'no user profile';
+        return;
+    }
+        
         break;
     case 'initialise_post_preview':
         $post=new Post();

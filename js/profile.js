@@ -1,8 +1,12 @@
 function initialise(){
     try{
+        let url=window.location.href;
+        let f_url=url.substring(url.indexOf('@'));
+        console.log(f_url);
         let xm=new XMLHttpRequest();
-        xm.open("POST","/profile");
+        xm.open("POST","/"+f_url);
         xm.onload=function(){
+            console.log(this.responseText);
             let data=JSON.parse(this.responseText);
             populate_user_info(data.user);
       
