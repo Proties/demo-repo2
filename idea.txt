@@ -1,2 +1,0 @@
-- users will be able to select a group of post and the group of post users have selected can the 
-be displayed on their wallpaper
