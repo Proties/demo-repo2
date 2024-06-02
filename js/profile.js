@@ -91,7 +91,22 @@ function comment_on_post(evt){
     }
 }
 
+function upload_post(){
+    let file=document.getElementById('');
+    let read=new FileReader();
+    read.readAsDataURL(file);
+    read.onload=function(){
 
+    }
+    try{
+        let xm=new XMLHttpRequest();
+        xm.open('POST','');
+        xm.onload=function(){}
+        xm.send();
+    }catch(err){
+        console.log(err);
+    }
+}
 function eventListeners(){
     let selectPost=document.getElementsByClassName("");
     let likePost=document.getElementsByClassName("");
