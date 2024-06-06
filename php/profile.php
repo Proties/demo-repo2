@@ -5,7 +5,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
     return;
 }
 $mainUser=new Users();
-if(isset($_SERVER['userID'])){
+if(isset($_SERVER['userID']) && $_SERVER['userID']!==null){
     $mainUser->set_userID($_SERVER['userID']);
     $mainUser->set_username($_SERVER['username']);
     $mainUser->read_user();

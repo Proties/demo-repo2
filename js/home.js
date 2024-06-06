@@ -86,6 +86,7 @@ function search_user(){
             for(let i=0;data.searchResults.length;i++){
                 const l=document.createElement('li');
                 l.textContent=data.searchResults[i].username;
+                // l.id="/@"+username;
                 list.appendChild(l);
                 console.log(data.searchResults[i].username);
             }
