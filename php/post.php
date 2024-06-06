@@ -1,6 +1,7 @@
 <?php
 class Post{
     use validatePost;
+    private $categoryID;
     private $description;
     private $title;
     private $status;
@@ -26,14 +27,15 @@ class Post{
 public function __construct(){
     $this->errorMessage;
     $this->description='';
+    $this->categoryID=null;
     $this->title='';
     $this->status='';
     $this->postID='';
-    $this->postLinkID='';
+    $this->postLinkID=null;
     $this->postLink='';
     $this->img='';
     $this->authorName='';
-    $this->authorID='';
+    $this->authorID=null;
     $this->alt='';
 
    
@@ -46,6 +48,9 @@ function initialise($arr){
     $this->set_img($arr['picture']);
     $this->postLink=$arr['postLink'];
     $this->postLinkID=$arr['postLinkID'];
+}
+public function set_category_id($id){
+    $this->categoryID=$id;
 }
 public function set_categoryName($nm){
     $this->categoryName=$nm;
@@ -146,6 +151,9 @@ public function get_errorMessages(){
 public function get_posts(){
     return $this->posts;
 }
+public function get_category_id(){
+    return $this->categoryID;
+}
 public function read_postID(){
     try{
         $database=new Database();
@@ -198,15 +206,19 @@ public function read_posts(){
 }
 public function read_category_posts(){
     try{
+        $database=new Database();
+        $db=$database->get_connection();
         $query="
-            SELECT post.picture,postID FROM post p1
-            INNER JOIN category ON p1.postID=c1.postID
-            INNER JOIN post_category
+        SELECT * FROM USER_POST up1
+        INNER JOIN post_category pc1 ON up1.postID=pc1.postID
+        INNER JOIN post_category pc2 ON pc1.postID=up1.post2ID
+        INNER JOIN category c1 ON pc1.categoryID=c1.categoryID
+        WHERE c1.categoryName=:name;
         ";
         $stmt=$db->prepare($query);
-        $stmt->bindValue(':categoryID',$this->get_category_id());
+        $stmt->bindValue(':name',$this->get_categoryName());
         $stmt->execute();
-        return $stmt->fecthall();
+        return $stmt->fetchall();
     }catch(PDOExecption $err){
         echo 'error reading post from category id '.$err->getMessage();
     }

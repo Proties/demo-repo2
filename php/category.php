@@ -63,7 +63,8 @@ class Category{
             $database=new Database();
             $db=$database->get_connection();
             $query="
-                    SELECT categoryID,categoryName FROM category;
+                    SELECT categoryID,categoryName FROM category
+                    LIMIT 5;
                 ";
             $stmt=$db->prepare($query);
             $stmt->execute();
@@ -74,7 +75,10 @@ class Category{
         }
     }
     public function write_category(){
+        $database=new Database();
+        $db=$database->get_connection();
         try{
+            
             $db->begin_transaction();
             $query_one="
                 INSERT INTO Category()

@@ -102,7 +102,20 @@ function openUserProfile(evt){
 //this function sends the category name a user has selected and returns post that match that cateogry
 function select_category(evt){
     try{
+        let ele=evt.target;
+        let name=ele.innerHTML;
+        let xm=new XMLHttpRequest();
+        xm.open('POST','/');
+        xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xm.onload=function (){
+            console.log(this.responseText);
+            let data=JSON.parse(this.responseText);
+            for(let i=0;i<data.users.length;i++){
 
+            }
+        }
+        xm.send("action=select_category&categoryName="+name);
+        console.log(ele);
     }catch(err){
         console.log(err);
     }
@@ -115,7 +128,7 @@ function select_post(evt){
 function eventListeners(){
     let userProfile=document.getElementsByClassName("profile-button");
     let search_input=document.getElementById("search");
-    let category=document.getElementsByClassName("");
+    let selectcategory=document.getElementsByClassName("tag");
     let likePost=document.getElementsByClassName("");
     let selectPost=document.getElementsByClassName("");
     let commentPost=document.getElementsByClassName("");
@@ -123,8 +136,8 @@ function eventListeners(){
 
     search_input.addEventListener("input",search_user);
     // morePosts.addEventListener("click",more_posts);
-    for(let i=0;i<category.length;i++){
-        category[i].addEventListener('click',select_category);
+    for(let i=0;i<selectcategory.length;i++){
+        selectcategory[i].addEventListener('click',select_category);
     }
     for(let i=0;i<userProfile.length;i++){
         userProfile[i].addEventListener('click',openUserProfile);

@@ -61,18 +61,20 @@ switch($action){
     case 'select_category':
         $category=new Category();
         $category->set_categoryName($_POST['categoryName']);
-        $category->set_categoryID($_POST['categoryID']);
         $post=new Post();
-        $post->set_category_id();
         $categoryPosts=$post->read_category_posts();
         $catLen=count($categoryPosts);
-
-        $info=$category->get_posts();
         $data=array();
-        for($i=0;$i<catLen;$i++){
-            $post=new Post();
+        for($i=0;$i<$catLen;$i++){
+            $primary_post=new Post();
+            $secondary_post=new Post();
+            $primary_post->set_img($categoryPosts[$i]['picture']);
+            $primary_post->set_title($categoryPosts[$i]['postTitle']);
+
+            $secondary_post->set_img($categoryPosts[$i]['picture']);
+            $secondary_post->set_title($categoryPosts[$i]['post2Title']);
             $user=new Users();
-            
+
             $data['users'][]=array(
                 'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
                 'primary_post'=>array('img'=>base64_encode($primary_post->get_img()),'title'=>$primary_post->get_title()),
