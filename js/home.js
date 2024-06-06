@@ -75,13 +75,18 @@ return false;
 // and preforms a search of matchin words on the database of usernames
 function search_user(){
     let text=document.getElementById("search").value;
+    let list=document.getElementById('suggestion-list');
     try{
         let xml=new XMLHttpRequest();
         xml.onload=function(){
             let data=JSON.parse(this.responseText);
-            console.log(data);
             console.log(data.searchResults);
+            list.style.display='block';
+            list.innerHTML='';
             for(let i=0;data.searchResults.length;i++){
+                const l=document.createElement('li');
+                l.textContent=data.searchResults[i].username;
+                list.appendChild(l);
                 console.log(data.searchResults[i].username);
             }
         }
@@ -110,9 +115,13 @@ function select_category(evt){
         xm.onload=function (){
             console.log(this.responseText);
             let data=JSON.parse(this.responseText);
+            let posts=[];
             for(let i=0;i<data.users.length;i++){
 
+                let item={primary_post:s,secondary_post:s,user:s};
+                posts.push(item);
             }
+            init_img(posts);
         }
         xm.send("action=select_category&categoryName="+name);
         console.log(ele);

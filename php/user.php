@@ -124,6 +124,22 @@ class Users{
         return false;
         
     }
+    public static function search_user($user){
+        try{
+            $database=new Database();
+            $db=$database->get_connection();
+            $query='
+                SELECT username FROM Users
+                WHERE username LIKE :name
+            ';
+            $stmt=$db->prepare($query);
+            $stmt->bindValue(':name',"%$user%");
+            $stmt->execute();
+            return $stmt->fetchall();
+        }catch(PDOExecption $err){
+            echo 'error looking for username '.$err->getMessages();
+        }
+    }
     public function write_user(){
         $database=new Database();
         $db=$database->get_connection();

@@ -72,7 +72,28 @@ nav .profile-link{
     color: #333;
     white-space: nowrap;
 }
-
+#suggestion-list {
+    position: absolute;
+    left:5em;
+    background-color: #fff;
+    border: 3px solid #000000;
+    width:16em;
+    display: none;
+    margin-top: 2em;
+    z-index: 20;
+  }
+  
+  #suggestion-list li {
+    padding: 0.1em;
+    list-style-type: none;
+    font-size: 1.4em;
+    margin-bottom: 10px;
+  }
+  
+  #suggestion-list li:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
+  }
 .dropdown a:hover {
     background-color: #f0f0f0;
     display: block;
@@ -86,6 +107,7 @@ nav .profile-link{
     flex-grow: 1;
     display: flex;
     justify-content: center;
+    position: relative;
 }
 
 .nav-center input[type="text"] {

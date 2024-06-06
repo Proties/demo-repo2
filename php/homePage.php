@@ -84,8 +84,9 @@ switch($action){
         echo json_encode($data);
         break;
     case 'search':
+        $data=array();
         $target=$_POST['q'];
-        $usernames=get_usernames($target);
+        $usernames=Users::search_user($target);
         $data['searchResults']=$usernames;
         echo json_encode($data);
         break;
