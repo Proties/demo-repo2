@@ -14,6 +14,7 @@ class Users{
     private $userProfileLink;
     private $status;
     private $id;
+    private $authanticated;
     private $errorMessages=array();
     private $errorMessage;
     private $userObjects=array();
@@ -114,6 +115,14 @@ class Users{
     }
     public function get_bio(){
         return $this->bio;
+    }
+    public function is_authanticated(){
+        if($this->authanticate==true){
+            $this->authanticate;
+            return true;
+        }
+        return false;
+        
     }
     public function write_user(){
         $database=new Database();

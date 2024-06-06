@@ -13,6 +13,7 @@ if(isset($_SERVER['userID'])){
 $action=$_POST['action'];
 switch($action){
     case 'initialise_user':
+        $data=array();
         $link=substr($_SERVER['REQUEST_URI'],2);
 
         $author=new Users();
@@ -21,8 +22,8 @@ switch($action){
             $author->set_username($link);
             $author->read_userID();
             $author->read_user();
-        $data=array();
-        $data['user'][]=array('username'=>$author->get_username(),'userProfilePicture'=>$author->get_profilePicture(),
+        
+        $data['user'][0]=array('username'=>$author->get_username(),'userProfilePicture'=>$author->get_profilePicture(),
                             'bio'=>$author->get_bio());
         $post=new Post();
        
@@ -68,6 +69,11 @@ switch($action){
         echo json_encode($data);
         break;
     case 'addPost':
+        if(!$mainUser->is_authenticated()){
+            $msg='user not registered';
+            echo $msg;
+            return;
+        }
         $post=new Post();
         $post->set_authorID($user->get_id());
         $post->set_image();

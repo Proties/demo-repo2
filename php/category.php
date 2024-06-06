@@ -58,24 +58,45 @@ class Category{
         return $this->posts;
     }
 
-    public function read_category(){
+    public static function read_category(){
         try{
             $database=new Database();
             $db=$database->get_connection();
             $query="
-                    SELECT categoryID FROM category
-                    WHERE categoryName=:name;
+                    SELECT categoryID,categoryName FROM category;
                 ";
             $stmt=$db->prepare($query);
-            $stmt->bindValue(':name',$this->get_categoryName());
             $stmt->execute();
-
+            return $stmt->fetchall();
         }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();
 
         }
     }
-    public function write_category(){}
+    public function write_category(){
+        try{
+            $db->begin_transaction();
+            $query_one="
+                INSERT INTO Category()
+                VALUES(:categoryName);
+                ";
+            $stmt=$db->prepare($query_one);
+            $stmt->execute();
+            $this->set_categoryID($stmt->lastInsertId());
+            $query_two="
+                INSER INTO post_category
+                VALUES(:catID,:postID)
+            ";
+            $stmt_two=$db->prepare($query);
+            $stmt_two->bindValue(':categoryID',$this->get_categoryID());
+            $stmt_two->bindValue(':postID',$this->get_categoryName());
+            $stmt_two->execute();
+            $db->commit();
+        }catch(PDOExecption $err){
+            $db->rollBack();
+            echo 'Error writing to category table '.$err->getMessage();
+        }
+    }
     public static function get_categories(){
         try{
             $database=new Database();

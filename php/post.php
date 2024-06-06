@@ -196,6 +196,21 @@ public function read_posts(){
         echo 'Database error '.$err->getMessage();
     }
 }
+public function read_category_posts(){
+    try{
+        $query="
+            SELECT post.picture,postID FROM post p1
+            INNER JOIN category ON p1.postID=c1.postID
+            INNER JOIN post_category
+        ";
+        $stmt=$db->prepare($query);
+        $stmt->bindValue(':categoryID',$this->get_category_id());
+        $stmt->execute();
+        return $stmt->fecthall();
+    }catch(PDOExecption $err){
+        echo 'error reading post from category id '.$err->getMessage();
+    }
+}
 public function read_comments(){
     try{
         $database=new Database();

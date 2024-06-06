@@ -8,14 +8,13 @@ function initialise_image(){
     xml.onload = function() {
         // console.log(this.responseText);
         let data=JSON.parse(this.responseText);
-        console.log(data);
         // document.getElementsByClassName('profile-link').href="@"+data.user.user_info.username;
         let dataItem=[];
-      
-        for(let i=0;i<data.length;i++){
+        console.log(data);
+        for(let i=0;i<data.users.length;i++){
     
-        const base64Image = data[i].user.primary_post.img; // your Base64-encoded image string
-        const base64Image_two = data[i].user.primary_post.img;
+        const base64Image = data.users[i].primary_post.img; // your Base64-encoded image string
+        const base64Image_two = data.users[i].primary_post.img;
 
         const binaryString = atob(base64Image);
         const arrayBuffer = new ArrayBuffer(binaryString.length);
@@ -33,7 +32,7 @@ function initialise_image(){
           }
         const blob = new Blob([uint8Array], { type: 'image/png' }); // or 'image/jpeg' or other image types
         const blob_two = new Blob([uint8Array_two], { type: 'image/png' }); // or 'image/jpeg' or other image types
-        let item={primary:blob,seconday:blob_two,username:data[i].user.user_info.username};
+        let item={primary:blob,seconday:blob_two,username:data.users[i].user_info.username};
         // now you can use the blob object to display the image
         // const img = document.getElementsByClassName('post-image');
         // img[i].src = URL.createObjectURL(blob);
@@ -144,10 +143,17 @@ function eventListeners(){
     
 
 }
+function init_user(arr){
+    if(arr.username==null){
+        return ;
+    }
+    document.getElementsByClassName("profile-link")[0].href="/@"+arr.username;
+}
 function init_img(arr){
 
     let p=document.getElementsByClassName("post-container");
-    for(let n=0;n<p.length-1;n++){
+    console.log(arr);
+    for(let n=0;n<p.length;n++){
 
         let ele=p[n].getElementsByClassName('post-image')[0];
         let ele_two=p[n].getElementsByClassName('post-image')[1];
@@ -157,12 +163,6 @@ function init_img(arr){
         
         console.log("======= end ======");
     }
-    // let c=document.getElementsByClassName("post-image");
-    // for(let n=0;n<c.length-1;n++){
-    //     console.log(c[n]);
-    // }
-    
-
 }
 open_postPreview();
 initialise_image();
