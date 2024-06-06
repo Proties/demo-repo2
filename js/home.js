@@ -11,6 +11,7 @@ function initialise_image(){
         // document.getElementsByClassName('profile-link').href="@"+data.user.user_info.username;
         let dataItem=[];
         console.log(data);
+        init_categories(data.categories);
         for(let i=0;i<data.users.length;i++){
     
         const base64Image = data.users[i].primary_post.img; // your Base64-encoded image string
@@ -117,6 +118,9 @@ function select_category(evt){
             console.log(this.responseText);
             let data=JSON.parse(this.responseText);
             let posts=[];
+            if(data.length==0){
+                return;
+            }
             for(let i=0;i<data.users.length;i++){
 
                 let item={primary_post:s,secondary_post:s,user:s};
@@ -162,9 +166,6 @@ function eventListeners(){
         commentPost[i].addEventListener('click',comment_post);
     }
 
-    
-    
-
 }
 function init_user(arr){
     if(arr.username==null){
@@ -172,12 +173,32 @@ function init_user(arr){
     }
     document.getElementsByClassName("profile-link")[0].href="/@"+arr.username;
 }
+function init_categories(arr){
+    let cats=document.getElementsByClassName('tag');
+    let max=arr.length;
+    console.log(max);
+    console.log(cats.length);
+
+        for(let i=0;i<cats.length;i++){
+            if(i>max){
+                cats[i].remove();
+            }
+        }
+    console.log(cats.length);
+    for(let x=0;x<arr.length;x++){
+        console.log(arr[x]);
+        cats[x].getElementsByTagName('span')[0].innerHTML=arr[x].categoryName;
+    }
+}
 function init_img(arr){
 
     let p=document.getElementsByClassName("post-container");
     console.log(arr);
     for(let n=0;n<p.length;n++){
-
+        if(arr[n]==undefined){
+            return;
+        }
+        console.log(arr[n]);
         let ele=p[n].getElementsByClassName('post-image')[0];
         let ele_two=p[n].getElementsByClassName('post-image')[1];
         p[n].getElementsByClassName("profile-button")[0].id="/@"+arr[n].username;
