@@ -11,6 +11,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $post->set_caption();
         $post->set_preview_status();
         $category->set_name();
+        $post->set_author($_SERVER['userID']);
 
         if($post->validate_caption()==false){
             $errorMessages=array('errcaption'=>'not valid caption');

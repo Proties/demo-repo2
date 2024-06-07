@@ -23,7 +23,7 @@ switch($action){
             $author->read_user();
         
         $data['user'][0]=array('username'=>$author->get_username(),'userProfilePicture'=>$author->get_profilePicture(),
-                            'bio'=>$author->get_bio());
+                            'bio'=>$author->get_bio(),'post'=>array());
         $post=new Post();
        
         $post->set_authorID($author->get_id());
