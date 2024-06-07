@@ -259,6 +259,13 @@ class Users{
 }
 
 trait validateUser{
+    function validate_username_url($txt){
+        $pattern='/(\/@[a-z0-9]{3,})/i';
+        if(preg_match($pattern,$txt)){
+            return true;
+        }
+        return false;
+    }
     function validate_username($txt){
         $pattern="/[a-z\/-]{13,}/i";
         if(preg_match($pattern,$txt)){

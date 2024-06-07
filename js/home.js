@@ -11,6 +11,7 @@ function initialise_image(){
         // document.getElementsByClassName('profile-link').href="@"+data.user.user_info.username;
         let dataItem=[];
         console.log(data);
+        init_user(data.user);
         init_categories(data.categories);
         for(let i=0;i<data.users.length;i++){
     
@@ -54,13 +55,14 @@ function open_postPreview(){
     const pattern=/(\/@[a-zA-Z]{3,17})(\/[a-zA-Z0-9]){5,20}/;
     console.log(url);
     if(pattern.test(url)){
+        console.log(url);
     try{
         let xm=new XMLHttpRequest();
         xm.open('POST','/');
         xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xm.onload=function(){
             let data=JSON.parse(this.responseText);
-
+            openModal(data);
             console.log(data);
             console.log('hahaha');
         }
@@ -184,9 +186,11 @@ function eventListeners(){
   
 }
 function init_user(arr){
-    if(arr.username==null){
+    if(arr.username==null || arr.username==''){
+        console.log('null username');
         return ;
     }
+    console.log(arr.username);
     document.getElementsByClassName("profile-link")[0].href="/@"+arr.username;
 }
 function init_categories(arr){

@@ -13,11 +13,16 @@ $post=new Post();
 
 if($post->validate_postLink($f_txt)==true){
     if(Post::validate_in_db_postLink($txt)==true){
-        include_once('php/homePage.php');
-        exit();
+        $comment=new Comment();
+        $comment->set_id();
+        $coms=$comment->read_comments();
+        $data=array('username'=>$user->get_username(),'comments'=>$coms,'likes'=>443);
+        echo json_encode($data);
+        return;
+   
     }
     }
-elseif($user->validate_username($f_txt)==true){
+elseif($user->validate_username_url($f_txt)==true){
     if(Users::validate_username_in_database($txt)==true){
         include_once('php/profile.php');
         exit();

@@ -76,10 +76,25 @@ class Comment{
             $db=$database->get_connection();
             $query="
                 SELECT * FROM Comment
-                WHERE postID=:id
+                WHERE commentID=:id;
             ";
             $statement=$db->prepare($query);
             $statement->bindValue(":id",$this->get_id());
+            $this->set_status($statement->execute());
+        }catch(PDOExecption $err){
+            echo 'Database error '.$err->getMessage();
+        }
+    }
+    public function read_comments(){
+        try{
+            $database=new Database();
+            $db=$database->get_connection();
+            $query="
+                SELECT * FROM Comment
+                WHERE postID=:id;
+            ";
+            $statement=$db->prepare($query);
+            $statement->bindValue(":id",$this->get_postID());
             $this->set_status($statement->execute());
         }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();
