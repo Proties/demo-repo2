@@ -1,26 +1,52 @@
 <?php
 session_start();
-if($_SERVER['REQUEST_METHOD']=='GET'){
-    include_once('account.html');
+$user=new Users();
+$errorMessages=array();
+$dataObj=array();
+if($_SERVER['REQUEST_METHOD']=='POST'){
+    $data=file_get_contents('php://input');
+    $dataObj=json_decode($data,true);
+}
+try{
+    
+    $user->set_username($dataObj['username']);
+    $user->set_name($dataObj['name']);
+    $user->set_password($dataObj['password']);
+    $user->set_email($dataObj['email']);
+    if(!$user->validate_name($user->get_name())){
+        $errorMessages[]=array('errName'=>'Name not valid');
+    }
+    
+    if(!$user->validate_username($user->get_username())){
+        $errorMessages[]=array('errUsername'=>'Username not valid');
+    }
+    
+    if(!$user->validate_password($user->get_password())){
+        $errorMessages[]=array('errPassword'=>'Password not valid');
+    }
+    
+    if(!$user->validate_email($user->get_email())){
+        $errorMessages[]=array('errEmail'=>'Email not valid');
+    }
+    $len=count($errorMessages);
+    if($len>0){
+        throw new Exception('could not create user');
+    }
+    $user->write_user();
+    if($user->get_status()==1){
+        $_SESSION['userID']=$user->get_id();
+        $_SESSION['username']=$user->get_username();
+        $item=array('status'=>'success');
+        echo json_encode($item);
+        return;
+    }
+    throw new Exception('user failed to be created');
+       
+    
+}catch(Exception $err){
+    $data=array('status'=>'failed','msg'=>$err->getMessage(),"errorArray"=>$errorMessages);
+    echo json_encode($data);
     return;
 }
-include_once('php/user.php');
 
-$user=new Users();
-
-$user->set_name($_POST['fullname']);
-$user->set_username($_POST['username']);
-$user->set_password($_POST['password']);
-$user->write_user();
-//if user succesfully registered direct them to homepage
-if($user->get_status()==1){
-    echo 'success';
-    $_SESSION['userID']=$user->get_id();
-    $_SESSION['username']=$user->get_username();
-    header('Location: /');
-    exit();
-}else{
-    echo 'failed';
-   return json_encode(array("status"=>"not ok","message"=>"incorrect details"));
-}
 ?>

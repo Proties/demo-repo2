@@ -249,6 +249,42 @@ function closeModal() {
 // Form submission
 document.getElementById("registerForm").onsubmit = function(event) {
     event.preventDefault();
+    let form=document.getElementById("registerForm");
+    let formData=new FormData(document.getElementById("registerForm"));
+    let item={
+        name:document.getElementById('name').value,
+        username:document.getElementById('username').value,
+        password:document.getElementById('password').value,
+        email:document.getElementById('email').value
+    };
+    item=JSON.stringify(item);
+    try{
+        
+        let xm=new XMLHttpRequest();
+        xm.open('POST','/registration');
+        xm.setRequestHeader('Content-Type', 'application/json');
+        xm.onload=function(){
+            console.log('form validation');
+            
+            let data=JSON.parse(this.responseText);
+            console.log(data);
+            if(data.status=='succes'){
+                alert('succesfull logged in');
+                document.getElementById('registerModal').style.display='none';
+                return;
+            }
+            for(let i=0;i<data.errorArray.length;i++){
+                const k=Object.keys(data.errorArray[i]);
+                console.log(data.errorArray[i]);
+                console.log(data.errorArray[i][k]);
+                document.getElementById(k).innerHTML=data.errorArray[i][k];
+            }
+            
+        }
+        xm.send(item);
+    }catch(err){
+        console.log(err);
+    }
     // Your form submission code here
     // You can access form fields using document.getElementById or other methods
     // Example: var username = document.getElementById("username").value;

@@ -61,6 +61,9 @@ class Users{
     public function set_bio($s){
         $this->bio=$s;
     }
+     public function set_email($s){
+        $this->email=$s;
+    }
 
     public function set_profileLink($pl){
         $this->userProfileLink;
@@ -134,6 +137,7 @@ class Users{
             $query='
                 SELECT username FROM Users
                 WHERE username LIKE :name
+                LIMIT 5;
             ';
             $stmt=$db->prepare($query);
             $stmt->bindValue(':name',"%$user%");
@@ -256,37 +260,33 @@ class Users{
 
 trait validateUser{
     function validate_username($txt){
-        $pattern="/\/@[a-zA-Z]{1,16}/i";
+        $pattern="/[a-z\/-]{13,}/i";
         if(preg_match($pattern,$txt)){
             return true;
         }
-        $msg='not valid username';
         return false;
         
     }
     function validate_name($txt){
-        $pattern='//i';
+        $pattern='/[a-z]{13,}/i';
         if(preg_match($pattern,$txt)){
             return true;
         }
-        $msg='not valid name';
-        return $msg;
+        return false;
     }
     function validate_email($txt){
-        $pattern='//i';
+        $pattern='/[a-z]{1,}/i';
         if(preg_match($pattern,$txt)){
             return true;
         }
-        $msg='not valid email';
-        return $msg;
+        return false;
     }
-    function validate_phone($txt){
-        $pattern='//i';
+    function validate_password($txt){
+        $pattern='/[a-z].[0-8]{3}/i';
         if(preg_match($pattern,$txt)){
             return true;
         }
-        $msg='not valid phone';
-        return $msg;
+        return false;
     }
 }
 ?>
