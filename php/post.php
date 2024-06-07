@@ -21,7 +21,7 @@ class Post{
     private $viewsCount;
     private $categoryName;
     private $comments=array();
-    private $posts=array();
+    private $posts;
 
 
 public function __construct(){
