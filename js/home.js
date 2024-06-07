@@ -144,7 +144,7 @@ function eventListeners(){
     let search_input=document.getElementById("search");
     let selectcategory=document.getElementsByClassName("tag");
     let likePost=document.getElementsByClassName("");
-    let selectPost=document.getElementsByClassName("");
+    let selectPost=document.getElementsByClassName("top-post");
     let commentPost=document.getElementsByClassName("");
     // let morePosts=document.getElementById("");
 
@@ -160,7 +160,7 @@ function eventListeners(){
         likePost[i].addEventListener('click',like_post);
     }
     for(let i=0;i<selectPost.length;i++){
-        selectPost[i].addEventListener('click',select_post);
+        selectPost[i].addEventListener('click',openModal);
     }
      for(let i=0;i<commentPost.length;i++){
         commentPost[i].addEventListener('click',comment_post);
@@ -212,3 +212,65 @@ open_postPreview();
 initialise_image();
 eventListeners();
 
+
+function openModal(evt) {
+    console.log(evt);
+    return;
+    let postTitle=evt.target;
+    let postImageSrc=evt.target;
+    const modal = document.getElementById("postModal");
+    const modalPostImage = document.getElementById("modalPostImage");
+
+    modalPostImage.src = postImageSrc;
+    modal.style.display = "block";
+}
+
+function closeModal() {
+    const modal = document.getElementById("postModal");
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById("postModal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+<!-- This is the javascript for the register window.
+// Get the modal
+var modal = document.getElementById("registerModal");
+
+// Get the button that opens the modal
+var registerBtn = document.querySelector(".register-button");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+registerBtn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+// Form submission
+document.getElementById("registerForm").onsubmit = function(event) {
+    event.preventDefault();
+    // Your form submission code here
+    // You can access form fields using document.getElementById or other methods
+    // Example: var username = document.getElementById("username").value;
+    // After processing, you can close the modal
+    modal.style.display = "none";
+};

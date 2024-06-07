@@ -32,6 +32,7 @@ nav .profile-link{
     margin: 0 10px;
 }
 
+<<<<<<< HEAD
 .hamburger-menu {
     width: 40px;
     height: 40px;
@@ -103,6 +104,8 @@ nav .profile-link{
     display: block;
 }
 
+=======
+>>>>>>> ae58f1ecf79136f39a4bc693156c640ae7597f16
 .nav-center {
     flex-grow: 1;
     display: flex;
@@ -155,92 +158,77 @@ nav .profile-link{
 }
 
 .top-container {
-    padding: 20px;
-    background-color: #ffffff;
-    background-color: #ffffff;
-
+    background-color: white;
+    padding: 10px;
+    margin-top: 10px;
+    position: relative;
 }
-
 
 .category-tags {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.scroll-button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+
+.tags-wrapper {
+    display: flex;
     overflow-x: auto;
+    width: 80%;
     padding: 10px;
     scrollbar-width: none; /* Hide scrollbar for Firefox */
 }
 
 .tags-wrapper::-webkit-scrollbar {
-    display: none; /* For Chrome, Safari, and Opera */
-}
-
-.tags-wrapper {
-    display: flex;
-    justify-content: center;
-    overflow-x: auto;
-    scrollbar-width: none; /* For Firefox */
-    -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+    display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
 }
 
 .tag {
-    flex: 0 0 auto;
-    text-align: center;
-    margin-right: 10px;
-    cursor: pointer;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    padding: 25px; /* Increased padding to make tags bigger */
+    margin: 0 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    white-space: nowrap;
     transition: background-color 0.3s, color 0.3s;
 }
 
-.tag img {
-    display: block;
-    width: 150px; /* Increased size */
-    height: 150px; /* Increased size */
-    border-radius: 8px;
-    transition: transform 0.3s ease-in-out;
-}
-
 .tag span {
-    display: none;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #333;
-    font-size: 18px;
-    font-weight: bold;
+    color: black;
+    background-color: white;
+    opacity: 0.69;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    transition: opacity 0.3s;
 }
 
-.tag:hover img {
-    transform: scale(1.1);
-    opacity: 0.3;
+.tag img {
+    max-width: 100px;
+    object-fit: contain;
+    border-radius: 3px;
 }
 
 .tag:hover span {
-    display: block;
-}
-
-.tags-wrappers {
-    display: flex;
-    overflow-x: auto;
-    scrollbar-width: none; /* For Firefox */
-    -ms-overflow-style: none;  /* For Internet Explorer and Edge */
-}
-
-.tags-wrappers::-webkit-scrollbar {
-    display: none; /* For Chrome, Safari, and Opera */
-}
-
-.scroll-left, .scroll-right {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.scroll-lefter, .scroll-righter {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
+    opacity: 0;
 }
 
 .top-post {
@@ -346,3 +334,186 @@ nav .profile-link{
 .profile-button img {
     object-fit: cover;
 } 
+
+/*View post window*/
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content .close {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-content .close:hover, .modal-content .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-post {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-post img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+}
+
+.modal-post-actions {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    width: 100%;
+}
+
+.modal-comments {
+    flex: 1;
+    padding: 20px;
+    background-color: #f9f9f9;
+    overflow-y: auto;
+    max-height: 80vh;
+}
+
+.modal-comments h3 {
+    margin-top: 0;
+}
+
+/*register css*/
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 10px;
+}
+
+input,
+button {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+
+
+
+
+
+
+
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.view-more-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.contact-info {
+    text-align: left;
+}
+
+.contact-info p {
+    margin-bottom: 5px;
+}
+
+.contact-info ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.contact-info li {
+    margin-bottom: 5px;
+}

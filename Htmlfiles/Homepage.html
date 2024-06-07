@@ -10,83 +10,94 @@
   <body>
     <header>
       <nav>
-        <div class="nav-left">
-          <div class="hamburger-menu">
-            <div class="dropdown">
-              <a href="/settings">
-                <img src="Image/Settings.png" alt="Settings" />
-              </a>
-              <a href="/category">
-                <img src="Image/Categorize.png" alt="Categories" />
-              </a>
-              <a href="/Registration">
-                <img src="Image/Registration.png" alt="Registration" />
-              </a>
-            </div>
+          <div class="nav-left">
+              <button class="register-button">Register</button>
           </div>
-        </div>
-        <div class="nav-center">
-          <input type="text" placeholder="Search" id="search" />
-          <ul id="suggestion-list"></ul>
-          <button class="search-button" id="searchBtn">
-            <img src="Image/Search.png" alt="Search" />
-          </button>
-        </div>
-        <div class="nav-right">
-          <a href="/profile" class="profile-link">
-            <img src="Image/Test Account.png" alt="profile-link"
-          /></a>
-        </div>
+  
+          <div class="nav-center">
+              <input type="text" placeholder="Search" id="search" />
+              <button class="search-button" id="searchBtn">
+                  <img src="/Image/Search.png" alt="Search" />
+              </button>
+          </div>
+  
+          <div class="nav-right">
+              <a href="/profile" class="profile-link">
+                  <img src="/Image/Test Account.png" alt="profile-link" />
+              </a>
+          </div>
       </nav>
-    </header>
+  </header>
+  
+  
 
     <main>
       <section class="top-container">
         <div class="category-tags">
           <button class="scroll-button" id="scroll-left">&lt;</button>
           <div class="tags-wrapper">
-            <div class="tag" ">
-              <img src="Image/web design.png" alt="Web Design" />
+            <div class="tag" onclick="fillSearchBar('Web Design')">
+              <img src="/Image/web design.png" alt="Web Design" />
               <span>Web Design</span>
             </div>
-            <div class="tag" ">
-              <img src="Image/Animation.png.jpg" alt="Animation" />
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="/Image/Animation.png.jpg" alt="Animation" />
               <span>Animation</span>
             </div>
-            <div class="tag" ">
-              <img src="Image/Comic.png.png" alt="Comic Art" />
+            <div class="tag" onclick="fillSearchBar('Comic Art')">
+              <img src="/Image/Comic.png.png" alt="Comic Art" />
               <span>Comic Art</span>
             </div>
-            <div class="tag" ">
-              <img src="Image/ux.png" alt="UI/UX Design" />
+            <div class="tag" onclick="fillSearchBar('UI/UX Design')">
+              <img src="/Image/UI.png" alt="UI/UX Design" />
               <span>UI/UX Design</span>
             </div>
-            <div class="tag" ">
-              <img src="Image/Photography.png" alt="Photography" />
+            <div class="tag" onclick="fillSearchBar('Photography')">
+              <img src="/Image/Photography.png" alt="Photography" />
               <span>Photography</span>
             </div>
-            <div class="tag" ">
-              <img src="Image/Animation.png.jpg" alt="Animation" />
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="/Image/Animation.png.jpg" alt="Animation" />
               <span>Animation</span>
             </div>
-            <div class="tag" ">
-              <img src="Image/Animation.png.jpg" alt="Animation" />
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="/Image/Animation.png.jpg" alt="Animation" />
               <span>Animation</span>
             </div>
-            <div class="tag" ">
-              <img src="Image/Animation.png.jpg" alt="Animation" />
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="/Image/Animation.png.jpg" alt="Animation" />
               <span>Animation</span>
             </div>
-            <div class="tag" ">
-              <img src="Image/Animation.png.jpg" alt="Animation" />
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="/Image/Animation.png.jpg" alt="Animation" />
               <span>Animation</span>
             </div>
-            <div class="tag" ">
-              <img src="Image/Animation.png.jpg" alt="Animation" />
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="/Image/Animation.png.jpg" alt="Animation" />
               <span>Animation</span>
             </div>
-            <div class="tag" ">
-              <img src="Image/Animation.png.jpg" alt="Animation" />
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="/Image/Animation.png.jpg" alt="Animation" />
+              <span>Animation</span>
+            </div>
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="/Image/Animation.png.jpg" alt="Animation" />
+              <span>Animation</span>
+            </div>
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="/Image/Animation.png.jpg" alt="Animation" />
+              <span>Animation</span>
+            </div>
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="/Image/Animation.png.jpg" alt="Animation" />
+              <span>Animation</span>
+            </div>
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="/Image/Animation.png.jpg" alt="Animation" />
+              <span>Animation</span>
+            </div>
+            <div class="tag" onclick="fillSearchBar('Animation')">
+              <img src="/Image/Animation.png.jpg" alt="Animation" />
               <span>Animation</span>
             </div>
             
@@ -102,14 +113,14 @@
             <div class="post">
               <div class="top-post" onclick="openModal('Post Image 1')">
                 <img
-                  src="Image/Animation.png.jpg"
+                  src="/Image/Comic.png.png"
                   alt="Post Image 1"
                   class="post-image"
                 />
               </div>
               <div class="bottom-post" onclick="openModal('Post Image 2')">
                 <img
-                  src="Image/Comic.png.png"
+                  src="/Image/Animation.png.jpg"
                   alt="Post Image 1"
                   class="post-image"
                 />
@@ -117,29 +128,29 @@
             </div>
             <div class="post-actions">
               <div class="profile-button">
-                <img src="Image/Test Account.png" alt="Profile Icon" />
+                <img src="/Image/Test Account.png" alt="Profile Icon" />
               </div>
               <button class="like-button">
-                <img src="Image/Heart.png" alt="like-button" />
+                <img src="/Image/Heart.png" alt="like-button" />
               </button>
               <button class="comment-button">
-                <img src="Image/Speech Bubble.png" alt="comment-button" />
+                <img src="/Image/Speech Bubble.png" alt="comment-button" />
               </button>
             </div>
           </div>
 
           <div class="post-container">
             <div class="post">
-              <div class="top-post" onclick="openModal('Post Image 3')">
+              <div class="top-post" ">
                 <img
-                  src="Image/Animation.png.jpg"
+                  src="/Image/Animation.png.jpg"
                   alt="Post Image 1"
                   class="post-image"
                 />
               </div>
-              <div class="bottom-post" onclick="openModal('Post Image 4')">
+              <div class="bottom-post" ">
                 <img
-                  src="Image/Comic.png.png"
+                  src="/Image/Comic.png.png"
                   alt="Post Image 1"
                   class="post-image"
                 />
@@ -147,29 +158,29 @@
             </div>
             <div class="post-actions">
               <div class="profile-button">
-                <img src="Image/Test Account.png" alt="Profile Icon" />
+                <img src="/Image/Test Account.png" alt="Profile Icon" />
               </div>
               <button class="like-button">
-                <img src="Image/Heart.png" alt="like-button" />
+                <img src="/Image/Heart.png" alt="like-button" />
               </button>
               <button class="comment-button">
-                <img src="Image/Speech Bubble.png" alt="comment-button" />
+                <img src="/Image/Speech Bubble.png" alt="comment-button" />
               </button>
             </div>
           </div>
 
           <div class="post-container">
             <div class="post">
-              <div class="top-post" onclick="openModal('Post Image 5')">
+              <div class="top-post" ">
                 <img
-                  src="Image/Animation.png.jpg"
+                  src="/Image/Animation.png.jpg"
                   alt="Post Image 1"
                   class="post-image"
                 />
               </div>
-              <div class="bottom-post" onclick="openModal('Post Image 6')">
+              <div class="bottom-post" ">
                 <img
-                  src="Image/Comic.png.png"
+                  src="/Image/Comic.png.png"
                   alt="Post Image 1"
                   class="post-image"
                 />
@@ -177,29 +188,29 @@
             </div>
             <div class="post-actions">
               <div class="profile-button">
-                <img src="Image/Test Account.png" alt="Profile Icon" />
+                <img src="/Image/Test Account.png" alt="Profile Icon" />
               </div>
               <button class="like-button">
-                <img src="Image/Heart.png" alt="like-button" />
+                <img src="/Image/Heart.png" alt="like-button" />
               </button>
               <button class="comment-button">
-                <img src="Image/Speech Bubble.png" alt="comment-button" />
+                <img src="/Image/Speech Bubble.png" alt="comment-button" />
               </button>
             </div>
           </div>
 
           <div class="post-container">
             <div class="post">
-              <div class="top-post" onclick="openModal('Post Image 7')">
+              <div class="top-post"">
                 <img
-                  src="Image/Animation.png.jpg"
+                  src="/Image/Animation.png.jpg"
                   alt="Post Image 1"
                   class="post-image"
                 />
               </div>
-              <div class="bottom-post" onclick="openModal('Post Image 8')">
+              <div class="bottom-post"">
                 <img
-                  src="Image/Comic.png.png"
+                  src="/Image/Comic.png.png"
                   alt="Post Image 1"
                   class="post-image"
                 />
@@ -207,35 +218,99 @@
             </div>
             <div class="post-actions">
               <div class="profile-button">
-                <img src="Image/Test Account.png" alt="Profile Icon" />
+                <img src="/Image/Test Account.png" alt="Profile Icon" />
               </div>
               <button class="like-button">
-                <img src="Image/Heart.png" alt="like-button" />
+                <img src="/Image/Heart.png" alt="like-button" />
               </button>
               <button class="comment-button">
-                <img src="Image/Speech Bubble.png" alt="comment-button" />
+                <img src="/Image/Speech Bubble.png" alt="comment-button" />
               </button>
             </div>
           </div>
         </div>
       </section>
 
+      <!-- Scroll Button-->
+      <script>
+        const scrollLeftButton = document.getElementById("scroll-left");
+        const scrollRightButton = document.getElementById("scroll-right");
+        const tagsWrapper = document.querySelector(".tags-wrapper");
+
+        scrollLeftButton.addEventListener("click", () => {
+          tagsWrapper.scrollBy({ left: -200, behavior: "smooth" });
+        });
+
+        scrollRightButton.addEventListener("click", () => {
+          tagsWrapper.scrollBy({ left: 200, behavior: "smooth" });
+        });
+
+        function fillSearchBar(tag) {
+          const searchBar = document.querySelector(".nav-center input");
+          searchBar.value = tag;
+        }
+      </script>
+
       <!-- Modal Window -->
       <div id="postModal" class="modal">
         <div class="modal-content">
-          <span class="close" onclick="closeModal()">&times;</span>
-          <div id="post1" class="full-post">
-            <img src="Image/Art.png" alt="Post 1" />
-            <p>Full post content for Post 1...</p>
-          </div>
-          <div id="post2" class="full-post">
-            <img src="Image/Animation.png.jpg" alt="Post 2" />
-            <p>Full post content for Post 2...</p>
-          </div>
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="modal-post">
+                <img id="modalPostImage" src="/Image/Art.png" alt="Post Image" class="post-image" />
+                <div class="modal-post-actions">
+                    <button class="like-button">
+                        <img src="/Image/Heart.png" alt="like-button" />
+                    </button>
+                    <button class="comment-button">
+                        <img src="/Image/Speech Bubble.png" alt="comment-button" />
+                    </button>
+                </div>
+            </div>
+            <div class="modal-comments">
+                <!-- Comment section here -->
+            </div>
+        </div>
+    </div>
           <!-- Additional full posts -->
         </div>
       </div>
+
+      <!-- Register Pop-up -->
+<div id="registerModal" class="modal">
+  <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Register</h2>
+      <form id="registerForm">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required>
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+          <button type="submit">Submit</button>
+      </form>
+  </div>
+</div>
+
+
+      <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Pro & Toxic. All rights reserved.</p>
+            <button class="view-more-btn">View More Posts</button>
+            <div class="contact-info">
+                <p>Contact Us:</p>
+                <ul>
+                    <li>Email: info@example.com</li>
+                    <li>Phone: +1234567890</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    
     </main>
-    <script src="/./../js/home.js"></script>
+    <script src="/js/home.js"></script>
   </body>
 </html>
+
