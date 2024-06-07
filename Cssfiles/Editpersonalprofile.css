@@ -89,6 +89,7 @@ nav .home-link {
 
 .control-panel {
     width: 200px;
+    max-height: 500px;
     padding: 10px;
     background-color: #f8f8f8;
     border: 1px solid #ddd;

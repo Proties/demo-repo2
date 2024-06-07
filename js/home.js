@@ -144,7 +144,8 @@ function eventListeners(){
     let search_input=document.getElementById("search");
     let selectcategory=document.getElementsByClassName("tag");
     let likePost=document.getElementsByClassName("");
-    let selectPost=document.getElementsByClassName("top-post");
+    let selectTopPost=document.getElementsByClassName("top-post");
+    let selectBottomPost=document.getElementsByClassName("bottom-post");
     let commentPost=document.getElementsByClassName("");
     // let morePosts=document.getElementById("");
 
@@ -159,8 +160,11 @@ function eventListeners(){
     for(let i=0;i<likePost.length;i++){
         likePost[i].addEventListener('click',like_post);
     }
-    for(let i=0;i<selectPost.length;i++){
-        selectPost[i].addEventListener('click',openModal);
+    for(let i=0;i<selectTopPost.length;i++){
+        selectTopPost[i].addEventListener('click',openModal);
+    }
+    for(let i=0;i<selectBottomPost.length;i++){
+        selectBottomPost[i].addEventListener('click',openModal);
     }
      for(let i=0;i<commentPost.length;i++){
         commentPost[i].addEventListener('click',comment_post);
