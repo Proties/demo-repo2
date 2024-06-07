@@ -83,7 +83,7 @@ nav .profile-link{
     z-index: 20;
   }
   
-  #suggestion-list li {
+#suggestion-list li {
     padding: 0.1em;
     list-style-type: none;
     font-size: 1.4em;

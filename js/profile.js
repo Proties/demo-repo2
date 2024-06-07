@@ -86,9 +86,8 @@ function upload_post(){
 }
 initialise();
 
-<!-- Javascript code for the Upload Modal & the caption Post modal. They need to be put in the javascript files for this page but I don't want to temper with your work
 
-document.addEventListener('DOMContentLoaded', () => {
+function addEventListeners(){
     const uploadBtn = document.getElementById('uploadBtn');
     const uploadModal = document.getElementById('uploadModal');
     const captionModal = document.getElementById('captionModal');
@@ -120,7 +119,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Upload post from device
     uploadFromDeviceBtn.addEventListener('click', () => {
-        // Perform upload logic here
+        try{
+            xm=new XMLHttpRequest();
+            xm.open('POST','/');
+            xm.setRequestHeader('Content-type','application/x-www-form-urlencodded');
+            xm.onload=function(){
+
+            }
+            xm.send("action=upload_post");
+        }catch(err){
+            console.log(err);
+        }
     });
 
     // Upload progress simulation (for demonstration)
@@ -135,6 +144,5 @@ document.addEventListener('DOMContentLoaded', () => {
             uploadProgress.style.width = `${progress}%`;
         }
     }, 1000);
-});
-
--->
+}
+addEventListeners();

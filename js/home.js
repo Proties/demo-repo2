@@ -147,6 +147,11 @@ function eventListeners(){
     let selectTopPost=document.getElementsByClassName("top-post");
     let selectBottomPost=document.getElementsByClassName("bottom-post");
     let commentPost=document.getElementsByClassName("");
+    let registerBtn = document.querySelector(".register-button");
+    let closeReg = document.getElementById("closeModalReg");
+    let modal = document.getElementById("registerModal");
+
+
     // let morePosts=document.getElementById("");
 
     search_input.addEventListener("input",search_user);
@@ -169,7 +174,14 @@ function eventListeners(){
      for(let i=0;i<commentPost.length;i++){
         commentPost[i].addEventListener('click',comment_post);
     }
+    registerBtn.addEventListener('click',function() {
+        modal.style.display = "block";
+      });
 
+    closeReg.addEventListener('click',function(evt) {
+        modal.style.display = "none";
+    });
+  
 }
 function init_user(arr){
     if(arr.username==null){
@@ -218,55 +230,20 @@ eventListeners();
 
 
 function openModal(evt) {
-    console.log(evt);
-    return;
-    let postTitle=evt.target;
-    let postImageSrc=evt.target;
+   
+    let postTitle='happy';
+    let postImageSrc=evt.target.src;
     const modal = document.getElementById("postModal");
     const modalPostImage = document.getElementById("modalPostImage");
 
     modalPostImage.src = postImageSrc;
     modal.style.display = "block";
+    document.getElementById("closeModal").addEventListener('click',closeModal);
 }
 
 function closeModal() {
     const modal = document.getElementById("postModal");
     modal.style.display = "none";
-}
-
-window.onclick = function(event) {
-    const modal = document.getElementById("postModal");
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
-}
-
-
-<!-- This is the javascript for the register window.
-// Get the modal
-var modal = document.getElementById("registerModal");
-
-// Get the button that opens the modal
-var registerBtn = document.querySelector(".register-button");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal
-registerBtn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
 }
 
 // Form submission
