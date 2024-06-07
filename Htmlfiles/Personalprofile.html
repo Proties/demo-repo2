@@ -14,7 +14,7 @@
         <div class="nav-left">
 
           <a href="/" class="home-link">
-            <img src="Image/Home Icon.png" alt="Home">
+            <img src="/Image/Home Icon.png" alt="Home">
           </a>
         </div>
         <div class="nav-right">
@@ -22,7 +22,7 @@
 
           <button
           class="push-button"
-          onclick="window.location.href='../edit_profile'"
+          onclick="window.location.href='/Htmlfiles/Editpersonalprofile.html'"
         >
           Edit Profile
         </button>
@@ -31,13 +31,13 @@
             ☰
             <div class="dropdown">
               <a href="/settings">
-                <img src="Image/Settings.png" alt="Settings" />
+                <img src="/Image/Settings.png" alt="Settings" />
               </a>
               <a href="/category">
-                <img src="Image/Categorize.png" alt="Categories" />
+                <img src="/Image/Categorize.png" alt="Categories" />
               </a>
               <a href="/registration">
-                <img src="Image/Registration.png" alt="Registration" />
+                <img src="/Image/Categorize.png" alt="Registration" />
               </a>
             </div>
           </div>
@@ -49,7 +49,7 @@
     <div class="container">
       <div class="profile-header">
         <div class="profile-picture">
-          <img id='userProfilePicture' src="Image/Test Account.png" alt="Profile Picture" />
+          <img id='userProfilePicture' src="/Image/Test Account.png" alt="Profile Picture" />
         </div>
         <div class="profile-info">
           <h1 id='username'>Artist Name</h1>
@@ -70,13 +70,13 @@
       <div class="post-section">
         <div class="postfeed-wrapper">
         <div class="post">
-          <img src="Image/Art.png" alt="Post Image" />
+          <img src="/Image/Art.png" alt="Post Image" />
           <div class="post-actions">
             <button class="like-button">
-              <img src="Image/Heart.png" alt="like-button">
+              <img src="/Image/Heart.png" alt="like-button">
             </button>
             <button class="comment-button">
-              <img src="Image/Speech Bubble.png" alt="comment-button">
+              <img src="/Image/Speech Bubble.png" alt="comment-button">
             </button>
           </div>
           <div class="post-info">
@@ -85,6 +85,96 @@
           </div>
 
     </div>
+
+
+<!-- Upload Post Modal -->
+<div id="uploadModal" class="modal">
+  <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Upload Post</h2>
+      <div id="uploadProgress" class="progress-bar"></div>
+      <input type="file" id="fileInput" accept="image/*, video/*">
+      <button id="uploadFromDeviceBtn">Upload from Device</button>
+  </div>
+</div>
+
+<!-- Caption Post Modal -->
+<div id="captionModal" class="modal">
+  <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Caption Post</h2>
+      <!-- Add caption input, tags selection, collaborators, location, etc. -->
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-content">
+      <p>&copy; 2024 Pro & Toxic. All rights reserved.</p>
+      <button class="view-more-btn">View More Posts</button>
+      <div class="contact-info">
+          <p>Contact Us:</p>
+          <ul>
+              <li>Email: info@example.com</li>
+              <li>Phone: +1234567890</li>
+          </ul>
+      </div>
+  </div>
+</footer>
+
+
   </body>
-  <script src="../js/profile.js"></script>
+  <script src="/js/profile.js"></script>
 </html>
+
+<!-- Javascript code for the Upload Modal & the caption Post modal. They need to be put in the javascript files for this page but I don't want to temper with your work
+
+document.addEventListener('DOMContentLoaded', () => {
+    const uploadBtn = document.getElementById('uploadBtn');
+    const uploadModal = document.getElementById('uploadModal');
+    const captionModal = document.getElementById('captionModal');
+    const fileInput = document.getElementById('fileInput');
+    const uploadProgress = document.getElementById('uploadProgress');
+    const uploadFromDeviceBtn = document.getElementById('uploadFromDeviceBtn');
+
+    // Open upload modal
+    uploadBtn.addEventListener('click', () => {
+        uploadModal.style.display = 'block';
+    });
+
+    // Close modal when clicking outside the modal content
+    window.addEventListener('click', (event) => {
+        if (event.target == uploadModal || event.target == captionModal) {
+            uploadModal.style.display = 'none';
+            captionModal.style.display = 'none';
+        }
+    });
+
+    // Close modal when clicking the close button
+    const closeButtons = document.querySelectorAll('.close');
+    closeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            uploadModal.style.display = 'none';
+            captionModal.style.display = 'none';
+        });
+    });
+
+    // Upload post from device
+    uploadFromDeviceBtn.addEventListener('click', () => {
+        // Perform upload logic here
+    });
+
+    // Upload progress simulation (for demonstration)
+    let progress = 0;
+    const simulateUploadProgress = setInterval(() => {
+        if (progress >= 100) {
+            clearInterval(simulateUploadProgress);
+            uploadModal.style.display = 'none'; // Hide upload modal after upload complete
+            captionModal.style.display = 'block'; // Show caption modal after upload complete
+        } else {
+            progress += 10;
+            uploadProgress.style.width = `${progress}%`;
+        }
+    }, 1000);
+});
+
+-->
