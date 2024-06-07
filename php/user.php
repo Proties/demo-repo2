@@ -124,6 +124,9 @@ class Users{
         return false;
         
     }
+    public function is_user_dir_present(){
+        
+    }
     public static function search_user($user){
         try{
             $database=new Database();

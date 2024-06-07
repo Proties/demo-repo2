@@ -16,6 +16,7 @@
   
           <div class="nav-center">
               <input type="text" placeholder="Search" id="search" />
+              <ul id="suggestion-list"></ul>
               <button class="search-button" id="searchBtn">
                   <img src="/Image/Search.png" alt="Search" />
               </button>
@@ -26,6 +27,7 @@
                   <img src="/Image/Test Account.png" alt="profile-link" />
               </a>
           </div>
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
         </div>
@@ -42,6 +44,8 @@
           /></a>
         </div>
 >>>>>>> 9a71c1edb8759779b5e4fdf772c6b8b9affecc48
+=======
+>>>>>>> 95234d0a5cd93ebc953926e5495b77984130d7e3
       </nav>
   </header>
   
@@ -53,6 +57,9 @@
           <button class="scroll-button" id="scroll-left">&lt;</button>
           <div class="tags-wrapper">
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 95234d0a5cd93ebc953926e5495b77984130d7e3
             <div class="tag" onclick="fillSearchBar('Web Design')">
               <img src="/Image/web design.png" alt="Web Design" />
               <span>Web Design</span>
@@ -115,6 +122,7 @@
             </div>
             <div class="tag" onclick="fillSearchBar('Animation')">
               <img src="/Image/Animation.png.jpg" alt="Animation" />
+<<<<<<< HEAD
 =======
             <div class="tag" ">
               <img src="Image/web design.png" alt="Web Design" />
@@ -159,6 +167,8 @@
             <div class="tag" ">
               <img src="Image/Animation.png.jpg" alt="Animation" />
 >>>>>>> 9a71c1edb8759779b5e4fdf772c6b8b9affecc48
+=======
+>>>>>>> 95234d0a5cd93ebc953926e5495b77984130d7e3
               <span>Animation</span>
             </div>
             
@@ -202,14 +212,14 @@
 
           <div class="post-container">
             <div class="post">
-              <div class="top-post" onclick="openModal('Post Image 3')">
+              <div class="top-post" ">
                 <img
                   src="/Image/Animation.png.jpg"
                   alt="Post Image 1"
                   class="post-image"
                 />
               </div>
-              <div class="bottom-post" onclick="openModal('Post Image 4')">
+              <div class="bottom-post" ">
                 <img
                   src="/Image/Comic.png.png"
                   alt="Post Image 1"
@@ -232,14 +242,14 @@
 
           <div class="post-container">
             <div class="post">
-              <div class="top-post" onclick="openModal('Post Image 5')">
+              <div class="top-post" ">
                 <img
                   src="/Image/Animation.png.jpg"
                   alt="Post Image 1"
                   class="post-image"
                 />
               </div>
-              <div class="bottom-post" onclick="openModal('Post Image 6')">
+              <div class="bottom-post" ">
                 <img
                   src="/Image/Comic.png.png"
                   alt="Post Image 1"
@@ -262,14 +272,14 @@
 
           <div class="post-container">
             <div class="post">
-              <div class="top-post" onclick="openModal('Post Image 7')">
+              <div class="top-post"">
                 <img
                   src="/Image/Animation.png.jpg"
                   alt="Post Image 1"
                   class="post-image"
                 />
               </div>
-              <div class="bottom-post" onclick="openModal('Post Image 8')">
+              <div class="bottom-post"">
                 <img
                   src="/Image/Comic.png.png"
                   alt="Post Image 1"
@@ -375,69 +385,3 @@
   </body>
 </html>
 
-
-<!-- Javascript for the openModal Window. They need to be put in the javascript files for this page but I don't want to temper with your work
-
-  function openModal(postTitle, postImageSrc) {
-    const modal = document.getElementById("postModal");
-    const modalPostImage = document.getElementById("modalPostImage");
-
-    modalPostImage.src = postImageSrc;
-    modal.style.display = "block";
-}
-
-function closeModal() {
-    const modal = document.getElementById("postModal");
-    modal.style.display = "none";
-}
-
-// Close the modal when the user clicks outside of the modal content
-window.onclick = function(event) {
-    const modal = document.getElementById("postModal");
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
-}
-
--->
-
-<!-- This is the javascript for the register window.
-// Get the modal
-var modal = document.getElementById("registerModal");
-
-// Get the button that opens the modal
-var registerBtn = document.querySelector(".register-button");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal
-registerBtn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
-// Form submission
-document.getElementById("registerForm").onsubmit = function(event) {
-    event.preventDefault();
-    // Your form submission code here
-    // You can access form fields using document.getElementById or other methods
-    // Example: var username = document.getElementById("username").value;
-    // After processing, you can close the modal
-    modal.style.display = "none";
-};
-
-
-
--->
