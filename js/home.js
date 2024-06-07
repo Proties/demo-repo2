@@ -8,14 +8,14 @@ function initialise_image(){
     xml.onload = function() {
         // console.log(this.responseText);
         let data=JSON.parse(this.responseText);
-        console.log(data);
         // document.getElementsByClassName('profile-link').href="@"+data.user.user_info.username;
         let dataItem=[];
-      
-        for(let i=0;i<data.length;i++){
+        console.log(data);
+        init_categories(data.categories);
+        for(let i=0;i<data.users.length;i++){
     
-        const base64Image = data[i].user.primary_post.img; // your Base64-encoded image string
-        const base64Image_two = data[i].user.primary_post.img;
+        const base64Image = data.users[i].primary_post.img; // your Base64-encoded image string
+        const base64Image_two = data.users[i].primary_post.img;
 
         const binaryString = atob(base64Image);
         const arrayBuffer = new ArrayBuffer(binaryString.length);
@@ -33,7 +33,7 @@ function initialise_image(){
           }
         const blob = new Blob([uint8Array], { type: 'image/png' }); // or 'image/jpeg' or other image types
         const blob_two = new Blob([uint8Array_two], { type: 'image/png' }); // or 'image/jpeg' or other image types
-        let item={primary:blob,seconday:blob_two,username:data[i].user.user_info.username};
+        let item={primary:blob,seconday:blob_two,username:data.users[i].user_info.username};
         // now you can use the blob object to display the image
         // const img = document.getElementsByClassName('post-image');
         // img[i].src = URL.createObjectURL(blob);
@@ -76,13 +76,19 @@ return false;
 // and preforms a search of matchin words on the database of usernames
 function search_user(){
     let text=document.getElementById("search").value;
+    let list=document.getElementById('suggestion-list');
     try{
         let xml=new XMLHttpRequest();
         xml.onload=function(){
             let data=JSON.parse(this.responseText);
-            console.log(data);
             console.log(data.searchResults);
+            list.style.display='block';
+            list.innerHTML='';
             for(let i=0;data.searchResults.length;i++){
+                const l=document.createElement('li');
+                l.textContent=data.searchResults[i].username;
+                // l.id="/@"+username;
+                list.appendChild(l);
                 console.log(data.searchResults[i].username);
             }
         }
@@ -103,7 +109,27 @@ function openUserProfile(evt){
 //this function sends the category name a user has selected and returns post that match that cateogry
 function select_category(evt){
     try{
+        let ele=evt.target;
+        let name=ele.innerHTML;
+        let xm=new XMLHttpRequest();
+        xm.open('POST','/');
+        xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xm.onload=function (){
+            console.log(this.responseText);
+            let data=JSON.parse(this.responseText);
+            let posts=[];
+            if(data.length==0){
+                return;
+            }
+            for(let i=0;i<data.users.length;i++){
 
+                let item={primary_post:s,secondary_post:s,user:s};
+                posts.push(item);
+            }
+            init_img(posts);
+        }
+        xm.send("action=select_category&categoryName="+name);
+        console.log(ele);
     }catch(err){
         console.log(err);
     }
@@ -116,7 +142,7 @@ function select_post(evt){
 function eventListeners(){
     let userProfile=document.getElementsByClassName("profile-button");
     let search_input=document.getElementById("search");
-    let category=document.getElementsByClassName("");
+    let selectcategory=document.getElementsByClassName("tag");
     let likePost=document.getElementsByClassName("");
     let selectPost=document.getElementsByClassName("");
     let commentPost=document.getElementsByClassName("");
@@ -124,8 +150,8 @@ function eventListeners(){
 
     search_input.addEventListener("input",search_user);
     // morePosts.addEventListener("click",more_posts);
-    for(let i=0;i<category.length;i++){
-        category[i].addEventListener('click',select_category);
+    for(let i=0;i<selectcategory.length;i++){
+        selectcategory[i].addEventListener('click',select_category);
     }
     for(let i=0;i<userProfile.length;i++){
         userProfile[i].addEventListener('click',openUserProfile);
@@ -140,15 +166,39 @@ function eventListeners(){
         commentPost[i].addEventListener('click',comment_post);
     }
 
-    
-    
+}
+function init_user(arr){
+    if(arr.username==null){
+        return ;
+    }
+    document.getElementsByClassName("profile-link")[0].href="/@"+arr.username;
+}
+function init_categories(arr){
+    let cats=document.getElementsByClassName('tag');
+    let max=arr.length;
+    console.log(max);
+    console.log(cats.length);
 
+        for(let i=0;i<cats.length;i++){
+            if(i>max){
+                cats[i].remove();
+            }
+        }
+    console.log(cats.length);
+    for(let x=0;x<arr.length;x++){
+        console.log(arr[x]);
+        cats[x].getElementsByTagName('span')[0].innerHTML=arr[x].categoryName;
+    }
 }
 function init_img(arr){
 
     let p=document.getElementsByClassName("post-container");
-    for(let n=0;n<p.length-1;n++){
-
+    console.log(arr);
+    for(let n=0;n<p.length;n++){
+        if(arr[n]==undefined){
+            return;
+        }
+        console.log(arr[n]);
         let ele=p[n].getElementsByClassName('post-image')[0];
         let ele_two=p[n].getElementsByClassName('post-image')[1];
         p[n].getElementsByClassName("profile-button")[0].id="/@"+arr[n].username;
@@ -157,12 +207,6 @@ function init_img(arr){
         
         console.log("======= end ======");
     }
-    // let c=document.getElementsByClassName("post-image");
-    // for(let n=0;n<c.length-1;n++){
-    //     console.log(c[n]);
-    // }
-    
-
 }
 open_postPreview();
 initialise_image();

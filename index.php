@@ -42,12 +42,6 @@ switch($action){
     case '/profile':
         include_once('php/profile.php');
         break;
-    case '/category':
-        include_once('php/categoryPage.php');
-        break;
-    case '/settings':
-        include_once('p');
-        break;
     case '/edit_profile':
         include_once('php/editPage.php');
         break;
