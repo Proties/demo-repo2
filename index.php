@@ -45,6 +45,9 @@ switch($action){
     case '/edit_profile':
         include_once('php/editPage.php');
         break;
+    case '/upload_post':
+        include_once('php/uploadPost.php');
+        break;
     default:
         include_once('php/homePage.php');
         break;

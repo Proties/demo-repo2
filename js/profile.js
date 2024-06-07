@@ -70,8 +70,7 @@ function populate_post(arr){
 
 function upload_post(){
     let file=document.getElementById('');
-    let read=new FileReader();
-    read.readAsDataURL(file);
+  
     read.onload=function(){
 
     }
@@ -120,13 +119,26 @@ function addEventListeners(){
     // Upload post from device
     uploadFromDeviceBtn.addEventListener('click', () => {
         try{
+            let file=document.getElementById('file');
+            let read=new FileReader();
+            read.readAsDataURL(file);
+            let data={
+                postImage:read,
+                categoryName:document.getElementById("categoryName"),
+                caption:document.getElementById("caption"),
+                previewStatus:document.getElementById("preview")
+            };
+            data=JSON.stringify(data);
             xm=new XMLHttpRequest();
-            xm.open('POST','/');
-            xm.setRequestHeader('Content-type','application/x-www-form-urlencodded');
+            xm.open('POST','/upload_post');
             xm.onload=function(){
-
+                console.log(this.responseText);
+                let dt=JSON.parse(this.responseText);
+                for(let d=0;d<dt.errorArray.length;d++){
+                    console.log(dt.errorArray[d]);
+                }
             }
-            xm.send("action=upload_post");
+            xm.send(data);
         }catch(err){
             console.log(err);
         }
