@@ -11,6 +11,7 @@ function initialise_image(){
         // document.getElementsByClassName('profile-link').href="@"+data.user.user_info.username;
         let dataItem=[];
         console.log(data);
+        init_user(data.user);
         init_categories(data.categories);
         for(let i=0;i<data.users.length;i++){
     
@@ -54,13 +55,14 @@ function open_postPreview(){
     const pattern=/(\/@[a-zA-Z]{3,17})(\/[a-zA-Z0-9]){5,20}/;
     console.log(url);
     if(pattern.test(url)){
+        console.log(url);
     try{
         let xm=new XMLHttpRequest();
         xm.open('POST','/');
         xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xm.onload=function(){
             let data=JSON.parse(this.responseText);
-
+            openModal(data);
             console.log(data);
             console.log('hahaha');
         }
@@ -147,6 +149,11 @@ function eventListeners(){
     let selectTopPost=document.getElementsByClassName("top-post");
     let selectBottomPost=document.getElementsByClassName("bottom-post");
     let commentPost=document.getElementsByClassName("");
+    let registerBtn = document.querySelector(".register-button");
+    let closeReg = document.getElementById("closeModalReg");
+    let modal = document.getElementById("registerModal");
+
+
     // let morePosts=document.getElementById("");
 
     search_input.addEventListener("input",search_user);
@@ -169,12 +176,21 @@ function eventListeners(){
      for(let i=0;i<commentPost.length;i++){
         commentPost[i].addEventListener('click',comment_post);
     }
+    registerBtn.addEventListener('click',function() {
+        modal.style.display = "block";
+      });
 
+    closeReg.addEventListener('click',function(evt) {
+        modal.style.display = "none";
+    });
+  
 }
 function init_user(arr){
-    if(arr.username==null){
+    if(arr.username==null || arr.username==''){
+        console.log('null username');
         return ;
     }
+    console.log(arr.username);
     document.getElementsByClassName("profile-link")[0].href="/@"+arr.username;
 }
 function init_categories(arr){
@@ -218,15 +234,15 @@ eventListeners();
 
 
 function openModal(evt) {
-    console.log(evt);
-    return;
-    let postTitle=evt.target;
-    let postImageSrc=evt.target;
+   
+    let postTitle='happy';
+    let postImageSrc=evt.target.src;
     const modal = document.getElementById("postModal");
     const modalPostImage = document.getElementById("modalPostImage");
 
     modalPostImage.src = postImageSrc;
     modal.style.display = "block";
+    document.getElementById("closeModal").addEventListener('click',closeModal);
 }
 
 function closeModal() {
@@ -234,44 +250,45 @@ function closeModal() {
     modal.style.display = "none";
 }
 
-window.onclick = function(event) {
-    const modal = document.getElementById("postModal");
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
-}
-
-
-<!-- This is the javascript for the register window.
-// Get the modal
-var modal = document.getElementById("registerModal");
-
-// Get the button that opens the modal
-var registerBtn = document.querySelector(".register-button");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal
-registerBtn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
 // Form submission
 document.getElementById("registerForm").onsubmit = function(event) {
     event.preventDefault();
+    let form=document.getElementById("registerForm");
+    let formData=new FormData(document.getElementById("registerForm"));
+    let item={
+        name:document.getElementById('name').value,
+        username:document.getElementById('username').value,
+        password:document.getElementById('password').value,
+        email:document.getElementById('email').value
+    };
+    item=JSON.stringify(item);
+    try{
+        
+        let xm=new XMLHttpRequest();
+        xm.open('POST','/registration');
+        xm.setRequestHeader('Content-Type', 'application/json');
+        xm.onload=function(){
+            console.log('form validation');
+            
+            let data=JSON.parse(this.responseText);
+            console.log(data);
+            if(data.status=='succes'){
+                alert('succesfull logged in');
+                document.getElementById('registerModal').style.display='none';
+                return;
+            }
+            for(let i=0;i<data.errorArray.length;i++){
+                const k=Object.keys(data.errorArray[i]);
+                console.log(data.errorArray[i]);
+                console.log(data.errorArray[i][k]);
+                document.getElementById(k).innerHTML=data.errorArray[i][k];
+            }
+            
+        }
+        xm.send(item);
+    }catch(err){
+        console.log(err);
+    }
     // Your form submission code here
     // You can access form fields using document.getElementById or other methods
     // Example: var username = document.getElementById("username").value;

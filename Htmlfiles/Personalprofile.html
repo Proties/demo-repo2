@@ -16,7 +16,7 @@
           </a>
         </div>
         <div class="nav-right">
-          <button class="upload-button">Upload Post</button>
+          <button class="upload-button" id="uploadBtn">Upload Post</button>
 
           <button
             class="push-button"
@@ -124,59 +124,3 @@
     </div>
   </footer>
 </html>
-<<<<<<< HEAD
-=======
-
-<!-- Javascript code for the Upload Modal & the caption Post modal. They need to be put in the javascript files for this page but I don't want to temper with your work
-
-document.addEventListener('DOMContentLoaded', () => {
-    const uploadBtn = document.getElementById('uploadBtn');
-    const uploadModal = document.getElementById('uploadModal');
-    const captionModal = document.getElementById('captionModal');
-    const fileInput = document.getElementById('fileInput');
-    const uploadProgress = document.getElementById('uploadProgress');
-    const uploadFromDeviceBtn = document.getElementById('uploadFromDeviceBtn');
-
-    // Open upload modal
-    uploadBtn.addEventListener('click', () => {
-        uploadModal.style.display = 'block';
-    });
-
-    // Close modal when clicking outside the modal content
-    window.addEventListener('click', (event) => {
-        if (event.target == uploadModal || event.target == captionModal) {
-            uploadModal.style.display = 'none';
-            captionModal.style.display = 'none';
-        }
-    });
-
-    // Close modal when clicking the close button
-    const closeButtons = document.querySelectorAll('.close');
-    closeButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            uploadModal.style.display = 'none';
-            captionModal.style.display = 'none';
-        });
-    });
-
-    // Upload post from device
-    uploadFromDeviceBtn.addEventListener('click', () => {
-        // Perform upload logic here
-    });
-
-    // Upload progress simulation (for demonstration)
-    let progress = 0;
-    const simulateUploadProgress = setInterval(() => {
-        if (progress >= 100) {
-            clearInterval(simulateUploadProgress);
-            uploadModal.style.display = 'none'; // Hide upload modal after upload complete
-            captionModal.style.display = 'block'; // Show caption modal after upload complete
-        } else {
-            progress += 10;
-            uploadProgress.style.width = `${progress}%`;
-        }
-    }, 1000);
-});
-
--->
->>>>>>> 491a443adef85a3ff95efc5756c264240a58d7e2

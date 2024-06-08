@@ -70,8 +70,7 @@ function populate_post(arr){
 
 function upload_post(){
     let file=document.getElementById('');
-    let read=new FileReader();
-    read.readAsDataURL(file);
+  
     read.onload=function(){
 
     }
@@ -86,9 +85,8 @@ function upload_post(){
 }
 initialise();
 
-<!-- Javascript code for the Upload Modal & the caption Post modal. They need to be put in the javascript files for this page but I don't want to temper with your work
 
-document.addEventListener('DOMContentLoaded', () => {
+function addEventListeners(){
     const uploadBtn = document.getElementById('uploadBtn');
     const uploadModal = document.getElementById('uploadModal');
     const captionModal = document.getElementById('captionModal');
@@ -120,7 +118,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Upload post from device
     uploadFromDeviceBtn.addEventListener('click', () => {
-        // Perform upload logic here
+        try{
+            let item={};
+            let file=fileInput.files[0];
+            let read=new FileReader();
+            read.readAsDataURL(file);
+            read.onloadend=()=>{
+                
+                item.img=read.result;
+                console.log(JSON.stringify(item));
+                let num=(window.location.href).indexOf("@");
+                let str=window.location.href;
+                let name=str.substring(num+1);
+                console.log(name);
+                console.log('user nmae=======');
+                let data={
+                    img:item,
+                    username:name
+                    
+                };
+                xm=new XMLHttpRequest();
+                xm.open('POST','/upload_post');
+                xm.onload=function(){
+                    console.log(this.responseText);
+                    let dt=JSON.parse(this.responseText);
+                    if(dt.status=='failed'){
+                        if(dt.msg=='create account'){
+                            alert('create account');
+                        }
+                    }
+                    for(let d=0;d<dt.errorArray.length;d++){
+                        console.log(dt.errorArray[d]);
+                    }
+                }
+                xm.send(JSON.stringify(data));
+            }
+            
+           
+        }catch(err){
+            console.log(err);
+        }
     });
 
     // Upload progress simulation (for demonstration)
@@ -135,6 +172,5 @@ document.addEventListener('DOMContentLoaded', () => {
             uploadProgress.style.width = `${progress}%`;
         }
     }, 1000);
-});
-
--->
+}
+addEventListeners();

@@ -14,6 +14,7 @@ class Users{
     private $userProfileLink;
     private $status;
     private $id;
+    private $userDir;
     private $authanticated;
     private $errorMessages=array();
     private $errorMessage;
@@ -21,6 +22,7 @@ class Users{
 
     public function __construct(){
     $this->name='';
+    $this->userDir='';
     $this->username='';
     $this->bio='';
     $this->profilePicture='';
@@ -60,6 +62,9 @@ class Users{
     }
     public function set_bio($s){
         $this->bio=$s;
+    }
+     public function set_email($s){
+        $this->email=$s;
     }
 
     public function set_profileLink($pl){
@@ -134,6 +139,7 @@ class Users{
             $query='
                 SELECT username FROM Users
                 WHERE username LIKE :name
+                LIMIT 5;
             ';
             $stmt=$db->prepare($query);
             $stmt->bindValue(':name',"%$user%");
@@ -248,45 +254,66 @@ class Users{
             return false;
         }
     }
-    public function create_user_folder(){}
-    public function create_user_profile_page(){}
-    public function create_user_posts_folder(){}
-    public function create_user_profile_images_folder(){}
+    public function set_dir($dir){
+        $this->userDir=$dir;
+    }
+    public function get_dir(){
+        $this->userDir='./userProfiles/'.$this->get_username().'/';
+        return $this->userDir;
+    }
+    public function create_user_folder(){
+        try{
+
+        
+        if(!is_dir('../userProfiles/'.$this->get_username())){
+            mkdir('./userProfiles/'.$this->get_username(),'0755',false);
+            $this->set_dir('../userProfiles/'.$this->get_username());
+        }else{
+            throw new Exception('directory already exixsts');
+        }
+    }catch(Exception $err){
+        echo $err->getMessage();
+    }
+    }
+    public function add_image_to_profile(){}
 }
 
 trait validateUser{
-    function validate_username($txt){
-        $pattern="/\/@[a-zA-Z]{1,16}/i";
+    function validate_username_url($txt){
+        $pattern='/(\/@[a-z0-9]{3,})/i';
         if(preg_match($pattern,$txt)){
             return true;
         }
-        $msg='not valid username';
+        return false;
+    }
+    function validate_username($txt){
+        $pattern="/[a-z\/-]{13,}/i";
+        if(preg_match($pattern,$txt)){
+            return true;
+        }
         return false;
         
     }
     function validate_name($txt){
-        $pattern='//i';
+        $pattern='/[a-z]{13,}/i';
         if(preg_match($pattern,$txt)){
             return true;
         }
-        $msg='not valid name';
-        return $msg;
+        return false;
     }
     function validate_email($txt){
-        $pattern='//i';
+        $pattern='/[a-z]{1,}/i';
         if(preg_match($pattern,$txt)){
             return true;
         }
-        $msg='not valid email';
-        return $msg;
+        return false;
     }
-    function validate_phone($txt){
-        $pattern='//i';
+    function validate_password($txt){
+        $pattern='/[a-z].[0-8]{3}/i';
         if(preg_match($pattern,$txt)){
             return true;
         }
-        $msg='not valid phone';
-        return $msg;
+        return false;
     }
 }
 ?>

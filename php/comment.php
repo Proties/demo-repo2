@@ -4,7 +4,8 @@ class Comment{
     use validateComment;
     private $date;
     private $time;
-    private $text;
+    private $comment;
+    private $comments;
     private $userID;
     private $postID;
     private $id;
@@ -25,8 +26,11 @@ class Comment{
     public function set_userID($id){
         $this->userID=$id;
     }
-    public function set_text($txt){
-        $this->text=$txt;
+    public function set_comment($txt){
+        $this->comment=$txt;
+    }
+    public function set_comments($txt){
+        $this->comments=$txt;
     }
 
     public function get_id(){
@@ -44,8 +48,11 @@ class Comment{
     public function get_userID(){
         return $this->userID;
     }
-    public function get_text(){
-        return $this->text;
+    public function get_comment(){
+        return $this->comment;
+    }
+    public function get_comments(){
+        return $this->comments;
     }
 
     public function initialise($arr){
@@ -63,7 +70,7 @@ class Comment{
             $statement=$db->prepare($query);
             $statement->bindValue(':time',$this->get_time());
             $statement->bindValue(':date',$this->get_date());
-            $statement->bindValue(':text',$this->get_text());
+            $statement->bindValue(':text',$this->get_comment());
             $statement->bindValue(':userID',$this->get_userID());
             $this->set_status($statement->execute());
         }catch(PDOExecption $err){
@@ -76,17 +83,40 @@ class Comment{
             $db=$database->get_connection();
             $query="
                 SELECT * FROM Comment
-                WHERE postID=:id
+                WHERE commentID=:id;
             ";
             $statement=$db->prepare($query);
             $statement->bindValue(":id",$this->get_id());
             $this->set_status($statement->execute());
+            $this->set_comment($statement->fetch());
+        }catch(PDOExecption $err){
+            echo 'Database error '.$err->getMessage();
+        }
+    }
+    public function read_comments(){
+        try{
+            $database=new Database();
+            $db=$database->get_connection();
+            $query="
+                SELECT * FROM Comment
+                WHERE postID=:id;
+            ";
+            $statement=$db->prepare($query);
+            $statement->bindValue(':id',$this->get_postID());
+            $this->set_status($statement->execute());
+            $this->set_comments($statement->fetchall());
         }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();
         }
     }
 }
 trait validateComment{
-    function validate_text(){}
+    function validate_comment($txt){
+        $pattern='//i';
+        if(preg_match($txt,$pattern)){
+            return true;
+        }
+        return false;
+    }
 }
 ?>

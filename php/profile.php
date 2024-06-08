@@ -17,34 +17,40 @@ switch($action){
         $link=substr($_SERVER['REQUEST_URI'],2);
 
         $author=new Users();
-        if($author->validate_username($_SERVER['REQUEST_URI'])==true){
-            if(Users::validate_username_in_database($link)==true){
+        if(($author->validate_username_url($_SERVER['REQUEST_URI'])==true) && (Users::validate_username_in_database($link)==true)){
             $author->set_username($link);
             $author->read_userID();
             $author->read_user();
         
         $data['user'][0]=array('username'=>$author->get_username(),'userProfilePicture'=>$author->get_profilePicture(),
-                            'bio'=>$author->get_bio());
+                            'bio'=>$author->get_bio(),'post'=>array());
         $post=new Post();
        
         $post->set_authorID($author->get_id());
-        $post->read_posts();
+        $p=$post->read_posts();
+        
         $info=$post->get_posts();
         $lenArr=count($info);
+        if($lenArr==0){
+
+            echo json_encode($data);
+            return ;
+        }
+       
+        
+        
         for ($i = 0; $i < $lenArr; $i++) {
             $postItem = new Post();
             $postItem->set_postID($info[$i]['postID']);
             $postItem->set_img(base64_encode($info[$i]['picture']));
-            $postItem->set_title($info[$i]['postTitle']);
             $data['post'][$i] = array(
                 'postLink' => $postItem->get_postLink(),
-                'img' => $postItem->get_img(),
-                'title' => $postItem->get_title()
+                'img' => $postItem->get_img()
             );
         }
         echo json_encode($data);
         return;
-    }}else{
+    }else{
         echo 'no user profile';
         return;
     }

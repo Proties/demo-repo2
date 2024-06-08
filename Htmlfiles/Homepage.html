@@ -37,50 +37,19 @@
           <button class="scroll-button" id="scroll-left">&lt;</button>
           <div class="tags-wrapper">
             <div class="tag">
-              <img src="Image/web design.png" alt="Web Design" />
+              <img src="/Image/web design.png" alt="Web Design" />
               <span>Web Design</span>
             </div>
             <div class="tag">
-              <img src="Image/Animation.png.jpg" alt="Animation" />
+              <img src="/Image/Animation.png.jpg" alt="Animation" />
               <span>Animation</span>
             </div>
-            <div class="tag">
-              <img src="Image/Comic.png.png" alt="Comic Art" />
+            <div class="tag" >
+              <img src="/Image/Comic.png.png" alt="Comic Art" />
               <span>Comic Art</span>
             </div>
-            <div class="tag">
-              <img src="Image/ux.png" alt="UI/UX Design" />
-              <span>UI/UX Design</span>
-            </div>
-            <div class="tag">
-              <img src="Image/Photography.png" alt="Photography" />
-              <span>Photography</span>
-            </div>
-            <div class="tag">
-              <img src="Image/Animation.png.jpg" alt="Animation" />
-              <span>Animation</span>
-            </div>
-            <div class="tag">
-              <img src="Image/Animation.png.jpg" alt="Animation" />
-              <span>Animation</span>
-            </div>
-            <div class="tag">
-              <img src="Image/Animation.png.jpg" alt="Animation" />
-              <span>Animation</span>
-            </div>
-            <div class="tag">
-              <img src="Image/Animation.png.jpg" alt="Animation" />
-              <span>Animation</span>
-            </div>
-            <div class="tag">
-              <img src="Image/Animation.png.jpg" alt="Animation" />
-              <span>Animation</span>
-            </div>
-            <div class="tag">
-              <img src="Image/Animation.png.jpg" alt="Animation" />
-              <span>Animation</span>
-            </div>
-            
+           
+           
            
           </div>
           <button class="scroll-button" id="scroll-right">&gt;</button>
@@ -234,7 +203,7 @@
       <!-- Modal Window -->
       <div id="postModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
+            <span class="close" id="closeModal">&times;</span>
             <div class="modal-post">
                 <img id="modalPostImage" src="/Image/Art.png" alt="Post Image" class="post-image" />
                 <div class="modal-post-actions">
@@ -258,17 +227,21 @@
       <!-- Register Pop-up -->
 <div id="registerModal" class="modal">
   <div class="modal-content">
-      <span class="close">&times;</span>
+      <span class="close" id="closeModalReg">&times;</span>
       <h2>Register</h2>
       <form id="registerForm">
           <label for="username">Username:</label>
           <input type="text" id="username" name="username" required>
+          <p id="errUsername"></p>
           <label for="password">Password:</label>
           <input type="password" id="password" name="password" required>
+          <p id="errPassword"></p>
           <label for="name">Name:</label>
           <input type="text" id="name" name="name" required>
+          <p id="errName"></p>
           <label for="email">Email:</label>
           <input type="email" id="email" name="email" required>
+          <p id="errEmail"></p>
           <button type="submit">Submit</button>
       </form>
   </div>
