@@ -1,34 +1,26 @@
 <?php
 class Post{
     use validatePost;
-    private $categoryID;
-    private $description;
-    private $title;
+    private $caption;
     private $status;
+    private $previewStatus;
     private $errorMessage;
-    private $errorMessages=array();
     private $postID;
     private $postLinkID;
     private $postLink;
     private $img;
     private $authorID;
     private $authorName;
-    private $alt;
-    private $likesCount;
     private $date;
     private $time;
-    private $commentsCount;
-    private $viewsCount;
     private $categoryName;
-    private $comments=array();
     private $posts;
+    private $postFile;
 
 
 public function __construct(){
     $this->errorMessage;
-    $this->description='';
-    $this->categoryID=null;
-    $this->title='';
+    $this->caption='';
     $this->status='';
     $this->postID='';
     $this->postLinkID=null;
@@ -36,7 +28,7 @@ public function __construct(){
     $this->img='';
     $this->authorName='';
     $this->authorID=null;
-    $this->alt='';
+    $this->previewStatus=false;
 
    
 }
@@ -61,14 +53,8 @@ public function set_errorMessage($err){
 public function set_postID($id){
     $this->postID=$id;
 }
-public function set_title($cap){
-    $this->title=$cap;
-}
-public function set_description($cap){
-    $this->description=$cap;
-}
-public function set_image($im){
-    $this->image=$im;
+public function set_caption($cap){
+    $this->caption=$cap;
 }
 public function set_status($stt){
     $this->status=$stt;
@@ -79,8 +65,8 @@ public function set_authorID($an){
 public function set_authorName($im){
     $this->authorName=$im;
 }
-public function set_alt($al){
-    $ths->alt=$alt;
+public function set_preview_status($al){
+    $this->preview_status=$alt;
 }
 public function set_time($l){
     $this->time=$l;
@@ -103,14 +89,11 @@ public function get_categoryName(){
 public function get_postID(){
     return $this->postID;
 }
-public function get_title(){
-    return $this->title;
+public function get_caption(){
+    return $this->caption;
 }
-public function get_description(){
-    return $this->description;
-}
-public function get_image(){
-    return $this->image;
+public function get_preview_status(){
+    return $this->preview_status;
 }
 public function get_status(){
     return $this->status;
@@ -120,9 +103,6 @@ public function get_authorID(){
 }
 public function get_authorName(){
     return $this->authorName;
-}
-public function get_alt(){
-    return $this->alt;
 }
 public function get_time(){
     $this->set_time(date('h:i'));
@@ -144,9 +124,6 @@ public function get_img(){
 
 public function get_errorMessage(){
     return $this->errorMessage;
-}
-public function get_errorMessages(){
-    return $this->errorMessages;
 }
 public function get_posts(){
     return $this->posts;
@@ -221,21 +198,6 @@ public function read_category_posts(){
         return $stmt->fetchall();
     }catch(PDOExecption $err){
         echo 'error reading post from category id '.$err->getMessage();
-    }
-}
-public function read_comments(){
-    try{
-        $database=new Database();
-        $db=$database->get_connection();
-        $query="
-                SELECT * FROM comment
-                WHERE commentID=:id;
-        ";
-        $stmt=$db->prepare($query);
-        $stmt->bindValue(':id',$this->get_id());
-        $this->set_status($stmt->execute());
-    }catch(PDOExecption $err){
-        echo 'Database error '.$err->getMessage();
     }
 }
 public function read_likes(){
@@ -327,12 +289,22 @@ public static function validate_postID($id){
     }
 
 }
-    public function create_user_image_file(){}
+    public function create_user_image_file(){
+        $dir='userProfiles/'.$this->get_authorName();
+        $file=$this->get_postLinkID().'.jpg';
+        $this->set_file($dir.'/'.$file);
+    }
+    public function set_file($file){
+        $this->postFile=$file;
+    }
+    public function get_file(){
+        return $this->postFile;
+    }
 }
 
 
 trait validatePost{
-function validate_image($txt){
+function validate_preview_status($txt){
     $pattern='//i';
     if(preg_match($pattern,$txt)){
         return true;
@@ -340,7 +312,7 @@ function validate_image($txt){
     $msg='image not valid';
     return msg;
 }
-function validate_title($txt){
+function validate_caption($txt){
     $pattern='//i';
     if(preg_match($pattern,$txt)){
         return true;
@@ -349,21 +321,14 @@ function validate_title($txt){
     return $msg;
 }
 function validate_postLink($txt){
-    $pattern="/(\/@[a-zA-Z]{1,13})(\/[a-zA-Z0-9]{1,})/i";
+    $pattern="/(\/@[a-zA-Z]{1,13})(\/[a-zA-Z0-9]{1,})/";
     if(preg_match($pattern,$txt)){
         return true;
     }
     $msg='';
     return false;
 }
-function validate_description($txt){
-    $pattern='//i';
-    if(preg_match($pattern,$txt)){
-        return true;
-    }
-    $msg='not a valid description';
-    return $msg;
-}
+
 
 }
 

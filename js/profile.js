@@ -119,9 +119,17 @@ function addEventListeners(){
     // Upload post from device
     uploadFromDeviceBtn.addEventListener('click', () => {
         try{
-            let file=document.getElementById('file');
+            let item={};
+            let file=fileInput.files[0];
             let read=new FileReader();
             read.readAsDataURL(file);
+            read.onloadend=()=>{
+                
+                item.img=read.result;
+                console.log(JSON.stringify(item));
+                
+            }
+            return;
             let data={
                 postImage:read,
                 categoryName:document.getElementById("categoryName"),

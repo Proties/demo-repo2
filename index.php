@@ -13,6 +13,14 @@ $post=new Post();
 
 if($post->validate_postLink($f_txt)==true){
     if(Post::validate_in_db_postLink($txt)==true){
+        $case=$_POST['get_more_comments'];
+        switch($case){
+            case 'get_more_comments':
+                $c=new Comment();
+                $c->set_id($_POST['commentID']);
+                $c->read_more();
+                break;
+        }
         $comment=new Comment();
         $comment->set_id();
         $coms=$comment->read_comments();

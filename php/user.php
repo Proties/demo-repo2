@@ -252,9 +252,8 @@ class Users{
             return false;
         }
     }
-    public function create_user_folder(){
-        
-    }
+    public function create_user_folder(){}
+    public function add_image_to_profile(){}
 }
 
 trait validateUser{
