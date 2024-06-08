@@ -83,6 +83,14 @@ public function set_img($im){
 public function set_posts($p){
     $this->posts=$p;
 }
+public function set_postLinkID($l){
+    $this->postLinkID=$l;
+
+}
+public function get_postLinkID(){
+    return $this->postLinkID;
+
+}
 public function get_categoryName(){
     return $this->categoryName;
 }
@@ -114,9 +122,6 @@ public function get_date(){
 }
 public function get_postLink(){
     return $this->postLink;
-}
-public function get_postLinkID(){
-    return $this->postLinkID;
 }
 public function get_img(){
     return $this->img;
@@ -289,10 +294,31 @@ public static function validate_postID($id){
     }
 
 }
-    public function create_user_image_file(){
-        $dir='userProfiles/'.$this->get_authorName();
-        $file=$this->get_postLinkID().'.jpg';
-        $this->set_file($dir.'/'.$file);
+    public function create_post_file(){
+        try{
+
+        
+        $f=fopen('php/ids.json','r') or die('file doesnt exist');
+        
+        $ids=fread($f,filesize("php/ids.json"));
+        $ids_array=json_decode($ids,true);
+        if(!is_array($ids_array)){
+            
+            throw new Exception('data is not array');
+        }
+        
+        $this->set_postLinkID($ids_array[0]);
+        array_splice($ids_array,0,1);
+        fclose($f);
+        
+        $f_two=fopen('php/ids.json','w') or die('file doesnt exist');
+        fwrite($f_two,json_encode($ids_array));
+        fclose($f_two);
+        
+        $this->set_file($this->get_postLinkID().'.png');
+        }catch(Execption $err){
+            echo $err->getMessage();
+        }
     }
     public function set_file($file){
         $this->postFile=$file;

@@ -14,6 +14,7 @@ class Users{
     private $userProfileLink;
     private $status;
     private $id;
+    private $userDir;
     private $authanticated;
     private $errorMessages=array();
     private $errorMessage;
@@ -21,6 +22,7 @@ class Users{
 
     public function __construct(){
     $this->name='';
+    $this->userDir='';
     $this->username='';
     $this->bio='';
     $this->profilePicture='';
@@ -252,7 +254,27 @@ class Users{
             return false;
         }
     }
-    public function create_user_folder(){}
+    public function set_dir($dir){
+        $this->userDir=$dir;
+    }
+    public function get_dir(){
+        $this->userDir='./userProfiles/'.$this->get_username().'/';
+        return $this->userDir;
+    }
+    public function create_user_folder(){
+        try{
+
+        
+        if(!is_dir('../userProfiles/'.$this->get_username())){
+            mkdir('./userProfiles/'.$this->get_username(),'0755',false);
+            $this->set_dir('../userProfiles/'.$this->get_username());
+        }else{
+            throw new Exception('directory already exixsts');
+        }
+    }catch(Exception $err){
+        echo $err->getMessage();
+    }
+    }
     public function add_image_to_profile(){}
 }
 

@@ -20,9 +20,8 @@ switch($action){
         $post->read_postID();
         $post->read_post();
         $data=array(
-        'title'=>$post->get_title(),
+        'caption'=>$post->get_caption(),
         'authorName'=>$post->get_authorName(),
-        'description'=>$post->get_description(),
         'img'=>$post->get_img(),
         'comments'=>$post->get_comments(),
         'postID'=>$post->get_id()
@@ -45,15 +44,13 @@ switch($action){
         $primary_post=new Post();
         $user->set_username($info[$x]['username']);
         $primary_post->set_img($info[$x]['picture']);
-        $primary_post->set_title($info[$x]['postTitle']);
         $secondary_post=new Post();
         $secondary_post->set_img($info[$x]['post2Pic']);
-        $secondary_post->set_title($info[$x]['post2Title']);
 
         $data['users'][]=array(
             'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
-            'primary_post'=>array('img'=>base64_encode($primary_post->get_img()),'title'=>$primary_post->get_title()),
-            'secondary_post'=>array('img'=>base64_encode($secondary_post->get_img()),'title'=>$secondary_post->get_title())
+            'primary_post'=>array('img'=>base64_encode($primary_post->get_img())),
+            'secondary_post'=>array('img'=>base64_encode($secondary_post->get_img()))
         );
             }
         echo json_encode($data);
@@ -69,16 +66,15 @@ switch($action){
             $primary_post=new Post();
             $secondary_post=new Post();
             $primary_post->set_img($categoryPosts[$i]['picture']);
-            $primary_post->set_title($categoryPosts[$i]['postTitle']);
 
             $secondary_post->set_img($categoryPosts[$i]['picture']);
-            $secondary_post->set_title($categoryPosts[$i]['post2Title']);
+           
             $user=new Users();
 
             $data['users'][]=array(
                 'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
-                'primary_post'=>array('img'=>base64_encode($primary_post->get_img()),'title'=>$primary_post->get_title()),
-                'secondary_post'=>array('img'=>base64_encode($secondary_post->get_img()),'title'=>$secondary_post->get_title())
+                'primary_post'=>array('img'=>base64_encode($primary_post->get_img())),
+                'secondary_post'=>array('img'=>base64_encode($secondary_post->get_img()))
             );
         }
         echo json_encode($data);
@@ -137,19 +133,19 @@ switch($action){
                 $user=get_userObject($info[$x]['username']);
                 $secondary_post=new Post();
                 $secondary_post->set_img($info[$x]['picture']);
-                $secondary_post->set_title($info[$x]['postTitle']);
+               
                 $data[]=array(
-                'secondary_post'=>array('img'=>base64_encode($secondary_post->get_img()),'title'=>$secondary_post->get_title())
+                'secondary_post'=>array('img'=>base64_encode($secondary_post->get_img()))
                 );
             }else{
                 $user=new Users();
                 $primary_post=new Post();
                 $user->set_username($info[$x]['username']);
                 $primary_post->set_img($info[$x]['picture']);
-                $primary_post->set_title($info[$x]['postTitle']);
+      
                 $data[]=array('user'=>array(
                     'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
-                    'primary_post'=>array('img'=>base64_encode($primary_post->get_img()),'title'=>$primary_post->get_title())
+                    'primary_post'=>array('img'=>base64_encode($primary_post->get_img()))
                 )
                 );
                 }

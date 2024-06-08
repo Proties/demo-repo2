@@ -127,26 +127,34 @@ function addEventListeners(){
                 
                 item.img=read.result;
                 console.log(JSON.stringify(item));
-                
-            }
-            return;
-            let data={
-                postImage:read,
-                categoryName:document.getElementById("categoryName"),
-                caption:document.getElementById("caption"),
-                previewStatus:document.getElementById("preview")
-            };
-            data=JSON.stringify(data);
-            xm=new XMLHttpRequest();
-            xm.open('POST','/upload_post');
-            xm.onload=function(){
-                console.log(this.responseText);
-                let dt=JSON.parse(this.responseText);
-                for(let d=0;d<dt.errorArray.length;d++){
-                    console.log(dt.errorArray[d]);
+                let num=(window.location.href).indexOf("@");
+                let str=window.location.href;
+                let name=str.substring(num+1);
+                console.log(name);
+                console.log('user nmae=======');
+                let data={
+                    img:item,
+                    username:name
+                    
+                };
+                xm=new XMLHttpRequest();
+                xm.open('POST','/upload_post');
+                xm.onload=function(){
+                    console.log(this.responseText);
+                    let dt=JSON.parse(this.responseText);
+                    if(dt.status=='failed'){
+                        if(dt.msg=='create account'){
+                            alert('create account');
+                        }
+                    }
+                    for(let d=0;d<dt.errorArray.length;d++){
+                        console.log(dt.errorArray[d]);
+                    }
                 }
+                xm.send(JSON.stringify(data));
             }
-            xm.send(data);
+            
+           
         }catch(err){
             console.log(err);
         }

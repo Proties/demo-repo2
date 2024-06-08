@@ -43,11 +43,9 @@ switch($action){
             $postItem = new Post();
             $postItem->set_postID($info[$i]['postID']);
             $postItem->set_img(base64_encode($info[$i]['picture']));
-            $postItem->set_title($info[$i]['postTitle']);
             $data['post'][$i] = array(
                 'postLink' => $postItem->get_postLink(),
-                'img' => $postItem->get_img(),
-                'title' => $postItem->get_title()
+                'img' => $postItem->get_img()
             );
         }
         echo json_encode($data);
