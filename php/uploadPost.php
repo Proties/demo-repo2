@@ -9,9 +9,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $username=$data_f['username'];
     $user->set_username($username);
     try{
-        if(!isset($_SESSION['username'])){
-            throw new Exception('create account');
-        }
+        
         
         // $post->set_caption($data_f['caption']);
         // $post->set_preview_status($data_f['preview_status']);

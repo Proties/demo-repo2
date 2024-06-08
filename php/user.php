@@ -287,7 +287,7 @@ trait validateUser{
         return false;
     }
     function validate_username($txt){
-        $pattern="/[a-z\/-]{13,}/i";
+        $pattern="/[a-z]{1,}/i";
         if(preg_match($pattern,$txt)){
             return true;
         }
@@ -295,7 +295,7 @@ trait validateUser{
         
     }
     function validate_name($txt){
-        $pattern='/[a-z]{13,}/i';
+        $pattern='/[a-z]{1,}/i';
         if(preg_match($pattern,$txt)){
             return true;
         }
@@ -309,7 +309,7 @@ trait validateUser{
         return false;
     }
     function validate_password($txt){
-        $pattern='/[a-z].[0-8]{3}/i';
+        $pattern='/[a-z]{3,}/i';
         if(preg_match($pattern,$txt)){
             return true;
         }
