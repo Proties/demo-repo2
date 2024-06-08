@@ -36,6 +36,7 @@ nav .profile-link{
     flex-grow: 1;
     display: flex;
     justify-content: center;
+    position: relative;
 }
 
 .nav-center input[type="text"] {
@@ -55,6 +56,29 @@ nav .profile-link{
 .search-button img {
     width: 20px;
     height: 20px;
+}
+
+.suggestion-list {
+    position: absolute;
+    left: 5em;
+    background-color: white;
+    border: 3px solid black;
+    width: 16em;
+    display: none;
+    margin-top: 2em;
+    z-index: 20;
+}
+
+.suggestion-list li {
+    padding: 0.1em;
+    list-style-type: none;
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+
+.suggestion-list li:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
 }
 
 .nav-center button {
@@ -271,6 +295,7 @@ nav .profile-link{
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.8);
+    z-index: 3;
 }
 
 .modal-content {
@@ -282,6 +307,7 @@ nav .profile-link{
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 3;
 }
 
 .modal-content .close {
