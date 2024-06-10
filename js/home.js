@@ -79,6 +79,12 @@ return false;
 function search_user(){
     let text=document.getElementById("search").value;
     let list=document.getElementById('suggestion-list');
+    // document.getElementById("search").addEventListener("focusout",()=>{
+    //     list.style.display='none';
+        
+    // });
+    
+    
     try{
         let xml=new XMLHttpRequest();
         xml.onload=function(){
@@ -92,6 +98,11 @@ function search_user(){
                 // l.id="/@"+username;
                 list.appendChild(l);
                 console.log(data.searchResults[i].username);
+                l.addEventListener("click",(evt)=>{
+                    console.log("works");
+                    console.log(evt.target.textContent);
+                    window.location.href="/@"+evt.target.textContent;
+                });
             }
         }
         xml.open('POST','/');
@@ -272,7 +283,7 @@ document.getElementById("registerForm").onsubmit = function(event) {
             
             let data=JSON.parse(this.responseText);
             console.log(data);
-            if(data.status=='succes'){
+            if(data.status=='success'){
                 alert('succesfull logged in');
                 document.getElementById('registerModal').style.display='none';
                 return;

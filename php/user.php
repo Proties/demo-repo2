@@ -137,9 +137,9 @@ class Users{
             $database=new Database();
             $db=$database->get_connection();
             $query='
-                SELECT username FROM Users
-                WHERE username LIKE :name
-                LIMIT 5;
+            SELECT username FROM Users u1 USE INDEX(idx_username)
+            WHERE username LIKE :name
+            LIMIT 5;
             ';
             $stmt=$db->prepare($query);
             $stmt->bindValue(':name',"%$user%");
@@ -224,7 +224,7 @@ class Users{
             $database=new Database();
             $db=$database->get_connection();
             $query="
-                    SELECT username FROM Users
+            SELECT username FROM Users u1 USE INDEX(idx_username);
             ";
             $stmt=$db->prepare($query);
             $stmt->execute();
@@ -275,7 +275,8 @@ class Users{
         echo $err->getMessage();
     }
     }
-    public function add_image_to_profile(){}
+    public function search_user_in_cache(){}
+    public function search_email_in_cache(){}
 }
 
 trait validateUser{
@@ -287,7 +288,7 @@ trait validateUser{
         return false;
     }
     function validate_username($txt){
-        $pattern="/[a-z]{1,}/i";
+        $pattern="/[a-z]{3,}[@.]?/i";
         if(preg_match($pattern,$txt)){
             return true;
         }
@@ -295,21 +296,21 @@ trait validateUser{
         
     }
     function validate_name($txt){
-        $pattern='/[a-z]{1,}/i';
+        $pattern='/[a-z]{10,}/i';
         if(preg_match($pattern,$txt)){
             return true;
         }
         return false;
     }
     function validate_email($txt){
-        $pattern='/[a-z]{1,}/i';
+        $pattern='/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
         if(preg_match($pattern,$txt)){
             return true;
         }
         return false;
     }
     function validate_password($txt){
-        $pattern='/[a-z]{3,}/i';
+        $pattern='/[a-z]{13,}/i';
         if(preg_match($pattern,$txt)){
             return true;
         }
