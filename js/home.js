@@ -79,10 +79,7 @@ return false;
 function search_user(){
     let text=document.getElementById("search").value;
     let list=document.getElementById('suggestion-list');
-    // document.getElementById("search").addEventListener("focusout",()=>{
-    //     list.style.display='none';
-        
-    // });
+    
     
     
     try{
@@ -111,6 +108,10 @@ function search_user(){
     }catch(err){
         console.log(err);
     }
+    document.getElementById("search").addEventListener("focusout",()=>{
+        list.style.display='none';
+        
+    });
 }
 // this function direct the user to a users profile when a user account is selected
 function openUserProfile(evt){
