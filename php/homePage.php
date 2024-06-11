@@ -1,6 +1,9 @@
 <?php
 session_start();
-
+// apcu_add('name', 'happy',6000);
+// var_dump(apcu_fetch('name'));
+// print_r(apcu_cache_info());
+// return;
 if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('Htmlfiles/Homepage.html');
     return;

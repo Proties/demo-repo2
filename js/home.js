@@ -79,6 +79,9 @@ return false;
 function search_user(){
     let text=document.getElementById("search").value;
     let list=document.getElementById('suggestion-list');
+    
+    
+    
     try{
         let xml=new XMLHttpRequest();
         xml.onload=function(){
@@ -92,6 +95,11 @@ function search_user(){
                 // l.id="/@"+username;
                 list.appendChild(l);
                 console.log(data.searchResults[i].username);
+                l.addEventListener("click",(evt)=>{
+                    console.log("works");
+                    console.log(evt.target.textContent);
+                    window.location.href="/@"+evt.target.textContent;
+                });
             }
         }
         xml.open('POST','/');
@@ -100,6 +108,10 @@ function search_user(){
     }catch(err){
         console.log(err);
     }
+    document.getElementById("search").addEventListener("focusout",()=>{
+        list.style.display='none';
+        
+    });
 }
 // this function direct the user to a users profile when a user account is selected
 function openUserProfile(evt){
@@ -272,7 +284,7 @@ document.getElementById("registerForm").onsubmit = function(event) {
             
             let data=JSON.parse(this.responseText);
             console.log(data);
-            if(data.status=='succes'){
+            if(data.status=='success'){
                 alert('succesfull logged in');
                 document.getElementById('registerModal').style.display='none';
                 return;
