@@ -33,13 +33,13 @@ public function __construct(){
    
 }
 function initialise($arr){
-    $this->authorID=$arr['userID'];
-    $this->title=$arr['postTitle'];
-    $this->description=$arr['postDescription'];
-    $this->postID=$arr['postID'];
+    $this->set_authorID($arr['userID']);
+    $this->set_caption($arr['postTitle']);
+    $this->set_previewStatus($arr['postDescription']);
+    $this->set_postID($arr['postID']);
     $this->set_img($arr['picture']);
-    $this->postLink=$arr['postLink'];
-    $this->postLinkID=$arr['postLinkID'];
+    $this->set_postLink($arr['postLink']);
+    $this->set_postLinkID($arr['postLinkID']);
 }
 public function set_category_id($id){
     $this->categoryID=$id;
@@ -66,7 +66,7 @@ public function set_authorName($im){
     $this->authorName=$im;
 }
 public function set_preview_status($al){
-    $this->preview_status=$alt;
+    $this->previewStatus=$alt;
 }
 public function set_time($l){
     $this->time=$l;
@@ -101,7 +101,7 @@ public function get_caption(){
     return $this->caption;
 }
 public function get_preview_status(){
-    return $this->preview_status;
+    return $this->previewStatus;
 }
 public function get_status(){
     return $this->status;
@@ -225,19 +225,17 @@ public function write_post(){
         $database=new Database();
         $db=$database->get_connection();
         $query="
-                INSERT INTO post(postLinkID,postDescription,postTitle,picture,userID,postDate,postTime,postLink)
-                VALUES(:postLinkID,:description,:title,:image,:userID,:date,:time,:postLink);
+                INSERT INTO post(postLinkID,postCaption,userID,postDate,postTime,postLink)
+                VALUES(:postLinkID,:caption,:userID,:date,:time,:postLink);
                 ";
         $stmt=$db->prepare($query);
-        $stmt->bindValue(':title',$this->get_title());
-        $stmt->bindValue(':description',$this->get_description());
-        $stmt->bindValue(':image',$this->get_image());
+        $stmt->bindValue(':caption',$this->get_caption());
         $stmt->bindValue(':userID',$this->get_authorID());
         $stmt->bindValue(':date',$this->get_date());
         $stmt->bindValue(':time',$this->get_time());
         $stmt->bindValue(':postLink',$this->get_postLink());
         $stmt->bindValue(':postLinkID',$this->get_postLinkID());
-        $stmt->execute();
+        $this->set_status($stmt->execute());
     }catch(PDOExecption $err){
         echo $err->getMessage();
     }

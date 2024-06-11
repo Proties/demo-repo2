@@ -1,4 +1,5 @@
 <?php
+session_start();
 if($_SERVER['REQUEST_METHOD']=='POST'){
     $data=file_get_contents('php://input');
     $data_f=json_decode($data,true);
@@ -9,7 +10,9 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $username=$data_f['username'];
     $user->set_username($username);
     try{
-        
+        if(empty($_SESSION['username'])){
+            throw new Exception('create account');
+        }
         
         // $post->set_caption($data_f['caption']);
         // $post->set_preview_status($data_f['preview_status']);
@@ -28,32 +31,35 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         // if(count($errorMessages)>1){
         //     throw new Exception('could not create post');
         // }
-        $user->create_user_folder();
-        
+        $user->create_user_folder();   
         $data_r=$data_f['img'];
         $img=$data_r['img'];
-   
-        $username=$data_f['username'];
-        print_r($data_f['username']);
-        
-        $image=base64_decode($img);
+        $base64string=substr($img,strpos($img,',')+1);
         $post->create_post_file();
-        // if(!isset($_SESSION['username']) or $_SESSION['username']==''){
-        //     throw new Execption('username not defined');
-        // }
         
-        $f=fopen($user->get_dir().'/'.$post->get_file(),'w');
-        fwrite($f,$image);
-        fclose($f);
-        $user->add_image_to_profile($image);
-        return;
-        if($user->is_user_profile_present()==false){
-            throw new Exception('user profile not aviable');
+        file_put_contents($user->get_dir().'/'.$post->get_file(),base64_decode($base64string));
+        $n=strpos($post->get_file(),'.');
+        $post->set_postLinkID(substr($post->get_file(),0,$n));
+        $post->set_postLink($user->get_dir().'/'.$post->get_file());
+        $post->set_authorID($_SESSION['userID']);
+
+        if(isset($_SERVER['userPosts'])){
+            $previewCount=0;
+            $i=0;
+            $len=count($_SERVER['userPosts']);
+            while($previewCount<2 && $i<$len){
+                if($userPosts[$i]->get_preview_status()==True){
+                    $previewCount++;
+                }
+               
+                $i++;
+            }
+        
         }
-        
+
         $post->write_post();
         if($post->get_status()==true){
-            $item=array('status'=>'succes','post'=>$post->get_data());
+            $item=array('status'=>'succes');
             echo json_encode($item);
             return;
         }

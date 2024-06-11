@@ -19,7 +19,7 @@ try{
     if(!$user->validate_username($user->get_username())){
         $errorMessages[]=array('errUsername'=>'username not valid');
     }
-    if($user->search_user_in_cache($user->get_username())){
+    if(!$user->search_user_in_db($user->get_username()==false)){
         $errorMessages[]=array('errUsername'=>'username taken');
 
     }
@@ -30,7 +30,7 @@ try{
     if(!$user->validate_email($user->get_email())){
         $errorMessages[]=array('errEmail'=>'Email not valid');
     }
-    if($user->search_email_in_cache($user->get_email())){
+    if(!$user->search_email_in_db($user->get_email()==false)){
         $errorMessages[]=array('errEmail'=>'Email already exists');
     }
     $len=count($errorMessages);
