@@ -115,9 +115,7 @@ class Users{
         return $this->errorMessages;
     }
 
-    public function get_userObjects(){
-        return $this->userObjects;
-    }
+   
     public function get_bio(){
         return $this->bio;
     }
@@ -129,9 +127,7 @@ class Users{
         return false;
         
     }
-    public function is_user_dir_present(){
-        
-    }
+   
     public static function search_user($user){
         try{
             $database=new Database();

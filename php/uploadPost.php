@@ -7,6 +7,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $post=new Post();
     $category=new Category();
     $user=new Users();
+    $image=new Image();
     $username=$data_f['username'];
     $user->set_username($username);
     try{
@@ -34,6 +35,11 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $user->create_user_folder();   
         $data_r=$data_f['img'];
         $img=$data_r['img'];
+        $image->set_enoded_base64_string($img);
+        $image->set_filePath($user->get_dir());
+        $image->make_file();
+        $image->get_fileName();
+
         $base64string=substr($img,strpos($img,',')+1);
         $post->create_post_file();
         

@@ -43,6 +43,12 @@ class Image{
 		$this->imageSize=$dt;
 	}
 
+	public function set_enoded_base64_string($str){
+		$string=$str;
+		$this->set_fileType();
+		$this->set_fileType();
+	}
+
 	public function get_dateMade(){
 		return $this->dateMade;
 	}
@@ -132,7 +138,7 @@ class Image{
 // making random file name 
 
 
- public function create_post_file(){
+ public function make_file(){
         try{
 
         
