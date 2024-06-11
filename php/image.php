@@ -144,7 +144,6 @@ class Image{
 
  public function make_file(){
         try{
-
         
         $f=fopen('php/ids.json','r') or die('file doesnt exist');
         

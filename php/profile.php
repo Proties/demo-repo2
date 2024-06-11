@@ -43,9 +43,11 @@ switch($action){
         
         for ($i = 0; $i < $lenArr; $i++) {
             $postItem = new Post();
+            $image=new Image();
             $postItem->set_postID($info[$i]['postID']);
             $postItem->set_postLink($info[$i]['postLink']);
-            $f=file_get_contents($postItem->get_postLink());
+            $image->set_filePath($info[$i]['filePath']);
+            $f=file_get_contents($image->get_fileName());
 
             $data['post'][$i] = array(
                 'postLink' => $postItem->get_postLink(),
