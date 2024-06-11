@@ -3,17 +3,15 @@ class Post{
     use validatePost;
     private $caption;
     private $status;
+    private $postStatus;
     private $previewStatus;
     private $errorMessage;
     private $postID;
     private $postLinkID;
     private $postLink;
-    private $img;
     private $authorID;
-    private $authorName;
     private $date;
     private $time;
-    private $categoryName;
     private $posts;
     private $postFile;
 
@@ -25,8 +23,6 @@ public function __construct(){
     $this->postID='';
     $this->postLinkID=null;
     $this->postLink='';
-    $this->img='';
-    $this->authorName='';
     $this->authorID=null;
     $this->previewStatus=false;
 
@@ -37,7 +33,6 @@ function initialise($arr){
     $this->set_caption($arr['postTitle']);
     $this->set_previewStatus($arr['postDescription']);
     $this->set_postID($arr['postID']);
-    $this->set_img($arr['picture']);
     $this->set_postLink($arr['postLink']);
     $this->set_postLinkID($arr['postLinkID']);
 }
@@ -62,9 +57,6 @@ public function set_status($stt){
 public function set_authorID($an){
     $this->authorID=$an;
 }
-public function set_authorName($im){
-    $this->authorName=$im;
-}
 public function set_preview_status($al){
     $this->previewStatus=$alt;
 }
@@ -76,9 +68,6 @@ public function set_date($dt){
 }
 public function set_postLink($dt){
     $this->postLink=$dt;
-}
-public function set_img($im){
-    $this->img=$im;
 }
 public function set_posts($p){
     $this->posts=$p;
@@ -109,9 +98,6 @@ public function get_status(){
 public function get_authorID(){
     return $this->authorID;
 }
-public function get_authorName(){
-    return $this->authorName;
-}
 public function get_time(){
     $this->set_time(date('h:i'));
     return $this->time;
@@ -122,9 +108,6 @@ public function get_date(){
 }
 public function get_postLink(){
     return $this->postLink;
-}
-public function get_img(){
-    return $this->img;
 }
 
 public function get_errorMessage(){
@@ -292,38 +275,7 @@ public static function validate_postID($id){
     }
 
 }
-    public function create_post_file(){
-        try{
-
-        
-        $f=fopen('php/ids.json','r') or die('file doesnt exist');
-        
-        $ids=fread($f,filesize("php/ids.json"));
-        $ids_array=json_decode($ids,true);
-        if(!is_array($ids_array)){
-            
-            throw new Exception('data is not array');
-        }
-        
-        $this->set_postLinkID($ids_array[0]);
-        array_splice($ids_array,0,1);
-        fclose($f);
-        
-        $f_two=fopen('php/ids.json','w') or die('file doesnt exist');
-        fwrite($f_two,json_encode($ids_array));
-        fclose($f_two);
-        
-        $this->set_file($this->get_postLinkID().'.png');
-        }catch(Execption $err){
-            echo $err->getMessage();
-        }
-    }
-    public function set_file($file){
-        $this->postFile=$file;
-    }
-    public function get_file(){
-        return $this->postFile;
-    }
+   
 }
 
 

@@ -6,6 +6,7 @@ class Category{
     private $time;
     private $status;
     private $errorMessage;
+    private $viewCount;
     private $posts=array();
 
     public function __construct(){
@@ -78,27 +79,47 @@ class Category{
         $database=new Database();
         $db=$database->get_connection();
         try{
-            
             $db->begin_transaction();
-            $query_one="
-                INSERT INTO Category()
-                VALUES(:categoryName);
-                ";
+            $query_one='
+                    INSERT INTO Category()
+                    VALUES(:categoryName,:postID,:catDate,:catTime,:vw);
+                ';
             $stmt=$db->prepare($query_one);
+            $stmt=$db->prepare($query);
+            $stmt->bindValue(':categoryID',$this->get_categoryID());
+            $stmt->bindValue(':postID',$this->get_categoryName());
+            $stmt->bindValue(':catDate',$this->get_categoryDate());
+            $stmt->bindValue(':catTime',$this->get_categoryTime());
+            $stmt->bindValue(':vw',$this->get_viewCount());
             $stmt->execute();
             $this->set_categoryID($stmt->lastInsertId());
-            $query_two="
-                INSER INTO post_category
-                VALUES(:catID,:postID)
-            ";
-            $stmt_two=$db->prepare($query);
-            $stmt_two->bindValue(':categoryID',$this->get_categoryID());
-            $stmt_two->bindValue(':postID',$this->get_categoryName());
+             $query_two='
+                    INSERT INTO post_category
+                    VALUES(:catID,:post);
+            ';
+            $stmt_two=$db->prepare($query_two);
+            $stmt_two->bindValue(':catID',$this->get_categoryID());
+            $stmt_two->bindValue(':post',$this->get_postID());
             $stmt_two->execute();
             $db->commit();
         }catch(PDOExecption $err){
             $db->rollBack();
             echo 'Error writing to category table '.$err->getMessage();
+        }
+    }
+    public function update_category(){
+        try{
+            $database=new Database();
+            $db=$database->get_connection();
+            $query='
+
+            ';
+            $stmt=$db->prepare($query);
+            $stmt->bindValue('');
+            $stmt->execute();
+
+        }catch(PDOException $err){
+            echo 'database error categorytable '.$err->getMessage();
         }
     }
     public static function get_categories(){

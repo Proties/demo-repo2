@@ -1,8 +1,8 @@
 CREATE TABLE Users(
 	userID INT AUTO_INCREMENT,
-	email varchar(52) UNIQUE,
+	email varchar(254) UNIQUE,
 	name varchar(52),
-	username varchar(15),
+	username varchar(20) UNIQUE,
 	password varchar(30),
 	primary key (userID)
 );
@@ -11,8 +11,19 @@ CREATE TABLE Posts(
 	postDate date,
 	postTime time,
 	userID int,
+	caption text,
+	location text,
+	previewStatus boolean,
+	status varchar(10),
 	primary key (postID),
 	foreign key (userID) references (userID)Users
+);
+CREATE TABLE Collaborators(
+	userID INT,
+	postID INT,
+	foreign key (postID) references (postID)Posts,
+	foreign key (userID) references (userID)Users
+
 );
 CREATE TABLE Images(
 
@@ -23,48 +34,49 @@ CREATE TABLE Images(
 	image_height int,
 	created_at time,
 	updated_at time,
-	filepath varchar(15),
-	filename varchar(19),
+	filepath varchar(50),
+	filename varchar(50),
+	postID int,
 	primary key (imageID),
 	foreign key (postID) references (postID)Posts
 );
-CREATE TABLE Collaborators(
-	userID INT,
 
-);
 CREATE TABLE ServedPost(
-	postID,
-	userID,
-	foreign key (postID) references (postID)Posts
+	postID int,
+	userID int,
+	foreign key (postID) references (postID)Posts,
 	foreign key (userID) references (userID)Users
 
 );
 CREATE TABLE ViewedPost(
-	postID,
-	userID,
-	foreign key (postID) references (postID)Posts
+	postID int,
+	userID int,
+	foreign key (postID) references (postID)Posts,
 	foreign key (userID) references (userID)Users
 
 );
 CREATE TABLE Comments(
-	commentID INT,
+	commentID INT AUTO_INCREMENT,
 	commentDate date,
 	commentTime time,
-	commentTxt,
-	postID,
-	userID,
+	commentTxt text,
+	postID int,
+	userID int,
 	primary key(commentID),
-	foreign key (postID) references (postID)Posts
+	foreign key (postID) references (postID)Posts,
 	foreign key (userID) references (userID)Users
 
 
 );
 CREATE TABLE Likes(
-	likeID,
-	likeDate,
-	likeTime,
-	postID,
-	userID,
+	likeID int AUTO_INCREMENT,
+	likeDate date,
+	likeTime time,
+	postID int,
+	userID int ,
+	primary key (likeID),
+	foreign key (postID) references (postID)Posts,
+	foreign key (userID) references (userID)Users
 
 );
 CREATE TABLE Category(
@@ -72,12 +84,22 @@ CREATE TABLE Category(
 	categoryName varchar(15) UNIQUE,
 	dateAdded date,
 	timeAdded time,
+	viewCount int,
 	primary key(categoryID)
 );
 CREATE TABLE PostCategory(
-	categoryID,
-	postID,
-	foreign key (postID) references (postID)Posts
+	categoryID int,
+	postID int,
+	foreign key (postID) references (postID)Posts,
 	foreign key (categoryID) references (categoryID)Category
 
 );
+CREATE INDEX id_username
+ON Users (username);
+
+CREATE INDEX id_email
+ON Users (email);
+
+CREATE INDEX cat_categoryName
+ON Category (categoryName);
+
