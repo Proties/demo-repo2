@@ -12,12 +12,16 @@ class Image{
 	private $data=array();
 
 	public function __construct(){
-		$this->width;
+		$this->width='200px';
+		$this->height='100px';
+		$this->imageType='.png';
+
+
 	}
-
-
-	public function set_dateMade($dt){}
-	$this->dateMade=$dt;
+	public function set_dateMade($dt){
+		$this->dateMade=$dt;
+	}
+	
 	public function set_dateModifed($dt){
 		$this->dateModified=$dt;
 	}
@@ -158,7 +162,7 @@ class Image{
         fwrite($f_two,json_encode($ids_array));
         fclose($f_two);
         
-        $this->set_fileName($this->get_postLinkID().'.png');
+        $this->set_fileName($this->get_filePath().$this->get_imageType());
         }catch(Execption $err){
             echo $err->getMessage();
         }
