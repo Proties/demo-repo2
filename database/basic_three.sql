@@ -19,9 +19,19 @@ CREATE TABLE Posts(
 	foreign key (userID) references (userID)Users
 );
 CREATE TABLE Collaborators(
-	userID INT,
+	collaboratorID INT,
 	postID INT,
-	foreign key (postID) references (postID)Posts,
+	primary key (collaboratorID),
+	foreign key (userID) references (userID)Users
+
+);
+CREATE TABLE CollaboratorsUsers(
+	collaboratorID int,
+	userID int,
+	dateMade date,
+	timeMade time,
+	status varchar(10),
+	primary key (collaboratorID),
 	foreign key (userID) references (userID)Users
 
 );

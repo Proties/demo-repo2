@@ -48,7 +48,7 @@ class Image{
 	}
 
 	public function set_enoded_base64_string($str){
-		$string=$str;
+		$string=substr($img,strpos($img,',')+1);
 		$this->set_fileType();
 		$this->set_fileType();
 	}

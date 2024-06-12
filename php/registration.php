@@ -19,7 +19,7 @@ try{
     if(!$user->validate_username($user->get_username())){
         $errorMessages[]=array('errUsername'=>'username not valid');
     }
-    if(!$user->search_user_in_db($user->get_username()==false)){
+    if(!$user->search_username_in_db($user->get_username()==false)){
         $errorMessages[]=array('errUsername'=>'username taken');
 
     }
