@@ -4,6 +4,8 @@ class Collaborator{
 	private $collaboratorID;
 	private $postID;
 	private $status;
+	private $errorMessage;
+	private $errorStatus;
 	private $time;
 	private $date;
 
@@ -11,12 +13,41 @@ class Collaborator{
 		$this->collaboratorID=null;
 		$this->postID=null;
 	}
-	public function set_postID($id){}
-	public function set_status($id){}
-	public function set_time($id){}
-	public function set_date($id){}
+	public function set_postID($id){
+		$this->postID=$id;
+	}
+	public function set_status($id){
+		$this->status=$id;
+	}
+	public function set_time($id){
+		$this->time=$id;
+	}
+	public function set_date($id){
+		$this->date=$id;
+	}
 
-	public function add_user($userID){}
+	public function get_postID(){
+		return $this->postID;
+	}
+	public function get_status(){
+		return $this->status;
+	}
+	public function get_time(){
+		return $this->time;
+	}
+	public function get_date(){
+		return $this->date;
+	}
+	public function get_collaborators(){
+		return $this->collaborators;
+	}
+	public function get_collaboratorID(){
+		return $this->collaboratorID;
+	}
+
+	public function add_user($userID){
+		$this->get_collaborators()[]=$userID;
+	}
 	public function read_collaborator(){}
 	public function write_collaborator(){}
 	public function update_collaborator(){}

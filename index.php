@@ -44,7 +44,7 @@ elseif($user->validate_username_url($f_txt)==true){
 $action=$_SERVER['REQUEST_URI'];
 switch($action){
     case '/test':
-        include_once('php/addimage.php');
+        include_once('testForm.php');
         break;
     case '/':
         include_once('php/homePage.php');
