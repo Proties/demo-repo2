@@ -9,40 +9,10 @@ function initialise_image(){
         // console.log(this.responseText);
         let data=JSON.parse(this.responseText);
         // document.getElementsByClassName('profile-link').href="@"+data.user.user_info.username;
-        let dataItem=[];
         console.log(data);
         init_user(data.user);
         init_categories(data.categories);
-        for(let i=0;i<data.users.length;i++){
-    
-        const base64Image = data.users[i].primary_post.img; // your Base64-encoded image string
-        const base64Image_two = data.users[i].primary_post.img;
-
-        const binaryString = atob(base64Image);
-        const arrayBuffer = new ArrayBuffer(binaryString.length);
-        const uint8Array = new Uint8Array(arrayBuffer);
-
-        const binaryString_two = atob(base64Image_two);
-        const arrayBuffer_two = new ArrayBuffer(binaryString_two.length);
-        const uint8Array_two = new Uint8Array(arrayBuffer_two);
-        
-        for (let i = 0; i < binaryString.length; i++) {
-          uint8Array[i] = binaryString.charCodeAt(i);
-        }
-        for (let i = 0; i < binaryString_two.length; i++) {
-            uint8Array_two[i] = binaryString_two.charCodeAt(i);
-          }
-        const blob = new Blob([uint8Array], { type: 'image/png' }); // or 'image/jpeg' or other image types
-        const blob_two = new Blob([uint8Array_two], { type: 'image/png' }); // or 'image/jpeg' or other image types
-        let item={primary:blob,seconday:blob_two,username:data.users[i].user_info.username};
-        // now you can use the blob object to display the image
-        // const img = document.getElementsByClassName('post-image');
-        // img[i].src = URL.createObjectURL(blob);
-        // img[i].id=data[i]['id'];
-        
-        dataItem.push(item);
-        }
-        init_img(dataItem);
+        init_img(data.users);
 }
 xml.send('action=initialise_image');
     }catch(err){

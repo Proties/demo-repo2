@@ -10,20 +10,7 @@ function initialise(){
             console.log(this.responseText);
             let data=JSON.parse(this.responseText);
             populate_user_info(data.user);
-            for(let i=0;i<data.post.length;i++){
-                let base64Image=data.post[i].img;
-                const binaryS=atob(base64Image);
-                const arrayBuffer = new ArrayBuffer(binaryS.length);
-                const uint8Array = new Uint8Array(arrayBuffer);
-                for (let i = 0; i < binaryS.length; i++) {
-                    uint8Array[i] = binaryS.charCodeAt(i);
-                  }
-                const blob = new Blob([uint8Array], { type: 'image/png' });
-                let item={img:blob};
-                big_data.push(item);
-            }
-            populate_post(big_data);
-           
+            populate_post(data.posts);
         }
         xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xm.send("action=initialise_user");
