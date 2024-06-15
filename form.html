@@ -5,6 +5,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">
+		body{
+			position: relative;
+		}
 	#containerForms{
 		height: 8em;
 		border: 0.1em solid black;
@@ -17,12 +20,27 @@
 		border: 0.1em solid black;
 		width: 6em;
 		height: 8em;
+	}
+	#submissionContainer{
+		display: none;
+		position: absolute;
+		height: 40em;
+		width: 30em;
+		background-color: whitesmoke;
+		border: 0.2em solid black;
+		z-index: 20;
+		top: 0;
+		left: 0;
+
 	}	
 
 	</style>
 	<title></title>
 </head>
 <body>
+	<div id="submissionContainer">
+		<h1>Submissions</h1>
+	</div>
 	<div id="containerForms" >
 		
 	</div>
@@ -66,9 +84,26 @@
 	<button id="duplicateItem">duplicate item</button>
 	<button id="delete">delete item</button>
 </div>
+<button onclick="startWorker()"> Start workers</button>
+<button onclick="stopWorker()"> stop workers</button>
 </body>
 <script type="text/javascript">
 "strict"
+let w;
+function startWorker(){
+if(typeof(w)=='undefined'){
+	w=new Worker('first_worker.js');
+}
+w.onmessage=function (evt) {
+
+	console.log(evt.data);
+	console.log('woring');
+}
+}
+function stopWorker(){
+	w.terminate();
+	w=undefined;
+}
 function populate_forms(arr){
 arr['name'];
 arr['description'];
@@ -413,6 +448,6 @@ function addEventListeners(){
 }
 initialise_forms();
 addEventListeners();
-
+response();
 </script>
 </html>

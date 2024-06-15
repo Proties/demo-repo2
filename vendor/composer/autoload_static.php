@@ -6,29 +6,37 @@ namespace Composer\Autoload;
 
 class ComposerStaticInite157323c771501e83d1f5facf84220ae
 {
-    public static $files = array (
-        'ae2b2fbc1ae2e7a851a2af518947a092' => __DIR__ . '/../..' . '/index.php',
+    public static $prefixLengthsPsr4 = array (
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
+        ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/src',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
     );
 
     public static $classMap = array (
-        'Category' => __DIR__ . '/../..' . '/php/category.php',
-        'Comment' => __DIR__ . '/../..' . '/php/comment.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Database' => __DIR__ . '/../..' . '/php/database.php',
-        'Image' => __DIR__ . '/../..' . '/php/image.php',
-        'MainUser' => __DIR__ . '/../..' . '/php/mainUser.php',
-        'Post' => __DIR__ . '/../..' . '/php/post.php',
-        'Ranking' => __DIR__ . '/../..' . '/php/rank.php',
-        'Users' => __DIR__ . '/../..' . '/php/user.php',
-        'validateCategory' => __DIR__ . '/../..' . '/php/category.php',
-        'validateComment' => __DIR__ . '/../..' . '/php/comment.php',
-        'validatePost' => __DIR__ . '/../..' . '/php/post.php',
-        'validateUser' => __DIR__ . '/../..' . '/php/user.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInite157323c771501e83d1f5facf84220ae::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite157323c771501e83d1f5facf84220ae::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInite157323c771501e83d1f5facf84220ae::$classMap;
 
         }, null, ClassLoader::class);

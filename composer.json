@@ -1,7 +1,13 @@
 {
-    "autoload": {
-    
-       "classmap": ["php/","index.php","php/database.php"],
-       "files": ["index.php"]
+    "require": {
+        "monolog/monolog": "^2.0"
+    },
+        "classmap": [
+            "php/",
+            "index.php"
+        ],
+        "files": [
+            "index.php"
+        ]
     }
-}
+    

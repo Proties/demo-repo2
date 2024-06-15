@@ -12,9 +12,9 @@ CREATE TABLE Posts(
 	postTime time,
 	userID int,
 	caption text,
-	location text,
+	postLocation text,
 	previewStatus boolean,
-	status varchar(10),
+	postStatus varchar(10),
 	primary key (postID),
 	foreign key (userID) references (userID)Users
 );
@@ -46,11 +46,14 @@ CREATE TABLE Images(
 	updated_at time,
 	filepath varchar(50),
 	filename varchar(50),
-	postID int,
-	primary key (imageID),
-	foreign key (postID) references (postID)Posts
+	primary key (imageID)
 );
-
+CREATE TABLE PostImages(
+	postID int,
+	imageID int,
+	foreign key (postID) references Posts(postID),
+	foreign key (imageID) references Images(imageID)
+)
 CREATE TABLE ServedPost(
 	postID int,
 	userID int,

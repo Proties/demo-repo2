@@ -4,11 +4,31 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 	exit();
 
 }
+class MyDB extends SQLite3{
+	function __construct(){
+		$this->open('test.db');
+		}
+	}
 class Staticstics{
 
 }
-class FormSubmission{
-
+class FormSubmission extends SQLite3{
+	private $db;
+	private $database_name;
+	public function create_database(){
+		$this->db=open($this->get_database_name(),SQLite3_WRITE);
+	}
+	public function set_database_name($file){
+		$file=$file.'_db.db';
+		
+	}
+	public function get_database_name(){
+		return $this->database_name;
+		
+	}
+	public function get_database(){
+		return $this->db;
+	}
 }
 class FormResponse{
 
@@ -230,7 +250,21 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		$action=$_POST['action'];
 		$data=array();
 		switch ($action) {
+			case 'get_submissions':
+				$data['status']='no_submissions';
+				echo json_encode($data);
+				$sub=new FormSubmission();
+				$sub->set_formName($_POST['formName']);
+				$sub->set_fileName($_POST['fileName']);
+				$db=$sub->get_database_file();
+				$results=$db->query("SELECT * FROM $sub->get_database_name");
+				echo json_encode($results->fetchArray());
+				return;
+			break;
+			case 'make_response':
+			break;
 			case 'initialise_forms':
+			
 				$form=new Form();
 				$m=scandir('/Users/rotondwanemutavhani/desktop/testApp/kjo');
 				for($i=0;$i<count($m);$i++){
@@ -256,9 +290,25 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 					$data['input'][]=array('question'=>$input->get_question(),'element'=>$input->get_element(),'required'=>$input->get_required(),
 						'description'=>$input->get_description(),'color'=>$input->get_color(),'options'=>$input->get_options());
 				}
-				
-				
+				$sub=new FormSubmission();
+				$sub->set_database_name($form->get_name());
+				$query="CREATE TABLE ";
+
 				echo json_encode($data);
+				break;
+			case 'submit_form':
+				$sub=new FormSubmission();
+				$sub->set_database_name($_POST['fileName']);
+				$db=$sub->get_database();
+				$fields='';
+				foreach($_POST as $key =>$value){
+					$fields.=$value.',';
+				}
+				$query="
+						INSERT INTO $sub->get_database_name()
+						VALUES ($fields);
+				";
+				$db->exec($query);
 				break;
 		}
 		exit();

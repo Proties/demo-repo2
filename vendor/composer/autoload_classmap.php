@@ -6,17 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Category' => $baseDir . '/php/category.php',
-    'Comment' => $baseDir . '/php/comment.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'Database' => $baseDir . '/php/database.php',
-    'Image' => $baseDir . '/php/image.php',
-    'MainUser' => $baseDir . '/php/mainUser.php',
-    'Post' => $baseDir . '/php/post.php',
-    'Ranking' => $baseDir . '/php/rank.php',
-    'Users' => $baseDir . '/php/user.php',
-    'validateCategory' => $baseDir . '/php/category.php',
-    'validateComment' => $baseDir . '/php/comment.php',
-    'validatePost' => $baseDir . '/php/post.php',
-    'validateUser' => $baseDir . '/php/user.php',
 );

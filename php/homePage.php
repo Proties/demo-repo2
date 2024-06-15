@@ -19,14 +19,16 @@ switch($action){
     case 'initialise_post_preview':
         $post=new Post();
         $post->set_postLink($_SERVER['REQUEST_URI']);
-        $post->read_postID();
-        $post->read_post();
+        $postDB=new PostDB($post);
+        $postDB->read_postID();
+        $postDB->read_post();
+        $post_two=$postDB->get_post();
         $data=array(
-        'caption'=>$post->get_caption(),
-        'authorName'=>$post->get_authorName(),
-        'img'=>$post->get_img(),
-        'comments'=>$post->get_comments(),
-        'postID'=>$post->get_id()
+        'caption'=>$post_two->get_caption(),
+        'authorName'=>$post_two->get_authorName(),
+        'img'=>$post_two->get_img(),
+        'comments'=>$post_two->get_comments(),
+        'postID'=>$post_two->get_id()
         );
         echo json_encode($data);
         break;
@@ -34,7 +36,7 @@ switch($action){
         $data=array();
         $data['user']=array('username'=>$mainUser->get_username(),'userID'=>$mainUser->get_id());
         $info=Ranking::chrono();
-        $categories=Category::read_category();
+        $categories=CategoryDB::read_category();
         $arrLen=count($info);
         $catLen=count($categories);
         for($i=0;$i<$catLen;$i++){
@@ -51,17 +53,17 @@ switch($action){
 
         $data['users'][]=array(
             'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
-            'primary_post'=>array('img'=>chunk_split(base64_encode(file_get_contents($primary_post->get_postLink())),76,"\n")),
-            'secondary_post'=>array('img'=>chunk_split(base64_encode(file_get_contents($secondary_post->get_postLink())),76,"\n"))
-        );
+            'primary_post'=>array('img'=>$primary_post->get_filePath().$primary_post->get_fileName()),
+            'secondary_post'=>array('img'=>$secondary_post->get_filePath().$secondary_post->get_fileName()
+        ));
             }
         echo json_encode($data);
         break;
     case 'select_category':
         $category=new Category();
         $category->set_categoryName($_POST['categoryName']);
-        $post=new Post();
-        $categoryPosts=$post->read_category_posts();
+        $postDB=new PostDB();
+        $categoryPosts=$postDB->read_category_posts();
         $catLen=count($categoryPosts);
         $data=array();
         for($i=0;$i<$catLen;$i++){
@@ -75,8 +77,8 @@ switch($action){
 
             $data['users'][]=array(
                 'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
-                'primary_post'=>array('img'=>base64_encode($primary_post->get_img())),
-                'secondary_post'=>array('img'=>base64_encode($secondary_post->get_img()))
+                'primary_post'=>array('img'=>($primary_post->get_filePath().$primary_post->get_fileName())),
+                'secondary_post'=>array('img'=>($secondary_post->get_filePath().$secondary_post->get_fileName()))
             );
         }
         echo json_encode($data);
@@ -84,7 +86,7 @@ switch($action){
     case 'search':
         $data=array();
         $target=$_POST['q'];
-        $usernames=Users::search_user($target);
+        $usernames=UsersDB::search_user($target);
         $data['searchResults']=$usernames;
         echo json_encode($data);
         break;
@@ -100,7 +102,8 @@ switch($action){
         $comment=new Comment();
         $comment->set_postID($postID);
         $comment->set_comment($text);
-        $comment->write_comment();
+        $commentDB=new CommentDB($comment);
+        $commentDB->write_comment();
         break;
     case 'like':
         if(!$mainUser->is_authenticated()){
@@ -112,48 +115,29 @@ switch($action){
         $postID=$_POST['postID'];
         $post=new Post();
         $post->set_postID($postID);
-        $post->write_like();
+        $postDB=new PostDB($post);
+        $postDB->write_like();
         break;
     case 'view_more_comments':
         $data;
         $post=new Post();
         $post->set_id($_POST['postID']);
-        $info=$post->get_comments();
+        $postDB=new PostDB($post);
+        $info=$postDB->get_comments();
         for($c=0;$c<count($info);$c++){
             $comment=new Comment();
             $comment->set_id($info['id']);
-            $comment->read_comment();
+            $commentDB=new CommentDB();
+            $commentDB->read_comment();
             $ele=array(
             "username"=>$post->get_authorName(),
-            "comment"=>$comment->get_comment()
+            "comment"=>$commentDB->$comment->get_comment()
             );
             array_push($ele,$data);
         }
         echo json_encode($data);
         break; 
     case 'view_more_posts':
-        for($x=0;$x<count($info);$x++){
-            if(find_userObject($info[$x]['username'])==true){
-                $user=get_userObject($info[$x]['username']);
-                $secondary_post=new Post();
-                $secondary_post->set_img($info[$x]['picture']);
-               
-                $data[]=array(
-                'secondary_post'=>array('img'=>base64_encode($secondary_post->get_img()))
-                );
-            }else{
-                $user=new Users();
-                $primary_post=new Post();
-                $user->set_username($info[$x]['username']);
-                $primary_post->set_img($info[$x]['picture']);
-      
-                $data[]=array('user'=>array(
-                    'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
-                    'primary_post'=>array('img'=>base64_encode($primary_post->get_img()))
-                )
-                );
-                }
-                }
         echo json_encode($data);
         break;
 }

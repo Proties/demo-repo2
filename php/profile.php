@@ -51,7 +51,7 @@ switch($action){
 
             $data['post'][$i] = array(
                 'postLink' => $postItem->get_postLink(),
-                'img' => chunk_split(base64_encode($f), 76, "\n")
+                'img' => $postItem->get_filePath().$postItem->get_fileName()
             );
         }
         echo json_encode($data);
@@ -73,28 +73,13 @@ switch($action){
         $data=array(
         'authorName'=>$post->get_authorName(),
         'caption'=>$post->get_caption(),
-        'img'=>$post->get_img(),
+        'img'=>$post->get_filePath().$post->get_fileName(),
         'comments'=>$post->get_comments(),
         'postID'=>$post->get_id()
         );
         echo json_encode($data);
         break;
-    case 'addPost':
-        if(!$mainUser->is_authenticated()){
-            $msg='user not registered';
-            echo $msg;
-            return;
-        }
-        $post=new Post();
-        $post->set_authorID($user->get_id());
-        $post->set_image();
-        $post->set_categoryName($_POST['categoryName']);
-
-        $post->set_caption($_POST['caption']);
-        $post->set_date($_POST['date']);
-        $post->set_time($_POST['time']);
-        $post->write_post();
-        break;
+  
     case 'edit_post':
         if(!$mainUser->is_authenticated()){
             $msg='user not registered';
@@ -102,8 +87,8 @@ switch($action){
             return;
         }
         $postID=$_POST['postID'];
-        $data=array("cpation"=>$post->get_caption,"categoryName"=>$category->get_categoryName(),
-                    "img"=>$post->get_img(),"previewStatus"=>$post->get_preview_status());
+        $data=array("cpation"=>$post->get_caption(),"categoryName"=>$category->get_categoryName(),
+                    "img"=>$post->get_filePath().$post->get_fileName(),"previewStatus"=>$post->get_preview_status());
         echo json_encode($data);
         break;
     case 'create_custom_profile':
