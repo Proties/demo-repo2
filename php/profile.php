@@ -26,10 +26,7 @@ switch($action){
             $authorDB=new UserDB($author);
             $authorDB->read_userID();
             $authorDB->read_user();
-        if(!is_array($)){
-            echo json_encode($data);
-            return;
-        }
+
         $data['user'][0]=array('username'=>$authorDB->$author->get_username(),'userProfilePicture'=>$authorDB->$author->get_profilePicture(),
                             'bio'=>$authorDB->$author->get_bio(),'post'=>array());
         $post=new Post();
@@ -64,16 +61,18 @@ switch($action){
         echo json_encode($data);
         return;
     }else{
-        echo 'no user profile';
+        $data['status']='no user profile';
+        echo json_encode($data);
         return;
     }
         
         break;
     case 'initialise_post_preview':
         $post=new Post();
-        if($post->validate_postLink()){
-            $post->set_postLink($_SERVER['REQUEST_URI']);
-            $postDB=new PostDB($post);
+        $post->set_postLink($_SERVER['REQUEST_URI']);
+        $postDB=new PostDB($post);
+        $link=$_SERVER['REQUEST_URI'];
+        if($post->validate_postLink($link) && $postDB->validate_pos($link)){
             $postDB->read_postID();
             $postDB->read_post();
         }
@@ -95,6 +94,10 @@ switch($action){
             return;
         }
         $postID=$_POST['postID'];
+        $post=new Post();
+        $post->set_id($postID);
+        $postDB=new PostDB($post);
+        $postDB->read_post();
         $data=array("cpation"=>$post->get_caption(),"categoryName"=>$category->get_categoryName(),
                     "img"=>$post->get_filePath().$post->get_fileName(),"previewStatus"=>$post->get_preview_status());
         echo json_encode($data);
