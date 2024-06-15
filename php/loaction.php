@@ -9,7 +9,20 @@ class Location{
 	private $longitude;
 	private $latitude;
 	private $altitude;
-	private $county;
+	private $country;
+
+	public function __construct(){
+		$this->id=null;
+		$this->country='SouthAfrica';
+		$this->province='';
+		$this->town='';
+		$this->city='';
+		$this->postalCode='';
+		$this->street='';
+		$this->latitude='';
+		$this->altitude='';
+		$this->longitude='';
+	}
 }
 
 
