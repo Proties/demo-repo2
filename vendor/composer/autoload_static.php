@@ -6,6 +6,10 @@ namespace Composer\Autoload;
 
 class ComposerStaticInite157323c771501e83d1f5facf84220ae
 {
+    public static $files = array (
+        'ae2b2fbc1ae2e7a851a2af518947a092' => __DIR__ . '/../..' . '/index.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'P' => 
         array (
@@ -29,7 +33,29 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
     );
 
     public static $classMap = array (
+        'Category' => __DIR__ . '/../..' . '/php/category.php',
+        'CategoryDB' => __DIR__ . '/../..' . '/php/categoryDB.php',
+        'Collaborator' => __DIR__ . '/../..' . '/php/collaborator.php',
+        'CollaboratorDB' => __DIR__ . '/../..' . '/php/collaboratorDB.php',
+        'Comment' => __DIR__ . '/../..' . '/php/comment.php',
+        'CommentDB' => __DIR__ . '/../..' . '/php/commentDB.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Database' => __DIR__ . '/../..' . '/php/database.php',
+        'Image' => __DIR__ . '/../..' . '/php/image.php',
+        'ImageDB' => __DIR__ . '/../..' . '/php/imageDB.php',
+        'LikeDB' => __DIR__ . '/../..' . '/php/likeDB.php',
+        'Location' => __DIR__ . '/../..' . '/php/loaction.php',
+        'LocationDB' => __DIR__ . '/../..' . '/php/locationDB.php',
+        'MainUser' => __DIR__ . '/../..' . '/php/mainUser.php',
+        'Post' => __DIR__ . '/../..' . '/php/post.php',
+        'PostDB' => __DIR__ . '/../..' . '/php/postDB.php',
+        'Ranking' => __DIR__ . '/../..' . '/php/rank.php',
+        'UserDB' => __DIR__ . '/../..' . '/php/userDB.php',
+        'Users' => __DIR__ . '/../..' . '/php/user.php',
+        'validateCategory' => __DIR__ . '/../..' . '/php/category.php',
+        'validateComment' => __DIR__ . '/../..' . '/php/comment.php',
+        'validatePost' => __DIR__ . '/../..' . '/php/post.php',
+        'validateUser' => __DIR__ . '/../..' . '/php/user.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

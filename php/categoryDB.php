@@ -1,15 +1,17 @@
 <?php 
 class CategoryDB extends Database{
     private $category;
+ 
     public function __construct(Category $category){
+        Database::__construct();
         $this->category=$category;
+      
     }
     public function get_category(){
         return $this->category();
     }
-    public static function read_category(){
+    public function read_category(){
         try{
-    
             $db=$this->get_connection();
             $query="
                     SELECT categoryID,categoryName FROM category
@@ -24,7 +26,7 @@ class CategoryDB extends Database{
         }
     }
     public function write_category(){
-        $db=$this->get_connection();
+        $db=$this->db;
         try{
             $db->begin_transaction();
             $query_one='

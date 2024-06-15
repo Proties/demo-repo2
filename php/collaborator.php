@@ -1,6 +1,6 @@
 <?php 
 class Collaborator{
-	private $collaborators=array();
+	private $users=[];
 	private $collaboratorID;
 	private $postID;
 	private $status;
@@ -13,10 +13,10 @@ class Collaborator{
 		$this->collaboratorID=null;
 		$this->postID=null;
 	}
-	public function set_postID($id){
+	public function set_postID(Int $id){
 		$this->postID=$id;
 	}
-	public function set_status($id){
+	public function set_status(String $id){
 		$this->status=$id;
 	}
 	public function set_time($id){
@@ -38,19 +38,17 @@ class Collaborator{
 	public function get_date(){
 		return $this->date;
 	}
-	public function get_collaborators(){
-		return $this->collaborators;
+	public function get_users(){
+		return $this->users;
 	}
 	public function get_collaboratorID(){
 		return $this->collaboratorID;
 	}
 
-	public function add_user($userID){
-		$this->get_collaborators()[]=$userID;
+	public function add_user(Users $userID){
+		array_push($this->collaborators, $user)
 	}
-	public function read_collaborator(){}
-	public function write_collaborator(){}
-	public function update_collaborator(){}
+	
 }
 
 ?>

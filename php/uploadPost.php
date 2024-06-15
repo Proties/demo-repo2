@@ -8,6 +8,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $category=new Category();
     $user=new Users();
     $image=new Image();
+    $collaborator=new Collaborator();
+    $location=new Location();
     $username=$data_f['username'];
     $user->set_username($username);
     try{
@@ -32,6 +34,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         // if(count($errorMessages)>1){
         //     throw new Exception('could not create post');
         // }
+        if(isset($_POST['collaborators'])){}
+        if(isset($_POST['location'])){}
         $user->create_user_folder();   
         $data_r=$data_f['img'];
         $img=$data_r['img'];

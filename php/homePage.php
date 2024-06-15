@@ -36,21 +36,30 @@ switch($action){
         $data=array();
         $data['user']=array('username'=>$mainUser->get_username(),'userID'=>$mainUser->get_id());
         $info=Ranking::chrono();
-        $categories=CategoryDB::read_category();
+        $categories=new Category();
+        $categories=new CategoryDB($categories);
+        $categories->read_category();
         $arrLen=count($info);
-        $catLen=count($categories);
-        for($i=0;$i<$catLen;$i++){
+        if(!is_array($categories)){
+
+        }else{
+            $catLen=count($categories);
+           for($i=0;$i<$catLen;$i++){
             $data['categories'][]=array('categoryName'=>$categories[$i]['categoryName'],'categoryId'=>$categories[$i]['categoryID']);
+        } 
+        }
+        if(!is_array($info) || count($info)>1){
+            $data['status']='empty';
+            echo json_encode($data);
+            return;
         }
     for($x=0;$x<$arrLen;$x++){
-       
         $user=new Users();
         $primary_post=new Post();
         $user->set_username($info[$x]['username']);
         $primary_post->set_postLink($info[$x]['postLink']);
         $secondary_post=new Post();
         $secondary_post->set_postLink($info[$x]['post2Link']);
-
         $data['users'][]=array(
             'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
             'primary_post'=>array('img'=>$primary_post->get_filePath().$primary_post->get_fileName()),
@@ -69,10 +78,6 @@ switch($action){
         for($i=0;$i<$catLen;$i++){
             $primary_post=new Post();
             $secondary_post=new Post();
-            $primary_post->set_img($categoryPosts[$i]['picture']);
-
-            $secondary_post->set_img($categoryPosts[$i]['picture']);
-           
             $user=new Users();
 
             $data['users'][]=array(

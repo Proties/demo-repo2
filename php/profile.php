@@ -26,7 +26,10 @@ switch($action){
             $authorDB=new UserDB($author);
             $authorDB->read_userID();
             $authorDB->read_user();
-        
+        if(!is_array($)){
+            echo json_encode($data);
+            return;
+        }
         $data['user'][0]=array('username'=>$authorDB->$author->get_username(),'userProfilePicture'=>$authorDB->$author->get_profilePicture(),
                             'bio'=>$authorDB->$author->get_bio(),'post'=>array());
         $post=new Post();

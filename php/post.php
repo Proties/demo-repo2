@@ -10,6 +10,7 @@ class Post{
     private $postLinkID;
     private $postLink;
     private $authorID;
+    private $location;
     private $date;
     private $time;
     private $posts;

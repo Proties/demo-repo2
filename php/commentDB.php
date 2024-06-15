@@ -2,6 +2,7 @@
 class CommentDB extends Database{
     private $comment;
     public function __construct(Comment $comment){
+        Database::__construct();
         $this->comment=$comment;
     }
     public function get_comment(){

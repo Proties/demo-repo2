@@ -6,5 +6,27 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Category' => $baseDir . '/php/category.php',
+    'CategoryDB' => $baseDir . '/php/categoryDB.php',
+    'Collaborator' => $baseDir . '/php/collaborator.php',
+    'CollaboratorDB' => $baseDir . '/php/collaboratorDB.php',
+    'Comment' => $baseDir . '/php/comment.php',
+    'CommentDB' => $baseDir . '/php/commentDB.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'Database' => $baseDir . '/php/database.php',
+    'Image' => $baseDir . '/php/image.php',
+    'ImageDB' => $baseDir . '/php/imageDB.php',
+    'LikeDB' => $baseDir . '/php/likeDB.php',
+    'Location' => $baseDir . '/php/loaction.php',
+    'LocationDB' => $baseDir . '/php/locationDB.php',
+    'MainUser' => $baseDir . '/php/mainUser.php',
+    'Post' => $baseDir . '/php/post.php',
+    'PostDB' => $baseDir . '/php/postDB.php',
+    'Ranking' => $baseDir . '/php/rank.php',
+    'UserDB' => $baseDir . '/php/userDB.php',
+    'Users' => $baseDir . '/php/user.php',
+    'validateCategory' => $baseDir . '/php/category.php',
+    'validateComment' => $baseDir . '/php/comment.php',
+    'validatePost' => $baseDir . '/php/post.php',
+    'validateUser' => $baseDir . '/php/user.php',
 );

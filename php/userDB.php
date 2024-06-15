@@ -2,6 +2,7 @@
 class UserDB extends Database{
     private $user;
     public function __construct(Users $user){
+        Database::__construct();
         $this->user=$user;
     }
     public function get_user(){
