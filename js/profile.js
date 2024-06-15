@@ -30,10 +30,10 @@ function populate_post(arr){
     let container=document.getElementsByClassName('post-section')[0];
     console.log(arr);
     if(arr.length>1){
-        let old=postEle.getElementsByTagName('img')[0].src=URL.createObjectURL(arr[0].img);
+        let old=postEle.getElementsByTagName('img')[0].src=arr[0].img;
         for(let i=1;i<arr.length;i++){
             let newPost=postEle.cloneNode(true);
-            newPost.getElementsByTagName('img')[0].src=URL.createObjectURL(arr[i].img);
+            newPost.getElementsByTagName('img')[0].src=arr[i].img;
             console.log(newPost);
             container.appendChild(newPost);
         }

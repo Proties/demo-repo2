@@ -3,6 +3,7 @@ class Users{
     use validateUser;
     private $name;
     private $username;
+    private $shortBio;
     private $bio;
     private $profilePicture;
     private $dateOfBirth;

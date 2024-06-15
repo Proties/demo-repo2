@@ -204,8 +204,8 @@ function init_img(arr){
         let ele=p[n].getElementsByClassName('post-image')[0];
         let ele_two=p[n].getElementsByClassName('post-image')[1];
         p[n].getElementsByClassName("profile-button")[0].id="/@"+arr[n].username;
-        ele.src = URL.createObjectURL(arr[n].primary);
-        ele_two.src = URL.createObjectURL(arr[n].seconday);
+        ele.src = arr[n].primary.img;
+        ele_two.src =arr[n].seconday.img;
         
         console.log("======= end ======");
     }

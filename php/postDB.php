@@ -1,20 +1,22 @@
 <?php 
-class PostDB extends PDO{
+class PostDB extends Database{
     private $post;
-    public function __construct($post){
+    public function __construct(Post $post){
         $this->post=$post;
+    }
+    public function get_post(){
+        return $this->post;
     }
     public static function validate_postID($id){
         try{
-            $database=new Database();
-            $db=$database->get_connection();
+            $db=$this->get_connection();
             $query="
                     SELECT * FROM post
                     WHERE postId=:id;
             ";
-            $db->prepare($query);
-            $db->bindValue(':id',$id);
-            $result=$db->execute();
+            $stmt=$db->prepare($query);
+            $stmt->bindValue(':id',$id);
+            $result=$stmt->execute();
             return $result;
         }catch(PDOExecption $err){
             echo $err->getMessage();
@@ -24,8 +26,7 @@ class PostDB extends PDO{
     }
     public static function validate_in_db_postLink($link){
         try{
-            $database=new Database();
-            $db=$database->get_connection();
+            $db=$this->get_connection();
             $query="
                     SELECT postLink FROM post
                     WHERE postLink=:link;
@@ -42,15 +43,15 @@ class PostDB extends PDO{
     }
     public function write_like(){
         try{
-            $database=new Database();
-            $db=$database->get_connection();
+         
+            $db=$this->get_connection();
             $query="
                     INSERT INTO likes(postID,userID)
                     VALUES(:postID,:userID);
             ";
             $stmt=$db->prepare($query);
-            $stmt->bindValue(':postID',$this->get_postID());
-            $stmt->bindValue(':userID',$this->get_authorID());
+            $stmt->bindValue(':postID',$this->post->get_postID());
+            $stmt->bindValue(':userID',$this->post->get_authorID());
             $stmt->execute();
         }catch(PDOExecption $err){
             echo $err->getMessage();
@@ -58,19 +59,19 @@ class PostDB extends PDO{
     }
     public function write_post(){
         try{
-            $database=new Database();
-            $db=$database->get_connection();
+
+            $db=$this->get_connection();
             $query="
                     INSERT INTO post(postLinkID,postCaption,userID,postDate,postTime,postLink)
                     VALUES(:postLinkID,:caption,:userID,:date,:time,:postLink);
                     ";
             $stmt=$db->prepare($query);
-            $stmt->bindValue(':caption',$this->get_caption());
-            $stmt->bindValue(':userID',$this->get_authorID());
-            $stmt->bindValue(':date',$this->get_date());
-            $stmt->bindValue(':time',$this->get_time());
-            $stmt->bindValue(':postLink',$this->get_postLink());
-            $stmt->bindValue(':postLinkID',$this->get_postLinkID());
+            $stmt->bindValue(':caption',$this->post->get_caption());
+            $stmt->bindValue(':userID',$this->post->get_authorID());
+            $stmt->bindValue(':date',$this->post->get_date());
+            $stmt->bindValue(':time',$this->post->get_time());
+            $stmt->bindValue(':postLink',$this->post->get_postLink());
+            $stmt->bindValue(':postLinkID',$this->post->get_postLinkID());
             $this->set_status($stmt->execute());
         }catch(PDOExecption $err){
             echo $err->getMessage();
@@ -78,14 +79,13 @@ class PostDB extends PDO{
     }
     public function read_likes(){
         try{
-            $database=new Database();
-            $db=$database->get_connection();
+            $db=$this->get_connection();
             $query="
                     SELECT count(*) FROM likes
                     WHERE id=:id;
             ";
             $stmt=$db->prepare($query);
-            $stmt->bindValue(':id',$this->get_id());
+            $stmt->bindValue(':id',$this->post->get_id());
             $this->set_status($stmt->execute());
         }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();
@@ -93,8 +93,8 @@ class PostDB extends PDO{
     }
     public function read_category_posts(){
         try{
-            $database=new Database();
-            $db=$database->get_connection();
+
+            $db=$this->get_connection();
             $query="
             SELECT * FROM USER_POST up1
             INNER JOIN post_category pc1 ON up1.postID=pc1.postID
@@ -103,7 +103,7 @@ class PostDB extends PDO{
             WHERE c1.categoryName=:name;
             ";
             $stmt=$db->prepare($query);
-            $stmt->bindValue(':name',$this->get_categoryName());
+            $stmt->bindValue(':name',$this->post->get_categoryName());
             $stmt->execute();
             return $stmt->fetchall();
         }catch(PDOExecption $err){
@@ -112,34 +112,34 @@ class PostDB extends PDO{
     }
     public function read_posts(){
         try{
-            $database=new Database();
-            $db=$database->get_connection();
+
+            $db=$this->get_connection();
             $query="
                     SELECT * FROM post
                     WHERE userID=:userID;
             ";
             $stmt=$db->prepare($query);
-            $stmt->bindValue(':userID',$this->get_authorID());
+            $stmt->bindValue(':userID',$this->post->get_authorID());
             $this->set_status($stmt->execute());
             $results=$stmt->fetchall();
-            $this->set_posts($results);
+            $this->post->set_posts($results);
         }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();
         }
     }
     public function read_postID(){
         try{
-            $database=new Database();
-            $db=$database->get_connection();
+  
+            $db=$this->get_connection();
             $query="
                     SELECT postID FROM post
                     WHERE postLink=:link
             ";
             $stmt=$db->prepare($query);
-            $stmt->bindValue(':link',$this->get_postLink());
+            $stmt->bindValue(':link',$this->post->get_postLink());
             $stmt->execute();
             $id=$stmt->fetch();
-            $this->set_postID($id);
+            $this->post->set_postID($id);
         }catch(PDOExecption $err){
             echo $err->getMessage();
         }
@@ -147,14 +147,14 @@ class PostDB extends PDO{
     
     public function read_post(){
         try{
-            $database=new Database();
-            $db=$database->get_connection();
+   
+            $db=$this->get_connection();
             $query="
                     SELECT * FROM post
                     WHERE id=:postID;
             ";
             $stmt=$db->prepare($query);
-            $stmt->bindValue(':id',$this->get_postID());
+            $stmt->bindValue(':id',$this->post->get_postID());
             $this->set_status($stmt->execute());
             $results=$stmt->fetch();
         }catch(PDOExecption $err){

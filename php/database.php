@@ -1,11 +1,15 @@
 <?php
 class Database{
-    private $dsn='mysql:host=191.96.56.52;dbname=u203973307_wholedata;';
-    private $user='u203973307_dbaAdmin';
-    private $password='w1]WEw?J@|N';
+    private $dsn;
+    private $user;
+    private $password;
     private $pdo;
     
     public function __construct(){
+        $this->dsn='mysql:host=191.96.56.52;dbname=u203973307_wholedata;';
+        $this->user='u203973307_dbaAdmin';
+        $this->password='w1]WEw?J@|N';
+        $this->pdo;
         $this->connect();
     }
     public function get_dsn(){
