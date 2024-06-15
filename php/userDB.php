@@ -37,10 +37,8 @@ class UserDB extends Database{
         $statement->bindValue(':username', $this->user->get_username());
         $statement->bindValue(':userPassword', $this->user->get_password()); 
         $statement->bindValue(':dateMade', $this->user->get_date()); 
-        $statement->bindValue(':timeMade', $this->user->get_time()); 
-
-        
-        $statement->execute();
+        $statement->bindValue(':timeMade', $this->user->get_time());
+        $this->user->set_status($statement->execute());
         $this->user->set_id($db->lastInsertId());
         }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();

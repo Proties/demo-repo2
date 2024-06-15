@@ -37,10 +37,11 @@ try{
     if($len>0){
         throw new Exception('could not create user');
     }
-    $user->write_user();
-    if($user->get_status()==1){
-        $_SESSION['userID']=$user->get_id();
-        $_SESSION['username']=$user->get_username();
+    $userDB=new UserDB($user);
+    $userDB->write_user();
+    if($userDB->get_status()==1){
+        $_SESSION['userID']=$userDB->$user->get_id();
+        $_SESSION['username']=$userDB$user->get_username();
         $item=array('status'=>'success');
         echo json_encode($item);
         return;

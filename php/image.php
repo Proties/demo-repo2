@@ -49,8 +49,11 @@ class Image{
 
 	public function set_enoded_base64_string($str){
 		$string=substr($img,strpos($img,',')+1);
-		$this->set_fileType();
-		$this->set_fileType();
+		$arr=getimagesize($string);
+
+		$this->set_fileType($arr[2]);
+		$this->set_width($arr[0]);
+		$this->set_height($arr[1]);
 	}
 
 	public function get_dateMade(){
