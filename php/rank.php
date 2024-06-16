@@ -1,11 +1,10 @@
 <?php
-include_once('database.php');
-class Ranking{
+class Ranking extends Database{
 
-public static function chrono(){
+public function chrono(){
     try{
-        $database=new Database();
-        $db=$database->get_connection();
+
+        $db=$this->get_connection();
         $query="
         SELECT * FROM USER_POST;
         ";
@@ -17,6 +16,26 @@ public static function chrono(){
     }catch(PDOExecption $err){
         echo $err;
     }
+}
+
+public function Basic(){
+    try{
+        $db=$this->get_connection();
+        $query='
+            SELECT username,imageFilePath,imageFileName,imageFilePath as image2FilePath,imageFileName as image2FileName FROM Users
+            INNER JOIN Post ON postID
+            INNER JOIN Image ON imageID
+            INNER JOIN PostImage ON imageID
+            WHERE p1.previewStatus=true AND p2.previewStatus=true ;
+        ';
+        $stmt=$db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchall();
+    }catch(PDOExecption $err){
+        echo 'error while ranking '.$err->getMessage();
+    }
+
+
 }
 }
 // query that will two post per user

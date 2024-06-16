@@ -26,7 +26,7 @@ switch($action){
         $data=array(
         'caption'=>$post_two->get_caption(),
         'authorName'=>$post_two->get_authorName(),
-        'img'=>$post_two->get_img(),
+        'img'=>$post_two->get_filePath().$post_two->get_fileName(),
         'comments'=>$post_two->get_comments(),
         'postID'=>$post_two->get_id()
         );
@@ -35,7 +35,8 @@ switch($action){
     case 'initialise_image':
         $data=array();
         $data['user']=array('username'=>$mainUser->get_username(),'userID'=>$mainUser->get_id());
-        $info=Ranking::chrono();
+        $rank=new Ranking();
+        $info=$rank->chrono();
         $categories=new Category();
         $categories=new CategoryDB($categories);
         $categories->read_category();
