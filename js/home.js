@@ -122,10 +122,14 @@ function select_post(evt){
    let link=evt.target.id;
    window.loaction.href=link;
 }
+//when user clicks the comment button the comment modal will popup
 function show_coment(){
     let container=document.getElementById("writeCommentModal");
     container.style.display='flex';
-
+    container.getElementsByTagName("button")[0].addEventListener('click',function(){
+        console.log("works");
+        container.style.display='none';
+    });
     container.getElementsByClassName("close")[0].addEventListener('click',function(){
         console.log("works");
         container.style.display='none';
