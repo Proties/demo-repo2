@@ -1,7 +1,10 @@
 <?php
 class Ranking extends Database{
 
-public function chrono(){
+public function chrono(Array $arr){
+    if(count($arr)==0){
+
+    }
     try{
 
         $db=$this->get_connection();
@@ -18,7 +21,7 @@ public function chrono(){
     }
 }
 
-public function Basic(){
+public function Basic(Array $arr){
     try{
         $db=$this->get_connection();
         $query='

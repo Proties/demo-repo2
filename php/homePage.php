@@ -13,7 +13,11 @@ if(isset($_SESSION['userID']) && $_SESSION['userID']!==null){
     $mainUser->set_username($_SESSION['username']);
     // $mainUser->read_user();
 }
-
+$arrayPosts=[];
+if(isset($_SESSION['postServed'])){
+    $arrayPosts=$_SESSION['postServed'];
+}
+$arrayPosts=[];
 $action=$_POST['action'];
 switch($action){
     case 'initialise_post_preview':
@@ -36,7 +40,7 @@ switch($action){
         $data=array();
         $data['user']=array('username'=>$mainUser->get_username(),'userID'=>$mainUser->get_id());
         $rank=new Ranking();
-        $info=$rank->chrono();
+        $info=$rank->chrono($arrayPosts);
         $categories=new Category();
         $categories=new CategoryDB($categories);
         $categories->read_category();
@@ -70,16 +74,17 @@ switch($action){
         echo json_encode($data);
         break;
     case 'select_category':
+        $data=[];
         $category=new Category();
         $category->set_categoryName($_POST['categoryName']);
-        $postDB=new PostDB();
-        $categoryPosts=$postDB->read_category_posts();
-        $catLen=count($categoryPosts);
-        $data=array();
-        for($i=0;$i<$catLen;$i++){
+        $categoryDB=new CategoryDB($category);
+        $categoryDB->read_posts();
+        $arrData=$category->get_post();
+        $len=count($arrData);
+        for($i=0;$i<$len;$i++){
             $primary_post=new Post();
             $secondary_post=new Post();
-            $user=new Users();
+ 
 
             $data['users'][]=array(
                 'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
@@ -144,6 +149,8 @@ switch($action){
         echo json_encode($data);
         break; 
     case 'view_more_posts':
+        $rank=Ranking();
+        $rank->chrono($arrayPosts);
         echo json_encode($data);
         break;
 }

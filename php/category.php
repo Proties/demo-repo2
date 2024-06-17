@@ -58,6 +58,9 @@ class Category{
     public function get_posts(){
         return $this->posts;
     }
+    public function add_posts($post){
+        array_push($this->posts,$post);
+    }
 
     
    
