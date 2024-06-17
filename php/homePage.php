@@ -18,6 +18,7 @@ if(isset($_SESSION['postServed'])){
     $arrayPosts=$_SESSION['postServed'];
 }
 $arrayPosts=[];
+$arrayComments=[];
 $action=$_POST['action'];
 switch($action){
     case 'initialise_post_preview':
@@ -34,6 +35,7 @@ switch($action){
         'comments'=>$post_two->get_comments(),
         'postID'=>$post_two->get_id()
         );
+        $arrayComments=[];
         echo json_encode($data);
         break;
     case 'initialise_image':
@@ -97,7 +99,8 @@ switch($action){
     case 'search':
         $data=array();
         $target=$_POST['q'];
-        $usernames=UsersDB::search_user($target);
+        $userDB=new UserDB($user);
+        $usernames=$userDB->search_user($target);
         $data['searchResults']=$usernames;
         echo json_encode($data);
         break;
@@ -135,11 +138,12 @@ switch($action){
         $post->set_id($_POST['postID']);
         $postDB=new PostDB($post);
         $info=$postDB->get_comments();
+
         for($c=0;$c<count($info);$c++){
             $comment=new Comment();
             $comment->set_id($info['id']);
             $commentDB=new CommentDB();
-            $commentDB->read_comment();
+            $commentDB->read_comment($arrayComments);
             $ele=array(
             "username"=>$post->get_authorName(),
             "comment"=>$commentDB->$comment->get_comment()
