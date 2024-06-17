@@ -10,27 +10,24 @@
   <body>
     <header>
       <nav>
-          <div class="nav-left">
-              <button class="register-button">Register</button>
-          </div>
-  
-          <div class="nav-center">
-              <input type="text" placeholder="Search" id="search" />
-              <ul id="suggestion-list"></ul>
-              <button class="search-button" id="searchBtn">
-                  <img src="/Image/Search.png" alt="Search" />
-              </button>
-          </div>
-  
-          <div class="nav-right">
-              <a href="/profile" class="profile-link">
-                  <img src="/Image/Test Account.png" alt="profile-link" />
-              </a>
-          </div>
+        <div class="nav-left">
+          <button class="register-button">Register</button>
+        </div>
+
+        <div class="nav-center">
+          <input type="text" placeholder="Search" id="search" />
+          <ul id="suggestion-list"></ul>
+          <button class="search-button" id="searchBtn">
+            <img src="Image/Search.png" alt="Search" />
+          </button>
+        </div>
+        <div class="nav-right">
+          <a href="/profile" class="profile-link">
+            <img src="Image/Test Account.png" alt="profile-link"
+          /></a>
+        </div>
       </nav>
-  </header>
-  
-  
+    </header>
 
     <main>
       <section class="top-container">
@@ -45,13 +42,10 @@
               <img src="/Image/Animation.png.jpg" alt="Animation" />
               <span>Animation</span>
             </div>
-            <div class="tag" >
+            <div class="tag">
               <img src="/Image/Comic.png.png" alt="Comic Art" />
               <span>Comic Art</span>
             </div>
-           
-           
-           
           </div>
           <button class="scroll-button" id="scroll-right">&gt;</button>
         </div>
@@ -91,14 +85,14 @@
 
           <div class="post-container">
             <div class="post">
-              <div class="top-post" ">
+              <div class="top-post" onclick="openModal('Post Image 3')">
                 <img
                   src="/Image/Animation.png.jpg"
                   alt="Post Image 1"
                   class="post-image"
                 />
               </div>
-              <div class="bottom-post" ">
+              <div class="bottom-post" onclick="openModal('Post Image 4')">
                 <img
                   src="/Image/Comic.png.png"
                   alt="Post Image 1"
@@ -121,14 +115,14 @@
 
           <div class="post-container">
             <div class="post">
-              <div class="top-post" ">
+              <div class="top-post" onclick="openModal('Post Image 5')">
                 <img
                   src="/Image/Animation.png.jpg"
                   alt="Post Image 1"
                   class="post-image"
                 />
               </div>
-              <div class="bottom-post" ">
+              <div class="bottom-post" onclick="openModal('Post Image 6')">
                 <img
                   src="/Image/Comic.png.png"
                   alt="Post Image 1"
@@ -151,14 +145,14 @@
 
           <div class="post-container">
             <div class="post">
-              <div class="top-post"">
+              <div class="top-post" onclick="openModal('Post Image 7')">
                 <img
                   src="/Image/Animation.png.jpg"
                   alt="Post Image 1"
                   class="post-image"
                 />
               </div>
-              <div class="bottom-post"">
+              <div class="bottom-post" onclick="openModal('Post Image 8')">
                 <img
                   src="/Image/Comic.png.png"
                   alt="Post Image 1"
@@ -203,68 +197,105 @@
 
       <!-- Modal Window -->
       <div id="postModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeModal">&times;</span>
-            <div class="modal-post">
-                <img id="modalPostImage" src="/Image/Art.png" alt="Post Image" class="post-image" />
-                <div class="modal-post-actions">
-                    <button class="like-button">
-                        <img src="/Image/Heart.png" alt="like-button" />
-                    </button>
-                    <button class="comment-button">
-                        <img src="/Image/Speech Bubble.png" alt="comment-button" />
-                    </button>
-                </div>
-            </div>
-            <div class="modal-comments">
-                <!-- Comment section here -->
-            </div>
+        <span class="close" id="closeModal">&times;</span>
+        <div class="modal-post">
+          <img
+            id="modalPostImage"
+            src="/Image/Art.png"
+            alt="Post Image"
+            class="post-image"
+          />
+          <div class="modal-post-actions">
+            <button class="like-button">
+              <img src="/Image/Heart.png" alt="like-button" />
+            </button>
+            <button class="comment-button">
+              <img src="/Image/Speech Bubble.png" alt="comment-button" />
+            </button>
+          </div>
         </div>
-    </div>
-          <!-- Additional full posts -->
+      </div>
+      <div class="modal-comments modal-content">
+        <h3>Comments</h3>
+        <div class="comment">
+          <p>User1: This is a comment.</p>
+        </div>
+        <div class="comment">
+          <p>User2: This is another comment.</p>
         </div>
       </div>
 
       <!-- Register Pop-up -->
-<div id="registerModal" class="modal">
-  <div class="modal-content">
-      <span class="close" id="closeModalReg">&times;</span>
-      <h2>Register</h2>
-      <form id="registerForm">
-          <label for="username">Username:</label>
-          <input type="text" id="username" name="username" required>
-          <p id="errUsername"></p>
-          <label for="password">Password:</label>
-          <input type="password" id="password" name="password" required>
-          <p id="errPassword"></p>
-          <label for="name">Name:</label>
-          <input type="text" id="name" name="name" required>
-          <p id="errName"></p>
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" required>
-          <p id="errEmail"></p>
-          <button type="submit">Submit</button>
-      </form>
-  </div>
-</div>
+      <div id="registerModal" class="modal">
+        <div class="modal-container">
+          <span class="close" id="closeModalReg">&times;</span>
+          <h2>Register</h2>
+          <form id="registerForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required />
+            <p id="errUsername"></p>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+            <p id="errPassword"></p>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required />
+            <p id="errName"></p>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+            <p id="errEmail"></p>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
 
+      <!-- Write Comment Modal -->
+      <div id="writeCommentModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeWriteCommentModal()">&times;</span>
+          <h2>Write a Comment</h2>
+          <form id="commentForm">
+            <textarea
+              id="commentText"
+              placeholder="Write your comment here..."
+              rows="4"
+            ></textarea>
+            <div class="modal-buttons">
+              <button type="button" onclick="closeWriteCommentModal()">
+                Cancel
+              </button>
+              <button type="submit">Send</button>
+            </div>
+          </form>
+        </div>
+      </div>
 
       <footer class="footer">
         <div class="footer-content">
-            <p>&copy; 2024 Pro & Toxic. All rights reserved.</p>
-            <button class="view-more-btn">View More Posts</button>
-            <div class="contact-info">
-                <p>Contact Us:</p>
-                <ul>
-                    <li>Email: info@example.com</li>
-                    <li>Phone: +1234567890</li>
-                </ul>
-            </div>
+          <p>&copy; 2024 Doesno. All rights reserved.</p>
+          <button class="view-more-btn">View More Posts</button>
+          <div class="contact-info">
+            <p>Contact Us:</p>
+            <ul>
+              <li>Email: info@example.com</li>
+              <li>Phone:</li>
+            </ul>
+          </div>
         </div>
-    </footer>
-    
+      </footer>
     </main>
     <script src="/js/home.js"></script>
   </body>
 </html>
 
+<!-- write comment js
+
+// Function to open the write comment modal
+function openWriteCommentModal() {
+    document.getElementById("writeCommentModal").style.display = "block";
+}
+
+// Function to close the write comment modal
+function closeWriteCommentModal() {
+    document.getElementById("writeCommentModal").style.display = "none";
+}
+-->

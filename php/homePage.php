@@ -14,11 +14,13 @@ if(isset($_SESSION['userID']) && $_SESSION['userID']!==null){
     // $mainUser->read_user();
 }
 $arrayPosts=[];
-if(isset($_SESSION['postServed'])){
+$arrayComments=[];
+if(isset($_SESSION['postsServed'])){
     $arrayPosts=$_SESSION['postServed'];
 }
-$arrayPosts=[];
-$arrayComments=[];
+if(isset($_SESSION['commentsServed'])){
+    $arrayPosts=$_SESSION['commentServed'];
+}
 $action=$_POST['action'];
 switch($action){
     case 'initialise_post_preview':
@@ -35,7 +37,7 @@ switch($action){
         'comments'=>$post_two->get_comments(),
         'postID'=>$post_two->get_id()
         );
-        $arrayComments=[];
+      
         echo json_encode($data);
         break;
     case 'initialise_image':

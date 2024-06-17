@@ -176,6 +176,9 @@ function init_user(arr){
     document.getElementsByClassName("profile-link")[0].href="/@"+arr.username;
 }
 function init_categories(arr){
+    if(!Array.isArray(arr)){
+        return;
+    }
     let cats=document.getElementsByClassName('tag');
     let max=arr.length;
     console.log(max);
@@ -193,7 +196,9 @@ function init_categories(arr){
     }
 }
 function init_img(arr){
-
+    if(!Array.isArray(arr)){
+        return;
+    }
     let p=document.getElementsByClassName("post-container");
     console.log(arr);
     for(let n=0;n<p.length;n++){
@@ -271,9 +276,6 @@ document.getElementById("registerForm").onsubmit = function(event) {
     }catch(err){
         console.log(err);
     }
-    // Your form submission code here
-    // You can access form fields using document.getElementById or other methods
-    // Example: var username = document.getElementById("username").value;
-    // After processing, you can close the modal
+   
     modal.style.display = "none";
 };
