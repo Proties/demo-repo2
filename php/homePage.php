@@ -107,7 +107,7 @@ switch($action){
         echo json_encode($data);
         break;
     case 'comment':
-        if(!$mainUser->is_authenticated()){
+        if($mainUser->is_authanticated()==false){
             $msg='user not registered';
             $data=array('status'=>'failed','message'=>$msg);
             echo json_encode($data);
@@ -122,7 +122,7 @@ switch($action){
         $commentDB->write_comment();
         break;
     case 'like':
-        if(!$mainUser->is_authenticated()){
+        if($mainUser->is_authenticated()==false){
             $msg='user not registered';
             $data=array('status'=>'failed','message'=>$msg);
             echo json_encode($data);

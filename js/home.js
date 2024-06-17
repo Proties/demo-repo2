@@ -134,6 +134,26 @@ function show_coment(){
         console.log("works");
         container.style.display='none';
     });
+
+    container.getElementsByTagName("button")[1].addEventListener("click",function(evt){
+        console.log("prevent comment submission");
+        let txt=container.getElementsByTagName('textarea')[0].value;
+        console.log(txt);
+        evt.preventDefault();
+        try{
+            let xml=new XMLHttpRequest();
+            xml.open('POST','/');
+            xml.onload=function(){
+                console.log('submitted');
+                console.log(this.responseText);
+            }
+            xml.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+            xml.send('action=comment');
+        }catch(err){
+            console.log(err);
+        }
+
+    });
 }
 // this function listens to all events that take place ont the site and handles them
 function eventListeners(){

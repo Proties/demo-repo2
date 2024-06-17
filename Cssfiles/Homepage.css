@@ -413,7 +413,7 @@ nav .profile-link {
 }
 
 .modal-comments {
-    display: none;
+    /* display: none; */
     flex-direction: column;
     justify-content: flex-start;
     width: 30%;
@@ -494,7 +494,7 @@ nav .profile-link {
 }
 
 .modal-register .modal-content {
-    display: flex;
+    /* display: flex; */
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;

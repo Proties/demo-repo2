@@ -16,13 +16,12 @@ class Users{
     private $status;
     private $id;
     private $userDir;
-    private $authanticated;
     private $errorMessages=array();
     private $errorMessage;
-    private $userObjects=array();
+    private $authanticate;
 
     public function __construct(){
-    $this->authanticated=false;
+    $this->authanticate=false;
     $this->name='';
     $this->userDir='';
     $this->username='';
@@ -123,7 +122,6 @@ class Users{
     }
     public function is_authanticated(){
         if($this->authanticate==true){
-            $this->authanticate;
             return true;
         }
         return false;
