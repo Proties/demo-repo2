@@ -413,7 +413,7 @@ nav .profile-link {
 }
 
 .modal-comments {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: flex-start;
     width: 30%;
@@ -462,8 +462,11 @@ nav .profile-link {
 
 /* Register CSS */
 
-
+#registerModal{
+    display: none;
+}
 .modal-container {
+    display: none;
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
@@ -491,6 +494,7 @@ nav .profile-link {
 }
 
 .modal-register .modal-content {
+    display: none;
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
@@ -499,6 +503,7 @@ nav .profile-link {
 }
 
 .modal-register .close {
+    
     color: #aaa;
     float: right;
     font-size: 28px;
@@ -541,8 +546,14 @@ button:hover {
 }
 
 /*write comment*/
-
+#writeCommentModal{
+    display: none;
+}
+#postModal{
+    display: none;
+}
 .writeCommentModal {
+ 
     display: none;
     position: fixed;
     z-index: 1001;

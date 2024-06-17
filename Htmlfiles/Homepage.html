@@ -188,11 +188,6 @@
         scrollRightButton.addEventListener("click", () => {
           tagsWrapper.scrollBy({ left: 200, behavior: "smooth" });
         });
-
-        function fillSearchBar(tag) {
-          const searchBar = document.querySelector(".nav-center input");
-          searchBar.value = tag;
-        }
       </script>
 
       <!-- Modal Window -->
@@ -251,7 +246,7 @@
       <!-- Write Comment Modal -->
       <div id="writeCommentModal" class="modal">
         <div class="modal-content">
-          <span class="close" onclick="closeWriteCommentModal()">&times;</span>
+          <span class="close" >&times;</span>
           <h2>Write a Comment</h2>
           <form id="commentForm">
             <textarea
@@ -260,7 +255,7 @@
               rows="4"
             ></textarea>
             <div class="modal-buttons">
-              <button type="button" onclick="closeWriteCommentModal()">
+              <button type="button">
                 Cancel
               </button>
               <button type="submit">Send</button>

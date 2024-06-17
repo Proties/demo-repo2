@@ -122,6 +122,15 @@ function select_post(evt){
    let link=evt.target.id;
    window.loaction.href=link;
 }
+function show_coment(){
+    let container=document.getElementById("writeCommentModal");
+    container.style.display='flex';
+
+    container.getElementsByClassName("close")[0].addEventListener('click',function(){
+        console.log("works");
+        container.style.display='none';
+    });
+}
 // this function listens to all events that take place ont the site and handles them
 function eventListeners(){
     let userProfile=document.getElementsByClassName("profile-button");
@@ -130,7 +139,7 @@ function eventListeners(){
     let likePost=document.getElementsByClassName("");
     let selectTopPost=document.getElementsByClassName("top-post");
     let selectBottomPost=document.getElementsByClassName("bottom-post");
-    let commentPost=document.getElementsByClassName("");
+    let commentPost=document.getElementsByClassName("comment-button");
     let registerBtn = document.querySelector(".register-button");
     let closeReg = document.getElementById("closeModalReg");
     let modal = document.getElementById("registerModal");
@@ -156,7 +165,7 @@ function eventListeners(){
         selectBottomPost[i].addEventListener('click',openModal);
     }
      for(let i=0;i<commentPost.length;i++){
-        commentPost[i].addEventListener('click',comment_post);
+        commentPost[i].addEventListener('click',show_coment);
     }
     registerBtn.addEventListener('click',function() {
         modal.style.display = "block";
