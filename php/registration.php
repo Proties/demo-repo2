@@ -1,6 +1,7 @@
 <?php
 session_start();
 $user=new Users();
+
 $errorMessages=array();
 $dataObj=array();
 if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -13,13 +14,15 @@ try{
     $user->set_name($dataObj['name']);
     $user->set_password($dataObj['password']);
     $user->set_email($dataObj['email']);
+    $userDB=new UserDB($user);
+
     if(!$user->validate_name($user->get_name())){
         $errorMessages[]=array('errName'=>'Name not valid');
     }
     if(!$user->validate_username($user->get_username())){
         $errorMessages[]=array('errUsername'=>'username not valid');
     }
-    if(!$user->search_username_in_db($user->get_username()==false)){
+    if(!$userDB->search_username_in_db($user->get_username()==false)){
         $errorMessages[]=array('errUsername'=>'username taken');
 
     }
@@ -30,18 +33,17 @@ try{
     if(!$user->validate_email($user->get_email())){
         $errorMessages[]=array('errEmail'=>'Email not valid');
     }
-    if(!$user->search_email_in_db($user->get_email()==false)){
+    if(!$userDB->search_email_in_db($user->get_email()==false)){
         $errorMessages[]=array('errEmail'=>'Email already exists');
     }
     $len=count($errorMessages);
     if($len>0){
         throw new Exception('could not create user');
     }
-    $userDB=new UserDB($user);
     $userDB->write_user();
-    if($userDB->get_status()==1){
+    if($userDB->$user->get_status()==1){
         $_SESSION['userID']=$userDB->$user->get_id();
-        $_SESSION['username']=$userDB$user->get_username();
+        $_SESSION['username']=$userDB->$user->get_username();
         $item=array('status'=>'success');
         echo json_encode($item);
         return;

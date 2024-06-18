@@ -186,7 +186,7 @@ trait validateUser{
         return false;
     }
     function validate_password($txt){
-        $pattern='/[a-z]{13,}/i';
+        $pattern='/[a-z]{13,}(%$&*!-_={}|#){2,}/i';
         if(preg_match($pattern,$txt)){
             return true;
         }
