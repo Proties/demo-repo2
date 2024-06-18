@@ -146,6 +146,9 @@ function show_coment(){
             xml.onload=function(){
                 console.log('submitted');
                 console.log(this.responseText);
+                if(data.status=='success'){
+                    container.style.display='none';
+                }
             }
             xml.setRequestHeader('Content-type','application/x-www-form-urlencoded');
             xml.send('action=comment');
@@ -201,10 +204,13 @@ function eventListeners(){
   
 }
 function init_user(arr){
+    // hide register button if user is available
+   
     if(arr.username==null || arr.username==''){
         console.log('null username');
         return ;
     }
+    document.getElementsByClassName("register-button")[0].style.display='none';
     console.log(arr.username);
     document.getElementsByClassName("profile-link")[0].href="/@"+arr.username;
 }

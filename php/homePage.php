@@ -5,8 +5,6 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('Htmlfiles/Homepage.html');
     return;
 }
-
-
 $mainUser=new Users();
 if(isset($_SESSION['userID']) && $_SESSION['userID']!==null){
     $mainUser->set_id($_SESSION['userID']);
@@ -41,7 +39,7 @@ switch($action){
         echo json_encode($data);
         break;
     case 'initialise_image':
-        $data=array();
+        $data=[];
         $data['user']=array('username'=>$mainUser->get_username(),'userID'=>$mainUser->get_id());
         $rank=new Ranking();
         $info=$rank->chrono($arrayPosts);
@@ -83,12 +81,12 @@ switch($action){
         $category->set_categoryName($_POST['categoryName']);
         $categoryDB=new CategoryDB($category);
         $categoryDB->read_posts();
-        $arrData=$category->get_post();
+        $arrData=$category->get_posts();
         $len=count($arrData);
         for($i=0;$i<$len;$i++){
-            $primary_post=new Post();
-            $secondary_post=new Post();
- 
+            $user=$arrData[$i]['user'];
+            $primary_post=$arrData[$i]['primaryPost'];
+            $secondary_post=$arrData[$i]['secondaryPost'];
 
             $data['users'][]=array(
                 'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
@@ -99,7 +97,7 @@ switch($action){
         echo json_encode($data);
         break;
     case 'search':
-        $data=array();
+        $data=[];
         $target=$_POST['q'];
         $userDB=new UserDB($user);
         $usernames=$userDB->search_user($target);
@@ -107,8 +105,15 @@ switch($action){
         echo json_encode($data);
         break;
     case 'comment':
+        $msg;
+        $data=[];
         if($mainUser->is_authanticated()==false){
             $msg='user not registered';
+            $data=array('status'=>'failed','message'=>$msg);
+            echo json_encode($data);
+            return;
+        }
+        if(!isset($_POST['postID'])){
             $data=array('status'=>'failed','message'=>$msg);
             echo json_encode($data);
             return;
@@ -120,11 +125,19 @@ switch($action){
         $comment->set_comment($text);
         $commentDB=new CommentDB($comment);
         $commentDB->write_comment();
+        $data['status']='success';
+        echo json_encode($data);
         break;
     case 'like':
+        $data=[];
         if($mainUser->is_authenticated()==false){
             $msg='user not registered';
-            $data=array('status'=>'failed','message'=>$msg);
+            $data=['status'=>'failed','message'=>$msg];
+            echo json_encode($data);
+            return;
+        }
+        if(!isset($_POST['postID'])){
+            $data=['status'=>'failed','message'=>$msg];
             echo json_encode($data);
             return;
         }
@@ -135,12 +148,16 @@ switch($action){
         $postDB->write_like();
         break;
     case 'view_more_comments':
-        $data;
+        $data=[];
         $post=new Post();
         $post->set_id($_POST['postID']);
         $postDB=new PostDB($post);
         $info=$postDB->get_comments();
-
+        if(!isset($_POST['postID'])){
+            $data=['status'=>'failed','message'=>$msg];
+            echo json_encode($data);
+            return;
+        }
         for($c=0;$c<count($info);$c++){
             $comment=new Comment();
             $comment->set_id($info['id']);
