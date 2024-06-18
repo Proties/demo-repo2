@@ -83,6 +83,12 @@ function search_user(){
         
     });
 }
+function clear_error_messages(){
+    document.getElementById("errPassword").innerHTML='';
+    document.getElementById("errName").innerHTML='';
+    document.getElementById("errUsername").innerHTML='';
+    document.getElementById("errEmail").innerHTML='';
+}
 // this function direct the user to a users profile when a user account is selected
 function openUserProfile(evt){
     let username=evt.target.parentNode;
@@ -279,6 +285,7 @@ function closeModal() {
 // Form submission
 document.getElementById("registerForm").onsubmit = function(event) {
     event.preventDefault();
+    clear_error_messages();
     let form=document.getElementById("registerForm");
     let formData=new FormData(document.getElementById("registerForm"));
     let item={

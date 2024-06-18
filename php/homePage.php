@@ -41,6 +41,8 @@ switch($action){
     case 'initialise_image':
         $data=[];
         $data['user']=array('username'=>$mainUser->get_username(),'userID'=>$mainUser->get_id());
+        echo json_encode($data);
+       
         $rank=new Ranking();
         $info=$rank->chrono($arrayPosts);
         $categories=new Category();

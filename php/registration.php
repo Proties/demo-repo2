@@ -16,24 +16,24 @@ try{
     $user->set_email($dataObj['email']);
     $userDB=new UserDB($user);
 
-    if(!$user->validate_name($user->get_name())){
+    if($user->validate_name($user->get_name())==false){
         $errorMessages[]=array('errName'=>'Name not valid');
     }
-    if(!$user->validate_username($user->get_username())){
+    if($user->validate_username($user->get_username())==false){
         $errorMessages[]=array('errUsername'=>'username not valid');
     }
-    if(!$userDB->search_username_in_db($user->get_username()==false)){
+    if($userDB->search_username_in_db($user->get_username()==false)){
         $errorMessages[]=array('errUsername'=>'username taken');
 
     }
-    if(!$user->validate_password($user->get_password())){
+    if($user->validate_password($user->get_password())==false){
         $errorMessages[]=array('errPassword'=>'Password must be at least 13 characters and contain at least 2 special characters');
     }
     
-    if(!$user->validate_email($user->get_email())){
+    if($user->validate_email($user->get_email())==false){
         $errorMessages[]=array('errEmail'=>'Email not valid');
     }
-    if(!$userDB->search_email_in_db($user->get_email()==false)){
+    if($userDB->search_email_in_db($user->get_email()==false)){
         $errorMessages[]=array('errEmail'=>'Email already exists');
     }
     $len=count($errorMessages);

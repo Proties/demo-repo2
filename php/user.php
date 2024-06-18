@@ -157,14 +157,14 @@ class Users{
 
 trait validateUser{
     function validate_username_url($txt){
-        $pattern='/(\/@[a-z0-9]{3,})/i';
+        $pattern='/(?=.)/i';
         if(preg_match($pattern,$txt)){
             return true;
         }
         return false;
     }
     function validate_username($txt){
-        $pattern="/[a-z]{3,}[@.]?/i";
+        $pattern="/(?=*[a-z])(?={2,}[._-])(?={1,}[0-9])/i";
         if(preg_match($pattern,$txt)){
             return true;
         }
@@ -172,21 +172,21 @@ trait validateUser{
         
     }
     function validate_name($txt){
-        $pattern='/[a-z]{10,}/i';
+        $pattern='/()/i';
         if(preg_match($pattern,$txt)){
             return true;
         }
         return false;
     }
     function validate_email($txt){
-        $pattern='/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
+        $pattern='/^(?=.)/';
         if(preg_match($pattern,$txt)){
             return true;
         }
         return false;
     }
     function validate_password($txt){
-        $pattern='/[a-z]{13,}(%$&*!-_={}|#){2,}/i';
+        $pattern='/^(?=.{2,}[@$!*#])[A-Za-z\d@$!*#]{13,}$/';
         if(preg_match($pattern,$txt)){
             return true;
         }
