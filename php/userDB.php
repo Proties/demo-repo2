@@ -8,7 +8,7 @@ class UserDB extends Database{
     public function get_user(){
         return $this->user;
     }
-    public static function search_user($user){
+    public function search_user($user){
         try{
             $db=$this->get_connection();
             $query='
@@ -131,7 +131,7 @@ class UserDB extends Database{
             echo $err->getMessage();
         }
     }
-    public static function validate_username_in_database($name){
+    public function validate_username_in_database($name){
         try{
             $db=$this->get_connection();
             $query="

@@ -32,41 +32,6 @@ nav .profile-link {
     font-weight: bold;
     margin: 0 10px;
 }
-
-.hamburger-menu {
-    width: 40px;
-    height: 40px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    position: relative;
-}
-
-.hamburger-menu img {
-    width: 40px;
-    height: 40px;
-}
-
-.dropdown {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 100%;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    overflow: hidden;
-    z-index: 1000;
-}
-
-.dropdown a {
-    display: block;
-    padding: 10px 20px;
-    text-decoration: none;
-    color: #333;
-    white-space: nowrap;
-}
-
 #suggestion-list {
     position: absolute;
     left: 5em;

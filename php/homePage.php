@@ -41,8 +41,7 @@ switch($action){
     case 'initialise_image':
         $data=[];
         $data['user']=array('username'=>$mainUser->get_username(),'userID'=>$mainUser->get_id());
-        echo json_encode($data);
-       
+
         $rank=new Ranking();
         $info=$rank->chrono($arrayPosts);
         $categories=new Category();
@@ -50,7 +49,7 @@ switch($action){
         $categories->read_category();
         $arrLen=count($info);
         if(!is_array($categories)){
-
+            $data['categories']='do not exists';
         }else{
             $catLen=count($categories);
            for($i=0;$i<$catLen;$i++){
@@ -59,22 +58,24 @@ switch($action){
         }
         if(!is_array($info) || count($info)>1){
             $data['status']='empty';
-            echo json_encode($data);
-            return;
+          
+        }else{
+
+
+        for($x=0;$x<$arrLen;$x++){
+            $user=new Users();
+            $primary_post=new Post();
+            $user->set_username($info[$x]['username']);
+            $primary_post->set_postLink($info[$x]['postLink']);
+            $secondary_post=new Post();
+            $secondary_post->set_postLink($info[$x]['post2Link']);
+            $data['users'][]=array(
+                'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
+                'primary_post'=>array('img'=>$primary_post->get_filePath().$primary_post->get_fileName()),
+                'secondary_post'=>array('img'=>$secondary_post->get_filePath().$secondary_post->get_fileName()
+            ));
+                }
         }
-    for($x=0;$x<$arrLen;$x++){
-        $user=new Users();
-        $primary_post=new Post();
-        $user->set_username($info[$x]['username']);
-        $primary_post->set_postLink($info[$x]['postLink']);
-        $secondary_post=new Post();
-        $secondary_post->set_postLink($info[$x]['post2Link']);
-        $data['users'][]=array(
-            'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
-            'primary_post'=>array('img'=>$primary_post->get_filePath().$primary_post->get_fileName()),
-            'secondary_post'=>array('img'=>$secondary_post->get_filePath().$secondary_post->get_fileName()
-        ));
-            }
         echo json_encode($data);
         break;
     case 'select_category':
@@ -100,54 +101,76 @@ switch($action){
         break;
     case 'search':
         $data=[];
-        $target=$_POST['q'];
-        $userDB=new UserDB($user);
-        $usernames=$userDB->search_user($target);
-        $data['searchResults']=$usernames;
-        echo json_encode($data);
+        try{
+            $target=$_POST['q'];
+            $userDB=new UserDB($user);
+            $usernames=$userDB->search_user($target);
+            $data['searchResults']=$usernames;
+            echo json_encode($data);
+        }
+        catch(Exeception $err){
+            $data['status']='failed';
+            $data['message']=$err->getMessage();
+            echo json_encode($data);
+        }
+        
         break;
     case 'comment':
-        $msg;
         $data=[];
+        try{ 
         if($mainUser->is_authanticated()==false){
-            $msg='user not registered';
-            $data=array('status'=>'failed','message'=>$msg);
-            echo json_encode($data);
-            return;
+           throw new Exeception('user not registered');
         }
         if(!isset($_POST['postID'])){
-            $data=array('status'=>'failed','message'=>$msg);
-            echo json_encode($data);
-            return;
+           throw new Exeception('post does not exists');
         }
+
         $text=$_POST['text'];
         $postID=$_POST['postID'];
         $comment=new Comment();
         $comment->set_postID($postID);
         $comment->set_comment($text);
+        if($comment->validate_comment()==false){
+            throw new Exeception('comment not valid');
+        }
         $commentDB=new CommentDB($comment);
         $commentDB->write_comment();
         $data['status']='success';
         echo json_encode($data);
+        }catch(Exeception $err){
+            $data['status']='failed';
+            $data['message']=$err->getMessage();
+            echo json_encode($data);
+        }
+       
         break;
     case 'like':
         $data=[];
-        if($mainUser->is_authenticated()==false){
-            $msg='user not registered';
-            $data=['status'=>'failed','message'=>$msg];
-            echo json_encode($data);
-            return;
+        try{
+            if($mainUser->is_authenticated()==false){
+            throw new Exeception('user not registered');
         }
         if(!isset($_POST['postID'])){
-            $data=['status'=>'failed','message'=>$msg];
-            echo json_encode($data);
-            return;
+            throw new Exeception('post doesn not exist');
         }
+
+        if($post->validate_postID($_POST['postID'])==false){
+            throw new Exeception('post does not exist');
+        }
+        $postDB->validate_postID_in_db($_POST['postID']);
         $postID=$_POST['postID'];
         $post=new Post();
         $post->set_postID($postID);
         $postDB=new PostDB($post);
         $postDB->write_like();
+        $data['status']='success';
+        echo json_encode($data);
+        }catch(Exeception $err){
+            $msg=$err->getMessage();
+            $data['message']=$msg;
+            $data['status']='failed';
+            echo json_encode($data);
+        }
         break;
     case 'view_more_comments':
         $data=[];
