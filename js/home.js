@@ -164,12 +164,31 @@ function show_coment(){
 
     });
 }
+function like_post(evt){
+    let ele=evt.target;
+    let postEle=ele.parentNode.parentNode.parentNode;
+
+    try{
+        console.log(postEle);
+        let t=postEle.getElementsByClassName("post")[0].id;
+        console.log(t);
+        // let xml=new XMLHttpRequest();
+        // xml.onload=function(){}
+        // xml.open('POST','/');
+        // xml.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+        // xml.send('action=like&postID=postEle');
+        alert('you have liked the post');
+    }catch(err){
+        console.log(err);
+    }
+
+}
 // this function listens to all events that take place ont the site and handles them
 function eventListeners(){
     let userProfile=document.getElementsByClassName("profile-button");
     let search_input=document.getElementById("search");
     let selectcategory=document.getElementsByClassName("tag");
-    let likePost=document.getElementsByClassName("");
+    let likePost=document.getElementsByClassName("like-button");
     let selectTopPost=document.getElementsByClassName("top-post");
     let selectBottomPost=document.getElementsByClassName("bottom-post");
     let commentPost=document.getElementsByClassName("comment-button");
