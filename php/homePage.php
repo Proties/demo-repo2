@@ -71,8 +71,8 @@ switch($action){
             $secondary_post->set_postLink($info[$x]['post2Link']);
             $data['users'][]=array(
                 'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
-                'primary_post'=>array('img'=>$primary_post->get_filePath().$primary_post->get_fileName()),
-                'secondary_post'=>array('img'=>$secondary_post->get_filePath().$secondary_post->get_fileName()
+                'primary_post'=>array('img'=>$primary_post->get_filePath().$primary_post->get_fileName(),'postID'=>$primary_post->get_id()),
+                'secondary_post'=>array('img'=>$secondary_post->get_filePath().$secondary_post->get_fileName(),'postID'=>$secondary_post->get_id()
             ));
                 }
         }
