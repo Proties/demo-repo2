@@ -263,19 +263,18 @@ function init_img(arr){
     if(!Array.isArray(arr)){
         return;
     }
+    console.log(arr);
+    console.log('quick look=====');
     let p=document.getElementsByClassName("post-container");
+    p.id=arr[0].primary_post.postID;
     console.log(arr);
     for(let n=0;n<p.length;n++){
-        if(arr[n]==undefined){
-            return;
-        }
         console.log(arr[n]);
         let ele=p[n].getElementsByClassName('post-image')[0];
         let ele_two=p[n].getElementsByClassName('post-image')[1];
         p[n].getElementsByClassName("profile-button")[0].id="/@"+arr[n].username;
-        ele.src = arr[n].primary.img;
-        ele_two.src =arr[n].seconday.img;
-        
+        ele.src = arr[n].primary_post.img;
+        ele_two.src =arr[n].secondary_post.img;
         console.log("======= end ======");
     }
 }

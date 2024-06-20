@@ -12,7 +12,7 @@ class PostDB extends Database{
         $db=$this->get_connection();
         try{
             $query='
-                    INSERT INTO viewedPost
+                    INSERT INTO ViewedPost
                     VALUES (:postID,:userID);
             ';
             $stmt=$db->prepare($query);
@@ -27,7 +27,7 @@ class PostDB extends Database{
         $db=$this->get_connection();
         try{
             $query='
-                    INSERT INTO viewedPost
+                    INSERT INTO ServeredPost
                     VALUES (:postID,:userID);
             ';
             $stmt=$db->prepare($query);
