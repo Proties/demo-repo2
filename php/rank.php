@@ -2,26 +2,25 @@
 class Ranking extends Database{
 
 public function chrono(Array $arr){
-    if(count($arr)==0){
-
-    }
     try{
 
         $db=$this->get_connection();
         $query="
-        SELECT username,p1.postLink,p2.postLink AS post2Link FROM Users u1
-        INNER JOIN post p1 ON u1.userID=p1.userID
-        INNER JOIN post p2 ON p1.userID=u1.userID
+        SELECT DISTINCT u1.username,p1.postLink,p1.postID,p2.postLink AS post2Link,p2.postID AS post2ID FROM Users AS u1
+        INNER JOIN post AS p1 ON u1.userID=p1.userID
+        INNER JOIN post AS p2 ON p1.userID=u1.userID
         WHERE p1.postID<>p2.postID
-        AND p1.previewStatus=1 AND p2.previewStatus=1;
+        AND p1.previewStatus=1 AND p2.previewStatus=1
+        GROUP BY (u1.username);
         ";
        
-        $d=$db->prepare($query);
-        $d->execute();
-        $arr=$d->fetchall();
-        return $arr;
+        $stmt=$db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchall();
     }catch(PDOExecption $err){
-        echo $err;
+        echo $err->getMessage();
+    }catch(Execption $errM){
+        echo $errM->getMessage();
     }
 }
 

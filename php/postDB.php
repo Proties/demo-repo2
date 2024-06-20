@@ -12,7 +12,7 @@ class PostDB extends Database{
         $db=$this->get_connection();
         try{
             $query='
-                    INSERT INTO viewedPost
+                    INSERT INTO ViewedPost
                     VALUES (:postID,:userID);
             ';
             $stmt=$db->prepare($query);
@@ -27,7 +27,7 @@ class PostDB extends Database{
         $db=$this->get_connection();
         try{
             $query='
-                    INSERT INTO viewedPost
+                    INSERT INTO ServeredPost
                     VALUES (:postID,:userID);
             ';
             $stmt=$db->prepare($query);
@@ -55,7 +55,7 @@ class PostDB extends Database{
         }
     
     }
-    public static function validate_in_db_postLink($link){
+    public function validate_in_db_postLink($link){
         try{
             $db=$this->get_connection();
             $query="
@@ -151,7 +151,7 @@ class PostDB extends Database{
             ";
             $stmt=$db->prepare($query);
             $stmt->bindValue(':userID',$this->post->get_authorID());
-            $this->set_status($stmt->execute());
+            $this->post->set_status($stmt->execute());
             $results=$stmt->fetchall();
             $this->post->set_posts($results);
         }catch(PDOExecption $err){
@@ -186,7 +186,7 @@ class PostDB extends Database{
             ";
             $stmt=$db->prepare($query);
             $stmt->bindValue(':id',$this->post->get_postID());
-            $this->set_status($stmt->execute());
+            $this->post->set_status($stmt->execute());
             $results=$stmt->fetch();
         }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();

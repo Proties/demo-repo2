@@ -3,23 +3,32 @@
 require_once 'vendor/autoload.php';
 
 $f_txt=$_SERVER['REQUEST_URI'];
+$f_txt=urldecode($f_txt);
 $txt=substr($f_txt,2);
+
 // echo $txt.' \n';
 // echo $f_txt;
 // return;
 $user=new Users();
 $post=new Post();
 $userDB=new UserDB($user);
+$postDB=new PostDB($post);
 
-if($post->validate_postLink($f_txt)==true){
-    if($postDB::validate_in_db_postLink($txt)==true){
-        $case=$_POST['get_more_comments'];
+if($post->validate_postLink($f_txt)==true and $postDB->validate_in_db_postLink($txt)==true){
+        $data=[];
+        $case=$_POST['action'];
         switch($case){
+            case 'initialise_preview':
+                echo json_encode($data);
+            break;
             case 'get_more_comments':
                 $c=new Comment();
                 $c->set_id($_POST['commentID']);
                 $c->read_more();
+                echo json_encode($data);
                 break;
+            default:
+            break;
         }
         $comment=new Comment();
         $comment->set_id();
@@ -28,7 +37,7 @@ if($post->validate_postLink($f_txt)==true){
         echo json_encode($data);
         return;
    
-    }
+    
     }
     
 elseif($user->validate_username_url($f_txt)==true){

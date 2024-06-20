@@ -38,7 +38,9 @@ class Database{
         return $this->pdo;
     }
 }
-
+trait handleErrors{
+    
+}
 
 
 

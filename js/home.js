@@ -74,6 +74,7 @@ function search_user(){
         }
         xml.open('POST','/');
         xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        text=JSON.stringify(text);
         xml.send("action=search&q="+text);
     }catch(err){
         console.log(err);
@@ -263,19 +264,18 @@ function init_img(arr){
     if(!Array.isArray(arr)){
         return;
     }
+    console.log(arr);
+    console.log('quick look=====');
     let p=document.getElementsByClassName("post-container");
+    p.id=arr[0].primary_post.postID;
     console.log(arr);
     for(let n=0;n<p.length;n++){
-        if(arr[n]==undefined){
-            return;
-        }
         console.log(arr[n]);
         let ele=p[n].getElementsByClassName('post-image')[0];
         let ele_two=p[n].getElementsByClassName('post-image')[1];
-        p[n].getElementsByClassName("profile-button")[0].id="/@"+arr[n].username;
-        ele.src = arr[n].primary.img;
-        ele_two.src =arr[n].seconday.img;
-        
+        p[n].getElementsByClassName("profile-button")[0].id="/@"+arr[n].user_info.username;
+        ele.src = arr[n].primary_post.img;
+        ele_two.src =arr[n].secondary_post.img;
         console.log("======= end ======");
     }
 }
@@ -290,10 +290,22 @@ function openModal(evt) {
     let postImageSrc=evt.target.src;
     const modal = document.getElementById("postModal");
     const modalPostImage = document.getElementById("modalPostImage");
+    
 
     modalPostImage.src = postImageSrc;
     modal.style.display = "block";
     document.getElementById("closeModal").addEventListener('click',closeModal);
+    try{
+        let xml=new XMLHttpRequest();
+        xml.open('GET','/@username/postID');
+        xml.onload=function(){
+            console.log(this.responseText);
+        }
+        xml.send();
+    }catch(err){
+        console.log(err);
+    }
+
 }
 
 function closeModal() {

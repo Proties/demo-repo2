@@ -44,7 +44,7 @@ switch($action){
     case 'initialise_image':
         $data=[];
         $data['user']=array('username'=>$mainUser->get_username(),'userID'=>$mainUser->get_id());
-
+        $arrayPosts=[];
         $rank=new Ranking();
         $info=$rank->chrono($arrayPosts);
         $categories=new Category();
@@ -59,30 +59,39 @@ switch($action){
             $data['categories'][]=array('categoryName'=>$categories[$i]['categoryName'],'categoryId'=>$categories[$i]['categoryID']);
         } 
         }
-        if(!is_array($info) || count($info)>1){
-            $data['status']='empty';
-          
-        }else{
-
-
+     
         for($x=0;$x<$arrLen;$x++){
             $user=new Users();
+      
             $primary_post=new Post();
+
             $user->set_username($info[$x]['username']);
-            $primary_post->set_postLink($info[$x]['postLink']);
+            $string=$info[$x]['postLink'];
+            $path=substr($string,0,strpos($string, '/'));
+            $name=substr($string,strpos($string, '/'));
+            $primary_post->set_postID($info[$x]['postID']);
+            $primary_post->image->set_filename($name);
+            $primary_post->image->set_filePath($path);
+            
             $secondary_post=new Post();
-            $secondary_post->set_postLink($info[$x]['post2Link']);
+            $string_two=$info[$x]['post2Link'];
+            $path_two=substr($string,0,strpos($string, '/'));
+            $name_two=substr($string,strpos($string, '/'));
+            $secondary_post->image->set_postID($info[$x]['post2ID']);
+            $secondary_post->image->set_filename($name_two);
+            $secondary_post->image->set_filePath($path_two);
             $data['users'][]=array(
                 'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
-                'primary_post'=>array('img'=>$primary_post->get_filePath().$primary_post->get_fileName(),'postID'=>$primary_post->get_id()),
-                'secondary_post'=>array('img'=>$secondary_post->get_filePath().$secondary_post->get_fileName(),'postID'=>$secondary_post->get_id()
+                'primary_post'=>array('img'=>$primary_post->image->get_filePath().$primary_post->image->get_fileName(),'postID'=>$primary_post->get_postID()),
+                'secondary_post'=>array('img'=>$secondary_post->image->get_filePath().$secondary_post->image->get_fileName(),'postID'=>$secondary_post->get_postID()
             ));
-                }
+                
             if(isset($_SESSION['userID'])){
                 $postDB->addServeredPost($_SESSION['userID']);
             }
-            
         }
+            
+        
         echo json_encode($data);
         break;
     case 'select_category':
@@ -131,7 +140,9 @@ switch($action){
         if(!isset($_POST['postID'])){
            throw new Exeception('post does not exists');
         }
-
+        if($postDB->validate_postID_in_db($_POST['postID'])==false){
+            throw new Exeception('postID not in database');
+        }
         $text=$_POST['text'];
         $postID=$_POST['postID'];
         $comment=new Comment();
@@ -164,7 +175,9 @@ switch($action){
         if($post->validate_postID($_POST['postID'])==false){
             throw new Exeception('post does not exist');
         }
-        $postDB->validate_postID_in_db($_POST['postID']);
+        if($postDB->validate_postID_in_db($_POST['postID'])==false){
+            throw new Exeception('postID not in database');
+        }
         $postID=$_POST['postID'];
         $post=new Post();
         $post->set_postID($postID);
@@ -216,9 +229,9 @@ switch($action){
             $data['status']='success';
             for($i=0;$i<$len;$i++){
                 $data['users'][]=array(
-                    'username'=>$user->get_username(),'userID'=>$user->get_id(),
-                    'primary_post'=>('img'=>$primary->get_filePath().$primary->get_fileName(),'postID'=>$primary->get_postID()),
-                    'secondary_post'=>('img'=>$secondary->get_filePath().$secondary->get_fileName(),'postID'=>$secondary->get_postID())
+                    'username'=>array($user->get_username(),'userID'=>$user->get_id()),
+                    'primary_post'=>array('img'=>$primary->get_filePath().$primary->get_fileName(),'postID'=>$primary->get_postID()),
+                    'secondary_post'=>array('img'=>$secondary->get_filePath().$secondary->get_fileName(),'postID'=>$secondary->get_postID())
                 );
                 $postDB->addServeredPost($userID);
             }

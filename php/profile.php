@@ -18,21 +18,25 @@ switch($action){
     case 'initialise_user':
         $data=array();
         $link=substr($_SERVER['REQUEST_URI'],2);
-
+        $link=urldecode($link);
         $author=new Users();
+        $authorDB=new UserDB($author);
         
-        if(($author->validate_username_url($_SERVER['REQUEST_URI'])==true) && (Users::validate_username_in_database($link)==true)){
+        if(($author->validate_username_url($_SERVER['REQUEST_URI'])==true) && ($authorDB->validate_username_in_database($link)==true)){
+
+            // var_dump($link);
+            // return
             $author->set_username($link);
-            $authorDB=new UserDB($author);
+            $authorDB->user->set_username($author->get_username());
             $authorDB->read_userID();
             $authorDB->read_user();
 
-        $data['user'][0]=array('username'=>$authorDB->$author->get_username(),'userProfilePicture'=>$authorDB->$author->get_profilePicture(),
-                            'bio'=>$authorDB->$author->get_bio(),'post'=>array());
+        $data['user'][0]=array('username'=>$authorDB->user->get_username(),'userProfilePicture'=>$authorDB->user->get_profilePicture(),
+                            'bio'=>$authorDB->user->get_bio());
         $post=new Post();
        
-        $post->set_authorID($authorDB->$author->get_id());
-        $postDB=new PostDB();
+        $post->set_authorID($authorDB->user->get_id());
+        $postDB=new PostDB($post);
         $p=$postDB->read_posts();
         
         $info=$post->get_posts();
@@ -47,15 +51,15 @@ switch($action){
         
         for ($i = 0; $i < $lenArr; $i++) {
             $postItem = new Post();
-            $image=new Image();
             $postItem->set_postID($info[$i]['postID']);
-            $postItem->set_postLink($info[$i]['postLink']);
-            $image->set_filePath($info[$i]['filePath']);
-            $f=file_get_contents($image->get_fileName());
-
-            $data['post'][$i] = array(
+            $string=$info[$i]['postLink'];
+            $path=substr($string,0,strpos($string, '/'));
+            $name=substr($string,strpos($string,'/'));
+            $postItem->image->set_filePath($path);
+            $postItem->image->set_fileName($name);
+            $data['posts'][$i] = array(
                 'postLink' => $postItem->get_postLink(),
-                'img' => $postItem->get_filePath().$postItem->get_fileName()
+                'img' => $postItem->image->get_filePath().$postItem->image->get_fileName()
             );
         }
         echo json_encode($data);

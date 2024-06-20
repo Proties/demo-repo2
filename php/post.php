@@ -15,9 +15,11 @@ class Post{
     private $time;
     private $posts;
     private $postFile;
+    public $image;
 
 
 public function __construct(){
+    $this->image=new Image();
     $this->errorMessage;
     $this->caption='';
     $this->status='';
@@ -29,6 +31,7 @@ public function __construct(){
 
    
 }
+
 function initialise($arr){
     $this->set_authorID($arr['userID']);
     $this->set_caption($arr['postTitle']);
