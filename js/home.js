@@ -272,7 +272,7 @@ function init_img(arr){
         console.log(arr[n]);
         let ele=p[n].getElementsByClassName('post-image')[0];
         let ele_two=p[n].getElementsByClassName('post-image')[1];
-        p[n].getElementsByClassName("profile-button")[0].id="/@"+arr[n].username;
+        p[n].getElementsByClassName("profile-button")[0].id="/@"+arr[n].user_info.username;
         ele.src = arr[n].primary_post.img;
         ele_two.src =arr[n].secondary_post.img;
         console.log("======= end ======");

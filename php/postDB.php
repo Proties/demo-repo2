@@ -151,7 +151,7 @@ class PostDB extends Database{
             ";
             $stmt=$db->prepare($query);
             $stmt->bindValue(':userID',$this->post->get_authorID());
-            $this->set_status($stmt->execute());
+            $this->post->set_status($stmt->execute());
             $results=$stmt->fetchall();
             $this->post->set_posts($results);
         }catch(PDOExecption $err){
@@ -186,7 +186,7 @@ class PostDB extends Database{
             ";
             $stmt=$db->prepare($query);
             $stmt->bindValue(':id',$this->post->get_postID());
-            $this->set_status($stmt->execute());
+            $this->post->set_status($stmt->execute());
             $results=$stmt->fetch();
         }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();

@@ -1,6 +1,6 @@
 <?php
 class UserDB extends Database{
-    private $user;
+    public $user;
     public function __construct(Users $user){
         Database::__construct();
         $this->user=$user;
