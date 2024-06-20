@@ -8,6 +8,36 @@ class PostDB extends Database{
     public function get_post(){
         return $this->post;
     }
+    public function addViewedPost($useID){
+        $db=$this->get_connection();
+        try{
+            $query='
+                    INSERT INTO viewedPost
+                    VALUES (:postID,:userID);
+            ';
+            $stmt=$db->prepare($query);
+            $stmt->bindValue(':postID',$this->post->get_postID());
+            $stmt->bindValue(':postID',$useID);
+        }catch(PDOExecption $err){
+            echo 'Database error while writing to viewed post: '.$err->getMessage();
+
+        }
+    }
+    public function addServeredPost($useID){
+        $db=$this->get_connection();
+        try{
+            $query='
+                    INSERT INTO viewedPost
+                    VALUES (:postID,:userID);
+            ';
+            $stmt=$db->prepare($query);
+            $stmt->bindValue(':postID',$this->post->get_postID());
+            $stmt->bindValue(':postID',$useID);
+        }catch(PDOExecption $err){
+            echo 'Database error while writing to viewed post: '.$err->getMessage();
+
+        }
+    }
     public static function validate_postID($id){
         try{
             $db=$this->get_connection();

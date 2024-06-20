@@ -35,7 +35,10 @@ switch($action){
         'comments'=>$post_two->get_comments(),
         'postID'=>$post_two->get_id()
         );
-      
+        if(isset($_SESSION['userID'])){
+            $postDB->addViewedPost($_SESSION['userID']);
+        }
+        
         echo json_encode($data);
         break;
     case 'initialise_image':
@@ -75,6 +78,10 @@ switch($action){
                 'secondary_post'=>array('img'=>$secondary_post->get_filePath().$secondary_post->get_fileName(),'postID'=>$secondary_post->get_id()
             ));
                 }
+            if(isset($_SESSION['userID'])){
+                $postDB->addServeredPost($_SESSION['userID']);
+            }
+            
         }
         echo json_encode($data);
         break;
@@ -174,6 +181,7 @@ switch($action){
         break;
     case 'view_more_comments':
         $data=[];
+        try{
         $post=new Post();
         $post->set_id($_POST['postID']);
         $postDB=new PostDB($post);
@@ -195,11 +203,33 @@ switch($action){
             array_push($ele,$data);
         }
         echo json_encode($data);
+        }catch(Exeception $err){
+            $data['status']='failed';
+            $data['message']='could not load more comments';
+            echo json_encode($data);
+        }
         break; 
     case 'view_more_posts':
-        $rank=Ranking();
-        $rank->chrono($arrayPosts);
-        echo json_encode($data);
+        try{
+            $rank=Ranking();
+            $rank->chrono($arrayPosts);
+            $data['status']='success';
+            for($i=0;$i<$len;$i++){
+                $data['users'][]=array(
+                    'username'=>$user->get_username(),'userID'=>$user->get_id(),
+                    'primary_post'=>('img'=>$primary->get_filePath().$primary->get_fileName(),'postID'=>$primary->get_postID()),
+                    'secondary_post'=>('img'=>$secondary->get_filePath().$secondary->get_fileName(),'postID'=>$secondary->get_postID())
+                );
+                $postDB->addServeredPost($userID);
+            }
+            
+            echo json_encode($data);
+        }catch(Exeception $err){
+            $data['status']='failed';
+            $data['message']='could not load more posts';
+            echo json_encode($data);
+        }
+        
         break;
 }
 
