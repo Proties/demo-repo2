@@ -32,41 +32,6 @@ nav .profile-link {
     font-weight: bold;
     margin: 0 10px;
 }
-
-.hamburger-menu {
-    width: 40px;
-    height: 40px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    position: relative;
-}
-
-.hamburger-menu img {
-    width: 40px;
-    height: 40px;
-}
-
-.dropdown {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 100%;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    overflow: hidden;
-    z-index: 1000;
-}
-
-.dropdown a {
-    display: block;
-    padding: 10px 20px;
-    text-decoration: none;
-    color: #333;
-    white-space: nowrap;
-}
-
 #suggestion-list {
     position: absolute;
     left: 5em;
@@ -413,7 +378,7 @@ nav .profile-link {
 }
 
 .modal-comments {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: flex-start;
     width: 30%;
@@ -462,8 +427,11 @@ nav .profile-link {
 
 /* Register CSS */
 
-
+#registerModal{
+    display: none;
+}
 .modal-container {
+    display: none;
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
@@ -491,6 +459,7 @@ nav .profile-link {
 }
 
 .modal-register .modal-content {
+    /* display: flex; */
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
@@ -499,6 +468,7 @@ nav .profile-link {
 }
 
 .modal-register .close {
+    
     color: #aaa;
     float: right;
     font-size: 28px;
@@ -541,8 +511,14 @@ button:hover {
 }
 
 /*write comment*/
-
+#writeCommentModal{
+    display: none;
+}
+#postModal{
+    display: none;
+}
 .writeCommentModal {
+ 
     display: none;
     position: fixed;
     z-index: 1001;

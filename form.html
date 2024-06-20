@@ -1,0 +1,453 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style type="text/css">
+		body{
+			position: relative;
+		}
+	#containerForms{
+		height: 8em;
+		border: 0.1em solid black;
+		display: flex;
+		padding: 1em;
+	}
+	.card{
+		margin: 0.1em;
+		background-color:lightcyan ;
+		border: 0.1em solid black;
+		width: 6em;
+		height: 8em;
+	}
+	#submissionContainer{
+		display: none;
+		position: absolute;
+		height: 40em;
+		width: 30em;
+		background-color: whitesmoke;
+		border: 0.2em solid black;
+		z-index: 20;
+		top: 0;
+		left: 0;
+
+	}	
+
+	</style>
+	<title></title>
+</head>
+<body>
+	<div id="submissionContainer">
+		<h1>Submissions</h1>
+	</div>
+	<div id="containerForms" >
+		
+	</div>
+	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+<label for="formName">Form Name:</label>
+<input type="text" name="formName" id="formName">
+<br>
+<label for="formDescription">Form Description</label>
+<textarea name="formDescription" id="formDescription"></textarea>
+<br>
+<label for="formImage">Background Image</label>
+<input type="file" name="formImage" id="formImage">
+<br>
+<div id="container">
+
+<div class='elements'>
+<input type="file" id="image">
+<input placeholder="entre question">
+<label >multiple choice</label>
+<select class="multipleChoice" >
+	<option>Multi Choice</option>
+	<option>short answer</option>
+	<option>long answer</option>
+	<option>amount</option>
+	<option>number</option>
+</select>
+<div class="moreInfo"></div>
+<div class="secondaryPanel">
+	<label>required</label>
+	<input type="checkbox">
+	<button type="button">Add description</button>
+	<input type="color">
+</div>
+</div>
+</div>
+<button id="submit">Submit Form</button>
+</form>
+
+<div id="controlPanel">
+	<button id="addNewItem" >+ item</button>
+	<button id="duplicateItem">duplicate item</button>
+	<button id="delete">delete item</button>
+</div>
+<button onclick="startWorker()"> Start workers</button>
+<button onclick="stopWorker()"> stop workers</button>
+</body>
+<script type="text/javascript">
+"strict"
+let w;
+function startWorker(){
+if(typeof(w)=='undefined'){
+	w=new Worker('first_worker.js');
+}
+w.onmessage=function (evt) {
+
+	console.log(evt.data);
+	console.log('woring');
+}
+}
+function stopWorker(){
+	w.terminate();
+	w=undefined;
+}
+function populate_forms(arr){
+arr['name'];
+arr['description'];
+arr['backgroundColor'];
+arr['backgroundImage'];
+
+}
+function populate_inputs(arr){
+arr['image'];
+arr['element'];
+arr['required'];
+arr['question'];
+arr['description'];
+arr['color'];
+}
+function initialise_forms(){
+	try{
+		let xml=new XMLHttpRequest();
+		xml.open('POST','/test');
+		xml.onload=function(){
+			console.log(this.responseText);
+			let data=JSON.parse(this.responseText);
+			for(let ii=0;ii<data.forms.length;ii++){
+				let ele=document.createElement('div');
+				ele.className='card';
+				ele.id=data.forms[ii];
+				document.getElementById("containerForms").appendChild(ele);
+				console.log('works')
+			}
+		}
+		xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xml.send("action=initialise_forms");
+	}catch(err){
+		console.log(err);
+	}
+}
+document.getElementById("containerForms").addEventListener("click",function(evt){
+
+	let cards=document.getElementsByClassName("card");
+	for(let cd=0;cd<cards.length;cd++){
+		cards[cd].addEventListener('click',openForm);
+	}
+});
+
+function openForm(evt){
+	let form=evt.target.id;
+
+	try{
+		let xml=new XMLHttpRequest();
+		xml.open('POST','/test');
+		xml.onload=function(){
+			console.log(this.responseText);
+			let data=JSON.parse(this.responseText);
+			populate_forms();
+			for(let p=0;p<data.inputs.length;p++){
+				populate_inputs();
+			}
+			
+		}
+		
+		xml.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+		xml.send("action=open_form&formName="+form);
+	}catch(err){
+		console.log(err);
+	}
+}
+let container=document.getElementById('container');
+function secondary_panel(evt){
+	let panel=evt.target.getElementsByClassName("secondarypanel")[0];
+	switch(action){
+		case 'addDescription':
+			let descriptionLabel=document.createElement("label");
+			let description=document.createElement("textarea");
+			descriptionLabel.textContent='description';
+			panel.appendChild(descriptionLabel);
+			panel.appendChild(description);
+
+		break;
+		case 'addColor':
+		break;
+	}
+}
+function childs(evt){
+	let moreInfo=evt.target.parentNode.getElementsByClassName("moreInfo")[0];
+	console.log("works more buddy jimmy");
+
+	let action=evt.target.getElementsByTagName('option')[evt.target.selectedIndex].value;
+	console.log(evt.target);
+	console.log(action);
+	switch(action){
+		case 'Multi Choice':
+		let arr_zero = moreInfo.childNodes;
+			let z = 0;
+			let len_zero = arr_zero.length;
+			while (z < len_zero) {
+			  if (arr_zero[z] === undefined) {
+			    z++;
+			  } else {
+			    moreInfo.removeChild(arr_zero[z]);
+			  }
+			}
+		let i=1;
+			console.log('works');
+			let lab1=document.createElement('label');
+			lab1.textContent='option '+1;
+
+			let op1=document.createElement('input');
+			let addMore=document.createElement('button');
+			addMore.type='button';
+			addMore.textContent='Add more options';
+			op1.className="options";
+			moreInfo.appendChild(lab1);
+			moreInfo.appendChild(op1);
+			moreInfo.appendChild(addMore);
+			i++;
+			addMore.addEventListener('click',()=>{
+				
+				let br=document.createElement('br');
+				let labs=document.createElement('label');
+				let ops=document.createElement('input');
+				ops.className="options";
+				labs.textContent='option '+i;
+				i++;
+				moreInfo.insertBefore(br,addMore);
+				moreInfo.insertBefore(labs,addMore);
+				moreInfo.insertBefore(ops,addMore);
+
+
+			});
+		break;
+		case 'short answer':
+			let arr = moreInfo.childNodes;
+			let a = 0;
+			let len = arr.length;
+			while (a < len) {
+			  if (arr[a] === undefined) {
+			    a++;
+			  } else {
+			    moreInfo.removeChild(arr[a]);
+			  }
+			}
+			let short=document.createElement("input");
+			moreInfo.appendChild(short);
+		break;
+		case 'long answer':
+			let arr_two = moreInfo.childNodes;
+			let b = 0;
+			let len_two = arr_two.length;
+			while (b < len_two) {
+			  if (arr_two[b] === undefined) {
+			    b++;
+			  } else {
+			    moreInfo.removeChild(arr_two[b]);
+			  }
+			}
+			let long=document.createElement("textarea");
+			moreInfo.appendChild(long);
+		break;
+		case 'num':
+			let arr_three = moreInfo.childNodes;
+			let c = 0;
+			let len_three = arr_three.length;
+			while (c < len_three) {
+			  if (arr_three[a] === undefined) {
+			    c++;
+			  } else {
+			    moreInfo.removeChild(arr_three[c]);
+			  }
+			}
+		break;
+		
+	}
+}
+function add_item(){
+		let cont=document.createElement('div');
+		let f=document.createElement('input');
+		let question=document.createElement('input');
+		let selectLabel=document.createElement('Label');
+		let select=document.createElement('select');
+		let one=document.createElement('option');
+		let two=document.createElement('option');
+		let three=document.createElement('option');
+		let four=document.createElement('option');
+		
+		let moreInfo=document.createElement('div');
+		let secondary=document.createElement('div');
+		let requiredLabel=document.createElement('label');
+		let required=document.createElement('input');
+		let addDescription=document.createElement('button');
+		let addColor=document.createElement('input');
+		let check=document.createElement('div');
+
+
+		f.type='file';
+		one.textContent='Multi Choice';
+		two.textContent='short answer';
+		three.textContent='long answer';
+		four.textContent='number';
+		selectLabel.textContent='type: '
+
+		required.type='checkbox';
+		required.value='yes';
+		addDescription.textContent='add Description';
+		addDescription.type='button';
+		addColor.type='color';
+		requiredLabel.textContent='required';
+		moreInfo.setAttribute("class","moreInfo");
+		cont.setAttribute("class","elements");
+		select.setAttribute("class","multipleChoice");
+		select.appendChild(one);
+		select.appendChild(two);
+		select.appendChild(three);
+		select.appendChild(four);
+
+		secondary.appendChild(requiredLabel);
+		secondary.appendChild(required);
+		secondary.appendChild(addDescription);
+		secondary.appendChild(addColor);
+
+		cont.appendChild(f);
+		cont.appendChild(question);
+		cont.appendChild(selectLabel);
+		cont.appendChild(select);
+		
+		cont.appendChild(moreInfo);
+		cont.appendChild(secondary);
+
+		container.appendChild(cont);
+	};
+function addEventListeners(){
+	let data={};
+	let add=document.getElementById('addNewItem');
+	let dub=document.getElementById('duplicateItem');
+	let del=document.getElementById('delete');
+	let form=document.getElementsByTagName("form")[0];
+	let submit=document.getElementById("submit");
+	let choice=document.getElementsByClassName("multipleChoice");
+
+	document.getElementById("container").addEventListener("click",(evt)=>{
+		if(evt.target.className==='multipleChoice'){
+			for(let c=0;c<choice.length;c++){
+				choice[c].addEventListener("change",childs);
+			}
+		}
+		
+	})
+	
+	
+	add.addEventListener('click',add_item);
+	dub.addEventListener('click',(evt)=>{
+		console.log("======");
+		console.log('duplicating ntwana');
+	});
+	del.addEventListener('click',(evt)=>{
+		console.log('deleting ntwana');
+	});
+
+	submit.addEventListener('click',async (evt)=>{
+		evt.preventDefault();
+		console.log('submit form');
+		let eles=document.getElementsByClassName("elements");
+		
+		let f_d={formName:'e',
+				formDescription:'e',
+				backgroundColor:'e',
+				backgroundImage:'e'};
+		data['form']=(f_d);
+		let itemsData=[]
+		for(let i=0;i<eles.length;i++){
+			let itemData={};
+			console.log();
+			console.log(eles[i].getElementsByTagName("input")[1].value);
+			console.log(eles[i].getElementsByTagName("input")[2]);
+			console.log(eles[i].getElementsByTagName("input")[2].value);
+			console.log(eles[i].getElementsByTagName("input")[3]);
+			console.log(eles[i].getElementsByTagName("input")[3].value);
+			// console.log(eles[i].getElementsByTagName("input")[4].value);
+			let placeImage = await new Promise(resolve => {
+			let read = new FileReader();
+			read.readAsDataURL(eles[i].getElementsByTagName("input")[0].files[0]);
+			read.onloadend = () => {
+				let url = read.result;
+				// itemData.image = url;
+				itemData.image = 'works';
+				resolve(url); // <--- Resolve the promise with the URL
+				};
+			});
+			
+
+			itemData.question=eles[i].getElementsByTagName("input")[1].value;
+			itemData.required=true;
+			itemData.color=true;
+			itemData.type='';
+			
+			let selectElement=eles[i].getElementsByTagName("select")[0];
+			let case_two=selectElement.getElementsByTagName("option")[selectElement.selectedIndex].value;
+
+			// itemData.question=eles[i].getElementsByTagName("input")[1].value;
+			// itemData.required=eles[i].getElementByTagName("input")[2].value;
+			// itemData.color=eles[i].getElementByTagName("input")[4].value;
+			// itemData.description=eles[i].getElementByTagName("input")[5].value;
+			// itemData.image=eles[i].getElementByTagName("input")[0].file[0];
+			switch(case_two){
+				case 'Multi Choice':
+					itemData.element='select';
+					let ops=[];
+					let childs=eles[i].getElementsByClassName('options');
+					for(let y=0;y<childs.length;y++){
+						ops.push(childs[y].value);
+						console.log(childs[y].value);
+					}
+					itemData.options=ops;
+					// console.log('there are mutile options');
+				break;
+				case 'long answer':
+					itemData.element='textarea';
+				break;
+				case 'short answer':
+					itemData.type='text';
+					itemData.element='input';
+
+				break;
+			}
+		
+			itemsData.push(itemData);
+			
+
+		}
+		data['inputs']=itemsData;
+		console.log(data);
+		let x=new XMLHttpRequest();
+		x.open('POST',"/test");
+		x.onload=function(){
+			console.log(this.responseText);
+		}
+		x.send(JSON.stringify(data));
+
+	});
+
+
+
+}
+initialise_forms();
+addEventListeners();
+response();
+</script>
+</html>

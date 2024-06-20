@@ -9,40 +9,10 @@ function initialise_image(){
         // console.log(this.responseText);
         let data=JSON.parse(this.responseText);
         // document.getElementsByClassName('profile-link').href="@"+data.user.user_info.username;
-        let dataItem=[];
         console.log(data);
         init_user(data.user);
         init_categories(data.categories);
-        for(let i=0;i<data.users.length;i++){
-    
-        const base64Image = data.users[i].primary_post.img; // your Base64-encoded image string
-        const base64Image_two = data.users[i].primary_post.img;
-
-        const binaryString = atob(base64Image);
-        const arrayBuffer = new ArrayBuffer(binaryString.length);
-        const uint8Array = new Uint8Array(arrayBuffer);
-
-        const binaryString_two = atob(base64Image_two);
-        const arrayBuffer_two = new ArrayBuffer(binaryString_two.length);
-        const uint8Array_two = new Uint8Array(arrayBuffer_two);
-        
-        for (let i = 0; i < binaryString.length; i++) {
-          uint8Array[i] = binaryString.charCodeAt(i);
-        }
-        for (let i = 0; i < binaryString_two.length; i++) {
-            uint8Array_two[i] = binaryString_two.charCodeAt(i);
-          }
-        const blob = new Blob([uint8Array], { type: 'image/png' }); // or 'image/jpeg' or other image types
-        const blob_two = new Blob([uint8Array_two], { type: 'image/png' }); // or 'image/jpeg' or other image types
-        let item={primary:blob,seconday:blob_two,username:data.users[i].user_info.username};
-        // now you can use the blob object to display the image
-        // const img = document.getElementsByClassName('post-image');
-        // img[i].src = URL.createObjectURL(blob);
-        // img[i].id=data[i]['id'];
-        
-        dataItem.push(item);
-        }
-        init_img(dataItem);
+        init_img(data.users);
 }
 xml.send('action=initialise_image');
     }catch(err){
@@ -113,6 +83,12 @@ function search_user(){
         
     });
 }
+function clear_error_messages(){
+    document.getElementById("errPassword").innerHTML='';
+    document.getElementById("errName").innerHTML='';
+    document.getElementById("errUsername").innerHTML='';
+    document.getElementById("errEmail").innerHTML='';
+}
 // this function direct the user to a users profile when a user account is selected
 function openUserProfile(evt){
     let username=evt.target.parentNode;
@@ -152,15 +128,70 @@ function select_post(evt){
    let link=evt.target.id;
    window.loaction.href=link;
 }
+//when user clicks the comment button the comment modal will popup
+function show_coment(){
+    let container=document.getElementById("writeCommentModal");
+    container.style.display='flex';
+    container.getElementsByTagName("button")[0].addEventListener('click',function(){
+        console.log("works");
+        container.style.display='none';
+    });
+    container.getElementsByClassName("close")[0].addEventListener('click',function(){
+        console.log("works");
+        container.style.display='none';
+    });
+
+    container.getElementsByTagName("button")[1].addEventListener("click",function(evt){
+        console.log("prevent comment submission");
+        let txt=container.getElementsByTagName('textarea')[0].value;
+        console.log(txt);
+        evt.preventDefault();
+        try{
+            let xml=new XMLHttpRequest();
+            xml.open('POST','/');
+            xml.onload=function(){
+                console.log('submitted');
+                console.log(this.responseText);
+                if(data.status=='success'){
+                    container.style.display='none';
+                }
+            }
+            xml.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+            xml.send('action=comment');
+        }catch(err){
+            console.log(err);
+        }
+
+    });
+}
+function like_post(evt){
+    let ele=evt.target;
+    let postEle=ele.parentNode.parentNode.parentNode;
+
+    try{
+        console.log(postEle);
+        let t=postEle.getElementsByClassName("post")[0].id;
+        console.log(t);
+        // let xml=new XMLHttpRequest();
+        // xml.onload=function(){}
+        // xml.open('POST','/');
+        // xml.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+        // xml.send('action=like&postID=postEle');
+        alert('you have liked the post');
+    }catch(err){
+        console.log(err);
+    }
+
+}
 // this function listens to all events that take place ont the site and handles them
 function eventListeners(){
     let userProfile=document.getElementsByClassName("profile-button");
     let search_input=document.getElementById("search");
     let selectcategory=document.getElementsByClassName("tag");
-    let likePost=document.getElementsByClassName("");
+    let likePost=document.getElementsByClassName("like-button");
     let selectTopPost=document.getElementsByClassName("top-post");
     let selectBottomPost=document.getElementsByClassName("bottom-post");
-    let commentPost=document.getElementsByClassName("");
+    let commentPost=document.getElementsByClassName("comment-button");
     let registerBtn = document.querySelector(".register-button");
     let closeReg = document.getElementById("closeModalReg");
     let modal = document.getElementById("registerModal");
@@ -186,7 +217,7 @@ function eventListeners(){
         selectBottomPost[i].addEventListener('click',openModal);
     }
      for(let i=0;i<commentPost.length;i++){
-        commentPost[i].addEventListener('click',comment_post);
+        commentPost[i].addEventListener('click',show_coment);
     }
     registerBtn.addEventListener('click',function() {
         modal.style.display = "block";
@@ -198,14 +229,20 @@ function eventListeners(){
   
 }
 function init_user(arr){
+    // hide register button if user is available
+   
     if(arr.username==null || arr.username==''){
         console.log('null username');
         return ;
     }
+    document.getElementsByClassName("register-button")[0].style.display='none';
     console.log(arr.username);
     document.getElementsByClassName("profile-link")[0].href="/@"+arr.username;
 }
 function init_categories(arr){
+    if(!Array.isArray(arr)){
+        return;
+    }
     let cats=document.getElementsByClassName('tag');
     let max=arr.length;
     console.log(max);
@@ -223,7 +260,9 @@ function init_categories(arr){
     }
 }
 function init_img(arr){
-
+    if(!Array.isArray(arr)){
+        return;
+    }
     let p=document.getElementsByClassName("post-container");
     console.log(arr);
     for(let n=0;n<p.length;n++){
@@ -234,8 +273,8 @@ function init_img(arr){
         let ele=p[n].getElementsByClassName('post-image')[0];
         let ele_two=p[n].getElementsByClassName('post-image')[1];
         p[n].getElementsByClassName("profile-button")[0].id="/@"+arr[n].username;
-        ele.src = URL.createObjectURL(arr[n].primary);
-        ele_two.src = URL.createObjectURL(arr[n].seconday);
+        ele.src = arr[n].primary.img;
+        ele_two.src =arr[n].seconday.img;
         
         console.log("======= end ======");
     }
@@ -265,6 +304,7 @@ function closeModal() {
 // Form submission
 document.getElementById("registerForm").onsubmit = function(event) {
     event.preventDefault();
+    clear_error_messages();
     let form=document.getElementById("registerForm");
     let formData=new FormData(document.getElementById("registerForm"));
     let item={
@@ -301,9 +341,6 @@ document.getElementById("registerForm").onsubmit = function(event) {
     }catch(err){
         console.log(err);
     }
-    // Your form submission code here
-    // You can access form fields using document.getElementById or other methods
-    // Example: var username = document.getElementById("username").value;
-    // After processing, you can close the modal
+   
     modal.style.display = "none";
 };

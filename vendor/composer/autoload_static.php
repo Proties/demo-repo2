@@ -10,18 +10,48 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         'ae2b2fbc1ae2e7a851a2af518947a092' => __DIR__ . '/../..' . '/index.php',
     );
 
+    public static $prefixLengthsPsr4 = array (
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
+        ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/src',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+    );
+
     public static $classMap = array (
         'Category' => __DIR__ . '/../..' . '/php/category.php',
+        'CategoryDB' => __DIR__ . '/../..' . '/php/categoryDB.php',
+        'Collaborator' => __DIR__ . '/../..' . '/php/collaborator.php',
+        'CollaboratorDB' => __DIR__ . '/../..' . '/php/collaboratorDB.php',
         'Comment' => __DIR__ . '/../..' . '/php/comment.php',
+        'CommentDB' => __DIR__ . '/../..' . '/php/commentDB.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Database' => __DIR__ . '/../..' . '/php/database.php',
-        'GenerateIDs' => __DIR__ . '/../..' . '/php/generate_ids.php',
+        'Image' => __DIR__ . '/../..' . '/php/image.php',
+        'ImageDB' => __DIR__ . '/../..' . '/php/imageDB.php',
+        'LikeDB' => __DIR__ . '/../..' . '/php/likeDB.php',
+        'Location' => __DIR__ . '/../..' . '/php/loaction.php',
+        'LocationDB' => __DIR__ . '/../..' . '/php/locationDB.php',
         'MainUser' => __DIR__ . '/../..' . '/php/mainUser.php',
-        'Picture' => __DIR__ . '/../..' . '/php/pictures.php',
         'Post' => __DIR__ . '/../..' . '/php/post.php',
+        'PostDB' => __DIR__ . '/../..' . '/php/postDB.php',
         'Ranking' => __DIR__ . '/../..' . '/php/rank.php',
+        'UserDB' => __DIR__ . '/../..' . '/php/userDB.php',
         'Users' => __DIR__ . '/../..' . '/php/user.php',
-        'Videos' => __DIR__ . '/../..' . '/php/videos.php',
         'validateCategory' => __DIR__ . '/../..' . '/php/category.php',
         'validateComment' => __DIR__ . '/../..' . '/php/comment.php',
         'validatePost' => __DIR__ . '/../..' . '/php/post.php',
@@ -31,6 +61,8 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInite157323c771501e83d1f5facf84220ae::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite157323c771501e83d1f5facf84220ae::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInite157323c771501e83d1f5facf84220ae::$classMap;
 
         }, null, ClassLoader::class);

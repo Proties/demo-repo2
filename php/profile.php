@@ -8,7 +8,8 @@ $mainUser=new Users();
 if(isset($_SERVER['userID']) && $_SERVER['userID']!==null){
     $mainUser->set_userID($_SERVER['userID']);
     $mainUser->set_username($_SERVER['username']);
-    $mainUser->read_user();
+    $mainUserDB=new UserDB();
+    $mainUserDB->read_user();
 }
 $userPosts=array();
 
@@ -19,17 +20,20 @@ switch($action){
         $link=substr($_SERVER['REQUEST_URI'],2);
 
         $author=new Users();
+        
         if(($author->validate_username_url($_SERVER['REQUEST_URI'])==true) && (Users::validate_username_in_database($link)==true)){
             $author->set_username($link);
-            $author->read_userID();
-            $author->read_user();
-        
-        $data['user'][0]=array('username'=>$author->get_username(),'userProfilePicture'=>$author->get_profilePicture(),
-                            'bio'=>$author->get_bio(),'post'=>array());
+            $authorDB=new UserDB($author);
+            $authorDB->read_userID();
+            $authorDB->read_user();
+
+        $data['user'][0]=array('username'=>$authorDB->$author->get_username(),'userProfilePicture'=>$authorDB->$author->get_profilePicture(),
+                            'bio'=>$authorDB->$author->get_bio(),'post'=>array());
         $post=new Post();
        
-        $post->set_authorID($author->get_id());
-        $p=$post->read_posts();
+        $post->set_authorID($authorDB->$author->get_id());
+        $postDB=new PostDB();
+        $p=$postDB->read_posts();
         
         $info=$post->get_posts();
         $lenArr=count($info);
@@ -51,50 +55,38 @@ switch($action){
 
             $data['post'][$i] = array(
                 'postLink' => $postItem->get_postLink(),
-                'img' => chunk_split(base64_encode($f), 76, "\n")
+                'img' => $postItem->get_filePath().$postItem->get_fileName()
             );
         }
         echo json_encode($data);
         return;
     }else{
-        echo 'no user profile';
+        $data['status']='no user profile';
+        echo json_encode($data);
         return;
     }
         
         break;
     case 'initialise_post_preview':
         $post=new Post();
-        if($post->validate_postLink()){
-            $post->set_postLink($_SERVER['REQUEST_URI']);
-            $post->read_postID();
-            $post->read_post();
+        $post->set_postLink($_SERVER['REQUEST_URI']);
+        $postDB=new PostDB($post);
+        $link=$_SERVER['REQUEST_URI'];
+        if($post->validate_postLink($link) && $postDB->validate_pos($link)){
+            $postDB->read_postID();
+            $postDB->read_post();
         }
         
         $data=array(
-        'authorName'=>$post->get_authorName(),
-        'caption'=>$post->get_caption(),
-        'img'=>$post->get_img(),
-        'comments'=>$post->get_comments(),
-        'postID'=>$post->get_id()
+        'authorName'=>$postDB->$post->get_authorName(),
+        'caption'=>$postDB->$post->get_caption(),
+        'img'=>$postDB->$post->get_filePath().$post->get_fileName(),
+        'comments'=>$postDB->$post->get_comments(),
+        'postID'=>$postDB->$post->get_id()
         );
         echo json_encode($data);
         break;
-    case 'addPost':
-        if(!$mainUser->is_authenticated()){
-            $msg='user not registered';
-            echo $msg;
-            return;
-        }
-        $post=new Post();
-        $post->set_authorID($user->get_id());
-        $post->set_image();
-        $post->set_categoryName($_POST['categoryName']);
 
-        $post->set_caption($_POST['caption']);
-        $post->set_date($_POST['date']);
-        $post->set_time($_POST['time']);
-        $post->write_post();
-        break;
     case 'edit_post':
         if(!$mainUser->is_authenticated()){
             $msg='user not registered';
@@ -102,8 +94,12 @@ switch($action){
             return;
         }
         $postID=$_POST['postID'];
-        $data=array("cpation"=>$post->get_caption,"categoryName"=>$category->get_categoryName(),
-                    "img"=>$post->get_img(),"previewStatus"=>$post->get_preview_status());
+        $post=new Post();
+        $post->set_id($postID);
+        $postDB=new PostDB($post);
+        $postDB->read_post();
+        $data=array("cpation"=>$post->get_caption(),"categoryName"=>$category->get_categoryName(),
+                    "img"=>$post->get_filePath().$post->get_fileName(),"previewStatus"=>$post->get_preview_status());
         echo json_encode($data);
         break;
     case 'create_custom_profile':

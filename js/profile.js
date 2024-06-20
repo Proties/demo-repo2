@@ -10,20 +10,7 @@ function initialise(){
             console.log(this.responseText);
             let data=JSON.parse(this.responseText);
             populate_user_info(data.user);
-            for(let i=0;i<data.post.length;i++){
-                let base64Image=data.post[i].img;
-                const binaryS=atob(base64Image);
-                const arrayBuffer = new ArrayBuffer(binaryS.length);
-                const uint8Array = new Uint8Array(arrayBuffer);
-                for (let i = 0; i < binaryS.length; i++) {
-                    uint8Array[i] = binaryS.charCodeAt(i);
-                  }
-                const blob = new Blob([uint8Array], { type: 'image/png' });
-                let item={img:blob};
-                big_data.push(item);
-            }
-            populate_post(big_data);
-           
+            populate_post(data.posts);
         }
         xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xm.send("action=initialise_user");
@@ -43,10 +30,10 @@ function populate_post(arr){
     let container=document.getElementsByClassName('post-section')[0];
     console.log(arr);
     if(arr.length>1){
-        let old=postEle.getElementsByTagName('img')[0].src=URL.createObjectURL(arr[0].img);
+        let old=postEle.getElementsByTagName('img')[0].src=arr[0].img;
         for(let i=1;i<arr.length;i++){
             let newPost=postEle.cloneNode(true);
-            newPost.getElementsByTagName('img')[0].src=URL.createObjectURL(arr[i].img);
+            newPost.getElementsByTagName('img')[0].src=arr[i].img;
             console.log(newPost);
             container.appendChild(newPost);
         }

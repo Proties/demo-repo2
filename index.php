@@ -9,10 +9,10 @@ $txt=substr($f_txt,2);
 // return;
 $user=new Users();
 $post=new Post();
-
+$userDB=new UserDB($user);
 
 if($post->validate_postLink($f_txt)==true){
-    if(Post::validate_in_db_postLink($txt)==true){
+    if($postDB::validate_in_db_postLink($txt)==true){
         $case=$_POST['get_more_comments'];
         switch($case){
             case 'get_more_comments':
@@ -30,8 +30,9 @@ if($post->validate_postLink($f_txt)==true){
    
     }
     }
+    
 elseif($user->validate_username_url($f_txt)==true){
-    if(Users::validate_username_in_database($txt)==true){
+    if($userDB->validate_username_in_database($txt)==true){
         include_once('php/profile.php');
         exit();
     }
@@ -44,7 +45,7 @@ elseif($user->validate_username_url($f_txt)==true){
 $action=$_SERVER['REQUEST_URI'];
 switch($action){
     case '/test':
-        include_once('php/addimage.php');
+        include_once('testForm.php');
         break;
     case '/':
         include_once('php/homePage.php');
