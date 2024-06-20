@@ -43,6 +43,10 @@ switch($action){
         break;
     case 'initialise_image':
         $data=[];
+        if(){
+            stored_posts();
+        }
+        
         $data['user']=array('username'=>$mainUser->get_username(),'userID'=>$mainUser->get_id());
         $arrayPosts=[];
         $rank=new Ranking();

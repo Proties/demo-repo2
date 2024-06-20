@@ -24,6 +24,13 @@ public function chrono(Array $arr){
     }
 }
 
+public static function stored_posts(){
+    return $arr;
+    // if stored users is under 10 add new user
+    // if stored users if 10 do nothing 
+    // stored categories
+    // stored user and catogories
+}
 public function Basic(Array $arr){
     try{
         $db=$this->get_connection();

@@ -7,6 +7,7 @@ CREATE TABLE Users(
  password varchar(30),
  primary key (userID)
 );
+
 DROP TABLE IF EXISTS Posts;
 CREATE TABLE Posts(
  postID INT AUTO_INCREMENT,
