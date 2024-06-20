@@ -115,9 +115,7 @@ class Users{
         return $this->errorMessages;
     }
 
-    public function get_userObjects(){
-        return $this->userObjects;
-    }
+   
     public function get_bio(){
         return $this->bio;
     }
@@ -129,9 +127,7 @@ class Users{
         return false;
         
     }
-    public function is_user_dir_present(){
-        
-    }
+   
     public static function search_user($user){
         try{
             $database=new Database();
@@ -229,6 +225,38 @@ class Users{
             $stmt=$db->prepare($query);
             $stmt->execute();
             return $stmt->fetchall();
+        }catch(PDOExeception $err){
+            echo $err->getMessage();
+        }
+    }
+    public function search_email_in_db($email){
+        try{
+            $database=new Database();
+            $db=$database->get_connection();
+            $query="
+            SELECT email FROM Users u1 USE INDEX(idx_email)
+            WHERE email=:mail;
+            ";
+            $stmt=$db->prepare($query);
+            $stmt->bindValue(':mail',$email);
+            $stmt->execute();
+            return $stmt->fetch();
+        }catch(PDOExeception $err){
+            echo $err->getMessage();
+        }
+    }
+    public function search_username_in_db($email){
+        try{
+            $database=new Database();
+            $db=$database->get_connection();
+            $query="
+            SELECT username FROM Users u1 USE INDEX(idx_username)
+            WHERE username=:user;
+            ";
+            $stmt=$db->prepare($query);
+            $stmt->bindValue(':user',$email);
+            $stmt->execute();
+            return $stmt->fetch();
         }catch(PDOExeception $err){
             echo $err->getMessage();
         }

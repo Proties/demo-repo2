@@ -10,6 +10,8 @@ if(isset($_SERVER['userID']) && $_SERVER['userID']!==null){
     $mainUser->set_username($_SERVER['username']);
     $mainUser->read_user();
 }
+$userPosts=array();
+
 $action=$_POST['action'];
 switch($action){
     case 'initialise_user':
@@ -41,11 +43,15 @@ switch($action){
         
         for ($i = 0; $i < $lenArr; $i++) {
             $postItem = new Post();
+            $image=new Image();
             $postItem->set_postID($info[$i]['postID']);
-            $postItem->set_img(base64_encode($info[$i]['picture']));
+            $postItem->set_postLink($info[$i]['postLink']);
+            $image->set_filePath($info[$i]['filePath']);
+            $f=file_get_contents($image->get_fileName());
+
             $data['post'][$i] = array(
                 'postLink' => $postItem->get_postLink(),
-                'img' => $postItem->get_img()
+                'img' => chunk_split(base64_encode($f), 76, "\n")
             );
         }
         echo json_encode($data);
@@ -65,9 +71,8 @@ switch($action){
         }
         
         $data=array(
-        'title'=>$post->get_title(),
         'authorName'=>$post->get_authorName(),
-        'description'=>$post->get_description(),
+        'caption'=>$post->get_caption(),
         'img'=>$post->get_img(),
         'comments'=>$post->get_comments(),
         'postID'=>$post->get_id()
@@ -84,11 +89,22 @@ switch($action){
         $post->set_authorID($user->get_id());
         $post->set_image();
         $post->set_categoryName($_POST['categoryName']);
-        $post->set_title($_POST['title']);
-        $post->set_description($_POST['description']);
+
+        $post->set_caption($_POST['caption']);
         $post->set_date($_POST['date']);
         $post->set_time($_POST['time']);
         $post->write_post();
+        break;
+    case 'edit_post':
+        if(!$mainUser->is_authenticated()){
+            $msg='user not registered';
+            echo $msg;
+            return;
+        }
+        $postID=$_POST['postID'];
+        $data=array("cpation"=>$post->get_caption,"categoryName"=>$category->get_categoryName(),
+                    "img"=>$post->get_img(),"previewStatus"=>$post->get_preview_status());
+        echo json_encode($data);
         break;
     case 'create_custom_profile':
         break;

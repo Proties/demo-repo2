@@ -1,13 +1,12 @@
 <?php
 session_start();
-// apcu_add('name', 'happy',6000);
-// var_dump(apcu_fetch('name'));
-// print_r(apcu_cache_info());
-// return;
+
 if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('Htmlfiles/Homepage.html');
     return;
 }
+
+
 $mainUser=new Users();
 if(isset($_SESSION['userID']) && $_SESSION['userID']!==null){
     $mainUser->set_id($_SESSION['userID']);
@@ -46,14 +45,14 @@ switch($action){
         $user=new Users();
         $primary_post=new Post();
         $user->set_username($info[$x]['username']);
-        $primary_post->set_img($info[$x]['picture']);
+        $primary_post->set_postLink($info[$x]['postLink']);
         $secondary_post=new Post();
-        $secondary_post->set_img($info[$x]['post2Pic']);
+        $secondary_post->set_postLink($info[$x]['post2Link']);
 
         $data['users'][]=array(
             'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
-            'primary_post'=>array('img'=>base64_encode($primary_post->get_img())),
-            'secondary_post'=>array('img'=>base64_encode($secondary_post->get_img()))
+            'primary_post'=>array('img'=>chunk_split(base64_encode(file_get_contents($primary_post->get_postLink())),76,"\n")),
+            'secondary_post'=>array('img'=>chunk_split(base64_encode(file_get_contents($secondary_post->get_postLink())),76,"\n"))
         );
             }
         echo json_encode($data);
@@ -92,7 +91,8 @@ switch($action){
     case 'comment':
         if(!$mainUser->is_authenticated()){
             $msg='user not registered';
-            echo $msg;
+            $data=array('status'=>'failed','message'=>$msg);
+            echo json_encode($data);
             return;
         }
         $text=$_POST['text'];
@@ -105,7 +105,8 @@ switch($action){
     case 'like':
         if(!$mainUser->is_authenticated()){
             $msg='user not registered';
-            echo $msg;
+            $data=array('status'=>'failed','message'=>$msg);
+            echo json_encode($data);
             return;
         }
         $postID=$_POST['postID'];
@@ -162,7 +163,6 @@ switch($action){
 // it will produce a new array that has a primary and secondary post
 function search_name($username,$arr){
     for($i=0;$i<count($arr);$i++){
-        
         if($arr[$i]['username']==$username){
             print_r("worksssss");
             return $arr[$i];

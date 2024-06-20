@@ -3,17 +3,15 @@ class Post{
     use validatePost;
     private $caption;
     private $status;
+    private $postStatus;
     private $previewStatus;
     private $errorMessage;
     private $postID;
     private $postLinkID;
     private $postLink;
-    private $img;
     private $authorID;
-    private $authorName;
     private $date;
     private $time;
-    private $categoryName;
     private $posts;
     private $postFile;
 
@@ -25,21 +23,18 @@ public function __construct(){
     $this->postID='';
     $this->postLinkID=null;
     $this->postLink='';
-    $this->img='';
-    $this->authorName='';
     $this->authorID=null;
     $this->previewStatus=false;
 
    
 }
 function initialise($arr){
-    $this->authorID=$arr['userID'];
-    $this->title=$arr['postTitle'];
-    $this->description=$arr['postDescription'];
-    $this->postID=$arr['postID'];
-    $this->set_img($arr['picture']);
-    $this->postLink=$arr['postLink'];
-    $this->postLinkID=$arr['postLinkID'];
+    $this->set_authorID($arr['userID']);
+    $this->set_caption($arr['postTitle']);
+    $this->set_previewStatus($arr['postDescription']);
+    $this->set_postID($arr['postID']);
+    $this->set_postLink($arr['postLink']);
+    $this->set_postLinkID($arr['postLinkID']);
 }
 public function set_category_id($id){
     $this->categoryID=$id;
@@ -62,11 +57,8 @@ public function set_status($stt){
 public function set_authorID($an){
     $this->authorID=$an;
 }
-public function set_authorName($im){
-    $this->authorName=$im;
-}
 public function set_preview_status($al){
-    $this->preview_status=$alt;
+    $this->previewStatus=$alt;
 }
 public function set_time($l){
     $this->time=$l;
@@ -76,9 +68,6 @@ public function set_date($dt){
 }
 public function set_postLink($dt){
     $this->postLink=$dt;
-}
-public function set_img($im){
-    $this->img=$im;
 }
 public function set_posts($p){
     $this->posts=$p;
@@ -101,16 +90,13 @@ public function get_caption(){
     return $this->caption;
 }
 public function get_preview_status(){
-    return $this->preview_status;
+    return $this->previewStatus;
 }
 public function get_status(){
     return $this->status;
 }
 public function get_authorID(){
     return $this->authorID;
-}
-public function get_authorName(){
-    return $this->authorName;
 }
 public function get_time(){
     $this->set_time(date('h:i'));
@@ -122,9 +108,6 @@ public function get_date(){
 }
 public function get_postLink(){
     return $this->postLink;
-}
-public function get_img(){
-    return $this->img;
 }
 
 public function get_errorMessage(){
@@ -225,19 +208,17 @@ public function write_post(){
         $database=new Database();
         $db=$database->get_connection();
         $query="
-                INSERT INTO post(postLinkID,postDescription,postTitle,picture,userID,postDate,postTime,postLink)
-                VALUES(:postLinkID,:description,:title,:image,:userID,:date,:time,:postLink);
+                INSERT INTO post(postLinkID,postCaption,userID,postDate,postTime,postLink)
+                VALUES(:postLinkID,:caption,:userID,:date,:time,:postLink);
                 ";
         $stmt=$db->prepare($query);
-        $stmt->bindValue(':title',$this->get_title());
-        $stmt->bindValue(':description',$this->get_description());
-        $stmt->bindValue(':image',$this->get_image());
+        $stmt->bindValue(':caption',$this->get_caption());
         $stmt->bindValue(':userID',$this->get_authorID());
         $stmt->bindValue(':date',$this->get_date());
         $stmt->bindValue(':time',$this->get_time());
         $stmt->bindValue(':postLink',$this->get_postLink());
         $stmt->bindValue(':postLinkID',$this->get_postLinkID());
-        $stmt->execute();
+        $this->set_status($stmt->execute());
     }catch(PDOExecption $err){
         echo $err->getMessage();
     }
@@ -294,38 +275,7 @@ public static function validate_postID($id){
     }
 
 }
-    public function create_post_file(){
-        try{
-
-        
-        $f=fopen('php/ids.json','r') or die('file doesnt exist');
-        
-        $ids=fread($f,filesize("php/ids.json"));
-        $ids_array=json_decode($ids,true);
-        if(!is_array($ids_array)){
-            
-            throw new Exception('data is not array');
-        }
-        
-        $this->set_postLinkID($ids_array[0]);
-        array_splice($ids_array,0,1);
-        fclose($f);
-        
-        $f_two=fopen('php/ids.json','w') or die('file doesnt exist');
-        fwrite($f_two,json_encode($ids_array));
-        fclose($f_two);
-        
-        $this->set_file($this->get_postLinkID().'.png');
-        }catch(Execption $err){
-            echo $err->getMessage();
-        }
-    }
-    public function set_file($file){
-        $this->postFile=$file;
-    }
-    public function get_file(){
-        return $this->postFile;
-    }
+   
 }
 
 
