@@ -6,7 +6,7 @@ public function chrono(Array $arr){
 
         $db=$this->get_connection();
         $query="
-        SELECT DISTINCT u1.username,p1.postLink,p1.postID,p2.postLink AS post2Link,p2.postID AS post2ID FROM Users AS u1
+        SELECT DISTINCT u1.username,p1.postLink,p1.postID,p1.postLinkID,p1.postLinkID as post2LinkID,p2.postLink AS post2Link,p2.postID AS post2ID FROM Users AS u1
         INNER JOIN post AS p1 ON u1.userID=p1.userID
         INNER JOIN post AS p2 ON p1.userID=u1.userID
         WHERE p1.postID<>p2.postID

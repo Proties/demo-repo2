@@ -58,7 +58,7 @@ switch($action){
             $postItem->image->set_filePath($path);
             $postItem->image->set_fileName($name);
             $data['posts'][$i] = array(
-                'postLink' => $postItem->get_postLink(),
+                'postID' => $postItem->get_postID(),
                 'img' => $postItem->image->get_filePath().$postItem->image->get_fileName()
             );
         }

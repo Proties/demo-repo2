@@ -171,7 +171,7 @@ function like_post(evt){
 
     try{
         console.log(postEle);
-        let t=postEle.getElementsByClassName("post")[0].id;
+        let t=postEle.getElementsByClassName("post")[0];
         console.log(t);
         // let xml=new XMLHttpRequest();
         // xml.onload=function(){}
@@ -267,11 +267,12 @@ function init_img(arr){
     console.log(arr);
     console.log('quick look=====');
     let p=document.getElementsByClassName("post-container");
-    p.id=arr[0].primary_post.postID;
+    
     console.log(arr);
     for(let n=0;n<p.length;n++){
         console.log(arr[n]);
         let ele=p[n].getElementsByClassName('post-image')[0];
+        p[n].id=arr[n].primary_post.postLinkID;
         let ele_two=p[n].getElementsByClassName('post-image')[1];
         p[n].getElementsByClassName("profile-button")[0].id="/@"+arr[n].user_info.username;
         ele.src = arr[n].primary_post.img;
@@ -290,18 +291,29 @@ function openModal(evt) {
     let postImageSrc=evt.target.src;
     const modal = document.getElementById("postModal");
     const modalPostImage = document.getElementById("modalPostImage");
-    
-
+    let cont=evt.target.parentNode.parentNode.parentNode;
+    let profile=cont.getElementsByClassName("profile-button")[0];
+  
     modalPostImage.src = postImageSrc;
     modal.style.display = "block";
     document.getElementById("closeModal").addEventListener('click',closeModal);
+    // let username=pro;
+    // let postID=cont;
+    console.log('profile=====');
+    console.log(profile);
+    console.log('post=====');
+    console.log(profile.id+'/'+cont.id);
+    // window.location.href=profile.id+'/'+cont.id;
+    history.replaceState(null, null, profile.id+'/'+cont.id);
+ 
     try{
         let xml=new XMLHttpRequest();
-        xml.open('GET','/@username/postID');
+        xml.open('POST','');
         xml.onload=function(){
             console.log(this.responseText);
         }
-        xml.send();
+        xml.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+        xml.send("action=initialise_preview");
     }catch(err){
         console.log(err);
     }
