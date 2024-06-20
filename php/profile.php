@@ -18,7 +18,7 @@ switch($action){
     case 'initialise_user':
         $data=array();
         $link=substr($_SERVER['REQUEST_URI'],2);
-
+        $link=urldecode($link);
         $author=new Users();
         $authorDB=new UserDB($author);
         

@@ -74,6 +74,7 @@ function search_user(){
         }
         xml.open('POST','/');
         xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        text=JSON.stringify(text);
         xml.send("action=search&q="+text);
     }catch(err){
         console.log(err);
@@ -289,10 +290,22 @@ function openModal(evt) {
     let postImageSrc=evt.target.src;
     const modal = document.getElementById("postModal");
     const modalPostImage = document.getElementById("modalPostImage");
+    
 
     modalPostImage.src = postImageSrc;
     modal.style.display = "block";
     document.getElementById("closeModal").addEventListener('click',closeModal);
+    try{
+        let xml=new XMLHttpRequest();
+        xml.open('GET','/@username/postID');
+        xml.onload=function(){
+            console.log(this.responseText);
+        }
+        xml.send();
+    }catch(err){
+        console.log(err);
+    }
+
 }
 
 function closeModal() {

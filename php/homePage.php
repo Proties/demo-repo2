@@ -69,6 +69,7 @@ switch($action){
             $string=$info[$x]['postLink'];
             $path=substr($string,0,strpos($string, '/'));
             $name=substr($string,strpos($string, '/'));
+            $primary_post->set_postID($info[$x]['postID']);
             $primary_post->image->set_filename($name);
             $primary_post->image->set_filePath($path);
             
@@ -76,6 +77,7 @@ switch($action){
             $string_two=$info[$x]['post2Link'];
             $path_two=substr($string,0,strpos($string, '/'));
             $name_two=substr($string,strpos($string, '/'));
+            $secondary_post->image->set_postID($info[$x]['post2ID']);
             $secondary_post->image->set_filename($name_two);
             $secondary_post->image->set_filePath($path_two);
             $data['users'][]=array(

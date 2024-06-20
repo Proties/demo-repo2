@@ -163,6 +163,7 @@ trait validateUser{
         }
         return false;
     }
+    //dont allow empty space
     function validate_username($txt){
         $pattern="/(?=*[a-z])(?={2,}[._-])(?={1,}[0-9])/i";
         if(preg_match($pattern,$txt)){

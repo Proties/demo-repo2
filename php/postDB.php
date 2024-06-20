@@ -55,7 +55,7 @@ class PostDB extends Database{
         }
     
     }
-    public static function validate_in_db_postLink($link){
+    public function validate_in_db_postLink($link){
         try{
             $db=$this->get_connection();
             $query="
