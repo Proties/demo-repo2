@@ -151,7 +151,13 @@ function validate_postLink($txt){
     }
     return false;
 }
-
+function validate_postLinkID($txt){
+    $pattern='/(?=.*[a-zA-Z])(?=.*[0-9])?/';
+    if(preg_match($pattern,$txt)){
+        return true;
+    }
+    return false;
+}
 
 }
 

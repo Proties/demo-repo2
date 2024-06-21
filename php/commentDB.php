@@ -43,14 +43,15 @@ class CommentDB extends Database{
             $db=$this->get_connection();
             $query="
                     INSERT INTO Comment
-                    VALUES(:text,:date,:time,:userID,:postID);
+                    VALUES(:comment,:dateMade,:timeMade,:userID,:postID);
             ";
             $statement=$db->prepare($query);
-            $statement->bindValue(':time',$this->comment->get_time());
-            $statement->bindValue(':date',$this->comment->get_date());
-            $statement->bindValue(':text',$this->comment->get_comment());
+            $statement->bindValue(':timeMade',$this->comment->get_time());
+            $statement->bindValue(':dateMade',$this->comment->get_date());
+            $statement->bindValue(':comment',$this->comment->get_comment());
             $statement->bindValue(':userID',$this->comment->get_userID());
-            $this->set_status($statement->execute());
+            $statement->bindValue(':postID',$this->comment->get_postID());
+            $this->comment->set_status($statement->execute());
         }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();
         }

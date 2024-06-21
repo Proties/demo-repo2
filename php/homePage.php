@@ -9,6 +9,8 @@ $mainUser=new Users();
 if(isset($_SESSION['userID']) && $_SESSION['userID']!==null){
     $mainUser->set_id($_SESSION['userID']);
     $mainUser->set_username($_SESSION['username']);
+    $mainUser->set_authanticate(true);
+        
     // $mainUser->read_user();
 }
 $arrayPosts=[];
@@ -19,6 +21,7 @@ if(isset($_SESSION['postsServed'])){
 if(isset($_SESSION['commentsServed'])){
     $arrayPosts=$_SESSION['commentServed'];
 }
+
 $action=$_POST['action'];
 switch($action){
     case 'initialise_post_preview':
@@ -145,23 +148,35 @@ switch($action){
     case 'comment':
         $data=[];
         try{ 
+        $post=new Post();
+        $post->set_postLinkID($_POST['postID']);
+        $postDB=new PostDB($post);
         if($mainUser->is_authanticated()==false){
            throw new Exception('user not registered');
         }
-        if(!isset($_POST['postID'])){
-           throw new Exception('post does not exists');
+       if(!isset($_POST['postID'])){
+            throw new Exception('post doesn not exist');
         }
-        if($postDB->validate_postID_in_db($_POST['postID'])==false){
+        
+
+        if($post->validate_postLinkID($_POST['postID'])==false){
+            throw new Exception('post id not valid');
+        }
+        else{
+
+        }
+        if($postDB->validate_postLinkID_in_db($_POST['postID'])==false){
             throw new Exception('postID not in database');
+        }else{
+
         }
         $text=$_POST['text'];
-        $postID=$_POST['postID'];
         $comment=new Comment();
+        $postID=$postDB->get_postID_from_link($_POST['postID']);
         $comment->set_postID($postID);
         $comment->set_comment($text);
-        if($comment->validate_comment()==false){
-            throw new Exception('comment not valid');
-        }
+        $comment->set_userID($_SESSION['userID']);
+      
         $commentDB=new CommentDB($comment);
         $commentDB->write_comment();
         $data['status']='success';
@@ -175,31 +190,44 @@ switch($action){
         break;
     case 'like':
         $data=[];
+        $post=new Post();
+        $post->set_postID($_POST['postID']);
+        $postDB=new PostDB($post);
         try{
+
             if($mainUser->is_authanticated()==false){
             throw new Exception('user not registered');
         }
         if(!isset($_POST['postID'])){
             throw new Exception('post doesn not exist');
         }
+        
 
-        if($post->validate_postID($_POST['postID'])==false){
-            throw new Exception('post does not exist');
+        if($post->validate_postLinkID($_POST['postID'])==false){
+            throw new Exception('post id not valid');
         }
-        if($postDB->validate_postID_in_db($_POST['postID'])==false){
+        else{
+
+        }
+        if($postDB->validate_postLinkID_in_db($_POST['postID'])==false){
             throw new Exception('postID not in database');
+        }else{
+
         }
-        $postID=$_POST['postID'];
-        $post=new Post();
-        $post->set_postID($postID);
-        $postDB=new PostDB($post);
-        $postDB->write_like();
+        $postID=$postDB->get_postID_from_link($_POST['postID']);
+        $postID=$postID['postID'];
+    
+
+        $like=new Like($_SESSION['userID'],$postID);
+        $likeDB=new LikeDB($like);
+        $likeDB->write_like();
         $data['status']='success';
         echo json_encode($data);
         }catch(Exception $err){
             $msg=$err->getMessage();
             $data['message']=$msg;
             $data['status']='failed';
+            $data['obj']=$_POST['postID'];
             echo json_encode($data);
         }
         break;

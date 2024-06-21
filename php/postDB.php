@@ -72,22 +72,32 @@ class PostDB extends Database{
         }
     
     }
-    public function write_like(){
+    public function validate_postLinkID_in_db($link){
         try{
-         
-            $db=$this->get_connection();
-            $query="
-                    INSERT INTO likes(postID,userID)
-                    VALUES(:postID,:userID);
-            ";
-            $stmt=$db->prepare($query);
-            $stmt->bindValue(':postID',$this->post->get_postID());
-            $stmt->bindValue(':userID',$this->post->get_authorID());
-            $stmt->execute();
-        }catch(PDOExecption $err){
-            echo $err->getMessage();
+        $db=$this->get_connection();
+        $query="
+                SELECT postLinkID FROM post
+                WHERE postLinkID=:link;
+        ";
+        $stmt=$db->prepare($query);
+        $stmt->bindValue(':link',$link);
+        $stmt->execute();
+        
+        if(is_array($stmt->fetch())){
+            return true;
         }
+        else{
+            throw new Exception("Error Processing Request");
+            
+        }
+        }catch(PDOExecption $err){
+        echo $err->getMessage();
+        return false;
+        }
+
     }
+    
+   
     public function write_post(){
         try{
 
@@ -175,7 +185,23 @@ class PostDB extends Database{
             echo $err->getMessage();
         }
     }
-    
+ 
+    public function get_postID_from_link($id){
+        try{
+   
+            $db=$this->get_connection();
+            $query="
+                    SELECT postID FROM post
+                    WHERE postLinkID=:id;
+            ";
+            $stmt=$db->prepare($query);
+            $stmt->bindValue(':id',$id);
+            $stmt->execute();
+            return $stmt->fetch();
+        }catch(PDOExecption $err){
+            echo 'Database error '.$err->getMessage();
+        }
+    }
     public function read_post(){
         try{
    

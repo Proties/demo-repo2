@@ -18,13 +18,13 @@ class Like{
 		return $this->postID;
 	}
 	public function get_userID(){
-		return $this->userID
+		return $this->userID;
 	}
 	public function get_date(){
 		return $this->date;
 	}
 	public function get_time(){
-		return $this->time
+		return $this->time;
 	}
 
 

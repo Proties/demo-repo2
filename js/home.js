@@ -136,7 +136,19 @@ function select_post(evt){
    window.loaction.href=link;
 }
 //when user clicks the comment button the comment modal will popup
-function show_coment(){
+function show_coment(evt){
+    let commentForm=document.getElementById("commentForm");
+    let postElement=evt.target.parentNode.parentNode;
+    if(postElement.className=='post-conatiner'){}
+    if(postElement.className=='postfeed-wrapper'){
+        postElement.getElementsByClassName("post-conatiner")[0];
+    }
+    let h=document.createElement('input');
+    h.type='hidden';
+    h.id='postID';
+    h.name='postID';
+    h.value=postElement.id;
+    commentForm.append(h);
     let container=document.getElementById("writeCommentModal");
     container.style.display='flex';
     container.getElementsByTagName("button")[0].addEventListener('click',function(){
@@ -147,12 +159,14 @@ function show_coment(){
         console.log("works");
         container.style.display='none';
     });
-
+   
     container.getElementsByTagName("button")[1].addEventListener("click",function(evt){
         console.log("prevent comment submission");
         let txt=container.getElementsByTagName('textarea')[0].value;
         console.log(txt);
         evt.preventDefault();
+        let id=document.getElementById('postID').value;
+        let data='&postID='+id+"&text="+txt;
         try{
             let xml=new XMLHttpRequest();
             xml.open('POST','/');
@@ -169,7 +183,7 @@ function show_coment(){
                 }
             }
             xml.setRequestHeader('Content-type','application/x-www-form-urlencoded');
-            xml.send('action=comment');
+            xml.send('action=comment'+data);
         }catch(err){
             console.log(err);
         }
@@ -179,14 +193,21 @@ function show_coment(){
 function like_post(evt){
     let ele=evt.target;
     let postEle=ele.parentNode.parentNode.parentNode;
-
     try{
+        if(postEle.className=='post-container'){
+            //do nothing
+        }
+        if(postEle.className=='postfeed-wrapper'){
+            postEle=postEle.getElementsByClassName('post-container')[0];
+        }
         let id=postEle.id;
         // let t=postEle.getElementsByClassName("post")[0];
         // console.log(t);
         let xml=new XMLHttpRequest();
         xml.onload=function(){
             let data=JSON.parse(this.responseText);
+            console.log(data);
+            console.log('liking post');
             if(data.status=='success'){
                 alert('you have liked');
             }

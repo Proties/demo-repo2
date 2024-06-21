@@ -120,6 +120,9 @@ class Users{
     public function get_bio(){
         return $this->bio;
     }
+    public function set_authanticate($t){
+        $this->authanticate=$t;
+    }
     public function is_authanticated(){
         if($this->authanticate==true){
             return true;
@@ -165,7 +168,7 @@ trait validateUser{
     }
     //dont allow empty space
     function validate_username($txt){
-        $pattern="/(?=*[a-z])(?={2,}[._-])(?={1,}[0-9])/i";
+        $pattern="/(?=.*[a-z])(?=.*[\$_=\-])?(?=.*[0-9])?/i";
         if(preg_match($pattern,$txt)){
             return true;
         }
@@ -187,7 +190,7 @@ trait validateUser{
         return false;
     }
     function validate_password($txt){
-        $pattern='/^(?=.{2,}[@$!*#])[A-Za-z\d@$!*#]{13,}$/';
+        $pattern='/(?=.*[a-z])(?=.*[\-\@#\$%\_=*\!\^])(?=.*[0-9])?/i';
         if(preg_match($pattern,$txt)){
             return true;
         }

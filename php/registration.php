@@ -41,9 +41,9 @@ try{
         throw new Exception('could not create user');
     }
     $userDB->write_user();
-    if($userDB->$user->get_status()==1){
-        $_SESSION['userID']=$userDB->$user->get_id();
-        $_SESSION['username']=$userDB->$user->get_username();
+    if($userDB->user->get_status()==1){
+        $_SESSION['userID']=$userDB->user->get_id();
+        $_SESSION['username']=$userDB->user->get_username();
         $item=array('status'=>'success');
         echo json_encode($item);
         return;

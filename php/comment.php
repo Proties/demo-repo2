@@ -10,7 +10,11 @@ class Comment{
     private $postID;
     private $id;
 
-    public function __construct(){}
+    public function __construct(){
+        $this->id=null;
+        $this->date=date('Y:m:d');
+        $this->time=date('h:i');
+    }
     public function set_id($id){
         $this->id=$id;
     }
@@ -65,7 +69,7 @@ class Comment{
 }
 trait validateComment{
     function validate_comment($txt){
-        $pattern='//i';
+        $pattern='/[a-z]{4,}/i';
         if(preg_match($txt,$pattern)){
             return true;
         }
