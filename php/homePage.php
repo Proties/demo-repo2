@@ -43,8 +43,9 @@ switch($action){
         break;
     case 'initialise_image':
         $data=[];
-        if(){
-            stored_posts();
+        if(is_array(Ranking::stored_posts())){
+
+            
         }
         
         $data['user']=array('username'=>$mainUser->get_username(),'userID'=>$mainUser->get_id());
@@ -134,7 +135,7 @@ switch($action){
             $data['searchResults']=$usernames;
             echo json_encode($data);
         }
-        catch(Exeception $err){
+        catch(Exception $err){
             $data['status']='failed';
             $data['message']=$err->getMessage();
             echo json_encode($data);
@@ -145,13 +146,13 @@ switch($action){
         $data=[];
         try{ 
         if($mainUser->is_authanticated()==false){
-           throw new Exeception('user not registered');
+           throw new Exception('user not registered');
         }
         if(!isset($_POST['postID'])){
-           throw new Exeception('post does not exists');
+           throw new Exception('post does not exists');
         }
         if($postDB->validate_postID_in_db($_POST['postID'])==false){
-            throw new Exeception('postID not in database');
+            throw new Exception('postID not in database');
         }
         $text=$_POST['text'];
         $postID=$_POST['postID'];
@@ -159,13 +160,13 @@ switch($action){
         $comment->set_postID($postID);
         $comment->set_comment($text);
         if($comment->validate_comment()==false){
-            throw new Exeception('comment not valid');
+            throw new Exception('comment not valid');
         }
         $commentDB=new CommentDB($comment);
         $commentDB->write_comment();
         $data['status']='success';
         echo json_encode($data);
-        }catch(Exeception $err){
+        }catch(Exception $err){
             $data['status']='failed';
             $data['message']=$err->getMessage();
             echo json_encode($data);
@@ -175,18 +176,18 @@ switch($action){
     case 'like':
         $data=[];
         try{
-            if($mainUser->is_authenticated()==false){
-            throw new Exeception('user not registered');
+            if($mainUser->is_authanticated()==false){
+            throw new Exception('user not registered');
         }
         if(!isset($_POST['postID'])){
-            throw new Exeception('post doesn not exist');
+            throw new Exception('post doesn not exist');
         }
 
         if($post->validate_postID($_POST['postID'])==false){
-            throw new Exeception('post does not exist');
+            throw new Exception('post does not exist');
         }
         if($postDB->validate_postID_in_db($_POST['postID'])==false){
-            throw new Exeception('postID not in database');
+            throw new Exception('postID not in database');
         }
         $postID=$_POST['postID'];
         $post=new Post();
@@ -195,7 +196,7 @@ switch($action){
         $postDB->write_like();
         $data['status']='success';
         echo json_encode($data);
-        }catch(Exeception $err){
+        }catch(Exception $err){
             $msg=$err->getMessage();
             $data['message']=$msg;
             $data['status']='failed';
@@ -226,7 +227,7 @@ switch($action){
             array_push($ele,$data);
         }
         echo json_encode($data);
-        }catch(Exeception $err){
+        }catch(Exception $err){
             $data['status']='failed';
             $data['message']='could not load more comments';
             echo json_encode($data);
@@ -247,7 +248,7 @@ switch($action){
             }
             
             echo json_encode($data);
-        }catch(Exeception $err){
+        }catch(Exception $err){
             $data['status']='failed';
             $data['message']='could not load more posts';
             echo json_encode($data);

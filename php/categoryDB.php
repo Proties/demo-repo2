@@ -14,12 +14,15 @@ class CategoryDB extends Database{
 
             $db=$this->get_connection();
             $query="
-                    SELECT categoryID,categoryName,u1.username,imageFilePath,imageFileName,imageFilePath as image2f,imageFileName as image2n FROM category c1
-INNER JOIN post_category pc1 ON c1.categoryID=pc1.categoryID
-INNER JOIN post p1 ON c1.categoryID=p1.categoryID
-INNER JOIN Users u1 ON p1.userID=u1.userID
-WHERE c1.categoryName='name'
-LIMIT 5;
+                    SELECT c1.categoryID,c1.categoryName,u1.username,p1.postLinkID,p1.postLink,p2.postLinkID as image2f,p2.postLink as image2n FROM category as c1
+                    INNER JOIN post_category as pc1 ON c1.categoryID=pc1.categoryID
+                    INNER JOIN post as p1 ON pc1.postID=p1.postID
+                    INNER JOIN post as p2 ON pc1.postID=p2.postID
+                    INNER JOIN Users as u1 ON p1.userID=u1.userID
+                    WHERE c1.categoryName=:name
+                    AND p1.postID<>p2.postID
+                    GROUP BY (u1.username)
+                    LIMIT 5;
                 ";
             $stmt=$db->prepare($query);
             $stmt->bindValue(':name',$this->category->get_categoryName());

@@ -22,13 +22,19 @@ xml.send('action=initialise_image');
 // this function checks the url to see if a post has been selected if so it will get data from the serve
 function open_postPreview(){
     let url=window.location.href;
-    const pattern=/(\/@[a-zA-Z]{3,17})(\/[a-zA-Z0-9]){5,20}/;
+    const pattern=/^(\/\@[a-zA-Z]+)(\/[a-zA-Z0-9]+)$/;
     console.log(url);
-    if(pattern.test(url)){
-        console.log(url);
+    console.log('prviewing post working');
+    
+    if(!pattern.test(url)){
+        console.log('not valid post');
+        history.replaceState(null,null,'/');
+        return;
+    }
+    console.log('valid post');
     try{
         let xm=new XMLHttpRequest();
-        xm.open('POST','/');
+        xm.open('GET',url);
         xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xm.onload=function(){
             let data=JSON.parse(this.responseText);
@@ -40,7 +46,7 @@ function open_postPreview(){
     }catch(err){
         console.log(err);
     }
-}
+
 return false;
 
 }
@@ -153,8 +159,13 @@ function show_coment(){
             xml.onload=function(){
                 console.log('submitted');
                 console.log(this.responseText);
+                let data=JSON.parse(this.responseText);
                 if(data.status=='success'){
+                    alert('you have comment');
                     container.style.display='none';
+                }
+                if(data.status=='failed'){
+                    alert('could not comment');
                 }
             }
             xml.setRequestHeader('Content-type','application/x-www-form-urlencoded');
@@ -170,15 +181,22 @@ function like_post(evt){
     let postEle=ele.parentNode.parentNode.parentNode;
 
     try{
-        console.log(postEle);
-        let t=postEle.getElementsByClassName("post")[0];
-        console.log(t);
-        // let xml=new XMLHttpRequest();
-        // xml.onload=function(){}
-        // xml.open('POST','/');
-        // xml.setRequestHeader('Content-type','application/x-www-form-urlencoded');
-        // xml.send('action=like&postID=postEle');
-        alert('you have liked the post');
+        let id=postEle.id;
+        // let t=postEle.getElementsByClassName("post")[0];
+        // console.log(t);
+        let xml=new XMLHttpRequest();
+        xml.onload=function(){
+            let data=JSON.parse(this.responseText);
+            if(data.status=='success'){
+                alert('you have liked');
+            }
+            if(data.status=='failed'){
+                alert('could not like');
+            }
+        }
+        xml.open('POST','/');
+        xml.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+        xml.send('action=like&postID='+id);
     }catch(err){
         console.log(err);
     }
@@ -288,6 +306,7 @@ eventListeners();
 function openModal(evt) {
    
     let postTitle='happy';
+    console.log(evt.target);
     let postImageSrc=evt.target.src;
     const modal = document.getElementById("postModal");
     const modalPostImage = document.getElementById("modalPostImage");
@@ -321,6 +340,7 @@ function openModal(evt) {
 }
 
 function closeModal() {
+    history.replaceState(null, null, '/');
     const modal = document.getElementById("postModal");
     modal.style.display = "none";
 }

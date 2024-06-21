@@ -25,6 +25,7 @@ public function chrono(Array $arr){
 }
 
 public static function stored_posts(){
+    $arr=[];
     return $arr;
     // if stored users is under 10 add new user
     // if stored users if 10 do nothing 
