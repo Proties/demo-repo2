@@ -145,7 +145,7 @@ function validate_caption($txt){
     return $msg;
 }
 function validate_postLink($txt){
-    $pattern='/^(\/\@[a-z0-9]+)(\/[a-z0-9]+)$/';
+   $pattern='/^\/\@([a-zA-Z\s\-\_]+)(\/[a-zA-Z0-9]+)$/i';
     if(preg_match($pattern,$txt)){
         return true;
     }

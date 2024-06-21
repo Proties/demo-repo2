@@ -173,7 +173,7 @@ switch($action){
         $text=$_POST['text'];
         $comment=new Comment();
         $postID=$postDB->get_postID_from_link($_POST['postID']);
-        $comment->set_postID($postID);
+        $comment->set_postID($postID['postID']);
         $comment->set_comment($text);
         $comment->set_userID($_SESSION['userID']);
       

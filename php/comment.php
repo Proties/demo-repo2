@@ -8,12 +8,18 @@ class Comment{
     private $comments;
     private $userID;
     private $postID;
+    private $status;
+
     private $id;
 
     public function __construct(){
         $this->id=null;
+        $this->status='';
         $this->date=date('Y:m:d');
         $this->time=date('h:i');
+    }
+    public function set_status($id){
+        $this->status=$id;
     }
     public function set_id($id){
         $this->id=$id;
@@ -57,6 +63,9 @@ class Comment{
     }
     public function get_comments(){
         return $this->comments;
+    }
+    public function get_status(){
+        return $this->status;
     }
 
     public function initialise($arr){

@@ -13,17 +13,15 @@ $user=new Users();
 $post=new Post();
 $userDB=new UserDB($user);
 $postDB=new PostDB($post);
-
-// var_dump($txt);
-// return ;
-if($post->validate_postLink($f_txt)==true){
+// var_dump($f_txt);
+// var_dump($post->validate_postLink($f_txt));
+// return;
+if($post->validate_postLink($f_txt)){
     // if($postDB->validate_in_db_postLink($txt)==true){
         $data=[];
         $cs;
         if(isset($_POST['action'])){
            $cs=$_POST['action']; 
-        
-        
         switch($cs){
             case 'initialise_preview':
                 echo 'works';
@@ -39,25 +37,39 @@ if($post->validate_postLink($f_txt)==true){
                 echo 'things just works';
             break;
         }
-    }
-        $postDB=new PostDB();
+    }   
+    try{
+        $post=new Post();
+        $postDB=new PostDB($post);
+        $link=substr($f_txt,strrpos($f_txt,"/")+1);
+        
+
+        $postID=$postDB->get_postID_from_link($link);
+       
         $comment=new Comment();
-        $comment->set_id();
-        $comment->set_postID();
+        $comment->set_postID($postID['postID']);
         $commentDB=new CommentDB($comment);
-        $arrayComment=$commentDB->read_comments();
+        $commentDB->read_comments();
+        $arrayComment=$commentDB->comment->get_comments();
+        if(!is_array($arrayComment)){
+            echo 'empty';
+            return;
+        }
         $len=count($arrayComment);
         for($c=0;$c<$len;$c++){
             $user->set_username($arrayComment[$c]['username']);
-            $comment->set_commentID($arrayComment[$c]['commentID']);
-            $comment->set_comment($arrayComment[$c]['comment']);
-            $data['comments'][$c]=array('username'=>$user->get_username(),'comment'=>$comment->get_comment());
+            $comment->set_id($arrayComment[$c]['commentID']);
+            $comment->set_comment($arrayComment[$c]['commentText']);
+            $data['comments'][$c]=array('username'=>$arrayComment[$c]['username'],'comment'=>$comment->get_comment());
         }
-        $data=array('status'=>'success');
+        $data['status']='success';
         echo json_encode($data);
-        var_dump($data);
-        return;
-   
+    }catch(Exception $err){
+        $data['status']='failed';
+        $data['message']=$err->getMessage();
+        echo json_encode($data);
+    }
+   return;
     
 
 // }

@@ -139,9 +139,29 @@ function select_post(evt){
 function show_coment(evt){
     let commentForm=document.getElementById("commentForm");
     let postElement=evt.target.parentNode.parentNode;
-    if(postElement.className=='post-conatiner'){}
+    if(postElement.className=='post-container'){
+        console.log('work as intend');
+        console.log('work as intend');
+        console.log('work as intend');
+    }
     if(postElement.className=='postfeed-wrapper'){
-        postElement.getElementsByClassName("post-conatiner")[0];
+        postElement=postElement.getElementsByClassName("post-container")[0];
+        console.log('does not work as intend');
+        console.log('does not work as intend');
+        console.log('does not work as intend');
+    }if(postElement.className=='post-actions'){
+        postElement=postElement.parentNode;
+    }
+    if(postElement.id==""){
+    console.log(postElement);
+    console.log('does not work as intend');
+    console.log('does not work as intend');
+    }
+    for(let cf=0;cf<commentForm.childNodes.length;cf++){
+        if(commentForm.childNodes[cf].id=='postID'){
+            commentForm.removeChild(commentForm.childNodes[cf]);
+
+        }
     }
     let h=document.createElement('input');
     h.type='hidden';
@@ -167,6 +187,9 @@ function show_coment(evt){
         evt.preventDefault();
         let id=document.getElementById('postID').value;
         let data='&postID='+id+"&text="+txt;
+        console.log("========data=======");
+        console.log(data);
+        console.log("=========data=======");
         try{
             let xml=new XMLHttpRequest();
             xml.open('POST','/');
@@ -348,12 +371,13 @@ function openModal(evt) {
  
     try{
         let xml=new XMLHttpRequest();
-        xml.open('POST','');
+        xml.open('GET',profile.id+'/'+cont.id);
         xml.onload=function(){
             console.log(this.responseText);
         }
-        xml.setRequestHeader('Content-type','application/x-www-form-urlencoded');
-        xml.send("action=initialise_preview");
+        // xml.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+        // xml.send("action=initialise_preview");
+        xml.send();
     }catch(err){
         console.log(err);
     }
