@@ -1,6 +1,8 @@
 <?php
 session_start();
-
+setcookie("users", json_encode(Ranking::stored_posts($arr=[])['users']), time() + (86400 * 30), "/");
+// Delete the cookie "users"
+// setcookie("users", "", time() - 3600, "/");
 if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('Htmlfiles/Homepage.html');
     return;
@@ -52,17 +54,10 @@ switch($action){
         $arrayPosts=[];
         $info=[];
         $categories=[];
-        // var_dump(Ranking::stored_posts($arr=[]));
+
+        // var_dump(apcu_fetch('user'));
         // return;
-        if(is_array(Ranking::stored_posts($arr=[]))){
-            
-            $info=Ranking::stored_posts($arr=[])['users'];
-        }
-        else{
-            $rank=new Ranking();
-            $info=$rank->chrono($arrayPosts);
-            apcu_store('users',$info,3600);
-        }
+       
        
         if(is_array(CategoryDB::stored_categories($arr=[]))){
             $categories=CategoryDB::stored_categories($arr=[])['categories'];
@@ -70,19 +65,28 @@ switch($action){
             $category=new Category();
             $categoryDB=new CategoryDB($category);
             $categories=$categoryDB->read_category();
-            apcu_store('categories', $categories,3600);
-        }
+            
         
-        $arrLen=count($info);
+        
+        
         if(!is_array($categories)){
             $data['categories']='do not exists';
         }else{
             $catLen=count($categories);
-           for($i=0;$i<$catLen;$i++){
+            for($i=0;$i<$catLen;$i++){
             $data['categories'][]=array('categoryName'=>$categories[$i]['categoryName'],'categoryId'=>$categories[$i]['categoryID']);
         } 
+        apcu_store('categories', $data['categories'],3600);
         }
-     
+        }
+        if(is_array(Ranking::stored_posts($arr=[]))){
+            $info=Ranking::stored_posts($arr=[])['users'];
+        }
+        else{
+            $rank=new Ranking();
+            $info=$rank->chrono($arrayPosts);
+            
+        $arrLen=count($info);
         for($x=0;$x<$arrLen;$x++){
             $user=new Users();
       
@@ -114,38 +118,14 @@ switch($action){
                 'postID'=>$secondary_post->get_postID(),
                 'postLinkID'=>$secondary_post->get_postLinkID()
             ));
+
                 
             // if(isset($_SESSION['userID'])){
             //     $postDB->addServeredPost($_SESSION['userID']);
             // }
         }
-        $ims=Ranking::stored_posts($arr=[])['users'];
-        $images=[];
-        $lenIms=count($ims);
-        for($i=0;$i<$lenIms;$i++){
-            array_push($images,$ims[$i]['postLink']);
-            array_push($images,$ims[$i]['post2Link']);
-        }
-        header('Content-Type: image/png');
-        header('Cache-Control: max-age='.(60*60*24));
-        header('Expires: '.gmdate(DATE_RFC1123,time()+60*60*24));
-        // header('ETag');
-        function get_max_last_modified($images) {
-            $max_last_modified = 0;
-            foreach ($images as $file) {
-                $last_modified = filemtime($file); // or fileatime() for last access time
-                if ($last_modified > $max_last_modified) {
-                    $max_last_modified = $last_modified;
-                }
-            }
-            return $max_last_modified;
-        }
-        $last=get_max_last_modified($images);
-        // $h=array(
-        //     'If-Modified-Since: '.$last
-        // );
-        header('Last-Modified: '.gmdate(DATE_RFC1123,$last)); 
-        
+        apcu_store('users',$data['users'],3600);  
+        }  
         echo json_encode($data); 
         
         break;

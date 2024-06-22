@@ -1,4 +1,34 @@
 "strict"
+function get_ish_form_cookie(){
+    let data=document.cookie;
+    let n="users=";
+    let decoded=decodeURIComponent(data);
+    let sp=decoded.split(';');
+    for(let i=0;i<sp.length;i++){
+        
+        let c=sp[i];
+     
+        while(c.charAt(0)==' '){
+            c=c.substring(1);
+        }if(c.indexOf(n)==0){
+           
+            let parsed=c.substring(n.length,c.length);
+            
+            let dtt=JSON.parse(parsed);
+            console.log(dtt);
+            console.log(dtt);
+            init_img(dtt);
+            return;
+
+        }
+    }
+    
+}
+get_ish_form_cookie();
+// init_user(dtt.user);
+// init_categories(dtt.categories);
+
+// console.log(JSON.parse(dtt));
 // this function get post data like images,athtorname form the server
 function initialise_image(){
     try{
@@ -325,6 +355,7 @@ function init_categories(arr){
     }
 }
 function init_img(arr){
+    console.log(arr);
     if(!Array.isArray(arr)){
         return;
     }
@@ -345,7 +376,7 @@ function init_img(arr){
     }
 }
 open_postPreview();
-initialise_image();
+// initialise_image();
 eventListeners();
 
 

@@ -31,6 +31,7 @@ if($post->validate_postLink($f_txt)){
             break;
             case 'get_more_comments':
                 $c=new Comment();
+                $cDB=new CommentDB($c);
                 $c->set_id($_POST['commentID']);
                 $c->read_more();
                 echo json_encode($data);
