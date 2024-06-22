@@ -9,13 +9,14 @@ class CategoryDB extends Database{
     public function get_category(){
         return $this->category;
     }
-    public static function stored_categories(){
-        $arr=[];
-        $arr['categories']=apcu_fetch('categories');
-        if($arr['categories']!==false){
-            return $arr;
+    public static function stored_categories(Array $arr){
+        $store=[];
+        $status=apcu_fetch('categories');
+        if($status==false){
+            return false;;
         }
-        return $arr;
+        $store['categories']=apcu_fetch('categories');
+        return $store;
     }
     public function read_posts(){
         try{

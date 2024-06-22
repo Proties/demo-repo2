@@ -6,6 +6,7 @@ function initialise_image(){
     xml.open('POST', '/');
     xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xml.onreadystatechange = function() {
+        if(this.readyState==4){
         // console.log(this.responseText);
         let data=JSON.parse(this.responseText);
         // document.getElementsByClassName('profile-link').href="@"+data.user.user_info.username;
@@ -13,6 +14,7 @@ function initialise_image(){
         init_user(data.user);
         init_categories(data.categories);
         init_img(data.users);
+        }
 }
 xml.send('action=initialise_image');
     }catch(err){

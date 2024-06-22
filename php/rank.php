@@ -24,14 +24,14 @@ public function chrono(Array $arr){
     }
 }
 
-public static function stored_posts(){
-    $arr=[];
-    $arr[]=apcu_fetch('users');
-    if($arr[0]!==false){
-        return $arr;
+public static function stored_posts(array $arr){
+    $store=[];
+    $status=apcu_fetch('users');
+    if($status==false){
+        return false;
     }
-    apcu_add('users','hello');
-    return $arr;
+    $store['users']=apcu_fetch('users');
+    return $store;
 }
 public function Basic(Array $arr){
     try{

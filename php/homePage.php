@@ -38,9 +38,9 @@ switch($action){
         'comments'=>$post_two->get_comments(),
         'postID'=>$post_two->get_id()
         );
-        if(isset($_SESSION['userID'])){
-            $postDB->addViewedPost($_SESSION['userID']);
-        }
+        // if(isset($_SESSION['userID'])){
+        //     $postDB->addViewedPost($_SESSION['userID']);
+        // }
         
         echo json_encode($data);
         break;
@@ -52,21 +52,25 @@ switch($action){
         $arrayPosts=[];
         $info=[];
         $categories=[];
-        if(count(Ranking::stored_posts())>1){
-            $info=Ranking::stored_posts();
+        // var_dump(Ranking::stored_posts($arr=[]));
+        // return;
+        if(is_array(Ranking::stored_posts($arr=[]))){
             
-        }else{
+            $info=Ranking::stored_posts($arr=[])['users'];
+        }
+        else{
             $rank=new Ranking();
             $info=$rank->chrono($arrayPosts);
-            apcu_add('users',$info);
+            apcu_store('users',$info,3600);
         }
-        if(count(CategoryDB::stored_categories())>1){
-            $categories=CategoryDB::stored_categories();
+       
+        if(is_array(CategoryDB::stored_categories($arr=[]))){
+            $categories=CategoryDB::stored_categories($arr=[])['categories'];
         }else{
             $category=new Category();
             $categoryDB=new CategoryDB($category);
             $categories=$categoryDB->read_category();
-            apcu_add('categories', $categories);
+            apcu_store('categories', $categories,3600);
         }
         
         $arrLen=count($info);
@@ -111,13 +115,39 @@ switch($action){
                 'postLinkID'=>$secondary_post->get_postLinkID()
             ));
                 
-            if(isset($_SESSION['userID'])){
-                $postDB->addServeredPost($_SESSION['userID']);
-            }
+            // if(isset($_SESSION['userID'])){
+            //     $postDB->addServeredPost($_SESSION['userID']);
+            // }
         }
-            
+        $ims=Ranking::stored_posts($arr=[])['users'];
+        $images=[];
+        $lenIms=count($ims);
+        for($i=0;$i<$lenIms;$i++){
+            array_push($images,$ims[$i]['postLink']);
+            array_push($images,$ims[$i]['post2Link']);
+        }
+        header('Content-Type: image/png');
+        header('Cache-Control: max-age='.(60*60*24));
+        header('Expires: '.gmdate(DATE_RFC1123,time()+60*60*24));
+        // header('ETag');
+        function get_max_last_modified($images) {
+            $max_last_modified = 0;
+            foreach ($images as $file) {
+                $last_modified = filemtime($file); // or fileatime() for last access time
+                if ($last_modified > $max_last_modified) {
+                    $max_last_modified = $last_modified;
+                }
+            }
+            return $max_last_modified;
+        }
+        $last=get_max_last_modified($images);
+        // $h=array(
+        //     'If-Modified-Since: '.$last
+        // );
+        header('Last-Modified: '.gmdate(DATE_RFC1123,$last)); 
         
-        echo json_encode($data);
+        echo json_encode($data); 
+        
         break;
     case 'select_category':
         $data=[];
