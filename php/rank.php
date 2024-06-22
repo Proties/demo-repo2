@@ -30,7 +30,7 @@ public static function stored_posts(array $arr){
     if($status==false){
         return false;
     }
-    $store['users']=apcu_fetch('users');
+    $store=apcu_fetch('users');
     return $store;
 }
 public function Basic(Array $arr){

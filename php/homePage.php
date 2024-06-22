@@ -1,8 +1,11 @@
 <?php
 session_start();
-setcookie("users", json_encode(Ranking::stored_posts($arr=[])['users']), time() + (86400 * 30), "/");
+setcookie("users", json_encode(Ranking::stored_posts($arr=[])), time() + (86400 * 30), "/");
 // Delete the cookie "users"
 // setcookie("users", "", time() - 3600, "/");
+
+// var_dump(Ranking::stored_posts($arr=[]));
+// return;
 if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('Htmlfiles/Homepage.html');
     return;
@@ -55,10 +58,6 @@ switch($action){
         $info=[];
         $categories=[];
 
-        // var_dump(apcu_fetch('user'));
-        // return;
-       
-       
         if(is_array(CategoryDB::stored_categories($arr=[]))){
             $categories=CategoryDB::stored_categories($arr=[])['categories'];
         }else{
@@ -80,7 +79,7 @@ switch($action){
         }
         }
         if(is_array(Ranking::stored_posts($arr=[]))){
-            $info=Ranking::stored_posts($arr=[])['users'];
+            $info=Ranking::stored_posts($arr=[]);
         }
         else{
             $rank=new Ranking();
