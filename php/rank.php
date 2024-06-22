@@ -26,11 +26,12 @@ public function chrono(Array $arr){
 
 public static function stored_posts(){
     $arr=[];
+    $arr[]=apcu_fetch('users');
+    if($arr[0]!==false){
+        return $arr;
+    }
+    apcu_add('users','hello');
     return $arr;
-    // if stored users is under 10 add new user
-    // if stored users if 10 do nothing 
-    // stored categories
-    // stored user and catogories
 }
 public function Basic(Array $arr){
     try{

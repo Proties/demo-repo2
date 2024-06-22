@@ -5,7 +5,7 @@ function initialise_image(){
         let xml = new XMLHttpRequest();
     xml.open('POST', '/');
     xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xml.onload = function() {
+    xml.onreadystatechange = function() {
         // console.log(this.responseText);
         let data=JSON.parse(this.responseText);
         // document.getElementsByClassName('profile-link').href="@"+data.user.user_info.username;
@@ -36,7 +36,7 @@ function open_postPreview(){
         let xm=new XMLHttpRequest();
         xm.open('GET',url);
         xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xm.onload=function(){
+        xm.onreadystatechange=function(){
             let data=JSON.parse(this.responseText);
             openModal(data);
             console.log(data);
@@ -60,7 +60,7 @@ function search_user(){
     
     try{
         let xml=new XMLHttpRequest();
-        xml.onload=function(){
+        xml.onreadystatechange=function(){
             let data=JSON.parse(this.responseText);
             console.log(data.searchResults);
             list.style.display='block';
@@ -111,7 +111,7 @@ function select_category(evt){
         let xm=new XMLHttpRequest();
         xm.open('POST','/');
         xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xm.onload=function (){
+        xm.onreadystatechange=function (){
             console.log(this.responseText);
             let data=JSON.parse(this.responseText);
             let posts=[];
@@ -193,7 +193,7 @@ function show_coment(evt){
         try{
             let xml=new XMLHttpRequest();
             xml.open('POST','/');
-            xml.onload=function(){
+            xml.onreadystatechange=function(){
                 console.log('submitted');
                 console.log(this.responseText);
                 let data=JSON.parse(this.responseText);
@@ -227,7 +227,7 @@ function like_post(evt){
         // let t=postEle.getElementsByClassName("post")[0];
         // console.log(t);
         let xml=new XMLHttpRequest();
-        xml.onload=function(){
+        xml.onreadystatechange=function(){
             let data=JSON.parse(this.responseText);
             console.log(data);
             console.log('liking post');
@@ -372,7 +372,7 @@ function openModal(evt) {
     try{
         let xml=new XMLHttpRequest();
         xml.open('GET',profile.id+'/'+cont.id);
-        xml.onload=function(){
+        xml.onreadystatechange=function(){
             console.log(this.responseText);
         }
         // xml.setRequestHeader('Content-type','application/x-www-form-urlencoded');

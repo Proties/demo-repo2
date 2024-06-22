@@ -46,18 +46,29 @@ switch($action){
         break;
     case 'initialise_image':
         $data=[];
-        if(is_array(Ranking::stored_posts())){
-
-            
-        }
+        
         
         $data['user']=array('username'=>$mainUser->get_username(),'userID'=>$mainUser->get_id());
         $arrayPosts=[];
-        $rank=new Ranking();
-        $info=$rank->chrono($arrayPosts);
-        $categories=new Category();
-        $categories=new CategoryDB($categories);
-        $categories->read_category();
+        $info=[];
+        $categories=[];
+        if(count(Ranking::stored_posts())>1){
+            $info=Ranking::stored_posts();
+            
+        }else{
+            $rank=new Ranking();
+            $info=$rank->chrono($arrayPosts);
+            apcu_add('users',$info);
+        }
+        if(count(CategoryDB::stored_categories())>1){
+            $categories=CategoryDB::stored_categories();
+        }else{
+            $category=new Category();
+            $categoryDB=new CategoryDB($category);
+            $categories=$categoryDB->read_category();
+            apcu_add('categories', $categories);
+        }
+        
         $arrLen=count($info);
         if(!is_array($categories)){
             $data['categories']='do not exists';
