@@ -18,6 +18,8 @@ function get_ish_form_cookie(){
             console.log(dtt);
             console.log(dtt);
             init_img(dtt);
+            // init_user(dtt.user);
+            // init_categories(dtt.categories);
             return;
 
         }
@@ -25,8 +27,6 @@ function get_ish_form_cookie(){
     
 }
 get_ish_form_cookie();
-// init_user(dtt.user);
-// init_categories(dtt.categories);
 
 // console.log(JSON.parse(dtt));
 // this function get post data like images,athtorname form the server

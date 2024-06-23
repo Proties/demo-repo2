@@ -1,6 +1,9 @@
 <?php
 session_start();
-setcookie("users", json_encode(Ranking::stored_posts($arr=[])), time() + (86400 * 30), "/");
+if(is_array(Ranking::stored_posts($arr=[]))){
+  setcookie("users", json_encode(Ranking::stored_posts($arr=[])), time() + (86400 * 30), "/");  
+}
+
 // Delete the cookie "users"
 // setcookie("users", "", time() - 3600, "/");
 
@@ -75,7 +78,7 @@ switch($action){
             for($i=0;$i<$catLen;$i++){
             $data['categories'][]=array('categoryName'=>$categories[$i]['categoryName'],'categoryId'=>$categories[$i]['categoryID']);
         } 
-        apcu_store('categories', $data['categories'],3600);
+        apcu_store('categories', $data['categories'],3600*9);
         }
         }
         if(is_array(Ranking::stored_posts($arr=[]))){
@@ -123,7 +126,7 @@ switch($action){
             //     $postDB->addServeredPost($_SESSION['userID']);
             // }
         }
-        apcu_store('users',$data['users'],3600);  
+        apcu_store('users',$data['users'],3600*9);  
         }  
         echo json_encode($data); 
         
