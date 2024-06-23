@@ -18,8 +18,8 @@ function get_ish_form_cookie(){
             console.log(dtt);
             console.log(dtt);
             init_img(dtt);
-            // init_user(dtt.user);
-            // init_categories(dtt.categories);
+            init_user(dtt.user);
+            init_categories(dtt.categories);
             return;
 
         }

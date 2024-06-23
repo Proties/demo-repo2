@@ -3,12 +3,8 @@ session_start();
 if(is_array(Ranking::stored_posts($arr=[]))){
   setcookie("users", json_encode(Ranking::stored_posts($arr=[])), time() + (86400 * 30), "/");  
 }
-
 // Delete the cookie "users"
-// setcookie("users", "", time() - 3600, "/");
-
-// var_dump(Ranking::stored_posts($arr=[]));
-// return;
+setcookie("users", "", time() - 3600, "/");
 if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('Htmlfiles/Homepage.html');
     return;
