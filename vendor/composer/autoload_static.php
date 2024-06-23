@@ -48,6 +48,7 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         'Location' => __DIR__ . '/../..' . '/php/loaction.php',
         'LocationDB' => __DIR__ . '/../..' . '/php/locationDB.php',
         'MainUser' => __DIR__ . '/../..' . '/php/mainUser.php',
+        'Network' => __DIR__ . '/../..' . '/php/network.php',
         'Post' => __DIR__ . '/../..' . '/php/post.php',
         'PostDB' => __DIR__ . '/../..' . '/php/postDB.php',
         'Ranking' => __DIR__ . '/../..' . '/php/rank.php',

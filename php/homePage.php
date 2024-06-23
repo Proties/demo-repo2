@@ -1,11 +1,20 @@
 <?php
 session_start();
+use Monolog\Level;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+$log=new Logger('start');
+$log->pushHandler(new StreamHandler('file.log',Level::Warning));
+$log->warning('hello');
+$log->error('hello bye');
+
 if(isset($_SESSION['username'])){
     setcookie('username',$_SESSION['username'], time() + (86400 * 30), '/'); 
 }
 if(is_array(Ranking::stored_posts($arr=[])) AND count(Ranking::stored_posts($arr=[]))>1){
   setcookie('users', json_encode(Ranking::stored_posts($arr=[])), time() + (86400 * 30), '/');  
 }else{
+    try{
     $arrayPosts=[];
     $rank=new Ranking();
     $info=$rank->chrono($arrayPosts);
@@ -49,7 +58,9 @@ if(is_array(Ranking::stored_posts($arr=[])) AND count(Ranking::stored_posts($arr
     }
     apcu_store('users',$data['users'],3600*9); 
     setcookie('users', json_encode(Ranking::stored_posts($arr=[])), time() + (86400 * 30), '/');
-
+}catch(Exception $err){
+    $log->info($err->getMessage());
+}
 }
 // Delete the cookie "users"
 
@@ -77,6 +88,7 @@ if(isset($_SESSION['commentsServed'])){
 $action=$_POST['action'];
 switch($action){
     case 'initialise_post_preview':
+        try{
         $post=new Post();
         $post->set_postLink($_SERVER['REQUEST_URI']);
         $postDB=new PostDB($post);
@@ -95,8 +107,12 @@ switch($action){
         // }
         
         echo json_encode($data);
+    }catch(Exception $err){
+        $log->info($err->getMessage());
         break;
+    }
     case 'initialise_image':
+        try{
         $data=[];
         $data['user']=array('username'=>$mainUser->get_username(),'userID'=>$mainUser->get_id());
         $arrayPosts=[];
@@ -165,6 +181,10 @@ switch($action){
         apcu_store('users',$data['users'],3600*9);  
         }  
         echo json_encode($data); 
+    }
+    catch(Exception $err){
+        $log->info($err->getMessage());
+    }
         
         break;
     case 'select_category':

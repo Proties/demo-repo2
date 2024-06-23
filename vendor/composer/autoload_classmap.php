@@ -21,6 +21,7 @@ return array(
     'Location' => $baseDir . '/php/loaction.php',
     'LocationDB' => $baseDir . '/php/locationDB.php',
     'MainUser' => $baseDir . '/php/mainUser.php',
+    'Network' => $baseDir . '/php/network.php',
     'Post' => $baseDir . '/php/post.php',
     'PostDB' => $baseDir . '/php/postDB.php',
     'Ranking' => $baseDir . '/php/rank.php',
