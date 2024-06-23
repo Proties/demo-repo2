@@ -3,11 +3,56 @@ session_start();
 if(isset($_SESSION['username'])){
     setcookie('username',$_SESSION['username'], time() + (86400 * 30), '/'); 
 }
-if(is_array(Ranking::stored_posts($arr=[]))){
+if(is_array(Ranking::stored_posts($arr=[])) AND count(Ranking::stored_posts($arr=[]))>1){
   setcookie('users', json_encode(Ranking::stored_posts($arr=[])), time() + (86400 * 30), '/');  
+}else{
+    $arrayPosts=[];
+    $rank=new Ranking();
+    $info=$rank->chrono($arrayPosts);
+    $arrLen=count($info);
+    for($x=0;$x<$arrLen;$x++){
+        $user=new Users();
+  
+        $primary_post=new Post();
+
+        $user->set_username($info[$x]['username']);
+        $string=$info[$x]['postLink'];
+        $path=substr($string,0,strpos($string, '/'));
+        $name=substr($string,strpos($string, '/'));
+        $primary_post->set_postLinkID($info[$x]['postLinkID']);
+        $primary_post->set_postID($info[$x]['postID']);
+        $primary_post->image->set_filename($name);
+        $primary_post->image->set_filePath($path);
+        
+        $secondary_post=new Post();
+        $string_two=$info[$x]['post2Link'];
+        $path_two=substr($string,0,strpos($string, '/'));
+        $name_two=substr($string,strpos($string, '/'));
+        $secondary_post->set_postID($info[$x]['post2ID']);
+        $secondary_post->set_postLinkID($info[$x]['post2LinkID']);
+        $secondary_post->image->set_filename($name_two);
+        $secondary_post->image->set_filePath($path_two);
+        $data['users'][]=array(
+            'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
+            'primary_post'=>array('img'=>$primary_post->image->get_filePath().$primary_post->image->get_fileName(),
+            'postID'=>$primary_post->get_postID(),
+            'postLinkID'=>$primary_post->get_postLinkID()),
+            'secondary_post'=>array('img'=>$secondary_post->image->get_filePath().$secondary_post->image->get_fileName(),
+            'postID'=>$secondary_post->get_postID(),
+            'postLinkID'=>$secondary_post->get_postLinkID()
+        ));
+
+            
+        // if(isset($_SESSION['userID'])){
+        //     $postDB->addServeredPost($_SESSION['userID']);
+        // }
+    }
+    apcu_store('users',$data['users'],3600*9); 
+    setcookie('users', json_encode(Ranking::stored_posts($arr=[])), time() + (86400 * 30), '/');
+
 }
 // Delete the cookie "users"
-// setcookie('users', '', time() - 3600, '/');
+
 if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('Htmlfiles/Homepage.html');
     return;

@@ -1,16 +1,20 @@
 "strict"
 function get_cookie(name){
     let data=document.cookie;
+
     let dec=decodeURIComponent(data);
     let sp=dec.split(';');
     for(let x=0;x<sp.length;x++){
         let c=sp[x];
+        console.log(c);
         while(c.charAt(0)==' '){
+            console.log(c);
             c=c.substring(1);
             if(c.indexOf(name)==0){
-           
+                console.log(c);
             let parsed=c.substring(name.length,c.length);
             let dtt=JSON.parse(parsed);
+
             return dtt;
         }
     }
@@ -18,6 +22,7 @@ function get_cookie(name){
 }
 function get_ish_form_cookie(){
             let data=get_cookie("users=");
+            console.log(data);
             init_img(data);
             // init_user(dtt.user);
             // init_categories(dtt.categories);
@@ -274,6 +279,24 @@ function like_post(evt){
     }
 
 }
+async function display_more_users(evt){
+    console.log(evt);
+    let postConatiner=document.getElementsByClassName("post-container")[0];
+    let container=document.getElementsByClassName("postfeed-wrapper")[0];
+    let more=await more_posts();
+    for(let i=0;i<5;i++){
+        let p=postConatiner.cloneNode(true);
+        p.id=more[i].primary_post.id;
+        let us=p.getElementsByClassName('profile-button')[0].id=more[i].user_info.username;
+        let top=p.getElementsByClassName('top-post')[0];
+        top.getElementsByTagName('img')[0].src=more[i].primary_post.img;
+        let bottom=p.getElementsByClassName('bottom-post')[0];
+        bottom.getElementsByTagName('img')[0].src=more[i].secondary_post.img;
+        let num=container.childNodes;
+        container.append(p);
+    }
+
+}
 // this function listens to all events that take place ont the site and handles them
 function eventListeners(){
     let userProfile=document.getElementsByClassName("profile-button");
@@ -283,6 +306,7 @@ function eventListeners(){
     let selectTopPost=document.getElementsByClassName("top-post");
     let selectBottomPost=document.getElementsByClassName("bottom-post");
     let commentPost=document.getElementsByClassName("comment-button");
+    let viewMore=document.getElementsByClassName("view-more-btn")[0];
     let registerBtn = document.querySelector(".register-button");
     let closeReg = document.getElementById("closeModalReg");
     let modal = document.getElementById("registerModal");
@@ -291,6 +315,7 @@ function eventListeners(){
     // let morePosts=document.getElementById("");
 
     search_input.addEventListener("input",search_user);
+    viewMore.addEventListener("click",display_more_users);
     // morePosts.addEventListener("click",more_posts);
     for(let i=0;i<selectcategory.length;i++){
         selectcategory[i].addEventListener('click',select_category);
