@@ -1,10 +1,13 @@
 <?php
 session_start();
+if(isset($_SESSION['username'])){
+    setcookie('username',$_SESSION['username'], time() + (86400 * 30), '/'); 
+}
 if(is_array(Ranking::stored_posts($arr=[]))){
-  setcookie("users", json_encode(Ranking::stored_posts($arr=[])), time() + (86400 * 30), "/");  
+  setcookie('users', json_encode(Ranking::stored_posts($arr=[])), time() + (86400 * 30), '/');  
 }
 // Delete the cookie "users"
-setcookie("users", "", time() - 3600, "/");
+// setcookie('users', '', time() - 3600, '/');
 if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('Htmlfiles/Homepage.html');
     return;
@@ -50,23 +53,16 @@ switch($action){
         break;
     case 'initialise_image':
         $data=[];
-        
-        
         $data['user']=array('username'=>$mainUser->get_username(),'userID'=>$mainUser->get_id());
         $arrayPosts=[];
         $info=[];
         $categories=[];
-
         if(is_array(CategoryDB::stored_categories($arr=[]))){
             $categories=CategoryDB::stored_categories($arr=[])['categories'];
         }else{
             $category=new Category();
             $categoryDB=new CategoryDB($category);
             $categories=$categoryDB->read_category();
-            
-        
-        
-        
         if(!is_array($categories)){
             $data['categories']='do not exists';
         }else{
@@ -83,7 +79,6 @@ switch($action){
         else{
             $rank=new Ranking();
             $info=$rank->chrono($arrayPosts);
-            
         $arrLen=count($info);
         for($x=0;$x<$arrLen;$x++){
             $user=new Users();

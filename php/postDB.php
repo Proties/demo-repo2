@@ -1,6 +1,6 @@
 <?php 
 class PostDB extends Database{
-    private $post;
+    public $post;
     public function __construct(Post $post){
         Database::__construct();
         $this->post=$post;

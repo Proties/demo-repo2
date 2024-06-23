@@ -1,27 +1,58 @@
 <?php
 session_start();
+$f_txt=$_SERVER['REQUEST_URI'];
+$f_txt=urldecode($f_txt);
+$u=new Users();
+$udb=new UserDB($u);
+if($u->validate_username_url($f_txt)==true ){
+    $f_txt=$_SERVER['REQUEST_URI'];
+    $f_txt=urldecode($f_txt);
+    $f_txt=substr($f_txt,2);
+    $link=$f_txt;
+    $data=[];
+    $userPosts=array();
+    $author=new Users();
+    $authorDB=new UserDB($author);
+    $author->set_username($link);
+    $authorDB->user->set_username($author->get_username());
+    $authorDB->read_userID();
+    $authorDB->read_user();
+    $data['user'][0]=array('username'=>$authorDB->user->get_username(),'userProfilePicture'=>$authorDB->user->get_profilePicture(),
+                                'bio'=>$authorDB->user->get_bio());
+    $post=new Post();
+    $post->set_authorID($authorDB->user->get_id());
+    $postDB=new PostDB($post);
+    $postDB->read_posts();
+    $info=$postDB->post->get_posts();
+    $lenArr=count($info);
+    for ($i = 0; $i < $lenArr; $i++) {
+                $postItem = new Post();
+                $postItem->set_postID($info[$i]['postID']);
+                $string=$info[$i]['postLink'];
+                $path=substr($string,0,strpos($string, '/'));
+                $name=substr($string,strpos($string,'/'));
+                $postItem->image->set_filePath($path);
+                $postItem->image->set_fileName($name);
+                $data['posts'][$i] = array(
+                    'postID' => $postItem->get_postID(),
+                    'img' => $postItem->image->get_filePath().$postItem->image->get_fileName()
+                );
+            }
+    setcookie('profile',json_encode($data), time() + (86400 * 30), '/'); 
+}
 if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('Htmlfiles/Personalprofile.html');
     return;
 }
-$mainUser=new Users();
-if(isset($_SERVER['userID']) && $_SERVER['userID']!==null){
-    $mainUser->set_userID($_SERVER['userID']);
-    $mainUser->set_username($_SERVER['username']);
-    $mainUserDB=new UserDB();
-    $mainUserDB->read_user();
-}
-$userPosts=array();
 
-$action=$_POST['action'];
+
 switch($action){
     case 'initialise_user':
         $data=array();
         $link=substr($_SERVER['REQUEST_URI'],2);
         $link=urldecode($link);
         $author=new Users();
-        $authorDB=new UserDB($author);
-        
+        $authorDB=new UserDB($author); 
         if(($author->validate_username_url($_SERVER['REQUEST_URI'])==true) && ($authorDB->validate_username_in_database($link)==true)){
 
             // var_dump($link);
@@ -41,14 +72,11 @@ switch($action){
         
         $info=$post->get_posts();
         $lenArr=count($info);
-        if($lenArr==0){
-
-            echo json_encode($data);
+        if(!is_array($info)){
+            echo 'error';
+            // echo json_encode($data);
             return ;
-        }
-       
-        
-        
+        }      
         for ($i = 0; $i < $lenArr; $i++) {
             $postItem = new Post();
             $postItem->set_postID($info[$i]['postID']);

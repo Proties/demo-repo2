@@ -1,3 +1,46 @@
+"strict"
+function get_cookie(name){
+    let data=document.cookie;
+    let dec=decodeURIComponent(data);
+    let sp=dec.split(';');
+    for(let x=0;x<sp.length;x++){
+        let c=sp[x];
+        while(c.charAt(0)==' '){
+            c=c.substring(1);
+            if(c.indexOf(name)==0){
+           
+            let parsed=c.substring(name.length,c.length);
+            let dtt=JSON.parse(parsed);
+            return dtt;
+        }
+    }
+}
+}
+function get_data_from_local_store(){
+    let url=window.location.href;
+    let f_url=url.substring(url.indexOf('@'));
+    if(f_url==localStorage('user')){
+        let user=localStorage.getItem('user-details');
+        let posts=localStorage.getItem('profile-photos');
+        console.log('welcome owner');
+        populate_user_info(user);
+        populate_post(posts);
+    }else{
+        let data=sessionStorage.getItem('user-details');
+        let posts=sessionStorage.getItem('profile-photos');
+        console.log('stranger');
+        populate_user_info(data.user);
+        populate_post(posts);
+    }
+}
+function get_data_from_cookie(){
+    let data=get_cookie('profile=');
+    populate_user_info(data.user);
+    populate_post(data.posts);
+
+}
+get_data_from_cookie();
+// get_data_from_local_store();
 function initialise(){
     try{
         let url=window.location.href;
@@ -70,9 +113,6 @@ function upload_post(){
         console.log(err);
     }
 }
-initialise();
-
-
 function addEventListeners(){
     const uploadBtn = document.getElementById('uploadBtn');
     const uploadModal = document.getElementById('uploadModal');

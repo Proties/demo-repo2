@@ -76,8 +76,7 @@ if($post->validate_postLink($f_txt)){
     
 
 // }
-}
-    
+}   
 elseif($user->validate_username_url($f_txt)==true){
     if($userDB->validate_username_in_database($txt)==true){
         include_once('php/profile.php');

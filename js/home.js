@@ -1,30 +1,26 @@
 "strict"
-function get_ish_form_cookie(){
+function get_cookie(name){
     let data=document.cookie;
-    let n="users=";
-    let decoded=decodeURIComponent(data);
-    let sp=decoded.split(';');
-    for(let i=0;i<sp.length;i++){
-        
-        let c=sp[i];
-     
+    let dec=decodeURIComponent(data);
+    let sp=dec.split(';');
+    for(let x=0;x<sp.length;x++){
+        let c=sp[x];
         while(c.charAt(0)==' '){
             c=c.substring(1);
-        }if(c.indexOf(n)==0){
+            if(c.indexOf(name)==0){
            
-            let parsed=c.substring(n.length,c.length);
-            
+            let parsed=c.substring(name.length,c.length);
             let dtt=JSON.parse(parsed);
-            console.log(dtt);
-            console.log(dtt);
-            init_img(dtt);
-            init_user(dtt.user);
-            init_categories(dtt.categories);
-            return;
-
+            return dtt;
         }
     }
-    
+}
+}
+function get_ish_form_cookie(){
+            let data=get_cookie("users=");
+            init_img(data);
+            // init_user(dtt.user);
+            // init_categories(dtt.categories);
 }
 get_ish_form_cookie();
 
@@ -365,7 +361,11 @@ function init_img(arr){
     
     console.log(arr);
     for(let n=0;n<p.length;n++){
-        console.log(arr[n]);
+        console.log(typeof(p[n]));
+        if(typeof(arr[n])!=='object'){
+           console.log('======erorr');
+           continue;
+        }
         let ele=p[n].getElementsByClassName('post-image')[0];
         p[n].id=arr[n].primary_post.postLinkID;
         let ele_two=p[n].getElementsByClassName('post-image')[1];

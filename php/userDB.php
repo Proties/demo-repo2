@@ -58,6 +58,7 @@ class UserDB extends Database{
             $statement->bindValue(':id',$this->user->get_id());
             $statement->execute();
             $data=$statement->fetch();
+            $this->user->set_username($data['userID']);
             $this->user->set_username($data['username']);
             $this->user->set_name($data['fullname']);
         }catch(PDOExecption $err){
