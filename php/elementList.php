@@ -1,6 +1,9 @@
-<?php 
+<?php
+class ElementDB{
+	
+}
 class Element{
-
+	public function __construct(){}
 	private $name;
 	private $type;
 	private $order;

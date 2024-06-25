@@ -6,8 +6,9 @@ class Database{
     private $pdo;
     
     public function __construct(){
-        $this->dsn='mysql:host=191.96.56.52;dbname=u203973307_wholedata;';
-        $this->dsn='mysql:host='.$_ENV['IPADDRESS'].';dbname='.$_ENV['DATABASENAME'].';';
+        $this->dsn='mysql:host=localhost;dbname=u203973307_wholedata;';
+        // $this->dsn='mysql:host=191.96.56.52;dbname=u203973307_wholedata;';
+        // $this->dsn='mysql:host='.$_ENV['IPADDRESS'].';dbname='.$_ENV['DATABASENAME'].';';
         // $this->user='u203973307_dbaAdmin';
         $this->user=$_ENV['DATABASEUSER'];
         // $this->password='w1]WEw?J@|N';

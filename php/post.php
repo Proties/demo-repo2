@@ -22,7 +22,7 @@ class Post{
 public function __construct(){
     $this->image=new Image();
     $this->location=new Location();
-    $this->collab=new Collaborator();
+    $this->collaborator=new Collaborator();
     $this->errorMessage;
     $this->caption='';
     $this->status='';

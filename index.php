@@ -1,14 +1,46 @@
 <?php
+echo 'works';
+return;
 require_once 'vendor/autoload.php';
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
-use Monolog\Level;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
+// $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 
-$log=new Logger('start');
-$log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
+// $dotenv->load();
+// use Monolog\Level;
+// use Monolog\Logger;
+// use Monolog\Handler\StreamHandler;
 
+// $log=new Logger('start');
+// $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
+
+if($_SERVER['REQUEST_METHOD']=='GET'){
+    $action='';
+    echo 'nkulukulu';
+    return;
+if(isset($_SERVER['REQUEST_URI']){
+    $action=$_SERVER['REQUEST_URI'];
+}
+switch($action){
+    case '/':
+        include_once('php/homePage.php');
+        break;
+    case '/registration':
+        include_once('php/registration.php');
+        break;
+    case '/profile':
+        include_once('php/profile.php');
+        break;
+    case '/edit_profile':
+        include_once('php/editPage.php');
+        break;
+    case '/upload_post':
+        include_once('php/uploadPost.php');
+        break;
+    default:
+        include_once('php/homePage.php');
+        break;
+}
+return;
+}
 $f_txt=$_SERVER['REQUEST_URI'];
 $f_txt=urldecode($f_txt);
 $txt=substr($f_txt,2);
@@ -96,25 +128,5 @@ elseif($user->validate_username_url($f_txt)==true){
 }
 
 $log->warning($_SERVER['REQUEST_URI']);
-$action=$_SERVER['REQUEST_URI'];
-switch($action){
-    case '/':
-        include_once('php/homePage.php');
-        break;
-    case '/registration':
-        include_once('php/registration.php');
-        break;
-    case '/profile':
-        include_once('php/profile.php');
-        break;
-    case '/edit_profile':
-        include_once('php/editPage.php');
-        break;
-    case '/upload_post':
-        include_once('php/uploadPost.php');
-        break;
-    default:
-        include_once('php/homePage.php');
-        break;
-}
+
 ?>

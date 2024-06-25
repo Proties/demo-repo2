@@ -11,6 +11,7 @@ $f_txt=$_SERVER['REQUEST_URI'];
 $f_txt=urldecode($f_txt);
 $u=new Users();
 $udb=new UserDB($u);
+
 if($u->validate_username_url($f_txt)==true ){
     try{
     $f_txt=$_SERVER['REQUEST_URI'];

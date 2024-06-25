@@ -1,5 +1,14 @@
 <?php
 session_start();
+// var_dump($_SERVER['HTTP_USER_AGENT']);
+if(isset($_SERVER['HTTP_REFERER'])){
+    var_dump($_SERVER['HTTP_REFERER']);
+}  
+// var_dump($_SERVER['HTTP_HOST']);
+
+
+// var_dump($_SERVER['HTTP_REFERER'].'\n');
+// return;
 
 use Monolog\Level;
 use Monolog\Logger;
@@ -56,7 +65,6 @@ if(is_array(Ranking::stored_posts($arr=[])) AND count(Ranking::stored_posts($arr
         //     $postDB->addServeredPost($_SESSION['userID']);
         // }
     }
-    apcu_store('users',$data['users'],3600*9); 
     setcookie('users', json_encode(Ranking::stored_posts($arr=[])), time() + (86400 * 30), '/');
 }catch(Exception $err){
     $log->info($err->getMessage().'\n'.$err->getCode());
@@ -131,7 +139,7 @@ switch($action){
             for($i=0;$i<$catLen;$i++){
             $data['categories'][]=array('categoryName'=>$categories[$i]['categoryName'],'categoryId'=>$categories[$i]['categoryID']);
         } 
-        apcu_store('categories', $data['categories'],3600*9);
+        
         }
         }
         if(is_array(Ranking::stored_posts($arr=[]))){
