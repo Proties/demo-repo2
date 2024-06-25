@@ -1,5 +1,8 @@
 <?php 
-class CollaboratorList{
+class CollaboratorList extends Post{
+	public function __construct(){
+		Post::__construct();
+	}
 
 	public function add_user(Users $userID){
 		array_push($this->collaborators, $user);

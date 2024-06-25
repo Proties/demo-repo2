@@ -1,5 +1,8 @@
 <?php 
-class CategoryList{
+class CategoryList extends Category{
+	public function __construct(){
+		Category::__construct();
+	}
 	public function search_user(Users $post){
         array_push($this->posts,$post);
     }

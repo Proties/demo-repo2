@@ -11,11 +11,13 @@ class Element{
 	private $name;
 	private $list;
 	public function __construct(){}
-	
+
 }
-class ElementList{
+class ElementList extends Users{
 private $list=[];
-public function __construct(){}
+public function __construct(){
+	Users::__construct();
+}
 public function add_item(Element $item){}
 public function duplicate_item(Element $item){}
 public function remove_item(Element $item){}
