@@ -10,7 +10,8 @@ class Post{
     private $postLinkID;
     private $postLink;
     private $authorID;
-    private $location;
+    public $location;
+    public $collaborator;
     private $date;
     private $time;
     private $posts;
@@ -20,6 +21,8 @@ class Post{
 
 public function __construct(){
     $this->image=new Image();
+    $this->location=new Location();
+    $this->collab=new Collaborator();
     $this->errorMessage;
     $this->caption='';
     $this->status='';
@@ -128,6 +131,7 @@ public function get_category_id(){
 
 
 trait validatePost{
+function validate_postID(){}
 function validate_preview_status($txt){
     $pattern='//i';
     if(preg_match($pattern,$txt)){

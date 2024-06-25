@@ -1,6 +1,13 @@
 <?php
-
 require_once 'vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+use Monolog\Level;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
+$log=new Logger('start');
+$log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
 
 $f_txt=$_SERVER['REQUEST_URI'];
 $f_txt=urldecode($f_txt);
@@ -70,6 +77,7 @@ if($post->validate_postLink($f_txt)){
     }catch(Exception $err){
         $data['status']='failed';
         $data['message']=$err->getMessage();
+        $log->warning($err->getMessage());
         echo json_encode($data);
     }
    return;
@@ -87,7 +95,7 @@ elseif($user->validate_username_url($f_txt)==true){
 
 }
 
-
+$log->warning($_SERVER['REQUEST_URI']);
 $action=$_SERVER['REQUEST_URI'];
 switch($action){
     case '/':

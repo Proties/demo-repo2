@@ -22,6 +22,7 @@ class Location{
 		$this->latitude='';
 		$this->altitude='';
 		$this->longitude='';
+		
 	}
 }
 

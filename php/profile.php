@@ -1,10 +1,18 @@
 <?php
 session_start();
+use Monolog\Level;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
+$log=new Logger('start');
+$log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
+
 $f_txt=$_SERVER['REQUEST_URI'];
 $f_txt=urldecode($f_txt);
 $u=new Users();
 $udb=new UserDB($u);
 if($u->validate_username_url($f_txt)==true ){
+    try{
     $f_txt=$_SERVER['REQUEST_URI'];
     $f_txt=urldecode($f_txt);
     $f_txt=substr($f_txt,2);
@@ -39,6 +47,9 @@ if($u->validate_username_url($f_txt)==true ){
                 );
             }
     setcookie('profile',json_encode($data), time() + (86400 * 30), '/'); 
+    }catch(Exception $err){
+        $log->Warning($err->getMessage());
+    }
 }
 if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('Htmlfiles/Personalprofile.html');

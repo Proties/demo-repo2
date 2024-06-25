@@ -38,16 +38,13 @@ class Collaborator{
 	public function get_date(){
 		return $this->date;
 	}
-	public function get_users(){
-		return $this->users;
-	}
+
 	public function get_collaboratorID(){
 		return $this->collaboratorID;
 	}
 
-	public function add_user(Users $userID){
-		array_push($this->collaborators, $user)
-	}
+
+
 	
 }
 

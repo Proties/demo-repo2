@@ -5,11 +5,7 @@ class Comment{
     private $date;
     private $time;
     private $comment;
-    private $comments;
-    private $userID;
-    private $postID;
     private $status;
-
     private $id;
 
     public function __construct(){
@@ -61,13 +57,11 @@ class Comment{
     public function get_comment(){
         return $this->comment;
     }
-    public function get_comments(){
-        return $this->comments;
-    }
     public function get_status(){
         return $this->status;
     }
 
+    
     public function initialise($arr){
         $this->set_time();
     }

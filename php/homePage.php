@@ -1,12 +1,12 @@
 <?php
 session_start();
+
 use Monolog\Level;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+
 $log=new Logger('start');
-$log->pushHandler(new StreamHandler('file.log',Level::Warning));
-$log->warning('hello');
-$log->error('hello bye');
+$log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
 
 if(isset($_SESSION['username'])){
     setcookie('username',$_SESSION['username'], time() + (86400 * 30), '/'); 
@@ -59,7 +59,7 @@ if(is_array(Ranking::stored_posts($arr=[])) AND count(Ranking::stored_posts($arr
     apcu_store('users',$data['users'],3600*9); 
     setcookie('users', json_encode(Ranking::stored_posts($arr=[])), time() + (86400 * 30), '/');
 }catch(Exception $err){
-    $log->info($err->getMessage());
+    $log->info($err->getMessage().'\n'.$err->getCode());
 }
 }
 // Delete the cookie "users"

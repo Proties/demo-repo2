@@ -7,7 +7,7 @@ class Category{
     private $status;
     private $errorMessage;
     private $viewCount;
-    private $posts=array();
+    private $posts=[];
 
     public function __construct(){
         $this->categoryName='';
@@ -58,9 +58,7 @@ class Category{
     public function get_posts(){
         return $this->posts;
     }
-    public function add_posts($post){
-        array_push($this->posts,$post);
-    }
+  
 
     
    

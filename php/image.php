@@ -9,7 +9,7 @@ class Image{
 	private $height;
 	private $postID;
 	private $imageSize;
-	private $data=array();
+	private $data=[];
 
 	public function __construct(){
 		$this->width='200px';

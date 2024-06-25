@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
     'Category' => $baseDir . '/php/category.php',
     'CategoryDB' => $baseDir . '/php/categoryDB.php',
     'Collaborator' => $baseDir . '/php/collaborator.php',
@@ -22,11 +23,15 @@ return array(
     'LocationDB' => $baseDir . '/php/locationDB.php',
     'MainUser' => $baseDir . '/php/mainUser.php',
     'Network' => $baseDir . '/php/network.php',
+    'PhpToken' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
     'Post' => $baseDir . '/php/post.php',
     'PostDB' => $baseDir . '/php/postDB.php',
     'Ranking' => $baseDir . '/php/rank.php',
+    'Stringable' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+    'UnhandledMatchError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
     'UserDB' => $baseDir . '/php/userDB.php',
     'Users' => $baseDir . '/php/user.php',
+    'ValueError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
     'handleErrors' => $baseDir . '/php/database.php',
     'validateCategory' => $baseDir . '/php/category.php',
     'validateComment' => $baseDir . '/php/comment.php',

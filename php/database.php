@@ -7,8 +7,11 @@ class Database{
     
     public function __construct(){
         $this->dsn='mysql:host=191.96.56.52;dbname=u203973307_wholedata;';
-        $this->user='u203973307_dbaAdmin';
-        $this->password='w1]WEw?J@|N';
+        $this->dsn='mysql:host='.$_ENV['IPADDRESS'].';dbname='.$_ENV['DATABASENAME'].';';
+        // $this->user='u203973307_dbaAdmin';
+        $this->user=$_ENV['DATABASEUSER'];
+        // $this->password='w1]WEw?J@|N';
+        $this->password=$_ENV['DATABASEPASSWORD'];
         $this->pdo;
         $this->connect();
     }

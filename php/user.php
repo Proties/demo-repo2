@@ -16,7 +16,8 @@ class Users{
     private $status;
     private $id;
     private $userDir;
-    private $errorMessages=array();
+    private $errorMessages=[];
+    private $posts;
     private $errorMessage;
     private $authanticate;
 
