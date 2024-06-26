@@ -12,13 +12,14 @@ $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
 
 $f_txt=$_SERVER['REQUEST_URI'];
 $f_txt=urldecode($f_txt);
+
 $u=new Users();
 $udb=new UserDB($u);
-
-if(Users::validate_username_url($f_txt)==true ){
+if($f_txt==='/profile'){
+   setcookie('profile','no account', time() - (86400 * 30), '/'); 
+}
+if($u->validate_username_url($f_txt)==true ){
     try{
-    $f_txt=$_SERVER['REQUEST_URI'];
-    $f_txt=urldecode($f_txt);
     $f_txt=substr($f_txt,2);
     $link=$f_txt;
     $data=[];
@@ -55,6 +56,7 @@ if(Users::validate_username_url($f_txt)==true ){
         $log->Warning($err->getMessage());
     }
 }
+
 if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('Htmlfiles/Personalprofile.html');
     return;

@@ -1,4 +1,7 @@
 <?php 
+namespace Posts;
+use Databases\Database;
+use Exception;
 class PostDB extends Database{
     public $post;
     public function __construct(Post $post){

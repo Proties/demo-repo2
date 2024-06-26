@@ -1,5 +1,4 @@
 <?php
-
 require_once 'vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 
@@ -7,51 +6,27 @@ $dotenv->load();
 use Monolog\Level;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use Users\Users;
+use Users\UserDB;
+use Databases\Database;
+use Posts\Post;
+use Posts\PostDB;
 
+// use Users\Users;
 $log=new Logger('start');
 $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
 
 // $list=apache_request_headers();
 // var_dump($list);
-$action=$_SERVER['REQUEST_URI'];
-switch($action){
-    case '/':
-        include_once('php/homePage.php');
-        break;
-    case '/registration':
-        include_once('php/registration.php');
-        break;
-    case '/profile':
-        include_once('php/profile.php');
-        break;
-    case '/edit_profile':
-        include_once('php/editPage.php');
-        break;
-    case '/upload_post':
-        include_once('php/uploadPost.php');
-        break;
-    default:
-        include_once('php/homePage.php');
-        break;
-}
-return;
 
 $f_txt=$_SERVER['REQUEST_URI'];
 $f_txt=urldecode($f_txt);
 $txt=substr($f_txt,2);
 
-// echo $txt.' \n';
-// echo $f_txt;
-// return;
-
-
 $user=new Users();
 $post=new Post();
 $userDB=new UserDB($user);
 $postDB=new PostDB($post);
-// var_dump($f_txt);
-// var_dump($post->validate_postLink($f_txt));
-// return;
 if($post->validate_postLink($f_txt)){
     // if($postDB->validate_in_db_postLink($txt)==true){
         $data=[];
@@ -108,9 +83,6 @@ if($post->validate_postLink($f_txt)){
         echo json_encode($data);
     }
    return;
-    
-
-// }
 }   
 elseif($user->validate_username_url($f_txt)==true){
     if($userDB->validate_username_in_database($txt)==true){
@@ -123,5 +95,27 @@ elseif($user->validate_username_url($f_txt)==true){
 }
 
 $log->warning($_SERVER['REQUEST_URI']);
+$action=$_SERVER['REQUEST_URI'];
+switch($action){
+    case '/':
+        include_once('php/homePage.php');
+        break;
+    case '/registration':
+        include_once('php/registration.php');
+        break;
+    case '/profile':
+        include_once('php/profile.php');
+        break;
+    case '/edit_profile':
+        include_once('php/editPage.php');
+        break;
+    case '/upload_post':
+        include_once('php/uploadPost.php');
+        break;
+    default:
+        include_once('php/homePage.php');
+        break;
+}
+return;
 
 ?>

@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 namespace Categories;
+use Databases\Database;
 class CategoryDB extends Database{
     private $category;
  

@@ -22,6 +22,7 @@ class Post{
 
 
 public function __construct(){
+    $this->image=new Image();
     $this->errorMessage='';
     $this->caption='';
     $this->status='';
@@ -142,7 +143,7 @@ public function get_posts(){
     return $this->posts;
 }
 public function get_image(){
-    $this->image=new Image();
+    
     return $this->image;
 }
 public function get_category_id():int

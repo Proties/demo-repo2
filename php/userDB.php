@@ -1,6 +1,7 @@
 <?php
 namespace Users;
 use Databases\Database;
+use Exception;
 class UserDB extends Database{
     public $user;
     public function __construct(Users $user){
@@ -80,7 +81,14 @@ class UserDB extends Database{
             $stmt->bindValue(':uname',$this->user->get_username());
             $stmt->execute();
             $data=$stmt->fetch();
-            $this->user->set_id($data['userID']);
+            if($data==false){
+                throw new Exception('user id not found');
+            }
+            if(is_int($data['userID'])){
+                 $this->user->set_id($data['userID']);
+            }
+           throw new Exception('not valid user id ');
+           
         }catch(PDOExeception $err){
             echo 'Database error '.$err->getMessage();
         }

@@ -35,6 +35,7 @@ function get_data_from_local_store(){
 }
 function get_data_from_cookie(){
     let data=get_cookie('profile=');
+    console.log(data);
     populate_user_info(data.user);
     populate_post(data.posts);
 
