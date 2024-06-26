@@ -10,9 +10,13 @@ class PostList{
 		$posts=$arr;
 	}
 	public function search_post($caption):bool
-	{}
+	{
+		
+	}
 	public function suggest_post($caption):array 
-	{}
+	{
+
+	}
 	public function move_post_up(Post $post,int $num):bool
 	{
 

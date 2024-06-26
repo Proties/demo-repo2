@@ -10,12 +10,24 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
     $username=$data_f['username'];
     $user->set_username($username);
+    $database=new Database();
+    $db=$database->get_connection();
     try{
+        $db->begin_transaction();
+        //start transaction 
         if($user->get_auth()->is_authanticated()){
             throw new Exception('create an account');
         }
         if(isset($_POST['collaborators'])){
-            $post->set_collaborator($_POST['collaborators']);
+           if (is_array($_POST['collaborators'])){
+                $lenCol=count($_POST['collaborators']);
+                for($i=0;$i<$lenCol;$i++){
+                    $collab=new Collaborator();
+                    $collab->set_userID();
+                    $post->get_collaboratorList()->add_collaborator($collab);
+                }
+            }
+            
         }
         if(isset($_POST['location'])){
             $post->set_location($_POST['location']);
@@ -35,8 +47,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         }
         $data['status']='success';
         echo json_encode($data);
-        return;
+        $db->commit();
     }catch(Exception $err){
+        $db->rollBack();
+        //rollback
         $item=array('status'=>'failed','msg'=>$err->getMessage(),'errorArray'=>$errorMessages);
         echo json_encode($item);
         return;

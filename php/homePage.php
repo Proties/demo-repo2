@@ -83,32 +83,48 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 $action=$_POST['action'];
 switch($action){
     case 'select_category':
-        $data=[];
-        $category=new Category();
-        $category->set_categoryName($_POST['categoryName']);
-        $categoryDB=new CategoryDB($category);
-        $categoryDB->read_posts();
-        $arrData=$category->get_posts();
-        $len=count($arrData);
-        for($i=0;$i<$len;$i++){
-            $user=$arrData[$i]['user'];
-            $primary_post=$arrData[$i]['primaryPost'];
-            $secondary_post=$arrData[$i]['secondaryPost'];
+        try{
+            $data=[];
+            $category=new Category();
 
-            $data['users'][]=array(
-                'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
-                'primary_post'=>array('img'=>($primary_post->get_filePath().$primary_post->get_fileName())),
-                'secondary_post'=>array('img'=>($secondary_post->get_filePath().$secondary_post->get_fileName()))
-            );
+            $category->set_categoryName($_POST['categoryName']);
+            $status=$category->get_categoryList()->search_category($category);
+            if($status==false){
+                throw new Exception('not valid category');
+            }
+            $arrData=$category->get_categoryList()->get_users();
+            $arrData=$category->get_posts();
+            $len=count($arrData);
+            for($i=0;$i<$len;$i++){
+                $user=$arrData[$i]['user'];
+                $primary_post=$arrData[$i]['primaryPost'];
+                $secondary_post=$arrData[$i]['secondaryPost'];
+
+                $data['users'][]=array(
+                    'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
+                    'primary_post'=>array('img'=>($primary_post->get_filePath().$primary_post->get_fileName())),
+                    'secondary_post'=>array('img'=>($secondary_post->get_filePath().$secondary_post->get_fileName()))
+                );
+            }
+            echo json_encode($data);
+        }catch(Exception $err){
+            $log->Warning($err->getMessage());
+            $data['status']='failed';
+            $data['message']=$err->getMessage();
+            echo json_encode($data);
         }
-        echo json_encode($data);
         break;
     case 'search':
         $data=[];
         try{
             $target=$_POST['q'];
             $userDB=new UserDB($user);
+            $status=$user->validate_username($target);
+            if($status==false){
+                throw new Exception('not valid name');
+            }
             $usernames=$userDB->search_user($target);
+            $data['status']='success';
             $data['searchResults']=$usernames;
             echo json_encode($data);
         }
@@ -228,7 +244,7 @@ switch($action){
         
         break;
 }
-
+return;
 // a function that will take an array of user arrays
 // the function will check for arrays with the same username and join em
 // it will produce a new array that has a primary and secondary post

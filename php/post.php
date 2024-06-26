@@ -14,16 +14,19 @@ class Post{
     private int $authorID;
     private int $viewerID;
     private Location $location;
-    private CollaboratorList $CollaboratorList;
+    private CollaboratorList $collaboratorList;
     private string $date;
     private string $time;
-    private CommentList $CommentList;
+    private CommentList $commentList;
     private string $postFile;
     private Image $image;
 
 
 public function __construct(){
     $this->image=new Image();
+    $this->collaboratorList=new CollaboratorList();
+    $this->commentList=new CommentList();
+    $this->location=new Location();
     $this->errorMessage='';
     $this->caption='';
     $this->status='';
@@ -150,6 +153,15 @@ public function get_image(){
 public function get_category_id():int
 {
     return $this->categoryID;
+}
+public function get_commentList(){
+    return $this->commentList;
+}
+public function get_collaboratorList(){
+    return $this->collaboratorList;
+}
+public function get_location(){
+    return $this->location;
 }
   
 }

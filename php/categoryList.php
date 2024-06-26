@@ -6,9 +6,9 @@ class CategoryList{
     private $cachestore;
 	public function __construct(){
 	}
-	public function search_user(Users $post):bool
+	public function search_category(Category $category):array
     {
-        array_push($this->users_posts,$post);
+        //return users matching this cate gory name
     }
     public function add_user(Users $post):bool
     {
