@@ -26,6 +26,23 @@ class PostDB extends Database{
 
         }
     }
+    public function delete_post(int $id){
+         $db=$this->get_connection();
+        try{
+            $query='
+                    UPDATE post 
+                    WHERE postID=:id 
+                    status=:hide
+            ';
+            $stmt=$db->prepare($query);
+            $stmt->bindValue(':id',$id);
+            $stmt->bindValue(':hide','hidden');
+        }catch(PDOExecption $err){
+            echo 'Database error while writing to viewed post: '.$err->getMessage();
+
+        }
+
+    }
     public function addServeredPost($useID){
         $db=$this->get_connection();
         try{

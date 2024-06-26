@@ -3,7 +3,7 @@ session_start();
 if($_SERVER['REQUEST_METHOD']=='POST'){
     $data=file_get_contents('php://input');
     $data_f=json_decode($data,true);
-   
+    $errorMessages=[];
     $post=new Post();
     $category=new Category();
     $user=new Users();
@@ -14,7 +14,12 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         if($user->get_auth()->is_authanticated()){
             throw new Exception('create an account');
         }
- 
+        if(isset($_POST['collaborators'])){
+            $post->set_collaborator($_POST['collaborators']);
+        }
+        if(isset($_POST['location'])){
+            $post->set_location($_POST['location']);
+        }
         $post->set_caption($data_f['caption']);
         $post->set_preview_status($data_f['preview_status']);
         $category->set_name($data_f['categoryName']);
@@ -24,9 +29,13 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $post->image->set_enoded_base64_string($img);
         $post->image->set_filePath($user->get_dir());
         $status=$user->get_postList()->add_post($post);
-        if($status==false){
-            throw new Exception('could not add post on user post list');
+        if(is_array($status)){
+            $errorMessages=$status['errorMessages'];
+            throw new Exception('could not add post');
         }
+        $data['status']='success';
+        echo json_encode($data);
+        return;
     }catch(Exception $err){
         $item=array('status'=>'failed','msg'=>$err->getMessage(),'errorArray'=>$errorMessages);
         echo json_encode($item);

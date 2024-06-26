@@ -2,6 +2,7 @@
 namespace Posts;
 class Post{
     use validatePost;
+    private int $order;
     private string $caption;
     private string $status;
     private string $postStatus;
