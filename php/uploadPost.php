@@ -30,7 +30,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             
         }
         if(isset($_POST['location'])){
-            $post->set_location($_POST['location']);
+            $post->get_location()->set_local($_POST['location']);
+            $post->set_location()->add_location();
         }
         $post->set_caption($data_f['caption']);
         $post->set_preview_status($data_f['preview_status']);
