@@ -11,8 +11,9 @@ use Categories\CategoryDB;
 
 $log=new Logger('start');
 $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
-
+$mainUser=new Users();
 if(isset($_SESSION['username'])){
+    $mainUser->get_auth()->set_authanticate(true);
     setcookie('username',$_SESSION['username'], time() + (86400 * 30), '/'); 
 }else{
      setcookie('username','no account', time() - (86400 * 30), '/'); 
@@ -124,7 +125,7 @@ switch($action){
         $post=new Post();
         $post->set_postLinkID($_POST['postID']);
         $postDB=new PostDB($post);
-        if($mainUser->is_authanticated()==false){
+        if($mainUser->get_auth()->is_authanticated()==false){
            throw new Exception('user not registered');
         }
        if(!isset($_POST['postID'])){
@@ -168,7 +169,7 @@ switch($action){
         $postDB=new PostDB($post);
         try{
 
-            if($mainUser->is_authanticated()==false){
+        if($mainUser->get_auth()->is_authanticated()==false){
             throw new Exception('user not registered');
         }
         if(!isset($_POST['postID'])){

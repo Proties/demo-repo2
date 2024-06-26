@@ -16,13 +16,15 @@ class Users{
     private string  $userProfileLink;
     private bool $status;
     private int $id;
-    private UserFolder $UserFolder;
+    private UserFolder $userFolder;
     private array $errorMessages=[];
-    private PostList $PostList;
+    private PostList $postList;
     private string $errorMessage;
-    private UserAuth $UserAuth;
+    private UserAuth $userAuth;
 
     public function __construct(){
+    $this->userFolder=new UserFolder();
+    $this->userAuth=new UserAuth();
     $this->name='';
     $this->username='';
     $this->bio='';
@@ -96,9 +98,10 @@ class Users{
     {
         return $this->dateOfBirth;
     }
-    public function get_posts():array
+    public function get_posts($arr):array
     {
-        return $this->post;
+        $this->postList=new PostList($arr);
+        return $this->postList;
     }
     public function get_id():int
     {

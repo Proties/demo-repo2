@@ -4,7 +4,9 @@ namespace Users;
 class UserAuth{
 	private bool $authanticate;
 
-	public function __construct(){}
+	public function __construct(){
+        $this->authanticate=false;
+    }
 
 	public function set_authanticate(bool $t)
     {
