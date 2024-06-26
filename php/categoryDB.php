@@ -1,4 +1,5 @@
-<?php 
+<?php declare(strict_types=1);
+namespace Categories;
 class CategoryDB extends Database{
     private $category;
  
@@ -6,7 +7,8 @@ class CategoryDB extends Database{
         Database::__construct();
         $this->category=$category;
       }
-    public function get_category(){
+    public function get_category()
+    {
         return $this->category;
     }
     public static function stored_categories(Array $arr){
@@ -18,7 +20,8 @@ class CategoryDB extends Database{
         $store['categories']=apcu_fetch('categories');
         return $store;
     }
-    public function read_posts(){
+    public function read_posts():array
+    {
         try{
 
             $db=$this->get_connection();

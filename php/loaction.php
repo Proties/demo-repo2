@@ -1,15 +1,15 @@
-<?php 
+<?php declare(strict_types=1);
 class Location{
-	private $id;
-	private $province;
-	private $town;
-	private $city;
-	private $street;
-	private $postalCode;
-	private $longitude;
-	private $latitude;
-	private $altitude;
-	private $country;
+	private int $id;
+	private string $province;
+	private string $town;
+	private string $city;
+	private string $street;
+	private string $postalCode;
+	private string $longitude;
+	private string $latitude;
+	private string $altitude;
+	private string $country;
 
 	public function __construct(){
 		$this->id=null;

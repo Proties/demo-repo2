@@ -1,53 +1,56 @@
-<?php 
+<?php  declare(strict_types=1);
+namespace Posts;
 class Image{
-	private $dateMade;
-	private $dateModified;
-	private $fileName;
-	private $filePath;
-	private $imageType;
-	private $width;
-	private $height;
-	private $postID;
-	private $imageSize;
-	private $data=[];
+	private string $dateMade;
+	private string $dateModified;
+	private string $fileName;
+	private string $filePath;
+	private string $imageType;
+	private string $width;
+	private string $height;
+	private int $postID;
+	private int $imageSize;
+	private array $data;
 
 	public function __construct(){
 		$this->width='200px';
 		$this->height='100px';
+		$this->filePath='';
+		$this->fileName='';
 		$this->imageType='.png';
 
 
 	}
-	public function set_dateMade($dt){
+	public function set_dateMade(string $dt){
 		$this->dateMade=$dt;
 	}
 	
-	public function set_dateModifed($dt){
+	public function set_dateModifed(string $dt){
 		$this->dateModified=$dt;
 	}
-	public function set_fileName($dt){
+	public function set_fileName(string $dt){
 		$this->fileName=$dt;
 	}
-	public function set_width($dt){
+	public function set_width(string $dt){
 		$this->width=$dt;
 	}
-	public function set_height($dt){
+	public function set_height(string $dt){
 		$this->height=$dt;
 	}
-	public function set_postID($dt){
+	public function set_postID(int $dt){
 		$this->postID=$dt;
 	}
-	public function set_filePath($dt){
+	public function set_filePath(string $dt){
 		$this->filePath=$dt;
 	}
-	public function set_imageType($dt){
+	public function set_imageType(string $dt){
 		$this->imageType=$dt;
 	}
-	public function set_imageSize($dt){
+	public function set_imageSize(int $dt){
 		$this->imageSize=$dt;
 	}
 
-	public function set_enoded_base64_string($str){
+	public function set_enoded_base64_string(string $str){
 		$string=substr($img,strpos($img,',')+1);
 		$arr=getimagesize($string);
 
@@ -56,71 +59,41 @@ class Image{
 		$this->set_height($arr[1]);
 	}
 
-	public function get_dateMade(){
+	public function get_dateMade():string
+	{
 		return $this->dateMade;
 	}
-	public function get_dateModifed(){
+	public function get_dateModifed():string 
+	{
 		return $this->dateModified;
 	}
-	public function get_fileName(){
+	public function get_fileName():string 
+	{
 		return $this->fileName;
 	}
-	public function get_width(){
+	public function get_width():string 
+	{
 		return $this->width;
 	}
-	public function get_height(){
+	public function get_height():string 
+	{
 		return $this->height;
 	}
-	public function get_postID(){
+	public function get_postID():string 
+	{
 		return $this->postID;
 	}
-	public function get_filePath(){
+	public function get_filePath():string 
+	{
 		return $this->filePath;
 	}
-	public function get_imageType(){
+	public function get_imageType():string 
+	{
 		return $this->imageType;
 	}
-	public function get_size(){
+	public function get_size():int
+	{
 
 	}
-	
-	
-	
-
-// making random file name 
-
-
- public function make_file(){
-        try{
-        
-        $f=fopen('php/ids.json','r') or die('file doesnt exist');
-        
-        $ids=fread($f,filesize("php/ids.json"));
-        $ids_array=json_decode($ids,true);
-        if(!is_array($ids_array)){
-            throw new Exception('data is not array');
-        }
-        
-        $this->set_postLinkID($ids_array[0]);
-        array_splice($ids_array,0,1);
-        fclose($f);
-        
-        $f_two=fopen('php/ids.json','w') or die('file doesnt exist');
-        fwrite($f_two,json_encode($ids_array));
-        fclose($f_two);
-        
-        $this->set_fileName($this->get_filePath().$this->get_imageType());
-        }catch(Execption $err){
-            echo $err->getMessage();
-        }
-    }
-   
-
-
-
-
 }
-
-
-
 ?>

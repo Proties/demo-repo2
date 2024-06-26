@@ -1,10 +1,11 @@
-<?php 
+<?php  declare(strict_types=1);
+namespace Posts;
 class Like{
-	private $id;
-	private $date;
-	private $time;
-	private $postID;
-	private $userID;
+	private int $id;
+	private string $date;
+	private string $time;
+	private int $postID;
+	private int $userID;
 
 	public function __construct(int $userID,int $postID){
 		$this->userID=$userID;
@@ -14,16 +15,20 @@ class Like{
 		$this->date='';
 	}
 
-	public function get_postID(){
+	public function get_postID():int
+	{
 		return $this->postID;
 	}
-	public function get_userID(){
+	public function get_userID():int
+	{
 		return $this->userID;
 	}
-	public function get_date(){
+	public function get_date():int
+	{
 		return $this->date;
 	}
-	public function get_time(){
+	public function get_time():int
+	{
 		return $this->time;
 	}
 

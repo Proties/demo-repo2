@@ -3,6 +3,9 @@ session_start();
 use Monolog\Level;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use Users\Users;
+use Users\UserDB;
+use Posts\Post;
 
 $log=new Logger('start');
 $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
@@ -12,7 +15,7 @@ $f_txt=urldecode($f_txt);
 $u=new Users();
 $udb=new UserDB($u);
 
-if($u->validate_username_url($f_txt)==true ){
+if(Users::validate_username_url($f_txt)==true ){
     try{
     $f_txt=$_SERVER['REQUEST_URI'];
     $f_txt=urldecode($f_txt);
@@ -65,7 +68,7 @@ switch($action){
         $link=urldecode($link);
         $author=new Users();
         $authorDB=new UserDB($author); 
-        if(($author->validate_username_url($_SERVER['REQUEST_URI'])==true) && ($authorDB->validate_username_in_database($link)==true)){
+        if((Users::validate_username_url($_SERVER['REQUEST_URI'])==true) && ($authorDB->validate_username_in_database($link)==true)){
 
             // var_dump($link);
             // return
@@ -116,7 +119,7 @@ switch($action){
         $post->set_postLink($_SERVER['REQUEST_URI']);
         $postDB=new PostDB($post);
         $link=$_SERVER['REQUEST_URI'];
-        if($post->validate_postLink($link) && $postDB->validate_pos($link)){
+        if($post->validate_postLink($link) && $postDB->validate_post($link)){
             $postDB->read_postID();
             $postDB->read_post();
         }

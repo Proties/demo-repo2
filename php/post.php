@@ -1,41 +1,41 @@
-<?php
+<?php declare(strict_types=1);
+namespace Posts;
 class Post{
     use validatePost;
-    private $caption;
-    private $status;
-    private $postStatus;
-    private $previewStatus;
-    private $errorMessage;
-    private $postID;
-    private $postLinkID;
-    private $postLink;
-    private $authorID;
-    public $location;
-    public $collaborator;
-    private $date;
-    private $time;
-    private $posts;
-    private $postFile;
-    public $image;
+    private string $caption;
+    private string $status;
+    private string $postStatus;
+    private bool $previewStatus;
+    private string $errorMessage;
+    private int $postID;
+    private string $postLinkID;
+    private string $postLink;
+    private int $authorID;
+    private int $viewerID;
+    private Location $location;
+    private CollaboratorList $CollaboratorList;
+    private string $date;
+    private string $time;
+    private CommentList $CommentList;
+    private string $postFile;
+    private Image $image;
 
 
 public function __construct(){
-    $this->image=new Image();
-    $this->location=new Location();
-    $this->collaborator=new Collaborator();
-    $this->errorMessage;
+    $this->errorMessage='';
     $this->caption='';
     $this->status='';
-    $this->postID='';
-    $this->postLinkID=null;
+    $this->postID=0;
+    $this->postLinkID='';
     $this->postLink='';
-    $this->authorID=null;
+    $this->authorID=0;
+    $this->viewerID=0;
     $this->previewStatus=false;
 
    
 }
 
-function initialise($arr){
+function initialise(array $arr){
     $this->set_authorID($arr['userID']);
     $this->set_caption($arr['postTitle']);
     $this->set_previewStatus($arr['postDescription']);
@@ -43,87 +43,110 @@ function initialise($arr){
     $this->set_postLink($arr['postLink']);
     $this->set_postLinkID($arr['postLinkID']);
 }
-public function set_category_id($id){
+public function set_category_id(int $id){
     $this->categoryID=$id;
 }
-public function set_categoryName($nm){
+public function set_categoryName(string $nm){
     $this->categoryName=$nm;
 }
-public function set_errorMessage($err){
+public function set_errorMessage(string $err){
     $this->errorMessage=$err;
 }
-public function set_postID($id){
+public function set_postID(int $id){
     $this->postID=$id;
 }
-public function set_caption($cap){
+public function set_caption(string $cap){
     $this->caption=$cap;
 }
-public function set_status($stt){
+public function set_status(string $stt){
     $this->status=$stt;
 }
-public function set_authorID($an){
+public function set_authorID(int $an){
     $this->authorID=$an;
 }
-public function set_preview_status($al){
+public function set_viewerID(int $an){
+    $this->viewerID=$an;
+}
+public function set_preview_status(bool $al){
     $this->previewStatus=$alt;
 }
-public function set_time($l){
+public function set_time(string $l){
     $this->time=$l;
 }
-public function set_date($dt){
+public function set_date(string $dt){
     $this->date=$dt;
 }
-public function set_postLink($dt){
+public function set_postLink(string $dt){
     $this->postLink=$dt;
 }
 public function set_posts($p){
     $this->posts=$p;
 }
-public function set_postLinkID($l){
+public function set_postLinkID(string $l){
     $this->postLinkID=$l;
 
 }
-public function get_postLinkID(){
+public function get_postLinkID():string
+{
     return $this->postLinkID;
 
 }
-public function get_categoryName(){
+public function get_categoryName():string
+{
     return $this->categoryName;
 }
-public function get_postID(){
+public function get_postID():int
+{
     return $this->postID;
 }
-public function get_caption(){
+public function get_caption():string
+{
     return $this->caption;
 }
-public function get_preview_status(){
+public function get_preview_status():bool
+{
     return $this->previewStatus;
 }
-public function get_status(){
+public function get_status():string
+{
     return $this->status;
 }
-public function get_authorID(){
+public function get_authorID():int
+{
     return $this->authorID;
 }
-public function get_time(){
+public function get_viewerID():int
+{
+    return $this->viewerID;
+}
+public function get_time():string 
+{
     $this->set_time(date('h:i'));
     return $this->time;
 }
-public function get_date(){
+public function get_date():string 
+{
     $this->set_date(date('Y:m:d'));
     return $this->date;
 }
-public function get_postLink(){
+public function get_postLink():string 
+{
     return $this->postLink;
 }
 
-public function get_errorMessage(){
+public function get_errorMessage():string 
+{
     return $this->errorMessage;
 }
 public function get_posts(){
     return $this->posts;
 }
-public function get_category_id(){
+public function get_image(){
+    $this->image=new Image();
+    return $this->image;
+}
+public function get_category_id():int
+{
     return $this->categoryID;
 }
   

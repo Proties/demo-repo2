@@ -1,4 +1,6 @@
 <?php
+namespace Users;
+use Databases\Database;
 class UserDB extends Database{
     public $user;
     public function __construct(Users $user){

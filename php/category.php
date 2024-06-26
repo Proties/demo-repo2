@@ -1,13 +1,14 @@
-<?php
+<?php declare(strict_types=1);
+namespace Categories;
 class Category{
-    private $categoryName;
-    private $categoryID;
-    private $date;
-    private $time;
-    private $status;
-    private $errorMessage;
-    private $viewCount;
-    private $posts=[];
+    private string $categoryName;
+    private int $categoryID;
+    private string $date;
+    private string $time;
+    private string $status;
+    private string $errorMessage;
+    private int $viewCount;
+    private CategoryList $posts;
 
     public function __construct(){
         $this->categoryName='';

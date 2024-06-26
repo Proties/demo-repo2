@@ -5,15 +5,18 @@ if(isset($_SERVER['HTTP_REFERER'])){
     var_dump($_SERVER['HTTP_REFERER']);
 }  
 // var_dump($_SERVER['HTTP_HOST']);
-
-
+// $list=apache_request_headers();
+// echo $list;
+// true;
 // var_dump($_SERVER['HTTP_REFERER'].'\n');
 // return;
 
 use Monolog\Level;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
-
+use Users\Users;
+use Posts\Post;
+use Categories\Categories;
 $log=new Logger('start');
 $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
 
@@ -39,8 +42,9 @@ if(is_array(Ranking::stored_posts($arr=[])) AND count(Ranking::stored_posts($arr
         $name=substr($string,strpos($string, '/'));
         $primary_post->set_postLinkID($info[$x]['postLinkID']);
         $primary_post->set_postID($info[$x]['postID']);
-        $primary_post->image->set_filename($name);
-        $primary_post->image->set_filePath($path);
+
+        $primary_post->get_image()->set_filename($name);
+        $primary_post->get_image()->set_filePath($path);
         
         $secondary_post=new Post();
         $string_two=$info[$x]['post2Link'];
@@ -48,14 +52,14 @@ if(is_array(Ranking::stored_posts($arr=[])) AND count(Ranking::stored_posts($arr
         $name_two=substr($string,strpos($string, '/'));
         $secondary_post->set_postID($info[$x]['post2ID']);
         $secondary_post->set_postLinkID($info[$x]['post2LinkID']);
-        $secondary_post->image->set_filename($name_two);
-        $secondary_post->image->set_filePath($path_two);
+        $primary_post->get_image()->set_filename($name_two);
+        $secondary_post->get_image()->set_filePath($path_two);
         $data['users'][]=array(
             'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
-            'primary_post'=>array('img'=>$primary_post->image->get_filePath().$primary_post->image->get_fileName(),
+            'primary_post'=>array('img'=>$primary_post->get_image()->get_filePath().$primary_post->get_image()->get_fileName(),
             'postID'=>$primary_post->get_postID(),
             'postLinkID'=>$primary_post->get_postLinkID()),
-            'secondary_post'=>array('img'=>$secondary_post->image->get_filePath().$secondary_post->image->get_fileName(),
+            'secondary_post'=>array('img'=>$secondary_post->get_image()->get_filePath().$secondary_post->get_image()->get_fileName(),
             'postID'=>$secondary_post->get_postID(),
             'postLinkID'=>$secondary_post->get_postLinkID()
         ));

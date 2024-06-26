@@ -1,15 +1,21 @@
-<?php 
-class CommentList extends Post{
+<?php  declare(strict_types=1);
+namespace Posts;
+class CommentList{
 
-	private $comments=[];
+	private array $comments=[];
 	public function __construct(){
-		Post::__construct();
+		
 	}
-	public function get_comments(Comment $comment){}
-	public function move_comment_up(Comment $comment,int $num){}
-    public function move_comment_down(Comment $comment,int $num){}
-    public function add_comment(Comment $comment){}
-    public function remove_comment(Comment $comment){}
+	public function get_comments(Comment $comment):array
+	{}
+	public function move_comment_up(Comment $comment,int $num):void
+	{}
+    public function move_comment_down(Comment $comment,int $num):void
+    {}
+    public function add_comment(Comment $comment):void
+    {}
+    public function remove_comment(Comment $comment):void
+    {}
 }
 
 
