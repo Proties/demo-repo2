@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 namespace Users;
-class Users{
+class Users implements Serializable{
     use validateUser;
     private string $name;
     private string $username;
@@ -17,9 +17,7 @@ class Users{
     private bool $status;
     private int $id;
     private UserFolder $userFolder;
-    private array $errorMessages=[];
     private PostList $postList;
-    private string $errorMessage;
     private UserAuth $userAuth;
 
     public function __construct(){
@@ -36,6 +34,8 @@ class Users{
     $this->id=0;
     }
 
+    public function serialize(value){}
+    public function unserialize(value){}
     public function initialise(array $arr)
     {
         $this->set_username($arr['username']);
