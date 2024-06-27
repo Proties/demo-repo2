@@ -32,15 +32,15 @@ if($u->validate_username_url($f_txt)==true ){
     $authorDB=new UserDB($author);
     $author->set_username($link);
     $authorDB->user->set_username($author->get_username());
-    $authorDB->read_userID();
-    $authorDB->read_user();
+    echo 'error'.PHP_EOL;
+    $authorDB->get_posts_with_username();
+    echo ' AFTER    error';
+    var_dump($authorDB->user->get_posts()->get_posts());
+    return;
     $data['user'][0]=array('username'=>$authorDB->user->get_username(),'userProfilePicture'=>$authorDB->user->get_profilePicture(),
                                 'bio'=>$authorDB->user->get_bio());
-    $post=new Post();
-    $post->set_authorID($authorDB->user->get_id());
-    $postDB=new PostDB($post);
-    $arr=$postDB->read_posts();
-    
+
+    $arr=$authorDB->user->get_posts()->get_posts();
     if(!is_array($arr)){
         throw new Exception('not array');
     }
@@ -60,6 +60,8 @@ if($u->validate_username_url($f_txt)==true ){
             }
     setcookie('profile',json_encode($data), time() + (86400 * 30), '/'); 
     }catch(Exception $err){
+        echo $err->getMessage();
+        echo 'error retriveing posts';
         $log->Warning($err->getMessage());
     }
 }

@@ -7,7 +7,11 @@ use Error;
 class PostList{
 	private array $posts;
 
-	public function __construct(array ?$arr){
+	public function __construct(array ?$arr=null){
+		if($arr==null){
+			$this->posts=[];
+			return;
+		}
 		$this->posts=$arr;
 	}
 	public function search_post($caption):bool

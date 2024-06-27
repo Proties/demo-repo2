@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 namespace Users;
+use Serializable;
 class Users implements Serializable{
     use validateUser;
     private string $name;
@@ -16,6 +17,7 @@ class Users implements Serializable{
     private string  $userProfileLink;
     private bool $status;
     private int $id;
+    private array $data;
     private UserFolder $userFolder;
     private PostList $postList;
     private UserAuth $userAuth;
@@ -33,9 +35,27 @@ class Users implements Serializable{
     $this->phone='';
     $this->id=0;
     }
+    //sets up associative array of to be serailized data
+    public function __serialize():array 
+    {
+         $this->data=[];
+         return $this->data; 
+    }
+    //restore arrray that was serialized
+    public function __unserialize(array $data) 
+    {
+        $arr;
+        return $arr;
+    }
+    public function serialize(){
+        serialize($this->data);
+        
+    }
+    public function unserialize($value){
+        unserialize($value);
+        return $s;
+    }
 
-    public function serialize(value){}
-    public function unserialize(value){}
     public function initialise(array $arr)
     {
         $this->set_username($arr['username']);
@@ -98,10 +118,9 @@ class Users implements Serializable{
     {
         return $this->dateOfBirth;
     }
-    public function get_posts($arr):array
+    public function get_posts(array|null $arr=null):array
     {
-        $this->postList=new PostList($arr);
-        return $this->postList;
+        return $this->postList=new PostList($arr);
     }
     public function get_id():int
     {

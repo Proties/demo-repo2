@@ -45,10 +45,56 @@ class UserDB extends Database{
         $this->user->set_status($statement->execute());
         $this->user->set_id($db->lastInsertId());
         }catch(ErrorDB $err){
-            echo 'Database error '.$err->getMessage();
+            echo 'Database error while writing to user '.$err->getMessage();
         }
     }
- 
+    public function read_user_with_username(){
+          $db=$this->get_connection();
+          try{
+            $query='
+                    SELECT username,userID FROM Users
+                    WHERE username=:id;
+            ';
+            $statement=$db->prepare($query);
+            $statement->bindValue(':id',$this->user->get_username());
+            $statement->execute();
+            $data=$statement->fetch();
+            if($data==false){
+                throw new ErrorDB('no user selected');
+            }
+            $this->user->set_id($data['userID']);
+            $this->user->set_username($data['username']);
+            $this->user->set_name($data['fullname']);
+        }catch(ErrorDB $err){
+            echo 'Database error while read user'.$err->getMessage();
+        }
+    }
+    public function get_posts_with_username(){
+        $db=$this->get_connection();
+        try{
+            $query='
+                SELECT u.username,u.userID,p.postID,i.filepath,i.filename FROM Users u
+                INNER JOIN Posts as p ON u.userID=p.userID 
+                INNER JOIN PostImages as ip ON p.postID=ip.postID
+                INNER JOIN Images as i ON ip.imageID=i.imageID  
+                WHERE u.username=:id;
+            ';
+        $statement=$db->prepare($query);
+        $statement->bindValue(':id',$this->user->get_username());
+        $statement->execute();
+        $data=$statement->fetch();
+
+        if($data==false){
+            throw new ErrorDB('no user selected');
+        }
+        $this->user->set_id($data['userID']);
+        $this->user->set_username($data['username']);
+        $this->user->get_posts($data);
+            
+        }catch(ErrorDB $err){
+            echo 'Database error while read user'.$err->getMessage();
+        }
+    }
     public function read_user(){
         try{
     
@@ -68,7 +114,7 @@ class UserDB extends Database{
             $this->user->set_username($data['username']);
             $this->user->set_name($data['fullname']);
         }catch(ErrorDB $err){
-            echo 'Database error '.$err->getMessage();
+            echo 'Database error while read user'.$err->getMessage();
         }
     }
   
@@ -93,7 +139,7 @@ class UserDB extends Database{
            throw new ErrorDB('not valid user id ');
            
         }catch(ErrorDB $err){
-            echo 'Database error '.$err->getMessage();
+            echo 'Database error while reading id'.$err->getMessage();
         }
     }
     public static function get_usernames(){
@@ -161,7 +207,7 @@ class UserDB extends Database{
             }
             return false;
         }catch(ErrorDB $err){
-            echo 'Database error '.$err->getMessage();
+            echo 'Database error while validating username'.$err->getMessage();
             return false;
         }
     }
