@@ -2,9 +2,10 @@
 namespace Posts;
 use Databases\Database;
 use ErrorDB;
+use Posts\Post;
 class PostDB extends Database{
     private ErrorDB $err;
-    public $post;
+    public Post $post;
     public function __construct(Post $post){
         Database::__construct();
         $this->post=$post;
@@ -186,7 +187,7 @@ class PostDB extends Database{
             $stmt->bindValue(':userID',$this->post->get_authorID());
             $this->post->set_status($stmt->execute());
             $results=$stmt->fetchall();
-            $this->post->set_posts($results);
+            return $results;
         }catch(ErrorDB $err){
             echo 'Database error '.$err->getMessage();
         }

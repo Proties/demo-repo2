@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 namespace Posts;
+use Location;
 class Post{
     use validatePost;
     private int $order;
@@ -84,9 +85,6 @@ public function set_date(string $dt){
 public function set_postLink(string $dt){
     $this->postLink=$dt;
 }
-public function set_posts($p){
-    $this->posts=$p;
-}
 public function set_postLinkID(string $l){
     $this->postLinkID=$l;
 
@@ -142,9 +140,6 @@ public function get_postLink():string
 public function get_errorMessage():string 
 {
     return $this->errorMessage;
-}
-public function get_posts(){
-    return $this->posts;
 }
 public function get_image(){
     

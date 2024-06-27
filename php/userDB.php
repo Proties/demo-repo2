@@ -61,7 +61,10 @@ class UserDB extends Database{
             $statement->bindValue(':id',$this->user->get_id());
             $statement->execute();
             $data=$statement->fetch();
-            $this->user->set_username($data['userID']);
+            if($data==false){
+                throw new ErrorDB('no user selected');
+            }
+            $this->user->set_id($data['userID']);
             $this->user->set_username($data['username']);
             $this->user->set_name($data['fullname']);
         }catch(ErrorDB $err){
@@ -82,12 +85,12 @@ class UserDB extends Database{
             $stmt->execute();
             $data=$stmt->fetch();
             if($data==false){
-                throw new Exception('user id not found');
+                throw new ErrorDB('user id not found');
             }
             if(is_int($data['userID'])){
                  $this->user->set_id($data['userID']);
             }
-           throw new Exception('not valid user id ');
+           throw new ErrorDB('not valid user id ');
            
         }catch(ErrorDB $err){
             echo 'Database error '.$err->getMessage();

@@ -2,17 +2,16 @@
 // this class will have acces to database
 namespace Posts;
 class CollaboratorList{
-	private array $collaborators;
-	public function __construct(array ?$arr){
+	private array|null $collaborators;
+	public function __construct(array $arr=null){
 		$this->collaborators=$arr;
 		
 	}
 
-	public suggest_user(Users $user):array
+	public function suggest_user(Users $user):array
 	{
 		$arr=[];
-		$len=count($this->collaborators)
-		$user->get_username();
+		$len=count($this->collaborators);
 		for($i=0;$i<$len;$i++){
 			if($name ==$this->collaborators[$i]->get_username()){
 				array_push($this->collaborators,$this->collaborators[$i]);
@@ -24,7 +23,7 @@ class CollaboratorList{
 	{
 		return $arr;
 	}
-	public function add_user(Collaborator $user):void
+	public function add_user(Collaborator $user)
 	{
 		try{
 			$collabDB=new CollaboratorDB();

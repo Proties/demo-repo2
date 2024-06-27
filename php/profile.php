@@ -6,6 +6,7 @@ use Monolog\Handler\StreamHandler;
 use Users\Users;
 use Users\UserDB;
 use Posts\Post;
+use Posts\PostDB;
 
 $log=new Logger('start');
 $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
@@ -38,22 +39,23 @@ if($u->validate_username_url($f_txt)==true ){
     $post=new Post();
     $post->set_authorID($authorDB->user->get_id());
     $postDB=new PostDB($post);
-    $postDB->read_posts();
-    $info=$postDB->post->get_posts();
-    $postsArr=$authorDB->get_postList($info);
-    $arr=$postsArr->get_posts();
+    $arr=$postDB->read_posts();
+    
+    if(!is_array($arr)){
+        throw new Exception('not array');
+    }
     $lenArr=count($arr);
     for ($i = 0; $i < $lenArr; $i++) {
                 $postItem = new Post();
-                $postItem->set_postID($$arr[$i]['postID']);
-                $string=$$arr[$i]['postLink'];
+                $postItem->set_postID($arr[$i]['postID']);
+                $string=$arr[$i]['postLink'];
                 $path=substr($string,0,strpos($string, '/'));
                 $name=substr($string,strpos($string,'/'));
-                $postItem->image->set_filePath($path);
-                $postItem->image->set_fileName($name);
+                $postItem->get_image()->set_filePath($path);
+                $postItem->get_image()->set_fileName($name);
                 $data['posts'][$i] = array(
                     'postID' => $postItem->get_postID(),
-                    'img' => $postItem->image->get_filePath().$postItem->image->get_fileName()
+                    'img' => $postItem->get_image()->get_filePath().$postItem->get_image()->get_fileName()
                 );
             }
     setcookie('profile',json_encode($data), time() + (86400 * 30), '/'); 

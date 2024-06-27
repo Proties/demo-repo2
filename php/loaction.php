@@ -12,7 +12,7 @@ class Location{
 	private string $country;
 
 	public function __construct(){
-		$this->id=null;
+		$this->id=0;
 		$this->country='SouthAfrica';
 		$this->province='';
 		$this->town='';

@@ -1,5 +1,6 @@
-<?php declare(strict_type=1);
-use Exception;
+<?php declare(strict_types=1);
+
+
  /**
 if there is an error object with the same object instaited do not create a new error
 instead use the error class that has that object
@@ -12,21 +13,22 @@ function erro_handler(){
 
 }
 class ErrorDB extends PDOException{
-	private $id;
+	private int $id;
 	private $object;
 	private array $errorMessages;
-public function __construct(string $str='',int $code,object ?$obj,Throwable ?$err){
-	PDOException::__construct(string $str,int $code);
+public function __construct(string $str='',int|null $code=null,object|null $obj=null,Throwable $err=null){
+
+	PDOException::__construct();
 }
 }
-Class Error extends Exception{
+Class ErrorHandler extends Exception{
 	private $id;
 	private $object;
 	private array $errorMessages;
 
 
-public function __construct(string ?$msg,int $code,object ?$obj,Throwable ?$err=null){
-	Exception::__construct(string $msg,int $code);
+public function __construct(int $code,string $msg='',object|null $obj=null,Throwable $err=null){
+	Exception::__construct();
 	$this->object=$obj;
 	$this->errorMessages=[];
 }
@@ -53,7 +55,7 @@ public function remove_errorMessages(string $err):bool
 }
 class ErrorObjectList{
 	private array $errorObjects;
-public function __construct(Throwable ?$err){
+public function __construct(Throwable $err=null){
 	$this->errorObjects=[];
 }
 public function get_errorObjects():array
