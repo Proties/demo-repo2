@@ -2,12 +2,13 @@
 namespace Users;
 use Posts\Post;
 use Posts\PostDB;
+use Error;
 // this class wil list all post that a user has and manipulate them
 class PostList{
 	private array $posts;
 
 	public function __construct(array ?$arr){
-		$posts=$arr;
+		$this->posts=$arr;
 	}
 	public function search_post($caption):bool
 	{
@@ -35,7 +36,7 @@ class PostList{
 			}
 			$postDB->delete_post($id);
 		}catch(Exception $err){
-
+			return $err;
 		}
 		
 
@@ -74,11 +75,14 @@ class PostList{
         $post->set_authorID($_SESSION['userID']);
         $postDB=new PostDB($post);
         $postDB->write_post();
+        $postDB->image->write_image();
+        $postDB->image->write_image_post();
         return true;
-    }catch(Exception $err){
-    	$data['status']=false;
-    	$data['errorMessages']=$errorMessages;
-    	return $data;
+    }catch(Error $err){
+    	// $data['status']=false;
+    	// $data['errorMessages']=$errorMessages;
+
+    	return $err;
     }
 
 	}

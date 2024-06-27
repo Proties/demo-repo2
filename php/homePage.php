@@ -171,7 +171,7 @@ switch($action){
         $commentDB->write_comment();
         $data['status']='success';
         echo json_encode($data);
-        }catch(Exception $err){
+        }catch(ErrorObjectList $err){
             $data['status']='failed';
             $data['message']=$err->getMessage();
             echo json_encode($data);
@@ -213,7 +213,7 @@ switch($action){
         $likeDB->write_like();
         $data['status']='success';
         echo json_encode($data);
-        }catch(Exception $err){
+        }catch(ErrorObjectList $err){
             $msg=$err->getMessage();
             $data['message']=$msg;
             $data['status']='failed';

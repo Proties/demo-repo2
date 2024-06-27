@@ -1,4 +1,5 @@
 <?php 
+use ErrorDB;
 class CommentDB extends Database{
     public $comment;
     public function __construct(Comment $comment){

@@ -1,7 +1,7 @@
 <?php
 namespace Users;
 use Databases\Database;
-use Exception;
+use ErrorDB;
 class UserDB extends Database{
     public $user;
     public function __construct(Users $user){
@@ -23,7 +23,7 @@ class UserDB extends Database{
             $stmt->bindValue(':name',"%$user%");
             $stmt->execute();
             return $stmt->fetchall();
-        }catch(PDOExecption $err){
+        }catch(ErrorDB $err){
             echo 'error looking for username '.$err->getMessages();
         }
     }
@@ -44,7 +44,7 @@ class UserDB extends Database{
         $statement->bindValue(':timeMade', $this->user->get_time());
         $this->user->set_status($statement->execute());
         $this->user->set_id($db->lastInsertId());
-        }catch(PDOExecption $err){
+        }catch(ErrorDB $err){
             echo 'Database error '.$err->getMessage();
         }
     }
@@ -64,7 +64,7 @@ class UserDB extends Database{
             $this->user->set_username($data['userID']);
             $this->user->set_username($data['username']);
             $this->user->set_name($data['fullname']);
-        }catch(PDOExecption $err){
+        }catch(ErrorDB $err){
             echo 'Database error '.$err->getMessage();
         }
     }
@@ -89,7 +89,7 @@ class UserDB extends Database{
             }
            throw new Exception('not valid user id ');
            
-        }catch(PDOExeception $err){
+        }catch(ErrorDB $err){
             echo 'Database error '.$err->getMessage();
         }
     }
@@ -103,7 +103,7 @@ class UserDB extends Database{
             $stmt=$db->prepare($query);
             $stmt->execute();
             return $stmt->fetchall();
-        }catch(PDOExeception $err){
+        }catch(ErrorDB $err){
             echo $err->getMessage();
         }
     }
@@ -121,7 +121,7 @@ class UserDB extends Database{
             $stmt->bindValue(':mail',$email);
             $stmt->execute();
             return $stmt->fetch();
-        }catch(PDOExeception $err){
+        }catch(ErrorDB $err){
             echo $err->getMessage();
         }
     }
@@ -138,7 +138,7 @@ class UserDB extends Database{
             $stmt->bindValue(':user',$email);
             $stmt->execute();
             return $stmt->fetch();
-        }catch(PDOExeception $err){
+        }catch(ErrorDB $err){
             echo $err->getMessage();
         }
     }
@@ -157,7 +157,7 @@ class UserDB extends Database{
                 return true;
             }
             return false;
-        }catch(PDOExecption $err){
+        }catch(ErrorDB $err){
             echo 'Database error '.$err->getMessage();
             return false;
         }

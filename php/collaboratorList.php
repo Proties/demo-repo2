@@ -3,34 +3,45 @@
 namespace Posts;
 class CollaboratorList{
 	private array $collaborators;
-	public function __construct(){
+	public function __construct(array ?$arr){
+		$this->collaborators=$arr;
 		
 	}
 
-	public suggest_user(string $name):array
+	public suggest_user(Users $user):array
 	{
-
+		$arr=[];
+		$len=count($this->collaborators)
+		$user->get_username();
+		for($i=0;$i<$len;$i++){
+			if($name ==$this->collaborators[$i]->get_username()){
+				array_push($this->collaborators,$this->collaborators[$i]);
+			}
+		}
+		return $arr;
 	}
-	public function search_user(Collaborator $user):array
+	public function search_user(Collaborator $user):bool
 	{
 		return $arr;
 	}
-	public function add_user(Collaborator $userID):void
+	public function add_user(Collaborator $user):void
 	{
-		array_push($this->collaborators, $user);
+		try{
+			$collabDB=new CollaboratorDB();
+			$collabDB->write_collaborator();
+			$collabDB->write_collaboratorUser();
+			array_push($this->collaborators, $user);
+		}catch(Exception $err){
+			return $err;
+		}
+		
+
 	}
-	public function remove_user(Collaborator $userID):void
+	public function remove_user(Collaborator $user):void
 	{
 		unset($this->get_users()[$userID]);
 	}
-	public function move_user_up(Collaborator $userID,$int):void
-	{
-		array_push($this->collaborators, $user);
-	}
-	public function move_user_down(Collaborator $userID,$int):void
-	{
-		
-	}
+	
 	public function get_collaborators():array
 	{
 		return $this->collaborators;

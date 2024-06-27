@@ -1,4 +1,5 @@
 <?php 
+use ErrorDB;
 class LikeDB extends Database{
     private $like;
     public function __construct(Like $like){
@@ -21,7 +22,7 @@ class LikeDB extends Database{
             $stmt->bindValue(':userID',$this->like->get_userID());
             $stmt->bindValue(':postID',$this->like->get_postID());
             $stmt->execute();
-        }catch(PDOException $err){
+        }catch(ErrorDB $err){
             echo 'error like table: '.$err->getMessage();
         }
     }

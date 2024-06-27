@@ -1,7 +1,9 @@
 <?php
+use ErrorDB;
 class CollaboratorDB extends Database{
 	private $collaborator;
 	public function __construct(Collaborator $collaborator){
+		private ErrorDB $err;
 		Database::__construct();
 		$this->collaborator=$collaborator;
 
@@ -20,6 +22,7 @@ class CollaboratorDB extends Database{
 		}
 	}
 	public function write_collaborator(){}
+	public function write_collaboratorUser(){}
 	public function update_collaborator(){}
 }
 

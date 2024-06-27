@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 namespace Categories;
 use Databases\Database;
+use ErrorDB;
 class CategoryDB extends Database{
     private $category;
  
@@ -42,7 +43,7 @@ class CategoryDB extends Database{
             $stmt->execute();
             return $stmt->fetchall();
             $this->category->set_();
-        }catch(PDOExecption $err){
+        }catch(ErrorDB $err){
             echo 'Database error: '.$err->getMessage();
 
         }
@@ -57,7 +58,7 @@ class CategoryDB extends Database{
             $stmt=$db->prepare($query);
             $stmt->execute();
             return $stmt->fetchall();
-        }catch(PDOExecption $err){
+        }catch(ErrorDB $err){
             echo 'Database error '.$err->getMessage();
 
         }
@@ -88,7 +89,7 @@ class CategoryDB extends Database{
             $stmt_two->bindValue(':post',$this->category->get_postID());
             $stmt_two->execute();
             $db->commit();
-        }catch(PDOExecption $err){
+        }catch(ErrorDB $err){
             $db->rollBack();
             echo 'Error writing to category table '.$err->getMessage();
         }
@@ -104,7 +105,7 @@ class CategoryDB extends Database{
             $stmt->bindValue('');
             $stmt->execute();
 
-        }catch(PDOException $err){
+        }catch(ErrorDB $err){
             echo 'database error categorytable '.$err->getMessage();
         }
     }
@@ -117,7 +118,7 @@ class CategoryDB extends Database{
             $stmt=$db->prepare($query);
             $stmt->execute();
             return $stmt->fetchall();
-        }catch(PDOExecption $err){
+        }catch(ErrorDB $err){
             echo 'Database error '.$err->getMessage();
         }
     }
