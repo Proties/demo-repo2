@@ -1,4 +1,7 @@
 <?php
+use BashOps;
+$bash=new BashOps();
+$bash->update_class_maps();
 require_once 'vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 
@@ -12,8 +15,7 @@ use Databases\Database;
 use Posts\Post;
 use Posts\PostDB;
 
-$bash=new BashOps();
-$bash->update_class_maps();
+
 // use Users\Users;
 $log=new Logger('start');
 $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));

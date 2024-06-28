@@ -1,9 +1,8 @@
 <?php
-use ErrorDB;
+use PDOExcepion;
 class CollaboratorDB extends Database{
 	private $collaborator;
 	public function __construct(Collaborator $collaborator){
-		private ErrorDB $err;
 		Database::__construct();
 		$this->collaborator=$collaborator;
 
@@ -19,6 +18,8 @@ class CollaboratorDB extends Database{
 					
 					WHERE userID=
 			';
+		}catch(PDOExcepion $err){
+			return $err;
 		}
 	}
 	public function write_collaborator(){}

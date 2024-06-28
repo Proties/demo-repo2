@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 namespace Categories;
 class CategoryList{
-    private array $users_posts;
+    private array|null $users_posts;
     private $dbstore;
     private $cachestore;
-	public function __construct(array ?$arr){
+	public function __construct(array|null $arr=null){
         $this->users_posts=$arr;
 	}
 	public function search_category(Category $category):array

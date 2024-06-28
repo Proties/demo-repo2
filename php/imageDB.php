@@ -1,8 +1,7 @@
 <?php
-use ErrorDB;
+use PDOExecption;
 class ImageDB extends Database{
     private $image;
-    private ErrorDB $err;
     public function __construct(Image $image){
 
     	Database::__construct();
@@ -27,7 +26,7 @@ class ImageDB extends Database{
 			$arr=$stmt->fetch();
 			$this->image->set_fileName($arr['fileName']);
 			$this->image->set_filePath($arr['filePath']);
-		}catch(ErrorDB $err){
+		}catch(PDOExecption $err){
 			echo 'database error read image '.$err->getMessage();
 		}
 	}
@@ -42,7 +41,7 @@ class ImageDB extends Database{
 			$stmt->bindValue(':id',$this->image->get_postID());
 			$stmt->execute();
 			return $stmt->fetchall();
-		}catch(ErrorDB $err){
+		}catch(PDOExecption $err){
 			echo 'database error read image '.$err->getMessage();
 		}
 	}
@@ -67,7 +66,7 @@ class ImageDB extends Database{
 			$stmt->bindValue(':updat',$this->image->get_dateModifed());
 			$stmt->bindValue(':fname',$this->image->get_fileName());
 			$stmt->execute();
-		}catch(ErrorDB $err){
+		}catch(PDOExecption $err){
 			echo 'error while writing to image '.$err->getMessage();
 		}
 	}

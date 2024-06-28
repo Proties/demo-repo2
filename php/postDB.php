@@ -1,10 +1,9 @@
 <?php 
 namespace Posts;
 use Databases\Database;
-use ErrorDB;
+use PDOExecption;
 use Posts\Post;
 class PostDB extends Database{
-    private ErrorDB $err;
     public Post $post;
     public function __construct(Post $post){
         Database::__construct();
@@ -23,7 +22,7 @@ class PostDB extends Database{
             $stmt=$db->prepare($query);
             $stmt->bindValue(':postID',$this->post->get_postID());
             $stmt->bindValue(':postID',$useID);
-        }catch(ErrorDB $err){
+        }catch(PDOExecption $err){
             echo 'Database error while writing to viewed post: '.$err->getMessage();
 
         }
@@ -39,7 +38,7 @@ class PostDB extends Database{
             $stmt=$db->prepare($query);
             $stmt->bindValue(':id',$id);
             $stmt->bindValue(':hide','hidden');
-        }catch(ErrorDB $err){
+        }catch(PDOExecption $err){
             echo 'Database error while writing to viewed post: '.$err->getMessage();
 
         }
@@ -55,7 +54,7 @@ class PostDB extends Database{
             $stmt=$db->prepare($query);
             $stmt->bindValue(':postID',$this->post->get_postID());
             $stmt->bindValue(':postID',$useID);
-        }catch(ErrorDB $err){
+        }catch(PDOExecption $err){
             echo 'Database error while writing to viewed post: '.$err->getMessage();
 
         }
@@ -71,7 +70,7 @@ class PostDB extends Database{
             $stmt->bindValue(':id',$id);
             $result=$stmt->execute();
             return $result;
-        }catch(ErrorDB $err){
+        }catch(PDOExecption $err){
             echo $err->getMessage();
             return false;
         }
@@ -88,7 +87,7 @@ class PostDB extends Database{
             $stmt->bindValue(':link',$link);
             $stmt->execute();
             return $stmt->fetch();
-        }catch(ErrorDB $err){
+        }catch(PDOExecption $err){
             echo $err->getMessage();
             return false;
         }
@@ -138,7 +137,7 @@ class PostDB extends Database{
             $stmt->bindValue(':postLink',$this->post->get_postLink());
             $stmt->bindValue(':postLinkID',$this->post->get_postLinkID());
             $this->set_status($stmt->execute());
-        }catch(ErrorDB $err){
+        }catch(PDOExecption $err){
             echo $err->getMessage();
         }
     }
@@ -152,7 +151,7 @@ class PostDB extends Database{
             $stmt=$db->prepare($query);
             $stmt->bindValue(':id',$this->post->get_id());
             $this->set_status($stmt->execute());
-        }catch(ErrorDB $err){
+        }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();
         }
     }
@@ -171,7 +170,7 @@ class PostDB extends Database{
             $stmt->bindValue(':name',$this->post->get_categoryName());
             $stmt->execute();
             return $stmt->fetchall();
-        }catch(ErrorDB $err){
+        }catch(PDOExecption $err){
             echo 'error reading post from category id '.$err->getMessage();
         }
     }
@@ -188,7 +187,7 @@ class PostDB extends Database{
             $this->post->set_status($stmt->execute());
             $results=$stmt->fetchall();
             return $results;
-        }catch(ErrorDB $err){
+        }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();
         }
     }
@@ -205,7 +204,7 @@ class PostDB extends Database{
             $stmt->execute();
             $id=$stmt->fetch();
             $this->post->set_postID($id);
-        }catch(ErrorDB $err){
+        }catch(PDOExecption $err){
             echo $err->getMessage();
         }
     }
@@ -222,7 +221,7 @@ class PostDB extends Database{
             $stmt->bindValue(':id',$id);
             $stmt->execute();
             return $stmt->fetch();
-        }catch(ErrorDB $err){
+        }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();
         }
     }
@@ -238,7 +237,7 @@ class PostDB extends Database{
             $stmt->bindValue(':id',$this->post->get_postID());
             $this->post->set_status($stmt->execute());
             $results=$stmt->fetch();
-        }catch(ErrorDB $err){
+        }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();
         }
     }

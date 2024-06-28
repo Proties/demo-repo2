@@ -56,8 +56,8 @@ class Category{
     public function get_errorMessage(){
         return $this->errorMessage;
     }
-    public function get_posts(){
-        return $this->posts;
+    public function get_posts(array|null $posts=null){
+        return $this->posts=new CategoryList($posts);
     }
   
 

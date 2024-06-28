@@ -12,15 +12,8 @@ so declare and instiate ErrorObjectList class then store error object inside it
 function erro_handler(){
 
 }
-class ErrorDB extends PDOException{
-	private int $id;
-	private $object;
-	private array $errorMessages;
-public function __construct(string $str='',int|null $code=null,object|null $obj=null,Throwable $err=null){
 
-	PDOException::__construct();
-}
-}
+
 Class ErrorHandler extends Exception{
 	private $id;
 	private $object;

@@ -1,5 +1,5 @@
 <?php 
-use ErrorDB;
+use PDOExecption;
 class CommentDB extends Database{
     public $comment;
     public function __construct(Comment $comment){

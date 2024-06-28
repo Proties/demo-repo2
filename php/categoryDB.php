@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 namespace Categories;
 use Databases\Database;
-use ErrorDB;
+use PDOExcepion;
 class CategoryDB extends Database{
     private $category;
  
@@ -41,9 +41,9 @@ class CategoryDB extends Database{
             $stmt=$db->prepare($query);
             $stmt->bindValue(':name',$this->category->get_categoryName());
             $stmt->execute();
-            return $stmt->fetchall();
-            $this->category->set_();
-        }catch(ErrorDB $err){
+            $data=$stmt->fetchall();
+            $this->category->get_posts($data);
+        }catch(PDOExcepion $err){
             echo 'Database error: '.$err->getMessage();
 
         }
@@ -58,7 +58,7 @@ class CategoryDB extends Database{
             $stmt=$db->prepare($query);
             $stmt->execute();
             return $stmt->fetchall();
-        }catch(ErrorDB $err){
+        }catch(PDOExcepion $err){
             echo 'Database error '.$err->getMessage();
 
         }
@@ -66,7 +66,7 @@ class CategoryDB extends Database{
     public function write_category(){
         $db=$this->db;
         try{
-            $db->begin_transaction();
+
             $query_one='
                     INSERT INTO Category()
                     VALUES(:categoryName,:postID,:catDate,:catTime,:vw);
@@ -79,7 +79,14 @@ class CategoryDB extends Database{
             $stmt->bindValue(':catTime',$this->category->get_categoryTime());
             $stmt->bindValue(':vw',$this->category->get_viewCount());
             $stmt->execute();
-            $this->set_categoryID($stmt->lastInsertId());
+            $this->category->set_categoryID($stmt->lastInsertId());
+        }catch(PDOExcepion $err){
+            echo 'write to category error'.$err->getMessage();
+
+        }
+    }
+    public function write_category_post(){
+        try{
              $query_two='
                     INSERT INTO post_category
                     VALUES(:catID,:post);
@@ -89,7 +96,7 @@ class CategoryDB extends Database{
             $stmt_two->bindValue(':post',$this->category->get_postID());
             $stmt_two->execute();
             $db->commit();
-        }catch(ErrorDB $err){
+        }catch(PDOExcepion $err){
             $db->rollBack();
             echo 'Error writing to category table '.$err->getMessage();
         }
@@ -105,7 +112,7 @@ class CategoryDB extends Database{
             $stmt->bindValue('');
             $stmt->execute();
 
-        }catch(ErrorDB $err){
+        }catch(PDOExcepion $err){
             echo 'database error categorytable '.$err->getMessage();
         }
     }
@@ -118,7 +125,7 @@ class CategoryDB extends Database{
             $stmt=$db->prepare($query);
             $stmt->execute();
             return $stmt->fetchall();
-        }catch(ErrorDB $err){
+        }catch(PDOExcepion $err){
             echo 'Database error '.$err->getMessage();
         }
     }
