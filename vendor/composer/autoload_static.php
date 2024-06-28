@@ -116,6 +116,7 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
 
     public static $fallbackDirsPsr4 = array (
         0 => __DIR__ . '/../..' . '/php',
+        1 => __DIR__ . '/../..' . '/tests',
     );
 
     public static $classMap = array (

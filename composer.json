@@ -24,6 +24,11 @@
             "index.php"
         ]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "":"tests/"
+        }
+    },
     "config": {
         "lock": true,
         "sort-packages": true,
