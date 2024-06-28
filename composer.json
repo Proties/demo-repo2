@@ -17,6 +17,7 @@
         ]
     },
     "config": {
+        "composer-version":"2.2",
         "lock": true,
         "sort-packages": true,
         "platform-check": true
