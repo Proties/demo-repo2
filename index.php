@@ -4,21 +4,18 @@ require_once 'vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 
 $dotenv->load();
-// use Monolog\Level;
-// use Monolog\Logger;
-// use Monolog\Handler\StreamHandler;
+use Monolog\Level;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 use Users\Users;
 use Users\UserDB;
 use Databases\Database;
 use Posts\Post;
 use Posts\PostDB;
 
-echo 'hello';
-
-return;
-// use Users\Users;
-// $log=new Logger('start');
-// $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
+use Users\Users;
+$log=new Logger('start');
+$log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
 echo 'hello';
 
 return;
@@ -85,7 +82,7 @@ if($post->validate_postLink($f_txt)){
     }catch(Exception $err){
         $data['status']='failed';
         $data['message']=$err->getMessage();
-        // $log->warning($err->getMessage());
+        $log->warning($err->getMessage());
         echo json_encode($data);
     }
    return;

@@ -4,7 +4,6 @@ build/
 *.min.js
 *.min.css
 .vscode/
-vendor/
 node_modules
 logs/
 .env
