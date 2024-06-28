@@ -8,6 +8,12 @@
         "phpunit/phpunit":"^9.5"
     }
     ,"autoload":{
+        "psr-4": {
+            "Monolog\\":"vendor/mononlog/mononlog/src",
+            "Users\\":"php/",
+            "Posts\\":"php/",
+            "Categories\\":"php/"
+        },
         "classmap": [
             "php/",
             "index.php"

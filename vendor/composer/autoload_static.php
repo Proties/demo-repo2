@@ -16,6 +16,10 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
     );
 
     public static $prefixLengthsPsr4 = array (
+        'U' => 
+        array (
+            'Users\\' => 6,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
@@ -25,6 +29,7 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         'P' => 
         array (
             'Psr\\Log\\' => 8,
+            'Posts\\' => 6,
             'PhpParser\\' => 10,
             'PhpOption\\' => 10,
         ),
@@ -42,9 +47,17 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
             'Doctrine\\Instantiator\\' => 22,
             'DeepCopy\\' => 9,
         ),
+        'C' => 
+        array (
+            'Categories\\' => 11,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Users\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/php',
+        ),
         'Symfony\\Polyfill\\Php80\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
@@ -61,6 +74,10 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
         ),
+        'Posts\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/php',
+        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
@@ -71,7 +88,8 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         ),
         'Monolog\\' => 
         array (
-            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+            0 => __DIR__ . '/..' . '/mononlog/mononlog/src',
+            1 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
         'GrahamCampbell\\ResultType\\' => 
         array (
@@ -88,6 +106,10 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
+        ),
+        'Categories\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/php',
         ),
     );
 
