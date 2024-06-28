@@ -1,7 +1,4 @@
 <?php
-use BashOps;
-$bash=new BashOps();
-$bash->update_class_maps();
 require_once 'vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 
