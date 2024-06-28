@@ -14,5 +14,10 @@
         "files": [
             "index.php"
         ]
+    },
+    "config": {
+        "lock": false,
+        "sort-packages": true,
+        "platform-check": false
     }
 }
