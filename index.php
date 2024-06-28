@@ -13,7 +13,9 @@ use Databases\Database;
 use Posts\Post;
 use Posts\PostDB;
 
+echo 'hello';
 
+return;
 // use Users\Users;
 $log=new Logger('start');
 $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
