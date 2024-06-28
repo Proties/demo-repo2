@@ -9,16 +9,13 @@ class Database{
     
     public function __construct(){
         // $this->dsn='mysql:host=localhost;dbname='.$_ENV['DATABASENAME'].';';
-        // $this->dsn='mysql:host=191.96.56.52;dbname=u203973307_wholedata;';
-        $this->dsn='mysql:host='.$_ENV['IPADDRESS'].';dbname='.$_ENV['DATABASENAME'].';';
-        // $this->user='u203973307_dbaAdmin';
-        $this->user=$_ENV['DATABASEUSER'];
-        // $this->password='w1]WEw?J@|N';
-        $this->password=$_ENV['DATABASEPASSWORD'];
+        $this->dsn='mysql:host=191.96.56.52;dbname=u203973307_wholedata;';
+        // $this->dsn='mysql:host='.$_ENV['IPADDRESS'].';dbname='.$_ENV['DATABASENAME'].';';
+        $this->user='u203973307_dbaAdmin';
+        // $this->user=$_ENV['DATABASEUSER'];
+        $this->password='w1]WEw?J@|N';
+        // $this->password=$_ENV['DATABASEPASSWORD'];
         $this->pdo;
-        echo $_ENV['DATABASEUSER'].'    ';
-        echo $_ENV['DATABASEPASSWORD'].'    ';
-        echo $_ENV['DATABASENAME'];
         $this->connect();
     }
     public function get_dsn(){
