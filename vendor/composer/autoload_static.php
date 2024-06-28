@@ -98,6 +98,7 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         'Dotenv\\' => 
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+            1 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
         ),
         'Doctrine\\Instantiator\\' => 
         array (
@@ -115,7 +116,6 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
 
     public static $fallbackDirsPsr4 = array (
         0 => __DIR__ . '/../..' . '/php',
-        1 => __DIR__ . '/../..' . '/vendor',
     );
 
     public static $classMap = array (
