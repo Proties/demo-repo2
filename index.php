@@ -1,8 +1,6 @@
 <?php
 require_once 'vendor/autoload.php';
-echo 'hello';
 
-return
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 
 $dotenv->load();
@@ -19,7 +17,9 @@ use Posts\PostDB;
 // use Users\Users;
 $log=new Logger('start');
 $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
+echo 'hello';
 
+return;
 // $list=apache_request_headers();
 // var_dump($list);
 
