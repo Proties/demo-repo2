@@ -17,7 +17,7 @@
         ]
     },
     "config": {
-        "lock": true,
+        "lock": false,
         "sort-packages": true,
         "platform-check": false
     }
