@@ -1,7 +1,10 @@
 <?php
-// require_once 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
+use Dotenv\Dotenv;
+
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
+
 use Monolog\Level;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;

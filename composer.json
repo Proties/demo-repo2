@@ -25,7 +25,6 @@
         ]
     },
     "config": {
-        "composer-version":"2.2.24",
         "lock": true,
         "sort-packages": true,
         "platform-check": false
