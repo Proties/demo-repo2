@@ -9,6 +9,7 @@
     }
     ,"autoload":{
         "psr-4": {
+            "":"php/",
             "Monolog\\":"vendor/mononlog/mononlog/src",
             "Users\\":"php/",
             "Posts\\":"php/",

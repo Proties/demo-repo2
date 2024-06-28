@@ -113,6 +113,10 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         ),
     );
 
+    public static $fallbackDirsPsr4 = array (
+        0 => __DIR__ . '/../..' . '/php',
+    );
+
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'BashOps' => __DIR__ . '/../..' . '/php/bashOperations.php',
@@ -794,6 +798,7 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInite157323c771501e83d1f5facf84220ae::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInite157323c771501e83d1f5facf84220ae::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInite157323c771501e83d1f5facf84220ae::$fallbackDirsPsr4;
             $loader->classMap = ComposerStaticInite157323c771501e83d1f5facf84220ae::$classMap;
 
         }, null, ClassLoader::class);
