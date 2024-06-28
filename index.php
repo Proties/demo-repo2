@@ -1,5 +1,5 @@
 <?php
-require_once 'vendor/autoload.php';
+// require_once 'vendor/autoload.php';
 echo 'hello';
 
 return;
@@ -14,8 +14,6 @@ use Users\UserDB;
 use Databases\Database;
 use Posts\Post;
 use Posts\PostDB;
-
-use Users\Users;
 $log=new Logger('start');
 $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
 
