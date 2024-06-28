@@ -9,8 +9,9 @@
     }
     ,"autoload":{
         "psr-4": {
-            "":"php/",
+            "":["php/","vendor/"],
             "Monolog\\":"vendor/mononlog/mononlog/src",
+            
             "Users\\":"php/",
             "Posts\\":"php/",
             "Categories\\":"php/"

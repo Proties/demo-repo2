@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '17ec19524fb0a529791aa7c25d8c087f94a45cb9',
+        'reference' => 'dd4a81d69237f9099c1503c7ccf9035a559b7360',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '17ec19524fb0a529791aa7c25d8c087f94a45cb9',
+            'reference' => 'dd4a81d69237f9099c1503c7ccf9035a559b7360',
             'dev_requirement' => false,
         ),
         'doctrine/instantiator' => array(
