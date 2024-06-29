@@ -1,7 +1,8 @@
 <?php
-namespace Users;
-use Databases\Database;
-use PDOExcepion;
+namespace Insta\Databases\User;
+require 'php/database.php';
+use Insta\Databases\Database;
+use Insta\Users\Users;
 class UserDB extends Database{
     public $user;
     public function __construct(Users $user){

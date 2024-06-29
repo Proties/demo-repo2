@@ -1,5 +1,6 @@
 <?php 
-use $err;
+namespace Insta\Databases\Like;
+use Insta\Databases\Database;
 class LikeDB extends Database{
     private $like;
     public function __construct(Like $like){

@@ -1,5 +1,6 @@
 <?php 
-use PDOExecption;
+namespace Insta\Databases\Comments;
+use Insta\Databases\Database;
 class CommentDB extends Database{
     public $comment;
     public function __construct(Comment $comment){

@@ -1,17 +1,65 @@
 <?php
-use Dotenv\Dotenv;
-$dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+require_once 'vendor/psr/log/src/LoggerInterface.php';
+require_once 'vendor/vlucas/phpdotenv/src/Dotenv.php';
+require_once 'vendor/monolog/monolog/src/Monolog/Level.php';
+require_once 'vendor/monolog/monolog/src/Monolog/ResettableInterface.php';
+require_once 'vendor/monolog/monolog/src/Monolog/DateTimeImmutable.php';
+require_once 'vendor/monolog/monolog/src/Monolog/Formatter/FormatterInterface.php';
+require_once 'vendor/monolog/monolog/src/Monolog/Formatter/NormalizerFormatter.php';
+require_once 'vendor/monolog/monolog/src/Monolog/Formatter/LineFormatter.php';
+require_once 'vendor/monolog/monolog/src/Monolog/LogRecord.php';
+require_once 'vendor/monolog/monolog/src/Monolog/Utils.php';
+require_once 'vendor/monolog/monolog/src/Monolog/Handler/FormattableHandlerInterface.php';
+require_once 'vendor/monolog/monolog/src/Monolog/Handler/ProcessableHandlerInterface.php';
+require_once 'vendor/monolog/monolog/src/Monolog/Handler/FormattableHandlerTrait.php';
+require_once 'vendor/monolog/monolog/src/Monolog/Handler/ProcessableHandlerTrait.php';
+require_once 'vendor/monolog/monolog/src/Monolog/Handler/HandlerInterface.php';
+require_once 'vendor/monolog/monolog/src/Monolog/Handler/Handler.php';
+
+require_once 'vendor/monolog/monolog/src/Monolog/Handler/AbstractHandler.php';
+require_once 'vendor/monolog/monolog/src/Monolog/Handler/Handler.php';
+require_once 'vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php';
+
+require_once 'vendor/monolog/monolog/src/Monolog/Logger.php';
+require_once 'vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php';
+require_once 'php/user.php';
+require_once 'php/userDB.php';
+require_once 'php/post.php';
+require_once 'php/postDB.php';
+require_once 'php/database.php';
+require_once 'php/userFile.php';
+require_once 'php/userAuth.php';
+require_once 'php/image.php';
+require_once 'php/userAuth.php';
+require_once 'php/commentList.php';
+require_once 'php/categoryList.php';
+require_once 'php/collaboratorList.php';
+require_once 'php/category.php';
+require_once 'php/location.php';
+require_once 'php/imageFile.php';
+require_once 'php/categoryDB.php';
+require_once 'php/imageDB.php';
+require_once 'php/collaborator.php';
+require_once 'php/rank.php';
+
+
+function callback($class){
+    echo $class;
+}
+spl_autoload_register('callback');
+// use Dotenv\Dotenv;
+// $dotenv = Dotenv::createImmutable(__DIR__);
+// $dotenv->load();
 use Monolog\Level;
 use monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Insta\Users\Users;
-use Insta\Users\UserDB;
+use Insta\Databases\User\UserDB;
 use Insta\Databases\Database;
 use Insta\Posts\Post;
-use Insta\Posts\PostDB;
-// $log=new Logger('start');
-// $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
+use Insta\Databases\Post\PostDB;
+$log=new Logger('start');
+$log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
 
 // $list=apache_request_headers();
 // var_dump($list);

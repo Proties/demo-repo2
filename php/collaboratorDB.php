@@ -1,5 +1,6 @@
 <?php
-use PDOExcepion;
+namespace Insta\Databases\Collaborator;
+use Insta\Databases\Database;
 class CollaboratorDB extends Database{
 	private $collaborator;
 	public function __construct(Collaborator $collaborator){

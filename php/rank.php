@@ -1,4 +1,5 @@
 <?php
+namespace Insta\Ranking;
 use Insta\Databases\Database;
 class Ranking extends Database{
 

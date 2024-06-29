@@ -1,5 +1,5 @@
 <?php
-namespace Databases;
+namespace Insta\Databases;
 use PDO;
 class Database{
     private $dsn;
@@ -44,9 +44,7 @@ class Database{
         return $this->pdo;
     }
 }
-trait handleErrors{
-    
-}
+
 
 
 

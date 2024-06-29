@@ -4,11 +4,11 @@ session_start();
 use Monolog\Level;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
-use Users\Users;
-use Posts\Post;
-use Categories\Category;
-use Categories\CategoryDB;
-
+use Insta\Users\Users;
+use Insta\Posts\Post;
+use Insta\Categories\Category;
+use Insta\Categories\CategoryDB;
+use Insta\Ranking\Ranking;
 $log=new Logger('start');
 $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
 $mainUser=new Users();

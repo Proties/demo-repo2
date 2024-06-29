@@ -1,7 +1,6 @@
 <?php declare(strict_types=1);
-namespace Categories;
-use Databases\Database;
-use PDOExcepion;
+namespace Insta\Categories;
+use Insta\Databases\Database;
 class CategoryDB extends Database{
     private $category;
  

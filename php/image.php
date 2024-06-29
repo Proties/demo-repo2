@@ -1,5 +1,5 @@
 <?php  declare(strict_types=1);
-namespace Insta\Posts;
+namespace Insta\Images;
 class Image{
 	private string $dateMade;
 	private string $dateModified;

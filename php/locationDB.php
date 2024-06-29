@@ -1,4 +1,6 @@
 <?php 
+namespace Insta\Databases\Location;
+use Insta\Databases\Database;
 class LocationDB extends Database{
 	private $location;
 	public function __construct(Location $location){

@@ -1,8 +1,7 @@
 <?php 
-namespace Posts;
-use Databases\Database;
-use PDOExecption;
-use Posts\Post;
+namespace Insta\Databases\Post;
+use Insta\Databases\Database;
+use Insta\Posts\Post;
 class PostDB extends Database{
     public Post $post;
     public function __construct(Post $post){

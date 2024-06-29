@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 namespace Insta\Posts;
-use Location;
+use Insta\Images\Image;
+use Insta\Location\Location;
 class Post{
     use validatePost;
     private int $order;

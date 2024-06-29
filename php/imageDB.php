@@ -1,5 +1,6 @@
 <?php
-use PDOExecption;
+namespace Insta\Databases\Image;
+use Insta\Databases\Database;
 class ImageDB extends Database{
     private $image;
     public function __construct(Image $image){
