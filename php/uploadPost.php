@@ -45,6 +45,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $post->image->set_enoded_base64_string($img);
         $post->image->set_filePath($user->get_dir());
         $status=$user->get_postList()->add_post($post);
+        $data['post']=json_encode($user->get_postList()->get_last_added()->get_data());
         $data['status']='success';
         echo json_encode($data);
         $db->commit();

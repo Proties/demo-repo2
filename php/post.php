@@ -21,6 +21,7 @@ class Post{
     private CommentList $commentList;
     private string $postFile;
     private Image $image;
+    private array $data;
 
 
 public function __construct(){
@@ -40,7 +41,10 @@ public function __construct(){
 
    
 }
-
+public function get_data():array 
+{
+    return $this->data;
+}
 function initialise(array $arr){
     $this->set_authorID($arr['userID']);
     $this->set_caption($arr['postTitle']);

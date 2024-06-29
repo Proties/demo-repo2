@@ -14,6 +14,10 @@ class PostList{
 		}
 		$this->posts=$arr;
 	}
+	public function get_last_added():object 
+	{
+		array_shift($this->posts);
+	}
 	public function search_post($caption):bool
 	{
 		

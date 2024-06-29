@@ -10,6 +10,7 @@ class Location{
 	private string $latitude;
 	private string $altitude;
 	private string $country;
+	private array $data;
 
 	public function __construct(){
 		$this->id=0;
@@ -24,6 +25,10 @@ class Location{
 		$this->longitude='';
 		
 	}
+	public function get_data(){
+		$this->data;
+	}
+	public function add_location(){}
 }
 
 
