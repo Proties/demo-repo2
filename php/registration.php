@@ -1,5 +1,6 @@
 <?php
 session_start();
+use Insta\User\Users;
 $user=new Users();
 
 $errorMessages=array();

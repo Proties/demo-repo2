@@ -1,5 +1,15 @@
 <?php
 session_start();
+use Insta\Posts\Post;
+use Insta\Databases\Post;
+use Insta\Databases\User;
+use Insta\Users\Users;
+use Insta\Users\UserFile;
+use Insta\Categories\Category;
+use Insta\Databases\Category;
+use Insta\Collaborators\Collaborator;
+use Insta\Databases\Collaborator;
+
 if($_SERVER['REQUEST_METHOD']=='POST'){
     $data=file_get_contents('php://input');
     $data_f=json_decode($data,true);
