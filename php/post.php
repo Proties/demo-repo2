@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace Posts;
+namespace Insta\Posts;
 use Location;
 class Post{
     use validatePost;

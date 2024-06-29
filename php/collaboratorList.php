@@ -1,6 +1,6 @@
 <?php  declare(strict_types=1);
 // this class will have acces to database
-namespace Posts;
+namespace Insta\Posts;
 class CollaboratorList{
 	private array|null $collaborators;
 	public function __construct(array $arr=null){

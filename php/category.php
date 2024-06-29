@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace Categories;
+namespace Insta\Categories;
 class Category{
     private string $categoryName;
     private int $categoryID;

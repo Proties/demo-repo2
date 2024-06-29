@@ -12,14 +12,11 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
+        '5cdff940144eba0c9fe297d5cd6ee76e' => __DIR__ . '/../..' . '/php',
         'ae2b2fbc1ae2e7a851a2af518947a092' => __DIR__ . '/../..' . '/index.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'U' => 
-        array (
-            'Users\\' => 6,
-        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
@@ -29,13 +26,16 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         'P' => 
         array (
             'Psr\\Log\\' => 8,
-            'Posts\\' => 6,
             'PhpParser\\' => 10,
             'PhpOption\\' => 10,
         ),
         'M' => 
         array (
             'Monolog\\' => 8,
+        ),
+        'I' => 
+        array (
+            'Insta\\' => 6,
         ),
         'G' => 
         array (
@@ -47,17 +47,9 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
             'Doctrine\\Instantiator\\' => 22,
             'DeepCopy\\' => 9,
         ),
-        'C' => 
-        array (
-            'Categories\\' => 11,
-        ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Users\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/php',
-        ),
         'Symfony\\Polyfill\\Php80\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
@@ -74,10 +66,6 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
         ),
-        'Posts\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/php',
-        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
@@ -88,8 +76,11 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         ),
         'Monolog\\' => 
         array (
-            0 => __DIR__ . '/..' . '/mononlog/mononlog/src',
-            1 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Insta\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/php/Insta',
         ),
         'GrahamCampbell\\ResultType\\' => 
         array (
@@ -98,7 +89,6 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         'Dotenv\\' => 
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
-            1 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
         ),
         'Doctrine\\Instantiator\\' => 
         array (
@@ -108,25 +98,16 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
         ),
-        'Categories\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/php',
-        ),
     );
 
     public static $fallbackDirsPsr4 = array (
-        0 => __DIR__ . '/../..' . '/php',
-        1 => __DIR__ . '/../..' . '/tests',
+        0 => __DIR__ . '/../..' . '/tests',
     );
 
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'BashOps' => __DIR__ . '/../..' . '/php/bashOperations.php',
-        'Categories\\Category' => __DIR__ . '/../..' . '/php/category.php',
         'Categories\\CategoryDB' => __DIR__ . '/../..' . '/php/categoryDB.php',
-        'Categories\\CategoryList' => __DIR__ . '/../..' . '/php/categoryList.php',
-        'Categories\\validateCategory' => __DIR__ . '/../..' . '/php/category.php',
-        'Collaborator' => __DIR__ . '/../..' . '/php/collaborator.php',
         'CollaboratorDB' => __DIR__ . '/../..' . '/php/collaboratorDB.php',
         'CommentDB' => __DIR__ . '/../..' . '/php/commentDB.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
@@ -138,9 +119,26 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         'ErrorHandler' => __DIR__ . '/../..' . '/php/error.php',
         'ErrorObjectList' => __DIR__ . '/../..' . '/php/error.php',
         'ImageDB' => __DIR__ . '/../..' . '/php/imageDB.php',
-        'ImageFile' => __DIR__ . '/../..' . '/php/imageFile.php',
+        'Insta\\Categories\\Category' => __DIR__ . '/../..' . '/php/category.php',
+        'Insta\\Categories\\CategoryList' => __DIR__ . '/../..' . '/php/categoryList.php',
+        'Insta\\Categories\\validateCategory' => __DIR__ . '/../..' . '/php/category.php',
+        'Insta\\Collaborator\\Collaborator' => __DIR__ . '/../..' . '/php/collaborator.php',
+        'Insta\\Images\\ImageFile' => __DIR__ . '/../..' . '/php/imageFile.php',
+        'Insta\\Location\\Location' => __DIR__ . '/../..' . '/php/loaction.php',
+        'Insta\\Posts\\CollaboratorList' => __DIR__ . '/../..' . '/php/collaboratorList.php',
+        'Insta\\Posts\\Comment' => __DIR__ . '/../..' . '/php/comment.php',
+        'Insta\\Posts\\CommentList' => __DIR__ . '/../..' . '/php/commentList.php',
+        'Insta\\Posts\\Image' => __DIR__ . '/../..' . '/php/image.php',
+        'Insta\\Posts\\Like' => __DIR__ . '/../..' . '/php/like.php',
+        'Insta\\Posts\\Post' => __DIR__ . '/../..' . '/php/post.php',
+        'Insta\\Posts\\validateComment' => __DIR__ . '/../..' . '/php/comment.php',
+        'Insta\\Posts\\validatePost' => __DIR__ . '/../..' . '/php/post.php',
+        'Insta\\Users\\PostList' => __DIR__ . '/../..' . '/php/postsList.php',
+        'Insta\\Users\\UserAuth' => __DIR__ . '/../..' . '/php/userAuth.php',
+        'Insta\\Users\\UserFolder' => __DIR__ . '/../..' . '/php/userFile.php',
+        'Insta\\Users\\Users' => __DIR__ . '/../..' . '/php/user.php',
+        'Insta\\Users\\validateUser' => __DIR__ . '/../..' . '/php/user.php',
         'LikeDB' => __DIR__ . '/../..' . '/php/likeDB.php',
-        'Location' => __DIR__ . '/../..' . '/php/loaction.php',
         'LocationDB' => __DIR__ . '/../..' . '/php/locationDB.php',
         'Network' => __DIR__ . '/../..' . '/php/network.php',
         'PHPUnit\\Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Exception.php',
@@ -565,15 +563,7 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         'PharIo\\Version\\VersionConstraintValue' => __DIR__ . '/..' . '/phar-io/version/src/VersionConstraintValue.php',
         'PharIo\\Version\\VersionNumber' => __DIR__ . '/..' . '/phar-io/version/src/VersionNumber.php',
         'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
-        'Posts\\CollaboratorList' => __DIR__ . '/../..' . '/php/collaboratorList.php',
-        'Posts\\Comment' => __DIR__ . '/../..' . '/php/comment.php',
-        'Posts\\CommentList' => __DIR__ . '/../..' . '/php/commentList.php',
-        'Posts\\Image' => __DIR__ . '/../..' . '/php/image.php',
-        'Posts\\Like' => __DIR__ . '/../..' . '/php/like.php',
-        'Posts\\Post' => __DIR__ . '/../..' . '/php/post.php',
         'Posts\\PostDB' => __DIR__ . '/../..' . '/php/postDB.php',
-        'Posts\\validateComment' => __DIR__ . '/../..' . '/php/comment.php',
-        'Posts\\validatePost' => __DIR__ . '/../..' . '/php/post.php',
         'Ranking' => __DIR__ . '/../..' . '/php/rank.php',
         'SebastianBergmann\\CliParser\\AmbiguousOptionException' => __DIR__ . '/..' . '/sebastian/cli-parser/src/exceptions/AmbiguousOptionException.php',
         'SebastianBergmann\\CliParser\\Exception' => __DIR__ . '/..' . '/sebastian/cli-parser/src/exceptions/Exception.php',
@@ -785,12 +775,7 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         'TheSeer\\Tokenizer\\Tokenizer' => __DIR__ . '/..' . '/theseer/tokenizer/src/Tokenizer.php',
         'TheSeer\\Tokenizer\\XMLSerializer' => __DIR__ . '/..' . '/theseer/tokenizer/src/XMLSerializer.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
-        'Users\\PostList' => __DIR__ . '/../..' . '/php/postsList.php',
-        'Users\\UserAuth' => __DIR__ . '/../..' . '/php/userAuth.php',
         'Users\\UserDB' => __DIR__ . '/../..' . '/php/userDB.php',
-        'Users\\UserFolder' => __DIR__ . '/../..' . '/php/userFile.php',
-        'Users\\Users' => __DIR__ . '/../..' . '/php/user.php',
-        'Users\\validateUser' => __DIR__ . '/../..' . '/php/user.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
         'userCache' => __DIR__ . '/../..' . '/php/userCache.php',
     );

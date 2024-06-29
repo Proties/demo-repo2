@@ -1,28 +1,23 @@
 {
-    "composer": "^2.2.0",
+    "name":"Insta",
     "require": {
         "php":">=8.1",
-        "monolog/monolog": "^3.0",
         "vlucas/phpdotenv": "^5.6"
     },
     "require-dev": {
-        "phpunit/phpunit":"^9.5"
+        "monolog/monolog": "^3.7",
+        "phpunit/phpunit": "^9.5"
     }
     ,"autoload":{
-        "psr-0": {},
         "psr-4": {
-            "":"php/",
-            "Monolog\\":"vendor/mononlog/mononlog/src",
-            "Dotenv\\":"vendor/vlucas/phpdotenv/src",
-            "Users\\":"php/",
-            "Posts\\":"php/",
-            "Categories\\":"php/"
+            "Insta\\":"php/Insta"
+            
         },
         "classmap": [
-            "php/",
             "index.php"
         ],
         "files": [
+            "php/",
             "index.php"
         ]
     },
@@ -31,9 +26,11 @@
             "":"tests/"
         }
     },
+    "scripts"{
+        
+    },
     "config": {
-        "composer-runtime-api": "^2",
-        "lock": true,
+        "lock": false,
         "sort-packages": true,
         "platform-check": false
     }

@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace Users;
+namespace Insta\Users;
 // this cllas will deal with the user folder createion/modification/deletion
 class UserFolder{
 	private string $userDir;

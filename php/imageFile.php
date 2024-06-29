@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-
+namespace Insta\Images;
 class ImageFile{
 
 // making random file name 

@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace Users;
+namespace Insta\Users;
 use Serializable;
 class Users implements Serializable{
     use validateUser;

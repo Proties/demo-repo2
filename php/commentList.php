@@ -1,5 +1,5 @@
 <?php  declare(strict_types=1);
-namespace Posts;
+namespace Insta\Posts;
 class CommentList{
 
 	private array $comments=[];

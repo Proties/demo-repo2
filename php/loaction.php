@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+namespace Insta\Location;
 class Location{
 	private int $id;
 	private string $province;

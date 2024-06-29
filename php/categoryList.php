@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace Categories;
+namespace Insta\Categories;
 class CategoryList{
     private array|null $users_posts;
     private $dbstore;

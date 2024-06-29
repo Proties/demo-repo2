@@ -1,19 +1,17 @@
 <?php
-require_once 'vendor/autoload.php';
-
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+use Dotenv\Dotenv;
+$dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
-
 use Monolog\Level;
-use Monolog\Logger;
+use monolog\Logger;
 use Monolog\Handler\StreamHandler;
-use Users\Users;
-use Users\UserDB;
-use Databases\Database;
-use Posts\Post;
-use Posts\PostDB;
-$log=new Logger('start');
-$log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
+use Insta\Users\Users;
+use Insta\Users\UserDB;
+use Insta\Databases\Database;
+use Insta\Posts\Post;
+use Insta\Posts\PostDB;
+// $log=new Logger('start');
+// $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
 
 // $list=apache_request_headers();
 // var_dump($list);

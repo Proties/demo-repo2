@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
-namespace Users;
-use Posts\Post;
-use Posts\PostDB;
+namespace Insta\Users;
+use Insta\Posts\Post;
+use Insta\Posts\PostDB;
 use Error;
 // this class wil list all post that a user has and manipulate them
 class PostList{
