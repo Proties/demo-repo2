@@ -43,10 +43,7 @@ require_once 'php/collaborator.php';
 require_once 'php/rank.php';
 
 
-function callback($class){
-    echo $class;
-}
-spl_autoload_register('callback');
+
 // use Dotenv\Dotenv;
 // $dotenv = Dotenv::createImmutable(__DIR__);
 // $dotenv->load();

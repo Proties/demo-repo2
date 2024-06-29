@@ -295,3 +295,8 @@
 [2024-06-29T23:34:07.277138+00:00] start.WARNING: / [] []
 [2024-06-29T23:34:54.095210+00:00] start.WARNING: / [] []
 [2024-06-29T23:34:58.704662+00:00] start.WARNING: / [] []
+[2024-06-29T23:36:46.738269+00:00] start.WARNING: / [] []
+[2024-06-29T23:36:52.184081+00:00] start.WARNING: / [] []
+[2024-06-29T23:36:59.759897+00:00] start.WARNING: /profile [] []
+[2024-06-29T23:38:00.674391+00:00] start.WARNING: /profile [] []
+[2024-06-29T23:38:02.701448+00:00] start.WARNING: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'u203973307_wholedata.Posts' doesn't exist [] []
