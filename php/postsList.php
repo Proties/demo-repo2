@@ -7,7 +7,7 @@ use Error;
 class PostList{
 	private array $posts;
 
-	public function __construct(array ?$arr=null){
+	public function __construct(array|null $arr=null){
 		if($arr==null){
 			$this->posts=[];
 			return;

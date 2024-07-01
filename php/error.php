@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
-
-
+namespace Insta\Exception;
  /**
 if there is an error object with the same object instaited do not create a new error
 instead use the error class that has that object
@@ -9,10 +8,7 @@ there hass to be a list of all instiated error object for this to work
 so declare and instiate ErrorObjectList class then store error object inside it
  * 
  */
-function erro_handler(){
-
-}
-
+use Exception;
 
 Class ErrorHandler extends Exception{
 	private $id;
@@ -20,49 +16,36 @@ Class ErrorHandler extends Exception{
 	private array $errorMessages;
 
 
-public function __construct(int $code,string $msg='',object|null $obj=null,Throwable $err=null){
-	Exception::__construct();
-	$this->object=$obj;
+public function __construct(){
 	$this->errorMessages=[];
 }
 public function get_object():object 
 {
-	return $this->$obj;
+	return $this->$object;
 }
-public function set_errorMessages(array $arr){
+public function set_error(array $arr){
 	$this->errorMessages=$arr;
 }
-public function get_errorMessages():array
+public function get_errors():array
 {
 	return $this->errorMessages;
 }
-public function add_errorMessages(string $err):bool
+public function add_error(array $err)
 {
-
+	$this->errorMessages[]=$err;
 }
-public function remove_errorMessages(string $err):bool
+public function remove_error(array $err):bool
 {
-
+	for($i=0;$i<len;$i++){
+		if($this->errorMessages[$i]['id']==$err['id']){
+			unset($this->errorMessages[$i]);
+			return true;
+		}
+	}
+	return false;
+	
 }
 
 }
-class ErrorObjectList{
-	private array $errorObjects;
-public function __construct(Throwable $err=null){
-	$this->errorObjects=[];
-}
-public function get_errorObjects():array
-{
 
-}
-public function add_errorObjects(Error $obj):bool 
-{
-
-}
-public function remove_errorObjects(Error $obj):bool 
-{
-
-}
-
-}
 ?>

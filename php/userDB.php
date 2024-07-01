@@ -103,10 +103,10 @@ class UserDB extends Database{
         try{
     
             $db=$this->get_connection();
-            $query="
+            $query='
                     SELECT * FROM Users
                     WHERE userID=:id;
-            ";
+            ';
             $statement=$db->prepare($query);
             $statement->bindValue(':id',$this->user->get_id());
             $statement->execute();
@@ -126,10 +126,10 @@ class UserDB extends Database{
         try{
 
             $db=$this->get_connection();
-            $query="
+            $query='
                     SELECT userID FROM Users
                     WHERE username=:uname;
-            ";
+            ';
             $stmt=$db->prepare($query);
             $stmt->bindValue(':uname',$this->user->get_username());
             $stmt->execute();
@@ -150,9 +150,9 @@ class UserDB extends Database{
         try{
 
             $db=$this->get_connection();
-            $query="
+            $query='
             SELECT username FROM Users u1 USE INDEX(idx_username);
-            ";
+            ';
             $stmt=$db->prepare($query);
             $stmt->execute();
             return $stmt->fetchall();
@@ -167,17 +167,17 @@ class UserDB extends Database{
         try{
 
             $db=$this->get_connection();
-            $query="
+            $query='
             SELECT email FROM Users u1 USE INDEX(idx_email)
             WHERE email=:mail;
-            ";
+            ';
             $stmt=$db->prepare($query);
             $stmt->bindValue(':mail',$email);
             $stmt->execute();
             return $stmt->fetch();
         }catch(PDOExcepion $err){
             echo $err->getMessage();
-            return $err;
+            return false;
         }
     }
     
@@ -185,17 +185,17 @@ class UserDB extends Database{
         try{
 
             $db=$this->get_connection();
-            $query="
-            SELECT username FROM Users u1 USE INDEX(idx_username)
-            WHERE username=:user;
-            ";
+            $query='
+            SELECT username FROM Users u1 
+            WHERE u1.username=:user;
+            ';
             $stmt=$db->prepare($query);
             $stmt->bindValue(':user',$email);
             $stmt->execute();
             return $stmt->fetch();
         }catch(PDOExcepion $err){
             echo $err->getMessage();
-            return $err;
+            return ;
         }
     }
     public function validate_username_in_database($name){

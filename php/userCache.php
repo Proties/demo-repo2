@@ -1,15 +1,16 @@
 <?php declare(strict_types=1);
+namespace Insta\Users;
 //this file will create,read,write a registeredUser.json file 
 // this calls will access username and email of already created users
 
-class userCache{
+class UserCache{
 	private array $listUsers;
 	private string $cacheFileName;
 	private string $targetUserName;
 	private string $targetUserEmail;
 
 	public function __construct(string $username='',string $email=''){
-		$this->cacheFileName='';
+		$this->cacheFileName='registeredUsers.json';
 		$this->targetUserEmail=$email;
 		$this->targetUserName=$username;
 	}
@@ -36,27 +37,30 @@ class userCache{
 	{
 		return $this->cacheFileName;
 	}
-	public function create_cacheFile():bool 
-	{}
 	public function read_cacheFile():array
-	{}
-	public function write_to_cacheFile():bool 
-	{}
-
+	{
+		$this->listUsers=lfile_get_contents($this->cacheFileName);
+	}
 	public function search_username():bool
-	{}
-	public function add_username(){}
+	{
+		for($i=0;$i<$len;$i++){
+			if($this->listUsers[$i]['username']==$targetUserName){
+				return true;
+			}
+		}
+		return false;
+	}
 	public function search_email():bool 
-	{}
-	public function add_email(){}
-
-	public function update_username(){}
-	public function update_email(){}
-
-	public function delete_username(){}
-	public function delete_email(){}
-
-
-
-
+	{
+		for($i=0;$i<$len;$i++){
+			if($this->listUsers[$i]['email']==$targetEmail){
+				return true;
+			}
+		}
+		return false;
+	}
+	public function add_entry(){
+		$entry=['email'=>$this->targetUserEmail,'username'=>$this->targetUserName];
+		file_put_contents(json_encode($this->cacheFileName, $entry));
+	}
 }

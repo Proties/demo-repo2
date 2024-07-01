@@ -22,6 +22,9 @@ require_once 'vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandl
 
 require_once 'vendor/monolog/monolog/src/Monolog/Logger.php';
 require_once 'vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php';
+require_once 'php/userCache.php';
+require_once 'php/postsList.php';
+require_once 'php/error.php';
 require_once 'php/user.php';
 require_once 'php/userDB.php';
 require_once 'php/post.php';

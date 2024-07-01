@@ -189,7 +189,7 @@ trait validateUser{
     }
     function validate_name(string $txt)
     {
-        $pattern='/()/i';
+        $pattern='/([a-z]{4,})/i';
         if(preg_match($pattern,$txt)){
             return true;
         }
