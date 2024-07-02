@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 use Monolog\Level;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -12,8 +11,8 @@ use Insta\Ranking\Ranking;
 $log=new Logger('start');
 $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
 $mainUser=new Users();
-if(isset($_SESSION['username'])){
-    $mainUser->get_auth()->set_authanticate(true);
+if(isset($_SESSION['username']) && $_SESSION['username']!==null){
+    $mainUser->userAuth->set_authanticate(true);
     setcookie('username',$_SESSION['username'], time() + (86400 * 30), '/'); 
 }else{
      setcookie('username','no account', time() - (86400 * 30), '/'); 

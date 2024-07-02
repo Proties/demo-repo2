@@ -11,8 +11,8 @@ use Insta\Databases\Post\PostDB;
 $log=new Logger('start');
 $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
 $mainUser=new Users();
-if(isset($_SESSION['username'])){
-    $mainUser->get_auth()->set_authanticate(true);
+if(isset($_SESSION['username']) && $_SESSION['username']!==null){
+    $mainUser->userAuth->set_authanticate(true);
 }
 $f_txt=$_SERVER['REQUEST_URI'];
 $f_txt=urldecode($f_txt);
@@ -22,7 +22,10 @@ $udb=new UserDB($u);
 if($f_txt==='/profile'){
    setcookie('profile','no account', time() - (86400 * 30), '/'); 
 }
+
 if($u->validate_username_url($f_txt)==true ){
+    echo 'works';
+    return;
     try{
     $f_txt=substr($f_txt,2);
     $link=$f_txt;
@@ -32,11 +35,8 @@ if($u->validate_username_url($f_txt)==true ){
     $authorDB=new UserDB($author);
     $author->set_username($link);
     $authorDB->user->set_username($author->get_username());
-    echo 'error'.PHP_EOL;
     $authorDB->get_posts_with_username();
-    echo ' AFTER    error';
-    var_dump($authorDB->user->get_posts()->get_posts());
-    return;
+   
     $data['user'][0]=array('username'=>$authorDB->user->get_username(),'userProfilePicture'=>$authorDB->user->get_profilePicture(),
                                 'bio'=>$authorDB->user->get_bio());
 

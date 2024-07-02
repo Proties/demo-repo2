@@ -113,12 +113,3 @@ CREATE TABLE PostCategory(
  foreign key (postID) references Posts(postID),
  foreign key (categoryID) references Category(categoryID)
 );
-DROP INDEX IF EXISTS id_username;
-CREATE INDEX id_username
-ON Users (username);
-DROP INDEX IF EXISTS id_email;
-CREATE INDEX id_email
-ON Users (email);
-DROP INDEX IF EXISTS cat_categoryName;
-CREATE INDEX cat_categoryName
-ON Category (categoryName);

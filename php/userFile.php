@@ -28,11 +28,11 @@ class UserFolder{
     	// check if current folder exist
     	// change folder name
     }
-    public function create_user_folder(){
+    public function create_user_folder(string $username){
         try{
-        if(!is_dir('../userProfiles/'.$this->get_username())){
-            mkdir('./userProfiles/'.$this->get_username(),'0755',false);
-            $this->set_dir('../userProfiles/'.$this->get_username());
+        if(!is_dir('../userProfiles/'.$username)){
+            mkdir('./userProfiles/'.$username,755,false);
+            $this->set_dir('../userProfiles/'.$username);
         }else{
             throw new Exception('directory already exixsts');
         }

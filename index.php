@@ -1,6 +1,53 @@
 <?php
 require_once 'vendor/psr/log/src/LoggerInterface.php';
 require_once 'vendor/vlucas/phpdotenv/src/Dotenv.php';
+require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/WriterInterface.php';
+require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ReaderInterface.php';
+require_once 'vendor/vlucas/phpdotenv/src/Repository/RepositoryInterface.php';
+require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/AdapterInterface.php';
+require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/EnvConstAdapter.php';
+require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/MultiReader.php';
+require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/MultiWriter.php';
+require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ImmutableWriter.php';
+require_once 'vendor/vlucas/phpdotenv/src/Repository/AdapterRepository.php';
+
+require_once 'vendor/graham-campbell/result-type/src/Result.php';
+require_once 'vendor/graham-campbell/result-type/src/Success.php';
+
+// require_once 'vendor/graham-campbell/result-type/src/Success.php';
+
+require_once 'vendor/vlucas/phpdotenv/src/Util/Regex.php';
+require_once 'vendor/vlucas/phpdotenv/src/Util/Str.php';
+require_once 'vendor/vlucas/phpdotenv/src/Store/File/Reader.php';
+require_once 'vendor/vlucas/phpdotenv/src/Loader/LoaderInterface.php';
+require_once 'vendor/vlucas/phpdotenv/src/Loader/Loader.php';
+require_once 'vendor/vlucas/phpdotenv/src/Loader/Resolver.php';
+
+require_once 'vendor/vlucas/phpdotenv/src/Parser/ParserInterface.php';
+require_once 'vendor/vlucas/phpdotenv/src/Parser/Parser.php';
+require_once 'vendor/vlucas/phpdotenv/src/Parser/Lines.php';
+require_once 'vendor/vlucas/phpdotenv/src/Parser/EntryParser.php';
+require_once 'vendor/vlucas/phpdotenv/src/Parser/Lexer.php';
+require_once 'vendor/vlucas/phpdotenv/src/Parser/Value.php';
+require_once 'vendor/vlucas/phpdotenv/src/Parser/Entry.php';
+
+require_once 'vendor/vlucas/phpdotenv/src/Store/File/Paths.php';
+require_once 'vendor/vlucas/phpdotenv/src/Store/StoreInterface.php';
+require_once 'vendor/vlucas/phpdotenv/src/Store/StoreBuilder.php';
+require_once 'vendor/vlucas/phpdotenv/src/Store/FileStore.php';
+
+
+require_once 'vendor/phpoption/phpoption/src/phpoption/Option.php';
+require_once 'vendor/phpoption/phpoption/src/phpoption/None.php';
+
+require_once 'vendor/phpoption/phpoption/src/phpoption/some.php';
+
+// require_once 'vendor/phpoption/phpoption/src/phpoption/some.php';
+
+require_once 'vendor/vlucas/phpdotenv/src/Repository/RepositoryBuilder.php';
+require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ServerConstAdapter.php';
+
+// require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ServerConstAdapter.php';
 require_once 'vendor/monolog/monolog/src/Monolog/Level.php';
 require_once 'vendor/monolog/monolog/src/Monolog/ResettableInterface.php';
 require_once 'vendor/monolog/monolog/src/Monolog/DateTimeImmutable.php';
@@ -47,9 +94,10 @@ require_once 'php/rank.php';
 
 
 
-// use Dotenv\Dotenv;
-// $dotenv = Dotenv::createImmutable(__DIR__);
-// $dotenv->load();
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 use Monolog\Level;
 use monolog\Logger;
 use Monolog\Handler\StreamHandler;

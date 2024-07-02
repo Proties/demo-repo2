@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 namespace Insta\Users;
 use Serializable;
+use Insta\Users\UserAuth;
+use Insta\Users\UserFolder;
 class Users implements Serializable{
     use validateUser;
     private string $name;
@@ -18,9 +20,9 @@ class Users implements Serializable{
     private bool $status;
     private int $id;
     private array $data;
-    private UserFolder $userFolder;
-    private PostList $postList;
-    private UserAuth $userAuth;
+    public UserFolder $userFolder;
+    public PostList $postList;
+    public UserAuth $userAuth;
 
     public function __construct(){
     $this->userFolder=new UserFolder();
@@ -154,7 +156,7 @@ class Users implements Serializable{
     }
 
    public function get_auth(){
-    $this->$userAuth;
+    $this->userAuth;
    }
    public function get_File(){
     $this->$UserFolder;
@@ -171,7 +173,7 @@ class Users implements Serializable{
 trait validateUser{
     function validate_username_url($txt)
     {
-        $pattern='/(?=.)/i';
+        $pattern='/^\@(?=.*[a-z])(?=.*[\$_=\-])?(?=.*[0-9])?/i';
         if(preg_match($pattern,$txt)){
             return true;
         }

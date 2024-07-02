@@ -3,6 +3,7 @@ namespace Insta\Databases\User;
 require 'php/database.php';
 use Insta\Databases\Database;
 use Insta\Users\Users;
+use Exception;
 class UserDB extends Database{
     public $user;
     public function __construct(Users $user){
@@ -89,7 +90,7 @@ class UserDB extends Database{
         $data=$statement->fetch();
 
         if($data==false){
-            throw new PDOExcepion('no user selected');
+            throw new Exception('no user selected');
         }
         $this->user->set_id($data['userID']);
         $this->user->set_username($data['username']);
@@ -168,7 +169,7 @@ class UserDB extends Database{
 
             $db=$this->get_connection();
             $query='
-            SELECT email FROM Users u1 USE INDEX(idx_email)
+            SELECT email FROM Users
             WHERE email=:mail;
             ';
             $stmt=$db->prepare($query);
@@ -177,7 +178,7 @@ class UserDB extends Database{
             return $stmt->fetch();
         }catch(PDOExcepion $err){
             echo $err->getMessage();
-            return false;
+            
         }
     }
     
@@ -186,8 +187,8 @@ class UserDB extends Database{
 
             $db=$this->get_connection();
             $query='
-            SELECT username FROM Users u1 
-            WHERE u1.username=:user;
+            SELECT username FROM Users
+            WHERE username=:user;
             ';
             $stmt=$db->prepare($query);
             $stmt->bindValue(':user',$email);
@@ -195,7 +196,7 @@ class UserDB extends Database{
             return $stmt->fetch();
         }catch(PDOExcepion $err){
             echo $err->getMessage();
-            return ;
+            
         }
     }
     public function validate_username_in_database($name){

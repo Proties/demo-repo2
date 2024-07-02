@@ -6,8 +6,7 @@ use Insta\Databases\User\UserDB;
 use Insta\Exception\ErrorHandler;
 $user=new Users();
 $err=new ErrorHandler();
-$errorMessages=array();
-$registeredUsers=new UserCache();
+$errorMessages=[];
 $dataObj=array();
 if($_SERVER['REQUEST_METHOD']=='POST'){
     $data=file_get_contents('php://input');
@@ -20,18 +19,13 @@ try{
     $user->set_password($dataObj['password']);
     $user->set_email($dataObj['email']);
     $userDB=new UserDB($user);
-    $registeredUsers->set_targetUserName($user->get_username()):
-    $registeredUsers->set_targetUserEmail($user->get_email()):
-    $registeredUsers->search_username();
-    $registeredUsers->search_email();
-
     if($user->validate_name($user->get_name())==false){
         $errorMessages[]['errName']='Name not valid';
     }
     if($user->validate_username($user->get_username())==false){
         $errorMessages[]['errUsername']='username not valid';
     }
-    if($userDB->validate_username_in_database($user->get_username()==false)){
+    if($userDB->search_username_in_db($user->get_username())!==false){
        $errorMessages[]['errUsername']='username taken';
 
     }
@@ -39,10 +33,10 @@ try{
         $errorMessages[]['errPassword']='Password must be at least 13 characters and contain at least 2 special characters';
     }
     
-    if($user->validate_email($user->get_email())!==false){
+    if($user->validate_email($user->get_email())==false){
         $errorMessages[]['errEmail']='Email not valid';
     }
-    if($userDB->search_email_in_db($user->get_email()==!false || is_array($userDB->search_email_in_db($user->get_email()))){
+    if($userDB->search_email_in_db($user->get_email())!==false){
         $errorMessages[]['errEmail']='Email already exists';
     }
     $len=count($errorMessages);
@@ -55,8 +49,8 @@ try{
         $_SESSION['userID']=$userDB->user->get_id();
         $_SESSION['username']=$userDB->user->get_username();
         $item=array('status'=>'success');
-        $user->userFolder->create_user_folder();
-        $registeredUsers->add_entry();
+        
+        $status=$user->userFolder->create_user_folder($user->get_username());
         echo json_encode($item);
         return;
     }
