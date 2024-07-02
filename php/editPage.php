@@ -1,7 +1,7 @@
 <?php 
 if($_SERVER['REQUEST_METHOD']=='GET'){
-	include_once('htmlfiles/Editpersonprofile.html');
-	return;
+	include_once('Htmlfiles/Editpersonalprofile.html');
+	exit();
 }
 
 ?>

@@ -24,8 +24,6 @@ if($f_txt==='/profile'){
 }
 
 if($u->validate_username_url($f_txt)==true ){
-    echo 'works';
-    return;
     try{
     $f_txt=substr($f_txt,2);
     $link=$f_txt;
