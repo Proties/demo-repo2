@@ -36,10 +36,11 @@ class UserDB extends Database{
         $db=$this->get_connection();
         try{
             $query = "
-            INSERT INTO Users(fullname, username, userPassword,dateMade,timeMade)
-            VALUES(:name, :username, :userPassword, :dateMade, :timeMade);
+            INSERT INTO Users(email,name, username, password, dateMade, timeMade)
+            VALUES(:email,:name, :username, :userPassword, :dateMade, :timeMade);
         ";
         $statement = $db->prepare($query);
+        $statement->bindValue(':email', $this->user->get_email());
         $statement->bindValue(':name', $this->user->get_name());
         $statement->bindValue(':username', $this->user->get_username());
         $statement->bindValue(':userPassword', $this->user->get_password()); 

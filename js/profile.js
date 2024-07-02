@@ -40,7 +40,7 @@ function get_data_from_cookie(){
     populate_post(data.posts);
 
 }
-get_data_from_cookie();
+
 // get_data_from_local_store();
 function initialise(){
     try{
@@ -114,6 +114,11 @@ function upload_post(){
         console.log(err);
     }
 }
+function open_upload_window(evt){
+    const uploadModal = document.getElementById('uploadModal').style.display='block';
+    console.log(uploadModal);
+    console.log(evt);
+}
 function addEventListeners(){
     const uploadBtn = document.getElementById('uploadBtn');
     const uploadModal = document.getElementById('uploadModal');
@@ -121,14 +126,13 @@ function addEventListeners(){
     const fileInput = document.getElementById('fileInput');
     const uploadProgress = document.getElementById('uploadProgress');
     const uploadFromDeviceBtn = document.getElementById('uploadFromDeviceBtn');
+    let open_window=document.getElementsByClassName('upload-button')[0];
 
     // Open upload modal
-    uploadBtn.addEventListener('click', () => {
-        uploadModal.style.display = 'block';
-    });
+    open_window.addEventListener('click', open_upload_window);
 
     // Close modal when clicking outside the modal content
-    window.addEventListener('click', (event) => {
+    window.addEventListener('click', function(event) {
         if (event.target == uploadModal || event.target == captionModal) {
             uploadModal.style.display = 'none';
             captionModal.style.display = 'none';
@@ -201,4 +205,6 @@ function addEventListeners(){
         }
     }, 1000);
 }
+
 addEventListeners();
+get_data_from_cookie();
