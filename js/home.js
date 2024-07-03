@@ -106,7 +106,8 @@ function search_user(){
         xml.onreadystatechange=function(){
             if(this.readyState==4 ){
                 let data=JSON.parse(this.responseText);
-            console.log(data.searchResults);
+            console.log(data);
+
             list.style.display='block';
             list.innerHTML='';
             for(let i=0;data.searchResults.length;i++){

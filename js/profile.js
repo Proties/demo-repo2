@@ -23,7 +23,22 @@ function get_data_from_cookie(){
         console.log('profile cookie not valid');
         return;
     }
+    console.log(user_data);
+    console.log(data.user[0]['username']);
+    if(user_data!==data.user[0]['username']){
+        document.getElementById("uploadBtn").style.display='none';
+        document.getElementById("editProfileButton").style.display='none';
+        document.getElementById("uploadModal").style.display='none';
+        let modal=document.getElementsByClassName('modal');
+        for(let i=0;i<modal.length;i++){
+            console.log( modal[i]);
+            modal[i].remove();
+        }
+        document.getElementsByClassName("modal-content")[0].style.display='none';
+        document.getElementsByClassName("modal-content")[1].style.display='none';
+    }
     console.log(data);
+
     populate_user_info(data.user);
     populate_post(data.posts);
 
@@ -123,7 +138,6 @@ function addEventListeners(){
     window.addEventListener('click', function(event) {
         if (event.target == uploadModal || event.target == captionModal) {
             uploadModal.style.display = 'none';
-            captionModal.style.display = 'none';
         }
     });
 
@@ -132,7 +146,6 @@ function addEventListeners(){
     closeButtons.forEach(button => {
         button.addEventListener('click', () => {
             uploadModal.style.display = 'none';
-            captionModal.style.display = 'none';
         });
     });
 
@@ -180,18 +193,7 @@ function addEventListeners(){
         }
     });
 
-    // Upload progress simulation (for demonstration)
-    let progress = 0;
-    const simulateUploadProgress = setInterval(() => {
-        if (progress >= 100) {
-            clearInterval(simulateUploadProgress);
-            uploadModal.style.display = 'none'; // Hide upload modal after upload complete
-            captionModal.style.display = 'block'; // Show caption modal after upload complete
-        } else {
-            progress += 10;
-            uploadProgress.style.width = `${progress}%`;
-        }
-    }, 1000);
+    
 }
 
 addEventListeners();
