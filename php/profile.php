@@ -40,7 +40,7 @@ else if($u->validate_username_url($f_txt)==true ){
     if(!is_array($arr)){
         throw new Exception('not array');
     }
-    if($arr['filepath']==null){
+    if($arr[0]['filepath']==null){
         $data['posts']=array();
     }else{
     $lenArr=count($arr);

@@ -88,9 +88,10 @@ class UserDB extends Database{
         $statement=$db->prepare($query);
         $statement->bindValue(':id',$this->user->get_username());
         $statement->execute();
-        $data=$statement->fetch();
-        $this->user->set_id($data['userID']);
-        $this->user->set_username($data['username']);
+        $data=$statement->fetchall();
+     // return var_dump(json_encode($data));
+        $this->user->set_id($data[0]['userID']);
+        $this->user->set_username($data[0]['username']);
         $this->user->get_posts($data);
         }catch(PDOExcepion $err){
             echo 'Database error while read user'.$err->getMessage();

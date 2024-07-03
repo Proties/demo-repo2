@@ -104,7 +104,8 @@ function search_user(){
     try{
         let xml=new XMLHttpRequest();
         xml.onreadystatechange=function(){
-            let data=JSON.parse(this.responseText);
+            if(this.readyState==4 ){
+                let data=JSON.parse(this.responseText);
             console.log(data.searchResults);
             list.style.display='block';
             list.innerHTML='';
@@ -119,6 +120,8 @@ function search_user(){
                     console.log(evt.target.textContent);
                     window.location.href="/@"+evt.target.textContent;
                 });
+            }
+            
             }
         }
         xml.open('POST','/');

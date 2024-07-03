@@ -4,6 +4,7 @@ use Monolog\Level;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Insta\Users\Users;
+use Insta\Databases\User\UserDB;
 use Insta\Posts\Post;
 use Insta\Categories\Category;
 use Insta\Categories\CategoryDB;
@@ -119,11 +120,13 @@ switch($action){
         $data=[];
         try{
             $target=$_POST['q'];
-            $userDB=new UserDB($user);
+            $user=new Users();
+            $user->set_username($target);
             $status=$user->validate_username($target);
             if($status==false){
                 throw new Exception('not valid name');
             }
+            $userDB=new UserDB($user);
             $usernames=$userDB->search_user($target);
             $data['status']='success';
             $data['searchResults']=$usernames;
