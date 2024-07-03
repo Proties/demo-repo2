@@ -94,7 +94,7 @@ class PostList{
     }
 
 	}
-	public function get_posts(Post $post):array
+	public function get_posts()
 	{
 		return $this->posts;
 	}

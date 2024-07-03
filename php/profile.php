@@ -36,10 +36,13 @@ else if($u->validate_username_url($f_txt)==true ){
     $data['user'][0]=array('username'=>$authorDB->user->get_username(),'userProfilePicture'=>$authorDB->user->get_profilePicture(),
                                 'bio'=>$authorDB->user->get_bio());
 
-    $arr=$authorDB->user->get_posts()->get_posts();
+    $arr=$authorDB->user->postList->get_posts();
     if(!is_array($arr)){
         throw new Exception('not array');
     }
+    if($arr['filepath']==null){
+        $data['posts']=array();
+    }else{
     $lenArr=count($arr);
     for ($i = 0; $i < $lenArr; $i++) {
                 $postItem = new Post();
@@ -54,6 +57,7 @@ else if($u->validate_username_url($f_txt)==true ){
                     'img' => $postItem->get_image()->get_filePath().$postItem->get_image()->get_fileName()
                 );
             }
+    }
     setcookie('profile',json_encode($data), time() + (86400 * 30), '/'); 
     }catch(Exception $err){
         echo $err->getMessage();

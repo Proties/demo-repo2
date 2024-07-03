@@ -120,7 +120,7 @@ class Users implements Serializable{
     {
         return $this->dateOfBirth;
     }
-    public function get_posts(array|null $arr=null):array
+    public function get_posts(array|null $arr=null)
     {
         return $this->postList=new PostList($arr);
     }

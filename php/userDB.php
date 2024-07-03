@@ -80,20 +80,17 @@ class UserDB extends Database{
         try{
             $query='
                 SELECT u.username,u.userID,p.postID,i.filepath,i.filename FROM Users as u
-                INNER JOIN Posts as p ON u.userID=p.userID 
-                INNER JOIN PostImages as ip ON p.postID=ip.postID
-                INNER JOIN Images as i ON ip.imageID=i.imageID  
+                LEFT JOIN Posts as p ON u.userID=p.userID 
+                LEFT JOIN PostImages as ip ON p.postID=ip.postID
+                LEFT JOIN Images as i ON ip.imageID=i.imageID  
                 WHERE u.username=:id;
             ';
         $statement=$db->prepare($query);
         $statement->bindValue(':id',$this->user->get_username());
         $statement->execute();
         $data=$statement->fetch();
-
-        if($data==false){
-            throw new Exception('no posts assigned to user');
-        }
         $this->user->set_id($data['userID']);
+        $this->user->set_username($data['username']);
         $this->user->get_posts($data);
         }catch(PDOExcepion $err){
             echo 'Database error while read user'.$err->getMessage();
