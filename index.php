@@ -133,7 +133,7 @@ if($post->validate_postLink($f_txt)){
            $cs=$_POST['action']; 
         switch($cs){
             case 'initialise_preview':
-                echo 'works';
+                echo 'preview window works';
                 return;
             break;
             case 'get_more_comments':
@@ -184,7 +184,6 @@ if($post->validate_postLink($f_txt)){
 }   
 else if($user->validate_username_url($f_txt)==true){
     if($userDB->validate_username_in_database($txt)!==false){
-        echo 'works';
         include_once('php/profile.php');
         exit();
     }

@@ -79,7 +79,7 @@ class UserDB extends Database{
         $db=$this->get_connection();
         try{
             $query='
-                SELECT u.username,u.userID,p.postID,i.filepath,i.filename FROM Users u
+                SELECT u.username,u.userID,p.postID,i.filepath,i.filename FROM Users as u
                 INNER JOIN Posts as p ON u.userID=p.userID 
                 INNER JOIN PostImages as ip ON p.postID=ip.postID
                 INNER JOIN Images as i ON ip.imageID=i.imageID  
@@ -91,14 +91,13 @@ class UserDB extends Database{
         $data=$statement->fetch();
 
         if($data==false){
-            throw new Exception('no user selected');
+            throw new Exception('no posts assigned to user');
         }
         $this->user->set_id($data['userID']);
-        $this->user->set_username($data['username']);
         $this->user->get_posts($data);
-            
         }catch(PDOExcepion $err){
             echo 'Database error while read user'.$err->getMessage();
+            return $err;
         }
     }
     public function read_user(){
@@ -121,6 +120,7 @@ class UserDB extends Database{
             $this->user->set_name($data['fullname']);
         }catch(PDOExcepion $err){
             echo 'Database error while read user'.$err->getMessage();
+            return $err;
         }
     }
   
@@ -146,6 +146,7 @@ class UserDB extends Database{
            
         }catch(PDOExcepion $err){
             echo 'Database error while reading id'.$err->getMessage();
+            return $err;
         }
     }
     public static function get_usernames(){
@@ -179,6 +180,7 @@ class UserDB extends Database{
             return $stmt->fetch();
         }catch(PDOExcepion $err){
             echo $err->getMessage();
+            return $err;
             
         }
     }
@@ -197,6 +199,7 @@ class UserDB extends Database{
             return $stmt->fetch();
         }catch(PDOExcepion $err){
             echo $err->getMessage();
+            return $err;
             
         }
     }
@@ -215,7 +218,7 @@ class UserDB extends Database{
             return $id;
         }catch(PDOExcepion $err){
             echo 'Database error while validating username'.$err->getMessage();
-            return false;
+            return $err;;
         }
     }
 }

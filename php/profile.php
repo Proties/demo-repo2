@@ -22,17 +22,15 @@ $udb=new UserDB($u);
 if($f_txt==='/profile'){
    setcookie('profile','no account', time() - (86400 * 30), '/'); 
 }
-
-if($u->validate_username_url($f_txt)==true ){
+else if($u->validate_username_url($f_txt)==true ){
     try{
-    $f_txt=substr($f_txt,2);
-    $link=$f_txt;
+    $txt=substr($f_txt,2);
+    $link=$txt;
     $data=[];
     $userPosts=array();
     $author=new Users();
-    $authorDB=new UserDB($author);
     $author->set_username($link);
-    $authorDB->user->set_username($author->get_username());
+    $authorDB=new UserDB($author);
     $authorDB->get_posts_with_username();
    
     $data['user'][0]=array('username'=>$authorDB->user->get_username(),'userProfilePicture'=>$authorDB->user->get_profilePicture(),
@@ -59,7 +57,7 @@ if($u->validate_username_url($f_txt)==true ){
     setcookie('profile',json_encode($data), time() + (86400 * 30), '/'); 
     }catch(Exception $err){
         echo $err->getMessage();
-        echo 'error retriveing posts';
+        // echo 'error retriveing posts';
         $log->Warning($err->getMessage());
     }
 }
