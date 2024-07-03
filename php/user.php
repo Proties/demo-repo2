@@ -173,7 +173,7 @@ class Users implements Serializable{
 trait validateUser{
     function validate_username_url($txt)
     {
-        $pattern='/^\@(?=.*[a-z])(?=.*[\$_=\-])?(?=.*[0-9])?/i';
+        $pattern='/^\/\@(?=.*[a-z])(?=.*[\$_=\-])?(?=.*[0-9])?/i';
         if(preg_match($pattern,$txt)){
             return true;
         }

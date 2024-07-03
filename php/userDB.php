@@ -36,7 +36,7 @@ class UserDB extends Database{
         $db=$this->get_connection();
         try{
             $query = "
-            INSERT INTO Users(email,name, username, password, dateMade, timeMade)
+            INSERT INTO Users(email,name, username, password, dataMade, timeMade)
             VALUES(:email,:name, :username, :userPassword, :dateMade, :timeMade);
         ";
         $statement = $db->prepare($query);

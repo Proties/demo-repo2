@@ -11,14 +11,16 @@ use Insta\Ranking\Ranking;
 $log=new Logger('start');
 $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
 $mainUser=new Users();
-if(isset($_SESSION['username']) && $_SESSION['username']!==null){
+
+if(isset($_SESSION['username']) && $_SESSION['username']!==null && isset($_SESSION['userID'])){
     $mainUser->userAuth->set_authanticate(true);
     setcookie('username',json_encode($_SESSION['username']), time() + (86400 * 30), '/'); 
 }else{
-     setcookie('username','no account', time() - (86400 * 30), '/'); 
+    unset($_SESSION['username']);
+    setcookie('username','no account', time() - (86400 * 30), '/'); 
 }
 try{
- $categories=[];
+$categories=[];
 $category=new Category();
 $categoryDB=new CategoryDB($category);
 $categories=$categoryDB->read_category();

@@ -45,7 +45,7 @@ try{
     }
 
     $userDB->write_user();
-    if($userDB->user->get_status()==1){
+    if($userDB->user->get_id()>1){
         $_SESSION['userID']=$userDB->user->get_id();
         $_SESSION['username']=$userDB->user->get_username();
         $item=array('status'=>'success');

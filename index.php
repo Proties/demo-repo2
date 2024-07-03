@@ -120,7 +120,11 @@ $user=new Users();
 $post=new Post();
 $userDB=new UserDB($user);
 $postDB=new PostDB($post);
-
+// echo $f_txt;
+// var_dump($user->validate_username_url($f_txt));
+// echo '  ';
+// var_dump($userDB->validate_username_in_database($txt));
+// return;
 if($post->validate_postLink($f_txt)){
     // if($postDB->validate_in_db_postLink($txt)==true){
         $data=[];
@@ -180,6 +184,7 @@ if($post->validate_postLink($f_txt)){
 }   
 else if($user->validate_username_url($f_txt)==true){
     if($userDB->validate_username_in_database($txt)!==false){
+        echo 'works';
         include_once('php/profile.php');
         exit();
     }
