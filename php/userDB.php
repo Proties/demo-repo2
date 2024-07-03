@@ -211,10 +211,8 @@ class UserDB extends Database{
             $stmt->bindValue(':username',$name);
             $stmt->execute();
             $id=$stmt->fetch();
-            if($id==true){
-                return true;
-            }
-            return false;
+            
+            return $id;
         }catch(PDOExcepion $err){
             echo 'Database error while validating username'.$err->getMessage();
             return false;

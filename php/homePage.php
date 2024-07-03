@@ -13,7 +13,7 @@ $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
 $mainUser=new Users();
 if(isset($_SESSION['username']) && $_SESSION['username']!==null){
     $mainUser->userAuth->set_authanticate(true);
-    setcookie('username',$_SESSION['username'], time() + (86400 * 30), '/'); 
+    setcookie('username',json_encode($_SESSION['username']), time() + (86400 * 30), '/'); 
 }else{
      setcookie('username','no account', time() - (86400 * 30), '/'); 
 }

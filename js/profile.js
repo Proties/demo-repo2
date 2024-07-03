@@ -16,25 +16,13 @@ function get_cookie(name){
     }
 }
 }
-function get_data_from_local_store(){
-    let url=window.location.href;
-    let f_url=url.substring(url.indexOf('@'));
-    if(f_url==localStorage('user')){
-        let user=localStorage.getItem('user-details');
-        let posts=localStorage.getItem('profile-photos');
-        console.log('welcome owner');
-        populate_user_info(user);
-        populate_post(posts);
-    }else{
-        let data=sessionStorage.getItem('user-details');
-        let posts=sessionStorage.getItem('profile-photos');
-        console.log('stranger');
-        populate_user_info(data.user);
-        populate_post(posts);
-    }
-}
 function get_data_from_cookie(){
+    let user_data=get_cookie('username=');
     let data=get_cookie('profile=');
+    if(data==null || data==undefined){
+        console.log('profile cookie not valid');
+        return;
+    }
     console.log(data);
     populate_user_info(data.user);
     populate_post(data.posts);

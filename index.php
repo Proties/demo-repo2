@@ -120,6 +120,7 @@ $user=new Users();
 $post=new Post();
 $userDB=new UserDB($user);
 $postDB=new PostDB($post);
+
 if($post->validate_postLink($f_txt)){
     // if($postDB->validate_in_db_postLink($txt)==true){
         $data=[];
@@ -177,8 +178,8 @@ if($post->validate_postLink($f_txt)){
     }
    return;
 }   
-elseif($user->validate_username_url($f_txt)==true){
-    if($userDB->validate_username_in_database($txt)==true){
+else if($user->validate_username_url($f_txt)==true){
+    if($userDB->validate_username_in_database($txt)!==false){
         include_once('php/profile.php');
         exit();
     }

@@ -6,7 +6,6 @@ function get_cookie(name){
     let sp=dec.split(';');
     for(let x=0;x<sp.length;x++){
         let c=sp[x];
-        console.log(c);
         while(c.charAt(0)==' '){
             console.log(c);
             c=c.substring(1);
@@ -22,12 +21,23 @@ function get_cookie(name){
 }
 function get_ish_form_cookie(){
             let data=get_cookie("users=");
-            console.log(data);
-            init_img(data);
-            // init_user(dtt.user);
+            let user_data=get_cookie("username=");
+            if(data==undefined && user_data==undefined){
+                console.log('no posts or user account');
+                return;
+            }else if(user_data!==undefined){
+                console.log(user_data);
+                init_user(user_data);
+            }else{
+                console.log(data);
+                init_img(data);
+                init_user(user_data);
+            }
+            
+            
             // init_categories(dtt.categories);
 }
-get_ish_form_cookie();
+
 
 // console.log(JSON.parse(dtt));
 // this function get post data like images,athtorname form the server
@@ -344,18 +354,19 @@ function eventListeners(){
     });
   
 }
-function init_user(arr){
+function init_user(username){
     // hide register button if user is available
    
-    if(arr.username==null || arr.username==''){
+    if(username==null || username==''){
         console.log('null username');
         return ;
     }
     document.getElementsByClassName("register-button")[0].style.display='none';
-    console.log(arr.username);
-    document.getElementsByClassName("profile-link")[0].href="/@"+arr.username;
+    console.log(username);
+    document.getElementsByClassName("profile-link")[0].href="/@"+username;
 }
 function init_categories(arr){
+    console.log(arr);
     if(!Array.isArray(arr)){
         return;
     }
@@ -401,7 +412,7 @@ function init_img(arr){
     }
 }
 open_postPreview();
-// initialise_image();
+get_ish_form_cookie();
 eventListeners();
 
 
