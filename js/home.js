@@ -110,12 +110,13 @@ function search_user(){
 
             list.style.display='block';
             list.innerHTML='';
-            for(let i=0;data.searchResults.length;i++){
+            let len=data.searchResults.length;
+            for(let i=0;i<len;i++){
                 const l=document.createElement('li');
-                l.textContent=data.searchResults[i].username;
+                l.textContent=data.searchResults[i];
                 // l.id="/@"+username;
                 list.appendChild(l);
-                console.log(data.searchResults[i].username);
+                console.log(data.searchResults[i]);
                 l.addEventListener("click",(evt)=>{
                     console.log("works");
                     console.log(evt.target.textContent);

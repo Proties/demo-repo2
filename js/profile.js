@@ -34,8 +34,8 @@ function get_data_from_cookie(){
             console.log( modal[i]);
             modal[i].remove();
         }
-        document.getElementsByClassName("modal-content")[0].style.display='none';
-        document.getElementsByClassName("modal-content")[1].style.display='none';
+        // document.getElementsByClassName("modal-content")[0].style.display='none';
+        // document.getElementsByClassName("modal-content")[1].style.display='none';
     }
     console.log(data);
 

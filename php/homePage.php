@@ -121,15 +121,14 @@ switch($action){
         try{
             $target=$_POST['q'];
             $user=new Users();
-            $user->set_username($target);
-            $status=$user->validate_username($target);
-            if($status==false){
-                throw new Exception('not valid name');
-            }
+            $usernames=[];
+            
             $userDB=new UserDB($user);
-            $usernames=$userDB->search_user($target);
+            $arrayData=$userDB->search_user($target);
+            array_push($usernames,$arrayData);
             $data['status']='success';
             $data['searchResults']=$usernames;
+            $data['Results']=$arrayData;
             echo json_encode($data);
         }
         catch(Exception $err){

@@ -17,12 +17,12 @@ class UserDB extends Database{
         try{
             $db=$this->get_connection();
             $query='
-            SELECT username FROM Users u1 USE INDEX(idx_username)
+            SELECT username FROM Users
             WHERE username LIKE :name
             LIMIT 5;
             ';
             $stmt=$db->prepare($query);
-            $stmt->bindValue(':name',"%$user%");
+            $stmt->bindValue(':name',$user);
             $stmt->execute();
             return $stmt->fetchall();
         }catch(PDOExcepion $err){
