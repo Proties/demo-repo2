@@ -26,15 +26,7 @@ public function chrono(Array $arr){
     }
 }
 
-public static function stored_posts(array $arr){
-    $store=[];
-    $status=apcu_fetch('users');
-    if($status==false){
-        return false;
-    }
-    $store=apcu_fetch('users');
-    return $store;
-}
+
 public function Basic(Array $arr){
     try{
         $db=$this->get_connection();

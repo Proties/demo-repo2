@@ -12,15 +12,7 @@ class CategoryDB extends Database{
     {
         return $this->category;
     }
-    public static function stored_categories(Array $arr){
-        $store=[];
-        $status=apcu_fetch('categories');
-        if($status==false){
-            return false;;
-        }
-        $store['categories']=apcu_fetch('categories');
-        return $store;
-    }
+ 
     public function read_posts():array
     {
         try{

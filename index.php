@@ -1,4 +1,5 @@
 <?php
+error_log('server error',0,'php/file.log');
 require_once 'vendor/psr/log/src/LoggerInterface.php';
 require_once 'vendor/vlucas/phpdotenv/src/Dotenv.php';
 require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/WriterInterface.php';
@@ -93,11 +94,7 @@ require_once 'php/collaborator.php';
 require_once 'php/rank.php';
 
 
-
 use Dotenv\Dotenv;
-
-$dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->load();
 use Monolog\Level;
 use monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -106,6 +103,9 @@ use Insta\Databases\User\UserDB;
 use Insta\Databases\Database;
 use Insta\Posts\Post;
 use Insta\Databases\Post\PostDB;
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 $log=new Logger('start');
 $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
 
@@ -120,33 +120,28 @@ $user=new Users();
 $post=new Post();
 $userDB=new UserDB($user);
 $postDB=new PostDB($post);
-// echo $f_txt;
-// var_dump($user->validate_username_url($f_txt));
-// echo '  ';
-// var_dump($userDB->validate_username_in_database($txt));
-// return;
-if($post->validate_postLink($f_txt)){
-    // if($postDB->validate_in_db_postLink($txt)==true){
-        $data=[];
-        $cs;
-        if(isset($_POST['action'])){
-           $cs=$_POST['action']; 
-        switch($cs){
-            case 'initialise_preview':
-                echo 'preview window works';
-                return;
+if($post->validate_postLink($f_txt) ){
+    if( $postDB->validate_in_db_postLink($txt)==true){
+    $data=[];
+    $cs;
+    if(isset($_POST['action'])){
+       $cs=$_POST['action']; 
+    switch($cs){
+        case 'initialise_preview':
+            echo 'preview window works';
+            return;
+        break;
+        case 'get_more_comments':
+            $c=new Comment();
+            $cDB=new CommentDB($c);
+            $c->set_id($_POST['commentID']);
+            $c->read_more();
+            echo json_encode($data);
             break;
-            case 'get_more_comments':
-                $c=new Comment();
-                $cDB=new CommentDB($c);
-                $c->set_id($_POST['commentID']);
-                $c->read_more();
-                echo json_encode($data);
-                break;
-            default:
-                echo 'things just works';
-            break;
-        }
+        default:
+            echo 'things just works';
+        break;
+    }
     }   
     try{
         $post=new Post();
@@ -181,11 +176,12 @@ if($post->validate_postLink($f_txt)){
         echo json_encode($data);
     }
    return;
+}
 }   
 else if($user->validate_username_url($f_txt)==true){
     if($userDB->validate_username_in_database($txt)!==false){
         include_once('php/profile.php');
-        exit();
+        return;
     }
     
 }else{
