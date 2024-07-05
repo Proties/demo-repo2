@@ -3,6 +3,8 @@ namespace Insta\Ranking;
 use Insta\Databases\Database;
 class Ranking extends Database{
 
+
+
 public function chrono(Array $arr){
     try{
 

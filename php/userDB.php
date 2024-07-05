@@ -18,7 +18,7 @@ class UserDB extends Database{
             $db=$this->get_connection();
             $query='
             SELECT username FROM Users
-            WHERE username LIKE :name
+            WHERE username LIKE %:name%
             LIMIT 5;
             ';
             $stmt=$db->prepare($query);
