@@ -1,8 +1,6 @@
 .DS_Store
 Thumbs.db
 build/
-*.min.js
-*.min.css
 .vscode/
 node_modules
 logs/
