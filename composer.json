@@ -26,9 +26,6 @@
             "":"tests/"
         }
     },
-    "scripts"{
-        
-    },
     "config": {
         "lock": false,
         "sort-packages": true,
