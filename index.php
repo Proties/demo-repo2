@@ -93,6 +93,8 @@ require_once 'php/imageDB.php';
 require_once 'php/collaborator.php';
 require_once 'php/rank.php';
 
+echo 'works';
+return;
 
 use Dotenv\Dotenv;
 use Monolog\Level;
