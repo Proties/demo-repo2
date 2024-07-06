@@ -6,16 +6,22 @@ use Insta\Users\Users;
 use Exception;
 class UserDB extends Database{
     public $user;
+    private $db;
     public function __construct(Users $user){
         Database::__construct();
         $this->user=$user;
+        $this->db=$this->get_connection();
     }
     public function get_user(){
         return $this->user;
     }
+    public function set_db($db){
+        $this->db=$db;
+
+    }
     public function search_user($user){
         try{
-            $db=$this->get_connection();
+            $db=$this->db;
             $query='
             SELECT username FROM Users
             WHERE username LIKE %:name%
@@ -33,7 +39,7 @@ class UserDB extends Database{
    
     public function write_user(){
         
-        $db=$this->get_connection();
+        $db=$this->db;
         try{
             $query = "
             INSERT INTO Users(email,name, username, password, dataMade, timeMade)
@@ -54,7 +60,7 @@ class UserDB extends Database{
         }
     }
     public function read_user_with_username(){
-          $db=$this->get_connection();
+          $db=$this->db;
           try{
             $query='
                     SELECT username,userID FROM Users
@@ -76,7 +82,7 @@ class UserDB extends Database{
         }
     }
     public function get_posts_with_username(){
-        $db=$this->get_connection();
+        $db=$this->db;
         try{
             $query='
                 SELECT u.username,u.userID,p.postID,i.filepath,i.filename FROM Users as u
@@ -101,7 +107,7 @@ class UserDB extends Database{
     public function read_user(){
         try{
     
-            $db=$this->get_connection();
+            $db=$this->db;
             $query='
                     SELECT * FROM Users
                     WHERE userID=:id;
@@ -125,7 +131,7 @@ class UserDB extends Database{
     public function read_userID(){
         try{
 
-            $db=$this->get_connection();
+            $db=$this->db;
             $query='
                     SELECT userID FROM Users
                     WHERE username=:uname;
@@ -150,7 +156,7 @@ class UserDB extends Database{
     public static function get_usernames(){
         try{
 
-            $db=$this->get_connection();
+            $db=$this->db;
             $query='
             SELECT username FROM Users u1 USE INDEX(idx_username);
             ';
@@ -167,7 +173,7 @@ class UserDB extends Database{
     public function search_email_in_db($email){
         try{
 
-            $db=$this->get_connection();
+            $db=$this->db;
             $query='
             SELECT email FROM Users
             WHERE email=:mail;
@@ -186,7 +192,7 @@ class UserDB extends Database{
     public function search_username_in_db($email){
         try{
 
-            $db=$this->get_connection();
+            $db=$this->db;
             $query='
             SELECT username FROM Users
             WHERE username=:user;
@@ -203,7 +209,7 @@ class UserDB extends Database{
     }
     public function validate_username_in_database($name){
         try{
-            $db=$this->get_connection();
+            $db=$this->db;
             $query="
                     SELECT username FROM Users
                     WHERE username=:username;

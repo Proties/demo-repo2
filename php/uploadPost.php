@@ -17,15 +17,17 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $post=new Post();
     $category=new Category();
     $user=new Users();
-
-    $username=$data_f['username'];
-    $user->set_username($username);
     $database=new Database();
     $db=$database->get_connection();
     try{
         $db->begin_transaction();
-        //start transaction 
-        if($user->get_auth()->is_authanticated()){
+        if(isset($_SESSION['userID'])){
+            $user->set_username($_SESSION['username']);
+            $user->set_id($_SESSION['userID']);
+            $user->userAuth->set_authanticated(true);
+
+        }
+        if($user->userAuth->is_authanticated()){
             throw new Exception('create an account');
         }
         if(isset($_POST['collaborators'])){
@@ -40,8 +42,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             
         }
         if(isset($_POST['location'])){
-            $post->get_location()->set_local($_POST['location']);
-            $post->set_location()->add_location();
+            $post->location->set_local($_POST['location']);
+            $post->location->add_location();
         }
         $post->set_caption($data_f['caption']);
         $post->set_preview_status($data_f['preview_status']);
@@ -57,9 +59,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $status=$user->get_postList()->add_post($post);
         $data['post']=json_encode($user->get_postList()->get_last_added()->get_data());
         $data['status']='success';
-        echo json_encode($data);
+        
         $db->commit();
-    }catch(ErrorObjectList $err){
+        echo json_encode($data);
+    }catch(Exception $err){
         $db->rollBack();
         //rollback
         $item=array('status'=>'failed','msg'=>$err->getMessage(),'errorArray'=>$errorMessages);

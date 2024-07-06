@@ -2,7 +2,7 @@
 namespace Insta\Users;
 use Insta\Posts\Post;
 use Insta\Posts\PostDB;
-use Error;
+use Exception;
 // this class wil list all post that a user has and manipulate them
 class PostList{
 	private array $posts;
@@ -86,7 +86,7 @@ class PostList{
         $postDB->image->write_image();
         $postDB->image->write_image_post();
         return true;
-    }catch(Error $err){
+    }catch(Exception $err){
     	// $data['status']=false;
     	// $data['errorMessages']=$errorMessages;
 
