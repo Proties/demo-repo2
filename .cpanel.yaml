@@ -1,7 +1,0 @@
----
-  deploment:
-    tasks:
-      - export DEPLOYPATH=/home/Inta/public_html
-      - /bin/cp index.php $DEPLOPATH
-      - /bin/cp -R php $DEPLOYPATH
-      

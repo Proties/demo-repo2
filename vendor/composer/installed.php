@@ -1,24 +1,15 @@
 <?php return array(
     'root' => array(
-        'name' => '__root__',
+        'name' => 'my_packe/my_insta',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'a44cc6423883251c0e08eb7f1030c7574c43e1bb',
+        'reference' => '56423487f2403be22564f6251cab5574e0391620',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
-        '__root__' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'reference' => 'a44cc6423883251c0e08eb7f1030c7574c43e1bb',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../../',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
         'doctrine/instantiator' => array(
             'pretty_version' => '2.0.0',
             'version' => '2.0.0.0',
@@ -45,6 +36,15 @@
             'install_path' => __DIR__ . '/../monolog/monolog',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'my_packe/my_insta' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '56423487f2403be22564f6251cab5574e0391620',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'myclabs/deep-copy' => array(
             'pretty_version' => '1.12.0',
