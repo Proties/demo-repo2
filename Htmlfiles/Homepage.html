@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ArtistHub Home</title>
-
     <link rel="stylesheet" type="text/css" href="/Cssfiles/Homepage.css" />
   </head>
   <body>
@@ -13,7 +12,6 @@
         <div class="nav-left">
           <button class="register-button">Register</button>
         </div>
-
         <div class="nav-center">
           <input type="text" placeholder="Search" id="search" />
           <ul id="suggestion-list"></ul>
@@ -64,8 +62,8 @@
               </div>
               <div class="bottom-post" >
                 <img
-                  src=""
-                  alt="Post Image 1"
+                  src="/Image/Animation.png.jpg"
+                  alt="Post Image 2"
                   class="post-image"
                 />
               </div>
@@ -77,7 +75,7 @@
               <button class="like-button">
                 <img src="/Image/Heart.png" alt="like-button" />
               </button>
-              <button class="comment-button">
+              <button class="comment-button" onclick="openWriteCommentModal()">
                 <img src="/Image/Speech Bubble.png" alt="comment-button" />
               </button>
             </div>
@@ -85,17 +83,17 @@
 
           <div class="post-container">
             <div class="post">
-              <div class="top-post" >
+              <div class="top-post" onclick="openModal('Post Image 3')">
                 <img
-                  src=""
-                  alt="Post Image 1"
+                  src="/Image/Animation.png.jpg"
+                  alt="Post Image 3"
                   class="post-image"
                 />
               </div>
-              <div class="bottom-post" >
+              <div class="bottom-post" onclick="openModal('Post Image 4')">
                 <img
-                  src=""
-                  alt="Post Image 1"
+                  src="/Image/Comic.png.png"
+                  alt="Post Image 4"
                   class="post-image"
                 />
               </div>
@@ -107,7 +105,7 @@
               <button class="like-button">
                 <img src="/Image/Heart.png" alt="like-button" />
               </button>
-              <button class="comment-button">
+              <button class="comment-button" onclick="openWriteCommentModal()">
                 <img src="/Image/Speech Bubble.png" alt="comment-button" />
               </button>
             </div>
@@ -115,17 +113,17 @@
 
           <div class="post-container">
             <div class="post">
-              <div class="top-post" >
+              <div class="top-post">
                 <img
-                  src=""
-                  alt="Post Image 1"
+                  src="/Image/Animation.png.jpg"
+                  alt="Post Image 5"
                   class="post-image"
                 />
               </div>
-              <div class="bottom-post" >
+              <div class="bottom-post">
                 <img
-                  src=""
-                  alt="Post Image 1"
+                  src="/Image/Comic.png.png"
+                  alt="Post Image 6"
                   class="post-image"
                 />
               </div>
@@ -137,7 +135,7 @@
               <button class="like-button">
                 <img src="/Image/Heart.png" alt="like-button" />
               </button>
-              <button class="comment-button">
+              <button class="comment-button" onclick="openWriteCommentModal()">
                 <img src="/Image/Speech Bubble.png" alt="comment-button" />
               </button>
             </div>
@@ -145,17 +143,17 @@
 
           <div class="post-container">
             <div class="post">
-              <div class="top-post" >
+              <div class="top-post">
                 <img
-                  src="/"
-                  alt="Post Image 1"
+                  src="/Image/Animation.png.jpg"
+                  alt="Post Image 7"
                   class="post-image"
                 />
               </div>
-              <div class="bottom-post" >
+              <div class="bottom-post">
                 <img
-                  src=""
-                  alt="Post Image 1"
+                  src="/Image/Comic.png.png"
+                  alt="Post Image 8"
                   class="post-image"
                 />
               </div>
@@ -167,7 +165,7 @@
               <button class="like-button">
                 <img src="/Image/Heart.png" alt="like-button" />
               </button>
-              <button class="comment-button">
+              <button class="comment-button" onclick="openWriteCommentModal()">
                 <img src="/Image/Speech Bubble.png" alt="comment-button" />
               </button>
             </div>
@@ -210,13 +208,45 @@
           </div>
         </div>
       </div>
-      <div class="modal-comments modal-content">
+
+      <!-- Example HTML for the comment section -->
+
+      <div class="comments-section">
         <h3>Comments</h3>
-        <div class="comment">
-          <p>User1: This is a comment.</p>
-        </div>
-        <div class="comment">
-          <p>User2: This is another comment.</p>
+        <div class="comments">
+          <!-- Example comment -->
+          <div class="comment">
+            <div class="comment-author">
+              <img src="path_to_author_avatar.jpg" alt="Author Avatar" />
+              <span class="author-name">John Doe</span>
+            </div>
+            <p class="comment-text">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac
+              dolor nisi.
+            </p>
+          </div>
+
+          <!-- Another example comment -->
+          <div class="comment">
+            <div class="comment-author">
+              <img src="path_to_another_avatar.jpg" alt="Author Avatar" />
+              <span class="author-name">Jane Smith</span>
+            </div>
+            <p class="comment-text">
+              Mauris id metus ut libero pharetra dapibus. Nulla a justo sed diam
+              semper consequat.
+            </p>
+          </div>
+
+          <!-- Add a new comment form -->
+          <form id="commentForm" style="display:none">
+            <textarea
+              id="commentText"
+              placeholder="Write your comment here..."
+              required
+            ></textarea>
+            <button type="submit">Post Comment</button>
+          </form>
         </div>
       </div>
 
@@ -242,28 +272,6 @@
           </form>
         </div>
       </div>
-
-      <!-- Write Comment Modal -->
-      <div id="writeCommentModal" class="modal">
-        <div class="modal-content">
-          <span class="close" >&times;</span>
-          <h2>Write a Comment</h2>
-          <form id="commentForm">
-            <textarea
-              id="commentText"
-              placeholder="Write your comment here..."
-              rows="4"
-            ></textarea>
-            <div class="modal-buttons">
-              <button type="button">
-                Cancel
-              </button>
-              <button type="submit">Send</button>
-            </div>
-          </form>
-        </div>
-      </div>
-
       <footer class="footer">
         <div class="footer-content">
           <p>&copy; 2024 Doesno. All rights reserved.</p>

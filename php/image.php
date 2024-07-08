@@ -1,5 +1,6 @@
 <?php  declare(strict_types=1);
 namespace Insta\Images;
+use Insta\Images\ImageFile;
 class Image{
 	private string $dateMade;
 	private string $dateModified;
@@ -10,9 +11,11 @@ class Image{
 	private string $height;
 	private int $postID;
 	private int $imageSize;
+	public ImageFile $file;
 	private array $data;
 
 	public function __construct(){
+		$this->file=new ImageFile();
 		$this->width='200px';
 		$this->height='100px';
 		$this->filePath='';

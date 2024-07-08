@@ -1,9 +1,16 @@
 <?php declare(strict_types=1);
 namespace Insta\Images;
+use Exception;
 class ImageFile{
+    private string $filename;
+    private string $filePath;
+    public function __construct(){
 
-// making random file name 
- public function make_file(){
+    }
+    public function set_filePath(string $str){
+
+    }
+    public function make_file(){
         try{
         
         $f=fopen('php/ids.json','r') or die('file doesnt exist');
@@ -26,6 +33,15 @@ class ImageFile{
         }catch(Execption $err){
             echo $err->getMessage();
         }
+    }
+
+    public function get_filename():string 
+    {
+        return $this->filename;
+    }
+    public function get_filePath():string 
+    {
+        return $this->filePath;
     }
 }
 

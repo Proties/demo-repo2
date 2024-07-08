@@ -92,9 +92,8 @@ require_once 'php/categoryDB.php';
 require_once 'php/imageDB.php';
 require_once 'php/collaborator.php';
 require_once 'php/rank.php';
+require_once 'php/locationDB.php';
 
-echo 'works';
-return;
 
 use Dotenv\Dotenv;
 use Monolog\Level;
@@ -106,8 +105,7 @@ use Insta\Databases\Database;
 use Insta\Posts\Post;
 use Insta\Databases\Post\PostDB;
 
-echo 'works';
-return;
+
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 

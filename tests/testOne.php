@@ -9,9 +9,9 @@ $data=[
 	"userID"=>1,
 	"username"=>'saule',
 	"categoryName"=>'',
-	"location"=>'thohoyandou unit D',
+	"location"=>'tshivhumbe123,thohoyandou unit D,0950,Limpopo,SouthAfrica',
 	"caption"=>'happy people',
-	"img"=>turn_image_to_base64('../userProfiles/saule/1cmi6TEG.png'),
+	"img"=>turn_image_to_base64('userProfiles/saule/1cmi6TEG.png'),
 	"collaborators"=>[]
 
 ];
@@ -26,7 +26,8 @@ curl_close($c);
 
 //takesin image path then turn the image to a 64 bit stirng represantation
 function turn_image_to_base64($path){
-
+	//path is a valid image
+	
 	$data=file_get_contents($path);
 	$srting64=base64_encode($data);
 	return $srting64;

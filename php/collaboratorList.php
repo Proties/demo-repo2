@@ -26,9 +26,7 @@ class CollaboratorList{
 	public function add_user(Collaborator $user)
 	{
 		try{
-			$collabDB=new CollaboratorDB();
-			$collabDB->write_collaborator();
-			$collabDB->write_collaboratorUser();
+			
 			array_push($this->collaborators, $user);
 		}catch(Exception $err){
 			return $err;

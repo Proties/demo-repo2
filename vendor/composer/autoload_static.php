@@ -16,6 +16,7 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         '5fe6882e1209ee1b8724c18127c6d8f9' => __DIR__ . '/../..' . '/index.php',
     );
 
+<<<<<<< HEAD
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
@@ -100,9 +101,12 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         ),
     );
 
+=======
+>>>>>>> 34aeaa41bd3416ddca1c82fba30068eda34f4a97
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+<<<<<<< HEAD
         'PHPUnit\\Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Exception.php',
         'PHPUnit\\Framework\\ActualValueIsNotAnObjectException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Exception/ActualValueIsNotAnObjectException.php',
         'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert.php',
@@ -736,13 +740,31 @@ class ComposerStaticInite157323c771501e83d1f5facf84220ae
         'TheSeer\\Tokenizer\\XMLSerializer' => __DIR__ . '/..' . '/theseer/tokenizer/src/XMLSerializer.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
+=======
+        'Database' => __DIR__ . '/../..' . '/php/database.php',
+        'Image' => __DIR__ . '/../..' . '/php/image.php',
+        'ImageDB' => __DIR__ . '/../..' . '/php/imageDB.php',
+        'Like' => __DIR__ . '/../..' . '/php/like.php',
+        'LikeDB' => __DIR__ . '/../..' . '/php/likeDB.php',
+        'Location' => __DIR__ . '/../..' . '/php/loaction.php',
+        'LocationDB' => __DIR__ . '/../..' . '/php/locationDB.php',
+        'MainUser' => __DIR__ . '/../..' . '/php/mainUser.php',
+        'Post' => __DIR__ . '/../..' . '/php/post.php',
+        'PostDB' => __DIR__ . '/../..' . '/php/postDB.php',
+        'Ranking' => __DIR__ . '/../..' . '/php/rank.php',
+        'UserDB' => __DIR__ . '/../..' . '/php/userDB.php',
+        'Users' => __DIR__ . '/../..' . '/php/user.php',
+        'handleErrors' => __DIR__ . '/../..' . '/php/database.php',
+        'validateCategory' => __DIR__ . '/../..' . '/php/category.php',
+        'validateComment' => __DIR__ . '/../..' . '/php/comment.php',
+        'validatePost' => __DIR__ . '/../..' . '/php/post.php',
+        'validateUser' => __DIR__ . '/../..' . '/php/user.php',
+>>>>>>> 34aeaa41bd3416ddca1c82fba30068eda34f4a97
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite157323c771501e83d1f5facf84220ae::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite157323c771501e83d1f5facf84220ae::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInite157323c771501e83d1f5facf84220ae::$classMap;
 
         }, null, ClassLoader::class);

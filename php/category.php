@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 namespace Insta\Categories;
 class Category{
+    use validateCategory;
     private string $categoryName;
     private int $categoryID;
     private string $date;
@@ -67,7 +68,14 @@ class Category{
 
 }
 trait validateCategory{
-    function validate_name(){}
+    function validate_name($str){
+        $pattern='/(?=.*[a-z])/';
+        if(preg_match($pattern,$str)){
+
+            return true;
+        }
+        return false;
+    }
 }
 
 ?>

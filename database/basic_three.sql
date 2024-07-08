@@ -113,3 +113,18 @@ CREATE TABLE PostCategory(
  foreign key (postID) references Posts(postID),
  foreign key (categoryID) references Category(categoryID)
 );
+CREATE TABLE Location(
+ locationID int,
+ country varchar(40),
+ region varchar(50),
+ province varchar(40),
+ street varchar(50),
+ zipCode varchar(10),
+ primary key (locationID)
+);
+CREATE TABLE PostLocation(
+ locationID int,
+ postID int,
+ foreign key (locationID) references (locationID)Location,
+ foreign key (postID) references (postID)Posts
+);

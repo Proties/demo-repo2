@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+<<<<<<< HEAD
     'PHPUnit\\Exception' => $vendorDir . '/phpunit/phpunit/src/Exception.php',
     'PHPUnit\\Framework\\ActualValueIsNotAnObjectException' => $vendorDir . '/phpunit/phpunit/src/Framework/Exception/ActualValueIsNotAnObjectException.php',
     'PHPUnit\\Framework\\Assert' => $vendorDir . '/phpunit/phpunit/src/Framework/Assert.php',
@@ -641,4 +642,24 @@ return array(
     'TheSeer\\Tokenizer\\XMLSerializer' => $vendorDir . '/theseer/tokenizer/src/XMLSerializer.php',
     'UnhandledMatchError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
     'ValueError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
+=======
+    'Database' => $baseDir . '/php/database.php',
+    'Image' => $baseDir . '/php/image.php',
+    'ImageDB' => $baseDir . '/php/imageDB.php',
+    'Like' => $baseDir . '/php/like.php',
+    'LikeDB' => $baseDir . '/php/likeDB.php',
+    'Location' => $baseDir . '/php/loaction.php',
+    'LocationDB' => $baseDir . '/php/locationDB.php',
+    'MainUser' => $baseDir . '/php/mainUser.php',
+    'Post' => $baseDir . '/php/post.php',
+    'PostDB' => $baseDir . '/php/postDB.php',
+    'Ranking' => $baseDir . '/php/rank.php',
+    'UserDB' => $baseDir . '/php/userDB.php',
+    'Users' => $baseDir . '/php/user.php',
+    'handleErrors' => $baseDir . '/php/database.php',
+    'validateCategory' => $baseDir . '/php/category.php',
+    'validateComment' => $baseDir . '/php/comment.php',
+    'validatePost' => $baseDir . '/php/post.php',
+    'validateUser' => $baseDir . '/php/user.php',
+>>>>>>> 34aeaa41bd3416ddca1c82fba30068eda34f4a97
 );

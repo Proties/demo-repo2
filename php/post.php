@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 namespace Insta\Posts;
-use Insta\Images\Image;
 use Insta\Location\Location;
 class Post{
     use validatePost;
@@ -15,18 +14,16 @@ class Post{
     private string $postLink;
     private int $authorID;
     private int $viewerID;
-    private Location $location;
-    private CollaboratorList $collaboratorList;
+    public Location $location;
+    public CollaboratorList $collaboratorList;
     private string $date;
     private string $time;
-    private CommentList $commentList;
+    public CommentList $commentList;
     private string $postFile;
-    private Image $image;
     private array $data;
 
 
 public function __construct(){
-    $this->image=new Image();
     $this->collaboratorList=new CollaboratorList();
     $this->commentList=new CommentList();
     $this->location=new Location();
