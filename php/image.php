@@ -96,7 +96,7 @@ class Image{
 	}
 	public function get_size():int
 	{
-
+		return $this->size;
 	}
 }
 ?>

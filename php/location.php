@@ -67,12 +67,16 @@ class Location{
 	}
 	
 	public function set_local(string $str){
-		$arr=explode(',',$str);
-		$this->set_street($arr[0]);
-		$this->set_region($arr[1]);
-		$this->set_zipCode($arr[2]);
-		$this->set_province($arr[3]);
-		$this->set_country($arr[4]);
+		try{
+			$arr=explode(',',$str);
+			$this->set_street($arr[0]);
+			$this->set_region($arr[1]);
+			$this->set_zipCode($arr[2]);
+			$this->set_province($arr[3]);
+			$this->set_country($arr[4]);
+		}catch(Exception $err){
+			return $err;
+		}
 
 	}
 }

@@ -47,8 +47,19 @@ class ImageDB extends Database{
 		}
 	}
 
-	public function write_image_post(){
-
+	public function write_image_post($postID){
+		try{
+			$query='
+					INSERT INTO PostImages()
+					VALUES(:imageID,:postID)
+			';
+			$statement=$db->prepare($query);
+			$statement->bindValue(':imageID',$this->image->get_id());
+			$statement->bindValue(':postID',$postID);
+			$statement->execute();
+		}catch(PDOExecption $err){
+			return $err;
+		}
 	}
     public function write_image(){
 		try{
@@ -67,6 +78,7 @@ class ImageDB extends Database{
 			$stmt->bindValue(':updat',$this->image->get_dateModifed());
 			$stmt->bindValue(':fname',$this->image->get_fileName());
 			$stmt->execute();
+			$this->image->set_id($db->lastInserId());
 		}catch(PDOExecption $err){
 			echo 'error while writing to image '.$err->getMessage();
 		}

@@ -4,34 +4,35 @@ use Exception;
 class ImageFile{
     private string $filename;
     private string $filePath;
+    private string $imageType;
+    private string $postLinkID;
     public function __construct(){
+        $this->imageType='.png';
+        $this->filename='';
+        $this->filePath='';
+        $this->postLinkID='';
 
     }
     public function set_filePath(string $str){
 
     }
+    public function set_postLinkID(string $str){
+        $this->postLinkID=$str;
+    }
     public function make_file(){
         try{
-        
-        $f=fopen('php/ids.json','r') or die('file doesnt exist');
-        
-        $ids=fread($f,filesize("php/ids.json"));
-        $ids_array=json_decode($ids,true);
-        if(!is_array($ids_array)){
-            throw new Exception('data is not array');
-        }
-        
-        $this->set_postLinkID($ids_array[0]);
-        array_splice($ids_array,0,1);
-        fclose($f);
-        
-        $f_two=fopen('php/ids.json','w') or die('file doesnt exist');
-        fwrite($f_two,json_encode($ids_array));
-        fclose($f_two);
-        
-        $this->set_fileName($this->get_filePath().$this->get_imageType());
+           
+            $ids=file_get_contents('php/ids.json');
+            $ids_array=json_decode($ids,true);
+            $this->set_postLinkID($ids_array[0]);
+            array_splice($ids_array,0,1);
+            fclose($f);
+            file_put_contents('php/ids.json', $ids_array);
+            
+            $this->set_fileName($this->get_filePath().$this->get_imageType());
         }catch(Execption $err){
             echo $err->getMessage();
+            return $err;
         }
     }
 
@@ -39,7 +40,15 @@ class ImageFile{
     {
         return $this->filename;
     }
+    public function get_imageType():string 
+    {
+        return $this->imageType;
+    }
     public function get_filePath():string 
+    {
+        return $this->filePath;
+    }
+    public function get_postLinkID():string 
     {
         return $this->filePath;
     }

@@ -49,10 +49,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
                 $errorMessages=array('errImage'=>'no image');
             }
 
-            if($post->validate_caption($post->get_caption())==false){
+            if($post->validate_caption($data_f['caption'])==false){
                 $errorMessages=array('errcaption'=>'not valid caption');
             }
-            if($category->validate_name($category->get_categoryName())==false){
+            if($category->validate_name($data_f['categoryName'])==false){
                 $errorMessages=array('errCategoryName'=>'not valid category name');
             }
             if(count($errorMessages)>1){
@@ -115,7 +115,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $image->set_filePath($user->get_dir());
             $imageDB->set_db($db);
             $imageDB->write_image();
-            $imageDB->write_image_post();
+            $imageDB->write_image_post($postDB->post->get_id());
             $status=$user->get_postList()->add_post($post);
             $data['post']=json_encode($user->postList->get_last_added()->get_data());
             $data['status']='success';
@@ -126,7 +126,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     }catch(Exception $err){
         $db->rollBack();
         //rollback
-        $item=array('status'=>'failed','msg'=>$err->getMessage(),'errorArray'=>$errorMessages);
+        $item=array('status'=>'failed','msg'=>$err->getMessage(),'trace'=>$err->getTraceAsString(),'errorArray'=>$errorMessages);
         echo json_encode($item);
         return;
     }

@@ -143,7 +143,9 @@ class PostDB extends Database{
             $this->post->set_id($db->lastInsetId());
             $this->set_status($stmt->execute());
         }catch(PDOExecption $err){
+
             echo $err->getMessage();
+            return $err;
         }
     }
     public function read_likes(){

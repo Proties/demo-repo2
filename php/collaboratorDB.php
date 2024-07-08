@@ -24,7 +24,7 @@ class CollaboratorDB extends Database{
 		}
 	}
 	public function write_collaborator(){}
-	public function write_collaboratorUser(){}
+	public function write_collaborator_post(){}
 	public function update_collaborator(){}
 }
 
