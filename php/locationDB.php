@@ -30,21 +30,27 @@ class LocationDB extends Database{
 			$statement->bindValue(':street',$this->location->get_street());
 			$statement->bindValue(':zipCode',$this->location->get_zipCode());
 			$statement->execute();
-			$this->location->set_id($statement->lastInsertId());
+			$this->location->set_id($db->lastInsertId());
 		}catch(Exception $err){
 			echo $err->getMessage();
 			return $err;
 		}
 	}
-	public function write_locationPost(){
-		$query='
-			INSERT INTO PostLocation
-			VALUES(:postID,:locationID)
-		';
-		$statement=$db->prepare($query);
-		$statement->bindValue(':postID',$postID);
-		$statement->bindValue(':loctionID',$location->get_id());
-		$statement->execute();
+	public function write_locationPost($postID){
+		$db=$this->db;
+		try{
+			$query='
+				INSERT INTO PostLocation
+				VALUES(:postID,:locationID)
+			';
+			$statement=$db->prepare($query);
+			$statement->bindValue(':postID',$postID);
+			$statement->bindValue(':loctionID',$this->location->get_id());
+			$statement->execute();
+		}catch(Exception $err){
+			echo $err->getMessage();
+			return $err;
+		}
 
 	}
 	public function read_location(){}

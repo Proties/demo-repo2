@@ -76,7 +76,7 @@ class CategoryDB extends Database{
 
         }
     }
-    public function write_category_post(){
+    public function write_category_post($postID){
         try{
              $query_two='
                     INSERT INTO post_category
@@ -84,7 +84,7 @@ class CategoryDB extends Database{
             ';
             $stmt_two=$db->prepare($query_two);
             $stmt_two->bindValue(':catID',$this->category->get_categoryID());
-            $stmt_two->bindValue(':post',$this->category->get_postID());
+            $stmt_two->bindValue(':post',$postID);
             $stmt_two->execute();
             $db->commit();
         }catch(PDOExcepion $err){

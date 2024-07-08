@@ -43,33 +43,9 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         // if($user->userAuth->is_authanticated()==false){
         //     throw new Exception('create an account');
         // }
-
-        if(isset($data_f['collaborators'])){
-           if (is_array($data_f['collaborators'])){
-                $lenCol=count($data_f['collaborators']);
-                for($i=0;$i<$lenCol;$i++){
-                    $collab=new Collaborator();
-                    $collabDB=new CollaboratorDB();
-                    $collabDB->set_db($db);
-                    $collabDB->write_collaborator();
-                    $collabDB->write_collaboratorUser();
-                    $collab->set_userID();
-                    $status=$post->get_collaboratorList()->add_collaborator($collab);
-                }
-            }
-            
-        }
-        if(isset($data_f['location'])){
-            $post->location->set_local($data_f['location']);
-            $locationDB=new locationDB($post->location);
-            $locationDB->set_db($db);
-            $locationDB->write_location();
-            $locationDB->write_locationPost();
-        }
         $data=[];
         $errorMessages=[];
-
-            if($data_r['img']==''){
+            if($data_f['img']==''){
                 $errorMessages=array('errImage'=>'no image');
             }
 
@@ -104,11 +80,35 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $postDB=new PostDB($post);
             $postDB->set_db($db);
             $postDB->write_post();
+
+             if(isset($data_f['location'])){
+            $post->location->set_local($data_f['location']);
+            $locationDB=new locationDB($post->location);
+            $locationDB->set_db($db);
+            $locationDB->write_location();
+            $locationDB->write_locationPost($postDB->post->get_id());
+            }
+
+            if(isset($data_f['collaborators'])){
+                if (is_array($data_f['collaborators'])){
+                    $lenCol=count($data_f['collaborators']);
+                    for($i=0;$i<$lenCol;$i++){
+                        $collab=new Collaborator();
+                        $collabDB=new CollaboratorDB();
+                        $collabDB->set_db($db);
+                        $collabDB->write_collaborator();
+                        $collabDB->write_collaboratorUser($postDB->post->get_id());
+                        $collab->set_userID();
+                        $status=$post->get_collaboratorList()->add_collaborator($collab);
+                    }
+                }
+                
+            }
             $category->set_name($data_f['categoryName']);
             $categoryDB=new CategoryDB($category);
             $categoryDB->set_db($db);
             $categoryDB->write_category();
-            $categoryDB->write_category_posts();
+            $categoryDB->write_category_posts($postDB->post->get_id());
             $data_r=$data_f['img'];
             $img=$data_r['img'];
             $image->set_enoded_base64_string($img);

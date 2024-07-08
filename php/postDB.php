@@ -4,9 +4,11 @@ use Insta\Databases\Database;
 use Insta\Posts\Post;
 class PostDB extends Database{
     public Post $post;
+    private $db;
     public function __construct(Post $post){
         Database::__construct();
         $this->post=$post;
+        $this->db=$this->get_connection();
     }
     public function get_post(){
         return $this->post;
@@ -116,14 +118,17 @@ class PostDB extends Database{
         }
 
     }
-    
+    public function set_db($d){
+        $this->db=$d;
+    }
    public function write_postUser(){
 
    }
     public function write_post(){
+        $db=$this->db;
         try{
 
-            $db=$this->get_connection();
+            
             $query="
                     INSERT INTO post(postLinkID,postCaption,userID,postDate,postTime,postLink)
                     VALUES(:postLinkID,:caption,:userID,:date,:time,:postLink);
@@ -135,6 +140,7 @@ class PostDB extends Database{
             $stmt->bindValue(':time',$this->post->get_time());
             $stmt->bindValue(':postLink',$this->post->get_postLink());
             $stmt->bindValue(':postLinkID',$this->post->get_postLinkID());
+            $this->post->set_id($db->lastInsetId());
             $this->set_status($stmt->execute());
         }catch(PDOExecption $err){
             echo $err->getMessage();
