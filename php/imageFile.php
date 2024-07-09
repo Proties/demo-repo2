@@ -19,11 +19,14 @@ class ImageFile{
     public function set_postLinkID(string $str){
         $this->postLinkID=$str;
     }
-    public function make_file(){
+    public function make_filename(){
         try{
            
             $ids=file_get_contents('php/ids.json');
             $ids_array=json_decode($ids,true);
+            if($ids_array==null){
+                throw new Exception('unique ids file is null');
+            }
             $this->set_postLinkID($ids_array[0]);
             array_splice($ids_array,0,1);
             fclose($f);

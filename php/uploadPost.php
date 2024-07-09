@@ -27,6 +27,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $image=new Image();
     $username;
     $db->beginTransaction();
+    $post->set_caption($data_f['caption']);
     try{
         if($data_f['userID']=='' || empty($data_f['username'])){
                 throw new Exception('create an account');
@@ -64,19 +65,17 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             }else{
                 $user->create_user_folder();   
             }
-            
-            $image->file->make_file();
-            $image->file->get_fileName();
+            $image->file->make_filename();
             $base64string=substr($img,strpos($img,',')+1);
-            $post->create_post_file();
+       
             
-            file_put_contents($user->get_dir().'/'.$post->get_file(),base64_decode($base64string));
-            $n=strpos($post->get_file(),'.');
-            $post->set_postLinkID(substr($post->get_file(),0,$n));
-            $post->set_postLink($user->get_dir().'/'.$post->get_file());
-            $post->set_authorID($_SESSION['userID']);
-            $post->set_caption($data_f['caption']);
-            $post->set_preview_status($data_f['preview_status']);
+            file_put_contents($user->get_dir().'/'.$image->get_fileName().$image->get_imageType(),base64_decode($base64string));
+
+            $post->set_postLinkID($image->get_postLinkID());
+            $post->set_postLink('/@'.$user->get_username().'/'.$image->get_postLinkID());
+            $post->set_authorID($user->get_id());
+            
+          
             $postDB=new PostDB($post);
             $postDB->set_db($db);
             $postDB->write_post();
