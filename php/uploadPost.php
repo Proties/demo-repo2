@@ -10,8 +10,8 @@ use Insta\Categories\Category;
 use Insta\Databases\Categories\CategoryDB;
 use Insta\Collaborators\Collaborator;
 use Insta\Databases\CollaboratorDB;
-use Insta\Databases\ImageDB;
 use Insta\Images\Image;
+use Insta\Databases\Images\ImageDB;
 use Insta\Location\location;
 use Insta\Databases\Location\locationDB;
 
@@ -75,7 +75,9 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $base64string=substr($img,strpos($img,',')+1);
        
             $user->userFolder->set_folderName($user->get_username());
-            file_put_contents($user->userFolder->get_dir().'/'.$image->file->get_fileName(),base64_decode($base64string));
+            $removed_mime=substr($img,strrpos($img,',')+1);
+            $decode_string=base64_decode($remove_mime);
+            file_put_contents($user->userFolder->get_dir().'/'.$image->file->get_fileName(),$decode_string);
 
             $post->set_postLinkID($image->file->get_postLinkID());
             $post->set_postLink('/@'.$user->get_username().'/'.$image->file->get_postLinkID());
@@ -116,6 +118,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $results=$categoryDB->search_category();
             if(is_array($results)){
                 //get category id
+                $categoryDB->set_db($db);
                 $categoryDB->write_category_post($postDB->post->get_postID());
             }
             else{
@@ -128,6 +131,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $img=$data_f['img'];
             // $image->set_enoded_base64_string($img);
             // $image->file->set_filePath($user->get_dir());
+            $imageDB=new ImageDB($image);
             $imageDB->set_db($db);
             $imageDB->write_image();
             $imageDB->write_image_post($postDB->post->get_postID());

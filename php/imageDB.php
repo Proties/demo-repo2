@@ -1,8 +1,10 @@
 <?php
-namespace Insta\Databases\Image;
+namespace Insta\Databases\Images;
 use Insta\Databases\Database;
+use Insta\Images\Image;
 class ImageDB extends Database{
     private $image;
+    private $db;
     public function __construct(Image $image){
 
     	Database::__construct();
@@ -70,8 +72,6 @@ class ImageDB extends Database{
     public function write_image(){
     	$db=$this->db;
 		try{
-
-			
 			$query='
 					INSERT INTO Images()
 					VALUES(:typ,:size,:width,:height,:made,:updat,:fname,:fpath);
@@ -85,7 +85,8 @@ class ImageDB extends Database{
 			$stmt->bindValue(':updat',$this->image->get_dateModifed());
 			$stmt->bindValue(':fname',$this->image->get_fileName());
 			$stmt->execute();
-			$this->image->set_id($db->lastInserId());
+			$id=(int)$db->lastInserId();
+			$this->image->set_id($id);
 		}catch(PDOExecption $err){
 			echo 'error while writing to image '.$err->getMessage();
 		}

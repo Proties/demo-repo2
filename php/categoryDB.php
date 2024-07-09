@@ -23,7 +23,7 @@ class CategoryDB extends Database{
         try{
             $query='
                     SELECT categoryName,categoryID FROM Category 
-                    WHERE categoryName=:name
+                    WHERE categoryName=:name;
             ';
             $statement=$db->prepare($query);
             $statement->bindValue(':name',$this->category->get_categoryName());

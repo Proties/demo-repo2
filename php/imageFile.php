@@ -30,14 +30,15 @@ class ImageFile{
             if($ids_array==null || !is_array($ids_array)){
                 throw new Exception('unique ids file is null');
             }
-            if($ids_array[0]==''){
+            if($ids_array[0]===''){
                 throw new Exception("not a valid id");
             }
+            $this->set_fileName($ids_array[0].$this->get_imageType());
             $this->set_postLinkID($ids_array[0]);
             array_splice($ids_array,0,1);
             file_put_contents('php/ids.json', json_encode($ids_array));
             
-            $this->set_fileName($this->get_postLinkID().$this->get_imageType());
+            
         }catch(Execption $err){
             echo $err->getMessage();
             return $err;
