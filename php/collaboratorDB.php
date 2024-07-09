@@ -3,10 +3,15 @@ namespace Insta\Databases\Collaborator;
 use Insta\Databases\Database;
 class CollaboratorDB extends Database{
 	private $collaborator;
+	private $db;
 	public function __construct(Collaborator $collaborator){
 		Database::__construct();
 		$this->collaborator=$collaborator;
+		$this->db=$this->get_connection();
 
+	}
+	public function set_db($d){
+		$this->db=$d;
 	}
 	public function get_collaborator(){
 		return $this->collaborator;
@@ -23,8 +28,16 @@ class CollaboratorDB extends Database{
 			return $err;
 		}
 	}
-	public function write_collaborator(){}
-	public function write_collaborator_post(){}
+	public function write_collaborator(){
+		$db=$this->db;
+		try{
+			$query='
+				INSERT INTO collaborators();
+				VALUES()
+			';
+		}
+	}
+	public function write_collaborator_post(int $postID){}
 	public function update_collaborator(){}
 }
 

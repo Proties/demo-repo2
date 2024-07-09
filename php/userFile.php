@@ -1,11 +1,23 @@
 <?php declare(strict_types=1);
 namespace Insta\Users;
+use Exception;
 // this cllas will deal with the user folder createion/modification/deletion
 class UserFolder{
+    private string $folderName;
 	private string $userDir;
 	private array $userFiles;
-	public function __construct(){}
-
+	public function __construct(){
+        $this->folderName='';
+        $this->userFiles=[];
+    }
+    public function set_folderName(string $name)
+    {
+        $this->folderName=$name;
+    }
+    public function get_folderName():string 
+    {
+        return $this->folderName;
+    }
 	public function search_file(){}
 	public function get_file(){}
 	public function add_file(){}
@@ -17,7 +29,7 @@ class UserFolder{
     }
     public function get_dir():string
     {
-        $this->userDir='./userProfiles/'.$this->get_username().'/';
+        $this->userDir='./userProfiles/'.$this->get_folderName().'/';
         return $this->userDir;
     }
     public function delete_folder(string $folderName){
@@ -30,7 +42,7 @@ class UserFolder{
     }
     public function create_user_folder(string $username){
         try{
-        if(!is_dir('../userProfiles/'.$username)){
+        if(is_dir('../userProfiles/'.$username)){
             mkdir('./userProfiles/'.$username,755,false);
             $this->set_dir('../userProfiles/'.$username);
         }else{

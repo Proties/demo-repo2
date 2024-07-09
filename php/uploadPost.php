@@ -2,12 +2,12 @@
 session_start();
 use Insta\Posts\Post;
 use Insta\Databases\Database;
-use Insta\Databases\PostDB;
+use Insta\Databases\Post\PostDB;
 use Insta\Databases\User;
 use Insta\Users\Users;
 use Insta\Users\UserFile;
 use Insta\Categories\Category;
-use Insta\Databases\CategoryDB;
+use Insta\Databases\Categories\CategoryDB;
 use Insta\Collaborators\Collaborator;
 use Insta\Databases\CollaboratorDB;
 use Insta\Databases\ImageDB;
@@ -32,6 +32,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         if($data_f['userID']=='' || empty($data_f['username'])){
                 throw new Exception('create an account');
         }
+        $user->set_username($data_f['username']);
+        $user->set_id($data_f['userID']);
         $username=$data_f['username'];
        
         // if(isset($_SESSION['userID'])){
@@ -59,33 +61,39 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             if(count($errorMessages)>1){
                 throw new Exception('could not create post');
             }
+            if($user->get_username()==''){
+                throw new Exception('no username');
+            }
             // check if user folder is present if not create new folder
-            if(is_dir('userProfiles/'.$username)){
+            if(is_dir('../userProfiles/'.$username)){
 
             }else{
-                $user->create_user_folder();   
+                $user->userFolder->create_user_folder($user->get_username());   
             }
             $image->file->make_filename();
+            $img=$data_f['img'];
             $base64string=substr($img,strpos($img,',')+1);
        
-            
-            file_put_contents($user->get_dir().'/'.$image->get_fileName().$image->get_imageType(),base64_decode($base64string));
+            $user->userFolder->set_folderName($user->get_username());
+            file_put_contents($user->userFolder->get_dir().'/'.$image->file->get_fileName(),base64_decode($base64string));
 
-            $post->set_postLinkID($image->get_postLinkID());
-            $post->set_postLink('/@'.$user->get_username().'/'.$image->get_postLinkID());
+            $post->set_postLinkID($image->file->get_postLinkID());
+            $post->set_postLink('/@'.$user->get_username().'/'.$image->file->get_postLinkID());
             $post->set_authorID($user->get_id());
             
           
             $postDB=new PostDB($post);
             $postDB->set_db($db);
             $postDB->write_post();
-
-             if(isset($data_f['location'])){
+            if($postDB->post->get_postID()==null){
+                throw new Exception('post id not defined');
+            }
+            if(isset($data_f['location'])){
             $post->location->set_local($data_f['location']);
             $locationDB=new locationDB($post->location);
             $locationDB->set_db($db);
             $locationDB->write_location();
-            $locationDB->write_locationPost($postDB->post->get_id());
+            $locationDB->write_locationPost($postDB->post->get_postID());
             }
 
             if(isset($data_f['collaborators'])){
@@ -96,25 +104,24 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
                         $collabDB=new CollaboratorDB();
                         $collabDB->set_db($db);
                         $collabDB->write_collaborator();
-                        $collabDB->write_collaboratorUser($postDB->post->get_id());
+                        $collabDB->write_collaboratorUser($postDB->post->get_postID());
                         $collab->set_userID();
                         $status=$post->get_collaboratorList()->add_collaborator($collab);
                     }
                 }
                 
             }
-            $category->set_name($data_f['categoryName']);
+            $category->set_categoryName($data_f['categoryName']);
             $categoryDB=new CategoryDB($category);
             $categoryDB->set_db($db);
             $categoryDB->write_category();
-            $categoryDB->write_category_posts($postDB->post->get_id());
-            $data_r=$data_f['img'];
-            $img=$data_r['img'];
-            $image->set_enoded_base64_string($img);
-            $image->set_filePath($user->get_dir());
+            $categoryDB->write_category_post($postDB->post->get_postID());
+            $img=$data_f['img'];
+            // $image->set_enoded_base64_string($img);
+            // $image->file->set_filePath($user->get_dir());
             $imageDB->set_db($db);
             $imageDB->write_image();
-            $imageDB->write_image_post($postDB->post->get_id());
+            $imageDB->write_image_post($postDB->post->get_postID());
             $status=$user->get_postList()->add_post($post);
             $data['post']=json_encode($user->postList->get_last_added()->get_data());
             $data['status']='success';

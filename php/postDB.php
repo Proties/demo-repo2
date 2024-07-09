@@ -130,18 +130,22 @@ class PostDB extends Database{
 
             
             $query="
-                    INSERT INTO post(postLinkID,postCaption,userID,postDate,postTime,postLink)
-                    VALUES(:postLinkID,:caption,:userID,:date,:time,:postLink);
+                    INSERT INTO Posts(postLinkId,caption,userID,postDate,postTime,postLink,previewStatus,postStatus)
+                    VALUES(:postLinkID,:caption,:userID,:pdate,:ptime,:postLink,:preview,:status);
                     ";
             $stmt=$db->prepare($query);
             $stmt->bindValue(':caption',$this->post->get_caption());
             $stmt->bindValue(':userID',$this->post->get_authorID());
-            $stmt->bindValue(':date',$this->post->get_date());
-            $stmt->bindValue(':time',$this->post->get_time());
+            $stmt->bindValue(':pdate',$this->post->get_date());
+            $stmt->bindValue(':ptime',$this->post->get_time());
             $stmt->bindValue(':postLink',$this->post->get_postLink());
             $stmt->bindValue(':postLinkID',$this->post->get_postLinkID());
-            $this->post->set_id($db->lastInsetId());
-            $this->set_status($stmt->execute());
+            $stmt->bindValue(':preview',$this->post->get_preview_status());
+            $stmt->bindValue(':status',$this->post->get_status());
+            $stmt->execute();
+            $id=(int)$db->lastInsertId();
+            $this->post->set_postID($id);
+            
         }catch(PDOExecption $err){
 
             echo $err->getMessage();
@@ -156,7 +160,7 @@ class PostDB extends Database{
                     WHERE id=:id;
             ";
             $stmt=$db->prepare($query);
-            $stmt->bindValue(':id',$this->post->get_id());
+            $stmt->bindValue(':id',$this->post->get_postID());
             $this->set_status($stmt->execute());
         }catch(PDOExecption $err){
             echo 'Database error '.$err->getMessage();

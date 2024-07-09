@@ -13,8 +13,11 @@ class ImageFile{
         $this->postLinkID='';
 
     }
+     public function set_filename(string $str){
+        $this->filename=$str;
+    }
     public function set_filePath(string $str){
-
+        $this->filePath=$str;
     }
     public function set_postLinkID(string $str){
         $this->postLinkID=$str;
@@ -28,11 +31,10 @@ class ImageFile{
                 throw new Exception('unique ids file is null');
             }
             $this->set_postLinkID($ids_array[0]);
-            array_splice($ids_array,0,1);
-            fclose($f);
-            file_put_contents('php/ids.json', $ids_array);
+            $data=array_splice($ids_array,0,1);
+            file_put_contents('php/ids.json', json_encode($data));
             
-            $this->set_fileName($this->get_filePath().$this->get_imageType());
+            $this->set_fileName($this->get_postLinkID().$this->get_imageType());
         }catch(Execption $err){
             echo $err->getMessage();
             return $err;

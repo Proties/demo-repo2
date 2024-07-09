@@ -8,6 +8,10 @@ class ImageDB extends Database{
     	Database::__construct();
 
         $this->image=$image;
+        $this->db=$this->get_connection();
+    }
+    public function set_db($d){
+    	$this->db=$d;
     }
     public function get_image(){
         return $this->image;
@@ -32,8 +36,9 @@ class ImageDB extends Database{
 		}
 	}
     public function read_images(){
+    	$db=$this->db();
 		try{
-			$db=$this->get_connection();
+			
 			$query='
 					SELECT fileName,filePath FROM Images
 					WHERE postID=:id; 
@@ -48,6 +53,7 @@ class ImageDB extends Database{
 	}
 
 	public function write_image_post($postID){
+		$db=$this->db;
 		try{
 			$query='
 					INSERT INTO PostImages()
@@ -62,9 +68,10 @@ class ImageDB extends Database{
 		}
 	}
     public function write_image(){
+    	$db=$this->db;
 		try{
 
-			$db=$this->get_connection();
+			
 			$query='
 					INSERT INTO Images()
 					VALUES(:typ,:size,:width,:height,:made,:updat,:fname,:fpath);

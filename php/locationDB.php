@@ -20,7 +20,7 @@ class LocationDB extends Database{
 		$db=$this->db;
 		try{
 			$query='
-				INSERT INTO Location (country,region,province,street,zipCode)
+				INSERT INTO LocationTable (country,region,province,street,zipCode)
 				VALUES(:country,:region,:province,:street,:zipCode)
 			';
 			$statement=$db->prepare($query);
@@ -30,7 +30,8 @@ class LocationDB extends Database{
 			$statement->bindValue(':street',$this->location->get_street());
 			$statement->bindValue(':zipCode',$this->location->get_zipCode());
 			$statement->execute();
-			$this->location->set_id($db->lastInsertId());
+			$id=(int)$db->lastInsertId();
+			$this->location->set_id($id);
 		}catch(Exception $err){
 			echo $err->getMessage();
 			return $err;
@@ -40,12 +41,12 @@ class LocationDB extends Database{
 		$db=$this->db;
 		try{
 			$query='
-				INSERT INTO PostLocation
-				VALUES(:postID,:locationID)
+				INSERT INTO PostLocation(locationID,postID)
+				VALUES(:locationID,:postID)
 			';
 			$statement=$db->prepare($query);
 			$statement->bindValue(':postID',$postID);
-			$statement->bindValue(':loctionID',$this->location->get_id());
+			$statement->bindValue(':locationID',$this->location->get_id());
 			$statement->execute();
 		}catch(Exception $err){
 			echo $err->getMessage();

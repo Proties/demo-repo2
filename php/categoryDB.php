@@ -1,13 +1,19 @@
 <?php declare(strict_types=1);
-namespace Insta\Categories;
+namespace Insta\Databases\Categories;
 use Insta\Databases\Database;
+use Insta\Categories\Category;
 class CategoryDB extends Database{
-    private $category;
+    private Category $category;
+    private $db;
  
-    public function __construct(Category $category){
+    public function __construct($category){
         Database::__construct();
         $this->category=$category;
+        $this->db=$this->get_connection();
       }
+    public function set_db($db){
+        $this->db=$db;
+    }
     public function get_category()
     {
         return $this->category;
@@ -59,27 +65,27 @@ class CategoryDB extends Database{
         try{
 
             $query_one='
-                    INSERT INTO Category()
-                    VALUES(:categoryName,:postID,:catDate,:catTime,:vw);
+                    INSERT INTO Category(categoryName,dateAdded,timeAdded,viewCount)
+                    VALUES(:categoryName,:catDate,:catTime,:vw);
                 ';
             $stmt=$db->prepare($query_one);
-            $stmt=$db->prepare($query);
-            $stmt->bindValue(':categoryID',$this->category->get_categoryID());
-            $stmt->bindValue(':postID',$this->category->get_categoryName());
-            $stmt->bindValue(':catDate',$this->category->get_categoryDate());
-            $stmt->bindValue(':catTime',$this->category->get_categoryTime());
+            $stmt->bindValue(':categoryName',$this->category->get_categoryName());
+            $stmt->bindValue(':catDate',$this->category->get_date());
+            $stmt->bindValue(':catTime',$this->category->get_time());
             $stmt->bindValue(':vw',$this->category->get_viewCount());
             $stmt->execute();
-            $this->category->set_categoryID($stmt->lastInsertId());
+            $id=(int)$db->lastInsertId();
+            $this->category->set_categoryID($id);
         }catch(PDOExcepion $err){
             echo 'write to category error'.$err->getMessage();
 
         }
     }
     public function write_category_post($postID){
+         $db=$this->db;
         try{
              $query_two='
-                    INSERT INTO post_category
+                    INSERT INTO PostCategory
                     VALUES(:catID,:post);
             ';
             $stmt_two=$db->prepare($query_two);

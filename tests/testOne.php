@@ -7,7 +7,7 @@ $c=curl_init();
 curl_setopt($c,CURLOPT_URL, 'localhost:8000/upload_post');
 $data=[
 	"userID"=>1,
-	"username"=>'saule',
+	"username"=>'happy_16',
 	"categoryName"=>'happy',
 	"location"=>'tshivhumbe123,thohoyandou unit D,0950,Limpopo,SouthAfrica',
 	"caption"=>'happy people',

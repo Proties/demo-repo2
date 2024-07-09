@@ -29,7 +29,7 @@ public function __construct(){
     $this->location=new Location();
     $this->errorMessage='';
     $this->caption='';
-    $this->status='';
+    $this->status='show';
     $this->postID=0;
     $this->postLinkID='';
     $this->postLink='';

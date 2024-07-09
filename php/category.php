@@ -14,8 +14,9 @@ class Category{
     public function __construct(){
         $this->categoryName='';
         $this->categoryID=0;
-        $this->date='';
-        $this->time='';
+        $this->viewCount=0;
+        $this->date=date('Y-m-d');
+        $this->time=date('H:i');
         $this->status='';
         $this->errorMessage='';
     }
@@ -56,6 +57,9 @@ class Category{
     }
     public function get_errorMessage(){
         return $this->errorMessage;
+    }
+    public function get_viewCount(){
+        return $this->viewCount;
     }
     public function get_posts(array|null $posts=null){
         return $this->posts=new CategoryList($posts);
