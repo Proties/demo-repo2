@@ -27,12 +27,15 @@ class ImageFile{
            
             $ids=file_get_contents('php/ids.json');
             $ids_array=json_decode($ids,true);
-            if($ids_array==null){
+            if($ids_array==null || !is_array($ids_array)){
                 throw new Exception('unique ids file is null');
             }
+            if($ids_array[0]==''){
+                throw new Exception("not a valid id");
+            }
             $this->set_postLinkID($ids_array[0]);
-            $data=array_splice($ids_array,0,1);
-            file_put_contents('php/ids.json', json_encode($data));
+            array_splice($ids_array,0,1);
+            file_put_contents('php/ids.json', json_encode($ids_array));
             
             $this->set_fileName($this->get_postLinkID().$this->get_imageType());
         }catch(Execption $err){
