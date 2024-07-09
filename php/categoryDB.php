@@ -18,7 +18,25 @@ class CategoryDB extends Database{
     {
         return $this->category;
     }
- 
+    public function search_category(){
+        $db=$this->db;
+        try{
+            $query='
+                    SELECT categoryName,categoryID FROM Category 
+                    WHERE categoryName=:name
+            ';
+            $statement=$db->prepare($query);
+            $statement->bindValue(':name',$this->category->get_categoryName());
+            $statement->execute();
+            $data=$statement->fetch();
+            $id=(int)$data['categoryID'];
+            $this->category->set_categoryID($id);
+            return $data;
+        }catch(PDOExcepion $err){
+            echo $err->getMessage();
+            return $err;
+        }
+    }
     public function read_posts():array
     {
         try{

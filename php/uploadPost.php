@@ -113,9 +113,18 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             }
             $category->set_categoryName($data_f['categoryName']);
             $categoryDB=new CategoryDB($category);
-            $categoryDB->set_db($db);
-            $categoryDB->write_category();
-            $categoryDB->write_category_post($postDB->post->get_postID());
+            $results=$categoryDB->search_category();
+            if(is_array($results)){
+                //get category id
+                $categoryDB->write_category_post($postDB->post->get_postID());
+            }
+            else{
+                
+                $categoryDB->set_db($db);
+                $categoryDB->write_category();
+                $categoryDB->write_category_post($postDB->post->get_postID());
+            }
+            
             $img=$data_f['img'];
             // $image->set_enoded_base64_string($img);
             // $image->file->set_filePath($user->get_dir());
