@@ -2,15 +2,14 @@
 namespace Insta\Images;
 use Insta\Images\ImageFile;
 class Image{
+	private int $id;
 	private string $dateMade;
 	private string $dateModified;
-	private string $fileName;
-	private string $filePath;
-	private string $imageType;
 	private string $width;
 	private string $height;
 	private int $postID;
 	private int $imageSize;
+	private string $size;
 	public ImageFile $file;
 	private array $data;
 
@@ -18,9 +17,10 @@ class Image{
 		$this->file=new ImageFile();
 		$this->width='200px';
 		$this->height='100px';
-		$this->filePath='';
-		$this->fileName='';
-		$this->imageType='.png';
+		$this->dateMade=date('Y:m:d');
+		$this->dateModified=date('Y:m:d');
+		$this->size='300px';
+		$this->id=0;
 
 
 	}
@@ -31,11 +31,12 @@ class Image{
 	public function set_dateModifed(string $dt){
 		$this->dateModified=$dt;
 	}
-	public function set_fileName(string $dt){
-		$this->fileName=$dt;
-	}
+
 	public function set_width(string $dt){
 		$this->width=$dt;
+	}
+	public function set_size(string $dt){
+		$this->size=$dt;
 	}
 	public function set_height(string $dt){
 		$this->height=$dt;
@@ -43,12 +44,13 @@ class Image{
 	public function set_postID(int $dt){
 		$this->postID=$dt;
 	}
+	public function set_id(int $dt){
+		$this->id=$dt;
+	}
 	public function set_filePath(string $dt){
 		$this->filePath=$dt;
 	}
-	public function set_imageType(string $dt){
-		$this->imageType=$dt;
-	}
+
 	public function set_imageSize(int $dt){
 		$this->imageSize=$dt;
 	}
@@ -70,10 +72,7 @@ class Image{
 	{
 		return $this->dateModified;
 	}
-	public function get_fileName():string 
-	{
-		return $this->fileName;
-	}
+
 	public function get_width():string 
 	{
 		return $this->width;
@@ -86,17 +85,14 @@ class Image{
 	{
 		return $this->postID;
 	}
-	public function get_filePath():string 
-	{
-		return $this->filePath;
-	}
-	public function get_imageType():string 
-	{
-		return $this->imageType;
-	}
+
 	public function get_size()
 	{
 		return $this->size;
+	}
+	public function get_id():int
+	{
+		return $this->id;
 	}
 }
 ?>

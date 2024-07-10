@@ -26,9 +26,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $db=$database->get_connection();
     $image=new Image();
     $username;
-    $db->beginTransaction();
+    
     $post->set_caption($data_f['caption']);
     try{
+        $db->beginTransaction();
         if($data_f['userID']=='' || empty($data_f['username'])){
                 throw new Exception('create an account');
         }
@@ -76,7 +77,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
        
             $user->userFolder->set_folderName($user->get_username());
             $removed_mime=substr($img,strrpos($img,',')+1);
-            $decode_string=base64_decode($remove_mime);
+            
+            $decode_string=base64_decode($removed_mime);
             file_put_contents($user->userFolder->get_dir().'/'.$image->file->get_fileName(),$decode_string);
 
             $post->set_postLinkID($image->file->get_postLinkID());
@@ -122,12 +124,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
                 $categoryDB->write_category_post($postDB->post->get_postID());
             }
             else{
-                
                 $categoryDB->set_db($db);
                 $categoryDB->write_category();
                 $categoryDB->write_category_post($postDB->post->get_postID());
             }
-            
             $img=$data_f['img'];
             // $image->set_enoded_base64_string($img);
             // $image->file->set_filePath($user->get_dir());
@@ -135,19 +135,16 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $imageDB->set_db($db);
             $imageDB->write_image();
             $imageDB->write_image_post($postDB->post->get_postID());
-            $status=$user->get_postList()->add_post($post);
-            $data['post']=json_encode($user->postList->get_last_added()->get_data());
             $data['status']='success';
-            
-            $db->commit();
             echo json_encode($data);
-            return $data;
+            $db->commit();
+            
+            return;
     }catch(Exception $err){
         $db->rollBack();
         //rollback
         $item=array('status'=>'failed','msg'=>$err->getMessage(),'trace'=>$err->getTraceAsString(),'errorArray'=>$errorMessages);
         echo json_encode($item);
-        return;
     }
 
 

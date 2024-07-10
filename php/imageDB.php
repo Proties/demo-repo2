@@ -3,7 +3,7 @@ namespace Insta\Databases\Images;
 use Insta\Databases\Database;
 use Insta\Images\Image;
 class ImageDB extends Database{
-    private $image;
+    private Image $image;
     private $db;
     public function __construct(Image $image){
 
@@ -54,12 +54,12 @@ class ImageDB extends Database{
 		}
 	}
 
-	public function write_image_post($postID){
+	public function write_image_post(int $postID){
 		$db=$this->db;
 		try{
 			$query='
-					INSERT INTO PostImages()
-					VALUES(:imageID,:postID)
+					INSERT INTO PostImages(postID,imageID)
+					VALUES(:postID,:imageID)
 			';
 			$statement=$db->prepare($query);
 			$statement->bindValue(':imageID',$this->image->get_id());
@@ -73,19 +73,21 @@ class ImageDB extends Database{
     	$db=$this->db;
 		try{
 			$query='
-					INSERT INTO Images()
-					VALUES(:typ,:size,:width,:height,:made,:updat,:fname,:fpath);
+					INSERT INTO Images(image_type,image_size,image_width,image_height,created_at,updated_at,filepath,filename)
+					VALUES(:typ,:size,:width,:height,:made,:updat,:fpath,:fname);
 			';
 			$stmt=$db->prepare($query);
-			$stmt->bindValue(':typ',$this->image->get_imageType());
+
+			$stmt->bindValue(':typ',$this->image->file->get_imageType());
 			$stmt->bindValue(':size',$this->image->get_size());
 			$stmt->bindValue(':width',$this->image->get_width());
 			$stmt->bindValue(':height',$this->image->get_height());
 			$stmt->bindValue(':made',$this->image->get_dateMade());
 			$stmt->bindValue(':updat',$this->image->get_dateModifed());
-			$stmt->bindValue(':fname',$this->image->get_fileName());
+			$stmt->bindValue(':fname',$this->image->file->get_fileName());
+			$stmt->bindValue(':fpath',$this->image->file->get_filePath());
 			$stmt->execute();
-			$id=(int)$db->lastInserId();
+			$id=(int)$db->lastInsertId();
 			$this->image->set_id($id);
 		}catch(PDOExecption $err){
 			echo 'error while writing to image '.$err->getMessage();
