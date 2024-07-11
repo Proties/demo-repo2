@@ -66,7 +66,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
                 throw new Exception('no username');
             }
             // check if user folder is present if not create new folder
-            if($user->get_dir()==null){
+            if($user->userFolder->get_dir()==null){
                   $user->userFolder->create_user_folder($user->get_username());   
             }
         

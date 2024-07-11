@@ -21,16 +21,25 @@ class UserDB extends Database{
     }
     public function get_userIDs_from_usernames(array $ids):array 
     {
+        $db=$this->db;
         try{
-            $query='
+            $line="";
+            $lenArr=count($ids);
+            for($i=0;$i<$lenArr;$i++){
+                $line.="username=$ids[$i]";
+            }
+            // throw new Exception($line);
+            $query="
                     SELECT userID FROM Users
-                    WHERE username=:username;
-            ';
+                    WHERE $line;";
+            // throw new Exception($query);
+            if($query==null){
+                throw new Exception('query is null');
+            }
             $statement=$db->prepare($query);
-            $statement->bindValue(':username',);
             $statement->execute();
-            return $statement->fetchall()
-        }cathc(PDOException $err){
+            return $statement->fetchall();
+        }catch(PDOException $err){
             return $err;
         }
     }
