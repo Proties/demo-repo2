@@ -4,11 +4,12 @@ use Exception;
 // this cllas will deal with the user folder createion/modification/deletion
 class UserFolder{
     private string $folderName;
-	private string $userDir;
+	private string|null $userDir;
 	private array $userFiles;
 	public function __construct(){
         $this->folderName='';
         $this->userFiles=[];
+        $this->userDir=null;
     }
     public function set_folderName(string $name)
     {

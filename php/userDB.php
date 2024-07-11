@@ -19,6 +19,21 @@ class UserDB extends Database{
         $this->db=$db;
 
     }
+    public function get_userIDs_from_usernames(array $ids):array 
+    {
+        try{
+            $query='
+                    SELECT userID FROM Users
+                    WHERE username=:username;
+            ';
+            $statement=$db->prepare($query);
+            $statement->bindValue(':username',);
+            $statement->execute();
+            return $statement->fetchall()
+        }cathc(PDOException $err){
+            return $err;
+        }
+    }
     public function search_user($user){
         try{
             $db=$this->db;
@@ -31,7 +46,7 @@ class UserDB extends Database{
             $stmt->bindValue(':name',$user);
             $stmt->execute();
             return $stmt->fetchall();
-        }catch(PDOExcepion $err){
+        }catch(PDOException $err){
             echo 'error looking for username '.$err->getMessages();
             return $err;
         }
@@ -54,7 +69,7 @@ class UserDB extends Database{
         $statement->bindValue(':timeMade', $this->user->get_time());
         $this->user->set_status($statement->execute());
         $this->user->set_id($db->lastInsertId());
-        }catch(PDOExcepion $err){
+        }catch(PDOException $err){
             echo 'Database error while writing to user '.$err->getMessage();
             return $err;
         }
@@ -71,12 +86,12 @@ class UserDB extends Database{
             $statement->execute();
             $data=$statement->fetch();
             if($data==false){
-                throw new PDOExcepion('no user selected');
+                throw new PDOException('no user selected');
             }
             $this->user->set_id($data['userID']);
             $this->user->set_username($data['username']);
             $this->user->set_name($data['fullname']);
-        }catch(PDOExcepion $err){
+        }catch(PDOException $err){
             echo 'Database error while read user'.$err->getMessage();
             return $err;
         }
@@ -99,7 +114,7 @@ class UserDB extends Database{
         $this->user->set_id($data[0]['userID']);
         $this->user->set_username($data[0]['username']);
         $this->user->get_posts($data);
-        }catch(PDOExcepion $err){
+        }catch(PDOException $err){
             echo 'Database error while read user'.$err->getMessage();
             return $err;
         }
@@ -117,7 +132,7 @@ class UserDB extends Database{
             $statement->execute();
             $data=$statement->fetch();
             if($data==false){
-                throw new PDOExcepion('no user selected');
+                throw new PDOException('no user selected');
             }
             $this->user->set_id($data['userID']);
             $this->user->set_username($data['username']);
@@ -141,14 +156,14 @@ class UserDB extends Database{
             $stmt->execute();
             $data=$stmt->fetch();
             if($data==false){
-                throw new PDOExcepion('user id not found');
+                throw new PDOException('user id not found');
             }
             if(is_int($data['userID'])){
                  $this->user->set_id($data['userID']);
             }
-           throw new PDOExcepion('not valid user id ');
+           throw new PDOException('not valid user id ');
            
-        }catch(PDOExcepion $err){
+        }catch(PDOException $err){
             echo 'Database error while reading id'.$err->getMessage();
             return $err;
         }
@@ -163,7 +178,7 @@ class UserDB extends Database{
             $stmt=$db->prepare($query);
             $stmt->execute();
             return $stmt->fetchall();
-        }catch(PDOExcepion $err){
+        }catch(PDOException $err){
             echo $err->getMessage();
             return $err;
         }
@@ -182,7 +197,7 @@ class UserDB extends Database{
             $stmt->bindValue(':mail',$email);
             $stmt->execute();
             return $stmt->fetch();
-        }catch(PDOExcepion $err){
+        }catch(PDOException $err){
             echo $err->getMessage();
             return $err;
             
@@ -201,7 +216,7 @@ class UserDB extends Database{
             $stmt->bindValue(':user',$email);
             $stmt->execute();
             return $stmt->fetch();
-        }catch(PDOExcepion $err){
+        }catch(PDOException $err){
             echo $err->getMessage();
             return $err;
             
@@ -220,7 +235,7 @@ class UserDB extends Database{
             $id=$stmt->fetch();
             
             return $id;
-        }catch(PDOExcepion $err){
+        }catch(PDOException $err){
             echo 'Database error while validating username'.$err->getMessage();
             return $err;;
         }

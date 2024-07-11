@@ -24,7 +24,7 @@ class CollaboratorDB extends Database{
 					
 					WHERE userID=
 			';
-		}catch(PDOExcepion $err){
+		}catch(PDOException $err){
 			return $err;
 		}
 	}
@@ -32,12 +32,20 @@ class CollaboratorDB extends Database{
 		$db=$this->db;
 		try{
 			$query='
-				INSERT INTO collaborators();
-				VALUES()
+					INSERT INTO Collaborators(postID,userID,dateMade,timeMade,statusC)
+					VALUES(:postID,userID,:dateM,:timeM,:status)
 			';
+			$statement=$db->prepare($query);
+			$statement->bindValue(':userID',$this->collaborator->get_userID());
+			$statement->bindValue(':postID',$this->collaborator->get_postID());
+			$statement->bindValue(':dateM',$this->collaborator->get_date());
+			$statement->bindValue(':timeM',$this->collaborator->get_time());
+			$statement->bindValue(':status',$this->collaborator->get_status());
+			$statement->execute();
+		}catch(PDOException $err){
+			return $err;
 		}
 	}
-	public function write_collaborator_post(int $postID){}
 	public function update_collaborator(){}
 }
 

@@ -25,20 +25,14 @@ CREATE TABLE Posts(
 );
 DROP TABLE IF EXISTS Collaborators;
 CREATE TABLE Collaborators(
- userID int,
- postID INT,
- primary key (userID),
- foreign key (userID) references Users(userID)
-);
-DROP TABLE IF EXISTS CollaboratorsUsers;
-CREATE TABLE CollaboratorsUsers(
- userID int,
  collaboratorID int,
+ postID int,
+ userID int,
  dateMade date,
  timeMade time,
- status varchar(10),
  primary key (collaboratorID),
- foreign key (userID) references Users(userID)
+ foreign key (userID) references Users(userID),
+ foreign key (postID) references Posts(postID)
 );
 DROP TABLE IF EXISTS Images;
 CREATE TABLE Images(

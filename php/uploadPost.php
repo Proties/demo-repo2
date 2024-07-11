@@ -66,11 +66,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
                 throw new Exception('no username');
             }
             // check if user folder is present if not create new folder
-            if(is_dir('../userProfiles/'.$username)){
-
-            }else{
-                $user->userFolder->create_user_folder($user->get_username());   
+            if($user->get_dir()==null){
+                  $user->userFolder->create_user_folder($user->get_username());   
             }
+        
             $image->file->make_filename();
             $img=$data_f['img'];
             $base64string=substr($img,strpos($img,',')+1);
@@ -101,17 +100,17 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             }
 
             if(isset($data_f['collaborators'])){
-                if (is_array($data_f['collaborators'])){
                     $lenCol=count($data_f['collaborators']);
+                    $usernames=$data_f['collaborators'];
+                    $userids=$userDB->get_userIDs_from_usernames($usernames);
                     for($i=0;$i<$lenCol;$i++){
                         $collab=new Collaborator();
-                        $collabDB=new CollaboratorDB();
+                        $collab->set_userID($userids[$i]);
+                        $collab->set_postID($postDB->post->get_postID());
+                        $collabDB=new CollaboratorDB($collab);
                         $collabDB->set_db($db);
                         $collabDB->write_collaborator();
-                        $collabDB->write_collaboratorUser($postDB->post->get_postID());
-                        $collab->set_userID();
-                        $status=$post->get_collaboratorList()->add_collaborator($collab);
-                    }
+                       
                 }
                 
             }

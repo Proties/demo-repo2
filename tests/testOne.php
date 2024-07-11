@@ -12,7 +12,7 @@ $data=[
 	"location"=>'tshivhumbe123,thohoyandou unit D,0950,Limpopo,SouthAfrica',
 	"caption"=>'happy people',
 	"img"=>turn_image_to_base64('userProfiles/saule/1cmi6TEG.png'),
-	"collaborators"=>[]
+	"collaborators"=>['manik_45']
 
 ];
 $f_data=json_encode($data);
