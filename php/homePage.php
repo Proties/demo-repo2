@@ -11,6 +11,7 @@ use Insta\Databases\Categories\CategoryDB;
 use Insta\Ranking\Ranking;
 $log=new Logger('start');
 $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
+
 $mainUser=new Users();
 
 if(isset($_SESSION['username']) && $_SESSION['username']!==null && isset($_SESSION['userID'])){

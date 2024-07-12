@@ -1,5 +1,4 @@
 <?php
-error_log('server error works',0,'/php/file.log');
 require_once 'vendor/psr/log/src/LoggerInterface.php';
 require_once 'vendor/vlucas/phpdotenv/src/Dotenv.php';
 require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/WriterInterface.php';
@@ -106,7 +105,8 @@ use Insta\Databases\Database;
 use Insta\Posts\Post;
 use Insta\Databases\Post\PostDB;
 
-
+echo 'works';
+return;
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
