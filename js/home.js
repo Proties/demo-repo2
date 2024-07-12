@@ -185,49 +185,11 @@ function select_post(evt){
 }
 //when user clicks the comment button the comment modal will popup
 function show_coment(evt){
-    let commentForm=document.getElementById("commentForm");
+    let container=document.getElementById("commentForm");
     let postElement=evt.target.parentNode.parentNode;
-    if(postElement.className=='post-container'){
-        console.log('work as intend');
-        console.log('work as intend');
-        console.log('work as intend');
-    }
-    if(postElement.className=='postfeed-wrapper'){
-        postElement=postElement.getElementsByClassName("post-container")[0];
-        console.log('does not work as intend');
-        console.log('does not work as intend');
-        console.log('does not work as intend');
-    }if(postElement.className=='post-actions'){
-        postElement=postElement.parentNode;
-    }
-    if(postElement.id==""){
-    console.log(postElement);
-    console.log('does not work as intend');
-    console.log('does not work as intend');
-    }
-    for(let cf=0;cf<commentForm.childNodes.length;cf++){
-        if(commentForm.childNodes[cf].id=='postID'){
-            commentForm.removeChild(commentForm.childNodes[cf]);
-
-        }
-    }
-    let h=document.createElement('input');
-    h.type='hidden';
-    h.id='postID';
-    h.name='postID';
-    h.value=postElement.id;
-    commentForm.append(h);
-    let container=document.getElementById("writeCommentModal");
+    
     container.style.display='flex';
-    container.getElementsByTagName("button")[0].addEventListener('click',function(){
-        console.log("works");
-        container.style.display='none';
-    });
-    container.getElementsByClassName("close")[0].addEventListener('click',function(){
-        console.log("works");
-        container.style.display='none';
-    });
-   
+    return;
     container.getElementsByTagName("button")[1].addEventListener("click",function(evt){
         console.log("prevent comment submission");
         let txt=container.getElementsByTagName('textarea')[0].value;
