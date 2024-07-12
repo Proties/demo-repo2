@@ -1,6 +1,5 @@
 <?php
-echo 'works';
-return;
+
 require_once 'vendor/psr/log/src/LoggerInterface.php';
 require_once 'vendor/vlucas/phpdotenv/src/Dotenv.php';
 require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/WriterInterface.php';
@@ -96,7 +95,8 @@ require_once 'php/collaboratorDB.php';
 require_once 'php/rank.php';
 require_once 'php/locationDB.php';
 
-
+echo 'works';
+return;
 use Dotenv\Dotenv;
 use Monolog\Level;
 use monolog\Logger;
