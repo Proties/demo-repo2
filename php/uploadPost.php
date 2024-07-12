@@ -8,8 +8,8 @@ use Insta\Users\Users;
 use Insta\Users\UserFile;
 use Insta\Categories\Category;
 use Insta\Databases\Categories\CategoryDB;
-use Insta\Collaborators\Collaborator;
-use Insta\Databases\CollaboratorDB;
+use Insta\Collaborator\Collaborator;
+use Insta\Databases\Collaborator\CollaboratorDB;
 use Insta\Images\Image;
 use Insta\Databases\Images\ImageDB;
 use Insta\Location\location;
@@ -102,10 +102,11 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             if(isset($data_f['collaborators'])){
                     $lenCol=count($data_f['collaborators']);
                     $usernames=$data_f['collaborators'];
-                    $userids=$userDB->get_userIDs_from_usernames($usernames);
+                    
                     for($i=0;$i<$lenCol;$i++){
+                        $userid=$userDB->get_userID_from_username($usernames[$i]);
                         $collab=new Collaborator();
-                        $collab->set_userID($userids[$i]);
+                        $collab->set_userID($userid['userID']);
                         $collab->set_postID($postDB->post->get_postID());
                         $collabDB=new CollaboratorDB($collab);
                         $collabDB->set_db($db);

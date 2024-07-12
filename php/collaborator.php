@@ -4,6 +4,7 @@ class Collaborator{
 	private array $users=[];
 	private int $collaboratorID;
 	private int $postID;
+	private int $userID;
 	private string $status;
 	private string $errorMessage;
 	private string $errorStatus;
@@ -20,6 +21,9 @@ class Collaborator{
 	}
 	public function set_postID(Int $id){
 		$this->postID=$id;
+	}
+	public function set_userID(Int $id){
+		$this->userID=$id;
 	}
 	public function set_status(String $id){
 		$this->status=$id;
@@ -43,7 +47,9 @@ class Collaborator{
 	public function get_date(){
 		return $this->date;
 	}
-
+	public function get_userID(){
+		return $this->userID;
+	}
 	public function get_collaboratorID(){
 		return $this->collaboratorID;
 	}

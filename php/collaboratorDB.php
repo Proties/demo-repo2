@@ -1,6 +1,7 @@
 <?php
 namespace Insta\Databases\Collaborator;
 use Insta\Databases\Database;
+use Insta\Collaborator\Collaborator;
 class CollaboratorDB extends Database{
 	private $collaborator;
 	private $db;
@@ -32,8 +33,8 @@ class CollaboratorDB extends Database{
 		$db=$this->db;
 		try{
 			$query='
-					INSERT INTO Collaborators(postID,userID,dateMade,timeMade,statusC)
-					VALUES(:postID,userID,:dateM,:timeM,:status)
+					INSERT INTO Collaborators (postID,userID,dateMade,timeMade,statusC)
+					VALUES(:postID,:userID,:dateM,:timeM,:status)
 			';
 			$statement=$db->prepare($query);
 			$statement->bindValue(':userID',$this->collaborator->get_userID());

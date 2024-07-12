@@ -91,6 +91,7 @@ require_once 'php/imageFile.php';
 require_once 'php/categoryDB.php';
 require_once 'php/imageDB.php';
 require_once 'php/collaborator.php';
+require_once 'php/collaboratorDB.php';
 require_once 'php/rank.php';
 require_once 'php/locationDB.php';
 
