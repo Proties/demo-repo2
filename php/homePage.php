@@ -7,7 +7,7 @@ use Insta\Users\Users;
 use Insta\Databases\User\UserDB;
 use Insta\Posts\Post;
 use Insta\Categories\Category;
-use Insta\Categories\CategoryDB;
+use Insta\Databases\Categories\CategoryDB;
 use Insta\Ranking\Ranking;
 $log=new Logger('start');
 $log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
