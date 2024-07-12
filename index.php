@@ -93,6 +93,7 @@ try{
     require_once 'php/locationDB.php';
 }catch(Exception $err){
     echo $err->getMessage();
+    return;
 }
 
 echo 'works';
