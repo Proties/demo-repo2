@@ -31,13 +31,10 @@ try{
     require_once 'vendor/vlucas/phpdotenv/src/Parser/Lexer.php';
     require_once 'vendor/vlucas/phpdotenv/src/Parser/Value.php';
     require_once 'vendor/vlucas/phpdotenv/src/Parser/Entry.php';
-
     require_once 'vendor/vlucas/phpdotenv/src/Store/File/Paths.php';
     require_once 'vendor/vlucas/phpdotenv/src/Store/StoreInterface.php';
     require_once 'vendor/vlucas/phpdotenv/src/Store/StoreBuilder.php';
     require_once 'vendor/vlucas/phpdotenv/src/Store/FileStore.php';
-
-
     require_once 'vendor/phpoption/phpoption/src/phpoption/Option.php';
     require_once 'vendor/phpoption/phpoption/src/phpoption/None.php';
 
@@ -94,7 +91,6 @@ try{
     require_once 'php/collaboratorDB.php';
     require_once 'php/rank.php';
     require_once 'php/locationDB.php';
-
 }catch(Exception $err){
     echo $err->getMessage();
 }
