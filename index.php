@@ -1,99 +1,103 @@
 <?php
+try{
+    require_once 'vendor/psr/log/src/LoggerInterface.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Dotenv.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/WriterInterface.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ReaderInterface.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Repository/RepositoryInterface.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/AdapterInterface.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/EnvConstAdapter.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/MultiReader.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/MultiWriter.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ImmutableWriter.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Repository/AdapterRepository.php';
 
-require_once 'vendor/psr/log/src/LoggerInterface.php';
-require_once 'vendor/vlucas/phpdotenv/src/Dotenv.php';
-require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/WriterInterface.php';
-require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ReaderInterface.php';
-require_once 'vendor/vlucas/phpdotenv/src/Repository/RepositoryInterface.php';
-require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/AdapterInterface.php';
-require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/EnvConstAdapter.php';
-require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/MultiReader.php';
-require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/MultiWriter.php';
-require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ImmutableWriter.php';
-require_once 'vendor/vlucas/phpdotenv/src/Repository/AdapterRepository.php';
+    require_once 'vendor/graham-campbell/result-type/src/Result.php';
+    require_once 'vendor/graham-campbell/result-type/src/Success.php';
 
-require_once 'vendor/graham-campbell/result-type/src/Result.php';
-require_once 'vendor/graham-campbell/result-type/src/Success.php';
+    // require_once 'vendor/graham-campbell/result-type/src/Success.php';
 
-// require_once 'vendor/graham-campbell/result-type/src/Success.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Util/Regex.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Util/Str.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Store/File/Reader.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Loader/LoaderInterface.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Loader/Loader.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Loader/Resolver.php';
 
-require_once 'vendor/vlucas/phpdotenv/src/Util/Regex.php';
-require_once 'vendor/vlucas/phpdotenv/src/Util/Str.php';
-require_once 'vendor/vlucas/phpdotenv/src/Store/File/Reader.php';
-require_once 'vendor/vlucas/phpdotenv/src/Loader/LoaderInterface.php';
-require_once 'vendor/vlucas/phpdotenv/src/Loader/Loader.php';
-require_once 'vendor/vlucas/phpdotenv/src/Loader/Resolver.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Parser/ParserInterface.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Parser/Parser.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Parser/Lines.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Parser/EntryParser.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Parser/Lexer.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Parser/Value.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Parser/Entry.php';
 
-require_once 'vendor/vlucas/phpdotenv/src/Parser/ParserInterface.php';
-require_once 'vendor/vlucas/phpdotenv/src/Parser/Parser.php';
-require_once 'vendor/vlucas/phpdotenv/src/Parser/Lines.php';
-require_once 'vendor/vlucas/phpdotenv/src/Parser/EntryParser.php';
-require_once 'vendor/vlucas/phpdotenv/src/Parser/Lexer.php';
-require_once 'vendor/vlucas/phpdotenv/src/Parser/Value.php';
-require_once 'vendor/vlucas/phpdotenv/src/Parser/Entry.php';
-
-require_once 'vendor/vlucas/phpdotenv/src/Store/File/Paths.php';
-require_once 'vendor/vlucas/phpdotenv/src/Store/StoreInterface.php';
-require_once 'vendor/vlucas/phpdotenv/src/Store/StoreBuilder.php';
-require_once 'vendor/vlucas/phpdotenv/src/Store/FileStore.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Store/File/Paths.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Store/StoreInterface.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Store/StoreBuilder.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Store/FileStore.php';
 
 
-require_once 'vendor/phpoption/phpoption/src/phpoption/Option.php';
-require_once 'vendor/phpoption/phpoption/src/phpoption/None.php';
+    require_once 'vendor/phpoption/phpoption/src/phpoption/Option.php';
+    require_once 'vendor/phpoption/phpoption/src/phpoption/None.php';
 
-require_once 'vendor/phpoption/phpoption/src/phpoption/some.php';
+    require_once 'vendor/phpoption/phpoption/src/phpoption/some.php';
 
-// require_once 'vendor/phpoption/phpoption/src/phpoption/some.php';
+    // require_once 'vendor/phpoption/phpoption/src/phpoption/some.php';
 
-require_once 'vendor/vlucas/phpdotenv/src/Repository/RepositoryBuilder.php';
-require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ServerConstAdapter.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Repository/RepositoryBuilder.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ServerConstAdapter.php';
 
-// require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ServerConstAdapter.php';
-require_once 'vendor/monolog/monolog/src/Monolog/Level.php';
-require_once 'vendor/monolog/monolog/src/Monolog/ResettableInterface.php';
-require_once 'vendor/monolog/monolog/src/Monolog/DateTimeImmutable.php';
-require_once 'vendor/monolog/monolog/src/Monolog/Formatter/FormatterInterface.php';
-require_once 'vendor/monolog/monolog/src/Monolog/Formatter/NormalizerFormatter.php';
-require_once 'vendor/monolog/monolog/src/Monolog/Formatter/LineFormatter.php';
-require_once 'vendor/monolog/monolog/src/Monolog/LogRecord.php';
-require_once 'vendor/monolog/monolog/src/Monolog/Utils.php';
-require_once 'vendor/monolog/monolog/src/Monolog/Handler/FormattableHandlerInterface.php';
-require_once 'vendor/monolog/monolog/src/Monolog/Handler/ProcessableHandlerInterface.php';
-require_once 'vendor/monolog/monolog/src/Monolog/Handler/FormattableHandlerTrait.php';
-require_once 'vendor/monolog/monolog/src/Monolog/Handler/ProcessableHandlerTrait.php';
-require_once 'vendor/monolog/monolog/src/Monolog/Handler/HandlerInterface.php';
-require_once 'vendor/monolog/monolog/src/Monolog/Handler/Handler.php';
+    // require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ServerConstAdapter.php';
+    require_once 'vendor/monolog/monolog/src/Monolog/Level.php';
+    require_once 'vendor/monolog/monolog/src/Monolog/ResettableInterface.php';
+    require_once 'vendor/monolog/monolog/src/Monolog/DateTimeImmutable.php';
+    require_once 'vendor/monolog/monolog/src/Monolog/Formatter/FormatterInterface.php';
+    require_once 'vendor/monolog/monolog/src/Monolog/Formatter/NormalizerFormatter.php';
+    require_once 'vendor/monolog/monolog/src/Monolog/Formatter/LineFormatter.php';
+    require_once 'vendor/monolog/monolog/src/Monolog/LogRecord.php';
+    require_once 'vendor/monolog/monolog/src/Monolog/Utils.php';
+    require_once 'vendor/monolog/monolog/src/Monolog/Handler/FormattableHandlerInterface.php';
+    require_once 'vendor/monolog/monolog/src/Monolog/Handler/ProcessableHandlerInterface.php';
+    require_once 'vendor/monolog/monolog/src/Monolog/Handler/FormattableHandlerTrait.php';
+    require_once 'vendor/monolog/monolog/src/Monolog/Handler/ProcessableHandlerTrait.php';
+    require_once 'vendor/monolog/monolog/src/Monolog/Handler/HandlerInterface.php';
+    require_once 'vendor/monolog/monolog/src/Monolog/Handler/Handler.php';
 
-require_once 'vendor/monolog/monolog/src/Monolog/Handler/AbstractHandler.php';
-require_once 'vendor/monolog/monolog/src/Monolog/Handler/Handler.php';
-require_once 'vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php';
+    require_once 'vendor/monolog/monolog/src/Monolog/Handler/AbstractHandler.php';
+    require_once 'vendor/monolog/monolog/src/Monolog/Handler/Handler.php';
+    require_once 'vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php';
 
-require_once 'vendor/monolog/monolog/src/Monolog/Logger.php';
-require_once 'vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php';
-require_once 'php/userCache.php';
-require_once 'php/postsList.php';
-require_once 'php/error.php';
-require_once 'php/user.php';
-require_once 'php/userDB.php';
-require_once 'php/post.php';
-require_once 'php/postDB.php';
-require_once 'php/database.php';
-require_once 'php/userFile.php';
-require_once 'php/userAuth.php';
-require_once 'php/image.php';
-require_once 'php/userAuth.php';
-require_once 'php/commentList.php';
-require_once 'php/categoryList.php';
-require_once 'php/collaboratorList.php';
-require_once 'php/category.php';
-require_once 'php/location.php';
-require_once 'php/imageFile.php';
-require_once 'php/categoryDB.php';
-require_once 'php/imageDB.php';
-require_once 'php/collaborator.php';
-require_once 'php/collaboratorDB.php';
-require_once 'php/rank.php';
-require_once 'php/locationDB.php';
+    require_once 'vendor/monolog/monolog/src/Monolog/Logger.php';
+    require_once 'vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php';
+    require_once 'php/userCache.php';
+    require_once 'php/postsList.php';
+    require_once 'php/error.php';
+    require_once 'php/user.php';
+    require_once 'php/userDB.php';
+    require_once 'php/post.php';
+    require_once 'php/postDB.php';
+    require_once 'php/database.php';
+    require_once 'php/userFile.php';
+    require_once 'php/userAuth.php';
+    require_once 'php/image.php';
+    require_once 'php/userAuth.php';
+    require_once 'php/commentList.php';
+    require_once 'php/categoryList.php';
+    require_once 'php/collaboratorList.php';
+    require_once 'php/category.php';
+    require_once 'php/location.php';
+    require_once 'php/imageFile.php';
+    require_once 'php/categoryDB.php';
+    require_once 'php/imageDB.php';
+    require_once 'php/collaborator.php';
+    require_once 'php/collaboratorDB.php';
+    require_once 'php/rank.php';
+    require_once 'php/locationDB.php';
+
+}catch(Exception $err){
+    echo $err->getMessage();
+}
 
 echo 'works';
 return;
