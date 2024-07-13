@@ -404,7 +404,9 @@ function openModal(evt) {
     console.log(profile.id+'/'+cont.id);
     // window.location.href=profile.id+'/'+cont.id;
     history.replaceState(null, null, profile.id+'/'+cont.id);
- 
+    if(profile.id=='' || cont.id==''){
+        throw new Error('no profile id specified');
+    }
     try{
         let xml=new XMLHttpRequest();
         xml.open('GET',profile.id+'/'+cont.id);

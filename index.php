@@ -129,8 +129,10 @@ $user=new Users();
 $post=new Post();
 $userDB=new UserDB($user);
 $postDB=new PostDB($post);
-if($post->validate_postLink($f_txt) ){
+if($post->validate_postLink($f_txt)==true){
     if( $postDB->validate_in_db_postLink($txt)==true){
+    var_dump('happy birthday');
+    return;
     $data=[];
     $cs;
     if(isset($_POST['action'])){
