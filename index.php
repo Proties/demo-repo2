@@ -38,11 +38,9 @@ try{
     require_once 'vendor/vlucas/phpdotenv/src/Store/StoreBuilder.php';
     require_once 'vendor/vlucas/phpdotenv/src/Store/FileStore.php';
     echo 'works';
-    // require_once 'vendor/phpoption/phpoption/src/phpoption/Option.php';
-    // require_once 'vendor/phpoption/phpoption/src/phpoption/None.php';
-    // require_once 'vendor/phpoption/phpoption/src/phpoption/some.php';
-
-    // require_once 'vendor/phpoption/phpoption/src/phpoption/some.php';
+    require_once 'vendor/phpoption/phpoption/src/phpoption/Option.php';
+    require_once 'vendor/phpoption/phpoption/src/phpoption/None.php';
+    require_once 'vendor/phpoption/phpoption/src/phpoption/Some.php';
     require_once 'vendor/vlucas/phpdotenv/src/Repository/RepositoryBuilder.php';
     require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ServerConstAdapter.php';
      echo 'works';
