@@ -1,7 +1,7 @@
 <?php
 namespace Insta\Databases;
 use PDO;
-use PDOExcepion;
+use PDOException;
 class Database{
     private $dsn;
     private $user;
@@ -16,7 +16,12 @@ class Database{
         // $this->password='w1]WEw?J@|N';
         $this->password=$_ENV['DATABASEPASSWORD'];
         $this->pdo;
-        $this->connect();
+        try{
+            $this->connect();
+        }catch(Exception $err){
+            return $err;
+        }
+        
     }
     public function get_dsn(){
         return $this->dsn;
@@ -34,7 +39,12 @@ class Database{
             $this->pdo=new PDO($this->dsn,$this->user,$this->password);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }catch(PDOException $err){
-            echo 'database error '.$err->getMessage() .' error code '.$err->getCode();
+            if($err->getCode()==2002){
+                echo 'database network is down';
+            }else{
+                echo 'database error '.$err->getMessage() .' error code '.$err->getCode();
+            }
+            
             exit();
         }catch(Exeception $er){
             echo 'general error occured '.$er->getMessage();
