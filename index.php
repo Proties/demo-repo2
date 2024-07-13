@@ -95,9 +95,9 @@ try{
     require_once 'php/collaboratorDB.php';
     require_once 'php/rank.php';
     require_once 'php/locationDB.php';
-    echo 'works';
+    echo 'last check works';
 }catch(Exception $err){
-    echo 'works';
+    echo 'error while loading files';
     echo $err->getMessage();
     return;
 }
