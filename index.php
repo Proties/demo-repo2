@@ -1,6 +1,6 @@
 <?php
 try{
-    echo 'works';
+    
     require_once 'vendor/psr/log/src/LoggerInterface.php';
     require_once 'vendor/vlucas/phpdotenv/src/Dotenv.php';
     require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/WriterInterface.php';
@@ -25,7 +25,7 @@ try{
     require_once 'vendor/vlucas/phpdotenv/src/Loader/LoaderInterface.php';
     require_once 'vendor/vlucas/phpdotenv/src/Loader/Loader.php';
     require_once 'vendor/vlucas/phpdotenv/src/Loader/Resolver.php';
-
+    echo 'works';
     require_once 'vendor/vlucas/phpdotenv/src/Parser/ParserInterface.php';
     require_once 'vendor/vlucas/phpdotenv/src/Parser/Parser.php';
     require_once 'vendor/vlucas/phpdotenv/src/Parser/Lines.php';
