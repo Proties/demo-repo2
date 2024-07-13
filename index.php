@@ -46,7 +46,7 @@ try{
 
     require_once 'vendor/vlucas/phpdotenv/src/Repository/RepositoryBuilder.php';
     require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ServerConstAdapter.php';
-    
+     echo 'works';
     // require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ServerConstAdapter.php';
     require_once 'vendor/monolog/monolog/src/Monolog/Level.php';
     require_once 'vendor/monolog/monolog/src/Monolog/ResettableInterface.php';
@@ -56,6 +56,7 @@ try{
     require_once 'vendor/monolog/monolog/src/Monolog/Formatter/LineFormatter.php';
     require_once 'vendor/monolog/monolog/src/Monolog/LogRecord.php';
     require_once 'vendor/monolog/monolog/src/Monolog/Utils.php';
+    echo 'works';
     require_once 'vendor/monolog/monolog/src/Monolog/Handler/FormattableHandlerInterface.php';
     require_once 'vendor/monolog/monolog/src/Monolog/Handler/ProcessableHandlerInterface.php';
     require_once 'vendor/monolog/monolog/src/Monolog/Handler/FormattableHandlerTrait.php';
@@ -67,7 +68,7 @@ try{
     require_once 'vendor/monolog/monolog/src/Monolog/Handler/Handler.php';
     require_once 'vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php';
 
-    echo 'works';
+   
 
     require_once 'vendor/monolog/monolog/src/Monolog/Logger.php';
     require_once 'vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php';
