@@ -13,6 +13,7 @@ try{
     require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ImmutableWriter.php';
     require_once 'vendor/vlucas/phpdotenv/src/Repository/AdapterRepository.php';
 
+    echo 'works';
     require_once 'vendor/graham-campbell/result-type/src/Result.php';
     require_once 'vendor/graham-campbell/result-type/src/Success.php';
 
