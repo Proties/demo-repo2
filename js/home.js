@@ -185,13 +185,24 @@ function select_post(evt){
 }
 //when user clicks the comment button the comment modal will popup
 function show_coment(evt){
-    let container=document.getElementById("commentForm");
+    console.log('works');
+    let container=document.getElementsByClassName("writeCommentModal")[0];
     let postElement=evt.target.parentNode.parentNode;
+    let commentForm=document.getElementById('commentForm');
+    let hiddenPostID=document.createElement('input');
     
+    hiddenPostID.type='hidden';
+    hiddenPostID.value='happy';
+    hiddenPostID.id='postID';
+    console.log(hiddenPostID);
+    commentForm.appendChild(hiddenPostID);
     container.style.display='flex';
-    return;
     container.getElementsByTagName("button")[1].addEventListener("click",function(evt){
+        container.style.display='none';
+    });
+    container.getElementsByTagName("button")[0].addEventListener("click",function(evt){
         console.log("prevent comment submission");
+
         let txt=container.getElementsByTagName('textarea')[0].value;
         console.log(txt);
         evt.preventDefault();
