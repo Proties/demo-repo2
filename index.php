@@ -13,7 +13,7 @@ try{
     require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ImmutableWriter.php';
     require_once 'vendor/vlucas/phpdotenv/src/Repository/AdapterRepository.php';
 
-    echo 'works';
+
     require_once 'vendor/graham-campbell/result-type/src/Result.php';
     require_once 'vendor/graham-campbell/result-type/src/Success.php';
 
@@ -46,7 +46,7 @@ try{
 
     require_once 'vendor/vlucas/phpdotenv/src/Repository/RepositoryBuilder.php';
     require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ServerConstAdapter.php';
-
+    echo 'works';
     // require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ServerConstAdapter.php';
     require_once 'vendor/monolog/monolog/src/Monolog/Level.php';
     require_once 'vendor/monolog/monolog/src/Monolog/ResettableInterface.php';
@@ -66,6 +66,8 @@ try{
     require_once 'vendor/monolog/monolog/src/Monolog/Handler/AbstractHandler.php';
     require_once 'vendor/monolog/monolog/src/Monolog/Handler/Handler.php';
     require_once 'vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php';
+    
+    echo 'works';
 
     require_once 'vendor/monolog/monolog/src/Monolog/Logger.php';
     require_once 'vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php';
