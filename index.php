@@ -43,7 +43,7 @@ try{
     require_once 'vendor/phpoption/phpoption/src/phpoption/some.php';
 
     // require_once 'vendor/phpoption/phpoption/src/phpoption/some.php';
-
+    echo 'works';
     require_once 'vendor/vlucas/phpdotenv/src/Repository/RepositoryBuilder.php';
     require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ServerConstAdapter.php';
      echo 'works';
@@ -56,14 +56,14 @@ try{
     require_once 'vendor/monolog/monolog/src/Monolog/Formatter/LineFormatter.php';
     require_once 'vendor/monolog/monolog/src/Monolog/LogRecord.php';
     require_once 'vendor/monolog/monolog/src/Monolog/Utils.php';
-    echo 'works';
+    
     require_once 'vendor/monolog/monolog/src/Monolog/Handler/FormattableHandlerInterface.php';
     require_once 'vendor/monolog/monolog/src/Monolog/Handler/ProcessableHandlerInterface.php';
     require_once 'vendor/monolog/monolog/src/Monolog/Handler/FormattableHandlerTrait.php';
     require_once 'vendor/monolog/monolog/src/Monolog/Handler/ProcessableHandlerTrait.php';
     require_once 'vendor/monolog/monolog/src/Monolog/Handler/HandlerInterface.php';
     require_once 'vendor/monolog/monolog/src/Monolog/Handler/Handler.php';
-    echo 'works';
+  
     require_once 'vendor/monolog/monolog/src/Monolog/Handler/AbstractHandler.php';
     require_once 'vendor/monolog/monolog/src/Monolog/Handler/Handler.php';
     require_once 'vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php';
