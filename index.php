@@ -37,11 +37,11 @@ try{
     require_once 'vendor/vlucas/phpdotenv/src/Store/StoreInterface.php';
     require_once 'vendor/vlucas/phpdotenv/src/Store/StoreBuilder.php';
     require_once 'vendor/vlucas/phpdotenv/src/Store/FileStore.php';
-    echo 'third last works \n ';
+
     require_once 'vendor/phpoption/phpoption/src/PhpOption/Option.php';
     require_once 'vendor/phpoption/phpoption/src/PhpOption/None.php';
     require_once 'vendor/phpoption/phpoption/src/PhpOption/Some.php';
-    echo 'second last works \n';
+
     require_once 'vendor/vlucas/phpdotenv/src/Repository/RepositoryBuilder.php';
     require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ServerConstAdapter.php';
     
@@ -94,7 +94,7 @@ try{
     require_once 'php/collaboratorDB.php';
     require_once 'php/rank.php';
     require_once 'php/locationDB.php';
-    echo 'last check works';
+ 
 }catch(Exception $err){
     echo 'error while loading files';
     echo $err->getMessage();
