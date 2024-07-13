@@ -37,13 +37,14 @@ try{
     require_once 'vendor/vlucas/phpdotenv/src/Store/StoreInterface.php';
     require_once 'vendor/vlucas/phpdotenv/src/Store/StoreBuilder.php';
     require_once 'vendor/vlucas/phpdotenv/src/Store/FileStore.php';
-    echo 'works';
+    echo 'third last works \n ';
     require_once 'vendor/phpoption/phpoption/src/phpoption/Option.php';
     require_once 'vendor/phpoption/phpoption/src/phpoption/None.php';
     require_once 'vendor/phpoption/phpoption/src/phpoption/Some.php';
+    echo 'second last works \n';
     require_once 'vendor/vlucas/phpdotenv/src/Repository/RepositoryBuilder.php';
     require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ServerConstAdapter.php';
-     echo 'works';
+    
     // require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/ServerConstAdapter.php';
     require_once 'vendor/monolog/monolog/src/Monolog/Level.php';
     require_once 'vendor/monolog/monolog/src/Monolog/ResettableInterface.php';
