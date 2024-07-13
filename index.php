@@ -1,5 +1,6 @@
 <?php
 try{
+    echo 'works';
     require_once 'vendor/psr/log/src/LoggerInterface.php';
     require_once 'vendor/vlucas/phpdotenv/src/Dotenv.php';
     require_once 'vendor/vlucas/phpdotenv/src/Repository/Adapter/WriterInterface.php';
