@@ -239,17 +239,29 @@
           </div>
 
           <!-- Add a new comment form -->
+          
+        </div>
+      </div>
+
+      <!-- Write Comment Modal -->
+      <div class="writeCommentModal">
+        <div class="modal-content">
+          <span class="close" id="closeWriteCommentModal">&times;</span>
+          <h2>Write a Comment</h2>
           <form id="commentForm">
             <textarea
               id="commentText"
               placeholder="Write your comment here..."
-              required
             ></textarea>
-            <button type="submit">Post Comment</button>
+            <div class="modal-buttons">
+              <button type="button" onclick="submitComment()">Submit</button>
+              <button type="button" onclick="closeWriteCommentModal()">
+                Cancel
+              </button>
+            </div>
           </form>
         </div>
       </div>
-
       <!-- Register Pop-up -->
       <div id="registerModal" class="modal">
         <div class="modal-container">
