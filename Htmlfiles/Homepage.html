@@ -53,14 +53,10 @@
         <div class="postfeed-wrapper">
           <div class="post-container">
             <div class="post">
-              <div class="top-post" onclick="openModal('Post Image 1')">
-                <img
-                  src="/Image/Comic.png.png"
-                  alt="Post Image 1"
-                  class="post-image"
-                />
+              <div class="top-post">
+                <img src="" alt="Post Image 1" class="post-image" />
               </div>
-              <div class="bottom-post" onclick="openModal('Post Image 2')">
+              <div class="bottom-post">
                 <img
                   src="/Image/Animation.png.jpg"
                   alt="Post Image 2"
@@ -75,7 +71,7 @@
               <button class="like-button">
                 <img src="/Image/Heart.png" alt="like-button" />
               </button>
-              <button class="comment-button" onclick="openWriteCommentModal()">
+              <button class="comment-button">
                 <img src="/Image/Speech Bubble.png" alt="comment-button" />
               </button>
             </div>
@@ -83,14 +79,14 @@
 
           <div class="post-container">
             <div class="post">
-              <div class="top-post" onclick="openModal('Post Image 3')">
+              <div class="top-post">
                 <img
                   src="/Image/Animation.png.jpg"
                   alt="Post Image 3"
                   class="post-image"
                 />
               </div>
-              <div class="bottom-post" onclick="openModal('Post Image 4')">
+              <div class="bottom-post">
                 <img
                   src="/Image/Comic.png.png"
                   alt="Post Image 4"
@@ -105,7 +101,7 @@
               <button class="like-button">
                 <img src="/Image/Heart.png" alt="like-button" />
               </button>
-              <button class="comment-button" onclick="openWriteCommentModal()">
+              <button class="comment-button">
                 <img src="/Image/Speech Bubble.png" alt="comment-button" />
               </button>
             </div>
@@ -135,7 +131,7 @@
               <button class="like-button">
                 <img src="/Image/Heart.png" alt="like-button" />
               </button>
-              <button class="comment-button" onclick="openWriteCommentModal()">
+              <button class="comment-button">
                 <img src="/Image/Speech Bubble.png" alt="comment-button" />
               </button>
             </div>
@@ -165,7 +161,7 @@
               <button class="like-button">
                 <img src="/Image/Heart.png" alt="like-button" />
               </button>
-              <button class="comment-button" onclick="openWriteCommentModal()">
+              <button class="comment-button">
                 <img src="/Image/Speech Bubble.png" alt="comment-button" />
               </button>
             </div>
@@ -238,7 +234,27 @@
             </p>
           </div>
 
+          <!-- Add a new comment form -->
+        </div>
+      </div>
 
+      <!-- Write Comment Modal -->
+      <div class="writeCommentModal">
+        <div class="modal-content">
+          <span class="close" id="closeWriteCommentModal">&times;</span>
+          <h2>Write a Comment</h2>
+          <form id="commentForm">
+            <textarea
+              id="commentText"
+              placeholder="Write your comment here..."
+            ></textarea>
+            <div class="modal-buttons">
+              <button type="button">Submit</button>
+              <button type="button">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
       <!-- Register Pop-up -->
       <div id="registerModal" class="modal">
         <div class="modal-container">
@@ -261,27 +277,6 @@
           </form>
         </div>
       </div>
-
-      <!-- Write Comment Modal -->
-      <div id="writeCommentModal" class="writeCommentModal">
-        <div class="modal-content">
-          <span class="close" id="closeWriteCommentModal">&times;</span>
-          <h2>Write a Comment</h2>
-          <form id="commentForm">
-            <textarea
-              id="commentText"
-              placeholder="Write your comment here..."
-            ></textarea>
-            <div class="modal-buttons">
-              <button type="button" onclick="submitComment()">Submit</button>
-              <button type="button" onclick="closeWriteCommentModal()">
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-
       <footer class="footer">
         <div class="footer-content">
           <p>&copy; 2024 Doesno. All rights reserved.</p>
@@ -296,6 +291,8 @@
         </div>
       </footer>
     </main>
+
     <script src="/js/home.js"></script>
+    <!-- <script src="/js/user_info.js"></script> -->
   </body>
 </html>

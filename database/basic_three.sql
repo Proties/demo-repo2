@@ -7,6 +7,7 @@ CREATE TABLE Users(
  password varchar(30),
  primary key (userID)
 );
+
 DROP TABLE IF EXISTS Posts;
 CREATE TABLE Posts(
  postID INT AUTO_INCREMENT,
@@ -24,20 +25,14 @@ CREATE TABLE Posts(
 );
 DROP TABLE IF EXISTS Collaborators;
 CREATE TABLE Collaborators(
- userID int,
- postID INT,
- primary key (userID),
- foreign key (userID) references Users(userID)
-);
-DROP TABLE IF EXISTS CollaboratorsUsers;
-CREATE TABLE CollaboratorsUsers(
- userID int,
  collaboratorID int,
+ postID int,
+ userID int,
  dateMade date,
  timeMade time,
- status varchar(10),
  primary key (collaboratorID),
- foreign key (userID) references Users(userID)
+ foreign key (userID) references Users(userID),
+ foreign key (postID) references Posts(postID)
 );
 DROP TABLE IF EXISTS Images;
 CREATE TABLE Images(
@@ -112,12 +107,18 @@ CREATE TABLE PostCategory(
  foreign key (postID) references Posts(postID),
  foreign key (categoryID) references Category(categoryID)
 );
-DROP INDEX IF EXISTS id_username;
-CREATE INDEX id_username
-ON Users (username);
-DROP INDEX IF EXISTS id_email;
-CREATE INDEX id_email
-ON Users (email);
-DROP INDEX IF EXISTS cat_categoryName;
-CREATE INDEX cat_categoryName
-ON Category (categoryName);
+CREATE TABLE Location(
+ locationID int,
+ country varchar(40),
+ region varchar(50),
+ province varchar(40),
+ street varchar(50),
+ zipCode varchar(10),
+ primary key (locationID)
+);
+CREATE TABLE PostLocation(
+ locationID int,
+ postID int,
+ foreign key (locationID) references (locationID)Location,
+ foreign key (postID) references (postID)Posts
+);

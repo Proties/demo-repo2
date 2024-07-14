@@ -1,20 +1,29 @@
-<?php 
+<?php  declare(strict_types=1);
+namespace Insta\Collaborator;
 class Collaborator{
-	private $users=[];
-	private $collaboratorID;
-	private $postID;
-	private $status;
-	private $errorMessage;
-	private $errorStatus;
-	private $time;
-	private $date;
+	private array $users=[];
+	private int $collaboratorID;
+	private int $postID;
+	private int $userID;
+	private string $status;
+	private string $errorMessage;
+	private string $errorStatus;
+	private string $time;
+	private string $date;
 
 	public function __construct(){
-		$this->collaboratorID=null;
-		$this->postID=null;
+		$this->collaboratorID=0;
+		$this->postID=0;
+		$this->userID=0;
+		$this->status='show';
+		$this->date=date('Y:m:d');
+		$this->time=date('H:i');
 	}
 	public function set_postID(Int $id){
 		$this->postID=$id;
+	}
+	public function set_userID(Int $id){
+		$this->userID=$id;
 	}
 	public function set_status(String $id){
 		$this->status=$id;
@@ -38,16 +47,20 @@ class Collaborator{
 	public function get_date(){
 		return $this->date;
 	}
-	public function get_users(){
-		return $this->users;
+	public function get_userID(){
+		return $this->userID;
 	}
 	public function get_collaboratorID(){
 		return $this->collaboratorID;
 	}
 
-	public function add_user(Users $userID){
-		array_push($this->collaborators, $user)
+	public function add_collab($arr){
+		array_push($this->users, $arr);
 	}
+	public function get_users(){
+		return $this->users;
+	}
+
 	
 }
 

@@ -452,6 +452,7 @@ nav .profile-link {
 }
 
 .modal-content {
+    display: none;
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
@@ -463,6 +464,7 @@ nav .profile-link {
 }
 
 .modal-content .close {
+    display: none;
     position: absolute;
     top: 10px;
     right: 10px;
@@ -515,7 +517,9 @@ textarea {
 .modal-buttons button[type="button"]:hover {
     background-color: #bbb;
 }
-
+#postModal{
+    display: none;
+}
 
 
 /* Register CSS */
@@ -616,12 +620,12 @@ button:hover {
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.4);
-    display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .modal-content {
+    display: none;
     background-color: #fff;
     width: 600px;
     max-height: 50%;

@@ -1,19 +1,22 @@
-<?php
+<?php declare(strict_types=1);
+namespace Insta\Categories;
 class Category{
-    private $categoryName;
-    private $categoryID;
-    private $date;
-    private $time;
-    private $status;
-    private $errorMessage;
-    private $viewCount;
-    private $posts=array();
+    use validateCategory;
+    private string $categoryName;
+    private int $categoryID;
+    private string $date;
+    private string $time;
+    private string $status;
+    private string $errorMessage;
+    private int $viewCount;
+    private CategoryList $posts;
 
     public function __construct(){
         $this->categoryName='';
         $this->categoryID=0;
-        $this->date='';
-        $this->time='';
+        $this->viewCount=0;
+        $this->date=date('Y-m-d');
+        $this->time=date('H:i');
         $this->status='';
         $this->errorMessage='';
     }
@@ -55,12 +58,13 @@ class Category{
     public function get_errorMessage(){
         return $this->errorMessage;
     }
-    public function get_posts(){
-        return $this->posts;
+    public function get_viewCount(){
+        return $this->viewCount;
     }
-    public function add_posts($post){
-        array_push($this->posts,$post);
+    public function get_posts(array|null $posts=null){
+        return $this->posts=new CategoryList($posts);
     }
+  
 
     
    
@@ -68,7 +72,14 @@ class Category{
 
 }
 trait validateCategory{
-    function validate_name(){}
+    function validate_name($str){
+        $pattern='/(?=.*[a-z])/';
+        if(preg_match($pattern,$str)){
+
+            return true;
+        }
+        return false;
+    }
 }
 
 ?>

@@ -1,3 +1,50 @@
+"strict"
+function get_cookie(name){
+    let data=document.cookie;
+    let dec=decodeURIComponent(data);
+    let sp=dec.split(';');
+    for(let x=0;x<sp.length;x++){
+        let c=sp[x];
+        while(c.charAt(0)==' '){
+            c=c.substring(1);
+            if(c.indexOf(name)==0){
+           
+            let parsed=c.substring(name.length,c.length);
+            let dtt=JSON.parse(parsed);
+            return dtt;
+        }
+    }
+}
+}
+function get_data_from_cookie(){
+    let user_data=get_cookie('username=');
+    let data=get_cookie('profile=');
+    if(data==null || data==undefined){
+        console.log('profile cookie not valid');
+        return;
+    }
+    console.log(user_data);
+    console.log(data.user[0]['username']);
+    if(user_data!==data.user[0]['username']){
+        document.getElementById("uploadBtn").style.display='none';
+        document.getElementById("editProfileButton").style.display='none';
+        document.getElementById("uploadModal").style.display='none';
+        let modal=document.getElementsByClassName('modal');
+        for(let i=0;i<modal.length;i++){
+            console.log( modal[i]);
+            modal[i].remove();
+        }
+        // document.getElementsByClassName("modal-content")[0].style.display='none';
+        // document.getElementsByClassName("modal-content")[1].style.display='none';
+    }
+    console.log(data);
+
+    populate_user_info(data.user);
+    populate_post(data.posts);
+
+}
+
+// get_data_from_local_store();
 function initialise(){
     try{
         let url=window.location.href;
@@ -70,9 +117,11 @@ function upload_post(){
         console.log(err);
     }
 }
-initialise();
-
-
+function open_upload_window(evt){
+    const uploadModal = document.getElementById('uploadModal').style.display='block';
+    console.log(uploadModal);
+    console.log(evt);
+}
 function addEventListeners(){
     const uploadBtn = document.getElementById('uploadBtn');
     const uploadModal = document.getElementById('uploadModal');
@@ -80,17 +129,15 @@ function addEventListeners(){
     const fileInput = document.getElementById('fileInput');
     const uploadProgress = document.getElementById('uploadProgress');
     const uploadFromDeviceBtn = document.getElementById('uploadFromDeviceBtn');
+    let open_window=document.getElementsByClassName('upload-button')[0];
 
     // Open upload modal
-    uploadBtn.addEventListener('click', () => {
-        uploadModal.style.display = 'block';
-    });
+    open_window.addEventListener('click', open_upload_window);
 
     // Close modal when clicking outside the modal content
-    window.addEventListener('click', (event) => {
+    window.addEventListener('click', function(event) {
         if (event.target == uploadModal || event.target == captionModal) {
             uploadModal.style.display = 'none';
-            captionModal.style.display = 'none';
         }
     });
 
@@ -99,7 +146,6 @@ function addEventListeners(){
     closeButtons.forEach(button => {
         button.addEventListener('click', () => {
             uploadModal.style.display = 'none';
-            captionModal.style.display = 'none';
         });
     });
 
@@ -147,17 +193,8 @@ function addEventListeners(){
         }
     });
 
-    // Upload progress simulation (for demonstration)
-    let progress = 0;
-    const simulateUploadProgress = setInterval(() => {
-        if (progress >= 100) {
-            clearInterval(simulateUploadProgress);
-            uploadModal.style.display = 'none'; // Hide upload modal after upload complete
-            captionModal.style.display = 'block'; // Show caption modal after upload complete
-        } else {
-            progress += 10;
-            uploadProgress.style.width = `${progress}%`;
-        }
-    }, 1000);
+    
 }
+
 addEventListeners();
+get_data_from_cookie();

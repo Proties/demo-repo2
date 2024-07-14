@@ -1,32 +1,64 @@
-<?php 
+<?php declare(strict_types=1);
+namespace Insta\Databases\Categories;
+use Insta\Databases\Database;
+use Insta\Categories\Category;
 class CategoryDB extends Database{
-    private $category;
+    private Category $category;
+    private $db;
  
-    public function __construct(Category $category){
+    public function __construct($category){
         Database::__construct();
         $this->category=$category;
+        $this->db=$this->get_connection();
       }
-    public function get_category(){
+    public function set_db($db){
+        $this->db=$db;
+    }
+    public function get_category()
+    {
         return $this->category;
     }
-    public function read_posts(){
+    public function search_category(){
+        $db=$this->db;
+        try{
+            $query='
+                    SELECT categoryName,categoryID FROM Category 
+                    WHERE categoryName=:name;
+            ';
+            $statement=$db->prepare($query);
+            $statement->bindValue(':name',$this->category->get_categoryName());
+            $statement->execute();
+            $data=$statement->fetch();
+            $id=(int)$data['categoryID'];
+            $this->category->set_categoryID($id);
+            return $data;
+        }catch(PDOExcepion $err){
+            echo $err->getMessage();
+            return $err;
+        }
+    }
+    public function read_posts():array
+    {
         try{
 
             $db=$this->get_connection();
             $query="
-                    SELECT categoryID,categoryName,u1.username,imageFilePath,imageFileName,imageFilePath as image2f,imageFileName as image2n FROM category c1
-INNER JOIN post_category pc1 ON c1.categoryID=pc1.categoryID
-INNER JOIN post p1 ON c1.categoryID=p1.categoryID
-INNER JOIN Users u1 ON p1.userID=u1.userID
-WHERE c1.categoryName='name'
-LIMIT 5;
+                    SELECT c1.categoryID,c1.categoryName,u1.username,p1.postLinkID,p1.postLink,p2.postLinkID as image2f,p2.postLink as image2n FROM category as c1
+                    INNER JOIN post_category as pc1 ON c1.categoryID=pc1.categoryID
+                    INNER JOIN post as p1 ON pc1.postID=p1.postID
+                    INNER JOIN post as p2 ON pc1.postID=p2.postID
+                    INNER JOIN Users as u1 ON p1.userID=u1.userID
+                    WHERE c1.categoryName=:name
+                    AND p1.postID<>p2.postID
+                    GROUP BY (u1.username)
+                    LIMIT 5;
                 ";
             $stmt=$db->prepare($query);
             $stmt->bindValue(':name',$this->category->get_categoryName());
             $stmt->execute();
-            return $stmt->fetchall();
-            $this->category->set_();
-        }catch(PDOExecption $err){
+            $data=$stmt->fetchall();
+            $this->category->get_posts($data);
+        }catch(PDOExcepion $err){
             echo 'Database error: '.$err->getMessage();
 
         }
@@ -41,7 +73,7 @@ LIMIT 5;
             $stmt=$db->prepare($query);
             $stmt->execute();
             return $stmt->fetchall();
-        }catch(PDOExecption $err){
+        }catch(PDOExcepion $err){
             echo 'Database error '.$err->getMessage();
 
         }
@@ -49,30 +81,37 @@ LIMIT 5;
     public function write_category(){
         $db=$this->db;
         try{
-            $db->begin_transaction();
+
             $query_one='
-                    INSERT INTO Category()
-                    VALUES(:categoryName,:postID,:catDate,:catTime,:vw);
+                    INSERT INTO Category(categoryName,dateAdded,timeAdded,viewCount)
+                    VALUES(:categoryName,:catDate,:catTime,:vw);
                 ';
             $stmt=$db->prepare($query_one);
-            $stmt=$db->prepare($query);
-            $stmt->bindValue(':categoryID',$this->category->get_categoryID());
-            $stmt->bindValue(':postID',$this->category->get_categoryName());
-            $stmt->bindValue(':catDate',$this->category->get_categoryDate());
-            $stmt->bindValue(':catTime',$this->category->get_categoryTime());
+            $stmt->bindValue(':categoryName',$this->category->get_categoryName());
+            $stmt->bindValue(':catDate',$this->category->get_date());
+            $stmt->bindValue(':catTime',$this->category->get_time());
             $stmt->bindValue(':vw',$this->category->get_viewCount());
             $stmt->execute();
-            $this->set_categoryID($stmt->lastInsertId());
+            $id=(int)$db->lastInsertId();
+            $this->category->set_categoryID($id);
+        }catch(PDOExcepion $err){
+            echo 'write to category error'.$err->getMessage();
+
+        }
+    }
+    public function write_category_post($postID){
+         $db=$this->db;
+        try{
              $query_two='
-                    INSERT INTO post_category
+                    INSERT INTO PostCategory
                     VALUES(:catID,:post);
             ';
             $stmt_two=$db->prepare($query_two);
             $stmt_two->bindValue(':catID',$this->category->get_categoryID());
-            $stmt_two->bindValue(':post',$this->category->get_postID());
+            $stmt_two->bindValue(':post',$postID);
             $stmt_two->execute();
             $db->commit();
-        }catch(PDOExecption $err){
+        }catch(PDOExcepion $err){
             $db->rollBack();
             echo 'Error writing to category table '.$err->getMessage();
         }
@@ -88,7 +127,7 @@ LIMIT 5;
             $stmt->bindValue('');
             $stmt->execute();
 
-        }catch(PDOException $err){
+        }catch(PDOExcepion $err){
             echo 'database error categorytable '.$err->getMessage();
         }
     }
@@ -101,7 +140,7 @@ LIMIT 5;
             $stmt=$db->prepare($query);
             $stmt->execute();
             return $stmt->fetchall();
-        }catch(PDOExecption $err){
+        }catch(PDOExcepion $err){
             echo 'Database error '.$err->getMessage();
         }
     }

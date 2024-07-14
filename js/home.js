@@ -1,11 +1,53 @@
 "strict"
+function get_cookie(name){
+    let data=document.cookie;
+
+    let dec=decodeURIComponent(data);
+    let sp=dec.split(';');
+    for(let x=0;x<sp.length;x++){
+        let c=sp[x];
+        while(c.charAt(0)==' '){
+            console.log(c);
+            c=c.substring(1);
+            if(c.indexOf(name)==0){
+                console.log(c);
+            let parsed=c.substring(name.length,c.length);
+            let dtt=JSON.parse(parsed);
+
+            return dtt;
+        }
+    }
+}
+}
+function get_ish_form_cookie(){
+            let data=get_cookie("users=");
+            let user_data=get_cookie("username=");
+            if(data==undefined && user_data==undefined){
+                console.log('no posts or user account');
+                return;
+            }else if(user_data!==undefined){
+                console.log(user_data);
+                init_user(user_data);
+            }else{
+                console.log(data);
+                init_img(data);
+                init_user(user_data);
+            }
+            
+            
+            // init_categories(dtt.categories);
+}
+
+
+// console.log(JSON.parse(dtt));
 // this function get post data like images,athtorname form the server
 function initialise_image(){
     try{
         let xml = new XMLHttpRequest();
     xml.open('POST', '/');
     xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xml.onload = function() {
+    xml.onreadystatechange = function() {
+        if(this.readyState==4){
         // console.log(this.responseText);
         let data=JSON.parse(this.responseText);
         // document.getElementsByClassName('profile-link').href="@"+data.user.user_info.username;
@@ -13,6 +55,7 @@ function initialise_image(){
         init_user(data.user);
         init_categories(data.categories);
         init_img(data.users);
+        }
 }
 xml.send('action=initialise_image');
     }catch(err){
@@ -22,15 +65,21 @@ xml.send('action=initialise_image');
 // this function checks the url to see if a post has been selected if so it will get data from the serve
 function open_postPreview(){
     let url=window.location.href;
-    const pattern=/(\/@[a-zA-Z]{3,17})(\/[a-zA-Z0-9]){5,20}/;
+    const pattern=/^(\/\@[a-zA-Z]+)(\/[a-zA-Z0-9]+)$/;
     console.log(url);
-    if(pattern.test(url)){
-        console.log(url);
+    console.log('prviewing post working');
+    
+    if(!pattern.test(url)){
+        console.log('not valid post');
+        history.replaceState(null,null,'/');
+        return;
+    }
+    console.log('valid post');
     try{
         let xm=new XMLHttpRequest();
-        xm.open('POST','/');
+        xm.open('GET',url);
         xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xm.onload=function(){
+        xm.onreadystatechange=function(){
             let data=JSON.parse(this.responseText);
             openModal(data);
             console.log(data);
@@ -40,7 +89,7 @@ function open_postPreview(){
     }catch(err){
         console.log(err);
     }
-}
+
 return false;
 
 }
@@ -54,22 +103,27 @@ function search_user(){
     
     try{
         let xml=new XMLHttpRequest();
-        xml.onload=function(){
-            let data=JSON.parse(this.responseText);
-            console.log(data.searchResults);
+        xml.onreadystatechange=function(){
+            if(this.readyState==4 ){
+                let data=JSON.parse(this.responseText);
+            console.log(data);
+
             list.style.display='block';
             list.innerHTML='';
-            for(let i=0;data.searchResults.length;i++){
+            let len=data.searchResults.length;
+            for(let i=0;i<len;i++){
                 const l=document.createElement('li');
-                l.textContent=data.searchResults[i].username;
+                l.textContent=data.searchResults[i];
                 // l.id="/@"+username;
                 list.appendChild(l);
-                console.log(data.searchResults[i].username);
+                console.log(data.searchResults[i]);
                 l.addEventListener("click",(evt)=>{
                     console.log("works");
                     console.log(evt.target.textContent);
                     window.location.href="/@"+evt.target.textContent;
                 });
+            }
+            
             }
         }
         xml.open('POST','/');
@@ -105,7 +159,7 @@ function select_category(evt){
         let xm=new XMLHttpRequest();
         xm.open('POST','/');
         xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xm.onload=function (){
+        xm.onreadystatechange=function (){
             console.log(this.responseText);
             let data=JSON.parse(this.responseText);
             let posts=[];
@@ -130,35 +184,50 @@ function select_post(evt){
    window.loaction.href=link;
 }
 //when user clicks the comment button the comment modal will popup
-function show_coment(){
-    let container=document.getElementById("writeCommentModal");
+function show_coment(evt){
+    console.log('works');
+    let container=document.getElementsByClassName("writeCommentModal")[0];
+    let postElement=evt.target.parentNode.parentNode;
+    let commentForm=document.getElementById('commentForm');
+    let hiddenPostID=document.createElement('input');
+    
+    hiddenPostID.type='hidden';
+    hiddenPostID.value='happy';
+    hiddenPostID.id='postID';
+    console.log(hiddenPostID);
+    commentForm.appendChild(hiddenPostID);
     container.style.display='flex';
-    container.getElementsByTagName("button")[0].addEventListener('click',function(){
-        console.log("works");
-        container.style.display='none';
-    });
-    container.getElementsByClassName("close")[0].addEventListener('click',function(){
-        console.log("works");
-        container.style.display='none';
-    });
-
     container.getElementsByTagName("button")[1].addEventListener("click",function(evt){
+        container.style.display='none';
+    });
+    container.getElementsByTagName("button")[0].addEventListener("click",function(evt){
         console.log("prevent comment submission");
+
         let txt=container.getElementsByTagName('textarea')[0].value;
         console.log(txt);
         evt.preventDefault();
+        let id=document.getElementById('postID').value;
+        let data='&postID='+id+"&text="+txt;
+        console.log("========data=======");
+        console.log(data);
+        console.log("=========data=======");
         try{
             let xml=new XMLHttpRequest();
             xml.open('POST','/');
-            xml.onload=function(){
+            xml.onreadystatechange=function(){
                 console.log('submitted');
                 console.log(this.responseText);
+                let data=JSON.parse(this.responseText);
                 if(data.status=='success'){
+                    alert('you have comment');
                     container.style.display='none';
+                }
+                if(data.status=='failed'){
+                    alert('could not comment');
                 }
             }
             xml.setRequestHeader('Content-type','application/x-www-form-urlencoded');
-            xml.send('action=comment');
+            xml.send('action=comment'+data);
         }catch(err){
             console.log(err);
         }
@@ -168,19 +237,51 @@ function show_coment(){
 function like_post(evt){
     let ele=evt.target;
     let postEle=ele.parentNode.parentNode.parentNode;
-
     try{
-        console.log(postEle);
-        let t=postEle.getElementsByClassName("post")[0].id;
-        console.log(t);
-        // let xml=new XMLHttpRequest();
-        // xml.onload=function(){}
-        // xml.open('POST','/');
-        // xml.setRequestHeader('Content-type','application/x-www-form-urlencoded');
-        // xml.send('action=like&postID=postEle');
-        alert('you have liked the post');
+        if(postEle.className=='post-container'){
+            //do nothing
+        }
+        if(postEle.className=='postfeed-wrapper'){
+            postEle=postEle.getElementsByClassName('post-container')[0];
+        }
+        let id=postEle.id;
+        // let t=postEle.getElementsByClassName("post")[0];
+        // console.log(t);
+        let xml=new XMLHttpRequest();
+        xml.onreadystatechange=function(){
+            let data=JSON.parse(this.responseText);
+            console.log(data);
+            console.log('liking post');
+            if(data.status=='success'){
+                alert('you have liked');
+            }
+            if(data.status=='failed'){
+                alert('could not like');
+            }
+        }
+        xml.open('POST','/');
+        xml.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+        xml.send('action=like&postID='+id);
     }catch(err){
         console.log(err);
+    }
+
+}
+async function display_more_users(evt){
+    console.log(evt);
+    let postConatiner=document.getElementsByClassName("post-container")[0];
+    let container=document.getElementsByClassName("postfeed-wrapper")[0];
+    let more=await more_posts();
+    for(let i=0;i<5;i++){
+        let p=postConatiner.cloneNode(true);
+        p.id=more[i].primary_post.id;
+        let us=p.getElementsByClassName('profile-button')[0].id=more[i].user_info.username;
+        let top=p.getElementsByClassName('top-post')[0];
+        top.getElementsByTagName('img')[0].src=more[i].primary_post.img;
+        let bottom=p.getElementsByClassName('bottom-post')[0];
+        bottom.getElementsByTagName('img')[0].src=more[i].secondary_post.img;
+        let num=container.childNodes;
+        container.append(p);
     }
 
 }
@@ -193,6 +294,7 @@ function eventListeners(){
     let selectTopPost=document.getElementsByClassName("top-post");
     let selectBottomPost=document.getElementsByClassName("bottom-post");
     let commentPost=document.getElementsByClassName("comment-button");
+    let viewMore=document.getElementsByClassName("view-more-btn")[0];
     let registerBtn = document.querySelector(".register-button");
     let closeReg = document.getElementById("closeModalReg");
     let modal = document.getElementById("registerModal");
@@ -201,6 +303,7 @@ function eventListeners(){
     // let morePosts=document.getElementById("");
 
     search_input.addEventListener("input",search_user);
+    viewMore.addEventListener("click",display_more_users);
     // morePosts.addEventListener("click",more_posts);
     for(let i=0;i<selectcategory.length;i++){
         selectcategory[i].addEventListener('click',select_category);
@@ -229,18 +332,19 @@ function eventListeners(){
     });
   
 }
-function init_user(arr){
+function init_user(username){
     // hide register button if user is available
    
-    if(arr.username==null || arr.username==''){
+    if(username==null || username==''){
         console.log('null username');
         return ;
     }
     document.getElementsByClassName("register-button")[0].style.display='none';
-    console.log(arr.username);
-    document.getElementsByClassName("profile-link")[0].href="/@"+arr.username;
+    console.log(username);
+    document.getElementsByClassName("profile-link")[0].href="/@"+username;
 }
 function init_categories(arr){
+    console.log(arr);
     if(!Array.isArray(arr)){
         return;
     }
@@ -261,17 +365,23 @@ function init_categories(arr){
     }
 }
 function init_img(arr){
+    console.log(arr);
     if(!Array.isArray(arr)){
         return;
     }
     console.log(arr);
     console.log('quick look=====');
     let p=document.getElementsByClassName("post-container");
-    p.id=arr[0].primary_post.postID;
+    
     console.log(arr);
     for(let n=0;n<p.length;n++){
-        console.log(arr[n]);
+        console.log(typeof(p[n]));
+        if(typeof(arr[n])!=='object'){
+           console.log('======erorr');
+           continue;
+        }
         let ele=p[n].getElementsByClassName('post-image')[0];
+        p[n].id=arr[n].primary_post.postLinkID;
         let ele_two=p[n].getElementsByClassName('post-image')[1];
         p[n].getElementsByClassName("profile-button")[0].id="/@"+arr[n].user_info.username;
         ele.src = arr[n].primary_post.img;
@@ -280,27 +390,42 @@ function init_img(arr){
     }
 }
 open_postPreview();
-initialise_image();
+get_ish_form_cookie();
 eventListeners();
 
 
 function openModal(evt) {
    
     let postTitle='happy';
+    console.log(evt.target);
     let postImageSrc=evt.target.src;
     const modal = document.getElementById("postModal");
     const modalPostImage = document.getElementById("modalPostImage");
-    
-
+    let cont=evt.target.parentNode.parentNode.parentNode;
+    let profile=cont.getElementsByClassName("profile-button")[0];
+  
     modalPostImage.src = postImageSrc;
     modal.style.display = "block";
     document.getElementById("closeModal").addEventListener('click',closeModal);
+    // let username=pro;
+    // let postID=cont;
+    console.log('profile=====');
+    console.log(profile);
+    console.log('post=====');
+    console.log(profile.id+'/'+cont.id);
+    // window.location.href=profile.id+'/'+cont.id;
+    history.replaceState(null, null, profile.id+'/'+cont.id);
+    if(profile.id=='' || cont.id==''){
+        throw new Error('no profile id specified');
+    }
     try{
         let xml=new XMLHttpRequest();
-        xml.open('GET','/@username/postID');
-        xml.onload=function(){
+        xml.open('GET',profile.id+'/'+cont.id);
+        xml.onreadystatechange=function(){
             console.log(this.responseText);
         }
+        // xml.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+        // xml.send("action=initialise_preview");
         xml.send();
     }catch(err){
         console.log(err);
@@ -309,6 +434,7 @@ function openModal(evt) {
 }
 
 function closeModal() {
+    history.replaceState(null, null, '/');
     const modal = document.getElementById("postModal");
     modal.style.display = "none";
 }
