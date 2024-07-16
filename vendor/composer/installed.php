@@ -3,7 +3,7 @@
         'name' => 'my_packe/my_insta',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'b04ee241d0b024a568be122025e1b43375abab12',
+        'reference' => '2c2af48faefa53daa9fb64c7e871970e381ed02a',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -40,7 +40,7 @@
         'my_packe/my_insta' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'b04ee241d0b024a568be122025e1b43375abab12',
+            'reference' => '2c2af48faefa53daa9fb64c7e871970e381ed02a',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
