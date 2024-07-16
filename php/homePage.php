@@ -20,6 +20,7 @@ if(isset($_SESSION['username']) && $_SESSION['username']!==null && isset($_SESSI
 }else{
     unset($_SESSION['username']);
     setcookie('username','no account', time() - (86400 * 30), '/'); 
+    setcookie('profile','no profile ', time() - (86400 * 30), '/'); 
 }
 try{
 $categories=[];

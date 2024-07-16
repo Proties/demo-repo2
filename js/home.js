@@ -110,6 +110,7 @@ function search_user(){
 
             list.style.display='block';
             list.innerHTML='';
+            console.log('works');
             let len=data.searchResults.length;
             for(let i=0;i<len;i++){
                 const l=document.createElement('li');
