@@ -26,6 +26,12 @@ try{
     require_once 'vendor/vlucas/phpdotenv/src/Loader/Loader.php';
     require_once 'vendor/vlucas/phpdotenv/src/Loader/Resolver.php';
 
+    require_once 'vendor/vlucas/phpdotenv/src/Exception/ExceptionInterface.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Exception/InvalidEncodingException.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Exception/InvalidFileException.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Exception/InvalidPathException.php';
+    require_once 'vendor/vlucas/phpdotenv/src/Exception/ValidationException.php';
+    
     require_once 'vendor/vlucas/phpdotenv/src/Parser/ParserInterface.php';
     require_once 'vendor/vlucas/phpdotenv/src/Parser/Parser.php';
     require_once 'vendor/vlucas/phpdotenv/src/Parser/Lines.php';
