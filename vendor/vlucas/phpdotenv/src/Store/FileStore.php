@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Dotenv\Store;
 
+use Dotenv\Dotenv;
 use Dotenv\Exception\InvalidPathException;
 use Dotenv\Store\File\Reader;
+use Symfony\Component\Console\Input\ArgvInput;
+use Illuminate\Contracts\Foundation\Application;
 
 final class FileStore implements StoreInterface
 {

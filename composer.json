@@ -3,7 +3,7 @@
     "description": "this app offers stacking posts together",
     "license": "proprietary",
     "require": {
-        "php":">=8.1",
+        "php":">=8.3",
         "vlucas/phpdotenv": "^5.6"
     },
     "require-dev": {
