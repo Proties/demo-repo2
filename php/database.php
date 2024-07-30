@@ -10,11 +10,11 @@ class Database{
     
     public function __construct(){
         // $this->dsn='mysql:host=191.96.56.52;dbname=u203973307_wholedata;';
-        $this->dsn='mysql:host='.$_ENV['IPADDRESS'].';dbname='.$_ENV['DATABASENAME'].';';
+        $this->dsn='mysql:host=191.96.56.66;dbname=u203973307_Insta;';
         // $this->user='u203973307_dbaAdmin';
-        $this->user=$_ENV['DATABASEUSER'];
+        $this->user='u203973307_basic';
         // $this->password='w1]WEw?J@|N';
-        $this->password=$_ENV['DATABASEPASSWORD'];
+        $this->password='j.p7dVXk3NC3X8k';
         $this->pdo;
         try{
             $this->connect();
