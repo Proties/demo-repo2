@@ -1,16 +1,11 @@
 <?php
 session_start();
-use Monolog\Level;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
 use Insta\Users\Users;
 use Insta\Databases\User\UserDB;
 use Insta\Posts\Post;
 use Insta\Categories\Category;
 use Insta\Databases\Categories\CategoryDB;
 use Insta\Ranking\Ranking;
-$log=new Logger('start');
-$log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
 
 $mainUser=new Users();
 
@@ -76,7 +71,7 @@ for($x=0;$x<$arrLen;$x++){
     }
     setcookie('users',json_encode($data) , time() + (864 * 30), '/');
 }catch(Exception $err){
-    $log->info($err->getMessage().'\n'.$err->getCode());
+    echo $err->getMessage();
 }
 
 if($_SERVER['REQUEST_METHOD']=='GET'){
@@ -112,7 +107,7 @@ switch($action){
             }
             echo json_encode($data);
         }catch(Exception $err){
-            $log->Warning($err->getMessage());
+           
             $data['status']='failed';
             $data['message']=$err->getMessage();
             echo json_encode($data);
