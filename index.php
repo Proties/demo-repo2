@@ -1,42 +1,6 @@
 <?php
 try{
-    
-    require_once 'vendor/psr/log/src/LoggerInterface.php';
 
-    require_once 'vendor/graham-campbell/result-type/src/Result.php';
-    require_once 'vendor/graham-campbell/result-type/src/Success.php';
-
- 
-
-    require_once 'vendor/phpoption/phpoption/src/PhpOption/Option.php';
-    require_once 'vendor/phpoption/phpoption/src/PhpOption/None.php';
-    require_once 'vendor/phpoption/phpoption/src/PhpOption/Some.php';
-
- 
-    require_once 'vendor/monolog/monolog/src/Monolog/Level.php';
-    require_once 'vendor/monolog/monolog/src/Monolog/ResettableInterface.php';
-    require_once 'vendor/monolog/monolog/src/Monolog/DateTimeImmutable.php';
-    require_once 'vendor/monolog/monolog/src/Monolog/Formatter/FormatterInterface.php';
-    require_once 'vendor/monolog/monolog/src/Monolog/Formatter/NormalizerFormatter.php';
-    require_once 'vendor/monolog/monolog/src/Monolog/Formatter/LineFormatter.php';
-    require_once 'vendor/monolog/monolog/src/Monolog/LogRecord.php';
-    require_once 'vendor/monolog/monolog/src/Monolog/Utils.php';
-
-    require_once 'vendor/monolog/monolog/src/Monolog/Handler/FormattableHandlerInterface.php';
-    require_once 'vendor/monolog/monolog/src/Monolog/Handler/ProcessableHandlerInterface.php';
-    require_once 'vendor/monolog/monolog/src/Monolog/Handler/FormattableHandlerTrait.php';
-    require_once 'vendor/monolog/monolog/src/Monolog/Handler/ProcessableHandlerTrait.php';
-    require_once 'vendor/monolog/monolog/src/Monolog/Handler/HandlerInterface.php';
-    require_once 'vendor/monolog/monolog/src/Monolog/Handler/Handler.php';
-  
-    require_once 'vendor/monolog/monolog/src/Monolog/Handler/AbstractHandler.php';
-    require_once 'vendor/monolog/monolog/src/Monolog/Handler/Handler.php';
-    require_once 'vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php';
-
-   
-
-    require_once 'vendor/monolog/monolog/src/Monolog/Logger.php';
-    require_once 'vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php';
     require_once 'php/userCache.php';
     require_once 'php/postsList.php';
     require_once 'php/error.php';
@@ -68,18 +32,12 @@ try{
     return;
 }
 
-
-use Monolog\Level;
-use monolog\Logger;
-use Monolog\Handler\StreamHandler;
 use Insta\Users\Users;
 use Insta\Databases\User\UserDB;
 use Insta\Databases\Database;
 use Insta\Posts\Post;
 use Insta\Databases\Post\PostDB;
 
-$log=new Logger('start');
-$log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
 
 // $list=apache_request_headers();
 // var_dump($list);
@@ -146,7 +104,6 @@ if($post->validate_postLink($f_txt)==true){
     }catch(Exception $err){
         $data['status']='failed';
         $data['message']=$err->getMessage();
-        $log->warning($err->getMessage());
         echo json_encode($data);
     }
    return;
@@ -161,8 +118,6 @@ else if($user->validate_username_url($f_txt)==true){
 }else{
 
 }
-
-$log->warning($_SERVER['REQUEST_URI']);
 $action=$_SERVER['REQUEST_URI'];
 switch($action){
     case '/':

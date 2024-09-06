@@ -1,15 +1,12 @@
 <?php
 session_start();
-use Monolog\Level;
-use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Insta\Users\Users;
 use Insta\Databases\User\UserDB;
 use Insta\Posts\Post;
 use Insta\Databases\Post\PostDB;
 
-$log=new Logger('start');
-$log->pushHandler(new StreamHandler('php/file.log',Level::Warning));
+
 $mainUser=new Users();
 if(isset($_SESSION['username']) && $_SESSION['username']!==null){
     $mainUser->userAuth->set_authanticate(true);
@@ -62,7 +59,7 @@ else if($u->validate_username_url($f_txt)==true ){
     }catch(Exception $err){
         echo $err->getMessage();
         // echo 'error retriveing posts';
-        $log->Warning($err->getMessage());
+       echo $err->getMessage();
     }
 }
 
