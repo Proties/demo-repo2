@@ -1,26 +1,5 @@
 <?php
-$action=$_SERVER['REQUEST_URI'];
-switch($action){
-    case '/':
-        include_once('php/homePage.php');
-        break;
-    case '/registration':
-        include_once('php/registration.php');
-        break;
-    case '/profile':
-        include_once('php/profile.php');
-        break;
-    case '/edit_profile':
-        include_once('php/editPage.php');
-        break;
-    case '/upload_post':
-        include_once('php/uploadPost.php');
-        break;
-    default:
-        include_once('php/homePage.php');
-        break;
-}
-return;
+
 try{
 
     require_once 'php/userCache.php';
@@ -60,7 +39,28 @@ use Insta\Databases\Database;
 use Insta\Posts\Post;
 use Insta\Databases\Post\PostDB;
 
-
+$action=$_SERVER['REQUEST_URI'];
+switch($action){
+    case '/':
+        include_once('php/homePage.php');
+        break;
+    case '/registration':
+        include_once('php/registration.php');
+        break;
+    case '/profile':
+        include_once('php/profile.php');
+        break;
+    case '/edit_profile':
+        include_once('php/editPage.php');
+        break;
+    case '/upload_post':
+        include_once('php/uploadPost.php');
+        break;
+    default:
+        include_once('php/homePage.php');
+        break;
+}
+return;
 // $list=apache_request_headers();
 // var_dump($list);
 
