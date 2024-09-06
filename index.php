@@ -1,4 +1,26 @@
 <?php
+$action=$_SERVER['REQUEST_URI'];
+switch($action){
+    case '/':
+        include_once('php/homePage.php');
+        break;
+    case '/registration':
+        include_once('php/registration.php');
+        break;
+    case '/profile':
+        include_once('php/profile.php');
+        break;
+    case '/edit_profile':
+        include_once('php/editPage.php');
+        break;
+    case '/upload_post':
+        include_once('php/uploadPost.php');
+        break;
+    default:
+        include_once('php/homePage.php');
+        break;
+}
+return;
 try{
 
     require_once 'php/userCache.php';
@@ -118,27 +140,6 @@ else if($user->validate_username_url($f_txt)==true){
 }else{
 
 }
-$action=$_SERVER['REQUEST_URI'];
-switch($action){
-    case '/':
-        include_once('php/homePage.php');
-        break;
-    case '/registration':
-        include_once('php/registration.php');
-        break;
-    case '/profile':
-        include_once('php/profile.php');
-        break;
-    case '/edit_profile':
-        include_once('php/editPage.php');
-        break;
-    case '/upload_post':
-        include_once('php/uploadPost.php');
-        break;
-    default:
-        include_once('php/homePage.php');
-        break;
-}
-return;
+
 
 ?>
