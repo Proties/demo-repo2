@@ -16,15 +16,8 @@ if(isset($_SESSION['username']) && $_SESSION['username']!==null && isset($_SESSI
     setcookie('profile','no profile ', time() - (86400 * 30), '/'); 
 }
 try{
-$categories=[];
-$category=new Category();
-$categoryDB=new CategoryDB($category);
-$categories=$categoryDB->read_category();
-$catLen=count($categories);
-    for($i=0;$i<$catLen;$i++){
-        $data['categories'][]=array('categoryName'=>$categories[$i]['categoryName'],'categoryId'=>$categories[$i]['categoryID']);
-    } 
-        
+
+
 $arrayPosts=[];
 $rank=new Ranking();
 $info=$rank->chrono($arrayPosts);
@@ -62,10 +55,7 @@ for($x=0;$x<$arrLen;$x++){
             'postLinkID'=>$secondary_post->get_postLinkID()
         ));
 
-            
-        // if(isset($_SESSION['userID'])){
-        //     $postDB->addServeredPost($_SESSION['userID']);
-        // }
+
     }
     setcookie('users',json_encode($data) , time() + (864 * 30), '/');
 }catch(Exception $err){
@@ -79,38 +69,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 
 $action=$_POST['action'];
 switch($action){
-    case 'select_category':
-        try{
-            $data=[];
-            $category=new Category();
 
-            $category->set_categoryName($_POST['categoryName']);
-            $status=$category->get_categoryList()->search_category($category);
-            if($status==false){
-                throw new Exception('not valid category');
-            }
-            $arrData=$category->get_categoryList()->get_users();
-            $arrData=$category->get_posts();
-            $len=count($arrData);
-            for($i=0;$i<$len;$i++){
-                $user=$arrData[$i]['user'];
-                $primary_post=$arrData[$i]['primaryPost'];
-                $secondary_post=$arrData[$i]['secondaryPost'];
-
-                $data['users'][]=array(
-                    'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
-                    'primary_post'=>array('img'=>($primary_post->get_filePath().$primary_post->get_fileName())),
-                    'secondary_post'=>array('img'=>($secondary_post->get_filePath().$secondary_post->get_fileName()))
-                );
-            }
-            echo json_encode($data);
-        }catch(Exception $err){
-           
-            $data['status']='failed';
-            $data['message']=$err->getMessage();
-            echo json_encode($data);
-        }
-        break;
     case 'search':
         $data=[];
         try{
@@ -133,92 +92,7 @@ switch($action){
         }
         
         break;
-    case 'comment':
-        $data=[];
-        try{ 
-        $post=new Post();
-        $post->set_postLinkID($_POST['postID']);
-        $postDB=new PostDB($post);
-        if($mainUser->get_auth()->is_authanticated()==false){
-           throw new Exception('user not registered');
-        }
-       if(!isset($_POST['postID'])){
-            throw new Exception('post doesn not exist');
-        }
-        
-
-        if($post->validate_postLinkID($_POST['postID'])==false){
-            throw new Exception('post id not valid');
-        }
-        else{
-
-        }
-        if($postDB->validate_postLinkID_in_db($_POST['postID'])==false){
-            throw new Exception('postID not in database');
-        }else{
-
-        }
-        $text=$_POST['text'];
-        $comment=new Comment();
-        $postID=$postDB->get_postID_from_link($_POST['postID']);
-        $comment->set_postID($postID['postID']);
-        $comment->set_comment($text);
-        $comment->set_userID($_SESSION['userID']);
-      
-        $commentDB=new CommentDB($comment);
-        $commentDB->write_comment();
-        $data['status']='success';
-        echo json_encode($data);
-        }catch(ErrorObjectList $err){
-            $data['status']='failed';
-            $data['message']=$err->getMessage();
-            echo json_encode($data);
-        }
-       
-        break;
-    case 'like':
-        $data=[];
-        $post=new Post();
-        $post->set_postID($_POST['postID']);
-        $postDB=new PostDB($post);
-        try{
-
-        if($mainUser->get_auth()->is_authanticated()==false){
-            throw new Exception('user not registered');
-        }
-        if(!isset($_POST['postID'])){
-            throw new Exception('post doesn not exist');
-        }
-        
-
-        if($post->validate_postLinkID($_POST['postID'])==false){
-            throw new Exception('post id not valid');
-        }
-        else{
-
-        }
-        if($postDB->validate_postLinkID_in_db($_POST['postID'])==false){
-            throw new Exception('postID not in database');
-        }else{
-
-        }
-        $postID=$postDB->get_postID_from_link($_POST['postID']);
-        $postID=$postID['postID'];
-    
-
-        $like=new Like($_SESSION['userID'],$postID);
-        $likeDB=new LikeDB($like);
-        $likeDB->write_like();
-        $data['status']='success';
-        echo json_encode($data);
-        }catch(ErrorObjectList $err){
-            $msg=$err->getMessage();
-            $data['message']=$msg;
-            $data['status']='failed';
-            $data['obj']=$_POST['postID'];
-            echo json_encode($data);
-        }
-        break;
+   
     case 'view_more_posts':
         try{
             $rank=Ranking();
