@@ -72,6 +72,10 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 
 
 switch($action){
+    case 'view_post':
+        break;
+    case 'delete_post':
+        break;
     case 'edit_post':
         $data=[];
         try{
@@ -96,21 +100,6 @@ switch($action){
             echo json_encode($data);
         }
         break;
-    case 'edit_profile':
-        $data=[];
-        try{
-            if($mainUser->is_authenticated()==false){
-                throw new Exception('user not registered');
-            }
-            $data=array("cpation"=>$post->get_caption(),"categoryName"=>$category->get_categoryName(),
-                        "img"=>$post->get_filePath().$post->get_fileName(),"previewStatus"=>$post->get_preview_status());
-            echo json_encode($data);
-        }catch(Exception $err){
-            $log->Warning($err->getMessage());
-            $data['status']='failed';
-            $data['message']=$err->getMessage();
-            echo json_encode($data);
-        }
-        break;
+    
 }
 ?>

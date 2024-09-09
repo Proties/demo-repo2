@@ -3,8 +3,6 @@ session_start();
 use Insta\Users\Users;
 use Insta\Databases\User\UserDB;
 use Insta\Posts\Post;
-use Insta\Categories\Category;
-use Insta\Databases\Categories\CategoryDB;
 use Insta\Ranking\Ranking;
 
 $mainUser=new Users();
