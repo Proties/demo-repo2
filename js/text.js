@@ -43,6 +43,7 @@ class Text extends Element{
 		leftDia.setAttribute('class','');
 		bottom.setAttribute('class','bottomLine');
 		cont.setAttribute('class','elementMov');
+		this.subcont.setAttribute('class','elementText');
 		this.cont=cont;
 		this.cont.append(top);
 		this.cont.append(right);

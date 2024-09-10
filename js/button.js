@@ -1,5 +1,5 @@
 "strict"
-class Container extends Element{
+class Button extends Element{
 	constructor(){
 		super();
 	}
