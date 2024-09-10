@@ -55,7 +55,7 @@ class Post{
 	}
 }
 
-class PostConnection(){
+class PostConnection{
 	constructor(){}
 	update_post(){}
 	delete_post(){}

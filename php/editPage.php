@@ -11,10 +11,17 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 	exit();
 }
 switch ($action) {
-	case 'value':
+	case 'addElement':
 		// code...
 		break;
-	
+	case 'removeElement':
+		// code...
+		break;
+	case 'editElement':
+		// code...
+		break;
+	case 'rearrangeElements':
+		break;
 	default:
 		// code...
 		break;
