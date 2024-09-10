@@ -109,20 +109,27 @@ function EventListener(){
 		switch(dragged.innerHTML){
 			case 'Button':
 				let btn=new Button();
+				btn.draw_borders();
+				btn.make_item();
 				evt.target.append(btn.item);
 			break;
 			case 'Container':
 				let cont=new Container();
+				cont.draw_borders();
 				evt.target.append(cont.item);
 			break;
 			case 'Text':
 				let txtItem=new Text(dragged);
+				// txtItem.make_item();
+				txtItem.draw_borders();
+				txtItem.make_item();
 				console.log(txtItem.cont);
 
 				evt.target.append(txtItem.cont);
 			break;
 			case 'Images':
 				let img=new Image();
+				img.draw_borders();
 				evt.target.append(img.item);
 			break;
 		}

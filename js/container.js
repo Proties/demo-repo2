@@ -1,5 +1,5 @@
 "strict"
-class Container extends Element{
+class Container extends ElementUI{
 	constructor(){
 		super();
 	}
