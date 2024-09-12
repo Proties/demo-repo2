@@ -58,6 +58,10 @@ class ElementUI extends Element{
 		super();
 		this._cont;
 		this._subcont;
+		this._moveable;
+		this._resizable;
+		this._deleteable;
+		this._modifiyable;
 	}
 	set cont(c){
 		this._cont=c;
