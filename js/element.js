@@ -1,12 +1,30 @@
 "Strict"
 class Element{
 	constructor(){
+		this._id;
 		this._x;
 		this._y;
 		this._height;
 		this._width;
-
-
+		this._postion;
+		this._zIndex;
+		this._opacity;
+		this._color;
+		this._backgroundColor;
+		this._marginLeft;
+		this._marginTop;
+		this._marginRight;
+		this._marginBottom;
+		this._top;
+		this._bottom;
+		this._left;
+		this._right;
+	}
+	set id(x){
+		this._id=x;
+	}
+	get id(){
+		return this._id;
 	}
 	set x(x){
 		this._x=x;
@@ -58,21 +76,34 @@ class ElementUI extends Element{
 		let top=document.createElement('span');
 	
 		let right=document.createElement('span');
-		let rigthDiag=document.createElement('span');
+		let topRightDia=document.createElement('span');
 		let left=document.createElement('span');
 		let leftDia=document.createElement('span');
+		let topLeftDia=document.createElement('span');
 		let bottom=document.createElement('span');
+		let bottomRightDia=document.createElement('span');
+		let bottomLeftDia=document.createElement('span');
 
 		top.setAttribute('class','topLine');
 		right.setAttribute('class','rightLine');
-
 		left.setAttribute('class','leftLine');
-
 		bottom.setAttribute('class','bottomLine');
+
+		topRightDia.setAttribute('class','topRightDiag');
+		topLeftDia.setAttribute('class','topLeftDiag');
+		bottomRightDia.setAttribute('class','bottomRightDiag');
+		bottomLeftDia.setAttribute('class','bottomLeftDiag');
+
+
 		top.setAttribute('draggable','true');
 		bottom.setAttribute('draggable','true');
 		right.setAttribute('draggable','true');
 		left.setAttribute('draggable','true');
+
+		topRightDia.setAttribute('draggable','true');
+		topLeftDia.setAttribute('draggable','true');
+		bottomRightDia.setAttribute('draggable','true');
+		bottomLeftDia.setAttribute('draggable','true');
 		this.cont=document.createElement('div');
 		this.cont.setAttribute('class','elementMov');
 		
@@ -83,6 +114,11 @@ class ElementUI extends Element{
 		this.cont.append(left);
 		
 		this.cont.append(bottom);
+
+		this.cont.append(topLeftDia);
+		this.cont.append(topRightDia);
+		this.cont.append(bottomLeftDia);
+		this.cont.append(bottomRightDia);
 	}
 	
 	draw_centreLine(){}

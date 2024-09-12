@@ -3,7 +3,21 @@ let builderContainer=document.getElementById('builderContainer');
 let elementsContainer=document.getElementById('elements');
 
 function load_htmlPage(){}
+function find_object(id){
 
+}
+function make_id(element){
+	let id;
+	let num;
+	if(element.innerHTML=='Button'){
+		id='btn'+num;
+	}
+	return id;
+}
+function create_cookie(){}
+function get_cookie(name){
+
+}
 function EventListener(){
 	let text=document.getElementsByClassName('textElement');
 	let element=document.getElementsByClassName('elementMov');
@@ -19,7 +33,7 @@ function EventListener(){
 	let borderRight=document.getElementsByClassName('rightLine');
 	let borderLeft=document.getElementsByClassName('leftLine');
 	let borderBottom=document.getElementsByClassName('bottomLine');
-	
+	let containerElements=[];
 
 
 	document.addEventListener('click',function(evt){
@@ -31,7 +45,12 @@ function EventListener(){
 			console.log(evt.target);
 			console.log('border dragging');
 		});
-		borderTop[bt].addEventListener('dragend',function(evt){});
+		borderTop[bt].addEventListener('dragend',function(evt){
+			console.log(evt.clientX);
+			console.log(evt.clientY);
+			let obj=find_object(evt.target.id);
+			// obj.width=;
+		});
 		
 		}
 		
@@ -40,11 +59,14 @@ function EventListener(){
 			draggedLine=evt.target;
 			console.log(evt.clientX);
 			console.log(evt.clientY);
+
 			console.log('border dragging');
 		});
 		borderRight[br].addEventListener('dragend',function(evt){
 			console.log(evt.clientX);
 			console.log(evt.clientY);
+			let obj=find_object(evt.target.id);
+			// obj.width=;
 			console.log('border has stopped dragging');
 		});
 	}
@@ -55,6 +77,8 @@ function EventListener(){
 			console.log('border dragging');
 		});
 		borderLeft[bl].addEventListener('dragend',function(evt){
+			let obj=find_object(evt.target.id);
+			// obj.width=;
 			console.log('border has stopped dragging');
 		});
 	}
@@ -65,6 +89,8 @@ function EventListener(){
 			console.log('border dragging');
 		});
 		borderBottom[bb].addEventListener('dragend',function(evt){
+			let obj=find_object(evt.target.id);
+			// obj.height=;
 			console.log('border has stopped dragging');
 		});
 	}
@@ -182,11 +208,14 @@ function EventListener(){
 				let btn=new Button();
 				btn.draw_borders();
 				btn.make_item();
+				containerElements.push(btn);
 				evt.target.append(btn.cont);
 			break;
 			case 'Container':
 				let cont=new Container();
 				cont.draw_borders();
+				cont.make_item();
+				containerElements.push(cont);
 				evt.target.append(cont.cont);
 			break;
 			case 'Text':
@@ -194,6 +223,7 @@ function EventListener(){
 				// txtItem.make_item();
 				txtItem.draw_borders();
 				txtItem.make_item();
+				containerElements.push(txtItem);
 				console.log(txtItem.cont);
 
 				evt.target.append(txtItem.cont);
@@ -201,12 +231,14 @@ function EventListener(){
 			case 'Images':
 				let img=new Image();
 				img.draw_borders();
+				containerElements.push(img);
 				evt.target.append(img.cont);
 			break;
 		}
 		
 	})
 }
+function update(){}
 function start(){
 	EventListener();
 	elementsContainer.append();
