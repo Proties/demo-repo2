@@ -8,6 +8,8 @@ class Button extends ElementUI{
 		let btn=document.createElement('button');
 		let btnTxt=document.createTextNode('button');
 		btn.append(btnTxt);
+		let list=this.cont.classList;
+		list.add('buttonEle');
 		this.cont.append(btn);
 		
 	}

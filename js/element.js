@@ -69,6 +69,10 @@ class ElementUI extends Element{
 		left.setAttribute('class','leftLine');
 
 		bottom.setAttribute('class','bottomLine');
+		top.setAttribute('draggable','true');
+		bottom.setAttribute('draggable','true');
+		right.setAttribute('draggable','true');
+		left.setAttribute('draggable','true');
 		this.cont=document.createElement('div');
 		this.cont.setAttribute('class','elementMov');
 		

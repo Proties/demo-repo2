@@ -14,32 +14,62 @@ function EventListener(){
 	let button=document.getElementsByClassName('buttonElement');
 	let dragged;
 
-	let borderTop=document.getElementsByClassName('');
-	let borderRight=document.getElementsByClassName('');
-	let borderLeft=document.getElementsByClassName('');
-	let borderBottom=document.getElementsByClassName('');
+	let draggedLine;
+	let borderTop=document.getElementsByClassName('topLine');
+	let borderRight=document.getElementsByClassName('rightLine');
+	let borderLeft=document.getElementsByClassName('leftLine');
+	let borderBottom=document.getElementsByClassName('bottomLine');
+	
 
-	for(let bt=0;bt<borderTop.length){
-		borderTop[bt].addEventListener('dragstart',function(evt){});
+
+	document.addEventListener('click',function(evt){
+
+		
+	for(let bt=0;bt<borderTop.length;bt++){
+		borderTop[bt].addEventListener('dragstart',function(evt){
+			dragged=evt.target;
+			console.log(evt.target);
+			console.log('border dragging');
+		});
 		borderTop[bt].addEventListener('dragend',function(evt){});
 		
 		}
 		
-	for(let bt=0;bt<borderRight.length){
-		borderRight[bt].addEventListener('dragstart',function(evt){});
-		borderRight[bt].addEventListener('dragend',function(evt){});
+	for(let br=0;br<borderRight.length;br++){
+		borderRight[br].addEventListener('dragstart',function(evt){
+			draggedLine=evt.target;
+			console.log(evt.clientX);
+			console.log(evt.clientY);
+			console.log('border dragging');
+		});
+		borderRight[br].addEventListener('dragend',function(evt){
+			console.log(evt.clientX);
+			console.log(evt.clientY);
+			console.log('border has stopped dragging');
+		});
 	}
-	for(let bt=0;bt<borderLeft.length){
-		borderLeft[bt].addEventListener('dragstart',function(evt){});
-		borderLeft[bt].addEventListener('dragend',function(evt){});
+	for(let bl=0;bl<borderLeft.length;bl++){
+		borderLeft[bl].addEventListener('dragstart',function(evt){
+			draggedLine=evt.target;
+			console.log(evt.target);
+			console.log('border dragging');
+		});
+		borderLeft[bl].addEventListener('dragend',function(evt){
+			console.log('border has stopped dragging');
+		});
 	}
-	for(let bt=0;bt<borderBottom.length){
-		borderBottom[bt].addEventListener('dragstart',function(evt){});
-		borderBottom[bt].addEventListener('dragend',function(evt){});
+	for(let bb=0;bb<borderBottom.length;bb++){
+		borderBottom[bb].addEventListener('dragstart',function(evt){
+			draggedLine=evt.target;
+			console.log(evt.target);
+			console.log('border dragging');
+		});
+		borderBottom[bb].addEventListener('dragend',function(evt){
+			console.log('border has stopped dragging');
+		});
 	}
-	document.addEventListener('click',function(evt){
-		
-		
+
+
 			for(let b=0;b<element.length;b++){
 				element[b].addEventListener('click',function(evt){
 				console.log(element[b].childNodes);
@@ -111,6 +141,9 @@ function EventListener(){
 	});
 	builderContainer.addEventListener('dragover',function(evt){
 		evt.preventDefault();
+		// console.log('drag element');
+		// console.log(evt.clientX);
+		// console.log(evt.clientY);
 	});
 	builderContainer.addEventListener('dragenter',function(evt){
 		console.log('drag has entered');
@@ -123,18 +156,38 @@ function EventListener(){
 		evt.preventDefault();
 		
 		console.log('dropping element');
+	
 		console.log(dragged);
+		console.log(typeof draggedLine);
+		if(typeof draggedLine=='object'){
+
+
+		switch(draggedLine.className){
+			case 'rightLine':
+				return;
+				break;
+			case 'topLine':
+				return;
+				break;
+			case 'leftLine':
+				return;
+				break;
+			case 'bottomLine':
+				return;
+				break;
+		}
+	}
 		switch(dragged.innerHTML){
 			case 'Button':
 				let btn=new Button();
 				btn.draw_borders();
 				btn.make_item();
-				evt.target.append(btn.item);
+				evt.target.append(btn.cont);
 			break;
 			case 'Container':
 				let cont=new Container();
 				cont.draw_borders();
-				evt.target.append(cont.item);
+				evt.target.append(cont.cont);
 			break;
 			case 'Text':
 				let txtItem=new Text(dragged);
@@ -148,7 +201,7 @@ function EventListener(){
 			case 'Images':
 				let img=new Image();
 				img.draw_borders();
-				evt.target.append(img.item);
+				evt.target.append(img.cont);
 			break;
 		}
 		
