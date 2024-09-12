@@ -1,20 +1,46 @@
 "Strict"
+class Styles{
+	constructor(){
+		this._border_bottom;
+		this._border_right;
+		this._border_left;
+		this._border_top;
+		this._border_radius;
+
+		this._padding_top;
+		this._padding_right;
+		this._padding_left;
+		this._padding_bottom;
+
+		this._marginLeft;
+		this._marginTop;
+		this._marginRight;
+		this._marginBottom;
+
+		this._font_size;
+		this._font_family;
+		this._text_decoration;
+		
+		this._height;
+		this._width;
+		this._postion;
+		this._top;
+		this._bottom;
+		this._zIndex;
+		this._opacity;
+		this._color;
+
+		this._backgroundColor;
+		
+		this._display;
+	}
+}
 class Element{
 	constructor(){
 		this._id;
 		this._x;
 		this._y;
-		this._height;
-		this._width;
-		this._postion;
-		this._zIndex;
-		this._opacity;
-		this._color;
-		this._backgroundColor;
-		this._marginLeft;
-		this._marginTop;
-		this._marginRight;
-		this._marginBottom;
+		
 		this._top;
 		this._bottom;
 		this._left;
