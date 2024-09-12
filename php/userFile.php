@@ -10,9 +10,7 @@ class UserFolder{
         $this->folderName='';
         $this->userFiles=[];
         $this->userDir='';
-        $this->editHtmlPage='';
-        $this->editCssPage='';
-        $this->deafultPage=''
+        
     }
     public function set_folderName(string $name)
     {
