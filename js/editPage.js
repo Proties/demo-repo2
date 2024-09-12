@@ -19,6 +19,24 @@ function EventListener(){
 	let borderLeft=document.getElementsByClassName('');
 	let borderBottom=document.getElementsByClassName('');
 
+	for(let bt=0;bt<borderTop.length){
+		borderTop[bt].addEventListener('dragstart',function(evt){});
+		borderTop[bt].addEventListener('dragend',function(evt){});
+		
+		}
+		
+	for(let bt=0;bt<borderRight.length){
+		borderRight[bt].addEventListener('dragstart',function(evt){});
+		borderRight[bt].addEventListener('dragend',function(evt){});
+	}
+	for(let bt=0;bt<borderLeft.length){
+		borderLeft[bt].addEventListener('dragstart',function(evt){});
+		borderLeft[bt].addEventListener('dragend',function(evt){});
+	}
+	for(let bt=0;bt<borderBottom.length){
+		borderBottom[bt].addEventListener('dragstart',function(evt){});
+		borderBottom[bt].addEventListener('dragend',function(evt){});
+	}
 	document.addEventListener('click',function(evt){
 		
 		
