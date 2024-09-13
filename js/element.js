@@ -22,7 +22,7 @@ class Styles{
 		this._text_decoration;
 		
 		this._height;
-		this._width;
+		this._width='';
 		this._position='relative';
 		this._top;
 		this._bottom;
@@ -264,7 +264,7 @@ class ElementUI extends Element{
 		bottomLeftDia.setAttribute('draggable','true');
 		
 		
-
+		this.cont.setAttribute('id',this.id);
 		this.cont.append(top);
 		this.cont.append(right);
 	

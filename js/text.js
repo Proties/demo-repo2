@@ -9,7 +9,6 @@ class Text extends ElementUI{
 		let text=document.createElement('p');
 		let textTxt=document.createTextNode('text');
 		text.append(textTxt);
-		
 		this.cont.append(text);
 	}
 
