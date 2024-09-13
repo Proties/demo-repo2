@@ -1,9 +1,18 @@
 "strict"
 class Board{
-	construct(){
+	constructor(){
+
+	}
+}
+class BoardUI extends Board{
+	constructor(){
+		super();
 		this._newElement;
 		this._oldElement;
 		this._elements=[];
+	}
+	draw_board(){
+
 	}
 	add_element(ele){
 		this._elements.push(ele);
@@ -12,6 +21,7 @@ class Board{
 	get_css_styles(){}
 	send_html_css_to_server(){}
 }
+
 // board rules
 
 // if an element is above a container make display flex

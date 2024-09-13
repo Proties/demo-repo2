@@ -35,8 +35,9 @@ class Styles{
 		this._display;
 	}
 }
-class Element{
+class Element extends Styles{
 	constructor(){
+		super();
 		this._id;
 		this._x;
 		this._y;

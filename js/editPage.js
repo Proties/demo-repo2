@@ -240,6 +240,8 @@ function EventListener(){
 }
 function update(){}
 function start(){
+	let board=new BoardUI(document.getElementById('builderContainer'));
+	board.draw_board();
 	EventListener();
 	elementsContainer.append();
 
