@@ -11,6 +11,7 @@ class BoardUI extends Board{
 		this._oldElement;
 		this._elements=[];
 	}
+	// create gridlines with small squares
 	draw_board(){
 
 	}

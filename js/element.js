@@ -23,7 +23,7 @@ class Styles{
 		
 		this._height;
 		this._width;
-		this._postion;
+		this._position='relative';
 		this._top;
 		this._bottom;
 		this._zIndex;
@@ -34,18 +34,104 @@ class Styles{
 		
 		this._display;
 	}
+	set position(l){
+		this._position=l;
+	}
+	set paddingLeft(l){
+		this._padding_left=l;
+	}
+	set paddingTop(l){
+		this._padding_top=l;
+	}
+	set paddingRight(l){
+		this._padding_right=l;
+	}
+	set paddingBottom(l){
+		this._padding_bottom=l;
+	}
+
+	set borderBottom(l){
+		this._border_bottom=l;
+	}
+	set borderTop(l){
+		this._border_top=l;
+	}
+	set borderLeft(l){
+		this._border_left=l;
+	}
+	set borderRight(l){
+		this._border_right=l;
+	}
+
+	set marginBottom(l){
+		this._marginBottom=l;
+	}
+	set marginTop(l){
+		this._marginTop=l;
+	}
+	set marginRight(l){
+		this._marginRight=l;
+	}
+	set marginLeft(l){
+		this._marginLeft=l;
+	}
+
+
+	get paddingLeft(){
+		return this._padding_left;
+	}
+	get paddingTop(){
+		return this._padding_top;
+	}
+	get paddingRight(){
+		return this._padding_right;
+	}
+	get paddingBottom(){
+		return this._padding_bottom;
+	}
+
+	get borderBottom(){
+		return this._border_bottom;
+	}
+	get borderTop(){
+		return this._border_top;
+	}
+	get borderLeft(){
+		return this._border_left;
+	}
+	get borderRight(){
+		return this._border_right;
+	}
+
+	get marginBottom(){
+		return this._marginBottom;
+	}
+	get marginTop(){
+		return this._marginTop;
+	}
+	get marginRight(){
+		return this._marginRight;
+	}
+	get marginLeft(){
+		return this._marginLeft;
+	}
+
+	get position(){
+		return this._position;
+	}
+
+
+
+
 }
 class Element extends Styles{
 	constructor(){
 		super();
 		this._id;
-		this._x;
-		this._y;
-		
-		this._top;
-		this._bottom;
-		this._left;
-		this._right;
+		this._x1;
+		this._y1;
+		this._x2;
+		this._y2;
 	}
 	set id(x){
 		this._id=x;
@@ -53,11 +139,17 @@ class Element extends Styles{
 	get id(){
 		return this._id;
 	}
-	set x(x){
-		this._x=x;
+	set x1(x){
+		this._x1=x;
 	}
-	set y(x){
-		this._y=x;
+	set y1(x){
+		this._y1=x;
+	}
+	set x2(x){
+		this._x2=x;
+	}
+	set y2(x){
+		this._y2=x;
 	}
 	set width(width){
 		this._width=width;
@@ -66,11 +158,17 @@ class Element extends Styles{
 		this._height=height;
 	}
 
-	get x(){
-		return this._x;
+	get x1(){
+		return this._x1;
 	}
-	get y(){
-		return this._y;
+	get y1(){
+		return this._y1;
+	}
+	get x2(){
+		return this._x2;
+	}
+	get y2(){
+		return this._y2;
 	}
 	get width(){
 		return this._width;
@@ -89,9 +187,11 @@ class ElementUI extends Element{
 		this._resizable;
 		this._deleteable;
 		this._modifiyable;
+		this.make_container();
 	}
-	set cont(c){
-		this._cont=c;
+	set cont(x){
+		this._cont=x;
+		
 	}
 	get cont(){
 		return this._cont;
@@ -102,7 +202,34 @@ class ElementUI extends Element{
 	get subcont(){
 		return this._subcont;
 	}
+	make_container(){
+		let cont=document.createElement('div');
+		cont.setAttribute('class','elementMov');
+		this.cont=cont;
+	}
+	cont_attributes(){
+		this.cont.id=this.id;
 
+		this.cont.style.position=this.position;
+		this.cont.style.display=this.display;
+		this.cont.style.width=this.width;
+		this.cont.style.height=this.height;
+		this.cont.style.backgroundColor=this.backgroundColor;
+		this.cont.style.color=this.color;
+
+		this.cont.style.marginTop=this.marginTop;
+		this.cont.style.marginLeft=this.marginLeft;
+		this.cont.style.marginRight=this.marginRight;
+		this.cont.style.marginBottom=this.marginBottom;
+
+		this.cont.style.paddingTop=this.paddingTop;
+		this.cont.style.paddingLeft=this.paddingLeft;
+		this.cont.style.paddingRight=this.paddingRight;
+		this.cont.style.paddingBottom=this.paddingBottom;
+
+		this.cont.style.fontSize=this.fontSize;
+		this.cont.style.fontFamily=this.fontFamily;
+	}
 	draw_borders(){
 		let top=document.createElement('span');
 	
@@ -135,8 +262,7 @@ class ElementUI extends Element{
 		topLeftDia.setAttribute('draggable','true');
 		bottomRightDia.setAttribute('draggable','true');
 		bottomLeftDia.setAttribute('draggable','true');
-		this.cont=document.createElement('div');
-		this.cont.setAttribute('class','elementMov');
+		
 		
 
 		this.cont.append(top);
@@ -152,5 +278,8 @@ class ElementUI extends Element{
 		this.cont.append(bottomRightDia);
 	}
 	
-	draw_centreLine(){}
+	draw_centreLine(){
+		// draw horizontal line across the centre of the div
+		// draw a vertical line across the div
+	}
 }

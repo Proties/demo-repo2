@@ -2,6 +2,10 @@
 let builderContainer=document.getElementById('builderContainer');
 let elementsContainer=document.getElementById('elements');
 
+//this will be an array of html elements
+let boardElements=[{x1:0,x2:0,y1:0,y2:0}];
+//this will be the currently selected ui element
+let currentElement={x1:0,x2:0,y1:0,y2:0};
 function load_htmlPage(){}
 function find_object(id){
 
@@ -206,44 +210,58 @@ function EventListener(){
 		switch(dragged.innerHTML){
 			case 'Button':
 				let btn=new Button();
+				btn.cont_attributes();
 				btn.draw_borders();
 				btn.make_item();
-				containerElements.push(btn);
+				boardElements.push(btn);
 				evt.target.append(btn.cont);
 			break;
 			case 'Container':
 				let cont=new Container();
+				cont.cont_attributes();
 				cont.draw_borders();
 				cont.make_item();
-				containerElements.push(cont);
+				boardElements.push(cont);
 				evt.target.append(cont.cont);
 			break;
 			case 'Text':
 				let txtItem=new Text(dragged);
+
 				// txtItem.make_item();
+				// txtItem.cont_attributes();
 				txtItem.draw_borders();
 				txtItem.make_item();
-				containerElements.push(txtItem);
-				console.log(txtItem.cont);
-
+				boardElements.push(txtItem);
 				evt.target.append(txtItem.cont);
 			break;
 			case 'Images':
 				let img=new Image();
+				img.cont_attributes();
 				img.draw_borders();
-				containerElements.push(img);
+				boardElements.push(img);
 				evt.target.append(img.cont);
 			break;
+			default:
+				console.log('do nothinf');
+				break;
 		}
 		
 	})
 }
-function update(){}
-function start(){
-	let board=new BoardUI(document.getElementById('builderContainer'));
-	board.draw_board();
-	EventListener();
-	elementsContainer.append();
-
+let board=new BoardUI(document.getElementById('builderContainer'));
+let user=new User();
+// create a separate layer with a single element to position it freely in the container
+document.getElementById('builderContainer').addEventListener('dragover',update);
+//this function will be called every time an element is an element is dragged over the board
+function update(){
+	console.log('list of elements on the board');
+	console.log(boardElements);
+	for(let i=0;i<boardElements.length;i++){
+		if(boardElements[i].x1==currentElement.x1 && boardElements[i].y1==currentElement.y1){
+		// console.log(boardElements);
+		// console.log('updated');
+	}
+	}
+	
 }
-start();
+EventListener();
