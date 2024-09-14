@@ -152,122 +152,12 @@ function openUserProfile(evt){
     console.log(username.id);
     window.location.href=username.id;
 }
-//this function sends the category name a user has selected and returns post that match that cateogry
-function select_category(evt){
-    try{
-        let ele=evt.target;
-        let name=ele.innerHTML;
-        let xm=new XMLHttpRequest();
-        xm.open('POST','/');
-        xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xm.onreadystatechange=function (){
-            console.log(this.responseText);
-            let data=JSON.parse(this.responseText);
-            let posts=[];
-            if(data.length==0){
-                return;
-            }
-            for(let i=0;i<data.users.length;i++){
 
-                let item={primary_post:s,secondary_post:s,user:s};
-                posts.push(item);
-            }
-            init_img(posts);
-        }
-        xm.send("action=select_category&categoryName="+name);
-        console.log(ele);
-    }catch(err){
-        console.log(err);
-    }
-}
 function select_post(evt){
    let link=evt.target.id;
    window.loaction.href=link;
 }
-//when user clicks the comment button the comment modal will popup
-function show_coment(evt){
-    console.log('works');
-    let container=document.getElementsByClassName("writeCommentModal")[0];
-    let postElement=evt.target.parentNode.parentNode;
-    let commentForm=document.getElementById('commentForm');
-    let hiddenPostID=document.createElement('input');
-    
-    hiddenPostID.type='hidden';
-    hiddenPostID.value='happy';
-    hiddenPostID.id='postID';
-    console.log(hiddenPostID);
-    commentForm.appendChild(hiddenPostID);
-    container.style.display='flex';
-    container.getElementsByTagName("button")[1].addEventListener("click",function(evt){
-        container.style.display='none';
-    });
-    container.getElementsByTagName("button")[0].addEventListener("click",function(evt){
-        console.log("prevent comment submission");
 
-        let txt=container.getElementsByTagName('textarea')[0].value;
-        console.log(txt);
-        evt.preventDefault();
-        let id=document.getElementById('postID').value;
-        let data='&postID='+id+"&text="+txt;
-        console.log("========data=======");
-        console.log(data);
-        console.log("=========data=======");
-        try{
-            let xml=new XMLHttpRequest();
-            xml.open('POST','/');
-            xml.onreadystatechange=function(){
-                console.log('submitted');
-                console.log(this.responseText);
-                let data=JSON.parse(this.responseText);
-                if(data.status=='success'){
-                    alert('you have comment');
-                    container.style.display='none';
-                }
-                if(data.status=='failed'){
-                    alert('could not comment');
-                }
-            }
-            xml.setRequestHeader('Content-type','application/x-www-form-urlencoded');
-            xml.send('action=comment'+data);
-        }catch(err){
-            console.log(err);
-        }
-
-    });
-}
-function like_post(evt){
-    let ele=evt.target;
-    let postEle=ele.parentNode.parentNode.parentNode;
-    try{
-        if(postEle.className=='post-container'){
-            //do nothing
-        }
-        if(postEle.className=='postfeed-wrapper'){
-            postEle=postEle.getElementsByClassName('post-container')[0];
-        }
-        let id=postEle.id;
-        // let t=postEle.getElementsByClassName("post")[0];
-        // console.log(t);
-        let xml=new XMLHttpRequest();
-        xml.onreadystatechange=function(){
-            let data=JSON.parse(this.responseText);
-            console.log(data);
-            console.log('liking post');
-            if(data.status=='success'){
-                alert('you have liked');
-            }
-            if(data.status=='failed'){
-                alert('could not like');
-            }
-        }
-        xml.open('POST','/');
-        xml.setRequestHeader('Content-type','application/x-www-form-urlencoded');
-        xml.send('action=like&postID='+id);
-    }catch(err){
-        console.log(err);
-    }
-
-}
 async function display_more_users(evt){
     console.log(evt);
     let postConatiner=document.getElementsByClassName("post-container")[0];
@@ -291,10 +181,8 @@ function eventListeners(){
     let userProfile=document.getElementsByClassName("profile-button");
     let search_input=document.getElementById("search");
     let selectcategory=document.getElementsByClassName("tag");
-    let likePost=document.getElementsByClassName("like-button");
     let selectTopPost=document.getElementsByClassName("top-post");
     let selectBottomPost=document.getElementsByClassName("bottom-post");
-    let commentPost=document.getElementsByClassName("comment-button");
     let viewMore=document.getElementsByClassName("view-more-btn")[0];
     let registerBtn = document.querySelector(".register-button");
     let closeReg = document.getElementById("closeModalReg");
@@ -312,18 +200,14 @@ function eventListeners(){
     for(let i=0;i<userProfile.length;i++){
         userProfile[i].addEventListener('click',openUserProfile);
     }
-    for(let i=0;i<likePost.length;i++){
-        likePost[i].addEventListener('click',like_post);
-    }
+
     for(let i=0;i<selectTopPost.length;i++){
         selectTopPost[i].addEventListener('click',openModal);
     }
     for(let i=0;i<selectBottomPost.length;i++){
         selectBottomPost[i].addEventListener('click',openModal);
     }
-     for(let i=0;i<commentPost.length;i++){
-        commentPost[i].addEventListener('click',show_coment);
-    }
+
     registerBtn.addEventListener('click',function() {
         modal.style.display = "block";
       });
@@ -344,27 +228,7 @@ function init_user(username){
     console.log(username);
     document.getElementsByClassName("profile-link")[0].href="/@"+username;
 }
-function init_categories(arr){
-    console.log(arr);
-    if(!Array.isArray(arr)){
-        return;
-    }
-    let cats=document.getElementsByClassName('tag');
-    let max=arr.length;
-    console.log(max);
-    console.log(cats.length);
 
-        for(let i=0;i<cats.length;i++){
-            if(i>max){
-                cats[i].remove();
-            }
-        }
-    console.log(cats.length);
-    for(let x=0;x<arr.length;x++){
-        console.log(arr[x]);
-        cats[x].getElementsByTagName('span')[0].innerHTML=arr[x].categoryName;
-    }
-}
 function init_img(arr){
     console.log(arr);
     if(!Array.isArray(arr)){

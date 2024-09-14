@@ -9,7 +9,8 @@ class UserFolder{
 	public function __construct(){
         $this->folderName='';
         $this->userFiles=[];
-        $this->userDir=null;
+        $this->userDir='';
+        
     }
     public function set_folderName(string $name)
     {

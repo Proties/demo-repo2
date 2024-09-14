@@ -14,13 +14,9 @@ try{
     require_once 'php/userAuth.php';
     require_once 'php/image.php';
     require_once 'php/userAuth.php';
-    require_once 'php/commentList.php';
-    require_once 'php/categoryList.php';
     require_once 'php/collaboratorList.php';
-    require_once 'php/category.php';
     require_once 'php/location.php';
     require_once 'php/imageFile.php';
-    require_once 'php/categoryDB.php';
     require_once 'php/imageDB.php';
     require_once 'php/collaborator.php';
     require_once 'php/collaboratorDB.php';
