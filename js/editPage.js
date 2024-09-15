@@ -291,9 +291,10 @@ function update(evt){
 		// console.log(boardElements[i]);
 		boardElements[i].get_coords();
 		if(boardElements[i].y1>=currentElementObj.y1){
-			// containerHolder.insertBefore(currentElement.cont,boardElements[i].cont);
+			builderContainer.insertBefore(currentElementObj.cont,boardElements[i].cont);
 			console.log("move it down");
-			boardElements[i].top=currentElementObj.height+'px';
+			boardElements[i].top=currentElementObj.y2;
+			boardElements[i].position='absolute';
 			console.log(boardElements[i]);
 		// console.log(boardElements);
 		// console.log('updated');
