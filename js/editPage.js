@@ -48,87 +48,62 @@ function EventListener(){
 	let borderBottom=document.getElementsByClassName('bottomLine');
 	let containerElements=[];
 
-
-	document.addEventListener('click',function(evt){
-			for(let b=0;b<element.length;b++){
-				element[b].addEventListener('click',function(evt){
-				console.log(element[b].childNodes);
-				if(element[b].childNodes.length==7){
-					let ele=element[b].getElementsByClassName('elementText');
-					console.log('on focus');
-					let input=document.createElement('input');
-					input.type='text';
-					input.value=ele[0].textContent;
-					console.log(ele[0].textContent);
-					ele[0].style.display='none';
-					element[b].append(input);
-					console.log(element[b]);
-					element[b].focus();
-				}
-				});
-				element[b].addEventListener('focusout',function(evt){
-					console.log('focusout');
-				});
-			}
-	});
-	
-	for(let b=0;b<button.length;b++){
-		button[b].addEventListener('dragstart',function(evt){
-			console.log('buttton drag start');
-			dragged=button[b].cloneNode(true);
-			currentElement=dragged;
-		});
-		button[b].addEventListener('dragend',function(evt){
-		});
-
-	}
-	for(let b=0;b<containers.length;b++){
-		containers[b].addEventListener('dragstart',function(evt){
-			console.log('buttton drag start');
-			dragged=containers[b].cloneNode(true);
-			currentElement=dragged;
-
-		});
-		containers[b].addEventListener('dragend',function(evt){
-
-		});
-
-	}
-	for(let b=0;b<images.length;b++){
-		images[b].addEventListener('dragstart',function(evt){
-			console.log('buttton drag start');
-			dragged=images[b].cloneNode(true);
-			currentElement=dragged;
-
-		});
-		images[b].addEventListener('dragend',function(evt){
-
-		});
-
-	}
 	text[0].addEventListener('dragstart',function(evt){
 		// dragged=text[0];
-		dragged=text[0].cloneNode(true);
+		let placeholder=document.createElement('span');
+		let placeholderTxt=document.createTextNode('Text');
+		
+		placeholder.append(placeholderTxt);
+		dragged=placeholder;
 		currentElement=dragged;
 		console.log(evt.target.clientX);
 		console.log(evt.target.clientY);
 		console.log('drag start');
 	});
+
 	text[0].addEventListener('dragend',function(evt){
 		console.log('drag has ended');
 	});
-	builderContainer.addEventListener('dragover',function(evt){
-		evt.preventDefault();
-		currentElement.x1=evt.clientX;
-		// currentElement.x2=evt.clientX+currentElement.width;
-		currentElement.y1=evt.clientY;
-		// currentElement.y2=evt.clientY+currentElement.height;
-		// console.log('x coord='+evt.clientX);
-		// console.log('y coord='+evt.clientY);
-		// console.log('drag element');
-		// console.log(evt.clientX);
-		// console.log(evt.clientY);
-	});
+	button[0].addEventListener('dragstart',function(evt){
+			console.log('buttton drag start');
+			let placeholder=document.createElement('span');
+			let placeholderTxt=document.createTextNode('Button');
+			
+			placeholder.append(placeholderTxt);
+			dragged=placeholder;
+			currentElement=dragged;
+		});
+		button[0].addEventListener('dragend',function(evt){
+		});
+
+		containers[0].addEventListener('dragstart',function(evt){
+			console.log('buttton drag start');
+			let placeholder=document.createElement('span');
+			let placeholderTxt=document.createTextNode('Container');
+			dragged=placeholder;
+			placeholder.append(placeholderTxt);
+			currentElement=dragged;
+
+		});
+		containers[0].addEventListener('dragend',function(evt){
+
+		});
+
+
+		images[0].addEventListener('dragstart',function(evt){
+			console.log('buttton drag start');
+			
+			let placeholder=document.createElement('span');
+			let placeholderTxt=document.createTextNode('Images');
+			placeholder.append(placeholderTxt);
+			dragged=placeholder;
+			currentElement=placeholder;
+
+		});
+		images[0].addEventListener('dragend',function(evt){
+
+		});
+
 	builderContainer.addEventListener('dragenter',function(evt){
 		console.log('drag has entered');
 	});
@@ -136,25 +111,20 @@ function EventListener(){
 		console.log('drag has leaved');
 	});
 
-	builderContainer.addEventListener('drop',function(evt){
-		// let children=evt.target.childNodes;
-		// for(let ii=0;ii<children.length;ii){
-		// 	if(children[ii]==dragged){
-		// 		console.log('child already present========');
-		// 		return;
-		// 	}
-		// }
+	builderContainer.addEventListener('dragover',function(evt){
 		evt.preventDefault();
+		currentElement.x1=evt.clientX;
+		currentElement.y1=evt.clientY;
 		
-		// console.log(children);
-		
-		
-		
-		console.log('dropping element');
+	});
 	
-		console.log(dragged);
-		console.log(typeof draggedLine);
 
+	builderContainer.addEventListener('drop',function(evt){
+		if(dragged.className=='elementMov'){
+			console.log('drag element inside builder');
+			return;
+		}
+		evt.preventDefault();
 		let elementID;
 		switch(dragged.innerHTML){
 			case 'Button':
@@ -169,7 +139,7 @@ function EventListener(){
 				evt.target.append(btn.cont);
 			break;
 			case 'Container':
-				dragged.remove();
+	
 				let cont=new Container();
 				elementID='cont'+idGen.next().value;
 				cont.id=elementID;
@@ -218,13 +188,14 @@ function EventListener(){
 			console.log(evt.clientX);
 			console.log(evt.clientY);
 			let obj=find_object(evt.target.id);
+			dragged=evt.target;
 			// obj.width=;
 		});
 		
 		}
 		for(let br=0;br<borderRight.length;br++){
 		borderRight[br].addEventListener('dragstart',function(evt){
-			draggedLine=evt.target;
+			dragged=evt.target;
 			currentElement=evt.target;
 
 			console.log('parent element is');
@@ -235,6 +206,7 @@ function EventListener(){
 		borderRight[br].addEventListener('dragend',function(evt){
 			console.log(evt.clientX);
 			console.log(evt.clientY);
+			dragged=evt.target;
 			let obj=find_object(evt.target.id);
 			// obj.width=;
 			console.log('border has stopped dragging');
@@ -252,6 +224,7 @@ function EventListener(){
 			let obj=find_object(evt.target.id);
 			// obj.width=;
 			console.log('border has stopped dragging');
+			dragged=evt.target;
 		});
 	}
 	for(let bb=0;bb<borderBottom.length;bb++){
@@ -266,10 +239,48 @@ function EventListener(){
 			let obj=find_object(evt.target.id);
 			updateBorders(evt);
 			console.log('border has stopped dragging');
+			dragged=evt.target;
 		});
 	}
 		
-	})
+	});
+	
+	for(let e=0;e<element.length;e++){
+		element[e].addEventListener('dragstart',function(evt){
+			console.log('dragging new element');
+			dragged=evt.target;
+		});
+		element[e].addEventListener('dragend',function(evt){
+			dragged=evt.target;
+		});
+	}
+	document.addEventListener('click',function(evt){
+			for(let b=0;b<element.length;b++){
+				element[b].addEventListener('click',function(evt){
+				console.log(element[b].childNodes);
+				if(element[b].childNodes.length==7){
+					let ele=element[b].getElementsByClassName('elementText');
+					console.log('on focus');
+					let input=document.createElement('input');
+					input.type='text';
+					input.value=ele[0].textContent;
+					console.log(ele[0].textContent);
+					ele[0].style.display='none';
+					element[b].append(input);
+					console.log(element[b]);
+					element[b].focus();
+				}
+				});
+				element[b].addEventListener('focusout',function(evt){
+					console.log('focusout');
+				});
+			}
+	});
+	
+	
+	
+	
+	
 }
 let board=new BoardUI(document.getElementById('builderContainer'));
 let user=new User();
@@ -291,11 +302,11 @@ function update(evt){
 		// console.log(boardElements[i]);
 		boardElements[i].get_coords();
 		if(boardElements[i].y1>=currentElementObj.y1){
-			builderContainer.insertBefore(currentElementObj.cont,boardElements[i].cont);
-			console.log("move it down");
+			// builderContainer.insertBefore(currentElementObj.cont,boardElements[i].cont);
+			// console.log("move it down");
 			boardElements[i].top=currentElementObj.y2;
 			boardElements[i].position='absolute';
-			console.log(boardElements[i]);
+			// console.log(boardElements[i]);
 		// console.log(boardElements);
 		// console.log('updated');
 	}

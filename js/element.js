@@ -233,6 +233,7 @@ class ElementUI extends Element{
 
 		this.cont.style.fontSize=this.fontSize;
 		this.cont.style.fontFamily=this.fontFamily;
+		this.cont.draggable=true;
 	}
 	draw_borders(){
 		let top=document.createElement('span');
