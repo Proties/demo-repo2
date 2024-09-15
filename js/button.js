@@ -2,6 +2,8 @@
 class Button extends ElementUI{
 	constructor(){
 		super();
+		this._width=60;
+		this._height=60;
 	
 	}
 	make_item(){

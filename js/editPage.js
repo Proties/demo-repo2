@@ -3,9 +3,10 @@ let builderContainer=document.getElementById('builderContainer');
 let elementsContainer=document.getElementById('elements');
 
 //this will be an array of html elements
-let boardElements=[{x1:0,x2:0,y1:0,y2:0}];
+let boardElements=[];
 //this will be the currently selected ui element
-let currentElement={};
+let currentElement;
+let currentElementObj={};
 //this variable will be defined be dragstart
 let startPos;
 //this variable will be defined by drag end
@@ -19,27 +20,13 @@ function find_object(id){
 		}
 	}
 }
-function make_id(element){
+function* make_id(element){
 	let num=0;
-	num=ids.length+1;
-	let id;
-	switch(element){
-		case 'Button':
-			id='btn'+num;
-			break;
-		case 'Text':
-			id='txt'+num;
-			break;
-		case 'Container':
-			id='cont'+num;
-			break;
-		case 'Image':
-			id='img'+num;
-			break;
+	while(true){
+		yield num++;
 	}
-	ids.push(id);
-	return id;
 }
+const idGen=make_id();
 function create_cookie(){}
 function get_cookie(name){
 
@@ -63,7 +50,6 @@ function EventListener(){
 
 
 	document.addEventListener('click',function(evt){
-
 			for(let b=0;b<element.length;b++){
 				element[b].addEventListener('click',function(evt){
 				console.log(element[b].childNodes);
@@ -79,27 +65,20 @@ function EventListener(){
 					console.log(element[b]);
 					element[b].focus();
 				}
-
 				});
 				element[b].addEventListener('focusout',function(evt){
-
 					console.log('focusout');
-
 				});
 			}
-		
-		
-	})
+	});
 	
 	for(let b=0;b<button.length;b++){
 		button[b].addEventListener('dragstart',function(evt){
 			console.log('buttton drag start');
 			dragged=button[b].cloneNode(true);
 			currentElement=dragged;
-
 		});
 		button[b].addEventListener('dragend',function(evt){
-
 		});
 
 	}
@@ -131,7 +110,8 @@ function EventListener(){
 		// dragged=text[0];
 		dragged=text[0].cloneNode(true);
 		currentElement=dragged;
-
+		console.log(evt.target.clientX);
+		console.log(evt.target.clientY);
 		console.log('drag start');
 	});
 	text[0].addEventListener('dragend',function(evt){
@@ -139,6 +119,12 @@ function EventListener(){
 	});
 	builderContainer.addEventListener('dragover',function(evt){
 		evt.preventDefault();
+		currentElement.x1=evt.clientX;
+		// currentElement.x2=evt.clientX+currentElement.width;
+		currentElement.y1=evt.clientY;
+		// currentElement.y2=evt.clientY+currentElement.height;
+		// console.log('x coord='+evt.clientX);
+		// console.log('y coord='+evt.clientY);
 		// console.log('drag element');
 		// console.log(evt.clientX);
 		// console.log(evt.clientY);
@@ -151,7 +137,18 @@ function EventListener(){
 	});
 
 	builderContainer.addEventListener('drop',function(evt){
+		// let children=evt.target.childNodes;
+		// for(let ii=0;ii<children.length;ii){
+		// 	if(children[ii]==dragged){
+		// 		console.log('child already present========');
+		// 		return;
+		// 	}
+		// }
 		evt.preventDefault();
+		
+		// console.log(children);
+		
+		
 		
 		console.log('dropping element');
 	
@@ -162,43 +159,48 @@ function EventListener(){
 		switch(dragged.innerHTML){
 			case 'Button':
 				let btn=new Button();
-				elementID=make_id(dragged.innerHTML);
+				elementID='btn'+idGen.next().value;
 				btn.id=elementID;
 				btn.cont_attributes();
 				btn.draw_borders();
 				btn.make_item();
+				currentElementObj=btn;
 				boardElements.push(btn);
 				evt.target.append(btn.cont);
 			break;
 			case 'Container':
+				dragged.remove();
 				let cont=new Container();
-				elementID=make_id(dragged.innerHTML);
+				elementID='cont'+idGen.next().value;
 				cont.id=elementID;
 				cont.cont_attributes();
 				cont.draw_borders();
 				cont.make_item();
+				currentElementObj=cont;
 				boardElements.push(cont);
 				evt.target.append(cont.cont);
 			break;
 			case 'Text':
-				let txtItem=new Text(dragged);
-				elementID=make_id(dragged.innerHTML);
+				let txtItem=new Text();
+				elementID='txt'+idGen.next().value;
 				txtItem.id=elementID;
 
 				// txtItem.make_item();
 				// txtItem.cont_attributes();
 				txtItem.draw_borders();
 				txtItem.make_item();
+				currentElementObj=txtItem;
 				boardElements.push(txtItem);
 				evt.target.append(txtItem.cont);
 			break;
 			case 'Images':
 				let img=new Image();
-				elementID=make_id(dragged.innerHTML);
+				elementID='img'+idGen.next().value;
 				img.id=elementID;
 				img.cont_attributes();
 				img.draw_borders();
 				boardElements.push(img);
+				currentElementObj=img;
 				evt.target.append(img.cont);
 			break;
 			default:
@@ -242,7 +244,8 @@ function EventListener(){
 		borderLeft[bl].addEventListener('dragstart',function(evt){
 			draggedLine=evt.target;
 			currentElement=evt.target;
-			console.log(evt.target);
+			console.log(evt.target.clientX);
+			console.log(evt.target.clientY);
 			console.log('border dragging');
 		});
 		borderLeft[bl].addEventListener('dragend',function(evt){
@@ -274,13 +277,24 @@ let user=new User();
 document.getElementById('builderContainer').addEventListener('dragover',update);
 //this function will be called every time an element is an element is dragged over the board
 function update(evt){
-	console.log(evt);
+	// containerHolder;
+	
+	// console.log(currentElement.parentNode);
+	// console.log(evt);
 	// console.log('list of elements on the board');
 	// console.log(boardElements);
 	// console.log('current selected element');
 	// console.log(currentElement);
+
+	// move old element down
 	for(let i=0;i<boardElements.length;i++){
-		if(boardElements[i].x1==currentElement.x1 && boardElements[i].y1==currentElement.y1){
+		// console.log(boardElements[i]);
+		boardElements[i].get_coords();
+		if(boardElements[i].y1>=currentElementObj.y1){
+			// containerHolder.insertBefore(currentElement.cont,boardElements[i].cont);
+			console.log("move it down");
+			boardElements[i].top=currentElementObj.height+'px';
+			console.log(boardElements[i]);
 		// console.log(boardElements);
 		// console.log('updated');
 	}

@@ -21,8 +21,8 @@ class Styles{
 		this._font_family;
 		this._text_decoration;
 		
-		this._height;
-		this._width='';
+		this._height=12;
+		this._width=12;
 		this._position='relative';
 		this._top;
 		this._bottom;
@@ -211,9 +211,13 @@ class ElementUI extends Element{
 		this.cont.id=this.id;
 
 		this.cont.style.position=this.position;
+		this.cont.style.top=this.top;
+		this.cont.style.left=this.left;
+		this.cont.style.right=this.right;
+		this.cont.style.bottom=this.bottom;
 		this.cont.style.display=this.display;
-		this.cont.style.width=this.width;
-		this.cont.style.height=this.height;
+		this.cont.style.width=this.width+'px';
+		this.cont.style.height=this.height+'px';
 		this.cont.style.backgroundColor=this.backgroundColor;
 		this.cont.style.color=this.color;
 
@@ -277,7 +281,12 @@ class ElementUI extends Element{
 		this.cont.append(bottomLeftDia);
 		this.cont.append(bottomRightDia);
 	}
-	
+	get_coords(){
+		this.y1=this.cont.offsetTop;
+		this.x1=this.cont.offsetLeft;
+		this.x2=this.x1+this.height;
+		this.y2=this.y1+this.height;
+	}
 	draw_centreLine(){
 		// draw horizontal line across the centre of the div
 		// draw a vertical line across the div

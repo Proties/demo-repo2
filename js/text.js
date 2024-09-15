@@ -4,6 +4,8 @@ class Text extends ElementUI{
 	constructor(ele){
 		super();
 		this._subcont=ele;
+		this._width=60;
+		this._height=90;
 	}
 	make_item(){
 		let text=document.createElement('p');
