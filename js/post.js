@@ -55,13 +55,6 @@ class Post{
 	}
 }
 
-class PostConnection{
-	constructor(){}
-	update_post(){}
-	delete_post(){}
-	get_post_data(){}
-	send_post_data(){}
-}
 class PostUI extends Post{
 	constructor(){
 		super();

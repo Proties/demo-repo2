@@ -1,4 +1,30 @@
 "strict"
+class Profile extends User{
+    constructor(){
+        super();
+    }
+}
+class MakeProfile extends Profile{
+    
+}
+class ProfileUI extends Profile{
+    constructor(){
+        super();
+    }
+}
+
+class OtherProfile extends ProfileUI{
+    constructor(){
+        super();
+    }
+}
+
+class MyProfile extends ProfileUI{
+    constructor(){
+        super();
+    }
+}
+class 
 function get_cookie(name){
     let data=document.cookie;
     let dec=decodeURIComponent(data);
