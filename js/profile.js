@@ -5,12 +5,60 @@ class Profile extends User{
     }
 }
 class MakeProfile extends Profile{
-    
+
 }
 class ProfileUI extends Profile{
     constructor(){
         super();
+        this._posts=[];
+        this._editProfile=false;
+        this._deletePost=false;
+        this._uploadPost=false;
+        this._editPost=false;
     }
+    get posts(){
+        return this._posts;
+    }
+    add_post(ps){
+        this.posts.push(ps);
+    }
+    populate_profile_pic(){
+
+    }
+    populate_user_info(info){
+        console.log(info[0]);
+        document.getElementById('username').innerHTML=info[0].username;
+        // document.getElementById('userBio').textContent=info.bio;
+        // document.getElementById('userProfilePicture').src=pic;
+    }
+    populate_post(arr){
+    let postEle=document.getElementsByClassName("postfeed-wrapper")[0];
+    let container=document.getElementsByClassName('post-section')[0];
+    console.log(arr);
+    if(arr.length>1){
+        let old=postEle.getElementsByTagName('img')[0].src=arr[0].img;
+        for(let i=1;i<arr.length;i++){
+            let newPost=postEle.cloneNode(true);
+            newPost.getElementsByTagName('img')[0].src=arr[i].img;
+            console.log(newPost);
+            container.appendChild(newPost);
+        }
+        return;
+    }
+   
+    postEle.getElementsByTagName('img')[0].src=arr[0].img;
+    
+    // let title=document.getElementsByClassName('');
+    // let img=document.getElementsByClassName('');
+    // let id=document.getElementsByClassName('');
+    // for(let i=0;i<arr.length;i++){
+    //     title[i].innerHTML=arr[i].title;
+    //     img[i].src=arr[i].image;
+    //     id[i].id=arr[i].id;
+    // }
+
+}
+
 }
 
 class OtherProfile extends ProfileUI{
@@ -22,6 +70,11 @@ class OtherProfile extends ProfileUI{
 class MyProfile extends ProfileUI{
     constructor(){
         super();
+        this._editProfile=true;
+        this._deletePost=true;
+        this._uploadPost=true;
+        this._editPost=true;
+        this._showSettings=true;
     }
 }
 class 
@@ -45,6 +98,15 @@ function get_cookie(name){
 function get_data_from_cookie(){
     let user_data=get_cookie('username=');
     let data=get_cookie('profile=');
+
+    // if my profile
+    let profile=new MyProfile();
+    profile.populate_user_info();
+    profile.populate_post();
+    //else
+    let otherProfile=new OtherProfile();
+    otherProfile.populate_user_info();
+    otherProfile.populate_post();
     if(data==null || data==undefined){
         console.log('profile cookie not valid');
         return;
