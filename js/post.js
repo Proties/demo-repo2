@@ -59,8 +59,24 @@ class PostUI extends Post{
 	constructor(){
 		super();
 		this._postItem;
+		this._cont;
 	}
-
-	make_post(){}
+	set cont(i){
+		this._cont=i;
+	}
+	get cont(){
+		return this._cont;
+	}
+	
+	populate_post(){
+		let cont=document.createElement('div');
+        let image=document.createElement('img');
+        image.setAttribute('src',this.image);
+        cont.setAttribute('id',this.id);
+        cont.setAttribute('class',this.className);
+        this.cont=cont;
+	}
+	
 
 }
+// export default Post;

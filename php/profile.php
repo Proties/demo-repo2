@@ -8,6 +8,7 @@ use Insta\Databases\Post\PostDB;
 
 
 $mainUser=new Users();
+
 if(isset($_SESSION['username']) && $_SESSION['username']!==null){
     $mainUser->userAuth->set_authanticate(true);
 }
@@ -17,6 +18,7 @@ $f_txt=urldecode($f_txt);
 $u=new Users();
 $udb=new UserDB($u);
 if($f_txt==='/profile'){
+    $data;
    setcookie('profile','no account', time() - (86400 * 30), '/'); 
 }
 else if($u->validate_username_url($f_txt)==true ){
@@ -42,18 +44,18 @@ else if($u->validate_username_url($f_txt)==true ){
     }else{
     $lenArr=count($arr);
     for ($i = 0; $i < $lenArr; $i++) {
-                $postItem = new Post();
-                $postItem->set_postID($arr[$i]['postID']);
-                $string=$arr[$i]['postLink'];
-                $path=substr($string,0,strpos($string, '/'));
-                $name=substr($string,strpos($string,'/'));
-                $postItem->get_image()->set_filePath($path);
-                $postItem->get_image()->set_fileName($name);
-                $data['posts'][$i] = array(
-                    'postID' => $postItem->get_postID(),
-                    'img' => $postItem->get_image()->get_filePath().$postItem->get_image()->get_fileName()
-                );
-            }
+        $postItem = new Post();
+        $postItem->set_postID($arr[$i]['postID']);
+        $string=$arr[$i]['postLink'];
+        $path=substr($string,0,strpos($string, '/'));
+        $name=substr($string,strpos($string,'/'));
+        $postItem->get_image()->set_filePath($path);
+        $postItem->get_image()->set_fileName($name);
+        $data['posts'][$i] = array(
+            'postID' => $postItem->get_postID(),
+            'img' => $postItem->get_image()->get_filePath().$postItem->get_image()->get_fileName()
+        );
+    }
     }
     setcookie('profile',json_encode($data), time() + (86400 * 30), '/'); 
     }catch(Exception $err){

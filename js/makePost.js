@@ -5,9 +5,16 @@ class MakePost extends Post{
 	}
 
 }
-class MakePostUI extends{
+class MakePostUI extends MakePost{
 	constructor(){
 		super();
 	}
+	make_form(){
+
+	}
+	make_drop_drag_window(){
+
+	}
+	
 
 }

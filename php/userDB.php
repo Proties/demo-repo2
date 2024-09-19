@@ -93,7 +93,7 @@ class UserDB extends Database{
             }
             $this->user->set_id($data['userID']);
             $this->user->set_username($data['username']);
-            $this->user->set_name($data['fullname']);
+            // $this->user->set_name($data['fullname']);
         }catch(PDOException $err){
             echo 'Database error while read user'.$err->getMessage();
             return $err;
@@ -103,19 +103,17 @@ class UserDB extends Database{
         $db=$this->db;
         try{
             $query='
-                SELECT u.username,u.userID,p.postID,i.filepath,i.filename FROM Users as u
-                LEFT JOIN Posts as p ON u.userID=p.userID 
+                SELECT p.postID,i.filepath,i.filename FROM Posts as p
+                LEFT JOIN Users as u ON p.userID=u.userID
                 LEFT JOIN PostImages as ip ON p.postID=ip.postID
                 LEFT JOIN Images as i ON ip.imageID=i.imageID  
-                WHERE u.username=:id;
+                WHERE u.username=:username;
             ';
         $statement=$db->prepare($query);
-        $statement->bindValue(':id',$this->user->get_username());
+        $statement->bindValue(':username',$this->user->get_username());
         $statement->execute();
         $data=$statement->fetchall();
      // return var_dump(json_encode($data));
-        $this->user->set_id($data[0]['userID']);
-        $this->user->set_username($data[0]['username']);
         $this->user->get_posts($data);
         }catch(PDOException $err){
             echo 'Database error while read user'.$err->getMessage();
