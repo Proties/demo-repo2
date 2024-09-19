@@ -19,6 +19,7 @@ try{
 
 
 $arrayPosts=[];
+$data=[];
 $rank=new Ranking();
 $info=$rank->chrono($arrayPosts);
 $arrLen=count($info);

@@ -16,8 +16,8 @@ public function chrono(Array $arr){
         
         $query="
         SELECT DISTINCT u1.username,p1.postLink,p1.postID,p1.postLinkID,p1.postLinkID as post2LinkID,p2.postLink AS post2Link,p2.postID AS post2ID FROM Users AS u1
-        INNER JOIN posts AS p1 ON u1.userID=p1.userID
-        INNER JOIN posts AS p2 ON p1.userID=u1.userID
+        INNER JOIN Posts AS p1 ON u1.userID=p1.userID
+        INNER JOIN Posts AS p2 ON p1.userID=u1.userID
         WHERE p1.postID<>p2.postID 
         
         AND p1.previewStatus=1 AND p2.previewStatus=1 GROUP BY (u1.username);
