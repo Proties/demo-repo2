@@ -2,10 +2,14 @@
 class StackedPosts extends PostUI{
 	constructor(){
 		super();
-		this._id;
 		this._stack;
-		this._posts=[];
 
+	}
+	set stack(s){
+		this._stack=s;
+	}
+	get stack(){
+		return this._stack;
 	}
 	make_stack(){
 

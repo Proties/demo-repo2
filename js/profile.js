@@ -102,11 +102,16 @@ function get_data_from_cookie(){
     // if my profile
     let profile=new MyProfile();
     profile.populate_user_info();
-    profile.populate_post();
+    for(let p=0;p<profile.posts.length;p++){
+         profile.populate_post();
+    }
+   
     //else
     let otherProfile=new OtherProfile();
     otherProfile.populate_user_info();
-    otherProfile.populate_post();
+    for(let p=0;p<otherProfile.posts.length;p++){
+        otherProfile.populate_post();
+    }
     if(data==null || data==undefined){
         console.log('profile cookie not valid');
         return;
