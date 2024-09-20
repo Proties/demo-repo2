@@ -8,8 +8,15 @@ class Post{
 		this._user;
 		this._image;
 		this._title;
+		this._className='';
 		this._collaborators=[];
 		this._;
+	}
+	set className(i){
+		this._className=1;
+	}
+	get className(){
+		return this._className;
 	}
 	set id(i){
 		this._id=1;
@@ -75,6 +82,10 @@ class PostUI extends Post{
         cont.setAttribute('id',this.id);
         cont.setAttribute('class',this.className);
         this.cont=cont;
+	}
+
+	make_post(){
+
 	}
 	
 
