@@ -1,5 +1,5 @@
 "strict"
-
+import ElementUI from './element.js';
 class Text extends ElementUI{
 	constructor(ele){
 		super();

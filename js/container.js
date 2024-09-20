@@ -1,4 +1,5 @@
 "strict"
+import ElementUI from './element.js';
 class Container extends ElementUI{
 	constructor(){
 		super();

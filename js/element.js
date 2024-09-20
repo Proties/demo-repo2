@@ -293,3 +293,4 @@ class ElementUI extends Element{
 		// draw a vertical line across the div
 	}
 }
+export default ElementUI;

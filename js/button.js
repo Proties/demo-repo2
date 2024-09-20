@@ -1,4 +1,5 @@
 "strict"
+import ElementUI from './element.js';
 class Button extends ElementUI{
 	constructor(){
 		super();

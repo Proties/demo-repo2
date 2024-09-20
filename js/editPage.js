@@ -1,7 +1,11 @@
 "strict"
 import TemplateUI from './template.js';
+import {MyProfile} from './profile.js';
 let builderContainer=document.getElementById('builderContainer');
 let elementsContainer=document.getElementById('elements');
+
+let mainTemplate=new TemplateUI();
+let dropDragContainer=mainTemplate.cont;
 
 //this will be an array of html elements
 let boardElements=[];
