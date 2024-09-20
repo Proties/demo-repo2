@@ -1,5 +1,7 @@
 "strict"
-import MyProfile from './profile.js'
+import {MyProfile,OtherProfile} from './profile.js';
+
+
 let user=new MyProfile();
 let allData;
 let profileList=[];

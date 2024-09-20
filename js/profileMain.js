@@ -1,8 +1,12 @@
 "strict"
 import {MyProfile,OtherProfile} from './profile.js';
-import {StackedPosts} from './stackPosts.js';
+import StackedPosts from './stackPosts.js';
+import MakePostUI from './makePost.js';
+import PostUI from './post.js';
 
 let currentProfile;
+let uploadPost;
+
 function get_cookie(name){
     let data=document.cookie;
     let dec=decodeURIComponent(data);
@@ -52,29 +56,37 @@ function get_data_from_cookie(){
 
 
 function intialiseProfileObject(data){
-    let url=window.href;
+    let url=location.href;
+    let last=url.lastIndexOf('/');
+    url=url.slice(last+2,url.length);
     if(url=='profile'){
         currentProfile=new MyProfile();
-        currentProfile=data[0].username;
-        currentProfile.make_user_info();
-        for(let p=0;p<currentProfile.posts.length;p++){
-             currentProfile.populate_post();
+        currentProfile.username=data.user[0]['username'];
+        currentProfile.make_user_info;
+        for(let p=0;p<5;p++){
+             let post=new PostUI();
+             currentProfile.addPost=post;
         }
     }
     else{
         currentProfile=new OtherProfile();
-        currentProfile=data.user[0].username;
-        currentProfile.make_user_info();
-
-        for(let p=0;p<currentProfile.posts.length;p++){
-            currentProfile.populate_post();
+        currentProfile.username=data.user[0]['username'];
+        // currentProfile.username=data.user[0]['username'];
+        // currentProfile.username=data.user[0]['username'];
+        currentProfile.make_user_info;
+        console.log(currentProfile);
+        for(let p=0;p<5;p++){
+            let post=new PostUI();
+            currentProfile.addPost=post;
         }
+
        
     }
 }
 
-let uploadPost=new MakePost();
+
 function upload_post(){
+    uploadPost=new MakePostUI();
     let file=document.getElementById('');
   
     read.onload=function(){
