@@ -8,3 +8,4 @@ class Image extends ElementUI{
 		
 	}
 }
+export default Image;

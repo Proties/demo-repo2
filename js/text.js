@@ -20,3 +20,5 @@ class Heading extends Text{}
 class SubHeading extends Text{}
 class Paragragh extends Text{}
 class Line extends Text{}
+
+export default Text;

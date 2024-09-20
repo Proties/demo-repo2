@@ -5,3 +5,4 @@ class Lists extends ElementUI{
 		super();
 	}
 }
+export default Lists;

@@ -11,3 +11,4 @@ class Container extends ElementUI{
 		this.cont.classList.add('containerElementItem');
 	}
 }
+export default Container;

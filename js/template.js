@@ -9,20 +9,20 @@ class Template{
 		this._elements=[];
 		this._objects=[];
 	}
-	set _objects(obj){
+	set objects(obj){
 		this._objects=obj;
 	}
-	get _objects(){
+	get objects(){
 		return this._objects;
 	}
 	add_object(obj){
 		this._objects.push(obj);
 	}
 	check_overlaps(current){
-		for(let e=0;e<objects.length){
+		for(let e=0;e<objects.length;e++){
 			if(current.x1 >=e.x1 && current.x2<=e.x2 && current.y1<=e.y1){
 
-				console.log('collision')
+				console.log('collision');
 			}
 		}
 	}

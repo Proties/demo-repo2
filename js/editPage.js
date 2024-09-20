@@ -1,6 +1,13 @@
 "strict"
 import TemplateUI from './template.js';
 import {MyProfile} from './profile.js';
+import Container from './container.js';
+import User from './user.js';
+import Text from './text.js';
+import Button from './button.js';
+import List from './list.js';
+import Images from './image.js';
+
 let builderContainer=document.getElementById('builderContainer');
 let elementsContainer=document.getElementById('elements');
 
@@ -25,6 +32,8 @@ function find_object(id){
 		}
 	}
 }
+
+
 function* make_id(element){
 	let num=0;
 	while(true){
@@ -287,7 +296,7 @@ function EventListener(){
 	
 	
 }
-let board=new BoardUI(document.getElementById('builderContainer'));
+// let board=new BoardUI(document.getElementById('builderContainer'));
 let user=new User();
 // create a separate layer with a single element to position it freely in the container
 document.getElementById('builderContainer').addEventListener('dragover',update);

@@ -187,7 +187,18 @@ class ElementUI extends Element{
 		this._resizable;
 		this._deleteable;
 		this._modifiyable;
+		this._topBorder;
+		this._leftBorder;
+		this._bottomBorder;
+		this._topRightBorder;
+		this._topRightBorder;
+		this._topLeftBorder;
+		this._bottomRightBorder;
+		this._bottomLeftBorder;
+
+	
 		this.make_container();
+		this.handleEvent();
 	}
 	set cont(x){
 		this._cont=x;
@@ -292,5 +303,11 @@ class ElementUI extends Element{
 		// draw horizontal line across the centre of the div
 		// draw a vertical line across the div
 	}
+}
+ElementUI.prototype.handleEvent=function(){
+	console.log('working will continues doing so');
+}
+ElementUI.prototype.addEventListener=function(evtName,callback){
+	this.addEventListener(evtName,callback);
 }
 export default ElementUI;

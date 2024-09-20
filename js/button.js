@@ -18,3 +18,4 @@ class Button extends ElementUI{
 		
 	}
 }
+export default Button;
