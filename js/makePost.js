@@ -1,4 +1,5 @@
 "strict"
+import Post from './post.js';
 class MakePost extends Post{
 	constructor(){
 		super();
@@ -18,3 +19,4 @@ class MakePostUI extends MakePost{
 	
 
 }
+export default MakePostUI;

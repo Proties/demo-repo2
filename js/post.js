@@ -79,4 +79,4 @@ class PostUI extends Post{
 	
 
 }
-// export default Post;
+export default PostUI;

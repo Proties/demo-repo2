@@ -6,7 +6,7 @@ class Profile extends User{
         this._type;
     }
 }
-class MakeProfile extends Profile{
+export class MakeProfile extends Profile{
      constructor(){
         super();
     }
@@ -57,7 +57,7 @@ class ProfileUI extends Profile{
 //         super();
 //     }
 // }
-class OtherProfile extends ProfileUI{
+export class OtherProfile extends ProfileUI{
     constructor(){
         super();
         this.stack=StackedPosts();
@@ -66,7 +66,7 @@ class OtherProfile extends ProfileUI{
 
 }
 
-class MyProfile extends ProfileUI{
+export class MyProfile extends ProfileUI{
     constructor(){
         super();
         this._editProfile=true;
@@ -77,4 +77,5 @@ class MyProfile extends ProfileUI{
     }
 }
 
-export default MyProfile;
+// export default {MyProfile,OtherProfile};
+

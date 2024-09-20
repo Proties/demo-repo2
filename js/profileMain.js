@@ -1,6 +1,6 @@
 "strict"
-import OtherProfile from './profile.js'
-import MyProfile from './profile.js'
+import {MyProfile,OtherProfile} from './profile.js';
+import {StackedPosts} from './stackPosts.js';
 
 let currentProfile;
 function get_cookie(name){
@@ -55,6 +55,7 @@ function intialiseProfileObject(data){
     let url=window.href;
     if(url=='profile'){
         currentProfile=new MyProfile();
+        currentProfile=data[0].username;
         currentProfile.make_user_info();
         for(let p=0;p<currentProfile.posts.length;p++){
              currentProfile.populate_post();
@@ -62,7 +63,9 @@ function intialiseProfileObject(data){
     }
     else{
         currentProfile=new OtherProfile();
+        currentProfile=data.user[0].username;
         currentProfile.make_user_info();
+
         for(let p=0;p<currentProfile.posts.length;p++){
             currentProfile.populate_post();
         }
