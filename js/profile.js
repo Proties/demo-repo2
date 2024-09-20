@@ -65,11 +65,21 @@ export class OtherProfile extends ProfileUI{
     constructor(){
         super();
         this.stack=new StackedPosts();
+        this.makeChanges();
     }
+    makeChanges(){
 
-
+        document.getElementById("uploadBtn").style.display='none';
+        document.getElementById("editProfileButton").style.display='none';
+        document.getElementById("uploadModal").style.display='none';
+        let modal=document.getElementsByClassName('modal');
+        for(let i=0;i<modal.length;i++){
+            console.log( modal[i]);
+            modal[i].remove();
+        }
+        
+    }
 }
-
 export class MyProfile extends ProfileUI{
     constructor(){
         super();

@@ -30,36 +30,15 @@ function get_data_from_cookie(){
     console.log(data);
     console.log(user_data);
     intialiseProfileObject(data);
-    return;
-   
-    if(data==null || data==undefined){
-        console.log('profile cookie not valid');
-        return;
-    }
-    console.log(user_data);
-    console.log(data.user[0]['username']);
-    if(user_data!==data.user[0]['username']){
-        document.getElementById("uploadBtn").style.display='none';
-        document.getElementById("editProfileButton").style.display='none';
-        document.getElementById("uploadModal").style.display='none';
-        let modal=document.getElementsByClassName('modal');
-        for(let i=0;i<modal.length;i++){
-            console.log( modal[i]);
-            modal[i].remove();
-        }
-        // document.getElementsByClassName("modal-content")[0].style.display='none';
-        // document.getElementsByClassName("modal-content")[1].style.display='none';
-    }
-
-
 }
 
 
 function intialiseProfileObject(data){
     let url=location.href;
     let last=url.lastIndexOf('/');
-    url=url.slice(last+2,url.length);
+    url=url.slice(last+1,url.length);
     if(url=='profile'){
+        url=url.slice(1,url.length);
         currentProfile=new MyProfile();
         currentProfile.username=data.user[0]['username'];
         currentProfile.make_user_info;

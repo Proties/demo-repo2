@@ -36,7 +36,7 @@ function get_ish_form_cookie(){
                 return;
             }else if(user_data!==undefined){
                 console.log(user_data);
-                init_user(user_data);
+                initialiseObjects(user_data);
             }else{
                 initialiseObjects(allData);
                 console.log(allData);
@@ -48,16 +48,18 @@ function get_ish_form_cookie(){
             // init_categories(dtt.categories);
 }
 function initialiseObjects(data){
-    let parentCont=document.getElementsByClassName("post-container");
+    let parentCont=document.getElementsByClassName("postfeed-wrapper")[0];
     for(let i=0;i<data.length;i++){
         let profileItem=new OtherProfile();
         profileItem.stack=data.length;
-        profileItem.add_image(data[i]);
+        profileItem.add_image=data[i];
         profileItem.parentContainer=parentCont;
-        profileItem.make_stack();
-        profileItem.make_profilePic();
+        profileItem.make_stack;
+        profileItem.make_profilePic;
+        profileList.push(profileItem);
 
     }
+    console.log(profileList);
 }
 
 

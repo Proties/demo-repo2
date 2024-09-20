@@ -1,4 +1,5 @@
 "strict"
+import TemplateUI from './template.js';
 let builderContainer=document.getElementById('builderContainer');
 let elementsContainer=document.getElementById('elements');
 

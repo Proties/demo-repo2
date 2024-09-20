@@ -23,41 +23,43 @@ if($f_txt==='/profile'){
 }
 else if($u->validate_username_url($f_txt)==true ){
     try{
-    $txt=substr($f_txt,2);
-    $link=$txt;
-    $data=[];
-    $userPosts=array();
-    $author=new Users();
-    $author->set_username($link);
-    $authorDB=new UserDB($author);
-    $authorDB->get_posts_with_username();
-   
-    $data['user'][0]=array('username'=>$authorDB->user->get_username(),'userProfilePicture'=>$authorDB->user->get_profilePicture(),
-                                'bio'=>$authorDB->user->get_bio());
+        $txt=substr($f_txt,2);
+        $link=$txt;
+        $data=[];
+        $userPosts=array();
+        $author=new Users();
+        echo
+        $author->set_username($link);
+        $authorDB=new UserDB($author);
+        $authorDB->get_posts_with_username();
+       
+        $data['user'][0]=array('username'=>$authorDB->user->get_username(),'userProfilePicture'=>$authorDB->user->get_profilePicture(),
+                                    'bio'=>$authorDB->user->get_bio());
 
-    $arr=$authorDB->user->postList->get_posts();
-    if(!is_array($arr)){
-        throw new Exception('not array');
-    }
-    if($arr[0]['filepath']==null){
-        $data['posts']=array();
-    }else{
-    $lenArr=count($arr);
-    for ($i = 0; $i < $lenArr; $i++) {
-        $postItem = new Post();
-        $postItem->set_postID($arr[$i]['postID']);
-        $string=$arr[$i]['postLink'];
-        $path=substr($string,0,strpos($string, '/'));
-        $name=substr($string,strpos($string,'/'));
-        $postItem->get_image()->set_filePath($path);
-        $postItem->get_image()->set_fileName($name);
-        $data['posts'][$i] = array(
-            'postID' => $postItem->get_postID(),
-            'img' => $postItem->get_image()->get_filePath().$postItem->get_image()->get_fileName()
-        );
-    }
-    }
-    setcookie('profile',json_encode($data), time() + (86400 * 30), '/'); 
+        $arr=$authorDB->user->postList->get_posts();
+        if(!is_array($arr)){
+            throw new Exception('not array');
+        }
+        if(($arr==null) || ($arr[0]==null) || ($arr[0]['postLink']==null)){
+            $data['posts']=array();
+
+        }else{
+        $lenArr=count($arr);
+        for ($i = 0; $i < $lenArr; $i++) {
+            $postItem = new Post();
+            $postItem->set_postID($arr[$i]['postID']);
+            $string=$arr[$i]['postLink'];
+            $path=substr($string,0,strpos($string, '/'));
+            $name=substr($string,strpos($string,'/'));
+            $postItem->get_image()->set_filePath($path);
+            $postItem->get_image()->set_fileName($name);
+            $data['posts'][$i] = array(
+                'postID' => $postItem->get_postID(),
+                'img' => $postItem->get_image()->get_filePath().$postItem->get_image()->get_fileName()
+            );
+        }
+        }
+        setcookie('profile',json_encode($data), time() + (86400 * 30), '/'); 
     }catch(Exception $err){
         echo $err->getMessage();
         // echo 'error retriveing posts';
