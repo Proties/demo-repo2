@@ -88,6 +88,15 @@ export class MyProfile extends ProfileUI{
         this._uploadPost=true;
         this._editPost=true;
         this._showSettings=true;
+        this._analytics;
+    }
+    is_logged_in(){
+        if(this.logged_in==true){
+            // hide registration buton
+            // hide registreation modal
+            return true;
+        }
+        return false;
     }
 }
 
