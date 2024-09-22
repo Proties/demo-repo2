@@ -12,7 +12,7 @@ class Template{
 	private $css;
 	private $directory;
 
-	construct(){
+	function __construct(){
 
 	}
 }
