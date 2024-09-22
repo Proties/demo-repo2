@@ -26,12 +26,19 @@ nav {
     align-items: center;
 }
 
+.nav-left img {
+    width: 50px;
+}
+
+/*
 nav .profile-link {
     text-decoration: none;
     color: #be0202;
     font-weight: bold;
     margin: 0 10px;
 }
+    */
+
 #suggestion-list {
     position: absolute;
     left: 5em;
@@ -59,8 +66,17 @@ nav .profile-link {
     background-color: #f0f0f0;
 }
 
-.nav-left:hover .dropdown {
-    display: block;
+.register-button {
+    background-color: #b5a319;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.register-button:hover {
+    background-color: #a59919;
 }
 
 .nav-center {
@@ -68,14 +84,16 @@ nav .profile-link {
     display: flex;
     justify-content: center;
     position: relative;
+    align-items: center;
 }
 
 .nav-center input[type="text"] {
-    width: 50%;
-    padding: 8px 15px;
+    width: 400px; /* Adjust width to match design */
+    padding: 10px 15px;
     border: 1px solid #ccc;
-    border-radius: 24px 0 0 24px;
+    border-radius: 24px;
     outline: none;
+    transition: all 0.2s;
 }
 
 .search-button {
@@ -113,11 +131,11 @@ nav .profile-link {
 }
 
 .nav-center button {
-    padding: 8px 15px;
-    border: 1px solid #ccc;
-    border-left: none;
-    border-radius: 0 24px 24px 0;
-    background-color: #f8f8f8;
+    margin-left: -3px;
+    padding: 10px;
+    border: none;
+    border-radius: 24px;
+    background-color: #3ea6ff;
     cursor: pointer;
 }
 
@@ -127,7 +145,23 @@ nav .profile-link {
 
 .nav-center input[type="text"]:focus {
     border-color: #3ea6ff;
+    box-shadow: 0 0 8px rgba(62, 166, 255, 0.8);
 }
+
+.nav-center button {
+    margin-left: -3px;
+    padding: 10px;
+    border: none;
+    border-radius: 24px;
+    background-color: #3ea6ff;
+    cursor: pointer;
+}
+
+.nav-center button img {
+    width: 20px;
+    height: 20px;
+}
+
 
 .top-post {
     transition: transform 0.3s ease-in-out;
@@ -145,6 +179,7 @@ nav .profile-link {
     z-index: 2;
     cursor: pointer;
 }
+
 
 .post-section {
     padding: 30px;
@@ -168,6 +203,7 @@ nav .profile-link {
     grid-column-gap: 100px;
     margin-top: 20px;
 }
+
 
 .top-post:hover {
     transform: scale(1.05);
@@ -196,25 +232,9 @@ nav .profile-link {
     z-index: 1;
 }
 
-.like-button, .comment-button {
-    background: none;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-}
-
-.like-button img, .comment-button img {
-    width: 20px; /* Reduced size for smaller buttons */
-    height: 20px;
-}
-
-.like-button:hover, .comment-button:hover {
-    transform: scale(1.05);
-}
-
 .profile-button {
     position: relative;
-    right: 40px;
+    right: 50px;
     bottom: 95px;
     background-color: white;
     border: 2px solid #ddd;
@@ -378,26 +398,8 @@ textarea {
 
 /* Register CSS */
 
-#registerModal{
-    display: none;
-}
-.modal-container {
-    display: none;
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 1000px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-register {
+/* Modal background */
+#registerModal {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -406,60 +408,309 @@ textarea {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-register .modal-content {
-    /* display: flex; */
-    background-color: #fefefe;
-    margin: 15% auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Modal background */
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+  
+  /* Modal container */
+  .modal-container {
+    background-color: #a7922f; /* Mustard yellow */
     padding: 20px;
-    border: 1px solid #888;
-    width: 50%;
-}
-
-.modal-register .close {
-    
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.modal-register .close:hover,
-.modal-register .close:focus {
+    border-radius: 10px;
+    width: 800px; /* Smaller width */
+    height: 450px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    text-align: center;
+  }
+  
+  /* Close button */
+  .close {
+    position: absolute;
+    top: 10px;
     color: black;
-    text-decoration: none;
+    font-size: 24px;
     cursor: pointer;
-}
-
-form {
+  } 
+  
+  /* Form styling */
+  form {
     display: flex;
     flex-direction: column;
-}
-
-label {
-    margin-bottom: 10px;
-}
-
-input,
-button {
+    align-items: center;
+  }
+  
+  .input-group {
+    display: flex;
+    justify-content: space-between;
+    width: 48%;
     margin-bottom: 20px;
+  }
+  
+  .input-group input {
+    width: 48%; /* Make name and last name side by side */
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 45%;
     padding: 10px;
-    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
     border-radius: 5px;
-}
-
-button {
-    background-color: #4caf50;
-    color: white;
+    font-size: 16px;
+  }
+  
+  /* Submit button */
+  button[type="submit"] {
+    padding: 10px 20px;
+    background-color: white; /* Match button style */
+    color: black;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
-}
+    font-size: 16px;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #ddd; /* Hover effect */
+  }
+  
+  /* Heading styling */
+  h2 {
+    color: black;
+    margin-bottom: 20px;
+  }
 
-button:hover {
-    background-color: #45a049;
-}
+
+/* Modal background */
+#profileSetupModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Modal background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Modal container */
+  .modal-container {
+    background-color: #a7922f; /* Mustard yellow */
+    padding: 20px;
+    border-radius: 10px;
+    width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    text-align: center;
+  }
+  
+  /* Close button */
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: black;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  /* Form styling */
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Profile Image Placeholder */
+  .profile-image-container {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .profile-image-placeholder {
+    width: 80px;
+    height: 80px;
+    background-color: white;
+    border-radius: 50%;
+    line-height: 80px;
+    font-size: 14px;
+    color: black;
+  }
+  
+  /* Input fields styling */
+  .input-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .input-group input {
+    width: 48%; /* For PROFILE NAME and FULL NAME */
+  }
+  
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  textarea {
+    resize: none;
+  }
+  
+  /* Submit button */
+  button[type="submit"] {
+    padding: 10px 20px;
+    background-color: white; /* Match button style */
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #ddd; /* Hover effect */
+  }
+  
+  /* Heading styling */
+  h2 {
+    color: black;
+    margin-bottom: 20px;
+  }
+  
+
+
+/*
+ ProfileSetup Modal
+  /* Modal background *
+#profileSetupModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Modal background *
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Modal container *
+  .modal-container {
+    background-color: #a7922f; /* Mustard yellow *
+    padding: 20px;
+    border-radius: 10px;
+    width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    text-align: center;
+  }
+  
+  /* Close button *
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: black;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  /* Form styling *
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Profile Image Placeholder *
+  .profile-image-container {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .profile-image-placeholder {
+    width: 80px;
+    height: 80px;
+    background-color: white;
+    border-radius: 50%;
+    line-height: 80px;
+    font-size: 14px;
+    color: black;
+  }
+  
+  /* Input fields styling *
+  .input-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .input-group input {
+    width: 48%; /* For PROFILE NAME and FULL NAME *
+  }
+  
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  textarea {
+    resize: none;
+  }
+  
+  /* Submit button *
+  button[type="submit"] {
+    padding: 10px 20px;
+    background-color: white; /* Match button style *
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #ddd; /* Hover effect *
+  }
+  
+  /* Heading styling *
+  h2 {
+    color: black;
+    margin-bottom: 20px;
+  }
+*/
+
+
+
+
+
+
+
 
 /*footer*/
 
