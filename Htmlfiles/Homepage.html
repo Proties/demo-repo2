@@ -13,8 +13,8 @@
     <header>
       <nav>
         <div class="nav-left">
-          <button class="register-button">Register</button>
-        </div>
+          <img src="logo.png" alt="Logo" class="logo-image">
+      </div>
         <div class="nav-center">
           <input type="text" placeholder="Search" id="search" />
           <ul id="suggestion-list"></ul>
@@ -22,64 +22,22 @@
             <img src="Image/Search.png" alt="Search" />
           </button>
         </div>
+        <div class="nav-right"></div>
+          <button class="register-button">Register</button>
+        </div>
+        <!--
         <div class="nav-right">
           <a href="/profile" class="profile-link">
             <img src="Image/Test Account.png" alt="profile-link"
           /></a>
         </div>
+      -->
       </nav>
     </header>
 
     <main>
-      <section class="top-container">
-        <div class="category-tags">
-          <button class="scroll-button" id="scroll-left">&lt;</button>
-          <div class="tags-wrapper">
-            <div class="tag">
-              <img src="/Image/web design.png" alt="Web Design" />
-              <span>Web Design</span>
-            </div>
-            <div class="tag">
-              <img src="/Image/Animation.png.jpg" alt="Animation" />
-              <span>Animation</span>
-            </div>
-            <div class="tag">
-              <img src="/Image/Comic.png.png" alt="Comic Art" />
-              <span>Comic Art</span>
-            </div>
-          </div>
-          <button class="scroll-button" id="scroll-right">&gt;</button>
-        </div>
-      </section>
-
       <section class="post-section">
         <div class="postfeed-wrapper">
-          <div class="post-container">
-            <div class="post">
-              <div class="top-post">
-                <img src="" alt="Post Image 1" class="post-image" />
-              </div>
-              <div class="bottom-post">
-                <img
-                  src="/Image/Animation.png.jpg"
-                  alt="Post Image 2"
-                  class="post-image"
-                />
-              </div>
-            </div>
-            <div class="post-actions">
-              <div class="profile-button">
-                <img src="/Image/Test Account.png" alt="Profile Icon" />
-              </div>
-              <button class="like-button">
-                <img src="/Image/Heart.png" alt="like-button" />
-              </button>
-              <button class="comment-button">
-                <img src="/Image/Speech Bubble.png" alt="comment-button" />
-              </button>
-            </div>
-          </div>
-
           <div class="post-container">
             <div class="post">
               <div class="top-post">
@@ -101,12 +59,6 @@
               <div class="profile-button">
                 <img src="/Image/Test Account.png" alt="Profile Icon" />
               </div>
-              <button class="like-button">
-                <img src="/Image/Heart.png" alt="like-button" />
-              </button>
-              <button class="comment-button">
-                <img src="/Image/Speech Bubble.png" alt="comment-button" />
-              </button>
             </div>
           </div>
 
@@ -131,12 +83,6 @@
               <div class="profile-button">
                 <img src="/Image/Test Account.png" alt="Profile Icon" />
               </div>
-              <button class="like-button">
-                <img src="/Image/Heart.png" alt="like-button" />
-              </button>
-              <button class="comment-button">
-                <img src="/Image/Speech Bubble.png" alt="comment-button" />
-              </button>
             </div>
           </div>
 
@@ -161,31 +107,10 @@
               <div class="profile-button">
                 <img src="/Image/Test Account.png" alt="Profile Icon" />
               </div>
-              <button class="like-button">
-                <img src="/Image/Heart.png" alt="like-button" />
-              </button>
-              <button class="comment-button">
-                <img src="/Image/Speech Bubble.png" alt="comment-button" />
-              </button>
             </div>
           </div>
         </div>
       </section>
-
-      <!-- Scroll Button-->
-      <script>
-        const scrollLeftButton = document.getElementById("scroll-left");
-        const scrollRightButton = document.getElementById("scroll-right");
-        const tagsWrapper = document.querySelector(".tags-wrapper");
-
-        scrollLeftButton.addEventListener("click", () => {
-          tagsWrapper.scrollBy({ left: -200, behavior: "smooth" });
-        });
-
-        scrollRightButton.addEventListener("click", () => {
-          tagsWrapper.scrollBy({ left: 200, behavior: "smooth" });
-        });
-      </script>
 
       <!-- Modal Window -->
       <div id="postModal" class="modal">
@@ -201,85 +126,67 @@
             <button class="like-button">
               <img src="/Image/Heart.png" alt="like-button" />
             </button>
-            <button class="comment-button">
-              <img src="/Image/Speech Bubble.png" alt="comment-button" />
-            </button>
           </div>
         </div>
       </div>
 
-      <!-- Example HTML for the comment section -->
-
-      <div class="comments-section">
-        <h3>Comments</h3>
-        <div class="comments">
-          <!-- Example comment -->
-          <div class="comment">
-            <div class="comment-author">
-              <img src="path_to_author_avatar.jpg" alt="Author Avatar" />
-              <span class="author-name">John Doe</span>
-            </div>
-            <p class="comment-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac
-              dolor nisi.
-            </p>
-          </div>
-
-          <!-- Another example comment -->
-          <div class="comment">
-            <div class="comment-author">
-              <img src="path_to_another_avatar.jpg" alt="Author Avatar" />
-              <span class="author-name">Jane Smith</span>
-            </div>
-            <p class="comment-text">
-              Mauris id metus ut libero pharetra dapibus. Nulla a justo sed diam
-              semper consequat.
-            </p>
-          </div>
-
-          <!-- Add a new comment form -->
-        </div>
-      </div>
-
-      <!-- Write Comment Modal -->
-      <div class="writeCommentModal">
-        <div class="modal-content">
-          <span class="close" id="closeWriteCommentModal">&times;</span>
-          <h2>Write a Comment</h2>
-          <form id="commentForm">
-            <textarea
-              id="commentText"
-              placeholder="Write your comment here..."
-            ></textarea>
-            <div class="modal-buttons">
-              <button type="button">Submit</button>
-              <button type="button">Cancel</button>
-            </div>
-          </form>
-        </div>
-      </div>
       <!-- Register Pop-up -->
       <div id="registerModal" class="modal">
         <div class="modal-container">
           <span class="close" id="closeModalReg">&times;</span>
           <h2>Register</h2>
           <form id="registerForm">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required />
-            <p id="errUsername"></p>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required />
-            <p id="errPassword"></p>
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required />
+            <div class="input-group">
+              <input type="text" id="name" name="name" placeholder="NAME" required />
+              <input type="text" id="surname" name="surname" placeholder="LAST NAME" required />
+            </div>
             <p id="errName"></p>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required />
+            <input type="email" id="email" name="email" placeholder="EMAIL" required />
             <p id="errEmail"></p>
-            <button type="submit">Submit</button>
+            <input type="password" id="password" name="password" placeholder="PASSWORD" required />
+            <p id="errPassword"></p>
+            <button type="submit">SUBMIT</button>
           </form>
         </div>
       </div>
+
+
+<!-- 
+      <div id="profileSetupModal" class="modal">
+        <div class="modal-container">
+          <span class="close" id="closeProfileSetup">&times;</span>
+          <h2>Set Up Profile</h2>
+          
+          <form id="profileSetupForm">
+
+            <!-- Profile Image Circle --
+            <div class="profile-image-container">
+              <div class="profile-image-placeholder">Profile Image</div>
+            </div>
+      
+            <!-- Input Fields --
+            <div class="input-group">
+              <input type="text" id="profileName" name="profileName" placeholder="PROFILE NAME" required />
+              <input type="text" id="fullName" name="fullName" placeholder="FULL NAME" required />
+            </div>
+      
+            <input type="text" id="gender" name="gender" placeholder="Gender" required />
+      
+            <input type="text" id="occupation" name="occupation" placeholder="OCCUPATION" required />
+      
+            <textarea id="biography" name="biography" placeholder="SHORT BIOGRAPHY" rows="4" required></textarea>
+      
+            <button type="submit">SUBMIT</button>
+          </form>
+        </div>
+      </div>
+
+    -->
+
+
+
+
+
       <footer class="footer">
         <div class="footer-content">
           <p>&copy; 2024 Doesno. All rights reserved.</p>
