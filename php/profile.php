@@ -5,7 +5,7 @@ use Insta\Users\Users;
 use Insta\Databases\User\UserDB;
 use Insta\Posts\Post;
 use Insta\Databases\Post\PostDB;
-
+use Insta\Template\Template;
 
 $mainUser=new Users();
 
@@ -17,6 +17,7 @@ $f_txt=urldecode($f_txt);
 
 $u=new Users();
 $udb=new UserDB($u);
+$htmlTemplate=new Template();
 if($f_txt==='/profile'){
     $data;
    setcookie('profile','no account', time() - (86400 * 30), '/'); 
@@ -79,6 +80,11 @@ switch($action){
     case 'view_post':
         break;
     case 'delete_post':
+        break;
+    case 'change_template':
+        $name=$_POST['templateName'];
+        $htmlTemplate->set_template($name);
+        $htmlTemplate->get_template();
         break;
     case 'edit_post':
         $data=[];

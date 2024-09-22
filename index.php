@@ -1,6 +1,7 @@
 <?php
 try{
     require_once 'php/userCache.php';
+    require_once 'php/Template.php';
     require_once 'php/postsList.php';
     require_once 'php/error.php';
     require_once 'php/user.php';
