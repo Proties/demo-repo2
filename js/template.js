@@ -16,7 +16,12 @@ class Template{
 	get objects(){
 		return this._objects;
 	}
-	
+	set templateList(s){
+		this._templateList=s;
+	}
+	get templateList(){
+		return this._templateList;
+	}
 
 	
 	
@@ -53,7 +58,16 @@ class TemplateUI extends Template{
 		this._deleteable=true;
 		this._cont;
 		this._parentContainer;
+		this._templateList=['basic','paid'];
+		this._selectedTemplate;
+		this._selectTemplateInput;
 
+	}
+	set selectedTemplate(i){
+		this._selectedTemplate=i;
+	}
+	get selectedTemplate(){
+		return this._selectedTemplate;
 	}
 	set cont(i){
 		this._cont=i;
@@ -61,12 +75,19 @@ class TemplateUI extends Template{
 	set parentContainer(i){
 		this._parentContainer=i;
 	}
+	set selectTemplateInput(i){
+		this._selectTemplateInput=i;
+	}
+	get selectTemplateInput(){
+		return this._selectTemplateInput;
+	}
 	get cont(){
 		return this._cont;
 	}
 	get parentContainer(){
 		return this._parentContainer;
 	}
+	load_basic(){}
 	create_template_selection(){
 		let cont=document.createElement('div');
 		let lab=document.createElement('label');
@@ -74,28 +95,47 @@ class TemplateUI extends Template{
 		let select=document.createElement('Select');
 
 		
-		for(let i=0;i<this.templateList;i++){
+		for(let i=0;i<this.templateList.length;i++){
 			let item=document.createElement('option');
-			let itemTxt=document.createTextNode('option');
+			let itemTxt=document.createTextNode(this.templateList[i]);
 			item.append(itemTxt);
 			select.append(item);
 		}
 
 		select.setAttribute('class','');
 		select.setAttribute('id','');
-		cont.setAttribute('class','');
+		cont.setAttribute('class','templateSelection');
 
 		lab.append(labTxt);
 		cont.append(lab);
 		cont.append(select);
-
+		this.selectTemplateInput=select;
 		this.cont=cont;
 		this.parentContainer.append(this.cont);
 	}
 
 	get_template_from_server(){
-		let directoryToTemplate='/'+this.name+'.html';
-
+		console.log('======sending template request');
+		try{
+			let xml=new XMLHttpRequest();
+			xml.open('POST','/profile');
+			xml.onload=function(){
+				console.log('get template =========');
+				console.log(this.responseText);
+				let newElement=document.createElement('button');
+				// let newElement=this.responseText;
+				let main=document.body;
+				console.log(main.childNodes);
+				let oldElement=document.getElementsByClassName('container')[0];
+				main.insertBefore(newElement,oldElement);
+				oldElement.remove();
+			}
+			 xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xml.send('actions=selectTemplate&templateName='+this.selectedTemplate);
+		}catch(err){
+			console.log(err);
+		}
+		
 	}
 
 	load_html(){}

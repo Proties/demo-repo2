@@ -3,10 +3,11 @@ import {MyProfile,OtherProfile} from './profile.js';
 import StackedPosts from './stackPosts.js';
 import MakePostUI from './makePost.js';
 import PostUI from './post.js';
+import TemplateUI from './template.js';
 
 let currentProfile;
 let uploadPost;
-
+let temp=new TemplateUI();
 function get_cookie(name){
     let data=document.cookie;
     let dec=decodeURIComponent(data);
@@ -27,25 +28,35 @@ function get_cookie(name){
 function get_data_from_cookie(){
     let user_data=get_cookie('username=');
     let data=get_cookie('profile=');
-    console.log(data);
-    console.log(user_data);
+    
     intialiseProfileObject(data);
 }
 
 
 function intialiseProfileObject(data){
+    console.log(data);
     let url=location.href;
     let last=url.lastIndexOf('/');
     url=url.slice(last+1,url.length);
     if(url=='profile'){
         url=url.slice(1,url.length);
         currentProfile=new MyProfile();
-        currentProfile.username=data.user[0]['username'];
+        // currentProfile.username=data.user['username'];
         currentProfile.make_user_info;
         for(let p=0;p<5;p++){
              let post=new PostUI();
              currentProfile.addPost=post;
         }
+        
+        let con=document.getElementsByClassName('container')[0];
+        temp.parentContainer=con;
+        temp.create_template_selection();
+        temp.selectTemplateInput.addEventListener('change',function(evt){
+            let index=evt.target.selectedIndex;
+            let value=evt.target.options[index].value;
+            temp.selectedTemplate=value;
+            temp.get_template_from_server();
+        });
     }
     else{
         currentProfile=new OtherProfile();

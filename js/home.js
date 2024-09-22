@@ -1,6 +1,7 @@
 "strict"
 import {MyProfile,OtherProfile} from './profile.js';
-
+import PostUI from './post.js';
+import StackedPosts from './stackPosts.js';
 
 let user=new MyProfile();
 let allData;

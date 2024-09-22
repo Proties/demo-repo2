@@ -68,23 +68,23 @@ else if($u->validate_username_url($f_txt)==true ){
     }
 }
 
-
-
 if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('Htmlfiles/Personalprofile.html');
     return;
 }
 
-
+$action=$_POST['actions'];
 switch($action){
     case 'view_post':
         break;
     case 'delete_post':
         break;
-    case 'change_template':
+    case 'selectTemplate':
         $name=$_POST['templateName'];
         $htmlTemplate->set_template($name);
-        $htmlTemplate->get_template();
+        ;
+        $data=['newTemplate'=>'','templateName'=>$htmlTemplate->get_template()];
+        echo json_encode($data);
         break;
     case 'edit_post':
         $data=[];

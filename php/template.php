@@ -15,6 +15,13 @@ class Template{
 	function __construct(){
 
 	}
+	public function set_template($temp){
+		$this->name=$temp;
+	}
+	public function get_template(){
+		return $this->name;
+	}
+
 }
 
 

@@ -1,5 +1,5 @@
 "strict"
-import User from './user.js'
+import User from './user.js';
 import StackedPosts from './stackPosts.js';
 class Profile extends User{
     constructor(){
