@@ -70,8 +70,12 @@ function intialiseProfileObject(data){
         url=url.slice(1,url.length);
         currentProfile=new MyProfile();
         // currentProfile.username=data.user['username'];
-        currentProfile.make_user_info();
-        for(let p=0;p<data.posts.length;p++){
+        currentProfile.make_user_info()
+        console.log(data);
+        if(data==null){
+            console.log('no posts');
+        }else{
+            for(let p=0;p<data.posts.length;p++){
             let post=new PostUI();
             post.populate_post();
             post.parentContainer=parentContainer;
@@ -80,6 +84,8 @@ function intialiseProfileObject(data){
             post.src=data.posts[p].filename;
             post.make_post();
         }
+        }
+        
         
         let con=document.getElementsByClassName('container')[0];
         temp.parentContainer=con;
@@ -113,9 +119,9 @@ function intialiseProfileObject(data){
             let post=new PostUI();
             post.populate_post();
             post.parentContainer=parentContainer;
-            post.id=data.posts[p].postID;filename
-            // post.src='/Image/Art.png';
-            post.src=data.posts[p].filename;
+            // post.id=data.posts[p].postID;filename;
+            post.src='/Image/Art.png';
+            // post.src=data.posts[p].filename;
             post.make_post();
         }
 
