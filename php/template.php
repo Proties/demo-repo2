@@ -8,12 +8,12 @@ class Template{
 	private $directory;
 	private $id;
 	private $elements;
-	private $id;
+
 	private $name;
 	private $jsScripts;
 	private $html;
 	private $css;
-	private $directory;
+
 
 	function __construct(){
 
@@ -49,7 +49,7 @@ class Template{
 		return $this->price;
 	}
 	public function get_id(){
-		return $this->price;
+		return $this->id;
 	}
 	
 }

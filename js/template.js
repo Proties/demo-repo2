@@ -184,7 +184,7 @@ class TemplateUI extends Template{
 		topcont.append(cont);
 		topcont.setAttribute('class','modal');
 		btn.setAttribute('id','submitTemplateFiles');
-		topcont.style.display='block';
+		// topcont.style.display='block';
 		this.templateForm=cont;
 		this.parentContainer.append(topcont);
 		// this.p.append(this.templateForm);
