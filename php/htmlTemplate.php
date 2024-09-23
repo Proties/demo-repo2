@@ -17,15 +17,22 @@ class Html{
 	public function addAttribute(){
 		$attribute=new DOMAttr();
 	}
-	saveHTMLFile();
-	schemaValidate($filename);
-	DOMNode::appendChild(DOMNode $node);
-	DOMNode::insertBefore(DOMNode $node, ?DOMNode $child = null);
-	DOMNode::removeChild(DOMNode $child);
-	DOMNode::replaceChild(DOMNode $node, DOMNode $child);
-	DOMNode::hasChildNodes();
-	prepend(DOMNode|string ...$nodes);
+	public function base(){
+		saveHTMLFile();
+		schemaValidate($filename);
+		DOMNode::appendChild(DOMNode $node);
+		DOMNode::insertBefore(DOMNode $node, ?DOMNode $child = null);
+		DOMNode::removeChild(DOMNode $child);
+		DOMNode::replaceChild(DOMNode $node, DOMNode $child);
+		DOMNode::hasChildNodes();
+		prepend(DOMNode|string ...$nodes);
+	}
+	
 
+	public function getContainer(){
+		$cont=$html->getElementByClassName('container')[0];
+		return $cont;
+	}
 	public function getHtml(){
 		$html;
 		return $html;

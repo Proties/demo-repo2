@@ -109,7 +109,7 @@ switch($action){
     case 'selectTemplate':
         $name=$_POST['templateName'];
         $htmlTemplate=new HtmlTemplate($name);
-        $data=['htmlTemplate'=>$htmlTemplate->getHtml()];
+        $data=$htmlTemplate->getContainer();
         echo json_encode($data);
         break;
     case 'edit_post':
