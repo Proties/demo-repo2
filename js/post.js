@@ -83,11 +83,11 @@ class PostUI extends Post{
 	}
 	
 	populate_post(){
-		let cont=document.createElement('div');
-        let image=document.createElement('img');
-        image.setAttribute('src',this.image);
+
+		let cont=document.getElementsByClassName('post')[0];
+        let image=cont.getElementsByTagName('img')[0];
+        image.setAttribute('src',this.src);
         cont.setAttribute('id',this.id);
-        cont.setAttribute('class',this.className);
         this.cont=cont;
 	}
 

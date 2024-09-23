@@ -65,7 +65,22 @@ class TemplateUI extends Template{
 		this._addTemplateBtn;
 		this._html;
 		this._css;
+		this._data;
+		this._filename;
+		this._status;
 
+	}
+	set data(i){
+		this._data=i;
+	}
+	get data(){
+		return this._data;
+	}
+	set filename(i){
+		this._filename=i;
+	}
+	get filename(){
+		return this._filename;
 	}
 	set html(i){
 		this._html=i;
@@ -180,11 +195,18 @@ class TemplateUI extends Template{
 			let xml=new XMLHttpRequest();
             xml.open('POST','/profile');
             xml.onload=function(){
+
                 console.log("++++++=loading template");
-                console.log(this.responseText);
+                let data=JSON.parse(this.responseText);
+                if(data.status=='success'){
+                	return true;
+                }
+                alert('could not add template because '+data.error);
+                
+                return false;
             }
             xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xml.send('actions=loadTemplate&templateFiles='+template.html);
+            xml.send('actions=loadTemplate&filename='+this.filename+'&htmlData='+this.html);
 		}catch(err){
 			console.log(err);
 		}
@@ -206,7 +228,7 @@ class TemplateUI extends Template{
 		cont.setAttribute('id','uploadTemplateForm');
 		cont.setAttribute('class','uploadTemplateForm');
 		cont.setAttribute('method','post');
-		cont.setAttribute('action','/upload_template');
+		// cont.setAttribute('action','/upload_template'); 
 		cont.setAttribute('enctype','multipart/form-data"');
 
 		file.setAttribute('name','templateFiles');

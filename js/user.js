@@ -1,12 +1,12 @@
 "strict"
 class User{
     constructor(){
-        this._id;
-        this._firstName;
-        this._lastName;
-        this._username;
-        this._email;
-        this._password;
+        this._id=0;
+        this._firstName='last name';
+        this._lastName='last name';
+        this._username='username';
+        this._email='';
+        this._password='';
         this._logged_in=false;
         this._item={
             username:'rotondwa',

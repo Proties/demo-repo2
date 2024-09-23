@@ -40,9 +40,14 @@ function readFile(file){
     reader.onload=function(evt){
         console.log(evt.target.result);
         temp.html=evt.target.result;
-        temp.sendToHtmlServer();
+        
         console.log('====== file reader=====');
-        // console.log(reader.result);
+        temp.html=reader.result;
+        console.log(fileOne);
+        temp.filename=fileOne.name;
+        temp.sendToHtmlServer();
+
+        
     }
     reader.readAsText(fileOne);
     // reader.readAsText(fileTwo);
@@ -55,9 +60,9 @@ async function validateTemplateSubmission(evt){
             let form=document.getElementById('uploadTemplateForm');
 
 
-            // let data=await readFile(file);
-           form.submit();
-            return;
+            let data=await readFile(file);
+            document.getElementById('templateModal').style.display='none';
+          
             
         }
 
@@ -77,7 +82,7 @@ function intialiseProfileObject(data){
         }else{
             for(let p=0;p<data.posts.length;p++){
             let post=new PostUI();
-            post.populate_post();
+            // post.populate_post();
             post.parentContainer=parentContainer;
             post.id=data.posts[p].postID;filename
             // post.src='/Image/Art.png';

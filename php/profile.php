@@ -9,7 +9,7 @@ use Insta\Template\Template;
 use Insta\Database\Template\TemplateDB;
 
 $mainUser=new Users();
-
+$Template=new Template();
 if(isset($_SESSION['username']) && $_SESSION['username']!==null){
     $mainUser->userAuth->set_authanticate(true);
 }
@@ -19,7 +19,7 @@ $f_txt=urldecode($f_txt);
 $u=new Users();
 $udb=new UserDB($u);
 $tempdb;
-$htmlTemplate=new Template();
+
 if($f_txt==='/profile'){
     $data;
    setcookie('profile','no account', time() - (86400 * 30), '/'); 
@@ -81,12 +81,35 @@ switch($action){
         break;
     case 'delete_post':
         break;
+    case 'loadTemplate':
+        $filename=$_POST['filename'];
+        $htmlData=$_POST['htmlData'];
+
+        $uploadDir='./templates';
+        try{
+            $uploadDirDestination=$uploadDir.'/'.$filename;
+            if(file_exists($uploadDirDestination)){
+                throw new Exception('File already exists');
+            }
+            $file=fopen($uploadDirDestination,'x');
+            fclose($file);
+
+            file_put_contents($uploadDirDestination, $htmlData);
+            $data=['status'=>'succes'];
+            echo json_encode($data);
+        }catch(Exception $err){
+           
+            $data=['status'=>'failed','error'=>$err->getMessage()];
+            echo json_encode($data);
+
+        }
+        
+        
+        break;
     case 'selectTemplate':
         $name=$_POST['templateName'];
-        $_FILES['variable']=$_POST['templateName'];
-        $htmlTemplate->set_name($name);
-        ;
-        $data=['newTemplate'=>'','templateName'=>$htmlTemplate->get_name()];
+        $htmlTemplate=new HtmlTemplate($name);
+        $data=['htmlTemplate'=>$htmlTemplate->getHtml()];
         echo json_encode($data);
         break;
     case 'edit_post':
