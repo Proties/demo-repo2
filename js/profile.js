@@ -5,6 +5,20 @@ class Profile extends User{
     constructor(){
         super();
         this._type;
+        this._shortBio='short bio info to be filled in';
+        this._fullBio='full bio info';
+    }
+    set shortBio(i){
+        this._shortBio=i;
+    }
+    get shortBio(){
+        return this._shortBio;
+    }
+    set fullBio(i){
+        this._fullBio=i;
+    }
+    get fullBio(){
+        return this._fullBio;
     }
 }
 export class MakeProfile extends Profile{
@@ -49,12 +63,16 @@ class ProfileUI extends Profile{
     }
     make_bio(){}
     make_user_info(){
-        console.log(this.username);
-        console.log(typeof this);
+
         document.getElementById('username').innerHTML=this.username;
+        document.getElementById('shortBio').innerHTML=this.shortBio;
+        document.getElementById('fullBio').innerHTML=this.fullBio;
+
         // document.getElementById('userBio').textContent=info.bio;
         // document.getElementById('userProfilePicture').src=pic;
     }
+ 
+
  }
 // class MakeProfile extends Profile{
 //     constructor(){

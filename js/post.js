@@ -66,6 +66,7 @@ class PostUI extends Post{
 	constructor(){
 		super();
 		this._postItem;
+		this._parentContainer;
 		this._cont;
 	}
 	set cont(i){
@@ -73,6 +74,12 @@ class PostUI extends Post{
 	}
 	get cont(){
 		return this._cont;
+	}
+	set parentContainer(i){
+		this._parentContainer=i;
+	}
+	get parentContainer(){
+		return this._parentContainer;
 	}
 	
 	populate_post(){
@@ -85,7 +92,13 @@ class PostUI extends Post{
 	}
 
 	make_post(){
-
+		let con=document.createElement('div');
+        let img=document.createElement('img');
+        con.append(img);
+        con.setAttribute('class','post');
+        con.setAttribute('id',this.id);
+        img.setAttribute('src',this.src);
+        this.parentContainer.append(con);
 	}
 	
 

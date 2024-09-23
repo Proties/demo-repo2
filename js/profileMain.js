@@ -55,7 +55,7 @@ async function validateTemplateSubmission(evt){
             let form=document.getElementById('uploadTemplateForm');
 
 
-            let data=await readFile(file);
+            // let data=await readFile(file);
            form.submit();
             return;
             
@@ -70,10 +70,15 @@ function intialiseProfileObject(data){
         url=url.slice(1,url.length);
         currentProfile=new MyProfile();
         // currentProfile.username=data.user['username'];
-        currentProfile.make_user_info;
-        for(let p=0;p<5;p++){
-             let post=new PostUI();
-             currentProfile.addPost=post;
+        currentProfile.make_user_info();
+        for(let p=0;p<data.posts.length;p++){
+            let post=new PostUI();
+            post.populate_post();
+            post.parentContainer=parentContainer;
+            post.id=data.posts[p].postID;filename
+            // post.src='/Image/Art.png';
+            post.src=data.posts[p].filename;
+            post.make_post();
         }
         
         let con=document.getElementsByClassName('container')[0];
@@ -101,11 +106,17 @@ function intialiseProfileObject(data){
         currentProfile.username=data.user[0]['username'];
         // currentProfile.username=data.user[0]['username'];
         // currentProfile.username=data.user[0]['username'];
-        currentProfile.make_user_info;
+        currentProfile.make_user_info();
         console.log(currentProfile);
-        for(let p=0;p<5;p++){
+        let parentContainer=document.getElementsByClassName('postfeed-wrapper')[0];
+        for(let p=0;p<data.posts.length;p++){
             let post=new PostUI();
-            currentProfile.addPost=post;
+            post.populate_post();
+            post.parentContainer=parentContainer;
+            post.id=data.posts[p].postID;filename
+            // post.src='/Image/Art.png';
+            post.src=data.posts[p].filename;
+            post.make_post();
         }
 
        

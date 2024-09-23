@@ -44,7 +44,7 @@ else if($u->validate_username_url($f_txt)==true ){
             throw new Exception('not array');
         }
         if(($arr==null) || ($arr[0]==null) || ($arr[0]['postLink']==null)){
-            $data['posts']=array();
+            $data['posts']=$arr;
 
         }else{
         $lenArr=count($arr);
@@ -80,12 +80,6 @@ switch($action){
     case 'view_post':
         break;
     case 'delete_post':
-        break;
-    case 'loadTemplate':
-
-        $htmlTemplate->set_html($_POST['templateFiles']);
-        $tempdb=new TemplateDB($htmlTemplate);
-        $tempdb->addTemplate();
         break;
     case 'selectTemplate':
         $name=$_POST['templateName'];
