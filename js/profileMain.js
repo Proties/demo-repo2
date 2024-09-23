@@ -32,25 +32,35 @@ function get_data_from_cookie(){
     intialiseProfileObject(data);
 }
 
- function validateTemplateSubmission(evt){
+function readFile(file){
+    let fileOne=file.files[0];
+    // let fileTwo=file.files[1];
+    let reader=new FileReader();
+    console.log(file);
+    reader.onload=function(evt){
+        console.log(evt.target.result);
+        temp.html=evt.target.result;
+        temp.sendToHtmlServer();
+        console.log('====== file reader=====');
+        // console.log(reader.result);
+    }
+    reader.readAsText(fileOne);
+    // reader.readAsText(fileTwo);
+            
+}
+async function validateTemplateSubmission(evt){
             evt.preventDefault();
             console.log('validating template submissions');
             let file=document.getElementById('templateFiles');
-            return;
-            try{
-                let xml=new XMLHttpRequest();
-                xml.open('POST','/profile');
-                xml.onload=function(){
-                    console.log("++++++=loading template");
-                    console.log(this.responseText);
-                }
-                xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xml.send('actions=loadTemplate&templateFiles='+template.files);
-            }catch(err){
-                console.log(err);
-            }
+            let form=document.getElementById('uploadTemplateForm');
 
+
+            let data=await readFile(file);
+           form.submit();
+            return;
+            
         }
+
 function intialiseProfileObject(data){
     console.log(data);
     let url=location.href;
@@ -76,9 +86,14 @@ function intialiseProfileObject(data){
             temp.selectedTemplate=value;
             temp.get_template_from_server();
         });
-        temp.addTemplateBtn.addEventListener('click',temp.add_templateFile());
-        let sub=document.getElementById('submitTemplateFiles');
-        sub.addEventListener('click',validateTemplateSubmission);
+        temp.addTemplateBtn.addEventListener('click',function(evt){
+            temp.add_templateFile();
+            document.getElementById('templateModal').style.display='block';
+            let sub=document.getElementById('submitTemplateFiles');
+            sub.addEventListener('click',validateTemplateSubmission);
+        });
+        
+        
        
     }
     else{

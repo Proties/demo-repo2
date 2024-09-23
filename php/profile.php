@@ -83,19 +83,13 @@ switch($action){
         break;
     case 'loadTemplate':
 
-        $htmlTemplate->set_owner();
-        $htmlTemplate->set_name();
-        $htmlTemplate->set_id();
-        $htmlTemplate->set_dateMade();
-        $htmlTemplate->set_timeMade();
-        $htmlTemplate->set_directory();
-        $htmlTemplate->set_html();
-        $htmlTemplate->set_css();
+        $htmlTemplate->set_html($_POST['templateFiles']);
         $tempdb=new TemplateDB($htmlTemplate);
         $tempdb->addTemplate();
         break;
     case 'selectTemplate':
         $name=$_POST['templateName'];
+        $_FILES['variable']=$_POST['templateName'];
         $htmlTemplate->set_name($name);
         ;
         $data=['newTemplate'=>'','templateName'=>$htmlTemplate->get_name()];
