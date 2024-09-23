@@ -6,6 +6,7 @@ use Insta\Databases\User\UserDB;
 use Insta\Posts\Post;
 use Insta\Databases\Post\PostDB;
 use Insta\Template\Template;
+use Insta\Database\Template\TemplateDB;
 
 $mainUser=new Users();
 
@@ -17,6 +18,7 @@ $f_txt=urldecode($f_txt);
 
 $u=new Users();
 $udb=new UserDB($u);
+$tempdb;
 $htmlTemplate=new Template();
 if($f_txt==='/profile'){
     $data;
@@ -78,6 +80,15 @@ switch($action){
     case 'view_post':
         break;
     case 'delete_post':
+        break;
+    case 'loadTemplate':
+        $htmlTemplate->set_owner();
+        $htmlTemplate->set_owner();
+        $htmlTemplate->set_owner();
+        $htmlTemplate->set_owner();
+        $htmlTemplate->set_owner();
+        $tempdb=new TemplateDB($htmlTemplate);
+        $tempdb->addTemplate();
         break;
     case 'selectTemplate':
         $name=$_POST['templateName'];

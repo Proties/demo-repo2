@@ -61,7 +61,21 @@ class TemplateUI extends Template{
 		this._templateList=['basic','paid'];
 		this._selectedTemplate;
 		this._selectTemplateInput;
+		this._templateForm;
+		this._addTemplateBtn;
 
+	}
+	set addTemplateBtn(i){
+		this._addTemplateBtn=i;
+	}
+	get addTemplateBtn(){
+		return this._addTemplateBtn;
+	}
+	set templateForm(i){
+		this._templateForm=i;
+	}
+	get templateForm(){
+		return this._templateForm;
 	}
 	set selectedTemplate(i){
 		this._selectedTemplate=i;
@@ -137,7 +151,45 @@ class TemplateUI extends Template{
 		}
 		
 	}
+	template_button(){
+		let cont=document.createElement('div');
+		let p=document.createElement('span');
+		let pTxt=document.createTextNode('Load Template Files');
+		let btn=document.createElement('button');
+		let btnTxt=document.createTextNode('+');
 
+		p.append(pTxt);
+		btn.append(btnTxt);
+		cont.append(p);
+		cont.append(btn);
+		cont.setAttribute('class','addTemplate');
+		btn.setAttribute('id','addTemplateFile');
+		this.addTemplateBtn=btn;
+		this.parentContainer.append(cont);
+	}
+	add_templateFile(){
+		let topcont=document.createElement('div');
+		let cont=document.createElement('div');
+		let file=document.createElement('input');
+		let btn=document.createElement('button');
+		let btnTxt=document.createTextNode('submit');
+		file.type='file';
+		file.id='templateFiles';
+		file.multiple=true;
+		
+
+		btn.append(btnTxt);
+		cont.append(file);
+		cont.append(btn);
+		topcont.append(cont);
+		topcont.setAttribute('class','modal');
+		btn.setAttribute('id','submitTemplateFiles');
+		topcont.style.display='block';
+		this.templateForm=cont;
+		this.parentContainer.append(topcont);
+		// this.p.append(this.templateForm);
+
+	}
 	load_html(){}
 	load_css(){}
 }

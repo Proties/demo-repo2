@@ -1,6 +1,5 @@
 <?php
 namespace Insta\Databases\User;
-require 'php/database.php';
 use Insta\Databases\Database;
 use Insta\Users\Users;
 use Exception;

@@ -1,14 +1,16 @@
 <?php
 try{
+    require_once 'php/database.php';
     require_once 'php/userCache.php';
-    require_once 'php/Template.php';
+    require_once 'php/template.php';
+    require_once 'php/templateDB.php';
     require_once 'php/postsList.php';
     require_once 'php/error.php';
     require_once 'php/user.php';
     require_once 'php/userDB.php';
     require_once 'php/post.php';
     require_once 'php/postDB.php';
-    require_once 'php/database.php';
+
     require_once 'php/userFile.php';
     require_once 'php/userAuth.php';
     require_once 'php/image.php';

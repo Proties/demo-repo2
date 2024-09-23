@@ -32,7 +32,25 @@ function get_data_from_cookie(){
     intialiseProfileObject(data);
 }
 
+ function validateTemplateSubmission(evt){
+            evt.preventDefault();
+            console.log('validating template submissions');
+            let file=document.getElementById('templateFiles');
+            return;
+            try{
+                let xml=new XMLHttpRequest();
+                xml.open('POST','/profile');
+                xml.onload=function(){
+                    console.log("++++++=loading template");
+                    console.log(this.responseText);
+                }
+                xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xml.send('actions=loadTemplate&templateFiles='+template.files);
+            }catch(err){
+                console.log(err);
+            }
 
+        }
 function intialiseProfileObject(data){
     console.log(data);
     let url=location.href;
@@ -51,12 +69,17 @@ function intialiseProfileObject(data){
         let con=document.getElementsByClassName('container')[0];
         temp.parentContainer=con;
         temp.create_template_selection();
+        temp.template_button();
         temp.selectTemplateInput.addEventListener('change',function(evt){
             let index=evt.target.selectedIndex;
             let value=evt.target.options[index].value;
             temp.selectedTemplate=value;
             temp.get_template_from_server();
         });
+        temp.addTemplateBtn.addEventListener('click',temp.add_templateFile());
+        let sub=document.getElementById('submitTemplateFiles');
+        sub.addEventListener('click',validateTemplateSubmission);
+       
     }
     else{
         currentProfile=new OtherProfile();
@@ -73,7 +96,6 @@ function intialiseProfileObject(data){
        
     }
 }
-
 
 function upload_post(){
     uploadPost=new MakePostUI();
