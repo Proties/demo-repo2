@@ -65,11 +65,13 @@ header {
     top: 0;
     left: 0;
     width: 100%;
+    height: 50%;
     background-color: red;
     color: white;
     padding: 5px;
     font-weight: bold;
     border-radius: 10px 10px 0 0;
+    z-index: 1;
 }
 
 .post-main {
@@ -78,6 +80,7 @@ header {
     color: white;
     padding: 20px;
     border-radius: 10px;
+    z-index: 2;
 }
 
 /* Author Info */
