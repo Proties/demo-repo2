@@ -46,8 +46,7 @@ try{
         $_SESSION['email']=$userDB->user->get_email();
         $item=array('status'=>'success');
         
-        $status=$user->userFolder->create_user_folder($user->get_username());
-        echo json_encode($item);
+        
         return;
     }
     throw new Exception('user failed to be created');

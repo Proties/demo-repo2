@@ -120,7 +120,7 @@ export class MyProfile extends ProfileUI{
     set setupProfileModal(i){
        this._setupProfileModal=i;
     }
-    set setupProfileModal(){
+    get setupProfileModal(){
        return this._setupProfileModal;
     }
     setup_profile(){

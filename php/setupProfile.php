@@ -47,8 +47,11 @@ if($_REQUEST['REQUEST_METHOD']=='POST'){
     	if($UserDB->validate_username_in_database($user->get_username())==true){
     		$errors['errProfileUserName']='not valid';
     	}
+		$userDB->write_user();
+		$status=$user->userFolder->create_user_folder($user->get_username());
 		$data['status']='success';
 		$data['message']='everything all good';
+        // echo json_encode($item);
 	}catch(Exception $err){
 		$data['errors']=$errors;
 		$data['status']='failed';
