@@ -179,16 +179,30 @@ class TemplateUI extends Template{
 				
 				let oldElement=document.getElementsByClassName('container')[0];
 				let children=oldElement.childNodes;
+				console.log('=====childern');
 				console.log(children);
-				for(let l=0;l<children.length;l++){
-					oldElement.remove(children[l]);
-				}
-
-				for(let n=0;n<newElement.length;n++){
-					oldElement.appendChild(newElement[n]);
-				}
+				// for(let l=1;l<children.length;l+=2){
+					document.getElementsByClassName('profile-header')[0].remove();
+					document.getElementsByClassName('biography')[0].remove();
+					document.getElementsByClassName('post-section')[0].remove();
+					// children[l].remove();
+					// children[1].parentNode.removeChild(children[1]);
+					// children[1].parentNode.removeChild(children[3]);
+					// children[1].parentNode.removeChild(children[5]);
+					// children[1].parentNode.removeChild(children[7]);
+					// children[1].parentNode.removeChild(children[8]);
 				
-				// oldElement.remove();
+					console.log(children[1].parentNode);
+				// }
+				console.log('new element=======');
+				// console.log(newElement);
+				console.log('old element=======');
+				
+				oldElement.append(newElement);
+				console.log(newElement.length);
+
+
+				
 			}
 			 xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xml.send('actions=selectTemplate&templateName='+this.selectedTemplate);

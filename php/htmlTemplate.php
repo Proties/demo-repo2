@@ -36,7 +36,9 @@ class HtmlTemplate{
 		// prepend(DOMNode|string ...$nodes);
 	}
 	
-
+	public function getStyle(){
+		
+	}
 	public function getContainer(){
 		$cont=$this->htmlFile->getElementsByTagName('div');
 		$list=[];

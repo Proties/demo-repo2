@@ -116,7 +116,7 @@ switch($action){
             $template->set_filename($filename);
             $tempdb=new TemplateDB($template);
             $tempdb->addTemplate();
-            echo json_encode($data);
+            echo $data;
         }catch(Exception $err){
            
             $data=['status'=>'failed','error'=>$err->getMessage()];
