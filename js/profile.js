@@ -107,7 +107,7 @@ export class MyProfile extends ProfileUI{
         this._editPost=true;
         this._showSettings=true;
         this._analytics;
-        this._profile_info=document.getElementById('profileSetupModal');
+        this._setupProfileModal=document.getElementById('profileSetupModal');
     }
     is_logged_in(){
         if(this.logged_in==true){
@@ -117,8 +117,14 @@ export class MyProfile extends ProfileUI{
         }
         return false;
     }
+    set setupProfileModal(i){
+       this._setupProfileModal=i;
+    }
+    set setupProfileModal(){
+       return this._setupProfileModal;
+    }
     setup_profile(){
-        this.profile_info.style.display='block';
+        this.setupProfileModal.style.display='block';
     }
     submit_profile_info(data){
         try{
@@ -129,7 +135,7 @@ export class MyProfile extends ProfileUI{
                 let d=JSON.parse(this.responseText);
                 if(d.status==='success'){
                     alert('it works');
-                    modal.style.display='none';
+                    setupProfileModal.style.display='none';
                 }
                 if(d.status=='failed' && d.message=='validation fail'){
                     for(let e=0;e<d.errors.length;e++){
@@ -138,7 +144,7 @@ export class MyProfile extends ProfileUI{
                 }
                 alert(d.message);
             }
-            xml.send(data);
+            xml.send(JSON.stringify(data));
         }catch(err){
             console.log(err)
         }
