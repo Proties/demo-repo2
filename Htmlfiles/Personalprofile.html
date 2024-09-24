@@ -14,13 +14,12 @@
     <header>
       <nav class="navbar">
         <div class="nav-left">
-          <a href="/" class="home-link">
-            <img src="/demo-repo2/Image/Logo.png" alt="logo" />
-          </a>
-        </div>
+        <a href="/demo-repo2/Htmlfiles/Homepage.html" class="home-link"></a>
+          <img src="/Image/Logo.png" alt="Logo" class="logo-image">
+      </div>
 
         <div class="nav-center">
-          <div><p>Profile Preview</p></div>
+          <div><h2 class="title">Profile Preview</h2></div>
         </div>
         
 
@@ -30,10 +29,9 @@
           class="push-button"
           id="editProfileButton"
           onclick="window.location.href='/edit_profile'"
-        >
-          Edit Profile
+        >Edit Profile
         </button>
-          <button class="upload-button" id="uploadBtn">Upload Post</button>
+          <button class="upload-button" id="uploadBtn">Push</button>
 
         </div>
       </nav>
@@ -55,10 +53,7 @@
             interests, specialties, or any other relevant information.
           </p>
         </div>
-    <div id="present" class="present">
-      <div class="present">
-        <p>template here</p>
-      </div>
+    
       <div class="biography">
         <h2>Biography</h2>
         <p id="fullBio">
@@ -79,11 +74,26 @@
       </div>
     </div>
 
+<div class="templateSelection">
+  <label>Select Template</label>
+  <select id="selectTemplateInput" class="templateSelection">
+    <option>basic</option>
+    <option>Dummyoage.html</option>
+  </select>
+</div>
+    <div class="addTemplate">
+      <span>Load Template Files</span>
+      <button id="addTemplatefile">+</button>
+    </div>
 
-    
 
-
-  <script src="/js/profile.js"></script>
+  <script src="/js/profile.js"></script>  
+  <script type="module" src="js/user.js"></script>
+  <script type="module" src="js/post.js"></script>
+  <script type="module" src="js/stackPosts.js"></script>
+  <script type="module" src="js/profile.js"></script>
+  <script type="module" src="js/makePost.js"></script>
+  <script type="module" src="js/profileMain.js"></script>
   <footer class="footer">
     <div class="footer-content">
       <p>&copy; 2024 Pro & Toxic. All rights reserved.</p>
@@ -96,11 +106,5 @@
         </ul>
       </div>
     </div>
-    <script type="module" src="js/user.js"></script>
-    <script type="module" src="js/post.js"></script>
-    <script type="module" src="js/stackPosts.js"></script>
-    <script type="module" src="js/profile.js"></script>
-    <script type="module" src="js/makePost.js"></script>
-    <script type="module" src="js/profileMain.js"></script>
   </footer>
 </html>
