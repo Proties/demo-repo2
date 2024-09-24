@@ -1,4 +1,14 @@
 "strict"
+import {MyProfile,OtherProfile} from './profile.js';
+import PostUI from './post.js';
+import StackedPosts from './stackPosts.js';
+
+let user=new MyProfile();
+let allData;
+let profileList=[];
+
+
+
 function get_cookie(name){
     let data=document.cookie;
 
@@ -20,23 +30,39 @@ function get_cookie(name){
 }
 }
 function get_ish_form_cookie(){
-            let data=get_cookie("users=");
+            allData=get_cookie("users=");
             let user_data=get_cookie("username=");
-            if(data==undefined && user_data==undefined){
+            if(allData==undefined && user_data==undefined){
                 console.log('no posts or user account');
                 return;
             }else if(user_data!==undefined){
                 console.log(user_data);
-                init_user(user_data);
+                initialiseObjects(user_data);
             }else{
-                console.log(data);
-                init_img(data);
-                init_user(user_data);
+                initialiseObjects(allData);
+                console.log(allData);
+                // init_img(allData);
+                // init_user(user_data);
             }
             
             
             // init_categories(dtt.categories);
 }
+function initialiseObjects(data){
+    let parentCont=document.getElementsByClassName("postfeed-wrapper")[0];
+    for(let i=0;i<data.length;i++){
+        let profileItem=new OtherProfile();
+        profileItem.stack=data.length;
+        profileItem.add_image=data[i];
+        profileItem.parentContainer=parentCont;
+        profileItem.make_stack;
+        profileItem.make_profilePic;
+        profileList.push(profileItem);
+
+    }
+    console.log(profileList);
+}
+
 
 
 // console.log(JSON.parse(dtt));
@@ -160,27 +186,25 @@ function select_post(evt){
 
 async function display_more_users(evt){
     console.log(evt);
-    let postConatiner=document.getElementsByClassName("post-container")[0];
-    let container=document.getElementsByClassName("postfeed-wrapper")[0];
-    let more=await more_posts();
-    for(let i=0;i<5;i++){
-        let p=postConatiner.cloneNode(true);
-        p.id=more[i].primary_post.id;
-        let us=p.getElementsByClassName('profile-button')[0].id=more[i].user_info.username;
-        let top=p.getElementsByClassName('top-post')[0];
-        top.getElementsByTagName('img')[0].src=more[i].primary_post.img;
-        let bottom=p.getElementsByClassName('bottom-post')[0];
-        bottom.getElementsByTagName('img')[0].src=more[i].secondary_post.img;
-        let num=container.childNodes;
-        container.append(p);
-    }
+    try{
+        let xml=new XMLHttpRequest();
+        xml.open('POST','/');
+        xml.readyState=function(){
 
+        }
+        xml.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        xml.send('action=morePosts');
+    }catch(err){
+        console.log(err);
+    }
+    get_ish_form_cookie();
 }
+
 // this function listens to all events that take place ont the site and handles them
 function eventListeners(){
     let userProfile=document.getElementsByClassName("profile-button");
     let search_input=document.getElementById("search");
-    let selectcategory=document.getElementsByClassName("tag");
+    
     let selectTopPost=document.getElementsByClassName("top-post");
     let selectBottomPost=document.getElementsByClassName("bottom-post");
     let viewMore=document.getElementsByClassName("view-more-btn")[0];
@@ -194,9 +218,7 @@ function eventListeners(){
     search_input.addEventListener("input",search_user);
     viewMore.addEventListener("click",display_more_users);
     // morePosts.addEventListener("click",more_posts);
-    for(let i=0;i<selectcategory.length;i++){
-        selectcategory[i].addEventListener('click',select_category);
-    }
+   
     for(let i=0;i<userProfile.length;i++){
         userProfile[i].addEventListener('click',openUserProfile);
     }

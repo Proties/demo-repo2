@@ -8,8 +8,15 @@ class Post{
 		this._user;
 		this._image;
 		this._title;
+		this._className='';
 		this._collaborators=[];
 		this._;
+	}
+	set className(i){
+		this._className=1;
+	}
+	get className(){
+		return this._className;
 	}
 	set id(i){
 		this._id=1;
@@ -55,19 +62,45 @@ class Post{
 	}
 }
 
-class PostConnection{
-	constructor(){}
-	update_post(){}
-	delete_post(){}
-	get_post_data(){}
-	send_post_data(){}
-}
 class PostUI extends Post{
 	constructor(){
 		super();
 		this._postItem;
+		this._parentContainer;
+		this._cont;
+	}
+	set cont(i){
+		this._cont=i;
+	}
+	get cont(){
+		return this._cont;
+	}
+	set parentContainer(i){
+		this._parentContainer=i;
+	}
+	get parentContainer(){
+		return this._parentContainer;
+	}
+	
+	populate_post(){
+
+		let cont=document.getElementsByClassName('post')[0];
+        let image=cont.getElementsByTagName('img')[0];
+        image.setAttribute('src',this.src);
+        cont.setAttribute('id',this.id);
+        this.cont=cont;
 	}
 
-	make_post(){}
+	make_post(){
+		let con=document.createElement('div');
+        let img=document.createElement('img');
+        con.append(img);
+        con.setAttribute('class','post');
+        con.setAttribute('id',this.id);
+        img.setAttribute('src',this.src);
+        this.parentContainer.append(con);
+	}
+	
 
 }
+export default PostUI;

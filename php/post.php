@@ -18,14 +18,12 @@ class Post{
     public CollaboratorList $collaboratorList;
     private string $date;
     private string $time;
-    public CommentList $commentList;
     private string $postFile;
     private array $data;
 
 
 public function __construct(){
     $this->collaboratorList=new CollaboratorList();
-    $this->commentList=new CommentList();
     $this->location=new Location();
     $this->errorMessage='';
     $this->caption='';
@@ -151,9 +149,7 @@ public function get_category_id():int
 {
     return $this->categoryID;
 }
-public function get_commentList(){
-    return $this->commentList;
-}
+
 public function get_collaboratorList(){
     return $this->collaboratorList;
 }

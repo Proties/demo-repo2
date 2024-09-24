@@ -2,6 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nerstia Personal Profile</title>
 
@@ -36,10 +39,32 @@
       </nav>
     </header>
 
+    <div class="container">
+      <div class="profile-header">
+        <div class="profile-picture">
+          <img
+            id="userProfilePicture"
+            src="/Image/Test Account.png"
+            alt="Profile Picture"
+          />
+        </div>
+        <div class="profile-info">
+          <h1 id="username">Artist Name</h1>
+          <p id="shortBio">
+            Short bio or description about the artist. This can include
+            interests, specialties, or any other relevant information.
+          </p>
+        </div>
     <div id="present" class="present">
       <div class="present">
         <p>template here</p>
       </div>
+      <div class="biography">
+        <h2>Biography</h2>
+        <p id="fullBio">
+          Detailed biography and information about the artist. This section can
+          include background, achievements, projects, and more.
+        </p>
       </div>
       
 
@@ -71,5 +96,11 @@
         </ul>
       </div>
     </div>
+    <script type="module" src="js/user.js"></script>
+    <script type="module" src="js/post.js"></script>
+    <script type="module" src="js/stackPosts.js"></script>
+    <script type="module" src="js/profile.js"></script>
+    <script type="module" src="js/makePost.js"></script>
+    <script type="module" src="js/profileMain.js"></script>
   </footer>
 </html>

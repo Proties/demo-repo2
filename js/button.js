@@ -1,7 +1,10 @@
 "strict"
+import ElementUI from './element.js';
 class Button extends ElementUI{
 	constructor(){
 		super();
+		this._width=60;
+		this._height=60;
 	
 	}
 	make_item(){
@@ -15,3 +18,4 @@ class Button extends ElementUI{
 		
 	}
 }
+export default Button;

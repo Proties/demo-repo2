@@ -21,8 +21,8 @@ class Styles{
 		this._font_family;
 		this._text_decoration;
 		
-		this._height;
-		this._width;
+		this._height=12;
+		this._width=12;
 		this._position='relative';
 		this._top;
 		this._bottom;
@@ -187,7 +187,18 @@ class ElementUI extends Element{
 		this._resizable;
 		this._deleteable;
 		this._modifiyable;
+		this._topBorder;
+		this._leftBorder;
+		this._bottomBorder;
+		this._topRightBorder;
+		this._topRightBorder;
+		this._topLeftBorder;
+		this._bottomRightBorder;
+		this._bottomLeftBorder;
+
+	
 		this.make_container();
+		this.handleEvent();
 	}
 	set cont(x){
 		this._cont=x;
@@ -211,9 +222,13 @@ class ElementUI extends Element{
 		this.cont.id=this.id;
 
 		this.cont.style.position=this.position;
+		this.cont.style.top=this.top;
+		this.cont.style.left=this.left;
+		this.cont.style.right=this.right;
+		this.cont.style.bottom=this.bottom;
 		this.cont.style.display=this.display;
-		this.cont.style.width=this.width;
-		this.cont.style.height=this.height;
+		this.cont.style.width=this.width+'px';
+		this.cont.style.height=this.height+'px';
 		this.cont.style.backgroundColor=this.backgroundColor;
 		this.cont.style.color=this.color;
 
@@ -229,6 +244,7 @@ class ElementUI extends Element{
 
 		this.cont.style.fontSize=this.fontSize;
 		this.cont.style.fontFamily=this.fontFamily;
+		this.cont.draggable=true;
 	}
 	draw_borders(){
 		let top=document.createElement('span');
@@ -264,7 +280,7 @@ class ElementUI extends Element{
 		bottomLeftDia.setAttribute('draggable','true');
 		
 		
-
+		this.cont.setAttribute('id',this.id);
 		this.cont.append(top);
 		this.cont.append(right);
 	
@@ -277,9 +293,21 @@ class ElementUI extends Element{
 		this.cont.append(bottomLeftDia);
 		this.cont.append(bottomRightDia);
 	}
-	
+	get_coords(){
+		this.y1=this.cont.offsetTop;
+		this.x1=this.cont.offsetLeft;
+		this.x2=this.x1+this.height;
+		this.y2=this.y1+this.height;
+	}
 	draw_centreLine(){
 		// draw horizontal line across the centre of the div
 		// draw a vertical line across the div
 	}
 }
+ElementUI.prototype.handleEvent=function(){
+	console.log('working will continues doing so');
+}
+ElementUI.prototype.addEventListener=function(evtName,callback){
+	this.addEventListener(evtName,callback);
+}
+export default ElementUI;

@@ -51,7 +51,7 @@ class PostList{
 	}
 	public function add_post(Post $post):bool
 	{
-
+		array_push($this->posts, $post);
 	}
 	public function get_posts()
 	{

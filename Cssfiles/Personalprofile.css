@@ -333,3 +333,13 @@ nav .home-link {
 .contact-info li {
     margin-bottom: 5px;
 }
+.templateSelection{
+    position: fixed;
+    right: 0;
+    top: 1;
+}
+.addTemplate{
+    position: fixed;
+    top: 0;
+    right: 0;
+}
