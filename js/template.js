@@ -63,12 +63,16 @@ class TemplateUI extends Template{
 		this._selectTemplateInput;
 		this._templateForm;
 		this._addTemplateBtn;
+		this._selectionInput;
 		this._html;
 		this._css;
 		this._data;
 		this._filename;
 		this._status;
 
+	}
+	add(temp){
+		this.templateList.push(temp);
 	}
 	set data(i){
 		this._data=i;
@@ -118,6 +122,12 @@ class TemplateUI extends Template{
 	get selectTemplateInput(){
 		return this._selectTemplateInput;
 	}
+	set selectionInput(i){
+		this._selectionInput=i;
+	}
+	get selectionInput(){
+		return this._selectionInput;
+	}
 	get cont(){
 		return this._cont;
 	}
@@ -126,6 +136,7 @@ class TemplateUI extends Template{
 	}
 	load_basic(){}
 	create_template_selection(){
+		console.log('=======creating template selection');
 		let cont=document.createElement('div');
 		let lab=document.createElement('label');
 		let labTxt=document.createTextNode('Select Template');
@@ -139,8 +150,8 @@ class TemplateUI extends Template{
 			select.append(item);
 		}
 
-		select.setAttribute('class','');
-		select.setAttribute('id','');
+		select.setAttribute('class','templateSelect');
+		select.setAttribute('id','selectTemplateInput');
 		cont.setAttribute('class','templateSelection');
 
 		lab.append(labTxt);
@@ -210,7 +221,7 @@ class TemplateUI extends Template{
 
                 console.log("++++++=loading template");
                 let data=JSON.parse(this.responseText);
-                if(data.status=='success'){
+                if(data.status=='succes'){
                 	return true;
                 }
                 alert('could not add template because '+data.error);
@@ -219,6 +230,31 @@ class TemplateUI extends Template{
             }
             xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xml.send('actions=loadTemplate&filename='+this.filename+'&htmlData='+this.html);
+		}catch(err){
+			console.log(err);
+		}
+	}
+	get_list(){
+		let select=document.getElementById('selectTemplateInput');
+		try{
+			let xml=new XMLHttpRequest();
+            xml.open('POST','/profile');
+            xml.onload=function(){
+                console.log("fecthing template list======");
+                let data=JSON.parse(this.responseText);
+                // this.templateList=data;
+                this.add=data[0];
+                for(let t=0;t<data.length;t++){
+                	let o=document.createElement('option');
+                	let oTxt=document.createTextNode(data[t].filename);
+                	o.append(oTxt);
+                	select.append(o);
+                }
+
+            }
+            xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xml.send('actions=get_template_list');
+			
 		}catch(err){
 			console.log(err);
 		}

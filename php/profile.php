@@ -10,7 +10,7 @@ use Insta\Template\HtmlTemplate;
 use Insta\Database\Template\TemplateDB;
 
 $mainUser=new Users();
-$Template=new Template();
+$template=new Template();
 if(isset($_SESSION['username']) && $_SESSION['username']!==null){
     $mainUser->userAuth->set_authanticate(true);
 }
@@ -63,6 +63,14 @@ else if($u->validate_username_url($f_txt)==true ){
             );
         }
         }
+        $tempdb=new TemplateDB($template);
+        $list=$tempdb->getTemplateList();
+        if(is_array($list)){
+            $data['templateList']=$list;
+        }
+        else{
+             $data['templateList']=[];
+        }
         setcookie('profile',json_encode($data), time() + (86400 * 30), '/'); 
     }catch(Exception $err){
         echo $err->getMessage();
@@ -82,6 +90,14 @@ switch($action){
         break;
     case 'delete_post':
         break;
+    case 'delete_template':
+        break;
+    case 'get_template_list':
+        $tempdb=new TemplateDB($template);
+        $list=$tempdb->getTemplateList();
+
+        echo json_encode($list);
+        break;
     case 'loadTemplate':
         $filename=$_POST['filename'];
         $htmlData=$_POST['htmlData'];
@@ -97,6 +113,9 @@ switch($action){
 
             file_put_contents($uploadDirDestination, $htmlData);
             $data=['status'=>'succes'];
+            $template->set_filename($filename);
+            $tempdb=new TemplateDB($template);
+            $tempdb->addTemplate();
             echo json_encode($data);
         }catch(Exception $err){
            
