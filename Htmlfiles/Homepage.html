@@ -6,20 +6,20 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ArtistHub Home</title>
+    <title>Nerstia Home</title>
     <link rel="stylesheet" type="text/css" href="/Cssfiles/Homepage.css" />
   </head>
   <body>
     <header>
       <nav>
         <div class="nav-left">
-          <img src="Image/logo.png" alt="Logo" class="logo-image">
+          <img src="/Image/Logo.png" alt="Logo" class="logo-image">
       </div>
         <div class="nav-center">
           <input type="text" placeholder="Search" id="search" />
           <ul id="suggestion-list"></ul>
           <button class="search-button" id="searchBtn">
-            <img src="Image/Search.png" alt="Search" />
+            <img src="/Image/Search.png" alt="Search" />
           </button>
         </div>
         <div class="nav-right"></div>
@@ -39,6 +39,11 @@
       <section class="post-section">
         <div class="postfeed-wrapper">
           <div class="post-container">
+            <div class="post-actions">
+              <div class="profile-button">
+                <img src="/Image/Test Account.png" alt="Profile Icon" />
+              </div>
+            </div>
             <div class="post">
               <div class="top-post">
                 <img
@@ -55,14 +60,15 @@
                 />
               </div>
             </div>
+            
+          </div>
+
+          <div class="post-container">
             <div class="post-actions">
               <div class="profile-button">
                 <img src="/Image/Test Account.png" alt="Profile Icon" />
               </div>
             </div>
-          </div>
-
-          <div class="post-container">
             <div class="post">
               <div class="top-post">
                 <img
@@ -79,14 +85,14 @@
                 />
               </div>
             </div>
+          </div>
+
+          <div class="post-container">
             <div class="post-actions">
               <div class="profile-button">
                 <img src="/Image/Test Account.png" alt="Profile Icon" />
               </div>
             </div>
-          </div>
-
-          <div class="post-container">
             <div class="post">
               <div class="top-post">
                 <img
@@ -103,11 +109,6 @@
                 />
               </div>
             </div>
-            <div class="post-actions">
-              <div class="profile-button">
-                <img src="/Image/Test Account.png" alt="Profile Icon" />
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -120,11 +121,11 @@
             id="modalPostImage"
             src="/Image/Art.png"
             alt="Post Image"
-            class="post-image"
+            class="modalpost-image"
           />
           <div class="modal-post-actions">
-            <button class="like-button">
-              <img src="/Image/Heart.png" alt="like-button" />
+            <button class="modal-profile-button">
+              <img src="/Image/Test Account.png" alt="profile-button" />
             </button>
           </div>
         </div>
@@ -134,23 +135,23 @@
       <div id="registerModal" class="modal">
         <div class="modal-container">
           <span class="close" id="closeModalReg">&times;</span>
-          <h2>Register</h2>
+          <h2 class="register-heading">Register</h2>
+          <div id="Form-container" class="form">
           <form id="registerForm">
             <div class="input-group">
-              <input type="text" id="name" name="name" placeholder="NAME" required />
-              <input type="text" id="surname" name="surname" placeholder="LAST NAME" required />
+              <input type="text" id="name" name="name" placeholder="Name" required />
+              <input type="text" id="surname" name="surname" placeholder="Last Name" required />
             </div>
             <p id="errName"></p>
-            <input type="email" id="email" name="email" placeholder="EMAIL" required />
+            <input type="email" id="email" name="email" placeholder="Email" required />
             <p id="errEmail"></p>
-            <input type="password" id="password" name="password" placeholder="PASSWORD" required />
+            <input type="password" id="password" name="password" placeholder="Password" required />
             <p id="errPassword"></p>
             <button type="submit">SUBMIT</button>
           </form>
         </div>
+        </div>
       </div>
-
-
 
       <div id="profileSetupModal" class="modal" style="display: none;">
         <div class="modal-container">

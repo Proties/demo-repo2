@@ -1,5 +1,5 @@
 /* Reset some default styles */
-body, h1, h2, h3, h4, h5, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
+body, h1, h3, h4, h5, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
     margin: 0;
     padding: 0;
     font-weight: normal;
@@ -33,68 +33,39 @@ header {
     padding: 10px 20px;
 }
 
-.nav-left a, .nav-right a {
-    color: white;
-    text-decoration: none;
-    padding: 0 10px;
-}
+
+.nav-left {
+    margin-left: 40px;
+  }
+  
+  .nav-left img {
+      width: 70px;
+  }
 
 .nav-right {
     display: flex;
     align-items: center;
+    margin-right: 4px;
+}
+
+.nav-center {
+    color: #A7991E;
+    font-size: 15px;
+}
+
+.title {
+    font-weight: bold;
+    margin-left: 100px;
 }
 
 .push-button, .upload-button {
     margin-right: 20px;
-    padding: 5px 10px;
-    background-color: #000000;
+    padding: 15px 40px;
+    background-color: #A7991E;
     border: none;
     color: white;
     cursor: pointer;
-    border-radius: 3px;
-}
-
-.hamburger-menu {
-    position: relative;
-    cursor: pointer;
-    color: #000;
-}
-
-.hamburger-menu .dropdown {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 100%;
-    background-color: #fff;
-    color: #333;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    overflow: hidden;
-    z-index: 1000;
-}
-
-.hamburger-menu:hover .dropdown {
-    display: block;
-}
-
-.hamburger-menu .dropdown a {
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    color: #333;
-}
-
-.hamburger-menu .dropdown a:hover {
-    background-color: #f0f0f0;
-}
-
-nav .home-link {
-    color: #000;
-}
-
-.home-link img {
-    width: 45px; /* Reduced size for smaller buttons */
-    height: 40px;
+    border-radius: 20px;
 }
 
 

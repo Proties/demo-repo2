@@ -26,8 +26,12 @@ nav {
     align-items: center;
 }
 
+.nav-left {
+  margin-left: 40px;
+}
+
 .nav-left img {
-    width: 50px;
+    width: 70px;
 }
 
 /*
@@ -69,9 +73,10 @@ nav .profile-link {
 .register-button {
     background-color: #b5a319;
     color: white;
-    padding: 10px 20px;
+    padding: 15px 40px;
     border: none;
-    border-radius: 10px;
+    border-radius: 20px;
+    margin-right: 40px;
     cursor: pointer;
 }
 
@@ -135,12 +140,7 @@ nav .profile-link {
     padding: 10px;
     border: none;
     border-radius: 24px;
-    background-color: #3ea6ff;
     cursor: pointer;
-}
-
-.nav-center button:hover {
-    background-color: #e8e8e8;
 }
 
 .nav-center input[type="text"]:focus {
@@ -153,13 +153,15 @@ nav .profile-link {
     padding: 10px;
     border: none;
     border-radius: 24px;
-    background-color: #3ea6ff;
     cursor: pointer;
+    position: relative;
+    right: 60px;
 }
 
 .nav-center button img {
     width: 20px;
     height: 20px;
+    opacity: 60%;
 }
 
 
@@ -227,28 +229,32 @@ nav .profile-link {
     display: flex;
     justify-content: space-between;
     padding: 10px;
-    position: relative;
-    bottom: 150px;
-    z-index: 1;
+    position: absolute;
+    z-index: 3;
 }
 
 .profile-button {
+    transition: transform 0.3s ease-in-out;
     position: relative;
-    right: 50px;
-    bottom: 95px;
-    background-color: white;
-    border: 2px solid #ddd;
+    right: 20px;
+    top: 250px;
+    background-color: white; /* rgb(0 0 0 / 0%);*/
     border-radius: 100%;
-    width: 90px;
-    height: 90px;
+    width: 70px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 3;
+    cursor: pointer;
 }
 
 .profile-button img {
-    object-fit: cover;
+    object-fit: fill;
+}
+
+.profile-button:hover {
+  transform: scale(1.10);
 }
 
 /* View post window */
@@ -304,24 +310,13 @@ nav .profile-link {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: calc(60% - 70px); /* Adjust width considering margin */
-    height: 100%;
+    height: fit-content;
     background-color: transparent; /* Make background transparent */
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow-y: auto;
-    margin-right: 60px; /* Margin to separate from modal-comments */
-    transform: translateX(-60px); /* Skew to the left */
     box-sizing: border-box;
-}
-
-.comments-section {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
 }
 
 
@@ -395,6 +390,34 @@ textarea {
     display: none;
 }
 
+.modalpost-image{
+  margin-top: 80px;
+  max-width: 1000px;
+}
+
+.modal-profile-button{
+    transition: transform 0.3s ease-in-out;
+    margin-top: 90px;
+    position: absolute;
+    left: 80px;
+    background-color: white;
+    border: 2px solid #ddd;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.profile-button img {
+  object-fit: fill;
+}
+
+.profile-button:hover {
+transform: scale(1.10);
+}
 
 /* Register CSS */
 
@@ -420,11 +443,26 @@ textarea {
     padding: 20px;
     border-radius: 10px;
     width: 800px; /* Smaller width */
-    height: 450px;
+    height: 550px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    position: relative;
+    position: absolute;
     text-align: center;
+    align-content: center;
   }
+
+  .register-heading{
+    top: 10px;
+    color: black;
+    font-size: 24px;
+  }
+
+
+  .Form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
   
   /* Close button */
   .close {
@@ -440,13 +478,13 @@ textarea {
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: fit-content;
   }
   
   .input-group {
     display: flex;
     justify-content: space-between;
-    width: 48%;
-    margin-bottom: 20px;
+    width: 100%;
   }
   
   .input-group input {
@@ -456,131 +494,32 @@ textarea {
   input[type="text"],
   input[type="email"],
   input[type="password"] {
-    width: 45%;
+    width: 73%;
     padding: 10px;
-    margin-bottom: 20px;
+    margin: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
   }
-  
-  /* Submit button */
-  button[type="submit"] {
-    padding: 10px 20px;
-    background-color: white; /* Match button style */
-    color: black;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  button[type="submit"]:hover {
-    background-color: #ddd; /* Hover effect */
-  }
-  
-  /* Heading styling */
-  h2 {
-    color: black;
-    margin-bottom: 20px;
-  }
 
-
-/* Modal background */
-#profileSetupModal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4); /* Modal background */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* Modal container */
-  .modal-container {
-    background-color: #a7922f; /* Mustard yellow */
-    padding: 20px;
-    border-radius: 10px;
-    width: 500px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    position: relative;
-    text-align: center;
-  }
-  
-  /* Close button */
-  .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: black;
-    font-size: 24px;
-    cursor: pointer;
-  }
-  
-  /* Form styling */
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  /* Profile Image Placeholder */
-  .profile-image-container {
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .profile-image-placeholder {
-    width: 80px;
-    height: 80px;
-    background-color: white;
-    border-radius: 50%;
-    line-height: 80px;
-    font-size: 14px;
-    color: black;
-  }
-  
   /* Input fields styling */
   .input-group {
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    margin-bottom: 20px;
+    width: 80%;
+
   }
-  
-  .input-group input {
-    width: 48%; /* For PROFILE NAME and FULL NAME */
-  }
-  
-  input[type="text"],
-  textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  textarea {
-    resize: none;
-  }
-  
+ 
   /* Submit button */
   button[type="submit"] {
     padding: 10px 20px;
     background-color: white; /* Match button style */
     color: black;
     border: none;
-    border-radius: 5px;
+    border-radius: 15px;
     cursor: pointer;
     font-size: 16px;
+    margin-top: 20px;
   }
   
   button[type="submit"]:hover {
@@ -592,7 +531,9 @@ textarea {
     color: black;
     margin-bottom: 20px;
   }
-  
+
+
+
 
 
 /*
