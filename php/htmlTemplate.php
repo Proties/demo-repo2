@@ -1,12 +1,20 @@
 <?php 
-class Html{
+namespace Insta\Template;
+use DOMDocument;
+class HtmlTemplate{
 	private $filename;
 	private $directory;
 	private DOMDocument $htmlFile;
 
 	public function __construct($html){
-		$this->htmlFile=new DOMDocument;
-		$this->htmlFile->loadHTMLFile($html);
+		try {
+			$this->htmlFile=new DOMDocument();
+			@$this->htmlFile->loadHTMLFile($html);
+		} catch (Exception $e) {
+			return $e;
+		}
+		
+
 		$this->filename='';
 		$this->directory='';
 	}
@@ -18,24 +26,27 @@ class Html{
 		$attribute=new DOMAttr();
 	}
 	public function base(){
-		saveHTMLFile();
-		schemaValidate($filename);
-		DOMNode::appendChild(DOMNode $node);
-		DOMNode::insertBefore(DOMNode $node, ?DOMNode $child = null);
-		DOMNode::removeChild(DOMNode $child);
-		DOMNode::replaceChild(DOMNode $node, DOMNode $child);
-		DOMNode::hasChildNodes();
-		prepend(DOMNode|string ...$nodes);
+		// saveHTMLFile();
+		// schemaValidate($filename);
+		// DOMNode::appendChild(DOMNode $node);
+		// DOMNode::insertBefore(DOMNode $node, ?DOMNode $child = null);
+		// DOMNode::removeChild(DOMNode $child);
+		// DOMNode::replaceChild(DOMNode $node, DOMNode $child);
+		// DOMNode::hasChildNodes();
+		// prepend(DOMNode|string ...$nodes);
 	}
 	
 
 	public function getContainer(){
-		$cont=$html->getElementByClassName('container')[0];
-		return $cont;
+		$cont=$this->htmlFile->getElementsByTagName('div');
+		$list=[];
+		for($i=0;$i<count($cont);$i++){
+			echo $this->htmlFile->saveHTML($cont[$i]), PHP_EOL;
+		}
+
 	}
 	public function getHtml(){
-		$html;
-		return $html;
+		return $this->htmlFile;
 	}
 }
 

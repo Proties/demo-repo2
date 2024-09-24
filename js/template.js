@@ -158,14 +158,26 @@ class TemplateUI extends Template{
 			xml.open('POST','/profile');
 			xml.onload=function(){
 				console.log('get template =========');
-				console.log(this.responseText);
-				let newElement=document.createElement('button');
-				// let newElement=this.responseText;
+				let fData=this.responseText;
+				// let newElement=document.createElement('button');
+				let newElement=this.responseText;
 				let main=document.body;
-				console.log(main.childNodes);
+				// console.log(main.childNodes);
+				// console.log(fData);
+				
+				
 				let oldElement=document.getElementsByClassName('container')[0];
-				main.insertBefore(newElement,oldElement);
-				oldElement.remove();
+				let children=oldElement.childNodes;
+				console.log(children);
+				for(let l=0;l<children.length;l++){
+					oldElement.remove(children[l]);
+				}
+
+				for(let n=0;n<newElement.length;n++){
+					oldElement.appendChild(newElement[n]);
+				}
+				
+				// oldElement.remove();
 			}
 			 xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xml.send('actions=selectTemplate&templateName='+this.selectedTemplate);
@@ -202,7 +214,7 @@ class TemplateUI extends Template{
                 	return true;
                 }
                 alert('could not add template because '+data.error);
-                
+
                 return false;
             }
             xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

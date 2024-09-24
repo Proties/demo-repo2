@@ -3,6 +3,7 @@ try{
     require_once 'php/database.php';
     require_once 'php/userCache.php';
     require_once 'php/template.php';
+    require_once 'php/HtmlTemplate.php';
     require_once 'php/templateDB.php';
     require_once 'php/postsList.php';
     require_once 'php/error.php';

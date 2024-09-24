@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ArtistHub Personal Profile</title>
+
+    <link rel="stylesheet" href="/Cssfiles/Personalprofile.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="nav-left">
+          <a href="/" class="home-link">
+            <img src="/Image/Home Icon.png" alt="Home" />
+          </a>
+        </div>
+        <div class="nav-right">
+          <button class="upload-button" id="uploadBtn">Upload Post</button>
+
+          <button
+            class="push-button"
+            id="editProfileButton"
+            onclick="window.location.href='/edit_profile'"
+          >
+            Edit Profile
+          </button>
+
+          
+        </div>
+      </nav>
+    </header>
+
+    <div class="container">
+      <div class="profile-header">
+        <div class="profile-picture">
+          <img
+            id="userProfilePicture"
+            src="/Image/Test Account.png"
+            alt="Profile Picture"
+          />
+        </div>
+        <div class="profile-info">
+          <h1 id="username">Artist Name</h1>
+          <p id="shortBio">
+            Short bio or description about the artist. This can include
+            interests, specialties, or any other relevant information.
+          </p>
+        </div>
+      </div>
+      <div class="biography">
+        <h2>Biography</h2>
+        <p id="fullBio">
+          Detailed biography and information about the artist. This section can
+          include background, achievements, projects, and more.
+        </p>
+      </div>
+
+      <div class="post-section">
+        <div class="postfeed-wrapper">
+          <div class="post">
+            <img src="/Image/Art.png" alt="Post Image" />
+            <div class="post-actions">
+              <button class="like-button">
+                <img src="/Image/Heart.png" alt="like-button" />
+              </button>
+              <button class="comment-button">
+                <img src="/Image/Speech Bubble.png" alt="comment-button" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upload Post Modal -->
+    <div id="uploadModal" class="modal">
+      <div class="modal-content">
+        <span class="close">

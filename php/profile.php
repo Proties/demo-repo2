@@ -6,6 +6,7 @@ use Insta\Databases\User\UserDB;
 use Insta\Posts\Post;
 use Insta\Databases\Post\PostDB;
 use Insta\Template\Template;
+use Insta\Template\HtmlTemplate;
 use Insta\Database\Template\TemplateDB;
 
 $mainUser=new Users();
@@ -107,9 +108,10 @@ switch($action){
         
         break;
     case 'selectTemplate':
-        $name=$_POST['templateName'];
+        $name='./templates/Personalprofile.html';
         $htmlTemplate=new HtmlTemplate($name);
         $data=$htmlTemplate->getContainer();
+
         echo json_encode($data);
         break;
     case 'edit_post':
