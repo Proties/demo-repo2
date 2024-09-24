@@ -16,6 +16,9 @@ class Users implements Serializable{
     private string $email;
     private string $phone;
     private string $date;
+    private string $gender;
+    private string $occupation;
+
     private string $time;
     private string  $userProfileLink;
     private bool $status;
@@ -76,6 +79,12 @@ class Users implements Serializable{
     public function set_username(string $nm){
         $this->username=$nm;
     }
+    public function set_gender(string $nm){
+        $this->gender=$nm;
+    }
+    public function set_occupation(string $nm){
+        $this->occupation=$nm;
+    }
     public function set_profilePicture(string $pic){
         $this->profilePicture=$pic;
     }
@@ -124,6 +133,14 @@ class Users implements Serializable{
     public function get_password():string
     {
         return $this->password;
+    }
+    public function get_gender():string
+    {
+        return $this->gender;
+    }
+    public function get_occupation():string
+    {
+        return $this->occupation;
     }
     public function get_dateOfBirth():string
     {
@@ -215,6 +232,22 @@ trait validateUser{
         return false;
     }
     function validate_email(string $txt)
+    {
+        $pattern='/^(?=.)/';
+        if(preg_match($pattern,$txt)){
+            return true;
+        }
+        return false;
+    }
+     function validate_gender(string $txt)
+    {
+        $pattern='/^(?=.)/';
+        if(preg_match($pattern,$txt)){
+            return true;
+        }
+        return false;
+    }
+     function validate_occupation(string $txt)
     {
         $pattern='/^(?=.)/';
         if(preg_match($pattern,$txt)){

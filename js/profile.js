@@ -129,7 +129,7 @@ export class MyProfile extends ProfileUI{
     submit_profile_info(data){
         try{
             let xm=new XMLHttpRequest();
-            xm.open('POST','/setup_profile');
+            xm.open('POST','/setupProfile');
             xm.setRequestHeader('Content-Type', 'application/json');
             xm.onload=function(){
                 let d=JSON.parse(this.responseText);
