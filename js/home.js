@@ -2,11 +2,12 @@
 import {MyProfile,OtherProfile} from './profile.js';
 import PostUI from './post.js';
 import StackedPosts from './stackPosts.js';
+import RegistrationUI from './registration.js';
 
 let user=new MyProfile();
 let allData;
 let profileList=[];
-
+let registrationForm=new RegistrationUI();
 
 
 function get_cookie(name){
@@ -49,14 +50,18 @@ function get_ish_form_cookie(){
             // init_categories(dtt.categories);
 }
 function initialiseObjects(data){
+    if(user.is_logged_in()==true){
+        user.remove_registration_btn();
+        user.make_profilePic();
+    }
     let parentCont=document.getElementsByClassName("postfeed-wrapper")[0];
     for(let i=0;i<data.length;i++){
         let profileItem=new OtherProfile();
         profileItem.stack=data.length;
         profileItem.add_image=data[i];
         profileItem.parentContainer=parentCont;
-        profileItem.make_stack;
-        profileItem.make_profilePic;
+        profileItem.make_stack();
+        profileItem.make_profilePic();
         profileList.push(profileItem);
 
     }
@@ -210,6 +215,9 @@ function eventListeners(){
     let viewMore=document.getElementsByClassName("view-more-btn")[0];
     let registerBtn = document.querySelector(".register-button");
     let closeReg = document.getElementById("closeModalReg");
+    // registrationForm.submissionBtn.addEventListener('click',function(evt){
+    //     evt.preventDefault();
+    // });
     let modal = document.getElementById("registerModal");
 
 

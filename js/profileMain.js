@@ -94,9 +94,9 @@ function intialiseProfileObject(data){
         
         let con=document.getElementsByClassName('container')[0];
         temp.parentContainer=con;
-        temp.create_template_selection();
+        // temp.create_template_selection();
         temp.get_list();
-        temp.template_button();
+        // temp.template_button();
         temp.selectTemplateInput.addEventListener('change',function(evt){
             let index=evt.target.selectedIndex;
             let value=evt.target.options[index].value;

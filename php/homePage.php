@@ -70,7 +70,34 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 
 $action=$_POST['action'];
 switch($action){
+    case 'setup_user_profile':
+        $data=[];
+        try{
 
+            $user=new Users();
+            $profilePic=$_POST['profilePic'];
+            $name=$_POST['name'];
+            $gender=$_POST['gender'];
+            $occupation=$_POST['occupation'];
+            $shortBio=$_POST['shortBio'];
+
+            $user->set_name($name);
+            $user->set_occupation($occupation);
+            $user->set_gender($gender);
+            $user->set_shortBio($shortBio);
+            
+            $userDB=new UserDB($user);
+            $userDB->createProfile();
+            $data['status']='success';
+            echo json_encode($data);
+        }
+        catch(Exception $err){
+            $data['status']='failed';
+            $data['message']=$err->getMessage();
+            echo json_encode($data);
+        }
+        
+        break;
     case 'search':
         $data=[];
         try{

@@ -103,4 +103,9 @@ class PostUI extends Post{
 	
 
 }
+class PreviewPost extends PostUI{
+	constructor(){
+		super();
+	}
+}
 export default PostUI;
