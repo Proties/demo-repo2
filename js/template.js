@@ -58,7 +58,7 @@ class TemplateUI extends Template{
 		this._deleteable=true;
 		this._cont;
 		this._parentContainer;
-		this._templateList=['basic','paid'];
+		this._templateList=['basic'];
 		this._selectedTemplate;
 		this._selectTemplateInput;
 		this._templateForm;
