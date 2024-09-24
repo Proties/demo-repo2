@@ -14,7 +14,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 }
 try{
     
-    $user->set_username($dataObj['username']);
+    $user->set_lastName($dataObj['lastName']);
     $user->set_name($dataObj['name']);
     $user->set_password($dataObj['password']);
     $user->set_email($dataObj['email']);
@@ -22,12 +22,8 @@ try{
     if($user->validate_name($user->get_name())==false){
         $errorMessages[]['errName']='Name not valid';
     }
-    if($user->validate_username($user->get_username())==false){
-        $errorMessages[]['errUsername']='username not valid';
-    }
-    if($userDB->search_username_in_db($user->get_username())!==false){
-       $errorMessages[]['errUsername']='username taken';
-
+    if($user->validate_lastName($user->get_lastName())==false){
+        $errorMessages[]['errlastName']='username not valid';
     }
     if($user->validate_password($user->get_password())==false){
         $errorMessages[]['errPassword']='Password must be at least 13 characters and contain at least 2 special characters';
@@ -47,7 +43,7 @@ try{
     $userDB->write_user();
     if($userDB->user->get_id()>0){
         $_SESSION['userID']=$userDB->user->get_id();
-        $_SESSION['username']=$userDB->user->get_username();
+        $_SESSION['email']=$userDB->user->get_email();
         $item=array('status'=>'success');
         
         $status=$user->userFolder->create_user_folder($user->get_username());

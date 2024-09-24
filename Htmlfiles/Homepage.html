@@ -23,7 +23,7 @@
           </button>
         </div>
         <div class="nav-right"></div>
-          <button class="register-button">Register</button>
+          <button class="register-button" id="userRegistration">Register</button>
         </div>
         <!--
         <div class="nav-right">
@@ -140,20 +140,22 @@
           <form id="registerForm">
             <div class="input-group">
               <input type="text" id="name" name="name" placeholder="Name" required />
+               <p id="errName"></p>
               <input type="text" id="surname" name="surname" placeholder="Last Name" required />
+               <p id="errLastName"></p>
             </div>
-            <p id="errName"></p>
+           
             <input type="email" id="email" name="email" placeholder="Email" required />
             <p id="errEmail"></p>
             <input type="password" id="password" name="password" placeholder="Password" required />
             <p id="errPassword"></p>
-            <button type="submit">SUBMIT</button>
+            <button type="submit" id="registerUserBtn">SUBMIT</button>
           </form>
         </div>
         </div>
       </div>
 
-      <div id="profileSetupModal" class="modal" style="display: none;">
+      <div id="profileSetupModal" class="modal">
         <div class="modal-container">
           <span class="close" id="closeProfileSetup">&times;</span>
           <h2>Set Up Profile</h2>
@@ -168,14 +170,19 @@
             <!-- Input Fields -->
             <div class="input-group">
               <input type="text" id="profileName" name="profileName" placeholder="PROFILE NAME" required />
+              <p id="errProfileName"></p>
               <input type="text" id="fullName" name="fullName" placeholder="FULL NAME" required />
+              <p id="errProfileFull"></p>
             </div>
       
             <input type="text" id="gender" name="gender" placeholder="Gender" required />
+            <p id="errProfileGender"></p>
       
             <input type="text" id="occupation" name="occupation" placeholder="OCCUPATION" required />
+            <p id="errProfileOccupation"></p>
       
             <textarea id="biography" name="biography" placeholder="SHORT BIOGRAPHY" rows="4" required></textarea>
+            <p id="errProfileBio"></p>
       
             <button type="submit">SUBMIT</button>
           </form>

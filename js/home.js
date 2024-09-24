@@ -173,7 +173,7 @@ function search_user(){
 function clear_error_messages(){
     document.getElementById("errPassword").innerHTML='';
     document.getElementById("errName").innerHTML='';
-    document.getElementById("errUsername").innerHTML='';
+    document.getElementById("errLastName").innerHTML='';
     document.getElementById("errEmail").innerHTML='';
 }
 // this function direct the user to a users profile when a user account is selected
@@ -215,9 +215,7 @@ function eventListeners(){
     let viewMore=document.getElementsByClassName("view-more-btn")[0];
     let registerBtn = document.querySelector(".register-button");
     let closeReg = document.getElementById("closeModalReg");
-    // registrationForm.submissionBtn.addEventListener('click',function(evt){
-    //     evt.preventDefault();
-    // });
+
     let modal = document.getElementById("registerModal");
 
 
@@ -240,6 +238,11 @@ function eventListeners(){
 
     registerBtn.addEventListener('click',function() {
         modal.style.display = "block";
+        // registrationForm.submissionBtn.addEventListener('click',function(evt){
+        //     evt.preventDefault();
+        //     clear_error_messages();
+        //     registrationForm.form_submitted=evt;
+        // });
       });
 
     closeReg.addEventListener('click',function(evt) {
@@ -336,13 +339,14 @@ function closeModal() {
 
 // Form submission
 document.getElementById("registerForm").onsubmit = function(event) {
+    let modal=document.getElementById('registerModal');
     event.preventDefault();
     clear_error_messages();
     let form=document.getElementById("registerForm");
     let formData=new FormData(document.getElementById("registerForm"));
     let item={
         name:document.getElementById('name').value,
-        username:document.getElementById('username').value,
+        lastName:document.getElementById('surname').value,
         password:document.getElementById('password').value,
         email:document.getElementById('email').value
     };
@@ -359,7 +363,17 @@ document.getElementById("registerForm").onsubmit = function(event) {
             console.log(data);
             if(data.status=='success'){
                 alert('succesfull logged in');
-                document.getElementById('registerModal').style.display='none';
+                modal.style.display='none';
+
+                user.setup_profile();
+                let profileItem={
+
+                };
+                try{
+
+                }catch(err){
+                    
+                }
                 return;
             }
             for(let i=0;i<data.errorArray.length;i++){
@@ -374,6 +388,4 @@ document.getElementById("registerForm").onsubmit = function(event) {
     }catch(err){
         console.log(err);
     }
-   
-    modal.style.display = "none";
 };

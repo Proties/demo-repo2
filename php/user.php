@@ -6,6 +6,7 @@ use Insta\Users\UserFolder;
 class Users implements Serializable{
     use validateUser;
     private string $name;
+    private string $lastName;
     private string $username;
     private string $shortBio;
     private string $bio;
@@ -29,6 +30,7 @@ class Users implements Serializable{
     $this->userAuth=new UserAuth();
     $this->name='';
     $this->username='';
+    $this->lastName='';
     $this->bio='';
     $this->profilePicture='';
     $this->dateOfBirth='';
@@ -65,6 +67,9 @@ class Users implements Serializable{
     public function set_name(string $nm){
         $this->name=$nm;
     }
+    public function set_lastName(string $nm){
+        $this->lastName=$nm;
+    }
     public function set_id(int $nm){
         $this->id=$nm;
     }
@@ -99,6 +104,10 @@ class Users implements Serializable{
     public function get_name():string 
     {
         return $this->name;
+    }
+    public function get_lastName():string 
+    {
+        return $this->lastName;
     }
     public function get_username():string
     {
@@ -190,6 +199,14 @@ trait validateUser{
         
     }
     function validate_name(string $txt)
+    {
+        $pattern='/([a-z]{4,})/i';
+        if(preg_match($pattern,$txt)){
+            return true;
+        }
+        return false;
+    }
+    function validate_lastName(string $txt)
     {
         $pattern='/([a-z]{4,})/i';
         if(preg_match($pattern,$txt)){

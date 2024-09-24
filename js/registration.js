@@ -5,8 +5,8 @@ class Registration extends User{
         super();
         this._id;
         this._status;
-        this._form;
-        this._submissionBtn;
+        this._form=document.getElementById('registerForm');
+        this._submissionBtn=document.getElementById('registerUserBtn');
         this._data={
             firstName:this.firstname,
             lastName:this.lastName,
@@ -34,19 +34,78 @@ class Registration extends User{
         return this._submissionBtn;
     }
     get data(){
-        return JSON.stringify(this.data);
+        return JSON.stringify(this._data);
     }
 
-    form_submitted(){
-        
-        let formData=new FormData(document.getElementById("registerForm"));
-        let item={
-            name:document.getElementById('name').value,
-            username:document.getElementById('username').value,
-            password:document.getElementById('password').value,
-            email:document.getElementById('email').value
-        };
+    
+}
+class RegistrationUI extends Registration{
+    constructor(){
+        super();
+        this._first_name_input;
+        this._lase_name_input;
+        this._email_input;
+        this._password_input;
 
+        this._first_name_error;
+        this._lase_name_error;
+        this._email_error;
+        this._password_error;
+        this._formModal;
+        this._formData=new FormData(this.form);
+
+
+    }
+
+    get formData(){
+        return this._formData;
+    }
+    set formModal(i){
+        this._formModal=i;
+    }
+    get formModal(){
+        return this._formModal;
+    }
+    // set first_name_input(){}
+    // set first_name_input(){}
+    // set first_name_input(){}
+    // set first_name_input(){}
+    // set first_name_input(){}
+
+    firstName_input(){
+       let name=document.getElementById('name');
+       this.firstName=name.value;
+    }
+    lastName_input(){
+        let username=document.getElementById('surname');
+        this.lastName=username.value;
+    }
+    email_input(){
+        let email=document.getElementById('email');
+        this.email=email.value;
+    }
+    password_input(){
+        let password=document.getElementById('password');
+        this.password=password.value;
+    }
+
+    firstName_error(){}
+    lastName_error(){}
+    email_error(){}
+    password_error(){}
+    show_form(){
+
+    }
+    validate_firstName(){}
+    validate_lasrName(){}
+    validate_password(){}
+    validate_email(){}
+    form_submitted(evt){
+        
+        this.firstName_input();
+        this.lastName_input();
+        this.email_input();
+        this.password_input();
         try{
             let xm=new XMLHttpRequest();
             xm.open('POST','/registration');
@@ -62,7 +121,7 @@ class Registration extends User{
                 }
                 else if(data.status=='failed' && data.message=='user already registered'){
                     alert('user is already registered');
-                    return
+                    return;
                 }
                 else if(data.status=='failed' && data.message=='validation error'){
                 for(let i=0;i<data.errorArray.length;i++){
@@ -79,38 +138,6 @@ class Registration extends User{
             console.log(err);
         }
 }
-}
-class RegistrationUI extends Registration{
-    constructor(){
-        super();
-        this._first_name_input;
-        this._lase_name_input;
-        this._email_input;
-        this._password_input;
-
-        this._first_name_error;
-        this._lase_name_error;
-        this._email_error;
-        this._password_error;
-
-
-    }
-    // set first_name_input(){}
-    // set first_name_input(){}
-    // set first_name_input(){}
-    // set first_name_input(){}
-    // set first_name_input(){}
-    
-    firstName_input(){}
-    lastName_input(){}
-    email_input(){}
-    password_input(){}
-    submission_button(){}
-
-    firstName_error(){}
-    lastName_error(){}
-    email_error(){}
-    password_error(){}
 }
 export default RegistrationUI;
 // function registration(){

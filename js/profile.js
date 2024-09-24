@@ -107,6 +107,7 @@ export class MyProfile extends ProfileUI{
         this._editPost=true;
         this._showSettings=true;
         this._analytics;
+        this._profile_info=document.getElementById('profileSetupModal');
     }
     is_logged_in(){
         if(this.logged_in==true){
@@ -116,7 +117,39 @@ export class MyProfile extends ProfileUI{
         }
         return false;
     }
+    setup_profile(){
+        this.profile_info.style.display='block';
+    }
+    submit_profile_info(data){
+        try{
+            let xm=new XMLHttpRequest();
+            xm.open('POST','/setup_profile');
+            xm.setRequestHeader('Content-Type', 'application/json');
+            xm.onload=function(){
+                let d=JSON.parse(this.responseText);
+                if(d.status==='success'){
+                    alert('it works');
+                    modal.style.display='none';
+                }
+                if(d.status=='failed' && d.message=='validation fail'){
+                    for(let e=0;e<d.errors.length;e++){
+                        document.getElementById(errors[e].id).innerHTML=errors[e].value;
+                    }
+                }
+                alert(d.message);
+            }
+            xml.send(data);
+        }catch(err){
+            console.log(err)
+        }
+
+    }
+    hide_registration_btn(){
+        let reg=document.getElementById('userRegistration');
+        reg.style.display='none';
+    }
     
+
 }
 
 
