@@ -67,6 +67,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $status=$user->userFolder->create_user_folder($user->get_username());
 		$bigData['status']='success';
 		$bigData['message']='everything all good';
+		$allData=[];
+		setcookie('profileInfo',$allData, time() + (86400 * 30), '/'); 
       	echo json_encode($bigData);
     }
      throw new Exception('user failed to be created');
