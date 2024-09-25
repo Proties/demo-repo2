@@ -107,6 +107,7 @@ export class MyProfile extends ProfileUI{
         this._editPost=true;
         this._showSettings=true;
         this._analytics;
+        this._registrationBtn=document.getElementById('');
         this._data;
         this._setupProfileModal=document.getElementById('profileSetupModal');
     }
@@ -117,6 +118,12 @@ export class MyProfile extends ProfileUI{
             return true;
         }
         return false;
+    }
+    set registrationBtn(i){
+       this._registrationBtn=i;
+    }
+    get registrationBtn(){
+       return this._registrationBtn;
     }
     set setupProfileModal(i){
        this._setupProfileModal=i;
@@ -143,6 +150,7 @@ export class MyProfile extends ProfileUI{
                 if(d.status==='success'){
                     alert('it works');
                     setupProfileModal.style.display='none';
+                    this.registrationBtn.style.display='none';
                 }
                console.log(d);
                     for(let e=0;e<d.errors.length;e++){

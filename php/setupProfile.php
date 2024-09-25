@@ -51,8 +51,9 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     	if($user->validate_bio($user->get_bio())==false){
     		$errors[]['errProfileBio']='bio not valid';
     	}
-    	if($userDB->validate_username_in_database($user->get_username())!==false){
+    	if($userDB->search_username_in_db($user->get_username())!==false){
        		$errors[]['errProfilUsername']='Username already exists';
+       		throw new Exception('username taken');
     	}
     	if(count($errors)>1){
     		throw new Exception('could not create user');
@@ -73,10 +74,6 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		
         // echo json_encode($item);
 	}catch(Exception $err){
-			unset($_SESSION['email']);
-			unset($_SESSION['firstName']);
-			unset($_SESSION['password']);
-			unset($_SESSION['lastName']);
 		$bigData['errors']=$errors;
 		$bigData['status']='failed';
 		$bigData['message']=$err->getMessage();
