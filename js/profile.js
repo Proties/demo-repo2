@@ -107,6 +107,7 @@ export class MyProfile extends ProfileUI{
         this._editPost=true;
         this._showSettings=true;
         this._analytics;
+        this._data;
         this._setupProfileModal=document.getElementById('profileSetupModal');
     }
     is_logged_in(){
@@ -126,12 +127,18 @@ export class MyProfile extends ProfileUI{
     setup_profile(){
         this.setupProfileModal.style.display='block';
     }
-    submit_profile_info(data){
+    set data(i){
+        this._data=i;
+    }
+    get data(){
+        return this._data;
+    }
+    submit_profile_info(){
         try{
-            let xm=new XMLHttpRequest();
-            xm.open('POST','/setupProfile');
-            xm.setRequestHeader('Content-Type', 'application/json');
-            xm.onload=function(){
+            let xml=new XMLHttpRequest();
+            xml.open('POST','/setup_profile');
+            xml.setRequestHeader('Content-Type', 'application/json');
+            xml.onload=function(){
                 let d=JSON.parse(this.responseText);
                 if(d.status==='success'){
                     alert('it works');
@@ -144,7 +151,7 @@ export class MyProfile extends ProfileUI{
                 }
                 alert(d.message);
             }
-            xml.send(JSON.stringify(data));
+            xml.send(JSON.stringify(this.data));
         }catch(err){
             console.log(err)
         }

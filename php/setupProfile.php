@@ -1,12 +1,12 @@
 <?php 
 session_start();
 use Insta\Databases\Database;
-use Insta\Databases\User;
+use Insta\Databases\User\UserDB;
 use Insta\Users\Users;
 use Insta\Users\UserFile;
 
-$user=new User();
-$userDB=new UserDB($user);
+$user=new Users();
+
 
 $data=[];
 $errors=[
@@ -16,16 +16,25 @@ $errors=[
 	'errProfileOccupation'=>'',
 	'errProfileBio'=>''
 ];
-if($_REQUEST['REQUEST_METHOD']=='POST'){
+
+if(isset($_SESSION['email'])){
+	$user->set_name($_SESSION['firstName']);
+	$user->set_email($_SESSION['email']);
+	$user->set_password($_SESSION['password']);
+	$user->set_lastName($_SESSION['lastName']);
+}
+
+$userDB=new UserDB($user);
+if($_SERVER['REQUEST_METHOD']=='POST'){
 	$data=file_get_contents('php://input');
     $data_f=json_decode($data,true);
     try{
     	$username=$data_f['username'];
     	$fullname=$data_f['fullname'];
-    	$occupation=$data_f['gender'];
-    	$name=$data_f['occupation'];
     	$gender=$data_f['gender'];
-    	$bio=$data_f['gender'];
+    	$occupation=$data_f['occupation'];
+    	$bio=$data_f['bio'];
+
 
     	$user->set_username($username);
     	$user->set_gender($gender);
@@ -48,11 +57,25 @@ if($_REQUEST['REQUEST_METHOD']=='POST'){
     		$errors['errProfileUserName']='not valid';
     	}
 		$userDB->write_user();
-		$status=$user->userFolder->create_user_folder($user->get_username());
+		if($userDB->user->get_id()>0){
+        $_SESSION['userID']=$userDB->user->get_id();
+        $_SESSION['email']=$userDB->user->get_email();
+        $item=array('status'=>'success');
+        
+        $status=$user->userFolder->create_user_folder($user->get_username());
 		$data['status']='success';
 		$data['message']='everything all good';
+      	echo json_encode($data);
+    }
+     throw new Exception('user failed to be created');
+       
+		
         // echo json_encode($item);
 	}catch(Exception $err){
+			unset($_SESSION['email']);
+			unset($_SESSION['firstName']);
+			unset($_SESSION['password']);
+			unset($_SESSION['lastName']);
 		$data['errors']=$errors;
 		$data['status']='failed';
 		$data['message']=$err->getMessage();

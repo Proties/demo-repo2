@@ -8,6 +8,7 @@ $user=new Users();
 $err=new ErrorHandler();
 $errorMessages=[];
 $dataObj=array();
+$jsonData=['status'=>''];
 if($_SERVER['REQUEST_METHOD']=='POST'){
     $data=file_get_contents('php://input');
     $dataObj=json_decode($data,true);
@@ -39,19 +40,12 @@ try{
     if($len>0){
         throw new Exception('could not create user');
     }
-
-    $userDB->write_user();
-    if($userDB->user->get_id()>0){
-        $_SESSION['userID']=$userDB->user->get_id();
-        $_SESSION['email']=$userDB->user->get_email();
-        $item=array('status'=>'success');
-        
-        
-        return;
-    }
-    throw new Exception('user failed to be created');
-       
-    
+    $jsonData['status']='success';
+    $_SESSION['firstName']=$user->get_name();
+    $_SESSION['password']=$user->get_password();
+    $_SESSION['lastName']=$user->get_lastName();
+    $_SESSION['email']=$user->get_email();
+    echo json_encode($jsonData);
 }catch(Exception $error){
     $data=array('status'=>'failed','msg'=>$error->getMessage(),"errorArray"=>$errorMessages);
     echo json_encode($data);

@@ -367,13 +367,16 @@ document.getElementById("registerForm").onsubmit = function(event) {
 
                 user.setup_profile();
                 document.getElementById('submitProfileSetup').addEventListener('click',function(evt){
+                    evt.preventDefault();
                     let profileItem={
-                    name:document.getElementById('profileName'),
-                    fullname:document.getElementById('fullName'),
-                    gender:document.getElementById('gender'),
-                    bio:document.getElementById('biography'),
+                        username:document.getElementById('profileName'),
+                        fullname:document.getElementById('fullName'),
+                        gender:document.getElementById('gender'),
+                        bio:document.getElementById('biography'),
+                        occupation:document.getElementById('occupation')
                     };
-                    user.submit_profile_info=profileItem;
+                    user.data=profileItem;
+                    user.submit_profile_info();
 
                 });
                 
