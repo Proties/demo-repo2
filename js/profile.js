@@ -113,8 +113,8 @@ export class MyProfile extends ProfileUI{
     }
     is_logged_in(){
         if(this.logged_in==true){
-            // hide registration buton
-            // hide registreation modal
+            document.getElementsByClassName('templateSelection')[0].style.display='none';
+            document.getElementsByClassName('addTemplate')[0].style.display='none';
             return true;
         }
         return false;

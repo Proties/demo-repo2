@@ -93,10 +93,9 @@ function intialiseProfileObject(data){
         
         
         let con=document.getElementsByClassName('container')[0];
-        temp.parentContainer=con;
-        // temp.create_template_selection();
         temp.get_list();
-        // temp.template_button();
+        document.getElementsByClassName('templateSelection')[0].style.display='block';
+        document.getElementsByClassName('addTemplate')[0].style.display='block';
         temp.selectTemplateInput.addEventListener('change',function(evt){
             let index=evt.target.selectedIndex;
             let value=evt.target.options[index].value;

@@ -49,18 +49,21 @@ function get_ish_form_cookie(){
             
             // init_categories(dtt.categories);
 }
-function initialiseObjects(data,user){
+function initialiseObjects(cookie_data,cookie_user){
+    console.log('=========cookie data========');
+    console.log(cookie_data);
+    console.log(cookie_user);
 
-    user.username=user.username;
-    user.fullName=user.fullname;
-    user.bio=user.bio;
+    user.username=cookie_user.username;
+    user.fullName=cookie_user.fullname;
+    user.bio=cookie_user.bio;
     user.registrationBtn.style.display='none';
 
     let parentCont=document.getElementsByClassName("postfeed-wrapper")[0];
-    for(let i=0;i<data.length;i++){
+    for(let i=0;i<cookie_data.length;i++){
         let profileItem=new OtherProfile();
-        profileItem.stack=data.length;
-        profileItem.add_image=data[i];
+        profileItem.stack=cookie_data.length;
+        profileItem.add_image=cookie_data[i];
         profileItem.parentContainer=parentCont;
         profileItem.make_stack();
         profileItem.make_profilePic();
