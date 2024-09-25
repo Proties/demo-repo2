@@ -44,7 +44,7 @@ else if($u->validate_username_url($f_txt)==true ){
         if(!is_array($arr)){
             throw new Exception('not array');
         }
-        if(($arr==null) || ($arr[0]==null) || ($arr[0]['postLink']==null)){
+        if(($arr==null) || ($arr[0]['filename']==null)){
             $data['posts']=$arr;
 
         }else{
@@ -52,14 +52,13 @@ else if($u->validate_username_url($f_txt)==true ){
         for ($i = 0; $i < $lenArr; $i++) {
             $postItem = new Post();
             $postItem->set_postID($arr[$i]['postID']);
-            $string=$arr[$i]['postLink'];
-            $path=substr($string,0,strpos($string, '/'));
-            $name=substr($string,strpos($string,'/'));
-            $postItem->get_image()->set_filePath($path);
-            $postItem->get_image()->set_fileName($name);
+            $filename=$arr[$i]['filename'];
+            $path=$arr[$i]['filepath'];
+            $postItem->get_image()->file->set_filePath($path);
+            $postItem->get_image()->file->set_fileName($filename);
             $data['posts'][$i] = array(
-                'postID' => $postItem->get_postID(),
-                'img' => $postItem->get_image()->get_filePath().$postItem->get_image()->get_fileName()
+                'filename' => $postItem->get_postID(),
+                'img' => $postItem->get_image()->file->get_filePath().$postItem->get_image()->file->get_fileName()
             );
         }
         }
