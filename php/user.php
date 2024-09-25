@@ -7,6 +7,7 @@ class Users implements Serializable{
     use validateUser;
     private string $name;
     private string $lastName;
+    private string $fullName;
     private string $username;
     private string $shortBio;
     private string $bio;
@@ -34,6 +35,7 @@ class Users implements Serializable{
     $this->name='';
     $this->username='';
     $this->lastName='';
+    $this->fullName='';
     $this->bio='';
     $this->profilePicture='';
     $this->dateOfBirth='';
@@ -72,6 +74,9 @@ class Users implements Serializable{
     }
     public function set_lastName(string $nm){
         $this->lastName=$nm;
+    }
+    public function set_fullName(string $nm){
+        $this->fullName=$nm;
     }
     public function set_id(int $nm){
         $this->id=$nm;
@@ -125,6 +130,10 @@ class Users implements Serializable{
     public function get_email():string
     {
         return $this->email;
+    }
+    public function get_fullName():string
+    {
+        return $this->fullName;
     }
     public function get_profilePicture():string
     {
@@ -223,6 +232,14 @@ trait validateUser{
         }
         return false;
     }
+    function validate_fullName(string $txt)
+    {
+        $pattern='/([a-z]{4,})/i';
+        if(preg_match($pattern,$txt)){
+            return true;
+        }
+        return false;
+    }
     function validate_lastName(string $txt)
     {
         $pattern='/([a-z]{4,})/i';
@@ -255,6 +272,15 @@ trait validateUser{
         }
         return false;
     }
+     function validate_bio(string $txt)
+    {
+        $pattern='/^(?=.)/';
+        if(preg_match($pattern,$txt)){
+            return true;
+        }
+        return false;
+    }
+    
     function validate_password(string $txt)
     {
         $pattern='/(?=.*[a-z])(?=.*[\-\@#\$%\_=*\!\^])(?=.*[0-9])?/i';

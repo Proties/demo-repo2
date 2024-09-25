@@ -369,11 +369,11 @@ document.getElementById("registerForm").onsubmit = function(event) {
                 document.getElementById('submitProfileSetup').addEventListener('click',function(evt){
                     evt.preventDefault();
                     let profileItem={
-                        username:document.getElementById('profileName'),
-                        fullname:document.getElementById('fullName'),
-                        gender:document.getElementById('gender'),
-                        bio:document.getElementById('biography'),
-                        occupation:document.getElementById('occupation')
+                        username:document.getElementById('profileName').value,
+                        fullname:document.getElementById('fullName').value,
+                        gender:document.getElementById('gender').value,
+                        bio:document.getElementById('biography').value,
+                        occupation:document.getElementById('occupation').value
                     };
                     user.data=profileItem;
                     user.submit_profile_info();

@@ -8,14 +8,8 @@ use Insta\Users\UserFile;
 $user=new Users();
 
 
-$data=[];
-$errors=[
-	'errProfileName'=>'',
-	'errProfileUserName'=>'',
-	'errProfileGender'=>'',
-	'errProfileOccupation'=>'',
-	'errProfileBio'=>''
-];
+$bigData=[];
+$errors=[];
 
 if(isset($_SESSION['email'])){
 	$user->set_name($_SESSION['firstName']);
@@ -40,21 +34,28 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     	$user->set_gender($gender);
     	$user->set_occupation($occupation);
     	$user->set_bio($bio);
+    	$user->set_fullName($fullname);
 
     	if($user->validate_username($user->get_username())==false){
-    		$errors['errProfileUserName']='not valid';
+    		$errors[]['errProfileUserName']='username not valid';
+    	}
+    	if($user->validate_fullName($user->get_fullName())==false){
+    		$errors[]['errProfileFullName']='profile full name not valid';
     	}
     	if($user->validate_gender($user->get_gender())==false){
-    		$errors['errProfileGender']='not valid';
+    		$errors[]['errProfileGender']='gender not valid';
     	}
     	if($user->validate_occupation($user->get_occupation())==false){
-    		$errors['errProfileOccupation']='not valid';
+    		$errors[]['errProfileOccupation']='occupation is required';
     	}
     	if($user->validate_bio($user->get_bio())==false){
-    		$errors['errProfileBio']='not valid';
+    		$errors[]['errProfileBio']='bio not valid';
     	}
-    	if($UserDB->validate_username_in_database($user->get_username())==true){
-    		$errors['errProfileUserName']='not valid';
+    	if($userDB->validate_username_in_database($user->get_username())!==false){
+       		$errors[]['errProfilUsername']='Username already exists';
+    	}
+    	if(count($errors)>1){
+    		throw new Exception('could not create user');
     	}
 		$userDB->write_user();
 		if($userDB->user->get_id()>0){
@@ -63,9 +64,9 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $item=array('status'=>'success');
         
         $status=$user->userFolder->create_user_folder($user->get_username());
-		$data['status']='success';
-		$data['message']='everything all good';
-      	echo json_encode($data);
+		$bigData['status']='success';
+		$bigData['message']='everything all good';
+      	echo json_encode($bigData);
     }
      throw new Exception('user failed to be created');
        
@@ -76,10 +77,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 			unset($_SESSION['firstName']);
 			unset($_SESSION['password']);
 			unset($_SESSION['lastName']);
-		$data['errors']=$errors;
-		$data['status']='failed';
-		$data['message']=$err->getMessage();
-		echo json_encode($data);
+		$bigData['errors']=$errors;
+		$bigData['status']='failed';
+		$bigData['message']=$err->getMessage();
+		echo json_encode($bigData);
 	}
 
 }

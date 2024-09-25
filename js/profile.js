@@ -144,12 +144,14 @@ export class MyProfile extends ProfileUI{
                     alert('it works');
                     setupProfileModal.style.display='none';
                 }
-                if(d.status=='failed' && d.message=='validation fail'){
+               console.log(d);
                     for(let e=0;e<d.errors.length;e++){
-                        document.getElementById(errors[e].id).innerHTML=errors[e].value;
+                        let k=Object.keys(d.errors[e]);
+                  
+                        document.getElementById(k).innerHTML=d.errors[e][k];
                     }
-                }
-                alert(d.message);
+                
+
             }
             xml.send(JSON.stringify(this.data));
         }catch(err){
