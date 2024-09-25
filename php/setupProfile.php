@@ -61,14 +61,14 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		$userDB->write_user();
 		if($userDB->user->get_id()>0){
         $_SESSION['userID']=$userDB->user->get_id();
-        $_SESSION['email']=$userDB->user->get_email();
+     
         $item=array('status'=>'success');
         
         $status=$user->userFolder->create_user_folder($user->get_username());
 		$bigData['status']='success';
 		$bigData['message']='everything all good';
-		$allData=[];
-		setcookie('profileInfo',$allData, time() + (86400 * 30), '/'); 
+		$allData=['username'=>$user->get_username(),'bio'=>$user->get_bio(),'fullname'=>$user->get_fullName()];
+		setcookie('user',$allData, time() + (86400 * 30), '/'); 
       	echo json_encode($bigData);
     }
      throw new Exception('user failed to be created');

@@ -9,10 +9,10 @@ $mainUser=new Users();
 
 if(isset($_SESSION['username']) && $_SESSION['username']!==null && isset($_SESSION['userID'])){
     $mainUser->userAuth->set_authanticate(true);
-    setcookie('username',json_encode($_SESSION['username']), time() + (86400 * 30), '/'); 
+    setcookie('user',json_encode($_SESSION['username']), time() + (86400 * 30), '/'); 
 }else{
     unset($_SESSION['username']);
-    setcookie('username','no account', time() - (86400 * 30), '/'); 
+    setcookie('user','no account', time() - (86400 * 30), '/'); 
     setcookie('profile','no profile ', time() - (86400 * 30), '/'); 
 }
 try{

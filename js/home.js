@@ -32,15 +32,15 @@ function get_cookie(name){
 }
 function get_ish_form_cookie(){
             allData=get_cookie("users=");
-            let user_data=get_cookie("username=");
+            let user_data=get_cookie("user=");
             if(allData==undefined && user_data==undefined){
                 console.log('no posts or user account');
                 return;
             }else if(user_data!==undefined){
                 console.log(user_data);
-                initialiseObjects(user_data);
+                initialiseObjects(allData,user_data,);
             }else{
-                initialiseObjects(allData);
+                initialiseObjects(allData,user_data);
                 console.log(allData);
                 // init_img(allData);
                 // init_user(user_data);
@@ -49,11 +49,13 @@ function get_ish_form_cookie(){
             
             // init_categories(dtt.categories);
 }
-function initialiseObjects(data){
-    if(user.is_logged_in()==true){
-        user.remove_registration_btn();
-        user.make_profilePic();
-    }
+function initialiseObjects(data,user){
+
+    user.username=user.username;
+    user.fullName=user.fullname;
+    user.bio=user.bio;
+    user.registrationBtn.style.display='none';
+
     let parentCont=document.getElementsByClassName("postfeed-wrapper")[0];
     for(let i=0;i<data.length;i++){
         let profileItem=new OtherProfile();
