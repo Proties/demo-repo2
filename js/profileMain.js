@@ -32,6 +32,7 @@ function get_data_from_cookie(){
     intialiseProfileObject(data);
 }
 
+
 function readFile(file){
     let fileOne=file.files[0];
     // let fileTwo=file.files[1];

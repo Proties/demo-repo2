@@ -145,22 +145,6 @@ export class MyProfile extends ProfileUI{
             let xml=new XMLHttpRequest();
             xml.open('POST','/setup_profile');
             xml.setRequestHeader('Content-Type', 'application/json');
-            xml.onload=function(){
-                let d=JSON.parse(this.responseText);
-                if(d.status==='success'){
-                    alert('it works');
-                    setupProfileModal.style.display='none';
-                    this.registrationBtn.style.display='none';
-                }
-               console.log(d);
-                    for(let e=0;e<d.errors.length;e++){
-                        let k=Object.keys(d.errors[e]);
-                  
-                        document.getElementById(k).innerHTML=d.errors[e][k];
-                    }
-                
-
-            }
             xml.send(JSON.stringify(this.data));
         }catch(err){
             console.log(err)

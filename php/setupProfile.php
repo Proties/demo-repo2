@@ -69,8 +69,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $status=$user->userFolder->create_user_folder($user->get_username());
 		$bigData['status']='success';
 		$bigData['message']='everything all good';
-		$allData=['username'=>$user->get_username(),'bio'=>$user->get_bio(),'fullname'=>$user->get_fullName()];
-		setcookie('setUpProfile',json_encode($allData), time() + (86400 * 30), '/'); 
+		$allData=['status'=>'success','username'=>$user->get_username(),'bio'=>$user->get_bio(),'fullname'=>$user->get_fullName()];
+		setcookie('setUpProfile',json_encode($allData), time() + (86400 * 1), '/'); 
       	echo json_encode($bigData);
       	return;
     }
@@ -79,7 +79,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		$bigData['errors']=$errors;
 		$bigData['status']='failed';
 		$bigData['message']=$err->getMessage();
-		setcookie('setUpProfile',json_encode($allData), time() - (86400 * 30), '/');
+		setcookie('setUpProfile',json_encode($allData), time() - (86400 * 1), '/');
 		echo json_encode($bigData);
 		return;
 	}

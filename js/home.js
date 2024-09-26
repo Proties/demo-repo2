@@ -18,10 +18,8 @@ function get_cookie(name){
     for(let x=0;x<sp.length;x++){
         let c=sp[x];
         while(c.charAt(0)==' '){
-            console.log(c);
             c=c.substring(1);
             if(c.indexOf(name)==0){
-                console.log(c);
             let parsed=c.substring(name.length,c.length);
             let dtt=JSON.parse(parsed);
 
@@ -48,6 +46,21 @@ function get_ish_form_cookie(){
             
             
             // init_categories(dtt.categories);
+}
+function get_registration_info_from_cookie(){
+    let registration=get_cookie('registration=');
+    if(registration!==undefined && registration!==false){
+        return registration;
+  
+    }
+    return false;
+}
+function get_profile_setup_info_from_cookie(){
+    let profileSetUp=get_cookie('setUpProfile=');
+    if(profileSetUp!==undefined && profileSetUp!==false){
+        return profileSetUp;
+    }
+    return false;
 }
 function initialiseObjects(cookie_data,cookie_user){
     console.log('=========cookie data========');
@@ -347,11 +360,15 @@ function closeModal() {
     modal.style.display = "none";
 }
 
+// get_registration_info_from_cookie();
 // Form submission
-document.getElementById("registerForm").onsubmit = function(event) {
+document.getElementById("registerForm").onsubmit=formHandling;
+async function formHandling(evt){
     let modal=document.getElementById('registerModal');
     event.preventDefault();
     clear_error_messages();
+
+
     let form=document.getElementById("registerForm");
     let formData=new FormData(document.getElementById("registerForm"));
     let item={
@@ -360,49 +377,94 @@ document.getElementById("registerForm").onsubmit = function(event) {
         password:document.getElementById('password').value,
         email:document.getElementById('email').value
     };
+  
     item=JSON.stringify(item);
     try{
         
         let xm=new XMLHttpRequest();
         xm.open('POST','/registration');
         xm.setRequestHeader('Content-Type', 'application/json');
-        xm.onload=function(){
-            console.log('form validation');
+        // xm.onreadystatechange=function(){
+        //     console.log('form validation');
             
-            let data=JSON.parse(this.responseText);
-            console.log(data);
-            if(data.status=='success'){
-                alert('succesfull logged in');
-                modal.style.display='none';
+        //     let data=JSON.parse(this.responseText);
+        //     console.log(data);
+        //     if(data.status=='success'){
+        //         alert('succesfull logged in');
+        //         modal.style.display='none';
 
-                user.setup_profile();
-                document.getElementById('submitProfileSetup').addEventListener('click',function(evt){
-                    evt.preventDefault();
-                    let profileItem={
-                        username:document.getElementById('profileName').value,
-                        fullname:document.getElementById('fullName').value,
-                        gender:document.getElementById('gender').value,
-                        bio:document.getElementById('biography').value,
-                        occupation:document.getElementById('occupation').value
-                    };
-                    user.data=profileItem;
-                    user.submit_profile_info();
+        //         user.setup_profile();
+        //         document.getElementById('submitProfileSetup').addEventListener('click',function(evt){
+        //             evt.preventDefault();
+        //             let profileItem={
+        //                 username:document.getElementById('profileName').value,
+        //                 fullname:document.getElementById('fullName').value,
+        //                 gender:document.getElementById('gender').value,
+        //                 bio:document.getElementById('biography').value,
+        //                 occupation:document.getElementById('occupation').value
+        //             };
+        //             user.data=profileItem;
+        //             user.submit_profile_info();
 
-                });
+        //         });
                 
 
-                return;
-            }
-            for(let i=0;i<data.errorArray.length;i++){
+        //         return;
+        //     }
+        //     for(let i=0;i<data.errorArray.length;i++){
+        //         const k=Object.keys(data.errorArray[i]);
+        //         console.log(data.errorArray[i]);
+        //         console.log(data.errorArray[i][k]);
+        //         document.getElementById(k).innerHTML=data.errorArray[i][k];
+        //     }
+            
+        // }
+        xm.send(item);
+
+        let data=get_registration_info_from_cookie();
+        console.log(data);
+        if(data.status=='success'){
+            alert('succesfull logged in');
+            modal.style.display='none';
+            user.setup_profile();
+            document.getElementById('submitProfileSetup').addEventListener('click',function(evt){
+                evt.preventDefault();
+                let profileItem={
+                    username:document.getElementById('profileName').value,
+                    fullname:document.getElementById('fullName').value,
+                    gender:document.getElementById('gender').value,
+                    bio:document.getElementById('biography').value,
+                    occupation:document.getElementById('occupation').value
+                };
+                user.data=profileItem;
+                user.submit_profile_info();
+                let d=get_profile_setup_info_from_cookie();
+                console.log(d);
+                if(d!==false || d!==undefined){
+                    if(d.status==='success'){
+                        alert('it works');
+                        user.setupProfileModal.style.display='none';
+                        user.registrationBtn.style.display='none';
+                        return;
+                    }
+                    console.log(d);
+                    for(let e=0;e<d.errors.length;e++){
+                        let k=Object.keys(d.errors[e]);
+                  
+                        document.getElementById(k).innerHTML=d.errors[e][k];
+                    }
+                }
+             
+
+            });
+        }
+        for(let i=0;i<data.errorArray.length;i++){
                 const k=Object.keys(data.errorArray[i]);
                 console.log(data.errorArray[i]);
                 console.log(data.errorArray[i][k]);
                 document.getElementById(k).innerHTML=data.errorArray[i][k];
             }
-            
-        }
-        xm.send(item);
     }catch(err){
         console.log(err);
     }
-};
+}

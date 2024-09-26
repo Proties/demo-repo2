@@ -9,11 +9,12 @@ $err=new ErrorHandler();
 $errorMessages=[];
 $dataObj=array();
 $jsonData=[];
-if($_SERVER['REQUEST_METHOD']=='POST'){
-    $data=file_get_contents('php://input');
-    $dataObj=json_decode($data,true);
-}
 try{
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+        $data=file_get_contents('php://input');
+        $dataObj=json_decode($data,true);
+    }
+
     
     $user->set_lastName($dataObj['lastName']);
     $user->set_name($dataObj['name']);
@@ -45,12 +46,12 @@ try{
     $_SESSION['password']=$user->get_password();
     $_SESSION['lastName']=$user->get_lastName();
     $_SESSION['email']=$user->get_email();
-    setcookie('registration',json_encode($jsonData), time() + (86400 * 30), '/'); 
+    setcookie('registration',json_encode($jsonData), time() + (86400 * 1), '/'); 
     echo json_encode($jsonData);
     return;
 }catch(Exception $error){
     $jsonData=array('status'=>'failed','msg'=>$error->getMessage(),"errorArray"=>$errorMessages);
-    setcookie('registration',json_encode($jsonData), time() - (86400 * 30), '/');
+    setcookie('registration',json_encode($jsonData), time() + (86400 * 1), '/');
     echo json_encode($jsonData);
 }
 
