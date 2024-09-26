@@ -67,6 +67,9 @@ async function validateTemplateSubmission(evt){
         }
 
 function intialiseProfileObject(data){
+    // if(data==undefined){
+    //     return;
+    // }
     console.log(data);
     let url=location.href;
     let last=url.lastIndexOf('/');

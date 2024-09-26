@@ -53,24 +53,29 @@ function initialiseObjects(cookie_data,cookie_user){
     console.log('=========cookie data========');
     console.log(cookie_data);
     console.log(cookie_user);
-
-    user.username=cookie_user.username;
-    user.fullName=cookie_user.fullname;
-    user.bio=cookie_user.bio;
-    user.registrationBtn.style.display='none';
-
-    let parentCont=document.getElementsByClassName("postfeed-wrapper")[0];
-    for(let i=0;i<cookie_data.length;i++){
-        let profileItem=new OtherProfile();
-        profileItem.stack=cookie_data.length;
-        profileItem.add_image=cookie_data[i];
-        profileItem.parentContainer=parentCont;
-        profileItem.make_stack();
-        profileItem.make_profilePic();
-        profileList.push(profileItem);
+    console.log(cookie_user);
+    if(cookie_user!==undefined){
+        user.username=cookie_user.username;
+        user.fullName=cookie_user.fullname;
+        user.bio=cookie_user.bio;
+        user.registrationBtn.style.display='none';
+    }
+   if(cookie_data!==undefined){
+        let parentCont=document.getElementsByClassName("postfeed-wrapper")[0];
+        for(let i=0;i<cookie_data.length;i++){
+            let profileItem=new OtherProfile();
+            profileItem.stack=cookie_data.length;
+            profileItem.add_image=cookie_data[i];
+            profileItem.parentContainer=parentCont;
+            profileItem.make_stack();
+            profileItem.make_profilePic();
+            profileList.push(profileItem);
 
     }
     console.log(profileList);
+   }
+
+    
 }
 
 
