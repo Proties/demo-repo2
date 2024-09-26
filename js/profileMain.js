@@ -99,12 +99,15 @@ function intialiseProfileObject(data){
         temp.get_list();
         document.getElementsByClassName('templateSelection')[0].style.display='block';
         document.getElementsByClassName('addTemplate')[0].style.display='block';
+        temp.parentContainer=document.getElementsByClassName('container')[0];
+         temp.selectTemplateInput=document.getElementById('selectTemplateInput');
         temp.selectTemplateInput.addEventListener('change',function(evt){
             let index=evt.target.selectedIndex;
             let value=evt.target.options[index].value;
             temp.selectedTemplate=value;
             temp.get_template_from_server();
         });
+        temp.addTemplateBtn=document.getElementById('addTemplatefile');
         temp.addTemplateBtn.addEventListener('click',function(evt){
             temp.add_templateFile();
             document.getElementById('templateModal').style.display='block';
