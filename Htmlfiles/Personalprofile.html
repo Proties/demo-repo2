@@ -2,43 +2,53 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nerstia Personal Profile</title>
 
     <link rel="stylesheet" href="/Cssfiles/Personalprofile.css" />
   </head>
+
   <body>
     <header>
       <nav class="navbar">
         <div class="nav-left">
-        <a href="/demo-repo2/Htmlfiles/Homepage.html" class="home-link"></a>
-          <img src="/Image/Logo.png" alt="Logo" class="logo-image">
-      </div>
+          <a href="/Htmlfiles/Homepage.html" class="home-link">
+            <img src="/Image/Logo.png" alt="Logo" class="logo-image"
+          /></a>
+        </div>
 
         <div class="nav-center">
           <div><h2 class="title">Profile Preview</h2></div>
         </div>
-        
 
         <div class="nav-right">
-
           <button
-          class="push-button"
-          id="editProfileButton"
-          onclick="window.location.href='/edit_profile'"
-        >Edit Profile
-        </button>
+            class="push-button"
+            id="editProfileButton"
+            onclick="window.location.href='/edit_profile'"
+          >
+            Edit Profile
+          </button>
           <button class="upload-button" id="uploadBtn">Push</button>
-
         </div>
       </nav>
     </header>
 
     <div class="container">
       <div class="profile-header">
+        <div class="profile-info">
+          <h1 id="username">User Name</h1>
+          <p id="shortBio">
+            Short bio or description about the artist. This can include
+            interests, specialties, or any other relevant information.
+          </p>
+        </div>
         <div class="profile-picture">
           <img
             id="userProfilePicture"
@@ -46,14 +56,10 @@
             alt="Profile Picture"
           />
         </div>
-        <div class="profile-info">
-          <h1 id="username">Artist Name</h1>
-          <p id="shortBio">
-            Short bio or description about the artist. This can include
-            interests, specialties, or any other relevant information.
-          </p>
-        </div>
-    
+      </div>
+    </div>
+
+    <div class="profile-display">
       <div class="biography">
         <h2>Biography</h2>
         <p id="fullBio">
@@ -61,7 +67,7 @@
           include background, achievements, projects, and more.
         </p>
       </div>
-      
+    </div>
 
     <!-- Upload Post Modal -->
     <div id="uploadModal" class="modal">
@@ -74,37 +80,37 @@
       </div>
     </div>
 
-<div class="templateSelection">
-  <label>Select Template</label>
-  <select id="selectTemplateInput" class="templateSelection">
-    <option>basic</option>
-    <option>Dummyoage.html</option>
-  </select>
-</div>
+    <div class="templateSelection">
+      <label>Select Template</label>
+      <select id="selectTemplateInput" class="templateSelection">
+        <option>basic</option>
+        <option>Dummyoage.html</option>
+      </select>
+    </div>
     <div class="addTemplate">
       <span>Load Template Files</span>
       <button id="addTemplatefile">+</button>
     </div>
 
-
-  <script src="/js/profile.js"></script>  
-  <script type="module" src="js/user.js"></script>
-  <script type="module" src="js/post.js"></script>
-  <script type="module" src="js/stackPosts.js"></script>
-  <script type="module" src="js/profile.js"></script>
-  <script type="module" src="js/makePost.js"></script>
-  <script type="module" src="js/profileMain.js"></script>
-  <footer class="footer">
-    <div class="footer-content">
-      <p>&copy; 2024 Pro & Toxic. All rights reserved.</p>
-      <button class="view-more-btn">View More Posts</button>
-      <div class="contact-info">
-        <p>Contact Us:</p>
-        <ul>
-          <li>Email: info@example.com</li>
-          <li>Phone: +1234567890</li>
-        </ul>
+    <script src="/js/profile.js"></script>
+    <script type="module" src="js/user.js"></script>
+    <script type="module" src="js/post.js"></script>
+    <script type="module" src="js/stackPosts.js"></script>
+    <script type="module" src="js/profile.js"></script>
+    <script type="module" src="js/makePost.js"></script>
+    <script type="module" src="js/profileMain.js"></script>
+    <footer class="footer">
+      <div class="footer-content">
+        <p>&copy; 2024 Pro & Toxic. All rights reserved.</p>
+        <button class="view-more-btn">View More Posts</button>
+        <div class="contact-info">
+          <p>Contact Us:</p>
+          <ul>
+            <li>Email: info@example.com</li>
+            <li>Phone: +1234567890</li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </footer>
+    </footer>
+  </body>
 </html>
