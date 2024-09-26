@@ -12,12 +12,6 @@ try {
         $fileSize = $_FILES['templateFiles']['size'];
         $tmpName = $_FILES['templateFiles']['tmp_name'];
 
-        // Validate file type
-        $allowedTypes = array('application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain');
-        if (!in_array($fileType, $allowedTypes)) {
-            throw new Exception('Invalid file type. Only DOCX and TXT files are allowed.');
-        }
-
         // Validate file size
         $maxSize = 5 * 1024 * 1024; // 5MB
         if ($fileSize > $maxSize) {
@@ -68,12 +62,8 @@ try {
                 break;
         }
     }
-    header('Location: /profile');
+   setcookie('uploadTemplate',$data,time()+(300*10),'/')
 } catch (Exception $e) {
-	$button="
-	<nav>
-	<a href='/profile' ><h1> Go Back</h1></a>
-	</nav>
-	";
-    echo $button."Error: " . $e->getMessage();
+    setcookie('uploadTemplate',$data,time()+(300*10),'/')
+
 }
