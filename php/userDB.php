@@ -39,17 +39,18 @@ class UserDB extends Database{
     public function search_user($user){
         try{
             $db=$this->db;
-            $query='
-            SELECT username FROM Users
-            WHERE username LIKE %:name%
-            LIMIT 5;
+            $query = '
+                SELECT username 
+                FROM Users 
+                WHERE username LIKE :name 
+                LIMIT 5;
             ';
-            $stmt=$db->prepare($query);
-            $stmt->bindValue(':name',$user);
+
+            $stmt = $db->prepare($query);
+            $stmt->bindValue(':name', '%' . $user . '%'); // Add wildcards
             $stmt->execute();
             return $stmt->fetchall();
         }catch(PDOException $err){
-            echo 'error looking for username '.$err->getMessages();
             return $err;
         }
     }

@@ -71,6 +71,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		$bigData['message']='everything all good';
 		$allData=['status'=>'success','username'=>$user->get_username(),'bio'=>$user->get_bio(),'fullname'=>$user->get_fullName()];
 		setcookie('setUpProfile',json_encode($allData), time() + (86400 * 1), '/'); 
+		setcookie('user',json_encode($allData), time() + (86400 * 1), '/'); 
       	echo json_encode($bigData);
       	return;
     }

@@ -58,7 +58,7 @@ for($x=0;$x<$arrLen;$x++){
 
 
     }
-    setcookie('users',json_encode($data) , time() + (864 * 30), '/');
+    setcookie('users',json_encode($data) , time() + (8640 * 1), '/');
 }catch(Exception $err){
     echo $err->getMessage();
 }
@@ -79,16 +79,16 @@ switch($action){
             
             $userDB=new UserDB($user);
             $arrayData=$userDB->search_user($target);
-            array_push($usernames,$arrayData);
+
             $data['status']='success';
-            $data['searchResults']=$usernames;
+            $data['searchResults']=$arrayData;
             $data['Results']=$arrayData;
-            echo json_encode($data);
+            setcookie('usernameSearchResults',json_encode($data), time() + (8640 * 1), '/');
         }
         catch(Exception $err){
             $data['status']='failed';
             $data['message']=$err->getMessage();
-            echo json_encode($data);
+            setcookie('usernameSearchResults',json_encode($data), time() + (8640 * 1), '/');
         }
         
         break;

@@ -18,6 +18,7 @@ function get_cookie(name){
     for(let x=0;x<sp.length;x++){
         let c=sp[x];
         while(c.charAt(0)==' '){
+            console.log(c);
             c=c.substring(1);
             if(c.indexOf(name)==0){
             let parsed=c.substring(name.length,c.length);
@@ -59,6 +60,16 @@ function get_profile_setup_info_from_cookie(){
     let profileSetUp=get_cookie('setUpProfile=');
     if(profileSetUp!==undefined && profileSetUp!==false){
         return profileSetUp;
+    }
+    return false;
+}
+function get_username_search_results_info_from_cookie(){
+    let usernames=get_cookie('usernameSearchResults=');
+    console.log(usernames);
+    if(usernames!==undefined && usernames!==false){
+        console.log('----usernames results-------');
+        console.log(usernames);
+        return usernames;
     }
     return false;
 }
@@ -147,44 +158,46 @@ function open_postPreview(){
 return false;
 
 }
+function clear_search_results(){
+    let list=document.getElementById('suggestion-list');
+    for(let l=0;l<list.childNodes.length;l++){
+        list.childNodes[l].remove();
+    }
+}
 // this function get called when user entres text on the search box it then takes the text to the serve
 // and preforms a search of matchin words on the database of usernames
 function search_user(){
     let text=document.getElementById("search").value;
     let list=document.getElementById('suggestion-list');
     
-    
+    console.log(text);
     
     try{
         let xml=new XMLHttpRequest();
-        xml.onreadystatechange=function(){
-            if(this.readyState==4 ){
-                let data=JSON.parse(this.responseText);
-            console.log(data);
-
-            list.style.display='block';
-            list.innerHTML='';
-            console.log('works');
-            let len=data.searchResults.length;
-            for(let i=0;i<len;i++){
-                const l=document.createElement('li');
-                l.textContent=data.searchResults[i];
-                // l.id="/@"+username;
-                list.appendChild(l);
-                console.log(data.searchResults[i]);
-                l.addEventListener("click",(evt)=>{
-                    console.log("works");
-                    console.log(evt.target.textContent);
-                    window.location.href="/@"+evt.target.textContent;
-                });
-            }
-            
-            }
-        }
         xml.open('POST','/');
         xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        text=JSON.stringify(text);
         xml.send("action=search&q="+text);
+        let searchData=get_username_search_results_info_from_cookie();
+        if(searchData.status=='success'){
+        list.style.display='block';
+        list.innerHTML='';
+        console.log('works');
+        clear_search_results();
+        let len=searchData.Results.length;
+        for(let i=0;i<len;i++){
+            const l=document.createElement('li');
+            
+            l.textContent=searchData.Results[i].username;
+            list.appendChild(l);
+            console.log(searchData.Results[i]);
+            l.addEventListener("click",(evt)=>{
+                console.log("works");
+                console.log(evt.target.textContent);
+                window.location.href="/@"+evt.target.textContent;
+            });
+        }
+        
+        }
     }catch(err){
         console.log(err);
     }
