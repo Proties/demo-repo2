@@ -107,7 +107,7 @@ export class MyProfile extends ProfileUI{
         this._editPost=true;
         this._showSettings=true;
         this._analytics;
-        this._registrationBtn=document.getElementById('');
+        this._registrationBtn=document.getElementById('userRegistration');
         this._data;
         this._setupProfileModal=document.getElementById('profileSetupModal');
     }
