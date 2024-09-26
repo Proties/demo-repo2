@@ -8,7 +8,7 @@ $user=new Users();
 $err=new ErrorHandler();
 $errorMessages=[];
 $dataObj=array();
-$jsonData=['status'=>''];
+$jsonData=[];
 if($_SERVER['REQUEST_METHOD']=='POST'){
     $data=file_get_contents('php://input');
     $dataObj=json_decode($data,true);
@@ -45,11 +45,13 @@ try{
     $_SESSION['password']=$user->get_password();
     $_SESSION['lastName']=$user->get_lastName();
     $_SESSION['email']=$user->get_email();
+    setcookie('registration',json_encode($jsonData), time() + (86400 * 30), '/'); 
     echo json_encode($jsonData);
-}catch(Exception $error){
-    $data=array('status'=>'failed','msg'=>$error->getMessage(),"errorArray"=>$errorMessages);
-    echo json_encode($data);
     return;
+}catch(Exception $error){
+    $jsonData=array('status'=>'failed','msg'=>$error->getMessage(),"errorArray"=>$errorMessages);
+    setcookie('registration',json_encode($jsonData), time() - (86400 * 30), '/');
+    echo json_encode($jsonData);
 }
 
 ?>
