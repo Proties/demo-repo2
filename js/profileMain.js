@@ -32,7 +32,13 @@ function get_data_from_cookie(){
     intialiseProfileObject(data);
 }
 
-
+function get_template_upload_status(){
+    let uploadStatus=get_cookie('templateUpload=');
+    if(uploadStatus!==undefined){
+        return uploadStatus;
+    }
+    return false;
+}
 function readFile(file){
     let fileOne=file.files[0];
     // let fileTwo=file.files[1];
@@ -47,30 +53,33 @@ function readFile(file){
         console.log(fileOne);
         temp.filename=fileOne.name;
         temp.sendToHtmlServer();
+        let uploadStatus=get_template_upload_status();
+        if(uploadStatus.status=='succes'){
+            alert('successfull');
+            return true;
+        }
+        alert('could not add template because '+uploadStatus.error);
 
-        
+        return false;    
     }
     reader.readAsText(fileOne);
     // reader.readAsText(fileTwo);
             
 }
 async function validateTemplateSubmission(evt){
-            evt.preventDefault();
-            console.log('validating template submissions');
-            let file=document.getElementById('templateFiles');
-            let form=document.getElementById('uploadTemplateForm');
-
-
-            let data=await readFile(file);
-            document.getElementById('templateModal').style.display='none';
-          
-            
-        }
+    evt.preventDefault();
+    console.log('validating template submissions');
+    let file=document.getElementById('templateFiles');
+    let form=document.getElementById('uploadTemplateForm');
+    let data=await readFile(file);
+    document.getElementById('templateModal').style.display='none';
+}
 
 function intialiseProfileObject(data){
     // if(data==undefined){
     //     return;
     // }
+    
     console.log(data);
     let url=location.href;
     let last=url.lastIndexOf('/');
@@ -79,28 +88,14 @@ function intialiseProfileObject(data){
         url=url.slice(1,url.length);
         currentProfile=new MyProfile();
         // currentProfile.username=data.user['username'];
-        currentProfile.make_user_info()
-        console.log(data);
-        if(data==null){
-            console.log('no posts');
-        }else{
-            for(let p=0;p<data.posts.length;p++){
-            let post=new PostUI();
-            // post.populate_post();
-            post.parentContainer=parentContainer;
-            post.id=data.posts[p].postID;filename
-            // post.src='/Image/Art.png';
-            post.src=data.posts[p].filename;
-            post.make_post();
-        }
-        }
         
-        
-        let con=document.getElementsByClassName('container')[0];
+  
+
+    let con=document.getElementsByClassName('container')[0];
         temp.get_list();
         document.getElementsByClassName('templateSelection')[0].style.display='block';
         document.getElementsByClassName('addTemplate')[0].style.display='block';
-        temp.parentContainer=document.getElementsByClassName('container')[0];
+        temp.parentContainer=document.body;
          temp.selectTemplateInput=document.getElementById('selectTemplateInput');
         temp.selectTemplateInput.addEventListener('change',function(evt){
             let index=evt.target.selectedIndex;
@@ -115,10 +110,21 @@ function intialiseProfileObject(data){
             let sub=document.getElementById('submitTemplateFiles');
             sub.addEventListener('click',validateTemplateSubmission);
         });
-        
-        
        
+    if(data==undefined){
+        return;
     }
+    currentProfile.make_user_info();
+    for(let p=0;p<data.posts.length;p++){
+        let post=new PostUI();
+        // post.populate_post();
+        post.parentContainer=parentContainer;
+        post.id=data.posts[p].postID;filename
+        // post.src='/Image/Art.png';
+        post.src=data.posts[p].filename;
+        post.make_post();
+    }
+        }
     else{
         currentProfile=new OtherProfile();
         currentProfile.username=data.user[0]['username'];
@@ -140,6 +146,7 @@ function intialiseProfileObject(data){
        
     }
 }
+
 
 function upload_post(){
     uploadPost=new MakePostUI();

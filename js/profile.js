@@ -63,7 +63,6 @@ class ProfileUI extends Profile{
     }
     make_bio(){}
     make_user_info(){
-
         document.getElementById('username').innerHTML=this.username;
         document.getElementById('shortBio').innerHTML=this.shortBio;
         document.getElementById('fullBio').innerHTML=this.fullBio;
@@ -110,14 +109,11 @@ export class MyProfile extends ProfileUI{
         this._registrationBtn=document.getElementById('userRegistration');
         this._data;
         this._setupProfileModal=document.getElementById('profileSetupModal');
+        this.is_logged_in();
     }
     is_logged_in(){
-        if(this.logged_in==true){
-            document.getElementsByClassName('templateSelection')[0].style.display='none';
-            document.getElementsByClassName('addTemplate')[0].style.display='none';
-            return true;
-        }
-        return false;
+            document.getElementsByClassName('templateSelection')[0].style.display='block';
+            document.getElementsByClassName('addTemplate')[0].style.display='block';
     }
     set registrationBtn(i){
        this._registrationBtn=i;

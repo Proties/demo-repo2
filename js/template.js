@@ -167,43 +167,6 @@ class TemplateUI extends Template{
 		try{
 			let xml=new XMLHttpRequest();
 			xml.open('POST','/profile');
-			xml.onload=function(){
-				console.log('get template =========');
-				let fData=this.responseText;
-				// let newElement=document.createElement('button');
-				let newElement=this.responseText;
-				let main=document.body;
-				// console.log(main.childNodes);
-				// console.log(fData);
-				
-				
-				let oldElement=document.getElementsByClassName('container')[0];
-				let children=oldElement.childNodes;
-				console.log('=====childern');
-				console.log(children);
-				// for(let l=1;l<children.length;l+=2){
-					document.getElementsByClassName('profile-header')[0].remove();
-					document.getElementsByClassName('biography')[0].remove();
-					document.getElementsByClassName('post-section')[0].remove();
-					// children[l].remove();
-					// children[1].parentNode.removeChild(children[1]);
-					// children[1].parentNode.removeChild(children[3]);
-					// children[1].parentNode.removeChild(children[5]);
-					// children[1].parentNode.removeChild(children[7]);
-					// children[1].parentNode.removeChild(children[8]);
-				
-					console.log(children[1].parentNode);
-				// }
-				console.log('new element=======');
-				// console.log(newElement);
-				console.log('old element=======');
-				
-				oldElement.append(newElement);
-				console.log(newElement.length);
-
-
-				
-			}
 			 xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xml.send('actions=selectTemplate&templateName='+this.selectedTemplate);
 		}catch(err){
@@ -231,17 +194,6 @@ class TemplateUI extends Template{
 		try{
 			let xml=new XMLHttpRequest();
             xml.open('POST','/profile');
-            xml.onload=function(){
-
-                console.log("++++++=loading template");
-                let data=JSON.parse(this.responseText);
-                if(data.status=='succes'){
-                	return true;
-                }
-                alert('could not add template because '+data.error);
-
-                return false;
-            }
             xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xml.send('actions=loadTemplate&filename='+this.filename+'&htmlData='+this.html);
 		}catch(err){
@@ -300,8 +252,12 @@ class TemplateUI extends Template{
 		topcont.setAttribute('id','templateModal');
 		btn.setAttribute('id','submitTemplateFiles');
 		// topcont.style.display='block';
+		console.log('=====checking if working');
+
 		this.templateForm=cont;
 		this.parentContainer.append(topcont);
+		console.log(this.templateForm);
+		console.log(this.parentContainer);
 		// this.p.append(this.templateForm);
 
 	}
