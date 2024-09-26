@@ -164,6 +164,7 @@ nav .profile-link {
     opacity: 60%;
 }
 
+/*Post section */
 
 .top-post {
     transition: transform 0.3s ease-in-out;
@@ -181,7 +182,6 @@ nav .profile-link {
     z-index: 2;
     cursor: pointer;
 }
-
 
 .post-section {
     padding: 30px;
@@ -205,7 +205,6 @@ nav .profile-link {
     grid-column-gap: 100px;
     margin-top: 20px;
 }
-
 
 .top-post:hover {
     transform: scale(1.05);
@@ -348,11 +347,12 @@ nav .profile-link {
 }
 
 textarea {
-    width: 100%;
+    width: 74%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     resize: vertical;
+    margin: 20px;
 }
 
 .modal-buttons {
@@ -448,6 +448,8 @@ transform: scale(1.10);
     position: absolute;
     text-align: center;
     align-content: center;
+    margin-top: 60px;
+    margin-left: 341px;
   }
 
   .register-heading{
@@ -554,16 +556,21 @@ transform: scale(1.10);
     align-items: center;
   }
   
-  /* Modal container *
-  .modal-container {
-    background-color: #a7922f; /* Mustard yellow *
-    padding: 20px;
-    border-radius: 10px;
-    width: 500px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    position: relative;
-    text-align: center;
+  /* Modal container */
+    .profilesetupmodal-container {
+      background-color: #a7922f; /* Mustard yellow */
+      padding: 20px;
+      border-radius: 10px;
+      width: 800px; /* Smaller width */
+      height: 640px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      position: absolute;
+      text-align: center;
+      align-content: center;
+      margin-top: 30px;
+      margin-left: 311px;
   }
+  
   
   /* Close button *
   .close {

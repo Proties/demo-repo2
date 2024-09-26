@@ -40,34 +40,46 @@
       </nav>
     </header>
 
-    <div class="container">
-      <div class="profile-header">
-        <div class="profile-info">
-          <h1 id="username">User Name</h1>
-          <p id="shortBio">
-            Short bio or description about the artist. This can include
-            interests, specialties, or any other relevant information.
-          </p>
-        </div>
-        <div class="profile-picture">
-          <img
-            id="userProfilePicture"
-            src="/Image/Test Account.png"
-            alt="Profile Picture"
-          />
-        </div>
+    <!-- Profile Section -->
+    <section class="profile-section">
+      <div class="profile-container">
+        <!-- Profile Image in the Center -->
+        <img
+          src="/Image/Test Account.png"
+          alt="Profile Image"
+          class="profile-image"
+        />
       </div>
-    </div>
+    </section>
 
-    <div class="profile-display">
-      <div class="biography">
-        <h2>Biography</h2>
-        <p id="fullBio">
-          Detailed biography and information about the artist. This section can
-          include background, achievements, projects, and more.
+    <!-- User Info Section -->
+    <section class="info-section">
+      <div class="info-container">
+        <!-- Username and Short Bio -->
+        <h1 class="username">JohnDoe123</h1>
+        <p class="short-bio">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          lacinia odio vitae vestibulum vestibulum.
         </p>
       </div>
-    </div>
+    </section>
+
+    <!-- Posts Section -->
+    <section class="posts-section">
+      <div class="posts-container">
+        <h2 class="posts-heading">Posts</h2>
+        <!-- Example Posts -->
+        <div class="post">
+          <p>This is my first post!</p>
+        </div>
+        <div class="post">
+          <p>Another day, another adventure.</p>
+        </div>
+        <div class="post">
+          <p>Exploring new ideas every day!</p>
+        </div>
+      </div>
+    </section>
 
     <!-- Upload Post Modal -->
     <div id="uploadModal" class="modal">
@@ -84,7 +96,6 @@
       <label>Select Template</label>
       <select id="selectTemplateInput">
         <option>basic</option>
-        <option>Dummyoage.html</option>
       </select>
     </div>
     <div class="addTemplate">
