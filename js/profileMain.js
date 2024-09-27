@@ -109,7 +109,7 @@ async function intialiseProfileObject(data,myProfile){
         }
         url=url.slice(1,url.length);
         currentProfile=new MyProfile();
-        currentProfile.username=profile_data.username;
+        // currentProfile.username=profile_data.username;
         currentProfile.shortBio=profile_data.bio;
         currentProfile.fullname=profile_data.fullname;
         currentProfile.make_user_info();
