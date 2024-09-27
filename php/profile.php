@@ -112,11 +112,11 @@ switch($action){
             $data['status']='success';
             $data['templateList']=$list;
             // setcookie('templateList',json_encode($data),time()+(86400*10),'/profile');
-            setcookie('templateList',json_encode($data), time() + (86400 * 30), '/'); 
+            setcookie('templateList',json_encode($data), time() + (86400 * 1), '/'); 
         }catch(Exception $err){
             $data['status']='failed';
             $data['error']=$err->getMessage();
-            setcookie('templateList',json_encode($data), time() + (86400 * 30), '/'); 
+            setcookie('templateList',json_encode($data), time() + (86400 * 1), '/'); 
             // setcookie('templateList',json_encode($list),time()+(86400*10),'/profile');
         }
         
