@@ -30,23 +30,21 @@ function get_cookie(name){
 }
 }
 function get_ish_form_cookie(){
-            allData=get_cookie("users=");
-            let user_data=get_cookie("user=");
-            if(allData==undefined && user_data==undefined){
-                console.log('no posts or user account');
-                return;
-            }else if(user_data!==undefined){
-                console.log(user_data);
-                initialiseObjects(allData,user_data,);
-            }else{
-                initialiseObjects(allData,user_data);
-                console.log(allData);
-                // init_img(allData);
-                // init_user(user_data);
-            }
-            
-            
-            // init_categories(dtt.categories);
+    allData=get_cookie("users=");
+    let user_data=get_cookie("user=");
+    if(allData==undefined && user_data==undefined){
+        console.log('no posts or user account');
+        return;
+    }else if(user_data!==undefined){
+        console.log(user_data);
+        initialiseObjects(allData,user_data,);
+    }else{
+        initialiseObjects(allData,user_data);
+        console.log(allData);
+        // init_img(allData);
+        // init_user(user_data);
+    }
+    // init_categories(dtt.categories);
 }
 function get_registration_info_from_cookie(){
     let registration=get_cookie('registration=');
