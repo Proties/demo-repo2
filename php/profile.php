@@ -87,15 +87,37 @@ $action=$_POST['actions'];
 switch($action){
     case 'view_post':
         break;
-    case 'delete_post':
+    case 'hide_template':
         break;
     case 'delete_template':
+        $data=[];
+        try{
+            $template->set_name($_POST['tempName']);
+            $tempdb=new TemplateDB($template);
+            $tempdb->removeTemplate();
+            $data['status']='success';
+            setcookie('deleteTemplate',$data,time()+(12*10),'/profile');
+        }catch(Exception $err){
+            $data['status']='failed';
+            $data['error']=$err->getMessage();
+            setcookie('deleteTemplate',$data,time()+(12*10),'/profile');
+        }
+        
         break;
     case 'get_template_list':
-        $tempdb=new TemplateDB($template);
-        $list=$tempdb->getTemplateList();
-
-        echo json_encode($list);
+        $data=[];
+        try{
+            $tempdb=new TemplateDB($template);
+            $list=$tempdb->getTemplateList();
+            $data['status']='success';
+            $data['templateList']=$list;
+            setcookie('templateList',json_encode($data),time()+(86400*10),'/profile');
+        }catch(Exception $err){
+            $data['status']='failed';
+            $data['errof']=$err->getMessage();
+            setcookie('templateList',json_encode($list),time()+(86400*10),'/profile');
+        }
+        
         break;
     case 'loadTemplate':
         $filename=$_POST['filename'];

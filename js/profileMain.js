@@ -15,6 +15,7 @@ function get_cookie(name){
     for(let x=0;x<sp.length;x++){
         let c=sp[x];
         while(c.charAt(0)==' '){
+            console.log(c);
             c=c.substring(1);
             if(c.indexOf(name)==0){
            
@@ -27,9 +28,10 @@ function get_cookie(name){
 }
 function get_data_from_cookie(){
     let user_data=get_cookie('username=');
+    let setUpProfile=get_cookie('setUpProfile=');
     let data=get_cookie('profile=');
     
-    intialiseProfileObject(data);
+    intialiseProfileObject(data,setUpProfile);
 }
 
 function get_template_upload_status(){
@@ -37,6 +39,14 @@ function get_template_upload_status(){
     if(uploadStatus!==undefined){
         return uploadStatus;
     }
+    return false;
+}
+function template_info_from_cookie(){
+    let list=get_cookie('templateList=');
+    if(list!==undefined){
+        return list;
+    }
+    console.log(list);
     return false;
 }
 function readFile(file){
@@ -56,6 +66,7 @@ function readFile(file){
         let uploadStatus=get_template_upload_status();
         if(uploadStatus.status=='succes'){
             alert('successfull');
+            //add new file into template list
             return true;
         }
         alert('could not add template because '+uploadStatus.error);
@@ -75,28 +86,45 @@ async function validateTemplateSubmission(evt){
     document.getElementById('templateModal').style.display='none';
 }
 
-function intialiseProfileObject(data){
+async function intialiseProfileObject(data,myProfile){
     // if(data==undefined){
     //     return;
     // }
-    
+    let profile_data;
+  
     console.log(data);
     let url=location.href;
     let last=url.lastIndexOf('/');
     url=url.slice(last+1,url.length);
+
     if(url=='profile'){
+        if(myProfile!==undefined){
+            profile_data=myProfile;
+        }
         url=url.slice(1,url.length);
         currentProfile=new MyProfile();
-        // currentProfile.username=data.user['username'];
-        
-  
-
-    let con=document.getElementsByClassName('container')[0];
+        currentProfile.username=profile_data.username;
+        currentProfile.shortBio=profile_data.bio;
+        currentProfile.fullname=profile_data.fullname;
+        currentProfile.make_user_info();
+        console.log(currentProfile);
+        let con=document.getElementsByClassName('container')[0];
         temp.get_list();
+        let select=document.getElementById('selectTemplateInput');
+        let templateLists=template_info_from_cookie();
+        console.log('template list=====');
+        console.log(templateLists);
+        temp.templateList=templateLists;
+        for(let t=0;t<temp.templateList.length;t++){
+            let o=document.createElement('option');
+            let oTxt=document.createTextNode(temp.templateList[t].filename);
+            o.append(oTxt);
+            select.append(o);
+        }
         document.getElementsByClassName('templateSelection')[0].style.display='block';
         document.getElementsByClassName('addTemplate')[0].style.display='block';
         temp.parentContainer=document.body;
-         temp.selectTemplateInput=document.getElementById('selectTemplateInput');
+        temp.selectTemplateInput=document.getElementById('selectTemplateInput');
         temp.selectTemplateInput.addEventListener('change',function(evt){
             let index=evt.target.selectedIndex;
             let value=evt.target.options[index].value;
@@ -106,14 +134,67 @@ function intialiseProfileObject(data){
         temp.addTemplateBtn=document.getElementById('addTemplatefile');
         temp.addTemplateBtn.addEventListener('click',function(evt){
             temp.add_templateFile();
+            temp.template_more_options();
+            let updateBtns=document.getElementsByClassName('updateTemplate');
+            let deleteBtns=document.getElementsByClassName('deleteTemplate');
+            let hideBtns=document.getElementsByClassName('hideTemplate');
+            let closeWin=document.getElementsByClassName('closeWindow')[0];
+            closeWin.addEventListener('click',function(evt){
+                let parentContaner=evt.target.parentNode;
+                parentContaner.style.display='none';
+            });
+            for(let up=0;up<updateBtns.length;up++){
+                updateBtns[up].addEventListener('click',function(evt){
+                    console.log('updating tmpaltes');
+                    let parent=evt.target.parentNode;
+                    const updateContainer=parent.getElementsByClassName('templateFileHolder')[0];
+                    updateContainer.style.display='block';
+                    parent.getElementsByClassName('cancelUpdate')[0].addEventListener('click',function(evt){
+                        updateContainer.style.display='none';
+                    });
+                    parent.getElementsByClassName('saveUpdate')[0].addEventListener('click',function(evt){
+                        evt.preventDefault();
+                        updateContainer.style.display='none';
+                    });
+
+                });
+            }
+            for(let db=0;db<deleteBtns.length;db++){
+                deleteBtns[db].addEventListener('click',(evt)=>{
+                    console.log('delete tmpaltes');
+                    confirm('are you sure ');
+                    try{
+                        let xml=new XMLHttpRequest();
+                        xml.open('POST','/profile');
+                        xml.setRequestHeader('Content-type','x/application-form-urlencoded');
+                        xml.send('action=deleteTemplate&templateName='+name);
+                    }catch(err){
+                        console.log(err);
+                    }
+                });
+            }
+            for(let hb=0;hb<hideBtns.length;hb++){
+                hideBtns[hb].addEventListener('click',function(evt){
+                    console.log('hhide tmpaltes');
+                    const element=evt.target;
+
+                    element.innerHTML='show Template';
+                    element.className='showTemplate';
+                    element.removeEventListener('click',this);
+                    try{
+                        let xml=new XMLHttpRequest();
+                        xml.open('POST','/profile');
+                        xml.setRequestHeader('Content-type','x/application-form-urlencoded');
+                        xml.send('action=hideTemplate&templateName='+name);
+                    }catch(err){
+                        console.log(err);
+                    }
+                });
+            }
             document.getElementById('templateModal').style.display='block';
             let sub=document.getElementById('submitTemplateFiles');
             sub.addEventListener('click',validateTemplateSubmission);
         });
-       
-    if(data==undefined){
-        return;
-    }
     currentProfile.make_user_info();
     for(let p=0;p<data.posts.length;p++){
         let post=new PostUI();
@@ -124,22 +205,29 @@ function intialiseProfileObject(data){
         post.src=data.posts[p].filename;
         post.make_post();
     }
-        }
+        
+    }
+        
     else{
+       console.log('======other profile data');
+       console.log(data);
         currentProfile=new OtherProfile();
-        currentProfile.username=data.user[0]['username'];
-        // currentProfile.username=data.user[0]['username'];
-        // currentProfile.username=data.user[0]['username'];
+
+       
+        currentProfile.username=data.user[0].username;
+        currentProfile.shortBio=data.user[0].bio;
+        currentProfile.fullname=data.user[0].fullname;
         currentProfile.make_user_info();
         console.log(currentProfile);
         let parentContainer=document.getElementsByClassName('postfeed-wrapper')[0];
         for(let p=0;p<data.posts.length;p++){
             let post=new PostUI();
-            post.populate_post();
+            
             post.parentContainer=parentContainer;
-            // post.id=data.posts[p].postID;filename;
-            post.src='/Image/Art.png';
-            // post.src=data.posts[p].filename;
+            post.id=data.posts[p].postID;
+            // post.src='/Image/Art.png';
+            post.src=data.posts[p].filepath+'/'+data.posts[p].filename;
+            post.populate_post();
             post.make_post();
         }
 

@@ -65,7 +65,7 @@ class ProfileUI extends Profile{
     make_user_info(){
         document.getElementById('username').innerHTML=this.username;
         document.getElementById('shortBio').innerHTML=this.shortBio;
-        document.getElementById('fullBio').innerHTML=this.fullBio;
+        // document.getElementById('fullBio').innerHTML=this.fullBio;
 
         // document.getElementById('userBio').textContent=info.bio;
         // document.getElementById('userProfilePicture').src=pic;
@@ -153,7 +153,17 @@ export class MyProfile extends ProfileUI{
     }
     
 
-}
 
+}
+class AdminProfile extends MyProfile{
+    constructor(){
+        super();
+        this._uploadTemplates=true;
+        this._removeTemplates=true;
+        this._hideTemplates=true;
+        this._showTemplates=true;
+    }
+    
+}
 
 

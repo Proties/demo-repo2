@@ -1,6 +1,10 @@
 <?php
 try {
     // Check if a file was uploaded
+    if($_POST['action']=='updateTemplate'){
+
+        
+    }
     if($_FILES['templateFiles']==null){
     	throw new Exception('no file was provided');
     }
@@ -62,8 +66,11 @@ try {
                 break;
         }
     }
-   setcookie('uploadTemplate',$data,time()+(300*10),'/')
+    $data['status']='success';
+    setcookie('uploadTemplate',json_encode($data),time()+(300*10),'/')
 } catch (Exception $e) {
-    setcookie('uploadTemplate',$data,time()+(300*10),'/')
+    $data['status']='failed';
+    $data['error']=$e->getMessage();
+    setcookie('uploadTemplate',json_encode($data),time()+(300*10),'/')
 
 }

@@ -220,3 +220,33 @@ header {
     top: 0;
     right: 0;
 }
+.uploadTemplateForm{
+    height: 10em;
+    padding: 1em;
+}
+.templateItemHolder{
+    padding: 1em;
+    border: 0.1em solid beige;
+}
+.templateFileHolder{
+    display: none;
+    height: 9em;
+    border: 0.1em solid beige;
+}
+.closeWindow{
+    padding: 0.1em;
+    font-size: 1.4em;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+.closeWindow:hover{
+    background-color: gray;
+}
+#templateFiles{
+    height: 12em;
+    width: 17em;
+    background-color: whitesmoke;
+    border: 0.1em solid black;
+}
