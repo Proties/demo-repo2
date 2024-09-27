@@ -58,7 +58,7 @@ class TemplateUI extends Template{
 		this._deleteable=true;
 		this._cont;
 		this._parentContainer;
-		this._templateList=['basic'];
+		this._templateList;
 		this._selectedTemplate;
 		this._selectTemplateInput;
 		this._templateForm;
@@ -272,7 +272,7 @@ class TemplateUI extends Template{
 			let fileUpload=document.createElement('div');
 			let file=document.createElement('input');
 			let templateName=document.createElement('div');
-			let templateNameTxt=document.createTextNode('Template Name: '+this.templateList[i]);
+			let templateNameTxt=document.createTextNode('Template Name: '+this.templateList[i].filename);
 			let updateBtn=document.createElement('button');
 			let updateBtnTxt=document.createTextNode('update template');
 			let deleteBtn=document.createElement('button');
@@ -325,6 +325,7 @@ class TemplateUI extends Template{
 			hideBtn.setAttribute('class','hideTemplate');
 			cancelBtn.setAttribute('class','cancelUpdate');
 			saveChangeBtn.setAttribute('class','saveUpdate');
+			bigCont.setAttribute('class','templateContainer');
 
 			cont.append(templateName);
 			cont.append(updateBtn);

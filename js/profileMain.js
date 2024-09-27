@@ -77,6 +77,12 @@ function readFile(file){
     // reader.readAsText(fileTwo);
             
 }
+function clear_template_list(){
+    let list=document.getElementsByClassName('templateContainer')[0];
+    for(let tl=0;tl<list.childNodes.length;tl++){
+        list.removeChild(list.childNodes[tl]);
+    }
+}
 async function validateTemplateSubmission(evt){
     evt.preventDefault();
     console.log('validating template submissions');
@@ -114,10 +120,12 @@ async function intialiseProfileObject(data,myProfile){
         let templateLists=template_info_from_cookie();
         console.log('template list=====');
         console.log(templateLists);
-        temp.templateList=templateLists;
+        temp.templateList=templateLists.templateList;
+
         for(let t=0;t<temp.templateList.length;t++){
             let o=document.createElement('option');
             let oTxt=document.createTextNode(temp.templateList[t].filename);
+            console.log(temp.templateList[t].filename);
             o.append(oTxt);
             select.append(o);
         }
@@ -134,6 +142,7 @@ async function intialiseProfileObject(data,myProfile){
         temp.addTemplateBtn=document.getElementById('addTemplatefile');
         temp.addTemplateBtn.addEventListener('click',function(evt){
             temp.add_templateFile();
+            clear_template_list();
             temp.template_more_options();
             let updateBtns=document.getElementsByClassName('updateTemplate');
             let deleteBtns=document.getElementsByClassName('deleteTemplate');
