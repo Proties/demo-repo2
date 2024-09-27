@@ -1,6 +1,10 @@
 <?php
 try {
     // Check if a file was uploaded
+    if($_POST['action']=='updateTemplate'){
+
+        
+    }
     if($_FILES['templateFiles']==null){
     	throw new Exception('no file was provided');
     }
@@ -11,12 +15,6 @@ try {
         $fileType = $_FILES['templateFiles']['type'];
         $fileSize = $_FILES['templateFiles']['size'];
         $tmpName = $_FILES['templateFiles']['tmp_name'];
-
-        // Validate file type
-        $allowedTypes = array('application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain');
-        if (!in_array($fileType, $allowedTypes)) {
-            throw new Exception('Invalid file type. Only DOCX and TXT files are allowed.');
-        }
 
         // Validate file size
         $maxSize = 5 * 1024 * 1024; // 5MB
@@ -68,12 +66,11 @@ try {
                 break;
         }
     }
-    header('Location: /profile');
+    $data['status']='success';
+    setcookie('uploadTemplate',json_encode($data),time()+(300*10),'/')
 } catch (Exception $e) {
-	$button="
-	<nav>
-	<a href='/profile' ><h1> Go Back</h1></a>
-	</nav>
-	";
-    echo $button."Error: " . $e->getMessage();
+    $data['status']='failed';
+    $data['error']=$e->getMessage();
+    setcookie('uploadTemplate',json_encode($data),time()+(300*10),'/')
+
 }

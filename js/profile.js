@@ -63,10 +63,9 @@ class ProfileUI extends Profile{
     }
     make_bio(){}
     make_user_info(){
-
         document.getElementById('username').innerHTML=this.username;
         document.getElementById('shortBio').innerHTML=this.shortBio;
-        document.getElementById('fullBio').innerHTML=this.fullBio;
+        // document.getElementById('fullBio').innerHTML=this.fullBio;
 
         // document.getElementById('userBio').textContent=info.bio;
         // document.getElementById('userProfilePicture').src=pic;
@@ -107,17 +106,14 @@ export class MyProfile extends ProfileUI{
         this._editPost=true;
         this._showSettings=true;
         this._analytics;
-        this._registrationBtn=document.getElementById('');
+        this._registrationBtn=document.getElementById('userRegistration');
         this._data;
         this._setupProfileModal=document.getElementById('profileSetupModal');
+        this.is_logged_in();
     }
     is_logged_in(){
-        if(this.logged_in==true){
-            document.getElementsByClassName('templateSelection')[0].style.display='none';
-            document.getElementsByClassName('addTemplate')[0].style.display='none';
-            return true;
-        }
-        return false;
+            document.getElementsByClassName('templateSelection')[0].style.display='block';
+            document.getElementsByClassName('addTemplate')[0].style.display='block';
     }
     set registrationBtn(i){
        this._registrationBtn=i;
@@ -145,22 +141,6 @@ export class MyProfile extends ProfileUI{
             let xml=new XMLHttpRequest();
             xml.open('POST','/setup_profile');
             xml.setRequestHeader('Content-Type', 'application/json');
-            xml.onload=function(){
-                let d=JSON.parse(this.responseText);
-                if(d.status==='success'){
-                    alert('it works');
-                    setupProfileModal.style.display='none';
-                    this.registrationBtn.style.display='none';
-                }
-               console.log(d);
-                    for(let e=0;e<d.errors.length;e++){
-                        let k=Object.keys(d.errors[e]);
-                  
-                        document.getElementById(k).innerHTML=d.errors[e][k];
-                    }
-                
-
-            }
             xml.send(JSON.stringify(this.data));
         }catch(err){
             console.log(err)
@@ -173,7 +153,17 @@ export class MyProfile extends ProfileUI{
     }
     
 
-}
 
+}
+class AdminProfile extends MyProfile{
+    constructor(){
+        super();
+        this._uploadTemplates=true;
+        this._removeTemplates=true;
+        this._hideTemplates=true;
+        this._showTemplates=true;
+    }
+    
+}
 
 

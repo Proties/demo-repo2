@@ -44,9 +44,25 @@ class TemplateDB extends Database{
 			return $err;
 		}
 	}
-	public function removeTemplate($id){
+	public function removeTemplate(){
+		$db=$this->db;
+		try{
+			$query='
+					DELETE FROM Template 
+					WHERE name=:name;
+			';
+			$statement=$db->prepare($query);
+			$statement->bindValue(':name',$this->template->get_name());
+			$status=$statement->execute();
+			return $status;
 
+		}catch(PDOException $err){
+			return $err;
+		}
 	}
+	public function updateTemplate($id){}
+	public function hideTemplate($id){}
+	public function showTemplate($id){}
 }
 
 

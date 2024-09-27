@@ -21,7 +21,6 @@ function get_cookie(name){
             console.log(c);
             c=c.substring(1);
             if(c.indexOf(name)==0){
-                console.log(c);
             let parsed=c.substring(name.length,c.length);
             let dtt=JSON.parse(parsed);
 
@@ -48,6 +47,31 @@ function get_ish_form_cookie(){
             
             
             // init_categories(dtt.categories);
+}
+function get_registration_info_from_cookie(){
+    let registration=get_cookie('registration=');
+    if(registration!==undefined && registration!==false){
+        return registration;
+  
+    }
+    return false;
+}
+function get_profile_setup_info_from_cookie(){
+    let profileSetUp=get_cookie('setUpProfile=');
+    if(profileSetUp!==undefined && profileSetUp!==false){
+        return profileSetUp;
+    }
+    return false;
+}
+function get_username_search_results_info_from_cookie(){
+    let usernames=get_cookie('usernameSearchResults=');
+    console.log(usernames);
+    if(usernames!==undefined && usernames!==false){
+        console.log('----usernames results-------');
+        console.log(usernames);
+        return usernames;
+    }
+    return false;
 }
 function initialiseObjects(cookie_data,cookie_user){
     console.log('=========cookie data========');
@@ -134,44 +158,46 @@ function open_postPreview(){
 return false;
 
 }
+function clear_search_results(){
+    let list=document.getElementById('suggestion-list');
+    for(let l=0;l<list.childNodes.length;l++){
+        list.childNodes[l].remove();
+    }
+}
 // this function get called when user entres text on the search box it then takes the text to the serve
 // and preforms a search of matchin words on the database of usernames
 function search_user(){
     let text=document.getElementById("search").value;
     let list=document.getElementById('suggestion-list');
     
-    
+    console.log(text);
     
     try{
         let xml=new XMLHttpRequest();
-        xml.onreadystatechange=function(){
-            if(this.readyState==4 ){
-                let data=JSON.parse(this.responseText);
-            console.log(data);
-
-            list.style.display='block';
-            list.innerHTML='';
-            console.log('works');
-            let len=data.searchResults.length;
-            for(let i=0;i<len;i++){
-                const l=document.createElement('li');
-                l.textContent=data.searchResults[i];
-                // l.id="/@"+username;
-                list.appendChild(l);
-                console.log(data.searchResults[i]);
-                l.addEventListener("click",(evt)=>{
-                    console.log("works");
-                    console.log(evt.target.textContent);
-                    window.location.href="/@"+evt.target.textContent;
-                });
-            }
-            
-            }
-        }
         xml.open('POST','/');
         xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        text=JSON.stringify(text);
         xml.send("action=search&q="+text);
+        let searchData=get_username_search_results_info_from_cookie();
+        if(searchData.status=='success'){
+        list.style.display='block';
+        list.innerHTML='';
+        console.log('works');
+        clear_search_results();
+        let len=searchData.Results.length;
+        for(let i=0;i<len;i++){
+            const l=document.createElement('li');
+            
+            l.textContent=searchData.Results[i].username;
+            list.appendChild(l);
+            console.log(searchData.Results[i]);
+            l.addEventListener("click",(evt)=>{
+                console.log("works");
+                console.log(evt.target.textContent);
+                window.location.href="/@"+evt.target.textContent;
+            });
+        }
+        
+        }
     }catch(err){
         console.log(err);
     }
@@ -347,11 +373,15 @@ function closeModal() {
     modal.style.display = "none";
 }
 
+// get_registration_info_from_cookie();
 // Form submission
-document.getElementById("registerForm").onsubmit = function(event) {
+document.getElementById("registerForm").onsubmit=formHandling;
+async function formHandling(evt){
     let modal=document.getElementById('registerModal');
     event.preventDefault();
     clear_error_messages();
+
+
     let form=document.getElementById("registerForm");
     let formData=new FormData(document.getElementById("registerForm"));
     let item={
@@ -360,49 +390,94 @@ document.getElementById("registerForm").onsubmit = function(event) {
         password:document.getElementById('password').value,
         email:document.getElementById('email').value
     };
+  
     item=JSON.stringify(item);
     try{
         
         let xm=new XMLHttpRequest();
         xm.open('POST','/registration');
         xm.setRequestHeader('Content-Type', 'application/json');
-        xm.onload=function(){
-            console.log('form validation');
+        // xm.onreadystatechange=function(){
+        //     console.log('form validation');
             
-            let data=JSON.parse(this.responseText);
-            console.log(data);
-            if(data.status=='success'){
-                alert('succesfull logged in');
-                modal.style.display='none';
+        //     let data=JSON.parse(this.responseText);
+        //     console.log(data);
+        //     if(data.status=='success'){
+        //         alert('succesfull logged in');
+        //         modal.style.display='none';
 
-                user.setup_profile();
-                document.getElementById('submitProfileSetup').addEventListener('click',function(evt){
-                    evt.preventDefault();
-                    let profileItem={
-                        username:document.getElementById('profileName').value,
-                        fullname:document.getElementById('fullName').value,
-                        gender:document.getElementById('gender').value,
-                        bio:document.getElementById('biography').value,
-                        occupation:document.getElementById('occupation').value
-                    };
-                    user.data=profileItem;
-                    user.submit_profile_info();
+        //         user.setup_profile();
+        //         document.getElementById('submitProfileSetup').addEventListener('click',function(evt){
+        //             evt.preventDefault();
+        //             let profileItem={
+        //                 username:document.getElementById('profileName').value,
+        //                 fullname:document.getElementById('fullName').value,
+        //                 gender:document.getElementById('gender').value,
+        //                 bio:document.getElementById('biography').value,
+        //                 occupation:document.getElementById('occupation').value
+        //             };
+        //             user.data=profileItem;
+        //             user.submit_profile_info();
 
-                });
+        //         });
                 
 
-                return;
-            }
-            for(let i=0;i<data.errorArray.length;i++){
+        //         return;
+        //     }
+        //     for(let i=0;i<data.errorArray.length;i++){
+        //         const k=Object.keys(data.errorArray[i]);
+        //         console.log(data.errorArray[i]);
+        //         console.log(data.errorArray[i][k]);
+        //         document.getElementById(k).innerHTML=data.errorArray[i][k];
+        //     }
+            
+        // }
+        xm.send(item);
+
+        let data=get_registration_info_from_cookie();
+        console.log(data);
+        if(data.status=='success'){
+            alert('succesfull logged in');
+            modal.style.display='none';
+            user.setup_profile();
+            document.getElementById('submitProfileSetup').addEventListener('click',function(evt){
+                evt.preventDefault();
+                let profileItem={
+                    username:document.getElementById('profileName').value,
+                    fullname:document.getElementById('fullName').value,
+                    gender:document.getElementById('gender').value,
+                    bio:document.getElementById('biography').value,
+                    occupation:document.getElementById('occupation').value
+                };
+                user.data=profileItem;
+                user.submit_profile_info();
+                let d=get_profile_setup_info_from_cookie();
+                console.log(d);
+                if(d!==false || d!==undefined){
+                    if(d.status==='success'){
+                        alert('it works');
+                        user.setupProfileModal.style.display='none';
+                        user.registrationBtn.style.display='none';
+                        return;
+                    }
+                    console.log(d);
+                    for(let e=0;e<d.errors.length;e++){
+                        let k=Object.keys(d.errors[e]);
+                  
+                        document.getElementById(k).innerHTML=d.errors[e][k];
+                    }
+                }
+             
+
+            });
+        }
+        for(let i=0;i<data.errorArray.length;i++){
                 const k=Object.keys(data.errorArray[i]);
                 console.log(data.errorArray[i]);
                 console.log(data.errorArray[i][k]);
                 document.getElementById(k).innerHTML=data.errorArray[i][k];
             }
-            
-        }
-        xm.send(item);
     }catch(err){
         console.log(err);
     }
-};
+}

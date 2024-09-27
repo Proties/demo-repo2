@@ -58,7 +58,7 @@ class TemplateUI extends Template{
 		this._deleteable=true;
 		this._cont;
 		this._parentContainer;
-		this._templateList=['basic'];
+		this._templateList;
 		this._selectedTemplate;
 		this._selectTemplateInput;
 		this._templateForm;
@@ -69,6 +69,7 @@ class TemplateUI extends Template{
 		this._data;
 		this._filename;
 		this._status;
+		this._templateModal;
 
 	}
 	add(temp){
@@ -97,6 +98,12 @@ class TemplateUI extends Template{
 	}
 	get addTemplateBtn(){
 		return this._addTemplateBtn;
+	}
+	set templateModal(i){
+		this._templateModal=i;
+	}
+	get templateModal(){
+		return this._templateModal;
 	}
 	set templateForm(i){
 		this._templateForm=i;
@@ -167,43 +174,6 @@ class TemplateUI extends Template{
 		try{
 			let xml=new XMLHttpRequest();
 			xml.open('POST','/profile');
-			xml.onload=function(){
-				console.log('get template =========');
-				let fData=this.responseText;
-				// let newElement=document.createElement('button');
-				let newElement=this.responseText;
-				let main=document.body;
-				// console.log(main.childNodes);
-				// console.log(fData);
-				
-				
-				let oldElement=document.getElementsByClassName('container')[0];
-				let children=oldElement.childNodes;
-				console.log('=====childern');
-				console.log(children);
-				// for(let l=1;l<children.length;l+=2){
-					document.getElementsByClassName('profile-header')[0].remove();
-					document.getElementsByClassName('biography')[0].remove();
-					document.getElementsByClassName('post-section')[0].remove();
-					// children[l].remove();
-					// children[1].parentNode.removeChild(children[1]);
-					// children[1].parentNode.removeChild(children[3]);
-					// children[1].parentNode.removeChild(children[5]);
-					// children[1].parentNode.removeChild(children[7]);
-					// children[1].parentNode.removeChild(children[8]);
-				
-					console.log(children[1].parentNode);
-				// }
-				console.log('new element=======');
-				// console.log(newElement);
-				console.log('old element=======');
-				
-				oldElement.append(newElement);
-				console.log(newElement.length);
-
-
-				
-			}
 			 xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xml.send('actions=selectTemplate&templateName='+this.selectedTemplate);
 		}catch(err){
@@ -231,17 +201,6 @@ class TemplateUI extends Template{
 		try{
 			let xml=new XMLHttpRequest();
             xml.open('POST','/profile');
-            xml.onload=function(){
-
-                console.log("++++++=loading template");
-                let data=JSON.parse(this.responseText);
-                if(data.status=='succes'){
-                	return true;
-                }
-                alert('could not add template because '+data.error);
-
-                return false;
-            }
             xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xml.send('actions=loadTemplate&filename='+this.filename+'&htmlData='+this.html);
 		}catch(err){
@@ -249,32 +208,22 @@ class TemplateUI extends Template{
 		}
 	}
 	get_list(){
-		let select=document.getElementById('selectTemplateInput');
+		
 		try{
 			let xml=new XMLHttpRequest();
             xml.open('POST','/profile');
-            xml.onload=function(){
-                console.log("fecthing template list======");
-                let data=JSON.parse(this.responseText);
-                // this.templateList=data;
-                this.add=data[0];
-                for(let t=0;t<data.length;t++){
-                	let o=document.createElement('option');
-                	let oTxt=document.createTextNode(data[t].filename);
-                	o.append(oTxt);
-                	select.append(o);
-                }
-
-            }
             xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xml.send('actions=get_template_list');
-			
 		}catch(err){
 			console.log(err);
 		}
 	}
 	add_templateFile(){
 		let topcont=document.createElement('div');
+		let templateList=document.createElement('h1');
+		let templateListTxt=document.createTextNode('Template List:');
+		let closeWindow=document.createElement('span');
+		let closeWindowTxt=document.createTextNode('close');
 		let cont=document.createElement('form');
 		let file=document.createElement('input');
 		let btn=document.createElement('button');
@@ -287,6 +236,11 @@ class TemplateUI extends Template{
 		cont.append(file);
 		cont.append(btn);
 		topcont.append(cont);
+		templateList.append(templateListTxt);
+		topcont.append(templateList);
+		closeWindow.append(closeWindowTxt);
+		topcont.append(closeWindow);
+		closeWindow.setAttribute('class','closeWindow');
 		cont.setAttribute('id','uploadTemplateForm');
 		cont.setAttribute('class','uploadTemplateForm');
 		cont.setAttribute('method','post');
@@ -300,9 +254,89 @@ class TemplateUI extends Template{
 		topcont.setAttribute('id','templateModal');
 		btn.setAttribute('id','submitTemplateFiles');
 		// topcont.style.display='block';
+		console.log('=====checking if working');
+
+
+		this.templateModal=topcont;
 		this.templateForm=cont;
-		this.parentContainer.append(topcont);
-		// this.p.append(this.templateForm);
+		this.parentContainer.append(this.templateModal);
+		this.template_more_options();
+
+	}
+	template_more_options(){
+		console.log('tmeplate option==========');
+		let bigCont=document.createElement('div');
+		for(let i=0;i<this.templateList.length;i++){
+			let cont=document.createElement('div');
+			let fileUploadForm=document.createElement('form');
+			let fileUpload=document.createElement('div');
+			let file=document.createElement('input');
+			let templateName=document.createElement('div');
+			let templateNameTxt=document.createTextNode('Template Name: '+this.templateList[i].filename);
+			let updateBtn=document.createElement('button');
+			let updateBtnTxt=document.createTextNode('update template');
+			let deleteBtn=document.createElement('button');
+			let deleteBtnTxt=document.createTextNode('delete template');
+			let hideBtn=document.createElement('button');
+			let hideBtnTxt=document.createTextNode('hide template');
+
+			let saveChangeBtn=document.createElement('button');
+			let saveChangeBtnTxt=document.createTextNode('save Change');
+			let cancelBtn=document.createElement('button');
+			let cancelBtnTxt=document.createTextNode('cancel');
+
+
+			let action=document.createElement('input');
+			action.value='updateTemplate';
+			action.type='hidden';
+
+			let templateID=document.createElement('input');
+			templateID.value='sicko';
+			templateID.type='hidden';
+
+			fileUploadForm.append(file);
+			fileUploadForm.append(templateID);
+			fileUploadForm.append(action);
+
+
+			templateName.append(templateNameTxt);
+			updateBtn.append(updateBtnTxt);
+			deleteBtn.append(deleteBtnTxt);
+			hideBtn.append(hideBtnTxt);
+
+			saveChangeBtn.append(saveChangeBtnTxt);
+			cancelBtn.append(cancelBtnTxt);
+
+			fileUploadForm.append(cancelBtn);
+			fileUploadForm.append(saveChangeBtn);
+			fileUpload.append(fileUploadForm);
+
+			fileUploadForm.setAttribute('action','/uploadTemplate');
+			fileUploadForm.setAttribute('method','post');
+
+			cont.setAttribute('class','templateItemHolder');
+			// cont.setAttribute('id','');
+			fileUpload.setAttribute('class','templateFileHolder');
+			file.setAttribute('type','file');
+			// fileUpload.setAttribute('id','');
+
+			updateBtn.setAttribute('class','updateTemplate');
+			deleteBtn.setAttribute('class','deleteTemplate');
+			hideBtn.setAttribute('class','hideTemplate');
+			cancelBtn.setAttribute('class','cancelUpdate');
+			saveChangeBtn.setAttribute('class','saveUpdate');
+			bigCont.setAttribute('class','templateContainer');
+
+			cont.append(templateName);
+			cont.append(updateBtn);
+			cont.append(deleteBtn);
+			cont.append(hideBtn);
+			cont.append(fileUpload)
+			bigCont.append(cont);
+			console.log(this.templateList);
+
+		}
+		this.templateModal.append(bigCont);
 
 	}
 	load_html(){}
