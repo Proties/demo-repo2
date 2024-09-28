@@ -1,4 +1,11 @@
 /* Reset some default styles */
+::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
     margin: 0;
     padding: 0;
@@ -24,6 +31,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap; /* Allows wrapping for smaller screens */
 }
 
 .nav-left {
@@ -32,6 +40,9 @@ nav {
 
 .nav-left img {
     width: 70px;
+    width: 10vw; /* Adjust width relative to viewport */
+    max-width: 70px;
+    height: auto;
 }
 
 /*
@@ -93,7 +104,8 @@ nav .profile-link {
 }
 
 .nav-center input[type="text"] {
-    width: 400px; /* Adjust width to match design */
+    width: 60vw; /* Adjust width to match design */
+    max-width: 400px;
     padding: 10px 15px;
     border: 1px solid #ccc;
     border-radius: 24px;
@@ -108,8 +120,10 @@ nav .profile-link {
 }
 
 .search-button img {
-    width: 20px;
-    height: 20px;
+  width: 4vw;
+  height: 4vw;
+  max-width: 20px;
+  max-height: 20px;
 }
 
 .suggestion-list {
@@ -150,12 +164,12 @@ nav .profile-link {
 
 .nav-center button {
     margin-left: -3px;
-    padding: 10px;
+    padding: 10px 20px;
     border: none;
     border-radius: 24px;
     cursor: pointer;
     position: relative;
-    right: 60px;
+    right: 70px;
 }
 
 .nav-center button img {
@@ -201,9 +215,11 @@ nav .profile-link {
 
 .postfeed-wrapper {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-column-gap: 100px;
     margin-top: 20px;
+    overflow-y: auto; /* Enables vertical scrolling */
+    overflow-x: hidden; /* Disables horizontal scrolling */
 }
 
 .top-post:hover {
@@ -229,7 +245,10 @@ nav .profile-link {
     justify-content: space-between;
     padding: 10px;
     position: absolute;
+    gap: 10px; /* Adds space between buttons */
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
     z-index: 3;
+    align-items: center;
 }
 
 .profile-button {
@@ -239,17 +258,18 @@ nav .profile-link {
     top: 250px;
     background-color: white; /* rgb(0 0 0 / 0%);*/
     border-radius: 100%;
-    width: 70px;
-    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 3;
     cursor: pointer;
+    font-size: 1rem; /* Adjusts the font size */
+    width: 30px;
 }
 
-.profile-button img {
+.profile-button-img {
     object-fit: fill;
+    margin-right: 8px; /* Adds space between icon and text */
 }
 
 .profile-button:hover {
@@ -391,7 +411,7 @@ textarea {
 }
 
 .modalpost-image{
-  margin-top: 80px;
+  margin-top: 25px;
   max-width: 1000px;
 }
 
