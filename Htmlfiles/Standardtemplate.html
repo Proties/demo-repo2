@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nerstia Personal Profile</title>
+
+    <link rel="stylesheet" href="/Cssfiles/Standardtemplate.css" />
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="nav-left">
+          <a href="/" class="home-link">
+            <img src="/Image/Logo.png" alt="Logo" class="logo-image"
+          /></a>
+        </div>
+
+        <div class="nav-center">
+          <div><h2 class="title">Profile Preview</h2></div>
+        </div>
+
+        <div class="nav-right">
+          <button
+            class="push-button"
+            id="editProfileButton"
+            onclick="window.location.href='/edit_profile'"
+          >
+            Edit Profile
+          </button>
+          <button class="upload-button" id="uploadBtn">Push</button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Profile Section -->
+    <section class="profile-section">
+      <div class="profile-container">
+        <!-- Profile Image in the Center -->
+        <img
+          src="/Image/Test Account.png"
+          alt="Profile Image"
+          class="profile-image"
+        />
+      </div>
+    </section>
+
+    <!-- User Info Section -->
+    <section class="info-section">
+      <div class="info-container">
+        <!-- Username and Short Bio -->
+        <h1 class="username" id="username">Username</h1>
+        <p class="short-bio" id="shortBio">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          lacinia odio vitae vestibulum vestibulum.
+        </p>
+      </div>
+    </section>
+
+    <!-- Posts Section -->
+    <section class="posts-section">
+      <div class="posts-container">
+        <img
+          src="/Image/Comic.png.png"
+          alt="Post Image"
+          class="personal-post-image"
+        />
+      </div>
+    </section>
+
+    <!-- Upload Post Modal -->
+    <div id="uploadModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Upload Post</h2>
+        <div id="uploadProgress" class="progress-bar"></div>
+        <input type="file" id="fileInput" accept="image/*, video/*" />
+        <button id="uploadFromDeviceBtn">Upload from Device</button>
+      </div>
+    </div>
+
+    <div class="templateSelection">
+      <label>Select Template</label>
+      <select id="selectTemplateInput">
+        <option>basic</option>
+      </select>
+    </div>
+    <div class="addTemplate">
+      <span>Load Template Files</span>
+      <button id="addTemplatefile">+</button>
+    </div>
+
+    <script src="/js/profile.js"></script>
+    <script type="module" src="js/user.js"></script>
+    <script type="module" src="js/post.js"></script>
+    <script type="module" src="js/stackPosts.js"></script>
+    <script type="module" src="js/profile.js"></script>
+    <script type="module" src="js/makePost.js"></script>
+    <script type="module" src="js/profileMain.js"></script>
+    <footer class="footer">
+      <div class="footer-content">
+        <p>&copy; 2024 Pro & Toxic. All rights reserved.</p>
+        <button class="view-more-btn">View More Posts</button>
+        <div class="contact-info">
+          <p>Contact Us:</p>
+          <ul>
+            <li>Email: info@example.com</li>
+            <li>Phone: +1234567890</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
