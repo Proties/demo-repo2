@@ -86,15 +86,13 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
     $tempdb=new TemplateDB($template);
     $results=$tempdb->get_current_template();
     if($results==false){
-        
+        $file=$template->get_directory().'/'.$template->get_filename();
+        include_once($file);
     }
     var_dump($results);
     return;
     $file=$tempdb->template->get_directory().'/'.$tempdb->template->get_filename();
     var_dump($file);
-    return;
-    include_once($file);
-    // include_once('Htmlfiles/Personalprofile.html');
     return;
 }
 
