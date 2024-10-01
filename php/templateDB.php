@@ -50,6 +50,53 @@ class TemplateDB extends Database{
 			 return $err;
 		}
 	}
+	public function addTemplateForNewUser(){
+		$db=$this->db;
+		try{
+			$query='
+
+					INSERT INTO UserTemplate()
+					VALUES(:userID,:templateID,:status)
+			';
+			$statement=$db->prepare($query);
+			$statement->bindValue(':userID',);
+			$statement->bindValue(':templateID',);
+			$statement->bindValue(':status',);
+			return $statement->execute();
+
+
+		}catch(PDOException $err){
+			return $err;
+		}
+	}
+	public function switchTemplate($new){
+		$db=$this->db;
+		try{
+			$db->startTransaction();
+			$queryOne='
+					UPDATE UserTemplate
+					SET status="not active"
+					WHERE userID=:userID AND templateID=:templateID
+
+					';
+			$statement=$db->prepare($queryOne);
+			$statement->bindValue(':newTemp',$new);
+			$statement->bindValue(':userID',$this->template->get_username());
+			$statement->execute();
+			
+			$queryTwo='
+					INSERT INTO UserTemplate
+					VALUES (:userID,:templateID,:status)	
+
+			';
+			$statement=$db->prepare($queryTwo);
+			$statement->bindValue(':newTemp',$new);
+			$statement->bindValue(':userID',$this->template->get_username());
+			$statement->execute();
+		}catch(PDOException $err){
+			return $err;
+		}
+	}
 	public function getTemplateList(){
 		$db=$this->db;
 		try{
