@@ -239,7 +239,7 @@ async function intialiseProfileObject(data,myProfile){
     }
     
         
-    }
+    
         
     else{
        console.log('======other profile data');
@@ -269,8 +269,8 @@ async function intialiseProfileObject(data,myProfile){
 
        
     }
-}
 
+}
 
 function upload_post(){
     uploadPost=new MakePostUI();

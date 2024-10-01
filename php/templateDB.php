@@ -8,9 +8,9 @@ class TemplateDB extends Database{
 	public Template $template;
 	private $db;
 	public function __construct($template){
-		Database::__construct();
+
 		$this->template=$template;
-		$this->db=$this->get_connection();
+		$this->db=Database::get_connection();
 	}
 
 	public function get_current_template(){

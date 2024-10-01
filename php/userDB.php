@@ -7,9 +7,8 @@ class UserDB extends Database{
     public $user;
     private $db;
     public function __construct(Users $user){
-        Database::__construct();
         $this->user=$user;
-        $this->db=$this->get_connection();
+        $this->db=Database::get_connection();
     }
     public function get_user(){
         return $this->user;

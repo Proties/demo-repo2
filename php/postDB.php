@@ -6,9 +6,8 @@ class PostDB extends Database{
     public Post $post;
     private $db;
     public function __construct(Post $post){
-        Database::__construct();
         $this->post=$post;
-        $this->db=$this->get_connection();
+        $this->db=Database::get_connection();
     }
     public function get_post(){
         return $this->post;

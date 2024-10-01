@@ -19,7 +19,7 @@ class Template{
 
 	public function __construct(){
 		// $this->directory='./templates';
-		$this->directory='./Htmlfiles';
+		$this->directory='Htmlfiles';
 		$this->creator=0;
 		$this->username='';
 		$this->description='';
@@ -27,7 +27,7 @@ class Template{
 		$this->dateMade=date('Y:m:d');
 		$this->id;
 		$this->price='R20';
-		$this->filename='Standardtemplate.html';
+		$this->filename='SubscribeTemplatec.html';
 	}
 	public function set_filename($temp){
 		$this->filename=$temp;
