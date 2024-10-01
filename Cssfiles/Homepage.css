@@ -82,7 +82,7 @@ nav .profile-link {
 }
 
 .register-button {
-    background-color: #b5a319;
+    background-color: #A7991E;
     color: white;
     padding: 15px 40px;
     border: none;
@@ -92,7 +92,7 @@ nav .profile-link {
 }
 
 .register-button:hover {
-    background-color: #a59919;
+    background-color: #A7991E;
 }
 
 .nav-center {
@@ -186,12 +186,13 @@ nav .profile-link {
   top: 120px; /* Adjust based on header height */
   width: 20%;
   max-width: 250px;
-  height: 80vh; /* Takes 80% of viewport height */
+  height: 50vh; /* Takes 80% of viewport height */
   background-color: #ffffff;
-  border: 2px solid #b5a319;
+  border: 2px solid #A7991E;
   padding: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   overflow: hidden; /* Prevent overflow */
+  border-radius: 25px;
 }
 
 .challenge-container {
@@ -222,7 +223,28 @@ nav .profile-link {
 .challenge-section h2 {
   text-align: center;
   margin-bottom: 10px;
-  color: #b5a319;
+  color: #A7991E;
+}
+
+.challenge-title {
+  font-size: 18px;
+}
+
+.go-button {
+  background-color: #fff;
+  color: #A7991E;
+  padding: 3px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  border-color: #A7991E;
+}
+
+.go-button:hover {
+  background-color: #A7991E;
 }
 
 /*Post section */
@@ -261,12 +283,13 @@ nav .profile-link {
 }
 
 .postfeed-wrapper {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-column-gap: 100px;
-    margin-top: 20px;
-    overflow-y: auto; /* Enables vertical scrolling */
-    overflow-x: hidden; /* Disables horizontal scrolling */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(900px, 1fr));
+  grid-column-gap: 100px;
+  margin-top: 20px;
+  overflow-y: auto; /* Enables vertical scrolling */
+  overflow-x: hidden; /* Disables horizontal scrolling */
+  margin-left: 460px;    
 }
 
 .top-post:hover {
@@ -299,24 +322,26 @@ nav .profile-link {
 }
 
 .profile-button {
-    transition: transform 0.3s ease-in-out;
-    position: relative;
-    right: 20px;
-    top: 250px;
-    background-color: white; /* rgb(0 0 0 / 0%);*/
-    border-radius: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 3;
-    cursor: pointer;
-    font-size: 1rem; /* Adjusts the font size */
-    width: 30px;
+  transition: transform 0.3s ease-in-out;
+  position: relative;
+  right: 15px;
+  top: 275px;
+  background-color: white;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 59px;
+  height: 66px;
 }
 
 .profile-button-img {
     object-fit: fill;
     margin-right: 8px; /* Adds space between icon and text */
+
 }
 
 .profile-button:hover {
@@ -437,12 +462,12 @@ textarea {
 }
 
 .modal-buttons button[type="submit"] {
-    background-color: #4CAF50;
+    background-color: #A7991E;
     color: white;
 }
 
 .modal-buttons button[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: #A7991E;
 }
 
 .modal-buttons button[type="button"] {
@@ -506,7 +531,7 @@ transform: scale(1.10);
   
   /* Modal container */
   .modal-container {
-    background-color: #a7922f; /* Mustard yellow */
+    background-color: #A7991E; /* Mustard yellow */
     padding: 20px;
     border-radius: 10px;
     width: 800px; /* Smaller width */
