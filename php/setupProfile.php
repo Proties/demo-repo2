@@ -5,6 +5,9 @@ use Insta\Databases\User\UserDB;
 use Insta\Users\Users;
 use Insta\Users\UserFile;
 
+use Insta\Template\Template;
+use Insta\Database\Template\TemplateDB;
+
 $user=new Users();
 
 
@@ -66,6 +69,13 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
      
         $item=array('status'=>'success');
         
+
+        //create an entry at user template if successfull
+        // set status to not active to all paid template
+        // set status active for basic template
+        $template=new Template();
+        $templateDB=new TemplateDB($template);
+        $templateDB->addTemplateForNewUser();
         $status=$user->userFolder->create_user_folder($user->get_username());
 		$bigData['status']='success';
 		$bigData['message']='everything all good';

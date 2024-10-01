@@ -3,6 +3,7 @@ namespace Insta\Users;
 use Serializable;
 use Insta\Users\UserAuth;
 use Insta\Users\UserFolder;
+use Insta\Template\Template;
 class Users implements Serializable{
     use validateUser;
     private string $name;
@@ -10,7 +11,7 @@ class Users implements Serializable{
     private string $fullName;
     private string $username;
     private string $shortBio;
-    private string $bio;
+    private string $longBio;
     private string $profilePicture;
     private string  $dateOfBirth;
     private string $password;
@@ -25,6 +26,7 @@ class Users implements Serializable{
     private bool $status;
     private int $id;
     private array $data;
+    public Template $temp;
     public UserFolder $userFolder;
     public PostList $postList;
     public UserAuth $userAuth;
@@ -36,7 +38,8 @@ class Users implements Serializable{
     $this->username='';
     $this->lastName='';
     $this->fullName='';
-    $this->bio='';
+    $this->shortBio='';
+    $this->longBio='';
     $this->profilePicture='';
     $this->dateOfBirth='';
     $this->password='';
@@ -105,8 +108,11 @@ class Users implements Serializable{
     public function set_status(bool $s){
         $this->status=$s;
     }
-    public function set_bio(string $s){
-        $this->bio=$s;
+    public function set_longBio(string $s){
+        $this->longBio=$s;
+    }
+    public function set_shortBio(string $s){
+        $this->shortBio=$s;
     }
      public function set_email(string $s){
         $this->email=$s;
@@ -196,9 +202,13 @@ class Users implements Serializable{
    public function get_File(){
     $this->$UserFolder;
    }
-    public function get_bio():string
+    public function get_longBio():string
     {
-        return $this->bio;
+        return $this->longBio;
+    }
+    public function get_shortBio():string
+    {
+        return $this->shortBio;
     }
 
     public function search_user_in_cache(){}

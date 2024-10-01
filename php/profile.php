@@ -19,8 +19,6 @@ $f_txt=urldecode($f_txt);
 
 $u=new Users();
 $udb=new UserDB($u);
-$tempdb;
-
 if($f_txt==='/profile'){
     $data;
    setcookie('profile','no account', time() - (86400 * 30), '/'); 
@@ -32,13 +30,12 @@ else if($u->validate_username_url($f_txt)==true ){
         $data=[];
         $userPosts=array();
         $author=new Users();
-        echo
         $author->set_username($link);
         $authorDB=new UserDB($author);
         $authorDB->get_posts_with_username();
        
         $data['user'][0]=array('username'=>$authorDB->user->get_username(),'userProfilePicture'=>$authorDB->user->get_profilePicture(),
-                                    'bio'=>$authorDB->user->get_bio());
+                                    'shortBio'=>$authorDB->user->get_shortBio(),'longBio'=>$authorDB->user->get_longBio());
 
         $arr=$authorDB->user->postList->get_posts();
         if(!is_array($arr)){
@@ -73,13 +70,27 @@ else if($u->validate_username_url($f_txt)==true ){
         setcookie('profile',json_encode($data), time() + (86400 * 30), '/'); 
     }catch(Exception $err){
         echo $err->getMessage();
-        // echo 'error retriveing posts';
-       echo $err->getMessage();
+      
     }
 }
 
 if($_SERVER['REQUEST_METHOD']=='GET'){
-    include_once('Htmlfiles/Personalprofile.html');
+    $username='';
+    if(isset($_SERVER['REQUEST_URI'])){
+        $start=strpos($_SERVER['REQUEST_URI'], '@');
+        $username=substr($_SERVER['REQUEST_URI'], $start+1);
+    }
+    $template->set_username($username);
+    $tempdb=new TemplateDB($template);
+    $results=$tempdb->get_current_template();
+    if($results==false){
+        $file=$template->get_directory().'/'.$template->get_filename();
+        include_once($file);
+    }
+    var_dump($results);
+    return;
+    $file=$tempdb->template->get_directory().'/'.$tempdb->template->get_filename();
+    var_dump($file);
     return;
 }
 
@@ -152,10 +163,10 @@ switch($action){
         break;
     case 'selectTemplate':
         $name='./templates/Personalprofile.html';
-        $htmlTemplate=new HtmlTemplate($name);
-        $data=$htmlTemplate->getContainer();
-
-        echo json_encode($data);
+        $tempdb=new TemplateDB($template);
+        $tempdb->switchTemplate();
+        $file=$tempdb->template->get_directory().'/'.$tempdb->template->get_filename();
+        include_once($file);
         break;
     case 'edit_post':
         $data=[];

@@ -2,6 +2,7 @@
 namespace Insta\Template;
 class Template{
 	private $creator;
+	private $username;
 	private $dateMade;
 	private $timeMade;
 	private $description;
@@ -17,17 +18,25 @@ class Template{
 
 
 	public function __construct(){
-		$this->directory='./templates';
+		// $this->directory='./templates';
+		$this->directory='./Htmlfiles';
 		$this->creator=0;
+		$this->username='';
 		$this->description='';
 		$this->timeMade=date('H:i');
 		$this->dateMade=date('Y:m:d');
 		$this->id;
 		$this->price='R20';
-		$this->filename='';
+		$this->filename='Standardtemplate.html';
 	}
 	public function set_filename($temp){
 		$this->filename=$temp;
+	}
+	public function set_username($temp){
+		$this->username=$temp;
+	}
+	public function get_username(){
+		return $this->username;
 	}
 	public function get_filename(){
 		return $this->filename;

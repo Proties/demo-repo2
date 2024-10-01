@@ -113,13 +113,12 @@ async function intialiseProfileObject(data,myProfile){
         console.log('profile data======');
         console.log(profile_data);
         currentProfile=new MyProfile();
-        if(profile_data!==undefined){
-
-        
-        
-        // currentProfile.username=profile_data.username;
-
-        
+        currentProfile.username=profile_data.username;
+        console.log(profile_data);
+       
+        currentProfile.shortBio=profile_data.shortBio;
+        currentProfile.longBio=profile_data.longBio;
+        currentProfile.fullname=profile_data.fullname;
         currentProfile.make_user_info();
         }
         console.log(currentProfile);
@@ -129,6 +128,9 @@ async function intialiseProfileObject(data,myProfile){
         let templateLists=template_info_from_cookie();
         console.log('template list=====');
         console.log(templateLists);
+        if(templateLists==false){
+            return;
+        }
         temp.templateList=templateLists.templateList;
         console.log('templateList========');
         console.log(templateLists.templateList);
@@ -218,15 +220,24 @@ async function intialiseProfileObject(data,myProfile){
             sub.addEventListener('click',validateTemplateSubmission);
         });
     currentProfile.make_user_info();
-    for(let p=0;p<data.posts.length;p++){
+    // console.log('posts==========');
+    console.log(data);
+    if(data!==undefined){
+        let parentContainer=document.getElementsByClassName("posts-section")[0];
+        console.log('parentContainer=========');
+        console.log(parentContainer);
+        for(let p=0;p<data.posts.length;p++){
         let post=new PostUI();
         // post.populate_post();
         post.parentContainer=parentContainer;
-        post.id=data.posts[p].postID;filename
+
+        post.id=data.posts[p].postID;
         // post.src='/Image/Art.png';
-        post.src=data.posts[p].filename;
+        post.src=data.posts[p].img;
         post.make_post();
     }
+    }
+    
         
     }
         
@@ -237,18 +248,21 @@ async function intialiseProfileObject(data,myProfile){
 
        
         currentProfile.username=data.user[0].username;
-        currentProfile.shortBio=data.user[0].bio;
+        currentProfile.shortBio=data.user[0].shortBio;
+        currentProfile.longBio=data.user[0].longBio;
         currentProfile.fullname=data.user[0].fullname;
         currentProfile.make_user_info();
         console.log(currentProfile);
-        let parentContainer=document.getElementsByClassName('postfeed-wrapper')[0];
+        let parentContainer=document.getElementsByClassName("posts-section")[0];
+        console.log('parentContainer=========');
+        console.log(parentContainer);
         for(let p=0;p<data.posts.length;p++){
             let post=new PostUI();
             
             post.parentContainer=parentContainer;
             post.id=data.posts[p].postID;
             // post.src='/Image/Art.png';
-            post.src=data.posts[p].filepath+'/'+data.posts[p].filename;
+            post.src=data.posts[p].img;
             post.populate_post();
             post.make_post();
         }

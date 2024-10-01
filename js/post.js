@@ -84,7 +84,7 @@ class PostUI extends Post{
 	
 	populate_post(){
 
-		let cont=document.getElementsByClassName('post')[0];
+		let cont=document.getElementsByClassName('posts-container')[0];
         let image=cont.getElementsByTagName('img')[0];
         image.setAttribute('src',this.src);
         cont.setAttribute('id',this.id);
@@ -94,10 +94,11 @@ class PostUI extends Post{
 	make_post(){
 		let con=document.createElement('div');
         let img=document.createElement('img');
-        con.append(img);
+       
         con.setAttribute('class','post');
         con.setAttribute('id',this.id);
         img.setAttribute('src',this.src);
+         con.append(img);
         this.parentContainer.append(con);
 	}
 	

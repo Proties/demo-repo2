@@ -5,7 +5,7 @@ use Insta\Databases\Database;
 use Insta\Template\Template;
 use Exception;
 class TemplateDB extends Database{
-	private Template $template;
+	public Template $template;
 	private $db;
 	public function __construct($template){
 		Database::__construct();
@@ -13,6 +13,25 @@ class TemplateDB extends Database{
 		$this->db=$this->get_connection();
 	}
 
+	public function get_current_template(){
+		$db=$this->db;
+		try{
+			$query="
+					SELECT t.filename FROM UserTemplate ut
+					INNER JOIN Users u ON ut.userID=u.userID
+					INNER JOIN Template t ON ut.templateID=t.id
+					WHERE ut.templateStatus=:status AND u.username=:username
+
+			";
+			$statement=$db->prepare($query);
+			$statement->bindValue(':status','active');
+			$statement->bindValue(':username','active');
+			$statement->execute();
+			return $statement->fetch();
+		}catch(PDOException $err){
+			return $err;
+		}
+	}
 	public function addTemplate(){
 		$db=$this->db;
 		try{
@@ -29,6 +48,53 @@ class TemplateDB extends Database{
 			$stmt->execute();
 		}catch(PDOException $err){
 			 return $err;
+		}
+	}
+	public function addTemplateForNewUser(){
+		$db=$this->db;
+		try{
+			$query='
+
+					INSERT INTO UserTemplate()
+					VALUES(:userID,:templateID,:status)
+			';
+			$statement=$db->prepare($query);
+			$statement->bindValue(':userID',);
+			$statement->bindValue(':templateID',);
+			$statement->bindValue(':status',);
+			return $statement->execute();
+
+
+		}catch(PDOException $err){
+			return $err;
+		}
+	}
+	public function switchTemplate($new){
+		$db=$this->db;
+		try{
+			$db->startTransaction();
+			$queryOne='
+					UPDATE UserTemplate
+					SET status="not active"
+					WHERE userID=:userID AND templateID=:templateID
+
+					';
+			$statement=$db->prepare($queryOne);
+			$statement->bindValue(':newTemp',$new);
+			$statement->bindValue(':userID',$this->template->get_username());
+			$statement->execute();
+			
+			$queryTwo='
+					INSERT INTO UserTemplate
+					VALUES (:userID,:templateID,:status)	
+
+			';
+			$statement=$db->prepare($queryTwo);
+			$statement->bindValue(':newTemp',$new);
+			$statement->bindValue(':userID',$this->template->get_username());
+			$statement->execute();
+		}catch(PDOException $err){
+			return $err;
 		}
 	}
 	public function getTemplateList(){
