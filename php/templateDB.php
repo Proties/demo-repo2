@@ -5,7 +5,7 @@ use Insta\Databases\Database;
 use Insta\Template\Template;
 use Exception;
 class TemplateDB extends Database{
-	private Template $template;
+	public Template $template;
 	private $db;
 	public function __construct($template){
 		Database::__construct();
@@ -13,6 +13,25 @@ class TemplateDB extends Database{
 		$this->db=$this->get_connection();
 	}
 
+	public function get_current_template(){
+		$db=$this->db;
+		try{
+			$query="
+					SELECT t.filename FROM UserTemplate ut
+					INNER JOIN Users u ON ut.userID=u.userID
+					INNER JOIN Template t ON ut.templateID=t.id
+					WHERE ut.templateStatus=:status AND u.username=:username
+
+			";
+			$statement=$db->prepare($query);
+			$statement->bindValue(':status','active');
+			$statement->bindValue(':username','active');
+			$statement->execute();
+			return $statement->fetch();
+		}catch(PDOException $err){
+			return $err;
+		}
+	}
 	public function addTemplate(){
 		$db=$this->db;
 		try{

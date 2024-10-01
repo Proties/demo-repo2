@@ -41,6 +41,7 @@ try{
     if($len>0){
         throw new Exception('could not create user');
     }
+    
     $jsonData['status']='success';
     $_SESSION['firstName']=$user->get_name();
     $_SESSION['password']=$user->get_password();

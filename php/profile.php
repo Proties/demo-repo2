@@ -19,8 +19,6 @@ $f_txt=urldecode($f_txt);
 
 $u=new Users();
 $udb=new UserDB($u);
-$tempdb;
-
 if($f_txt==='/profile'){
     $data;
    setcookie('profile','no account', time() - (86400 * 30), '/'); 
@@ -79,7 +77,24 @@ else if($u->validate_username_url($f_txt)==true ){
 }
 
 if($_SERVER['REQUEST_METHOD']=='GET'){
-    include_once('Htmlfiles/Personalprofile.html');
+    $username='';
+    if(isset($_SERVER['REQUEST_URI'])){
+        $start=strpos($_SERVER['REQUEST_URI'], '@');
+        $username=substr($_SERVER['REQUEST_URI'], $start+1);
+    }
+    $template->set_username($username);
+    $tempdb=new TemplateDB($template);
+    $results=$tempdb->get_current_template();
+    if($results==false){
+        
+    }
+    var_dump($results);
+    return;
+    $file=$tempdb->template->get_directory().'/'.$tempdb->template->get_filename();
+    var_dump($file);
+    return;
+    include_once($file);
+    // include_once('Htmlfiles/Personalprofile.html');
     return;
 }
 

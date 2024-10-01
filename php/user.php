@@ -3,6 +3,7 @@ namespace Insta\Users;
 use Serializable;
 use Insta\Users\UserAuth;
 use Insta\Users\UserFolder;
+use Insta\Template\Template;
 class Users implements Serializable{
     use validateUser;
     private string $name;
@@ -25,6 +26,7 @@ class Users implements Serializable{
     private bool $status;
     private int $id;
     private array $data;
+    public Template $temp;
     public UserFolder $userFolder;
     public PostList $postList;
     public UserAuth $userAuth;
