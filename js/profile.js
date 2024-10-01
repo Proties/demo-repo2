@@ -65,6 +65,9 @@ class ProfileUI extends Profile{
     make_user_info(){
         document.getElementById('username').innerHTML=this.username;
         document.getElementById('shortBio').innerHTML=this.shortBio;
+        document.getElementById('profilePicture').innerHTML=this.profilePicture;
+        document.getElementById('longBio').innerHTML=this.longBio;
+        document.getElementById('fullname').innerHTML=this.fullname;
         // document.getElementById('fullBio').innerHTML=this.fullBio;
 
         // document.getElementById('userBio').textContent=info.bio;

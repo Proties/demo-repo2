@@ -175,6 +175,10 @@ class TemplateUI extends Template{
 			let xml=new XMLHttpRequest();
 			xml.open('POST','/profile');
 			 xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			 xml.onload=function(){
+			 	console.log('upload ==== +++++');
+			 	console.log(this.responseText);
+			 }
 			xml.send('actions=selectTemplate&templateName='+this.selectedTemplate);
 		}catch(err){
 			console.log(err);

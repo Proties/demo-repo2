@@ -135,9 +135,10 @@ switch($action){
             fclose($file);
 
             file_put_contents($uploadDirDestination, $htmlData);
-            $data=['status'=>'succes'];
+            $data=['status'=>'success'];
             $template->set_filename($filename);
             $tempdb=new TemplateDB($template);
+
             $tempdb->addTemplate();
             echo $data;
         }catch(Exception $err){

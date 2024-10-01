@@ -64,7 +64,9 @@ function readFile(file){
         temp.filename=fileOne.name;
         temp.sendToHtmlServer();
         let uploadStatus=get_template_upload_status();
-        if(uploadStatus.status=='succes'){
+        console.log('template status ==========');
+        console.log(uploadStatus);
+        if(uploadStatus.status=='success'){
             alert('successfull');
             //add new file into template list
             return true;
@@ -108,11 +110,18 @@ async function intialiseProfileObject(data,myProfile){
             profile_data=myProfile;
         }
         url=url.slice(1,url.length);
+        console.log('profile data======');
+        console.log(profile_data);
         currentProfile=new MyProfile();
+        if(profile_data!==undefined){
+
+        
+        
         // currentProfile.username=profile_data.username;
-        currentProfile.shortBio=profile_data.bio;
-        currentProfile.fullname=profile_data.fullname;
+
+        
         currentProfile.make_user_info();
+        }
         console.log(currentProfile);
         let con=document.getElementsByClassName('container')[0];
         temp.get_list();
@@ -121,14 +130,18 @@ async function intialiseProfileObject(data,myProfile){
         console.log('template list=====');
         console.log(templateLists);
         temp.templateList=templateLists.templateList;
-
-        for(let t=0;t<temp.templateList.length;t++){
+        console.log('templateList========');
+        console.log(templateLists.templateList);
+        if(templateLists.templateList!==undefined){
+            for(let t=0;t<temp.templateList.length;t++){
             let o=document.createElement('option');
             let oTxt=document.createTextNode(temp.templateList[t].filename);
             console.log(temp.templateList[t].filename);
             o.append(oTxt);
             select.append(o);
         }
+        }
+        
         document.getElementsByClassName('templateSelection')[0].style.display='block';
         document.getElementsByClassName('addTemplate')[0].style.display='block';
         temp.parentContainer=document.body;
@@ -142,7 +155,7 @@ async function intialiseProfileObject(data,myProfile){
         temp.addTemplateBtn=document.getElementById('addTemplatefile');
         temp.addTemplateBtn.addEventListener('click',function(evt){
             temp.add_templateFile();
-            clear_template_list();
+            // clear_template_list();
             temp.template_more_options();
             let updateBtns=document.getElementsByClassName('updateTemplate');
             let deleteBtns=document.getElementsByClassName('deleteTemplate');

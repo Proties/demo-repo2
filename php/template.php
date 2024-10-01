@@ -20,8 +20,8 @@ class Template{
 		$this->directory='./templates';
 		$this->creator=0;
 		$this->description='';
-		$this->timeMade='';
-		$this->dateMade='';
+		$this->timeMade=date('H:i');
+		$this->dateMade=date('Y:m:d');
 		$this->id;
 		$this->price='R20';
 		$this->filename='';
