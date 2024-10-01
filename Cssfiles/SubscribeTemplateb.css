@@ -88,10 +88,16 @@ header {
 /* User Info */
 .user-info {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #fff;
+  padding: 70px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  height: 180px;
+  text-align: center;
+  margin: 50px;
+  border-radius: 21px;
 }
 
 .user-info h1 {
@@ -105,14 +111,20 @@ header {
     margin-top: 10px;
 }
 
+li {
+    float: left;
+    margin: 12px;
+    font-size: 11px;
+}
+
 /* Profile Image Container */
 .profile-image-container {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #A7991E;
     padding: 20px;
+    flex-direction: column;
 }
 
 .profile-image {
@@ -123,28 +135,30 @@ header {
 }
 
 /* Long Bio Section */
-.long-bio-section {
+.Trophies-section {
     display: flex;
     justify-content: center;
     padding: 40px;
-    margin: 90px;
+    margin-top: 90px;
 }
 
-.long-bio-container {
+.Trophies-container {
     background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+    padding: 30px;
+    border-radius: 55px;
     height: 180px;
     align-content: center;
+    overflow: hidden;
+    width: 1410px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
 }
 
-.long-bio {
-    font-size: 1.2rem;
-    line-height: 1.5;
-    color: #333;
-    text-align: center;
+.add-trophies-button {    
+    border-color: #A7991E;
+  padding: 27px;
+  font-size: 26px;
+  color: #A7991E;
+  border-radius: 32px;
 }
 
 /* Post Section */
@@ -159,7 +173,7 @@ header {
 }
 
 .personal-post-image {
-    width: 313px;
+    width: 490px;
     height: auto;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

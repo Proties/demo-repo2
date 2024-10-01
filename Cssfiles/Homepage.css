@@ -108,6 +108,7 @@ nav .profile-link {
     max-width: 400px;
     padding: 10px 15px;
     border: 1px solid #ccc;
+    margin-left: 120px;
     border-radius: 24px;
     outline: none;
     transition: all 0.2s;
@@ -181,7 +182,7 @@ nav .profile-link {
 /*challenge section*/
 
 .challenge-section {
-  position: absolute;
+  position: fixed;
   left: 10px;
   top: 120px; /* Adjust based on header height */
   width: 20%;

@@ -78,49 +78,94 @@ header {
 }
 
 
-.profile-section {
-    background-color: #ffffff; /* Light grey background */
-    padding: 20px 0;
+/* Profile Header Section */
+.profile-header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    height: 340px;
 }
 
-.profile-container {
-    text-align: center;
-    width: 100%;
+/* User Info */
+.user-info {
+    flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #fff;
+  padding: 70px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  height: 180px;
+  text-align: center;
+  margin: 50px;
+  border-radius: 21px;
+}
+
+.user-info h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.user-info .short-bio {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 10px;
+}
+
+li {
+    float: left;
+    margin: 12px;
+    font-size: 11px;
+}
+
+/* Profile Image Container */
+.profile-image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    flex-direction: column;
 }
 
 .profile-image {
+    border-radius: 50%;
     width: 150px;
     height: 150px;
-    border-radius: 50%; /* Makes the image circular */
-    object-fit: cover; /* Ensures the image doesn't stretch */
+    object-fit: cover;
 }
 
-/* Info Section */
-.info-section {
-    padding: 20px 0;
+/* Long Bio Section */
+.Trophies-section {
     display: flex;
-    justify-content: center;
-    background-color: white;
+  justify-content: center;
+  padding: 40px;
+  margin-top: 90px;
+  flex-direction: column;
 }
 
-.info-container {
-    text-align: center;
-    max-width: 600px;
+.Trophies-container {
+    position: absolute;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 55px;
+  overflow: hidden;
+  right: 20px;
+  width: 20%;
+  max-width: 250px;
+  height: 50vh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  margin-top: 125px;
 }
 
-.username {
-    font-size: 32px;
-    margin: 10px 0;
-}
-
-.short-bio {
-    font-size: 16px;
-    color: #666;
-    margin: 35px;
-    padding-right: 72px;
-    padding-left: 72px;
+.add-trophies-button {    
+    border-color: #A7991E;
+  padding: 27px;
+  font-size: 26px;
+  color: #A7991E;
+  border-radius: 32px;
+  display: block;
+  margin: auto;
+  display: inline-block;
 }
 
 /* Post Section */
@@ -135,22 +180,10 @@ header {
 }
 
 .personal-post-image {
-    width: 313px;
+    width: 490px;
     height: auto;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Media Query for Mobile Responsiveness */
-@media (max-width: 768px) {
-    .posts-container, .info-container {
-        width: 90%;
-    }
-
-    .profile-image {
-        width: 120px;
-        height: 120px;
-    }
 }
 
 .footer {
