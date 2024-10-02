@@ -1,4 +1,0 @@
-"strict"
-class Footer{
-	
-}
