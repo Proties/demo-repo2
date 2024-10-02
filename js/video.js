@@ -75,7 +75,7 @@ class VidoeUI extends Video{
 		
 	}
 	make_video(){
-		let container=document.createElement('video');
+		let container=document.createElement('div');
 		let video=document.createElement('video');
 		container.setAttribute('class',);
 		container.setAttribute('id',);
