@@ -27,7 +27,7 @@ class Template{
 		$this->dateMade=date('Y:m:d');
 		$this->id;
 		$this->price='R20';
-		$this->filename='SubscribeTemplatec.html';
+		$this->filename='Personalprofile.html';
 	}
 	public function set_filename($temp){
 		$this->filename=$temp;
