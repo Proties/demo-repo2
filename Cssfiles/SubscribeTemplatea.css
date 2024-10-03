@@ -180,9 +180,10 @@ li {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/*footer*/
 .footer {
-    background-color: #333;
-    color: #fff;
+    background-color: #fff;
+    color: #a7922f;
     padding: 20px;
     text-align: center;
 }
@@ -191,33 +192,16 @@ li {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: auto;
 }
 
-.view-more-btn {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
+
+
+.footer-content img{
+  width: 10%;
+  margin: auto;
 }
 
-.contact-info {
-    text-align: left;
-}
-
-.contact-info p {
-    margin-bottom: 5px;
-}
-
-.contact-info ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.contact-info li {
-    margin-bottom: 5px;
-}
 .templateSelection{
     display: none;
     position: fixed;
