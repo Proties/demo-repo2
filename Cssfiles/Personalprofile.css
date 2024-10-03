@@ -85,19 +85,53 @@ header {
     height: 340px;
 }
 
+.follow-button {
+    background-color: #A7991E;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    outline: none;
+}
+
+/* Hover effect for Follow button */
+.follow-button:hover {
+    background-color: #A7991E;
+}
+
+/* Optional: If the user is already following, change the button state */
+.follow-button.following {
+    background-color: white;
+    color: black;
+    border: 1px solid #dbdbdb;
+}
+
+.follow-button.following:hover {
+    background-color: #f0f0f0;
+    border-color: #bfbfbf;
+}
+
 /* User Info */
-.user-info {
-    flex: 1;
-  display: flex;
-  flex-direction: column;
+.user-info-container {
+   flex-direction: column;
   justify-content: center;
   background-color: #fff;
-  padding: 70px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-  height: 180px;
   text-align: center;
-  margin: 50px;
-  border-radius: 21px;
+  position: absolute;
+  padding: 30px;
+  border-radius: 55px;
+  width: 33%;
+  max-width: 500px;
+  height: 40vh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  display: flex;
+  left: 30px;
+  top: 350px; /* Adjust based on header height */
+  margin-top: 90px;
 }
 
 .user-info h1 {
@@ -112,9 +146,9 @@ header {
 }
 
 li {
-    float: left;
+    display: inline-block;
     margin: 12px;
-    font-size: 11px;
+    font-size: 13px;
 }
 
 /* Profile Image Container */
@@ -135,26 +169,23 @@ li {
 }
 
 /* Long Bio Section */
-.Trophies-section {
-    display: flex;
-  justify-content: center;
-  padding: 40px;
-  margin-top: 90px;
-  flex-direction: column;
-}
-
 .Trophies-container {
     position: absolute;
   background-color: #fff;
   padding: 30px;
   border-radius: 55px;
   overflow: hidden;
-  right: 20px;
   width: 20%;
   max-width: 250px;
-  height: 50vh;
+  height: 40vh;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-  margin-top: 125px;
+  display: flex;
+  right: 30px;
+  top: 350px; /* Adjust based on header height */
+  justify-content: center;
+  margin-top: 90px;
+  flex-direction: column;
+  border: 2px solid #A7991E; 
 }
 
 .add-trophies-button {    
@@ -166,6 +197,10 @@ li {
   display: block;
   margin: auto;
   display: inline-block;
+}
+
+.spaces {
+    height: 475px;
 }
 
 /* Post Section */
@@ -197,6 +232,7 @@ li {
 .footer-content {
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
     align-items: center;
     margin: auto;
 }

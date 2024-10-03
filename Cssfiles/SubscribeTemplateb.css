@@ -85,6 +85,36 @@ header {
     height: 340px;
 }
 
+.follow-button {
+    background-color: #A7991E;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    outline: none;
+}
+
+/* Hover effect for Follow button */
+.follow-button:hover {
+    background-color: #A7991E;
+}
+
+/* Optional: If the user is already following, change the button state */
+.follow-button.following {
+    background-color: white;
+    color: black;
+    border: 1px solid #dbdbdb;
+}
+
+.follow-button.following:hover {
+    background-color: #f0f0f0;
+    border-color: #bfbfbf;
+}
+
 /* User Info */
 .user-info {
     flex: 1;
@@ -112,9 +142,9 @@ header {
 }
 
 li {
-    float: left;
+    display: inline-block;
     margin: 12px;
-    font-size: 11px;
+    font-size: 13px;
 }
 
 /* Profile Image Container */
@@ -190,6 +220,7 @@ li {
 .footer-content {
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
     align-items: center;
     margin: auto;
 }

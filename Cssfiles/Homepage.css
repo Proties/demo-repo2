@@ -211,8 +211,8 @@ nav .profile-link {
   position: fixed;
   left: 10px;
   top: 120px; /* Adjust based on header height */
-  width: 20%;
-  max-width: 250px;
+  width: 100%;
+  max-width: 330px;
   height: 40vh; /* Takes 80% of viewport height */
   background-color: #ffffff;
   border: 2px solid #A7991E;
@@ -260,8 +260,8 @@ nav .profile-link {
   position: fixed;
   left: 10px;
   top: 467px; /* Adjust based on header height */
-  width: 20%;
-  max-width: 250px;
+  width: 100%;
+  max-width: 330px;
   height: 30vh; /* Takes 80% of viewport height */
   background-color: #ffffff;
   border: 2px solid #A7991E;
@@ -810,12 +810,12 @@ transform: scale(1.10);
 }
 
 .footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
 }
-
 .footer-content img{
   width: 10%;
   margin: auto;

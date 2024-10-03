@@ -116,18 +116,22 @@ header {
 }
 
 /* User Info */
-.user-info {
-    flex: 1;
-  display: flex;
-  flex-direction: column;
+.user-info-container {
+   flex-direction: column;
   justify-content: center;
   background-color: #fff;
-  padding: 70px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-  height: 180px;
   text-align: center;
-  margin: 50px;
-  border-radius: 21px;
+  position: absolute;
+  padding: 30px;
+  border-radius: 55px;
+  width: 33%;
+  max-width: 500px;
+  height: 40vh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  display: flex;
+  right: 30px;
+  top: 450px; /* Adjust based on header height */
+  margin-top: 90px;
 }
 
 .user-info h1 {
@@ -165,23 +169,23 @@ li {
 }
 
 /* Long Bio Section */
-.Trophies-section {
-    display: flex;
-    justify-content: center;
-    padding: 40px;
-    margin-top: 90px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-}
-
 .Trophies-container {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 55px;
-    box-shadow: 0 0px 8px rgba(0, 0, 0, 0.1);
-    height: 180px;
-    align-content: center;
-    overflow: hidden;
-    width: 1410px;
+    position: absolute;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 55px;
+  overflow: hidden;
+  width: 20%;
+  max-width: 250px;
+  height: 40vh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  display: flex;
+  left: 30px;
+  top: 219px; /* Adjust based on header height */
+  justify-content: center;
+  margin-top: 90px;
+  flex-direction: column;
+  border: 2px solid #A7991E; 
 }
 
 .add-trophies-button {    
@@ -190,6 +194,13 @@ li {
   font-size: 26px;
   color: #A7991E;
   border-radius: 32px;
+  display: block;
+  margin: auto;
+  display: inline-block;
+}
+
+.spaces {
+    height: 475px;
 }
 
 /* Post Section */
@@ -226,12 +237,11 @@ li {
     margin: auto;
 }
 
-
-
 .footer-content img{
   width: 10%;
   margin: auto;
 }
+
 
 .templateSelection{
     display: none;
