@@ -1,6 +1,6 @@
 "strict"
-import {PostUI} from './post.js';
-class StackedPosts extends PostUI{
+import PostUI from './post.js';
+class StackedPostsUI extends PostUI{
 	constructor(){
 		super();
 		this._stack=2;
@@ -42,4 +42,4 @@ class StackedPosts extends PostUI{
 		this.parentContainer.append(this.cont);
 	}
 }
-export default StackedPosts;
+export default StackedPostsUI;

@@ -1,6 +1,7 @@
 "strict"
 import User from './user.js';
-import StackedPosts from './stackPosts.js';
+import StackedPostsUI from './stackPosts.js';
+import PostUI from './post.js';
 class Profile extends User{
     constructor(){
         super();
@@ -76,25 +77,41 @@ class ProfileUI extends Profile{
  
 
  }
-// class MakeProfile extends Profile{
-//     constructor(){
-//         super();
-//     }
-// }
 export class OtherProfile extends ProfileUI{
     constructor(){
         super();
-        this.stack=new StackedPosts();
-        this._followBtn;
-        this._unFollowBtn;
-        this.makeChanges();
+        this.posts;
+        this._data;
+        this._cont;
+       
+    }
+    set data(i){
+        this._data=i;
+    }
+    get data(){
+        return this._data;
+    }
+    set cont(i){
+        this._cont=i;
+    }
+    get cont(){
+        return this._cont;
+    }
+     make_posts(){
+        if (this.data.posts.length>1) {
+            this.posts=new StackedPostsUI();
+            this.posts.parentContainer=this.cont;
+            for(let s=0;s<this.data.posts.length;s++){
+                this.posts.add_image=this.data.posts[s].src;
+            }
+          
 
-    }
-    set followBtn(b){
-        this._followBtn=b;
-    }
-    get followBtn(){
-        return this._followBtn;
+
+        }
+        this.posts=new PostUI();
+        this.posts.parentContainer=this.cont;
+        this.posts.image=this.data.posts.src;
+
     }
     makeChanges(){
 
@@ -108,6 +125,70 @@ export class OtherProfile extends ProfileUI{
             modal[i].remove();
         }
         
+    }
+    make_container(){
+        let cont=document.createElement('div');
+        let profilePicBtn=document.createElement('div');
+        let profilePic=document.createElement('img');
+        let post=document.createElement('div');
+        let contTwo=document.createElement('div');
+        let contThree=document.createElement('div');
+        let contFour=document.createElement('div');
+        let contFive=document.createElement('div');
+        let contSix=document.createElement('div');
+        let contSeven=document.createElement('div');
+        let contEight=document.createElement('div');
+
+        profilePicBtn.setAttribute('class','profile-button');
+        cont.setAttribute('class','post-container');
+        contTwo.setAttribute('class','post-actions');
+        contThree.setAttribute('class','profile-button');
+        contFour.setAttribute('class','post');
+
+        
+        if(this.data.posts.length>1){
+            let img=document.createElement('img');
+            contSix.setAttribute('class','top-post');    
+            console.log('=======test =======');
+            console.log(this.data.posts);
+            img.setAttribute('src',this.data.posts[0].src);
+            contSix.append(img);
+            contFour.append(contSix);
+          }  
+        if(this.data.posts.length>2){
+            let imgTwo=document.createElement('img');
+            imgTwo.setAttribute('src',this.data.posts[1].src);
+            contSeven.setAttribute('class','middle-post');
+            contSeven.append(imgTwo);
+            contFour.append(contSeven);
+        }
+        if(this.data.posts.length==3){
+            let imgThree=document.createElement('img');
+            contEight.setAttribute('class','bottom-post');
+            contEight.append(imgThree);
+            imgThree.setAttribute('src',this.data.posts[2].src);
+            contFour.append(contEight);
+        }
+        else{
+            profilePicBtn.append(profilePic);
+            contTwo.append(profilePicBtn);
+            contFour.append(contFive);
+            let im=document.createElement('img');
+            im.setAttribute('src',this.data.posts.src);
+            cont.append(contFour);
+            cont.append(contTwo);
+            contFive.setAttribute('class','single-post');
+            console.log('========container');
+            console.log(cont);
+            this.parentContainer.append(cont);
+            return;
+        }
+
+        profilePicBtn.append(profilePic);
+        contTwo.append(profilePicBtn);
+        cont.append(contTwo);
+        cont.append(contFour);
+        this.parentContainer.append(cont);
     }
 }
 export class MyProfile extends ProfileUI{
@@ -149,6 +230,21 @@ export class MyProfile extends ProfileUI{
     }
     get data(){
         return this._data;
+    }
+    make_posts(){
+        if (this.data.posts.length>1) {
+            this.posts=new StackedPostsUI();
+            for(let s=0;s<this.data.posts.length;s++){
+                this.posts.images=this.data.posts[s].src;
+            }
+            this.posts.make_stack();
+            return this.posts.cont;
+
+        }
+        this.posts=new PostUI();
+        this.posts.image=this.data.posts.src;
+        this.posts.make_post();
+        return this.posts.cont;
     }
     submit_profile_info(){
         try{

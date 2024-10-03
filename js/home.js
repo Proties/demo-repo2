@@ -71,6 +71,23 @@ function get_username_search_results_info_from_cookie(){
     }
     return false;
 }
+function clear_posts(){
+    let postsItems=document.getElementsByClassName('post-container');
+    console.log('============removing posts=======');
+    for(let p=0;p<postsItems.length;p++){
+        postsItems[p].remove();
+        console.log(postsItems[p]);
+    }
+    console.log('============ done removing posts=======');
+}
+
+let testData=[
+{username:'rotondwa',fullname:'',firstName:'',lastname:'nems',profilePicture:'',id:12,posts:{id:2,src:'test.png'}},
+{username:'rinae',fullname:'',firstName:'',lastname:'nems',profilePicture:'',id:25,posts:[{id:3,src:'test.png'},{id:4,src:'test.png'}]},
+{username:'sindy',fullname:'',firstName:'',lastname:'nems',profilePicture:'',id:43,posts:[{id:5,src:'test.png'},{id:6,src:'test.png'},{id:7,src:'test.png'}]}
+];
+let meData={fullname:'rotondwa',username:'sackie',bio:''};
+initialiseObjects(testData,meData);
 function initialiseObjects(cookie_data,cookie_user){
     console.log('=========cookie data========');
     console.log(cookie_data);
@@ -83,14 +100,24 @@ function initialiseObjects(cookie_data,cookie_user){
         user.registrationBtn.style.display='none';
     }
    if(cookie_data!==undefined){
+        clear_posts();
         let parentCont=document.getElementsByClassName("postfeed-wrapper")[0];
         for(let i=0;i<cookie_data.length;i++){
             let profileItem=new OtherProfile();
-            profileItem.stack=cookie_data.length;
-            profileItem.add_image=cookie_data[i];
+            profileItem.id=cookie_data[i].id;
+            profileItem.username=cookie_data.username;
+            profileItem.firstName=cookie_data[i].firstName;
+            profileItem.lastName=cookie_data[i].lastName;
+            profileItem.fullname=cookie_data[i].fullname;
+            profileItem.profilePicture=cookie_data[i].profilePicture;
+            profileItem.data=cookie_data[i];
             profileItem.parentContainer=parentCont;
-            profileItem.make_stack();
+           // profileItem.make_container();
+            profileItem.make_posts();
             profileItem.make_profilePic();
+            profileItem.make_container();
+
+            parentCont.append(profileItem.cont);
             profileList.push(profileItem);
 
     }
@@ -99,6 +126,7 @@ function initialiseObjects(cookie_data,cookie_user){
 
     
 }
+
 
 
 
@@ -333,7 +361,7 @@ function init_img(arr){
     }
 }
 open_postPreview();
-get_ish_form_cookie();
+// get_ish_form_cookie();
 eventListeners();
 
 

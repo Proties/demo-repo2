@@ -101,7 +101,7 @@ export class PostUI extends Post{
         con.setAttribute('class','post');
         con.setAttribute('id',this.id);
         img.setAttribute('src',this.src);
-         con.append(img);
+        con.append(img);
         this.parentContainer.append(con);
 	}
 	dragDrop(){
