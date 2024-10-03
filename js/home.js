@@ -72,22 +72,23 @@ function get_username_search_results_info_from_cookie(){
     return false;
 }
 function clear_posts(){
-    let postsItems=document.getElementsByClassName('post-container');
+    let postsItems=document.getElementsByClassName('postfeed-wrapper')[0];
     console.log('============removing posts=======');
-    for(let p=0;p<postsItems.length;p++){
-        postsItems[p].remove();
-        console.log(postsItems[p]);
+    for(let p=0;p<postsItems.childNodes.length;p++){
+        postsItems.removeChild(postsItems.childNodes[p]);
+        console.log(postsItems.childNodes[p]);
     }
     console.log('============ done removing posts=======');
 }
 
 let testData=[
-{username:'rotondwa',fullname:'',firstName:'',lastname:'nems',profilePicture:'',id:12,posts:{id:2,src:'test.png'}},
-{username:'rinae',fullname:'',firstName:'',lastname:'nems',profilePicture:'',id:25,posts:[{id:3,src:'test.png'},{id:4,src:'test.png'}]},
-{username:'sindy',fullname:'',firstName:'',lastname:'nems',profilePicture:'',id:43,posts:[{id:5,src:'test.png'},{id:6,src:'test.png'},{id:7,src:'test.png'}]}
+{username:'rotondwa',fullname:'',firstName:'',lastname:'nems',profilePicture:'/Image/Test Account.png',id:12,posts:{id:2,src:'/Image/Comic.png.png'}},
+{username:'rinae',fullname:'',firstName:'',lastname:'nems',profilePicture:'/Image/Test Account.png',id:25,posts:[{id:3,src:'/Image/Comic.png.png'},{id:4,src:'/Image/Comic.png.png'}]},
+{username:'sindy',fullname:'',firstName:'',lastname:'nems',profilePicture:'/Image/Test Account.png',id:43,posts:[{id:5,src:'/Image/Comic.png.png'},{id:6,src:'/Image/Comic.png.png'},{id:7,src:'/Image/Comic.png.png'}]}
 ];
 let meData={fullname:'rotondwa',username:'sackie',bio:''};
 initialiseObjects(testData,meData);
+
 function initialiseObjects(cookie_data,cookie_user){
     console.log('=========cookie data========');
     console.log(cookie_data);
@@ -113,8 +114,8 @@ function initialiseObjects(cookie_data,cookie_user){
             profileItem.data=cookie_data[i];
             profileItem.parentContainer=parentCont;
            // profileItem.make_container();
-            profileItem.make_posts();
-            profileItem.make_profilePic();
+            // profileItem.make_posts();
+            // profileItem.make_profilePic();
             profileItem.make_container();
 
             parentCont.append(profileItem.cont);

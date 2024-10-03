@@ -140,35 +140,48 @@ export class OtherProfile extends ProfileUI{
         let contEight=document.createElement('div');
 
         profilePicBtn.setAttribute('class','profile-button');
+        profilePic.setAttribute('src',this.profilePicture);
         cont.setAttribute('class','post-container');
         contTwo.setAttribute('class','post-actions');
         contThree.setAttribute('class','profile-button');
         contFour.setAttribute('class','post');
 
-        
-        if(this.data.posts.length>1){
-            let img=document.createElement('img');
-            contSix.setAttribute('class','top-post');    
-            console.log('=======test =======');
-            console.log(this.data.posts);
-            img.setAttribute('src',this.data.posts[0].src);
-            contSix.append(img);
-            contFour.append(contSix);
-          }  
-        if(this.data.posts.length>2){
-            let imgTwo=document.createElement('img');
-            imgTwo.setAttribute('src',this.data.posts[1].src);
-            contSeven.setAttribute('class','middle-post');
-            contSeven.append(imgTwo);
-            contFour.append(contSeven);
+        let arrayPosts=['top-post','middle-post','bottom-post'];
+        if(this.data.posts!==undefined){
+             for(let ss=0;ss<this.data.posts.length;ss++){
+                let c=document.createElement('div');
+                let img=document.createElement('img');
+                c.setAttribute('class',arrayPosts[ss]);    
+                img.setAttribute('src',this.data.posts[ss].src);
+                c.append(img);
+                contFour.append(c);
         }
-        if(this.data.posts.length==3){
-            let imgThree=document.createElement('img');
-            contEight.setAttribute('class','bottom-post');
-            contEight.append(imgThree);
-            imgThree.setAttribute('src',this.data.posts[2].src);
-            contFour.append(contEight);
         }
+       
+
+        // if(this.data.posts.length>1){
+        //     let img=document.createElement('img');
+        //     contSix.setAttribute('class','top-post');    
+        //     console.log('=======test =======');
+        //     console.log(this.data.posts);
+        //     img.setAttribute('src',this.data.posts[0].src);
+        //     contSix.append(img);
+        //     contFour.append(contSix);
+        //   }  
+        // if(this.data.posts.length>2){
+        //     let imgTwo=document.createElement('img');
+        //     imgTwo.setAttribute('src',this.data.posts[1].src);
+        //     contSeven.setAttribute('class','middle-post');
+        //     contSeven.append(imgTwo);
+        //     contFour.append(contSeven);
+        // }
+        // if(this.data.posts.length==3){
+        //     let imgThree=document.createElement('img');
+        //     contEight.setAttribute('class','bottom-post');
+        //     contEight.append(imgThree);
+        //     imgThree.setAttribute('src',this.data.posts[2].src);
+        //     contFour.append(contEight);
+        // }
         else{
             profilePicBtn.append(profilePic);
             contTwo.append(profilePicBtn);
@@ -181,7 +194,7 @@ export class OtherProfile extends ProfileUI{
             console.log('========container');
             console.log(cont);
             this.parentContainer.append(cont);
-            return;
+   
         }
 
         profilePicBtn.append(profilePic);
