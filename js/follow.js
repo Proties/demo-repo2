@@ -56,10 +56,26 @@ export class UnFollow{
 	}
 }
 class FollowingList{
-	constructor(){}
+	constructor(){
+		this._list=[];
+	}
+	set list(s){
+		this._list=s;
+	}
+	get list(){
+		return this._list;
+	}
 	get_following_list(){}
 }
 class FollowerList{
-	constructor(){}
+	constructor(){
+		this._list=[];
+	}
+	set list(s){
+		this._list=s;
+	}
+	get list(){
+		return this._list;
+	}
 	get_follower_list(){}
 }
