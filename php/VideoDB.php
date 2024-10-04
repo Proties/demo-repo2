@@ -28,8 +28,11 @@ class VideoDB extends Database{
 			return $err;
 		}
 	}
-	public function deleteVideo(){}
+	public function deleteVideo(){
 
+	}
+
+	public function hideVideo(){}
 	public function getVideos(){}
 
 }

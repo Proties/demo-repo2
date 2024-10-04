@@ -84,19 +84,7 @@ class VidoeUI extends Video{
 		container.append(video);
 		this.cont=container;
 	}
-	send_video_to_server(){
-		try{
-
-		}catch(err){
-			console.log(err)
-		}
-	}
-	get_video_to_server(){
-		try{
-
-		}catch(err){
-			console.log(err)
-		}
-	}
+	
+	
 }
 export default VidoeUI;

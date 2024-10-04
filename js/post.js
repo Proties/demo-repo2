@@ -118,13 +118,15 @@ export class PostUI extends Post{
         con.append(img);
         this.parentContainer.append(con);
 	}
-	counter(){
-		//this function start the counter when it appears within the users view
-		//it resume the counter when it comes back into view
-		// it stops the counter when it no longer in view
-		console.log('=======coords======');
-		console.log(this._yTop);
-		console.log(this._yBottom);
+	make_video_post(){
+		let con=document.createElement('div');
+        let video=document.createElement('video');
+       
+        con.setAttribute('class','post');
+        con.setAttribute('id',this.id);
+        img.setAttribute('src',this.src);
+        con.append(video);
+        this.parentContainer.append(con);
 	}
 	
 
