@@ -12,6 +12,9 @@ try{
     require_once 'php/post.php';
     require_once 'php/postDB.php';
 
+    require_once 'php/Follower.php';
+    require_once 'php/FollowerDB.php';
+
     require_once 'php/userFile.php';
     require_once 'php/userAuth.php';
     require_once 'php/image.php';

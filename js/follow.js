@@ -20,10 +20,17 @@ export class Follow{
 		try{
 			let xml=new XMLHttpRequest();
 			xml.open('POST','/profile');
-			xml.setRequestHeader('Content-type','x/application-form-urlencoded');
-			xml.send('action=follow&influencerID='+influencer.id);
+			xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xml.onload=function(){
+				console.log('======data from server');
+				console.log(this.responseText);
+			}
+			xml.send('actions=follow_user&followerID='+this.influencer.id+'&userID='+this.user.id);
 		}catch(err){
-			console.log(err)
+			console.log(this.influencer);
+			console.log(this.user.id);
+			console.log(this.influencer.id);
+			console.log(err);
 		}
 	}
 }

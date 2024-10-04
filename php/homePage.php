@@ -70,6 +70,57 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 
 $action=$_POST['action'];
 switch($action){
+    case 'view_post':
+        try{
+            $data['status']='success';
+            $data['message']='its all right';
+            echo $data;
+        }catch(Exception $err){
+            $data['status']='failed';
+            $data['message']=$err->getMessage();
+            echo $data;
+        }
+        break;
+    case 'follow_user':
+        try{
+            $userID=$_POST['userID'];
+            $followerID=$_POST['followerID'];
+            if($userID==$mainUser->get_id()){
+                $f=new Follower($mainUser,$influencer);
+                $fDB=new Follower($f);
+                $fDB->addFollower();
+            }
+            else{
+                throw new Exception('user not allowed to perform action');
+            }
+            $data['status']='success';
+            $data['message']='its all right';
+            echo $data;
+        }catch(Exception $err){
+            $data['status']='failed';
+            $data['message']=$err->getMessage();
+            echo $data;
+        }
+        break;
+    case 'unfollow_user':
+        try{
+            $userID=$_POST['userID'];
+            $followerID=$_POST['followerID'];
+            if($userID==$mainUser->get_id()){
+                
+            }
+            else{
+                throw new Exception('user not allowed to perform action');
+            }
+            $data['status']='success';
+            $data['message']='its all right';
+            echo $data;
+        }catch(Exception $err){
+            $data['status']='failed';
+            $data['message']=$err->getMessage();
+            echo $data;
+        }
+        break;
     case 'search':
         $data=[];
         try{
@@ -83,12 +134,12 @@ switch($action){
             $data['status']='success';
             $data['searchResults']=$arrayData;
             $data['Results']=$arrayData;
-            setcookie('usernameSearchResults',json_encode($data), time() + (8640 * 1), '/');
+            setcookie('usernameSearchResults',json_encode($data), time() + (864 * 1), '/');
         }
         catch(Exception $err){
             $data['status']='failed';
             $data['message']=$err->getMessage();
-            setcookie('usernameSearchResults',json_encode($data), time() + (8640 * 1), '/');
+            setcookie('usernameSearchResults',json_encode($data), time() + (864 * 1), '/');
         }
         
         break;

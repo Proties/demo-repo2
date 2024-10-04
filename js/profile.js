@@ -112,7 +112,7 @@ export class MyProfile extends ProfileUI{
         this._registrationBtn=document.getElementById('userRegistration');
         this._data;
         this._setupProfileModal=document.getElementById('profileSetupModal');
-        this.is_logged_in();
+        
     }
     is_logged_in(){
         if(document.getElementsByClassName('templateSelection')[0]!==undefined){

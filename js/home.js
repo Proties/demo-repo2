@@ -256,7 +256,7 @@ function eventListeners(){
     // let morePosts=document.getElementById("");
 
     search_input.addEventListener("input",search_user);
-    viewMore.addEventListener("click",display_more_users);
+    // viewMore.addEventListener("click",display_more_users);
     // morePosts.addEventListener("click",more_posts);
    
     for(let i=0;i<userProfile.length;i++){

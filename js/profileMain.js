@@ -31,7 +31,7 @@ function get_data_from_cookie(){
     let user_data=get_cookie('username=');
     let setUpProfile=get_cookie('setUpProfile=');
     let data=get_cookie('profile=');
-    
+    initialiseProfile(user_data); 
     intialiseProfileObject(data,setUpProfile);
 }
 
@@ -94,7 +94,16 @@ async function validateTemplateSubmission(evt){
     let data=await readFile(file);
     document.getElementById('templateModal').style.display='none';
 }
-
+function initialiseProfile(data){
+    myProfile=new MyProfile();
+    if(data!==undefined){
+        myProfile.id=data.id;
+        myProfile.username=data.username;
+        myProfile.fullname=data.fullname;
+        myProfile.shortBio=data.shortBio;
+        myProfile.longBio=data.longBio;
+    }
+}
 async function intialiseProfileObject(data,myData){
     // if(data==undefined){
     //     return;
@@ -105,8 +114,11 @@ async function intialiseProfileObject(data,myData){
     let url=location.href;
     let last=url.lastIndexOf('/');
     url=url.slice(last+1,url.length);
-
+    console.log('======myprofile ======');
+    console.log(url);
     if(url=='profile'){
+        console.log('======myprofile ======');
+        console.log(url);
         if(myData!==undefined){
             profile_data=myData;
         }
@@ -114,7 +126,9 @@ async function intialiseProfileObject(data,myData){
         console.log('profile data======');
         console.log(profile_data);
         currentProfile=new MyProfile();
+        currentProfile.is_logged_in();
         currentProfile.username=profile_data.username;
+        currentProfile.id=profile_data.id;
         console.log(profile_data);
        
         currentProfile.shortBio=profile_data.shortBio;
@@ -298,7 +312,7 @@ function followProfile(evt){
     let url=window.href;
     console.log(url);
     let follow=new Follow(myProfile,currentProfile);
-    // follow.sendFollow();
+    follow.sendFollow();
 
     //replace follow btn with unfollow btn
     let cont=document.getElementsByClassName('Follower')[0];

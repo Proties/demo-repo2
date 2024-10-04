@@ -9,6 +9,9 @@ use Insta\Template\Template;
 use Insta\Template\HtmlTemplate;
 use Insta\Database\Template\TemplateDB;
 
+use Insta\Follower\Follower;
+use Insta\Database\Follower\FollowerDB;
+
 $mainUser=new Users();
 $template=new Template();
 if(isset($_SESSION['username']) && $_SESSION['username']!==null){
@@ -93,12 +96,56 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
     var_dump($file);
     return;
 }
-
+$currentProfile;
 $action=$_POST['actions'];
 switch($action){
     case 'view_post':
         break;
     case 'hide_template':
+        break;
+    case 'follow_user':
+        try{
+            $userID=$_POST['userID'];
+            $followerID=$_POST['followerID'];
+            if($userID==$mainUser->get_id()){
+                $f=new Follower($mainUser,$followerID);
+                $fDB=new Follower($f);
+                $fDB->addFollower();
+            }
+            else{
+                throw new Exception('user not allowed to perform action');
+            }
+            $data['status']='success';
+            $data['message']='its all right';
+            echo $data;
+        }catch(Exception $err){
+            $data['status']='failed';
+            $data['message']=$err->getMessage();
+            echo $data;
+        }
+        break;
+    case 'unfollow_user':
+        try{
+            $userID=$_POST['userID'];
+            $followerID=$_POST['followerID'];
+            if($userID==$mainUser->get_id()){
+                
+            }
+            else{
+                throw new Exception('user not allowed to perform action');
+            }
+            $data['status']='success';
+            $data['message']='its all right';
+            echo $data;
+        }catch(Exception $err){
+            $data['status']='failed';
+            $data['message']=$err->getMessage();
+            echo $data;
+        }
+        break;
+    case 'get_following_list':
+        break;
+    case 'get_followers_list':
         break;
     case 'delete_template':
         $data=[];
