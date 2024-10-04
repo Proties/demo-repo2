@@ -16,7 +16,7 @@ export class Follow{
 	get influencer(){
 		return this._influencer;
 	}
-	sendFollowTOServer(){
+	sendFollow(){
 		try{
 			let xml=new XMLHttpRequest();
 			xml.open('POST','/profile');

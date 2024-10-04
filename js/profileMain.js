@@ -4,8 +4,9 @@ import StackedPosts from './stackPosts.js';
 import MakePostUI from './makePost.js';
 import PostUI from './post.js';
 import TemplateUI from './template.js';
-
+import {Follow,UnFollow} from './follow.js';
 let currentProfile;
+let myProfile;
 let uploadPost;
 let temp=new TemplateUI();
 function get_cookie(name){
@@ -94,7 +95,7 @@ async function validateTemplateSubmission(evt){
     document.getElementById('templateModal').style.display='none';
 }
 
-async function intialiseProfileObject(data,myProfile){
+async function intialiseProfileObject(data,myData){
     // if(data==undefined){
     //     return;
     // }
@@ -106,8 +107,8 @@ async function intialiseProfileObject(data,myProfile){
     url=url.slice(last+1,url.length);
 
     if(url=='profile'){
-        if(myProfile!==undefined){
-            profile_data=myProfile;
+        if(myData!==undefined){
+            profile_data=myData;
         }
         url=url.slice(1,url.length);
         console.log('profile data======');
@@ -120,7 +121,7 @@ async function intialiseProfileObject(data,myProfile){
         currentProfile.longBio=profile_data.longBio;
         currentProfile.fullname=profile_data.fullname;
         currentProfile.make_user_info();
-        }
+        
         console.log(currentProfile);
         let con=document.getElementsByClassName('container')[0];
         temp.get_list();
@@ -237,10 +238,7 @@ async function intialiseProfileObject(data,myProfile){
         post.make_post();
     }
     }
-    
-        
-    
-        
+} 
     else{
        console.log('======other profile data');
        console.log(data);
@@ -269,8 +267,8 @@ async function intialiseProfileObject(data,myProfile){
 
        
     }
-
 }
+
 
 function upload_post(){
     uploadPost=new MakePostUI();
@@ -295,8 +293,23 @@ function open_upload_window(evt){
 function expandTrophies(){
 
 }
-function followProfile(){
+function followProfile(evt){
+    // let btn=evt.target;
+    let url=window.href;
+    console.log(url);
+    let follow=new Follow(myProfile,currentProfile);
+    // follow.sendFollow();
 
+    //replace follow btn with unfollow btn
+    let cont=document.getElementsByClassName('Follower')[0];
+    console.log(cont.childNodes);
+    let btn=cont.childNodes[5];
+    let unfollowBtn=document.createElement('button');
+    let unfollowBtnTxt=document.createTextNode('unFollow');
+    unfollowBtn.setAttribute('class','follow-button');
+    unfollowBtn.setAttribute('id','unFollowBtn');
+    unfollowBtn.append(unfollowBtnTxt);
+    cont.replaceChild(unfollowBtn,btn);
 }
 function addEventListeners(){
     const uploadBtn = document.getElementById('uploadBtn');
@@ -308,6 +321,7 @@ function addEventListeners(){
     let open_window=document.getElementsByClassName('upload-button')[0];
     let closeTemplateWindow=document.getElementById('closepicktemplate');
     let followUser=document.getElementById('followBtn');
+    // let unFollowUser=document.getElementById('unFollowBtn');
     let expandTrophyCase=document.getElementsByClassName('add-trophies-button')[0];
     // Open upload modal
     expandTrophyCase.addEventListener('click',expandTrophies);
