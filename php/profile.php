@@ -96,7 +96,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
     var_dump($file);
     return;
 }
-$currentProfile;
+$currentProfile=new Users();
 $action=$_POST['actions'];
 switch($action){
     case 'view_post':
@@ -107,9 +107,13 @@ switch($action){
         try{
             $userID=$_POST['userID'];
             $followerID=$_POST['followerID'];
+         
+            if(!is_int($userID) or !is_int($followerID)){
+                throw new Exception('make an account');
+            }
             if($userID==$mainUser->get_id()){
-                $f=new Follower($mainUser,$followerID);
-                $fDB=new Follower($f);
+                $f=new Follower($mainUser,$currentProfile);
+                $fDB=new FollowerDB($f);
                 $fDB->addFollower();
             }
             else{
@@ -117,11 +121,11 @@ switch($action){
             }
             $data['status']='success';
             $data['message']='its all right';
-            echo $data;
+            echo json_encode($data);
         }catch(Exception $err){
             $data['status']='failed';
             $data['message']=$err->getMessage();
-            echo $data;
+            echo json_encode($data);
         }
         break;
     case 'unfollow_user':
@@ -136,11 +140,11 @@ switch($action){
             }
             $data['status']='success';
             $data['message']='its all right';
-            echo $data;
+            echo json_encode($data);
         }catch(Exception $err){
             $data['status']='failed';
             $data['message']=$err->getMessage();
-            echo $data;
+            echo json_encode($data);
         }
         break;
     case 'get_following_list':

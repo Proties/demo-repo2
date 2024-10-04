@@ -307,27 +307,12 @@ function open_upload_window(evt){
 function expandTrophies(){
 
 }
-function followProfile(evt){
+async function followProfile(evt){
     // let btn=evt.target;
     let url=window.href;
     console.log(url);
     let follow=new Follow(myProfile,currentProfile);
     follow.sendFollow();
-
-    //replace follow btn with unfollow btn
-    let cont=document.getElementsByClassName('Follower')[0];
-    console.log(cont.childNodes);
-    let btn=cont.childNodes[5];
-    let unfollowItem=document.createElement('li');
-    let unfollowBtn=document.createElement('button');
-    let unfollowBtnTxt=document.createTextNode('unFollow');
-    unfollowBtn.setAttribute('class','follow-button');
-    unfollowBtn.setAttribute('id','unFollowBtn');
-    unfollowBtn.append(unfollowBtnTxt);
-    unfollowItem.append(unfollowBtn);
-    cont.replaceChild(unfollowItem,btn);
-    let unFollowUser=document.getElementById('unFollowBtn');
-    unFollowUser.addEventListener('click',unfollowProfile);
 }
 function unfollowProfile(evt){
     // let btn=evt.target;

@@ -6,6 +6,7 @@ use PDOException;
 
 class FollowerDB extends Database{
     private Follower $follower;
+    private $db;
     public function __construct(Follower $follower)
     {
         $this->db=Database::get_connection();
