@@ -74,15 +74,26 @@ function get_username_search_results_info_from_cookie(){
 function clear_posts(){
     let postsItems=document.getElementsByClassName('postfeed-wrapper')[0];
     console.log('============removing posts=======');
-    for(let p=0;p<postsItems.childNodes.length;p++){
-        postsItems.removeChild(postsItems.childNodes[p]);
-        console.log(postsItems.childNodes[p]);
+    let p=0;
+    let items=postsItems.childNodes;
+    while(items.length>p ){
+        if(typeof items[p]==='object'){
+            console.log(typeof items[p]);
+            postsItems.removeChild(items[p]);
+            p++;
+        }
+      
+        
     }
+    // for(let p=0;p<postsItems.childNodes.length;p++){
+    //     postsItems.removeChild(postsItems.childNodes[p]);
+    //     console.log(postsItems.childNodes[p]);
+    // }
     console.log('============ done removing posts=======');
 }
 
 let testData=[
-{username:'rotondwa',fullname:'',firstName:'',lastname:'nems',profilePicture:'/Image/Test Account.png',id:12,posts:{id:2,src:'/Image/Comic.png.png'}},
+{username:'rotondwa',fullname:'',firstName:'',lastname:'nems',profilePicture:'/Image/Test Account.png',id:12,post:{id:2,src:'/Image/Comic.png.png'}},
 {username:'rinae',fullname:'',firstName:'',lastname:'nems',profilePicture:'/Image/Test Account.png',id:25,posts:[{id:3,src:'/Image/Comic.png.png'},{id:4,src:'/Image/Comic.png.png'}]},
 {username:'sindy',fullname:'',firstName:'',lastname:'nems',profilePicture:'/Image/Test Account.png',id:43,posts:[{id:5,src:'/Image/Comic.png.png'},{id:6,src:'/Image/Comic.png.png'},{id:7,src:'/Image/Comic.png.png'}]}
 ];
@@ -118,7 +129,7 @@ function initialiseObjects(cookie_data,cookie_user){
             // profileItem.make_profilePic();
             profileItem.make_container();
 
-            parentCont.append(profileItem.cont);
+            // parentCont.append(profileItem.cont);
             profileList.push(profileItem);
 
     }

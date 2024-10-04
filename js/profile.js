@@ -134,10 +134,8 @@ export class OtherProfile extends ProfileUI{
         let contTwo=document.createElement('div');
         let contThree=document.createElement('div');
         let contFour=document.createElement('div');
-        let contFive=document.createElement('div');
-        let contSix=document.createElement('div');
-        let contSeven=document.createElement('div');
-        let contEight=document.createElement('div');
+        
+        
 
         profilePicBtn.setAttribute('class','profile-button');
         profilePic.setAttribute('src',this.profilePicture);
@@ -146,7 +144,7 @@ export class OtherProfile extends ProfileUI{
         contThree.setAttribute('class','profile-button');
         contFour.setAttribute('class','post');
 
-        let arrayPosts=['top-post','middle-post','bottom-post'];
+        let arrayPosts=['top-post','bottom-post','bottom-most-post'];
         if(this.data.posts!==undefined){
              for(let ss=0;ss<this.data.posts.length;ss++){
                 let c=document.createElement('div');
@@ -157,45 +155,30 @@ export class OtherProfile extends ProfileUI{
                 contFour.append(c);
         }
         }
-       
-
-        // if(this.data.posts.length>1){
-        //     let img=document.createElement('img');
-        //     contSix.setAttribute('class','top-post');    
-        //     console.log('=======test =======');
-        //     console.log(this.data.posts);
-        //     img.setAttribute('src',this.data.posts[0].src);
-        //     contSix.append(img);
-        //     contFour.append(contSix);
-        //   }  
-        // if(this.data.posts.length>2){
-        //     let imgTwo=document.createElement('img');
-        //     imgTwo.setAttribute('src',this.data.posts[1].src);
-        //     contSeven.setAttribute('class','middle-post');
-        //     contSeven.append(imgTwo);
-        //     contFour.append(contSeven);
-        // }
-        // if(this.data.posts.length==3){
-        //     let imgThree=document.createElement('img');
-        //     contEight.setAttribute('class','bottom-post');
-        //     contEight.append(imgThree);
-        //     imgThree.setAttribute('src',this.data.posts[2].src);
-        //     contFour.append(contEight);
-        // }
-        else{
-            profilePicBtn.append(profilePic);
-            contTwo.append(profilePicBtn);
-            contFour.append(contFive);
+        if(this.data.post!==undefined){
+            let contFive=document.createElement('div');
             let im=document.createElement('img');
-            im.setAttribute('src',this.data.posts.src);
-            cont.append(contFour);
-            cont.append(contTwo);
-            contFive.setAttribute('class','single-post');
+            
+            // profilePicBtn.append(profilePic);
+            // contTwo.append(profilePicBtn);
+            
+            
+            im.setAttribute('src',this.data.post.src);
+            contFive.setAttribute('class','top-post');
+            
+            contFive.append(im);
+            contFour.append(contFive);
+            // cont.append(contFour);
+            // cont.append(contTwo);
+            
             console.log('========container');
             console.log(cont);
-            this.parentContainer.append(cont);
-   
         }
+  
+            
+            // this.parentContainer.append(cont);
+   
+        
 
         profilePicBtn.append(profilePic);
         contTwo.append(profilePicBtn);
