@@ -304,12 +304,38 @@ function followProfile(evt){
     let cont=document.getElementsByClassName('Follower')[0];
     console.log(cont.childNodes);
     let btn=cont.childNodes[5];
+    let unfollowItem=document.createElement('li');
     let unfollowBtn=document.createElement('button');
     let unfollowBtnTxt=document.createTextNode('unFollow');
     unfollowBtn.setAttribute('class','follow-button');
     unfollowBtn.setAttribute('id','unFollowBtn');
     unfollowBtn.append(unfollowBtnTxt);
-    cont.replaceChild(unfollowBtn,btn);
+    unfollowItem.append(unfollowBtn);
+    cont.replaceChild(unfollowItem,btn);
+    let unFollowUser=document.getElementById('unFollowBtn');
+    unFollowUser.addEventListener('click',unfollowProfile);
+}
+function unfollowProfile(evt){
+    // let btn=evt.target;
+    let url=window.href;
+    console.log(url);
+    let follow=new UnFollow(myProfile,currentProfile);
+    // follow.sendFollow();
+
+    //replace follow btn with unfollow btn
+    let cont=document.getElementsByClassName('Follower')[0];
+    console.log(cont.childNodes);
+    let btn=cont.childNodes[5];
+    let followItem=document.createElement('li');
+    let followBtn=document.createElement('button');
+    let followBtnTxt=document.createTextNode('follow');
+    followBtn.setAttribute('class','follow-button');
+    followBtn.setAttribute('id','followBtn');
+    followBtn.append(followBtnTxt);
+    followItem.append(followBtn);
+    cont.replaceChild(followItem,btn);
+    let FollowUser=document.getElementById('followBtn');
+    FollowUser.addEventListener('click',followProfile);
 }
 function addEventListeners(){
     const uploadBtn = document.getElementById('uploadBtn');
@@ -321,7 +347,8 @@ function addEventListeners(){
     let open_window=document.getElementsByClassName('upload-button')[0];
     let closeTemplateWindow=document.getElementById('closepicktemplate');
     let followUser=document.getElementById('followBtn');
-    // let unFollowUser=document.getElementById('unFollowBtn');
+    
+    
     let expandTrophyCase=document.getElementsByClassName('add-trophies-button')[0];
     // Open upload modal
     expandTrophyCase.addEventListener('click',expandTrophies);
