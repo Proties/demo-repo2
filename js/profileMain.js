@@ -290,14 +290,13 @@ function upload_post(){
 }
 function open_upload_window(evt){
     const uploadModal = document.getElementById('uploadModal').style.display='block';
-    console.log(uploadModal);
-    console.log(evt);
+  
 }
 function expandTrophies(){
 
 }
 function followProfile(){
-    
+
 }
 function addEventListeners(){
     const uploadBtn = document.getElementById('uploadBtn');
