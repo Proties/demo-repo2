@@ -293,6 +293,12 @@ function open_upload_window(evt){
     console.log(uploadModal);
     console.log(evt);
 }
+function expandTrophies(){
+
+}
+function followProfile(){
+    
+}
 function addEventListeners(){
     const uploadBtn = document.getElementById('uploadBtn');
     const uploadModal = document.getElementById('uploadModal');
@@ -301,8 +307,15 @@ function addEventListeners(){
     const uploadProgress = document.getElementById('uploadProgress');
     const uploadFromDeviceBtn = document.getElementById('uploadFromDeviceBtn');
     let open_window=document.getElementsByClassName('upload-button')[0];
-
+    let closeTemplateWindow=document.getElementById('closepicktemplate');
+    let followUser=document.getElementById('followBtn');
+    let expandTrophyCase=document.getElementsByClassName('add-trophies-button')[0];
     // Open upload modal
+    expandTrophyCase.addEventListener('click',expandTrophies);
+    followUser.addEventListener('click',followProfile);
+    closeTemplateWindow.addEventListener('click',function(evt){
+        document.getElementById('PickTemplateModal').style.display='none';
+    });
     open_window.addEventListener('click', open_upload_window);
 
     // Close modal when clicking outside the modal content
