@@ -562,8 +562,6 @@ li {
     align-items: center;
     height: fit-content;
   }
-  
-  
  
   /* Submit button */
   button[type="submit"] {
@@ -586,3 +584,93 @@ li {
     color: black;
     margin-bottom: 5px;
   }
+
+
+  .ReviewUpload-container {
+    background-color: #fff;
+  padding: 20px;
+  border-radius: 50px;
+  width: 800px;
+  height: 415px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  text-align: center;
+  align-content: center;
+  left: 345px;
+  top: 45px;
+    }
+
+.heading{
+        top: 0px;
+        position: absolute;
+        left: 319px;
+}
+
+.PickTemplateModal-container img {
+    width: 110px;
+}
+
+.Form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+  
+  /* Close button */
+  .close {
+    position: absolute;
+    top: 10px;
+    left: 30px;
+    color: black;
+    font-size: 24px;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 1002; /* Ensure it stays on top of everything */
+  } 
+  
+  /* Form styling */
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+  }
+ 
+  /* Submit button */
+  .uploadFromDeviceBtn {
+    padding: 10px 20px;
+    background-color: #A7991E;/* Match button style */
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 80px;
+  }
+  
+  .uploadFromDeviceBtn[type="submit"]:hover {
+    background-color: #ddd; /* Hover effect */
+  }
+  
+  /* Heading styling */
+  h2 {
+    color: black;
+    margin-bottom: 5px;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
