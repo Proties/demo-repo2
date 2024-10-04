@@ -590,7 +590,7 @@ transform: scale(1.10);
   .modal-container {
     background-color: #A7991E; /* Mustard yellow */
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 40px;
     width: 800px; /* Smaller width */
     height: 550px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -709,13 +709,15 @@ transform: scale(1.10);
     .profilesetupmodal-container {
       background-color: #a7922f; /* Mustard yellow */
       padding: 20px;
-      border-radius: 10px;
+      border-radius: 40px;
       width: 800px; /* Smaller width */
       height: 640px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       position: absolute;
       text-align: center;
       align-content: center;
+      left: 345px;
+      top: 30px;
   }
   
   

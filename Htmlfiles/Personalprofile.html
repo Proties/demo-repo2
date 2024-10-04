@@ -81,7 +81,7 @@
     </section>
 
     <!-- Upload Post Modal -->
-    <div id="uploadModal" class="modal">
+    <div id="uploadModal" class="modal" style="display: block">
       <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Upload Post</h2>
@@ -101,6 +101,100 @@
       <span>Load Template Files</span>
       <button id="addTemplatefile">+</button>
     </div>
+
+    <!-- Edit Profile Modal-->
+    <section id="EditProfileModal" class="modal" style="display: none">
+      <div class="EditProfileModal-container">
+        <span class="close" id="closeEditProfile">&times;</span>
+        <button class="">></button>
+        <h2>Edit Profile</h2>
+
+        <form id="EditProfileForm">
+          <!-- Profile Image Circle -->
+          <div class="profile-image-container">
+            <img
+              class="profile-image-placeholder"
+              src="/Image/Test Account.png"
+              alt="Profile Icon"
+            />
+          </div>
+
+          <!-- Input Fields -->
+          <div class="input-group">
+            <input
+              type="text"
+              id="profileName"
+              name="profileName"
+              placeholder="User Name"
+              required
+            />
+            <p id="errProfileFullName"></p>
+            <input
+              type="text"
+              id="fullname"
+              name="fullName"
+              placeholder="FullName"
+              required
+            />
+            <p id="errProfileFullName"></p>
+          </div>
+
+          <div class="input-group">
+            <input
+              type="text"
+              id="Email"
+              name="Email"
+              placeholder="Email"
+              required
+            />
+            <p id="errProfileEmail"></p>
+            <input
+              type="text"
+              id="gender"
+              name="gender"
+              placeholder="Gender"
+              required
+            />
+            <p id="errProfileGender"></p>
+          </div>
+
+          <input
+            type="text"
+            id="occupation"
+            name="occupation"
+            placeholder="OCCUPATION"
+            required
+          />
+          <p id="errProfileOccupation"></p>
+
+          <textarea
+            id="biography"
+            name="biography"
+            placeholder="SHORT BIOGRAPHY"
+            rows="4"
+            required
+          ></textarea>
+          <p id="errProfileBio"></p>
+
+          <button type="submit" id="submitProfileSetup">SUBMIT</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Pick Template Modal-->
+    <section id="PickTemplateModal" class="modal" style="display: block">
+      <div class="PickTemplateModal-container">
+        <span class="close" id="closepicktemplate">&times;</span>
+        <button class="">></button>
+        <h2>Pick Template</h2>
+
+        <form id="PickTemplateForm">
+          <!-- Profile Image Circle -->
+
+          <button type="submit" id="submitProfileSetup">SUBMIT</button>
+        </form>
+      </div>
+    </section>
 
     <script src="/js/profile.js"></script>
     <script type="module" src="js/user.js"></script>

@@ -23,13 +23,147 @@ header {
 }
 .modal{
     display: none;
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
-    left: 0;
     bottom: 0;
-    background-color: lightgray;
+    left: 0;
+    
 }
+
+.modal-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    max-width: 1200px;
+    height: 100%;
+    background-color: transparent; /* Make modal-content transparent to see the backdrop */
+    position: relative;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: fit-content;
+    background-color: transparent; /* Make background transparent */
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+
+.modal-content {
+    display: none;
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.modal-content .close {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 74%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    margin: 20px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-buttons button[type="submit"] {
+    background-color: #A7991E;
+    color: white;
+}
+
+.modal-buttons button[type="submit"]:hover {
+    background-color: #A7991E;
+}
+
+.modal-buttons button[type="button"] {
+    background-color: #ccc;
+    color: black;
+}
+
+.modal-buttons button[type="button"]:hover {
+    background-color: #bbb;
+}
+#postModal{
+    display: none;
+}
+
+.modalpost-image{
+  margin-top: 25px;
+  max-width: 1000px;
+}
+
+.modal-profile-button{
+    transition: transform 0.3s ease-in-out;
+    margin-top: 90px;
+    position: absolute;
+    left: 80px;
+    background-color: white;
+    border: 2px solid #ddd;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.profile-button img {
+  object-fit: fill;
+}
+
+.profile-button:hover {
+transform: scale(1.10);
+}
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -159,8 +293,8 @@ li {
 
 .profile-image {
     border-radius: 50%;
-    width: 150px;
-    height: 150px;
+    width: 180px;
+    height: 180px;
     object-fit: cover;
 }
 
@@ -275,3 +409,99 @@ li {
     background-color: whitesmoke;
     border: 0.1em solid black;
 }
+
+.EditProfileModal-container {
+    background-color: #a7922f;
+    padding: 20px;
+    border-radius: 40px;
+    width: 800px;
+    height: 660px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    text-align: center;
+    align-content: center;
+    left: 345px;
+    top: 30px;
+    }
+
+.profilesetupmodal-container img {
+    width: 110px;
+}
+
+.Form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+  
+  /* Close button */
+  .close {
+    position: absolute;
+    top: 10px;
+    left: 30px;
+    color: black;
+    font-size: 24px;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 1002; /* Ensure it stays on top of everything */
+  } 
+  
+  /* Form styling */
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+  }
+  
+  .input-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .input-group input {
+    width: 48%; /* Make name and last name side by side */
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 73%;
+    padding: 10px;
+    margin: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+
+  /* Input fields styling */
+  .input-group {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+
+  }
+ 
+  /* Submit button */
+  button[type="submit"] {
+    padding: 10px 20px;
+    background-color: white; /* Match button style */
+    color: black;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #ddd; /* Hover effect */
+  }
+  
+  /* Heading styling */
+  h2 {
+    color: black;
+    margin-bottom: 5px;
+  }
