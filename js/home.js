@@ -184,25 +184,36 @@ function search_user(){
         let len=searchData.Results.length;
         for(let i=0;i<len;i++){
             const l=document.createElement('li');
-            
+            l.setAttribute('class','searchItem');
             l.textContent=searchData.Results[i].username;
             list.appendChild(l);
             console.log(searchData.Results[i]);
-            l.addEventListener("click",(evt)=>{
-                console.log("works");
-                console.log(evt.target.textContent);
-                window.location.href="/@"+evt.target.textContent;
+            
+        }
+        let listItem=document.getElementsByClassName('searchItem');
+        for(let i=0;i<listItem.length;i++){
+            listItem[i].addEventListener("click",function(evt){
+                console.log("works=======");
+                console.log(evt.target.innerHTML);
+                window.location.href="/@"+evt.target.innerHTML;
             });
         }
-        
         }
+        
+        
     }catch(err){
         console.log(err);
     }
-    document.getElementById("search").addEventListener("focusout",()=>{
-        list.style.display='none';
+    document.addEventListener('click',function(evt){
+        if(evt.target.className!=='searchItem'){
+            list.style.display='none';
+        }
         
     });
+    // document.getElementById("search").addEventListener("focusout",()=>{
+    //     list.style.display='none';
+        
+    // });
 }
 function clear_error_messages(){
     document.getElementById("errPassword").innerHTML='';
