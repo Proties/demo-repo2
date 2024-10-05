@@ -71,6 +71,20 @@ export class PostUI extends Post{
 		this._postItem;
 		this._parentContainer;
 		this._cont;
+		this._yTop=this.cont.offsetTop;
+		this._yBottom=this.cont.offsetBottom;
+	}
+	set yTop(i){
+		this._yTop=i;
+	}
+	get yTop(){
+		return this._yTop;
+	}
+	set yBottom(i){
+		this._yBottom=i;
+	}
+	get yBottom(){
+		return this._yBottom;
 	}
 	set cont(i){
 		this._cont=i;
@@ -104,8 +118,13 @@ export class PostUI extends Post{
         con.append(img);
         this.parentContainer.append(con);
 	}
-	dragDrop(){
-
+	counter(){
+		//this function start the counter when it appears within the users view
+		//it resume the counter when it comes back into view
+		// it stops the counter when it no longer in view
+		console.log('=======coords======');
+		console.log(this._yTop);
+		console.log(this._yBottom);
 	}
 	
 

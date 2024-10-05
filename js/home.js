@@ -166,6 +166,12 @@ xml.send('action=initialise_image');
         console.log(err);
     }
 }
+
+function track(){
+    for(let p=0;p<postsArray.length;p++){
+        postsArray[p].counter();
+    }
+}
 // this function checks the url to see if a post has been selected if so it will get data from the serve
 function open_postPreview(){
     let url=window.location.href;
