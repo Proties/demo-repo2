@@ -77,6 +77,28 @@ export class UnFollow{
 			let xml=new XMLHttpRequest();
 			xml.open('POST','/profile');
 			xml.setRequestHeader('Content-type','x/application-form-urlencoded');
+			xml.onload=function(){
+				let d=JSON.parse(this.responseText);
+				if(d.status=='failed'){
+					alert('could not un follow');
+					return;
+				}
+				if(d.status=='success'){
+					 let cont=document.getElementsByClassName('Follower')[0];
+				    console.log(cont.childNodes);
+				    let btn=cont.childNodes[5];
+				    let followItem=document.createElement('li');
+				    let followBtn=document.createElement('button');
+				    let followBtnTxt=document.createTextNode('follow');
+				    followBtn.setAttribute('class','follow-button');
+				    followBtn.setAttribute('id','followBtn');
+				    followBtn.append(followBtnTxt);
+				    followItem.append(followBtn);
+				    cont.replaceChild(followItem,btn);
+				    let FollowUser=document.getElementById('followBtn');
+				    FollowUser.addEventListener('click',followProfile);
+				}
+			}
 			xml.send('action=unfollow&influencerID='+influencer.id);
 		}catch(err){
 			console.log(err)

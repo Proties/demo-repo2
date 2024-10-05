@@ -322,19 +322,7 @@ function unfollowProfile(evt){
     // follow.sendFollow();
 
     //replace follow btn with unfollow btn
-    let cont=document.getElementsByClassName('Follower')[0];
-    console.log(cont.childNodes);
-    let btn=cont.childNodes[5];
-    let followItem=document.createElement('li');
-    let followBtn=document.createElement('button');
-    let followBtnTxt=document.createTextNode('follow');
-    followBtn.setAttribute('class','follow-button');
-    followBtn.setAttribute('id','followBtn');
-    followBtn.append(followBtnTxt);
-    followItem.append(followBtn);
-    cont.replaceChild(followItem,btn);
-    let FollowUser=document.getElementById('followBtn');
-    FollowUser.addEventListener('click',followProfile);
+   
 }
 function addEventListeners(){
     const uploadBtn = document.getElementById('uploadBtn');
