@@ -10,6 +10,27 @@ let allData;
 let profileList=[];
 let registrationForm=new RegistrationUI();
 
+function clear_posts(){
+    let postsItems=document.getElementsByClassName('post-container');
+    console.log('============removing posts=======');
+    let p=0;
+    let num=postsItems.length;
+    while(p<num){
+        if(postsItems[p]!==undefined){   
+            postsItems[p].remove();
+            p--;
+        }
+      
+         p++;
+    }
+    // for(let p=0;p<postsItems.childNodes.length;p++){
+    //     postsItems.removeChild(postsItems.childNodes[p]);
+    //     console.log(postsItems.childNodes[p]);
+    // }
+    console.log('============ done removing posts=======');
+}
+clear_posts();
+
 function get_cookie(name){
     let data=document.cookie;
 
@@ -70,26 +91,6 @@ function get_username_search_results_info_from_cookie(){
         return usernames;
     }
     return false;
-}
-function clear_posts(){
-    let postsItems=document.getElementsByClassName('postfeed-wrapper')[0];
-    console.log('============removing posts=======');
-    let p=0;
-    let items=postsItems.childNodes;
-    while(items.length>p ){
-        if(typeof items[p]==='object'){
-            console.log(typeof items[p]);
-            postsItems.removeChild(items[p]);
-            p++;
-        }
-      
-        
-    }
-    // for(let p=0;p<postsItems.childNodes.length;p++){
-    //     postsItems.removeChild(postsItems.childNodes[p]);
-    //     console.log(postsItems.childNodes[p]);
-    // }
-    console.log('============ done removing posts=======');
 }
 
 let testData=[
