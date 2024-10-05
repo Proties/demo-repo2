@@ -72,6 +72,11 @@ $action=$_POST['action'];
 switch($action){
     case 'view_post':
         try{
+                if(!is_int($mainUser->get_id())){
+                throw new Exception('create account first');
+            }
+            $view=new ViewedPost($post,$user);
+            $view->addPost();
             $data['status']='success';
             $data['message']='its all right';
             echo $data;
