@@ -260,7 +260,7 @@ nav .profile-link {
 .challenge-filter-section {
   position: fixed;
   left: 10px;
-  top: 467px; /* Adjust based on header height */
+  bottom: 5px; /* Adjust based on header height */
   width: 100%;
   max-width: 330px;
   height: 30vh; /* Takes 80% of viewport height */
