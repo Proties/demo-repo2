@@ -359,53 +359,53 @@ function addEventListeners(){
             uploadModal.style.display = 'none';
         });
     });
-
+}
     // Upload post from device
-    uploadFromDeviceBtn.addEventListener('click', () => {
-        try{
-            let item={};
-            let file=fileInput.files[0];
-            let read=new FileReader();
-            read.readAsDataURL(file);
-            read.onloadend=()=>{
+//     uploadFromDeviceBtn.addEventListener('click', () => {
+//         try{
+//             let item={};
+//             let file=fileInput.files[0];
+//             let read=new FileReader();
+//             read.readAsDataURL(file);
+//             read.onloadend=()=>{
                 
-                item.img=read.result;
-                console.log(JSON.stringify(item));
-                let num=(window.location.href).indexOf("@");
-                let str=window.location.href;
-                let name=str.substring(num+1);
-                console.log(name);
-                console.log('user nmae=======');
-                let data={
-                    img:item,
-                    username:name
+//                 item.img=read.result;
+//                 console.log(JSON.stringify(item));
+//                 let num=(window.location.href).indexOf("@");
+//                 let str=window.location.href;
+//                 let name=str.substring(num+1);
+//                 console.log(name);
+//                 console.log('user nmae=======');
+//                 let data={
+//                     img:item,
+//                     username:name
                     
-                };
-                xm=new XMLHttpRequest();
-                xm.open('POST','/upload_post');
-                xm.onload=function(){
-                    console.log(this.responseText);
-                    let dt=JSON.parse(this.responseText);
-                    if(dt.status=='failed'){
-                        if(dt.msg=='create account'){
-                            alert('create account');
-                        }
-                    }
-                    for(let d=0;d<dt.errorArray.length;d++){
-                        console.log(dt.errorArray[d]);
-                    }
-                }
-                xm.send(JSON.stringify(data));
-            }
+//                 };
+//                 xm=new XMLHttpRequest();
+//                 xm.open('POST','/upload_post');
+//                 xm.onload=function(){
+//                     console.log(this.responseText);
+//                     let dt=JSON.parse(this.responseText);
+//                     if(dt.status=='failed'){
+//                         if(dt.msg=='create account'){
+//                             alert('create account');
+//                         }
+//                     }
+//                     for(let d=0;d<dt.errorArray.length;d++){
+//                         console.log(dt.errorArray[d]);
+//                     }
+//                 }
+//                 xm.send(JSON.stringify(data));
+//             }
             
            
-        }catch(err){
-            console.log(err);
-        }
-    });
+//         }catch(err){
+//             console.log(err);
+//         }
+//     });
 
     
-}
+// }
 
 addEventListeners();
 get_data_from_cookie();
