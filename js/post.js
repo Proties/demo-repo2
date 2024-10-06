@@ -1,12 +1,15 @@
 "strict"
-class Post{
+import {Video} from './video.js';
+import {Image} from './image.js';
+export class Post{
 	constructor(){
 		this._id;
 		this._dateMade;
 		this._timeMade;
 		this._status;
 		this._user;
-		this._image;
+		this._image=new Image();
+		this._video=new Video();
 		this._title;
 		this._className='';
 		this._collaborators=[];
@@ -62,7 +65,7 @@ class Post{
 	}
 }
 
-class PostUI extends Post{
+export class PostUI extends Post{
 	constructor(){
 		super();
 		this._postItem;
@@ -101,6 +104,9 @@ class PostUI extends Post{
          con.append(img);
         this.parentContainer.append(con);
 	}
+	dragDrop(){
+
+	}
 	
 
 }
@@ -109,4 +115,3 @@ class PreviewPost extends PostUI{
 		super();
 	}
 }
-export default PostUI;

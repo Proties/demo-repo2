@@ -1,6 +1,6 @@
 "strict"
 import {MyProfile,OtherProfile} from './profile.js';
-import PostUI from './post.js';
+import {PostUI} from './post.js';
 import StackedPosts from './stackPosts.js';
 import RegistrationUI from './registration.js';
 

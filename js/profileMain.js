@@ -1,13 +1,15 @@
 "strict"
 import {MyProfile,OtherProfile} from './profile.js';
 import StackedPosts from './stackPosts.js';
-import MakePostUI from './makePost.js';
-import PostUI from './post.js';
+import {MakePostUI} from './makePost.js';
+import {PostUI} from './post.js';
 import TemplateUI from './template.js';
 import {Follow,UnFollow} from './follow.js';
 let currentProfile;
 let myProfile;
-let uploadPost;
+let uploadPost=new MakePostUI();
+
+
 let temp=new TemplateUI();
 function get_cookie(name){
     let data=document.cookie;
@@ -347,6 +349,7 @@ function addEventListeners(){
 
     // Close modal when clicking outside the modal content
     window.addEventListener('click', function(event) {
+        uploadPost.make_drop_drag_window();
         if (event.target == uploadModal || event.target == captionModal) {
             uploadModal.style.display = 'none';
         }
