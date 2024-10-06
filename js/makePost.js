@@ -53,11 +53,14 @@ export class MakePostUI extends MakePost{
 			evt.preventDefault();
 			console.log('dropping events');
 			console.log(evt.dataTransfer.files);
-
+			if(evt.dataTransfer.files!==undefined){
+				document.getElementById('uploadModal').style.display='none';
+				document.getElementById('ReviewuploadModal').style.display='block';
+			}
 
 			// console.log(this._reviewUpload.reviewPostModal);
 			// this.reviewUpload.reviewPostModal.style.display='block';
-			this.uploadPostModal.style.display='none';
+			
 		});
 	}
 	
