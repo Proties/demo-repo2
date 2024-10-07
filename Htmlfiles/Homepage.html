@@ -121,45 +121,39 @@
       <section class="post-section">
         <div class="postfeed-wrapper">
           <div class="post-container">
+            <button class="follow-button" id="followBtn">Follow</button>
             <div class="post-actions">
               <div class="profile-button">
                 <img src="/Image/Test Account.png" alt="Profile Icon" class="profile-button-img"/>
-              </div>
+              </div>            
             </div>
             <div class="post">
-              <div class="top-post">
+              <div class="Seconadry-post">
                 <img
                   src="/Image/Animation.png.jpg"
                   alt="Post Image 3"
                   class="post-image"
                 />
               </div>
-              <div class="bottom-post">
-                <img
-                  src="/Image/Comic.png.png"
-                  alt="Post Image 4"
-                  class="post-image"
-                />
-              </div>
-            </div>
-            
+            </div>            
           </div>
 
           <div class="post-container">
+            <button class="follow-button" id="followBtn">Follow</button>
             <div class="post-actions">
               <div class="profile-button">
                 <img src="/Image/Test Account.png" alt="Profile Icon" class="profile-button-img"/>
               </div>
             </div>
             <div class="post">
-              <div class="top-post">
+              <div class="Seconadry-post">
                 <img
                   src="/Image/Animation.png.jpg"
                   alt="Post Image 5"
                   class="post-image"
                 />
               </div>
-              <div class="bottom-post">
+              <div class="Primary-post">
                 <img
                   src="/Image/Comic.png.png"
                   alt="Post Image 6"
@@ -170,20 +164,54 @@
           </div>
 
           <div class="post-container">
+            <button class="follow-button" id="followBtn">Follow</button>
             <div class="post-actions">
               <div class="profile-button">
                 <img src="/Image/Test Account.png" alt="Profile Icon" class="profile-button-img"/>
               </div>
             </div>
             <div class="post">
-              <div class="top-post">
+              <div class="Seconadry-post">
                 <img
                   src="/Image/Animation.png.jpg"
                   alt="Post Image 5"
                   class="post-image"
                 />
               </div>
-              <div class="bottom-post">
+              <div class="Primary-post">
+                <img
+                  src="/Image/Comic.png.png"
+                  alt="Post Image 6"
+                  class="post-image"
+                />
+              </div>
+
+              <div class="Tertiary-post">
+                <img
+                  src="/Image/Animation.png.jpg"
+                  alt="Post Image 5"
+                  class="post-image"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="post-container">
+            <button class="follow-button" id="followBtn">Follow</button>
+            <div class="post-actions">
+              <div class="profile-button">
+                <img src="/Image/Test Account.png" alt="Profile Icon" class="profile-button-img"/>
+              </div>
+            </div>
+            <div class="post">
+              <div class="Seconadry-post">
+                <img
+                  src="/Image/Animation.png.jpg"
+                  alt="Post Image 5"
+                  class="post-image"
+                />
+              </div>
+              <div class="Primary-post">
                 <img
                   src="/Image/Comic.png.png"
                   alt="Post Image 6"
@@ -194,44 +222,21 @@
           </div>
 
           <div class="post-container">
+            <button class="follow-button" id="followBtn">Follow</button>
             <div class="post-actions">
               <div class="profile-button">
                 <img src="/Image/Test Account.png" alt="Profile Icon" class="profile-button-img"/>
               </div>
             </div>
             <div class="post">
-              <div class="top-post">
+              <div class="Seconadry-post">
                 <img
                   src="/Image/Animation.png.jpg"
-                  alt="Post Image 5"
+                  alt="Post Image"
                   class="post-image"
                 />
               </div>
-              <div class="bottom-post">
-                <img
-                  src="/Image/Comic.png.png"
-                  alt="Post Image 6"
-                  class="post-image"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div class="post-container">
-            <div class="post-actions">
-              <div class="profile-button">
-                <img src="/Image/Test Account.png" alt="Profile Icon" class="profile-button-img"/>
-              </div>
-            </div>
-            <div class="post">
-              <div class="top-post">
-                <img
-                  src="/Image/Animation.png.jpg"
-                  alt="Post Image 7"
-                  class="post-image"
-                />
-              </div>
-              <div class="bottom-post">
+              <div class="Primary-post">
                 <img
                   src="/Image/Comic.png.png"
                   alt="Post Image 8"
@@ -262,10 +267,12 @@
       </section>
 
       <!-- Register Pop-up -->
-      <section id="registerModal" class="modal" style="display:block">
+      <section id="registerModal" class="modal" style="display:none">
         <div class="modal-container">
+          <div class="heading-container">
           <span class="close" id="closeModalReg">&times;</span>
           <h2 class="register-heading">Register</h2>
+        </div>
           <div id="Form-container" class="form">
           <form id="registerForm">
             <div class="input-group">
@@ -279,8 +286,8 @@
             <p id="errEmail"></p>
             <input type="password" id="password" name="password" placeholder="Password" required />
             <p id="errPassword"></p>
-            <button type="submit" id="registerUserBtn">SUBMIT</button>
           </form>
+          <button type="submit" id="registerUserBtn">SUBMIT</button>
         </div>
         </div>
       </section>

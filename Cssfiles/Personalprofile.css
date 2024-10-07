@@ -89,7 +89,7 @@ header {
     margin-bottom: 20px;
 }
 
-textarea {
+.ProfileBio{
     width: 74%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -586,18 +586,42 @@ li {
   }
 
 
-  .ReviewUpload-container {
+
+
+  .Upload-container {
+    display: flex;
+    flex-direction: column;
     background-color: #fff;
-  padding: 20px;
-  border-radius: 50px;
-  width: 800px;
-  height: 415px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  position: absolute;
-  text-align: center;
-  align-content: center;
-  left: 345px;
-  top: 45px;
+    border-radius: 50px;
+    width: 800px;
+    height: 574px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    text-align: center;
+    align-content: center;
+    left: 345px;
+    top: 100px;
+    overflow: hidden;
+  }
+
+  .dragndrop {
+    margin: auto;
+  }
+
+  .ReviewUpload-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 50px;
+    width: 800px;
+    height: 455px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    text-align: center;
+    align-content: center;
+    left: 345px;
+    top: 164px;
+    overflow: hidden;
     }
 
 .heading{
@@ -606,8 +630,97 @@ li {
         left: 319px;
 }
 
-.PickTemplateModal-container img {
-    width: 110px;
+.heading-container{
+  margin: 30px;
+}
+
+.modal-body {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+/* Left side: Image placeholder */
+.post-image {
+  width: 50%;
+  background-color: #d3d3d3;
+}
+
+/* Right side: Post details */
+.post-details {
+  width: 50%;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.reviewpost-profile-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.input-caption {
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.caption {
+  width: 90%;
+  height: 70px;
+  margin-bottom: 30px;
+  resize: none;
+  border-bottom: #000 ;
+}
+
+.add-tags {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+  color: #888;
+  width: 86%;
+  height: 35px;
+  margin-left: 17px;
+}
+
+.add-tags input {
+  border: none;
+  outline: none;
+}
+
+.dropdown-arrow {
+  color: #888;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.uploadBtn {
+  position: absolute;
+  padding: 10px 20px;
+  background-color: #A7991E;
+  color: #fff;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 20px;
+  bottom: 3px;
+  right: 15px;
 }
 
 .Form-container {
@@ -646,7 +759,7 @@ li {
     border-radius: 15px;
     cursor: pointer;
     font-size: 16px;
-    margin-top: 80px;
+    margin: auto;
   }
   
   .uploadFromDeviceBtn[type="submit"]:hover {
