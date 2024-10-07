@@ -129,7 +129,7 @@ export class PostUI extends Post{
 	
 
 }
-class PreviewPost extends PostUI{
+export class PreviewPost extends PostUI{
 	constructor(){
 		super();
 	}

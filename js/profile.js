@@ -1,7 +1,7 @@
 "strict"
 import User from './user.js';
 import StackedPostsUI from './stackPosts.js';
-import PostUI from './post.js';
+import {PostUI} from './post.js';
 class Profile extends User{
     constructor(){
         super();

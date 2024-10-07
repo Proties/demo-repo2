@@ -1,5 +1,5 @@
 "strict"
-import PostUI from './post.js';
+import {PostUI} from './post.js';
 class StackedPostsUI extends PostUI{
 	constructor(){
 		super();
