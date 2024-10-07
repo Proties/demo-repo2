@@ -108,7 +108,7 @@ class ReviewPostUI{
 	
 	    	this.src=reader.result;
 	    	this.check_media_type();
-	    	console.log(leftOver);
+	    
 	    	// console.log(reader.result);
 	    }
 	    reader.readAsDataURL(this.file);
@@ -145,10 +145,9 @@ export class MakePostUI extends MakePost{
 
 		uploadBox.addEventListener('drop',(evt)=>{
 			evt.preventDefault();
-			console.log('dropping events');
+			
 			let file=evt.dataTransfer.files[0];
-			console.log('this is the review object======');
-			console.log(this.reviewUpload);
+		
 			if(evt.dataTransfer.files!==undefined){
 				this.reviewUpload.file=file;
 				this.reviewUpload.download_media();
