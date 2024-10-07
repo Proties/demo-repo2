@@ -286,23 +286,9 @@ async function intialiseProfileObject(data,myData){
 }
 
 
-function upload_post(){
-    uploadPost=new MakePostUI();
-    let file=document.getElementById('');
-  
-    read.onload=function(){
 
-    }
-    try{
-        let xm=new XMLHttpRequest();
-        xm.open('POST','');
-        xm.onload=function(){}
-        xm.send();
-    }catch(err){
-        console.log(err);
-    }
-}
 function open_upload_window(evt){
+    uploadPost.make_drop_drag_window();
     const uploadModal = document.getElementById('uploadModal').style.display='block';
   
 }
@@ -349,7 +335,7 @@ function addEventListeners(){
 
     // Close modal when clicking outside the modal content
     window.addEventListener('click', function(event) {
-        uploadPost.make_drop_drag_window();
+        
         if (event.target == uploadModal || event.target == captionModal) {
             uploadModal.style.display = 'none';
         }
