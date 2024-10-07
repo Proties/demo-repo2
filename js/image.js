@@ -90,4 +90,13 @@ class ImageUI extends Image{
 		
 	}
 	previewImage(){}
+	download_image(){
+		let fileOne=file.files[0];
+	    let reader=new FileReader();
+	    reader.onload=function(evt){
+	    	console.log(reader.result);
+	    }
+	    reader.readAsDataURL(fileOne);
+	  
+		}
 }

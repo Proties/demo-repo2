@@ -81,7 +81,7 @@
     </section>
 
     <!-- Upload Post Modal -->
-    <div id="uploadModal" class="modal" style="display: block">
+    <div id="uploadModal" class="modal">
       <div class="Upload-container">
         <div class="heading-container">
           <span class="close">&times;</span>
@@ -110,26 +110,28 @@
           </div>
         </div>
         <div class="modal-body">
-          <div class="post-image">
+          <div class="post-image" id="media-placeholder">
             <!-- Placeholder for image upload area -->
           </div>
           <div class="post-details">
             <div class="user-info">
               <img
+                id="post-profile-picture"
                 src="/Image/Test Account.png"
                 alt="Profile Image"
                 class="reviewpost-profile-image"
               />
-              <span class="username">user</span>
+              <span class="username" id="post-username">user</span>
             </div>
 
             <div class="Input-caption">
               <textarea
+                id="post-caption"
                 class="caption"
                 placeholder="write a caption..."
               ></textarea>
               <div class="add-tags">
-                <input type="text" placeholder="Add tags" disabled />
+                <input type="text" placeholder="Add tags" id="post-tags" disabled />
                 <span class="dropdown-arrow">&#9662;</span>
               </div>
             </div>

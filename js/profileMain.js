@@ -7,7 +7,7 @@ import TemplateUI from './template.js';
 import {Follow,UnFollow} from './follow.js';
 let currentProfile;
 let myProfile;
-let uploadPost=new MakePostUI();
+const uploadPost=new MakePostUI();
 
 
 let temp=new TemplateUI();
@@ -334,12 +334,12 @@ function addEventListeners(){
     open_window.addEventListener('click', open_upload_window);
 
     // Close modal when clicking outside the modal content
-    window.addEventListener('click', function(event) {
+    // window.addEventListener('click', function(event) {
         
-        if (event.target == uploadModal || event.target == captionModal) {
-            uploadModal.style.display = 'none';
-        }
-    });
+    //     if (event.target == uploadModal || event.target == captionModal) {
+    //         uploadModal.style.display = 'none';
+    //     }
+    // });
 
     // Close modal when clicking the close button
     const closeButtons = document.querySelectorAll('.close');
