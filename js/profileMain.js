@@ -189,11 +189,40 @@ async function intialiseProfileObject(data,myData){
     }
 }
 
+function clear_upload_file(){
 
+}
+function clear_review_data(){
+    
+}
 
 function open_upload_window(evt){
+    clear_upload_file();
+    clear_review_data();
     uploadPost.make_drop_drag_window();
-    const uploadModal = document.getElementById('uploadModal').style.display='block';
+    const uploadModal = document.getElementById('uploadModal');
+    uploadPost.uploadFile.addEventListener('change',function(evt){
+        uploadModal.style.display='none';
+        uploadPost.reviewUpload.reviewPostModal.style.display='block';
+        let file=document.getElementById('fileInput');
+        uploadPost.reviewUpload.file=file.files[0];
+        console.log('=======upload files=====');
+        uploadPost.reviewUpload.download_media();
+        console.log(uploadPost.reviewUpload.file);
+        uploadPost.reviewUpload.closeReviewModalBtn.addEventListener('click',function(evt){
+            uploadPost.reviewUpload.reviewPostModal.style.display='none'
+        });
+        uploadPost.reviewUpload.submitForm.addEventListener('click',function(evt){
+            evt.preventDefault();
+            try{
+                uploadPost.reviewUpload;
+            }catch(err){
+                console.log(err);
+            }
+            
+        });
+    });
+    uploadModal.style.display='block';
   
 }
 function expandTrophies(){

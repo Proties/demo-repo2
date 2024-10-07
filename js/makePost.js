@@ -115,8 +115,19 @@ class ReviewPostUI{
 		video.setAttribute('src',this.src);
 		this.placeHolderMedia.append(video);
 	}
+	get_list_of_tags(){
+		let cont=document.createElement('div');
+		for(let r=0;r<10;r++){
+			let span=document.createElement('span');
+			let spanTxt=document.createTextNode('Text');
+			span.setAttribute('class','');
+			
+			span.append(spanTxt);
+			cont.append(span);
+		}
+	}
 	download_media(){
-		const image=new Image();
+		
 	    let reader=new FileReader();
 	    reader.onload=(evt)=>{
 	
@@ -135,7 +146,12 @@ export class MakePostUI extends MakePost{
 		super();
 		this._reviewUpload=new ReviewPostUI();
 		this._uploadPostModal=document.getElementById('uploadModal');
+		this._uploadFile=document.getElementById('fileInput');
 	}
+	get uploadFile(){
+		return this._uploadFile;
+	}
+
 	get reviewUpload(){
 		return this._reviewUpload;
 	}
@@ -171,8 +187,8 @@ export class MakePostUI extends MakePost{
 					evt.preventDefault();
 					try{
 
-						const captionPattern=//i;
-						const tagPattern=//i;
+						const captionPattern=/x/i;
+						const tagPattern=/x/i;
 						if(captionPattern.test(this.reviewUpload.caption)==false){
 							throw Exception('not valid caption');
 						}
