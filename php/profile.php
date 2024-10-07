@@ -62,14 +62,7 @@ else if($u->validate_username_url($f_txt)==true ){
             );
         }
         }
-        $tempdb=new TemplateDB($template);
-        $list=$tempdb->getTemplateList();
-        if(is_array($list)){
-            $data['templateList']=$list;
-        }
-        else{
-             $data['templateList']=[];
-        }
+    
         setcookie('profile',json_encode($data), time() + (86400 * 30), '/'); 
     }catch(Exception $err){
         echo $err->getMessage();
@@ -100,8 +93,6 @@ $currentProfile=new Users();
 $action=$_POST['actions'];
 switch($action){
     case 'view_post':
-        break;
-    case 'hide_template':
         break;
     case 'follow_user':
         try{
@@ -151,74 +142,7 @@ switch($action){
         break;
     case 'get_followers_list':
         break;
-    case 'delete_template':
-        $data=[];
-        try{
-            $template->set_name($_POST['tempName']);
-            $tempdb=new TemplateDB($template);
-            $tempdb->removeTemplate();
-            $data['status']='success';
-            setcookie('deleteTemplate',$data,time()+(12*10),'/profile');
-        }catch(Exception $err){
-            $data['status']='failed';
-            $data['error']=$err->getMessage();
-            setcookie('deleteTemplate',$data,time()+(12*10),'/profile');
-        }
-        
-        break;
-    case 'get_template_list':
-        $data=[];
-        try{
-            $tempdb=new TemplateDB($template);
-            $list=$tempdb->getTemplateList();
-            $data['status']='success';
-            $data['templateList']=$list;
-            // setcookie('templateList',json_encode($data),time()+(86400*10),'/profile');
-            setcookie('templateList',json_encode($data), time() + (86400 * 1), '/'); 
-        }catch(Exception $err){
-            $data['status']='failed';
-            $data['error']=$err->getMessage();
-            setcookie('templateList',json_encode($data), time() + (86400 * 1), '/'); 
-            // setcookie('templateList',json_encode($list),time()+(86400*10),'/profile');
-        }
-        
-        break;
-    case 'loadTemplate':
-        $filename=$_POST['filename'];
-        $htmlData=$_POST['htmlData'];
 
-        $uploadDir='./templates';
-        try{
-            $uploadDirDestination=$uploadDir.'/'.$filename;
-            if(file_exists($uploadDirDestination)){
-                throw new Exception('File already exists');
-            }
-            $file=fopen($uploadDirDestination,'x');
-            fclose($file);
-
-            file_put_contents($uploadDirDestination, $htmlData);
-            $data=['status'=>'success'];
-            $template->set_filename($filename);
-            $tempdb=new TemplateDB($template);
-
-            $tempdb->addTemplate();
-            echo $data;
-        }catch(Exception $err){
-           
-            $data=['status'=>'failed','error'=>$err->getMessage()];
-            echo json_encode($data);
-
-        }
-        
-        
-        break;
-    case 'selectTemplate':
-        $name='./templates/Personalprofile.html';
-        $tempdb=new TemplateDB($template);
-        $tempdb->switchTemplate();
-        $file=$tempdb->template->get_directory().'/'.$tempdb->template->get_filename();
-        include_once($file);
-        break;
     case 'edit_post':
         $data=[];
         try{

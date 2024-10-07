@@ -116,12 +116,9 @@ export class MyProfile extends ProfileUI{
         
     }
     is_logged_in(){
-        if(document.getElementsByClassName('templateSelection')[0]!==undefined){
-            document.getElementsByClassName('templateSelection')[0].style.display='block';
-            document.getElementsByClassName('addTemplate')[0].style.display='block';
             document.getElementById('followBtn').style.display='none';
     }
-        }
+        
             
     set registrationBtn(i){
        this._registrationBtn=i;
