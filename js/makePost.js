@@ -25,8 +25,15 @@ class ReviewPostUI{
 		this._caption=document.getElementById('post-caption');
 		this._tags=document.getElementById('post-tags');
 		this._currentMedia;
+		this._dropDownBtn=document.getElementById('dropdown-tags');
 		this._closeReviewModalBtn=document.getElementById('close-review-modal');
 		this._submitForm=document.getElementById('upload-review-modal-btn');
+	}
+	set dropDownBtn(r){
+		this._dropDownBtn=r;
+	}
+	get dropDownBtn(){
+		return this._dropDownBtn;
 	}
 	set submitForm(r){
 		this._submitForm=r;
@@ -117,14 +124,18 @@ class ReviewPostUI{
 	}
 	get_list_of_tags(){
 		let cont=document.createElement('div');
-		for(let r=0;r<10;r++){
+		for(let r=0;r<5;r++){
 			let span=document.createElement('span');
-			let spanTxt=document.createTextNode('Text');
-			span.setAttribute('class','');
-			
+			let spanTxt=document.createTextNode('Tag : Happy');
+			span.setAttribute('class','post-tags-list-item');
+
+
 			span.append(spanTxt);
 			cont.append(span);
 		}
+		cont.setAttribute('class','post-tags-list');
+		cont.setAttribute('id','post-tags-list');
+		return cont;
 	}
 	download_media(){
 		
@@ -204,9 +215,22 @@ export class MakePostUI extends MakePost{
 					}
 					
 				});
+				this.reviewUpload.dropDownBtn.addEventListener('click',(evt)=>{
+					console.log('====get tags');
+					let cont=document.getElementsByClassName('add-tags')[0];
+					cont.append(this.reviewUpload.get_list_of_tags());
+
+				});
 				this.reviewUpload.closeReviewModalBtn.addEventListener('click',(evt)=>{
 					console.log('close review window');
 					this.reviewUpload.reviewPostModal.style.display='none';
+				});
+				document.addEventListener('click',function(evt){
+					console.log('click');
+					if(evt.target.className!=='post-tags-list'){
+						console.log('click click');
+						document.getElementById('post-tags-list').style.display='none';
+					}
 				});
 				
 		

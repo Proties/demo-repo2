@@ -190,7 +190,7 @@ async function intialiseProfileObject(data,myData){
 }
 
 function clear_upload_file(){
-
+    
 }
 function clear_review_data(){
     

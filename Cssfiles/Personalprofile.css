@@ -696,6 +696,7 @@ li {
   width: 86%;
   height: 35px;
   margin-left: 17px;
+  position: relative;
 }
 
 .add-tags input {
@@ -708,7 +709,23 @@ li {
   font-size: 18px;
   cursor: pointer;
 }
+.post-tags-list{
+    position: absolute;
+    bottom:-180px;
+    background-color: white;
+    cursor: pointer;
+    border: 0.1em solid black;
+    padding: 0.5em;
+}
 
+.post-tags-list-item{
+    display: block;
+    padding: 0.em;
+    font-size: 1.3em;
+}
+.post-tags-list-item:hover{
+    background-color: gray;
+}
 .uploadBtn {
   position: absolute;
   padding: 10px 20px;
