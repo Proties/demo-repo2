@@ -1,5 +1,5 @@
 "strict"
-import {Video} from './video.js';
+import {VideoUI} from './video.js';
 import {Image} from './image.js';
 export class Post{
 	constructor(){
@@ -9,7 +9,7 @@ export class Post{
 		this._status;
 		this._user;
 		this._image=new Image();
-		this._video=new Video();
+		this._video=new VideoUI();
 		this._title;
 		this._className='';
 		this._collaborators=[];

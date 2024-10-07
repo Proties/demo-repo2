@@ -33,7 +33,7 @@ class Video{
 		return this._length;
 	}
 }
-class VidoeUI extends Video{
+export class VideoUI extends Video{
 	constructor(){
 		super();
 		this._cont;
@@ -87,4 +87,3 @@ class VidoeUI extends Video{
 	
 	
 }
-export default VidoeUI;

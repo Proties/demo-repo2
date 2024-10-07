@@ -3,43 +3,19 @@ import {MyProfile,OtherProfile} from './profile.js';
 import {PostUI} from './post.js';
 import StackedPosts from './stackPosts.js';
 import RegistrationUI from './registration.js';
-<<<<<<< HEAD
+
 import {Follow,UnFollow} from './follow.js';
-=======
+
 import VideoUI from './video.js';
->>>>>>> 3998f7a (video uploads works)
+
 
 let user=new MyProfile();
 let allData;
 let profileList=[];
 let registrationForm=new RegistrationUI();
 
-<<<<<<< HEAD
-function clear_posts(){
-    let postsItems=document.getElementsByClassName('post-container');
-    console.log('============removing posts=======');
-    let p=0;
-    let num=postsItems.length;
-    while(p<num){
-        if(postsItems[p]!==undefined){   
-            postsItems[p].remove();
-            p--;
-        }
-      
-         p++;
-    }
-    // for(let p=0;p<postsItems.childNodes.length;p++){
-    //     postsItems.removeChild(postsItems.childNodes[p]);
-    //     console.log(postsItems.childNodes[p]);
-    // }
-    console.log('============ done removing posts=======');
-}
-clear_posts();
-
-=======
 let video=new VideoUI();
 video.make_form_submission();
->>>>>>> 3998f7a (video uploads works)
 function get_cookie(name){
     let data=document.cookie;
 
