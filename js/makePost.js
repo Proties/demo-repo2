@@ -25,6 +25,20 @@ class ReviewPostUI{
 		this._caption=document.getElementById('post-caption');
 		this._tags=document.getElementById('post-tags');
 		this._currentMedia;
+		this._closeReviewModalBtn=document.getElementById('close-review-modal');
+		this._submitForm=document.getElementById('upload-review-modal-btn');
+	}
+	set submitForm(r){
+		this._submitForm=r;
+	}
+	get submitForm(){
+		return this._submitForm;
+	}
+	set closeReviewModalBtn(r){
+		this._closeReviewModalBtn=r;
+	}
+	get closeReviewModalBtn(){
+		return this._closeReviewModalBtn;
 	}
 	set currentMedia(r){
 		this._currentMedia=r;
@@ -153,6 +167,17 @@ export class MakePostUI extends MakePost{
 				this.reviewUpload.download_media();
 				this.reviewUpload.reviewPostModal.style.display='block';
 				document.getElementById('uploadModal').style.display='none';
+				this.reviewUpload.submitForm.addEventListener('click',(evt)=>{
+					evt.preventDefault();
+					console.log('submitForm =====');
+					let cap=document.getElementById('post-caption');
+					let tags=document.getElementById('post-tags');
+					this.reviewUpload.form.submit();
+				});
+				this.reviewUpload.closeReviewModalBtn.addEventListener('click',(evt)=>{
+					console.log('close review window');
+					this.reviewUpload.reviewPostModal.style.display='none';
+				});
 				
 		
 				
