@@ -169,10 +169,24 @@ export class MakePostUI extends MakePost{
 				document.getElementById('uploadModal').style.display='none';
 				this.reviewUpload.submitForm.addEventListener('click',(evt)=>{
 					evt.preventDefault();
-					console.log('submitForm =====');
-					let cap=document.getElementById('post-caption');
-					let tags=document.getElementById('post-tags');
-					this.reviewUpload.form.submit();
+					try{
+
+						const captionPattern=//i;
+						const tagPattern=//i;
+						if(captionPattern.test(this.reviewUpload.caption)==false){
+							throw Exception('not valid caption');
+						}
+						if(tagPattern.test(this.reviewUpload.tags)==false){
+							throw Exception('not valid tags');
+						}
+						console.log('submitForm =====');
+						let cap=document.getElementById('post-caption');
+						let tags=document.getElementById('post-tags');
+						this.reviewUpload.form.submit();
+					}catch(err){
+						console.log(err);
+					}
+					
 				});
 				this.reviewUpload.closeReviewModalBtn.addEventListener('click',(evt)=>{
 					console.log('close review window');
