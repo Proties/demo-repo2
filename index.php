@@ -19,8 +19,14 @@ try{
 
     require_once 'php/FollowerDB.php';
 
+<<<<<<< HEAD
     require_once 'php/Video.php';
     require_once 'php/VideoDB.php';
+=======
+    require_once 'php/Payment.php';
+    require_once 'php/PaymentDB.php';
+
+>>>>>>> 6f4ed32 (updates)
     require_once 'php/Subscription.php';
     require_once 'php/SubscriptionDB.php';
 
@@ -103,6 +109,9 @@ switch($action){
         break;
     case '/setup_profile':
         include_once('php/setupProfile.php');
+        break;
+    case '/test_payments':
+        include_once('Htmlfiles/DummyForm.html');
         break;
     default:
         include_once('php/homePage.php');
