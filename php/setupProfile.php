@@ -82,6 +82,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		$allData=['status'=>'success','username'=>$user->get_username(),'bio'=>$user->get_bio(),'fullname'=>$user->get_fullName()];
 		setcookie('setUpProfile',json_encode($allData), time() + (86400 * 1), '/'); 
 		setcookie('user',json_encode($allData), time() + (86400 * 1), '/'); 
+		$_SESSION['userID'];
+		$_SESSION['username'];
       	echo json_encode($bigData);
       	return;
     }

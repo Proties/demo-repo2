@@ -183,6 +183,7 @@ nav .profile-link {
 
 /* Challenge-containter table*/
 .challenge-container table {
+display: none;
   width: 100%;
   border-collapse: collapse;
 }
@@ -209,6 +210,7 @@ nav .profile-link {
 /*challenge section*/
 
 .challenge-section {
+  display: none;
   position: fixed;
   left: 10px;
   top: 120px; /* Adjust based on header height */
@@ -224,6 +226,7 @@ nav .profile-link {
 }
 
 .challenge-container {
+  display: none;
   height: 100%;
   overflow-y: scroll; /* Enables vertical scrolling */
 }
@@ -258,6 +261,7 @@ nav .profile-link {
 /*challenges-filter */
 
 .challenge-filter-section {
+    display: none;
   position: fixed;
   left: 10px;
   bottom: 5px; /* Adjust based on header height */
