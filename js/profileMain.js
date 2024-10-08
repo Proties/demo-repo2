@@ -5,10 +5,12 @@ import {MakePostUI} from './makePost.js';
 import {PostUI} from './post.js';
 import TemplateUI from './template.js';
 import {Follow,UnFollow} from './follow.js';
+import EditProfile from './editProfile.js';
+
 let currentProfile;
 let myProfile;
 const uploadPost=new MakePostUI();
-
+const editProfile=new EditProfile();
 
 let temp=new TemplateUI();
 function get_cookie(name){
