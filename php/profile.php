@@ -12,6 +12,10 @@ use Insta\Database\Template\TemplateDB;
 use Insta\Follower\Follower;
 use Insta\Database\Follower\FollowerDB;
 
+use Insta\Subscription\Subscription;
+use Insta\Database\Subscription\SubscriptionDB;
+
+$subscription=new Subscription();
 $mainUser=new Users();
 $template=new Template();
 setcookie('users','', time() - (86400 * 30), '/'); 
@@ -19,6 +23,11 @@ setcookie('users','', time() - (86400 * 30), '/');
 if(isset($_SESSION['username']) && $_SESSION['username']!==null){
     $mainUser->userAuth->set_authanticate(true);
 }
+
+if(isset($_SESSION['subscriptionID'])){
+    //unlock features
+}
+
 $f_txt=$_SERVER['REQUEST_URI'];
 $f_txt=urldecode($f_txt);
 

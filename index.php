@@ -21,6 +21,8 @@ try{
 
     require_once 'php/Video.php';
     require_once 'php/VideoDB.php';
+    require_once 'php/Subscription.php';
+    require_once 'php/SubscriptionDB.php';
 
     require_once 'php/userFile.php';
     require_once 'php/userAuth.php';

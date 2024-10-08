@@ -12,6 +12,10 @@ use Insta\Pool\MostViewPostPool;
 use Insta\Pool\ProfilePool;
 
 
+use Insta\Subscription\Subscription;
+use Insta\Database\Subscription\SubscriptionDB;
+
+$subscription=new Subscription();
 $mainUser=new Users();
 
 $bigPool=new MostViewPostPool();
@@ -64,6 +68,9 @@ function compareFollowingIds(Users $user){
 $template=new Template();
 setcookie('profile','no profile ', time() - (86400 * 30), '/'); 
 // setcookie('myprofile','', time() - (86400 * 30), '/');
+if(isset($_SESSION['subscriptionID'])){
+    //unlock features
+}
 if(isset($_SESSION['username']) && $_SESSION['username']!==null && isset($_SESSION['userID'])){
     $mainUser->userAuth->set_authanticate(true);
     setcookie('user',json_encode($_SESSION['username']), time() + (86400 * 30), '/'); 

@@ -41,3 +41,15 @@ class Subscription{
 
 
 }
+class SubscriptionUI extends Subscription{
+	constructor(){
+		super();
+	}
+	registration_form(){}
+	pause_subscription(){}
+	resume_subscription(){}
+	start_subscription(){}
+	subscription_info(){
+		
+	}
+}

@@ -25,6 +25,7 @@ class ReviewPostUI{
 		this._placeHolderMedia=document.getElementById('media-placeholder');
 		this._caption=document.getElementById('post-caption');
 		this._tags=document.getElementById('post-tags');
+		this._dropDownList;
 		this._currentMedia;
 		this._form=document.getElementById('formSubmitPost');
 		this._dropDownBtn=document.getElementById('dropdown-tags');
@@ -256,6 +257,7 @@ export class MakePostUI extends MakePost{
 					}
 					
 				});
+<<<<<<< HEAD
 				// this.reviewUpload.dropDownBtn.addEventListener('click',(evt)=>{
 				// 	console.log('====get tags');
 				// 	let cont=document.getElementsByClassName('add-tags')[0];
@@ -270,6 +272,13 @@ export class MakePostUI extends MakePost{
 				// 			inputField.value='';
 				// 			inputField.value=txt;
 				// 			document.getElementById('post-tags-list').style.display='none';
+=======
+				this.reviewUpload.dropDownBtn.addEventListener('click',(evt)=>{
+					console.log('====get tags');
+					let cont=document.getElementsByClassName('add-tags')[0];
+					cont.append(this.reviewUpload.get_list_of_tags());
+					this.reviewUpload.dropDownList=true;
+>>>>>>> ebceec1 (start)
 
 
 				// 		})
@@ -280,7 +289,14 @@ export class MakePostUI extends MakePost{
 					console.log('close review window');
 					this.reviewUpload.reviewPostModal.style.display='none';
 				});
+<<<<<<< HEAD
 				
+=======
+				if(this.reviewUpload.dropDownList==true){
+						document.getElementById('post-tags-list').style.display='none';
+					
+				}
+>>>>>>> ebceec1 (start)
 				
 		
 				
