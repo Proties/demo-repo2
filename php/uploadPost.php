@@ -10,6 +10,9 @@ use Insta\Images\Image;
 use Insta\Databases\Images\ImageDB;
 use Insta\Location\location;
 use Insta\Databases\Location\locationDB;
+use Insta\Template\Template;
+use Insta\Template\HtmlTemplate;
+use Insta\Database\Template\TemplateDB;
 
 // use Insta\Challenge\Challenge;
 // use Insta\Database\Challenge\ChallengeDB;
@@ -104,12 +107,19 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $imageDB->write_image_post($postDB->post->get_postID());
             $data['status']='success';
             $db->commit();
-            echo json_encode($data);
+    
+            setcookie('uploadPost',json_encode($data), time() +(86400 * 1), '/profile');
+            header('Location: /profile');
+           
     }catch(Exception $err){
         $db->rollBack();
         //rollback
-        $item=array('status'=>'failed','msg'=>$err->getMessage(),'trace'=>$err->getTraceAsString(),'errorArray'=>$errorMessages);
-        echo json_encode($item);
+        $data['status']='failed';
+        $data['message']=$err->getMessage();
+        $data['trace']=$err->getTraceAsString();
+        $data['errorArray']=$errorMessages;
+        setcookie('uploadPost',json_encode($data), time() +(86400 * 1), '/profile');
+        header('Location: /profile');
     }
 }
 ?>

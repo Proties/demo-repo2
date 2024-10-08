@@ -207,10 +207,10 @@ export class MakePostUI extends MakePost{
 
 						const captionPattern=/[a-zA-Z]{3,}/;
 						const tagPattern=/[a-zA-Z]{3,}/i;
-						if(captionPattern.test(this.reviewUpload.caption)==false){
+						if(!captionPattern.test(this.reviewUpload.caption)){
 							throw 'not valid caption';
 						}
-						if(tagPattern.test(this.reviewUpload.tags)==false){
+						if(!tagPattern.test(this.reviewUpload.tags)){
 							throw 'not valid tags';
 						}
 						console.log('submitForm =====');
