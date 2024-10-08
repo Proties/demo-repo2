@@ -144,7 +144,8 @@ export class OtherProfile extends ProfileUI{
         contThree.setAttribute('class','profile-button');
         contFour.setAttribute('class','post');
 
-        let arrayPosts=['top-post','bottom-post','bottom-most-post'];
+        let arrayPosts=['Primary-post','Secondary-post','Tertiary-post'];
+        let arrayContainerPosts=['post-container-primary','post-container-secondary','post-container-teriary'];
         if(this.data.posts!==undefined){
              for(let ss=0;ss<this.data.posts.length;ss++){
                 let c=document.createElement('div');
@@ -164,7 +165,7 @@ export class OtherProfile extends ProfileUI{
             
             
             im.setAttribute('src',this.data.post.src);
-            contFive.setAttribute('class','top-post');
+            contFive.setAttribute('class','Primary-post');
             
             contFive.append(im);
             contFour.append(contFive);
