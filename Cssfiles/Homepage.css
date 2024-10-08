@@ -278,17 +278,45 @@ nav .profile-link {
   color: #A7991E;
 }
 
-
 .post-container {
   display: flex;
   flex-direction: column;
   overflow: hidden;
   margin: 54px;
   width: 720px;
-  height: 60%;
+  height: 70%;
   align-items: center;
 }
 
+
+.post-container-primary {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin: 90px;
+  width: 720px;
+  height: 70%;
+  align-items: center;
+  margin-bottom: 150px;
+}
+
+.post-container-secondary {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 720px;
+  height: 70%;
+  align-items: center;
+}
+
+.post-container-teriary {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 720px;
+  height: 61%;
+  align-items: center;
+}
 
 .post-challenge {
   display: flex; /* Use flexbox for post alignment */
@@ -314,26 +342,24 @@ nav .profile-link {
 .Primary-post {
   transition: transform 0.3s ease-in-out;
   position: relative;
+  z-index: 1; /* Bring the top post to the front */
+  cursor: pointer;
+}
+
+.Secondary-post {
+  transition: transform 0.3s ease-in-out;
+  position: relative;
   left: 30px;
   bottom: 150px;
   z-index: 2;
   cursor: pointer;
 }
 
-.Secondary-post {
-    transition: transform 0.3s ease-in-out;
-    position: relative;
-    top: 40px;
-    z-index: 1; /* Bring the top post to the front */
-    cursor: pointer;
-
-}
-
 .Tertiary-post {
   transition: transform 0.3s ease-in-out;
   position: relative;
-  left: 110px;
-  bottom: 300px;
+  left: 100px;
+  bottom: 310px;
   z-index: 2;
   cursor: pointer;
 }
@@ -354,11 +380,11 @@ nav .profile-link {
     z-index: 1;
 }
 
+
 .postfeed-wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(900px, 1fr));
   grid-column-gap: 100px;
-  margin-top: 90px;
   overflow-y: auto;
   overflow-x: hidden;
   justify-items: center;   
@@ -406,7 +432,7 @@ nav .profile-link {
   font-size: 1rem;
   width: 59px;
   height: 66px;
-  right: 270px;
+  right: 240px;
   bottom: 90px;
 }
 
@@ -430,10 +456,7 @@ nav .profile-link {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  outline: none;
-  top: 210px;
-  position: absolute;
-  left: 590px;
+
 }
 
 /* View post window */
