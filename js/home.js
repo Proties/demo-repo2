@@ -406,6 +406,10 @@ async function formHandling(evt){
         let xm=new XMLHttpRequest();
         xm.open('POST','/registration');
         xm.setRequestHeader('Content-Type', 'application/json');
+        xm.onreadystatechange=function(){
+            console.log('happy =======');
+
+        }
         // xm.onreadystatechange=function(){
         //     console.log('form validation');
             
@@ -458,12 +462,15 @@ async function formHandling(evt){
                     bio:document.getElementById('biography').value,
                     occupation:document.getElementById('occupation').value
                 };
+
                 user.data=profileItem;
                 user.submit_profile_info();
                 let d=get_profile_setup_info_from_cookie();
                 console.log(d);
-                if(d!==false || d!==undefined){
-                    if(d.status==='success'){
+                if(d==false){
+                    throw 'respose data not defined';
+                }
+                    if(d.status=='success'){
                         alert('it works');
                         user.setupProfileModal.style.display='none';
                         user.registrationBtn.style.display='none';
@@ -475,7 +482,7 @@ async function formHandling(evt){
                   
                         document.getElementById(k).innerHTML=d.errors[e][k];
                     }
-                }
+                
              
 
             });

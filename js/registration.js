@@ -114,6 +114,7 @@ class RegistrationUI extends Registration{
  
                 let data=JSON.parse(this.responseText);
                 console.log(data);
+                console.log('================data');
                 if(data.status=='success'){
                     alert('succesfull logged in');
                     this.formModal.style.display='none';
