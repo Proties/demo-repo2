@@ -3,6 +3,13 @@ export class Follow{
 	constructor(user,influencer){
 		this._user=user;
 		this._influencer=influencer;
+		this._btn;
+	}
+	set btn(s){
+		this._btn=s;
+	}
+	get btn(){
+		return this._btn;
 	}
 	set user(s){
 		this._user=s;
@@ -59,6 +66,13 @@ export class UnFollow{
 	constructor(user,influencer){
 		this._user=user;
 		this._influencer=influencer;
+		this._btn;
+	}
+	set btn(s){
+		this._btn=s;
+	}
+	get btn(){
+		return this._btn;
 	}
 	set user(s){
 		this._user=s;

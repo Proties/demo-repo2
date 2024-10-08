@@ -85,7 +85,16 @@ export class OtherProfile extends ProfileUI{
     constructor(){
         super();
         this.stack=new StackedPosts();
+        this._followBtn;
+        this._unFollowBtn;
         this.makeChanges();
+
+    }
+    set followBtn(b){
+        this._followBtn=b;
+    }
+    get followBtn(){
+        return this._followBtn;
     }
     makeChanges(){
 

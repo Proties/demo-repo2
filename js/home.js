@@ -3,12 +3,12 @@ import {MyProfile,OtherProfile} from './profile.js';
 import {PostUI} from './post.js';
 import StackedPosts from './stackPosts.js';
 import RegistrationUI from './registration.js';
+import {Follow,UnFollow} from './follow.js';
 
 let user=new MyProfile();
 let allData;
 let profileList=[];
 let registrationForm=new RegistrationUI();
-
 
 function get_cookie(name){
     let data=document.cookie;
