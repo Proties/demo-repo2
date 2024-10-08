@@ -125,18 +125,21 @@
             </div>
 
             <div class="Input-caption">
+              <form action="/upload_post" method="POST" enctype="multipart/form-data" id="formSubmitPost">
               <textarea
                 id="post-caption"
                 class="caption"
                 placeholder="write a caption..."
+                name="post-caption"
               ></textarea>
               <div class="add-tags">
-                <input type="text" placeholder="Add tags" id="post-tags" />
+                <input type="text" placeholder="Add tags" id="post-tags" name="post-tags"/>
                 <span class="dropdown-arrow" id="dropdown-tags">&#9662;</span>
               </div>
             </div>
 
-            <button class="uploadBtn" id="upload-review-modal-btn">Upload</button>
+            <button class="uploadBtn" id="upload-review-modal-btn" type="submit">Upload</button>
+          </form>
           </div>
         </div>
 

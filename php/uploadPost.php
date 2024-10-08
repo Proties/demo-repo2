@@ -11,39 +11,33 @@ use Insta\Databases\Images\ImageDB;
 use Insta\Location\location;
 use Insta\Databases\Location\locationDB;
 
+// use Insta\Challenge\Challenge;
+// use Insta\Database\Challenge\ChallengeDB;
+
 if($_SERVER['REQUEST_METHOD']=='POST'){
     $data=file_get_contents('php://input');
     $data_f=json_decode($data,true);
     $errorMessages=[];
     $post=new Post();
-    $category=new Category();
+    $data=[];
+    // $challenge=new Challenge();
     $user=new Users();
     $database=new Database();
     $db=$database->get_connection();
     $image=new Image();
-    $username;
-    
-    $post->set_caption($data_f['caption']);
     try{
         $db->beginTransaction();
-        if($data_f['userID']=='' || empty($data_f['username'])){
-                throw new Exception('create an account');
+        if(empty($_SESSION['userID'])  OR empty($_SESSION['username'])){
+            throw new Exception('create an account');
         }
-        $user->set_username($data_f['username']);
-        $user->set_id($data_f['userID']);
-        $username=$data_f['username'];
-       
-        // if(isset($_SESSION['userID'])){
-        //     $user->set_username($_SESSION['username']);
-        //     $user->set_id($_SESSION['userID']);
-        //     $user->userAuth->set_authanticated(true);
-        //     $username=$_SESSION['username'];
+        $user->set_username($_SESSION['username']);
+        $user->set_id($_SESSION['userID']);
+        $post->set_caption($_POST['caption']);
 
-        // }
-        // if($user->userAuth->is_authanticated()==false){
-        //     throw new Exception('create an account');
-        // }
-        $data=[];
+        
+       
+     
+
         $errorMessages=[];
             if($data_f['img']==''){
                 $errorMessages=array('errImage'=>'no image');
@@ -95,35 +89,12 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $locationDB->write_locationPost($postDB->post->get_postID());
             }
 
-            if(isset($data_f['collaborators'])){
-                    $lenCol=count($data_f['collaborators']);
-                    $usernames=$data_f['collaborators'];
-                    
-                    for($i=0;$i<$lenCol;$i++){
-                        $userid=$userDB->get_userID_from_username($usernames[$i]);
-                        $collab=new Collaborator();
-                        $collab->set_userID($userid['userID']);
-                        $collab->set_postID($postDB->post->get_postID());
-                        $collabDB=new CollaboratorDB($collab);
-                        $collabDB->set_db($db);
-                        $collabDB->write_collaborator();
-                       
-                }
-                
+            if(isset($data_f['challengeTag'])){
+                $challenge->set_challengeTag($data_f['challengeTag']);
+                $challengeDB=new ChallengeDB($challenge);
+                $challengeDB;
             }
-            $category->set_categoryName($data_f['categoryName']);
-            $categoryDB=new CategoryDB($category);
-            $results=$categoryDB->search_category();
-            if(is_array($results)){
-                //get category id
-                $categoryDB->set_db($db);
-                $categoryDB->write_category_post($postDB->post->get_postID());
-            }
-            else{
-                $categoryDB->set_db($db);
-                $categoryDB->write_category();
-                $categoryDB->write_category_post($postDB->post->get_postID());
-            }
+        
             $img=$data_f['img'];
             // $image->set_enoded_base64_string($img);
             // $image->file->set_filePath($user->get_dir());
@@ -132,17 +103,13 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $imageDB->write_image();
             $imageDB->write_image_post($postDB->post->get_postID());
             $data['status']='success';
-            echo json_encode($data);
             $db->commit();
-            
-            return;
+            echo json_encode($data);
     }catch(Exception $err){
         $db->rollBack();
         //rollback
         $item=array('status'=>'failed','msg'=>$err->getMessage(),'trace'=>$err->getTraceAsString(),'errorArray'=>$errorMessages);
         echo json_encode($item);
     }
-
-
 }
 ?>

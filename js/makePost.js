@@ -25,9 +25,16 @@ class ReviewPostUI{
 		this._caption=document.getElementById('post-caption');
 		this._tags=document.getElementById('post-tags');
 		this._currentMedia;
+		this._form=document.getElementById('formSubmitPost');
 		this._dropDownBtn=document.getElementById('dropdown-tags');
 		this._closeReviewModalBtn=document.getElementById('close-review-modal');
 		this._submitForm=document.getElementById('upload-review-modal-btn');
+	}
+	set form(r){
+		this._form=r;
+	}
+	get form(){
+		return this._form;
 	}
 	set dropDownBtn(r){
 		this._dropDownBtn=r;
@@ -35,10 +42,10 @@ class ReviewPostUI{
 	get dropDownBtn(){
 		return this._dropDownBtn;
 	}
-	set submitForm(r){
+	set submitFormBtn(r){
 		this._submitForm=r;
 	}
-	get submitForm(){
+	get submitFormBtn(){
 		return this._submitForm;
 	}
 	set closeReviewModalBtn(r){
@@ -194,17 +201,17 @@ export class MakePostUI extends MakePost{
 				this.reviewUpload.download_media();
 				this.reviewUpload.reviewPostModal.style.display='block';
 				document.getElementById('uploadModal').style.display='none';
-				this.reviewUpload.submitForm.addEventListener('click',(evt)=>{
+				this.reviewUpload.submitFormBtn.addEventListener('click',(evt)=>{
 					evt.preventDefault();
 					try{
 
-						const captionPattern=/x/i;
-						const tagPattern=/x/i;
+						const captionPattern=/[a-zA-Z]{3,}/;
+						const tagPattern=/[a-zA-Z]{3,}/i;
 						if(captionPattern.test(this.reviewUpload.caption)==false){
-							throw Exception('not valid caption');
+							throw 'not valid caption';
 						}
 						if(tagPattern.test(this.reviewUpload.tags)==false){
-							throw Exception('not valid tags');
+							throw 'not valid tags';
 						}
 						console.log('submitForm =====');
 						let cap=document.getElementById('post-caption');
@@ -212,6 +219,7 @@ export class MakePostUI extends MakePost{
 						this.reviewUpload.form.submit();
 					}catch(err){
 						console.log(err);
+						alert(err);
 					}
 					
 				});
@@ -219,19 +227,27 @@ export class MakePostUI extends MakePost{
 					console.log('====get tags');
 					let cont=document.getElementsByClassName('add-tags')[0];
 					cont.append(this.reviewUpload.get_list_of_tags());
+					let inputField=document.getElementById('post-tags');
+					let selectTag=document.getElementsByClassName('post-tags-list-item');
+					let len=selectTag.length;
+					for(let si=0;si<len;si++){
+						selectTag[si].addEventListener('click',function(evt){
+							console.log(evt.target);
+							let txt=evt.target.innerHTML;
+							inputField.value='';
+							inputField.value=txt;
+							document.getElementById('post-tags-list').style.display='none';
+
+
+						})
+					}
 
 				});
 				this.reviewUpload.closeReviewModalBtn.addEventListener('click',(evt)=>{
 					console.log('close review window');
 					this.reviewUpload.reviewPostModal.style.display='none';
 				});
-				document.addEventListener('click',function(evt){
-					console.log('click');
-					if(evt.target.className!=='post-tags-list'){
-						console.log('click click');
-						document.getElementById('post-tags-list').style.display='none';
-					}
-				});
+				
 				
 		
 				
