@@ -24,6 +24,15 @@ try{
     require_once 'php/Payment.php';
     require_once 'php/PaymentDB.php';
 
+
+
+    require_once 'php/Order.php';
+    require_once 'php/OrderDB.php';
+
+    require_once 'php/Merchant.php';
+    require_once 'php/MerchantDB.php';
+
+
     require_once 'php/Subscription.php';
     require_once 'php/SubscriptionDB.php';
 

@@ -21,7 +21,7 @@ class Checkout{
 				const parser = new DOMParser();
 			    const doc = parser.parseFromString(form, 'text/html');
 				console.log(doc);
-				let element=doc.getElementsByTagName('div')[0];
+				let element=doc.getElementsByTagName('form')[0];
 				console.log(element);
 				document.body.append(element);
 			}
