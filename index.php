@@ -19,14 +19,11 @@ try{
 
     require_once 'php/FollowerDB.php';
 
-<<<<<<< HEAD
     require_once 'php/Video.php';
     require_once 'php/VideoDB.php';
-=======
     require_once 'php/Payment.php';
     require_once 'php/PaymentDB.php';
 
->>>>>>> 6f4ed32 (updates)
     require_once 'php/Subscription.php';
     require_once 'php/SubscriptionDB.php';
 
@@ -104,8 +101,15 @@ switch($action){
     case '/upload_post':
         include_once('php/uploadPost.php');
         break;
+<<<<<<< HEAD
     case '/upload_template':
         include_once('php/uploadTemplate.php');
+=======
+    case '/upload_video':
+        include_once('php/uploadVideo.php');
+    case '/checkout':
+        include_once('php/checkout.php');
+>>>>>>> b26ed95 (updates)
         break;
     case '/setup_profile':
         include_once('php/setupProfile.php');
