@@ -91,17 +91,15 @@ switch($action){
             
             $followerID=$_POST['followerID'];
          
-            if(empty($_SESSION['userID']) or empty($_POST['followerID'])){
-                throw new Exception('make an account');
-            }
-            if($userID==$mainUser->get_id()){
-                $f=new Follower($mainUser,$currentProfile);
-                $fDB=new FollowerDB($f);
-                $fDB->addFollower();
-            }
-            else{
-                throw new Exception('user not allowed to perform action');
-            }
+            // if(empty($_SESSION['userID']) or empty($_POST['followerID'])){
+            //     throw new Exception('make an account');
+            // }
+           
+            // $f=new Follower($mainUser,$currentProfile);
+            // $fDB=new FollowerDB($f);
+            // $fDB->addFollower();
+            
+          
             $data['status']='success';
             $data['message']='its all right';
             echo json_encode($data);
@@ -114,13 +112,10 @@ switch($action){
     case 'unfollow_user':
         try{
            
-            if(!isset($_POST['followerID']) OR empty($_SESSION['userID'])){
-                
-                throw new Exception('make an account');
-            }
-            else{
-                throw new Exception('user not allowed to perform action');
-            }
+            // if(!isset($_POST['followerID']) OR empty($_SESSION['userID'])){
+            //      throw new Exception('make an account');
+            // }
+            
             $data['status']='success';
             $data['message']='its all right';
             echo json_encode($data);

@@ -31,7 +31,7 @@ export class Follow{
 			xml.open('POST','/');
 			xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xml.onload=function(){
-				let unfollow=evt.target.parentNode;
+				let unfollow=evt.target;
 				let container=unfollow.parentNode;
 				console.log('post======');
 				console.log(container);
@@ -49,7 +49,7 @@ export class Follow{
 				unfollowBtn.setAttribute('class','follow-button');
 				unfollowBtn.append(unfollowBtnTxt);
 
-				container.replaceChild(unfollowItem,btn);
+				container.replaceChild(unfollowBtn,unfollow);
 			}
 			xml.send('action=follow_user&followerID='+this.influencer);
 		}catch(err){
@@ -126,7 +126,7 @@ export class UnFollow{
 			xml.open('POST','/');
 			xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xml.onload=function(){
-				let follow=evt.target.parentNode;
+				let follow=evt.target;
 				let container=follow.parentNode;
 				console.log('post======');
 				console.log(container.childNodes);
