@@ -80,7 +80,7 @@ function get_profile_setup_info_from_cookie(){
     if(profileSetUp!==undefined && profileSetUp!==false){
         return profileSetUp;
     }
-    return false;
+    return profileSetUp;
 }
 function get_username_search_results_info_from_cookie(){
     let usernames=get_cookie('usernameSearchResults=');
@@ -537,7 +537,7 @@ async function formHandling(evt){
                     user.submit_profile_info();
                     let d=get_profile_setup_info_from_cookie();
                     console.log(d);
-                    if(d==false){
+                    if(d==false || d==undefined){
                         throw 'respose data not defined';
                     }
                     if(d.status=='success'){

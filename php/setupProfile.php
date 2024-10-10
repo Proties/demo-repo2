@@ -38,7 +38,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     	$user->set_username($username);
     	$user->set_gender($gender);
     	$user->set_occupation($occupation);
-    	$user->set_bio($bio);
+    	$user->set_shortBio($bio);
     	$user->set_fullName($fullname);
 
     	if($user->validate_username($user->get_username())==false){
@@ -67,23 +67,23 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		if($userDB->user->get_id()>0){
         $_SESSION['userID']=$userDB->user->get_id();
      
-        $item=array('status'=>'success');
+       
         
 
         //create an entry at user template if successfull
         // set status to not active to all paid template
         // set status active for basic template
-        $template=new Template();
-        $templateDB=new TemplateDB($template);
-        $templateDB->addTemplateForNewUser();
+        // $template=new Template();
+        // $templateDB=new TemplateDB($template);
+        // $templateDB->addTemplateForNewUser();
         $status=$user->userFolder->create_user_folder($user->get_username());
 		$bigData['status']='success';
 		$bigData['message']='everything all good';
 		$allData=['status'=>'success','username'=>$user->get_username(),'bio'=>$user->get_bio(),'fullname'=>$user->get_fullName()];
 		setcookie('setUpProfile',json_encode($allData), time() + (86400 * 1), '/'); 
 		setcookie('user',json_encode($allData), time() + (86400 * 1), '/'); 
-		$_SESSION['userID'];
-		$_SESSION['username'];
+		$_SESSION['userID']=$user->get_id();
+		$_SESSION['username']=$user->get_username();
       	echo json_encode($bigData);
       	return;
     }
@@ -92,7 +92,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		$bigData['errors']=$errors;
 		$bigData['status']='failed';
 		$bigData['message']=$err->getMessage();
-		setcookie('setUpProfile',json_encode($allData), time() - (86400 * 1), '/');
+		setcookie('setUpProfile',json_encode($bigData), time() - (86400 * 1), '/');
 		echo json_encode($bigData);
 		return;
 	}
