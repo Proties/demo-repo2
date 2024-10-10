@@ -50,6 +50,10 @@ export class Follow{
 				unfollowBtn.append(unfollowBtnTxt);
 
 				container.replaceChild(unfollowBtn,unfollow);
+				unfollowBtn.addEventListener('click',(evt)=>{
+					let unf=new UnFollow();
+					unf.sendUnFollowHomePage(evt);
+				});
 			}
 			xml.send('action=follow_user&followerID='+this.influencer);
 		}catch(err){
@@ -142,6 +146,11 @@ export class UnFollow{
 				    followBtn.append(followBtnTxt);
 				    container.replaceChild(followBtn,follow);
 
+				    followBtn.addEventListener('click',(evt)=>{
+				    	let f=new Follow();
+				    	f.sendFollowHomePage(evt);
+				    });
+
 			}
 		}
 			xml.send('action=unfollow_user&followerID='+this.influencer);
@@ -172,8 +181,8 @@ export class UnFollow{
 				    followBtn.append(followBtnTxt);
 				    followItem.append(followBtn);
 				    cont.replaceChild(followItem,btn);
-				    let FollowUser=document.getElementById('followBtn');
-				    FollowUser.addEventListener('click',followProfile);
+				    let followUser=document.getElementById('followBtn');
+				    followUser.addEventListener('click',followProfile);
 				}
 			}
 			xml.send('actions=unfollow&influencerID='+influencer.id);
