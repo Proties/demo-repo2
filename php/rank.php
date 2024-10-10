@@ -2,13 +2,17 @@
 namespace Insta\Ranking;
 use Insta\Databases\Database;
 class Ranking extends Database{
+    private $db;
+    public function __construct(){
+        $this->db=Database::get_connection();
+    }
 
 
-
-public function chrono(Array $arr,int $userID){
+public function chrono(Array $arr,int $userID=0){
     $p='';
+    $db=$this->db;
     try{
-        // $db=$this->get_connection();
+        
         // $len=count($arr);
         // for($i=0;$i<$len;$i++){
         //     $p.='AND userID='.$arr[$i];
@@ -24,18 +28,14 @@ public function chrono(Array $arr,int $userID){
         // ";
        
        $query='
-                SELECT u.userIDusername,u.profilePicture,i.imageFileName,i.imageFilePath,v.fileName,v.filePath FROM Users u
+                SELECT u.userID,u.username,i.fileName,i.filePath,v.fileName,v.filePath FROM Users u
                 INNER JOIN followers f ON u.userID=f.followerID
                 INNER JOIN Posts p ON f.userID=p.userID
-                INNER JOIN ImagePost ip ON p.postID=ip.postID
-                INNER JOIN Image i ON ip.imageID=i.imageID
+                INNER JOIN PostImages ip ON p.postID=ip.postID
+                INNER JOIN Images i ON ip.imageID=i.imageID
                 INNER JOIN VideoPost vp ON p.postID=vp.postID
-                INNER JOIN Videos v ON vp.videoID=v.videoID
-                WHERE u.userID=:userID
-
-
-
-
+                INNER JOIN Videos v ON vp.videoID=v.id
+                WHERE u.userID=:userID;
        ';
         $stmt=$db->prepare($query);
         $stmt->bindValue(':userID',$userID);
@@ -49,7 +49,7 @@ public function chrono(Array $arr,int $userID){
 }
 //this function will return a list of post that are similar to the person who shared a post to a current visiting user
 
-function 
+
 public function Basic(Array $arr){
     $p='';
     try{

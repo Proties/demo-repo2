@@ -83,6 +83,8 @@ export class OtherProfile extends ProfileUI{
         this.posts;
         this._data;
         this._cont;
+        this._follow=new Follow();
+        this._unfollow=new UnFollow();
        
     }
     set data(i){
@@ -134,19 +136,36 @@ export class OtherProfile extends ProfileUI{
         let contTwo=document.createElement('div');
         let contThree=document.createElement('div');
         let contFour=document.createElement('div');
+
+
+        let follow=document.createElement('button');
+        let followTxt=document.createTextNode('follow');
         
         
 
-        profilePicBtn.setAttribute('class','profile-button');
+        follow.setAttribute('class','follow-button');
+        profilePicBtn.setAttribute('class','profile-button-img');
         profilePic.setAttribute('src',this.profilePicture);
-        cont.setAttribute('class','post-container');
+        
         contTwo.setAttribute('class','post-actions');
         contThree.setAttribute('class','profile-button');
         contFour.setAttribute('class','post');
 
+        
         let arrayPosts=['Primary-post','Secondary-post','Tertiary-post'];
         let arrayContainerPosts=['post-container-primary','post-container-secondary','post-container-teriary'];
-        if(this.data.posts!==undefined){
+        
+        if(this.data.post!==undefined){
+             cont.setAttribute('class','post-container-primary');
+        }
+        else if(this.data.posts.length==2){
+            cont.setAttribute('class','post-container-secondary');
+        }
+        else{
+            cont.setAttribute('class','post-container-teriary');
+        }
+
+       if(this.data.posts!==undefined){
              for(let ss=0;ss<this.data.posts.length;ss++){
                 let c=document.createElement('div');
                 let img=document.createElement('img');
@@ -182,7 +201,12 @@ export class OtherProfile extends ProfileUI{
         
 
         profilePicBtn.append(profilePic);
-        contTwo.append(profilePicBtn);
+
+        follow.append(followTxt);
+        contThree.append(profilePicBtn);
+        contThree.append(follow);
+        contTwo.append(contThree);
+       
         cont.append(contTwo);
         cont.append(contFour);
         this.parentContainer.append(cont);

@@ -31,6 +31,8 @@ class PostDB extends Database{
         $db=$this->db;
         try{
             
+        }catch(PDOExecption $err){
+            return $err;
         }
     }
     public function viewSharedPost(){}
@@ -46,7 +48,7 @@ class PostDB extends Database{
             $stmt->bindValue(':id',$id);
             $stmt->bindValue(':hide','hidden');
         }catch(PDOExecption $err){
-            echo 'Database error while writing to viewed post: '.$err->getMessage();
+            return $err;
 
         }
 

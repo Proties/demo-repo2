@@ -23,6 +23,22 @@ export class Follow{
 	get influencer(){
 		return this._influencer;
 	}
+	sendFollowHomePage(evt){
+		try{
+			let xml=new XMLHttpRequest();
+			xml.open('POST','/profile');
+			xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xml.onload=function(){
+				let followBtn=evt.target.parentNode;
+				let post=followBtn.parentNode.parentNode;
+				console.log('post======');
+				console.log(post);
+			}
+			xml.send('actions=follow_user&followerID='+this.influencer.id+'&userID='+this.user.id);
+		}catch(err){
+			console.log(err);
+		}
+	}
 	sendFollow(){
 		try{
 			let xml=new XMLHttpRequest();
@@ -85,6 +101,22 @@ export class UnFollow{
 	}
 	get influencer(){
 		return this._influencer;
+	}
+	sendUnFollowHomePage(evt){
+		try{
+			let xml=new XMLHttpRequest();
+			xml.open('POST','/profile');
+			xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xml.onload=function(){
+				let followBtn=evt.target.parentNode;
+				let post=followBtn.parentNode.parentNode;
+				console.log('post======');
+				console.log(post);
+			}
+			xml.send('actions=unfollow_user&followerID='+this.influencer.id+'&userID='+this.user.id);
+		}catch(err){
+			console.log(err);
+		}
 	}
 	sendUnFollowTOServer(){
 		try{
