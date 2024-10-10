@@ -27,6 +27,13 @@ class PostDB extends Database{
 
         }
     }
+    public function sharePost(){
+        $db=$this->db;
+        try{
+            
+        }
+    }
+    public function viewSharedPost(){}
     public function delete_post(int $id){
          $db=$this->get_connection();
         try{
