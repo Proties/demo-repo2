@@ -98,7 +98,8 @@ let testData=[
 {username:'rinae',fullname:'',firstName:'',lastname:'nems',following:false,profilePicture:'/Image/Test Account.png',id:25,posts:[{id:3,src:'/Image/Comic.png.png'},{id:4,src:'/Image/Comic.png.png'}]},
 {username:'sindy',fullname:'',firstName:'',lastname:'nems',following:true,profilePicture:'/Image/Test Account.png',id:43,posts:[{id:5,src:'/Image/Comic.png.png'},{id:6,src:'/Image/Comic.png.png'},{id:7,src:'/Image/Comic.png.png'}]}
 ];
-let meData={fullname:'rotondwa',username:'sackie',bio:''};
+// let meData={fullname:'rotondwa',username:'sackie',bio:''};
+let meData=undefined;
 initialiseObjects(testData,meData);
 
 function initialiseObjects(cookie_data,cookie_user){
@@ -531,14 +532,14 @@ async function formHandling(evt){
                     bio:document.getElementById('biography').value,
                     occupation:document.getElementById('occupation').value
                 };
-
-                user.data=profileItem;
-                user.submit_profile_info();
-                let d=get_profile_setup_info_from_cookie();
-                console.log(d);
-                if(d==false){
-                    throw 'respose data not defined';
-                }
+                try{
+                    user.data=profileItem;
+                    user.submit_profile_info();
+                    let d=get_profile_setup_info_from_cookie();
+                    console.log(d);
+                    if(d==false){
+                        throw 'respose data not defined';
+                    }
                     if(d.status=='success'){
                         alert('it works');
                         user.setupProfileModal.style.display='none';
@@ -551,6 +552,10 @@ async function formHandling(evt){
                   
                         document.getElementById(k).innerHTML=d.errors[e][k];
                     }
+                    }
+                catch(err){
+                    console.log(err);
+                }
                 
              
 
