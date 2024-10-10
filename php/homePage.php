@@ -88,10 +88,10 @@ switch($action){
         break;
     case 'follow_user':
         try{
-            $userID=$_POST['userID'];
+            
             $followerID=$_POST['followerID'];
          
-            if(!is_int($userID) or !is_int($followerID)){
+            if(empty($_SESSION['userID']) or empty($_POST['followerID'])){
                 throw new Exception('make an account');
             }
             if($userID==$mainUser->get_id()){
@@ -113,10 +113,10 @@ switch($action){
         break;
     case 'unfollow_user':
         try{
-            $userID=$_POST['userID'];
-            $followerID=$_POST['followerID'];
-            if($userID==$mainUser->get_id()){
+           
+            if(!isset($_POST['followerID']) OR empty($_SESSION['userID'])){
                 
+                throw new Exception('make an account');
             }
             else{
                 throw new Exception('user not allowed to perform action');

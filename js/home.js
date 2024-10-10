@@ -139,14 +139,14 @@ function initialiseObjects(cookie_data,cookie_user){
                 console.log(profileItem.unfollow.btn);
                 profileItem.unfollow.btn.addEventListener('click',function(evt){
                     console.log('unfollow');
-                    profileItem.unfollow.sendUnFollowHomePage=evt;
+                    profileItem.unfollow.sendUnFollowHomePage(evt);
 
                 });
             }else{
                 profileItem.follow.influencer=profileItem.id;
                 profileItem.follow.btn=profileItem.followBtn;
                 profileItem.follow.btn.addEventListener('click',function(evt){
-                    profileItem.follow.sendFollowHomePage=evt;
+                    profileItem.follow.sendFollowHomePage(evt);
                 });
             }
          
