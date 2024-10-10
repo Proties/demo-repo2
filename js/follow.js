@@ -1,8 +1,8 @@
 "strict"
 export class Follow{
-	constructor(user,influencer){
-		this._user=user;
-		this._influencer=influencer;
+	constructor(){
+		this._user;
+		this._influencer;
 		this._btn;
 	}
 	set btn(s){
@@ -24,17 +24,33 @@ export class Follow{
 		return this._influencer;
 	}
 	sendFollowHomePage(evt){
+		console.log('following');
 		try{
 			let xml=new XMLHttpRequest();
-			xml.open('POST','/profile');
+			xml.open('POST','/');
 			xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xml.onload=function(){
+			xml.onload=function(evt){
 				let followBtn=evt.target.parentNode;
 				let post=followBtn.parentNode.parentNode;
 				console.log('post======');
 				console.log(post);
+				let data=JSON.parse(this.responseText);
+				
+				if(data.status=='failed'){
+					alert('create an account first');
+					return;
+				}
+
+				//replace follow btn with unfollow btn
+				
+				let unfollowBtn=document.createElement('button');
+				let unfollowBtnTxt=document.createTextNode('unFollow');
+				unfollowBtn.setAttribute('class','follow-button');
+				unfollowBtn.append(unfollowBtnTxt);
+
+				cont.replaceChild(unfollowItem,btn);
 			}
-			xml.send('actions=follow_user&followerID='+this.influencer.id+'&userID='+this.user.id);
+			xml.send('actions=follow_user&followerID='+this.influencer);
 		}catch(err){
 			console.log(err);
 		}
@@ -79,9 +95,9 @@ export class Follow{
 	}
 }
 export class UnFollow{
-	constructor(user,influencer){
-		this._user=user;
-		this._influencer=influencer;
+	constructor(){
+		this._user;
+		this._influencer;
 		this._btn;
 	}
 	set btn(s){
@@ -103,17 +119,31 @@ export class UnFollow{
 		return this._influencer;
 	}
 	sendUnFollowHomePage(evt){
+		console.log('unfollowing');
 		try{
 			let xml=new XMLHttpRequest();
-			xml.open('POST','/profile');
+			xml.open('POST','/');
 			xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xml.onload=function(){
 				let followBtn=evt.target.parentNode;
 				let post=followBtn.parentNode.parentNode;
 				console.log('post======');
 				console.log(post);
+				let d=JSON.parse(this.responseText);
+				if(d.status=='failed'){
+					alert('could not un follow');
+					return;
+				}
+				if(d.status=='success'){		
+				    let followBtn=document.createElement('button');
+				    let followBtnTxt=document.createTextNode('follow');
+				    followBtn.setAttribute('class','follow-button');
+				    followBtn.append(followBtnTxt);
+				    cont.replaceChild(followItem,btn);
+
 			}
-			xml.send('actions=unfollow_user&followerID='+this.influencer.id+'&userID='+this.user.id);
+		}
+			xml.send('actions=unfollow_user&followerID='+this.influencer);
 		}catch(err){
 			console.log(err);
 		}

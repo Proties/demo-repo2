@@ -2,6 +2,7 @@
 import User from './user.js';
 import StackedPostsUI from './stackPosts.js';
 import {PostUI} from './post.js';
+import {Follow,UnFollow} from './follow.js';
 class Profile extends User{
     constructor(){
         super();
@@ -85,7 +86,30 @@ export class OtherProfile extends ProfileUI{
         this._cont;
         this._follow=new Follow();
         this._unfollow=new UnFollow();
+        this._followBtn;
+        this._unfollowBtn;
+
        
+    }
+    set followBtn(i){
+        this._followBtn=i;
+    }
+    get followBtn(){
+        return this._followBtn;
+    }
+    set unfollowBtn(i){
+        this._unfollowBtn=i;
+    }
+    get unfollowBtn(){
+        return this._unfollowBtn;
+    }
+  
+    get follow(){
+        return this._follow;
+    }
+  
+    get unfollow(){
+        return this._unfollow;
     }
     set data(i){
         this._data=i;
@@ -141,9 +165,12 @@ export class OtherProfile extends ProfileUI{
         let follow=document.createElement('button');
         let followTxt=document.createTextNode('follow');
         
+        let unFollow=document.createElement('button');
+        let unFollowTxt=document.createTextNode('unfollow');
         
 
         follow.setAttribute('class','follow-button');
+        unFollow.setAttribute('class','follow-button');
         profilePicBtn.setAttribute('class','profile-button-img');
         profilePic.setAttribute('src',this.profilePicture);
         
@@ -197,18 +224,30 @@ export class OtherProfile extends ProfileUI{
   
             
             // this.parentContainer.append(cont);
-   
+        profilePicBtn.append(profilePic);
+        let currentFollowing;
+        if(this.data.following==true){
+            unFollow.append(unFollowTxt);
+            this.unfollowBtn=unFollow;
+            
+            currentFollowing=unFollow;
+            
+        }
+        else{
+            follow.append(followTxt);
+            this.followBtn=follow;
+            currentFollowing=follow;
+        }
         
 
-        profilePicBtn.append(profilePic);
-
-        follow.append(followTxt);
         contThree.append(profilePicBtn);
-        contThree.append(follow);
+        contThree.append(currentFollowing);
         contTwo.append(contThree);
        
         cont.append(contTwo);
         cont.append(contFour);
+        console.log(' ======cont======');
+        console.log(cont);
         this.parentContainer.append(cont);
     }
 }

@@ -234,14 +234,18 @@ async function followProfile(evt){
     // let btn=evt.target;
     let url=window.href;
     console.log(url);
-    let follow=new Follow(myProfile,currentProfile);
+    let follow=new Follow();
+    follow.myProfile;
+    follow.currentProfile;
     follow.sendFollow();
 }
 function unfollowProfile(evt){
     // let btn=evt.target;
     let url=window.href;
     console.log(url);
-    let follow=new UnFollow(myProfile,currentProfile);
+    let follow=new UnFollow();
+    follow.myProfile=myProfile;
+    follow.currentProfile=currentProfile;
     // follow.sendFollow();
 
     //replace follow btn with unfollow btn

@@ -94,9 +94,9 @@ function get_username_search_results_info_from_cookie(){
 }
 
 let testData=[
-{username:'rotondwa',fullname:'',firstName:'',lastname:'nems',profilePicture:'/Image/Test Account.png',id:12,post:{id:2,src:'/Image/Comic.png.png'}},
-{username:'rinae',fullname:'',firstName:'',lastname:'nems',profilePicture:'/Image/Test Account.png',id:25,posts:[{id:3,src:'/Image/Comic.png.png'},{id:4,src:'/Image/Comic.png.png'}]},
-{username:'sindy',fullname:'',firstName:'',lastname:'nems',profilePicture:'/Image/Test Account.png',id:43,posts:[{id:5,src:'/Image/Comic.png.png'},{id:6,src:'/Image/Comic.png.png'},{id:7,src:'/Image/Comic.png.png'}]}
+{username:'rotondwa',fullname:'',firstName:'',lastname:'nems',following:true,profilePicture:'/Image/Test Account.png',id:12,post:{id:2,src:'/Image/Comic.png.png'}},
+{username:'rinae',fullname:'',firstName:'',lastname:'nems',following:false,profilePicture:'/Image/Test Account.png',id:25,posts:[{id:3,src:'/Image/Comic.png.png'},{id:4,src:'/Image/Comic.png.png'}]},
+{username:'sindy',fullname:'',firstName:'',lastname:'nems',following:true,profilePicture:'/Image/Test Account.png',id:43,posts:[{id:5,src:'/Image/Comic.png.png'},{id:6,src:'/Image/Comic.png.png'},{id:7,src:'/Image/Comic.png.png'}]}
 ];
 let meData={fullname:'rotondwa',username:'sackie',bio:''};
 initialiseObjects(testData,meData);
@@ -129,7 +129,29 @@ function initialiseObjects(cookie_data,cookie_user){
             // profileItem.make_posts();
             // profileItem.make_profilePic();
             profileItem.make_container();
+            
+            console.log('++++++= following +++++++');
+            console.log(cookie_data[i].following);
+            profileItem.unfollow.influencer=profileItem.id;
+            if(cookie_data[i].following==true){
+                profileItem.unfollow.btn=profileItem.unfollowBtn;
+                console.log(profileItem.unfollowBtn);
+                console.log(profileItem.unfollow.btn);
+                profileItem.unfollow.btn.addEventListener('click',function(evt){
+                    console.log('unfollow');
+                    profileItem.unfollow.sendUnFollowHomePage=evt;
 
+                });
+            }else{
+                profileItem.follow.influencer=profileItem.id;
+                profileItem.follow.btn=profileItem.followBtn;
+                profileItem.follow.btn.addEventListener('click',function(evt){
+                    profileItem.follow.sendFollowHomePage=evt;
+                });
+            }
+         
+            
+            
             // parentCont.append(profileItem.cont);
             profileList.push(profileItem);
 
@@ -299,7 +321,7 @@ async function display_more_users(evt){
 
 // this function listens to all events that take place ont the site and handles them
 function eventListeners(){
-    let userProfile=document.getElementsByClassName("profile-button");
+    let userProfile=document.getElementsByClassName("profile-button-img");
     let search_input=document.getElementById("search");
     
     let selectTopPost=document.getElementsByClassName("top-post");
