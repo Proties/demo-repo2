@@ -120,11 +120,17 @@ switch($action){
         include_once('php/checkout.php');
 >>>>>>> b26ed95 (updates)
         break;
+    case '/subscribe_to_premiunm':
+        include_once('php/subscribe.php');
+        break;
+    case '/once_off_purchase':
+        include_once('php/onceOffPurchase.php');
+        break;
     case '/setup_profile':
         include_once('php/setupProfile.php');
         break;
     case '/test_payments':
-        include_once('Htmlfiles/DummyForm.html');
+        include_once('Htmlfiles/dummyForm.html');
         break;
     default:
         include_once('php/homePage.php');

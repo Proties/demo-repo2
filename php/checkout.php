@@ -1,5 +1,6 @@
 <?php 
 use Insta\Order\Order;
+use Insta\Users\Users;
 use Insta\Database\Order\OrderDB;
 use Insta\Merchant\Merchant;
 use Insta\Database\Merchant\MerchantDB;
@@ -8,17 +9,18 @@ use Insta\Database\Merchant\MerchantDB;
  * @param null $passPhrase
  * @return string
  */
+$user=new Users();
 $merchant=new Merchant();
 $merchantDB=new MerchantDB($merchant);
 $order=new Order();
 $orderDB=new OrderDB($order);
-if(isset($_SESSION['orderDetails'])){
+// if(isset($_SESSION['orderDetails'])){
 
-}
-else{
-	header('Location: /');
-	return;
-}
+// }
+// else{
+// 	header('Location: /');
+// 	return;
+// }
 function generateSignature($data, $passPhrase = null) {
     // Create parameter string
     $pfOutput = '';
@@ -36,23 +38,23 @@ function generateSignature($data, $passPhrase = null) {
 }
 
 // Construct variables
-$cartTotal = 100.00; // This amount needs to be sourced from your application
-$passphrase = 'jt7NOE43FZPn';
+$cartTotal = $order->get_total(); // This amount needs to be sourced from your application
+$passphrase = $merchant->get_passphrase();
 $data = array(
     // Merchant details
-    'merchant_id' => '10000100',
-    'merchant_key' => '46f0cd694581a',
+    'merchant_id' => $merchant->get_id(),
+    'merchant_key' => $merchant->get_key(),
     'return_url' => 'https://d1a5-102-219-27-117.ngrok-free.app/php/confirm.php',
     'cancel_url' => 'https://d1a5-102-219-27-117.ngrok-free.app/php/deny.php',
-    'notify_url' => 'https://d1a5-102-219-27-117.ngrok-free.app/php/redirect.php',
+    'notify_url' => 'https://d1a5-102-219-27-117.ngrok-free.app/php/direct.php',
     // Buyer details
-    'name_first' => 'First Name',
-    'name_last'  => 'Last Name',
-    'email_address'=> 'test@test.com',
+    'name_first' => $user->get_name(),
+    'name_last'  => $user->get_lastName(),
+    'email_address'=> $user->get_email(),
     // Transaction details
-    'm_payment_id' => '1234', //Unique payment ID to pass through to notify_url
+    'm_payment_id' => $order->get_uuid(), //Unique payment ID to pass through to notify_url
     'amount' => number_format( sprintf( '%.2f', $cartTotal ), 2, '.', '' ),
-    'item_name' => 'Order#123'
+    'item_name' => $order->get_id()
 );
 
 $signature = generateSignature($data, $passphrase);

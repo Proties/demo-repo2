@@ -71,4 +71,74 @@ function pfValidIP() {
 function pfValidPaymentData( $cartTotal, $pfData ) {
     return !(abs((float)$cartTotal - (float)$pfData['amount_gross']) > 0.01);
 }
+
+function pfValidServerConfirmation( $pfParamString, $pfHost = 'sandbox.payfast.co.za', $pfProxy = null ) {
+    // Use cURL (if available)
+    if( in_array( 'curl', get_loaded_extensions(), true ) ) {
+        // Variable initialization
+        $url = 'https://'. $pfHost .'/eng/query/validate';
+
+        // Create default cURL object
+        $ch = curl_init();
+    
+        // Set cURL options - Use curl_setopt for greater PHP compatibility
+        // Base settings
+        curl_setopt( $ch, CURLOPT_USERAGENT, NULL );  // Set user agent
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );      // Return output as string rather than outputting it
+        curl_setopt( $ch, CURLOPT_HEADER, false );             // Don't include header in output
+        curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, 2 );
+        curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, true );
+        
+        // Standard settings
+        curl_setopt( $ch, CURLOPT_URL, $url );
+        curl_setopt( $ch, CURLOPT_POST, true );
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, $pfParamString );
+        if( !empty( $pfProxy ) )
+            curl_setopt( $ch, CURLOPT_PROXY, $pfProxy );
+    
+        // Execute cURL
+        $response = curl_exec( $ch );
+        curl_close( $ch );
+        if ($response === 'VALID') {
+            return true;
+        }
+    }
+    return false;
+}
+
+$check1 = pfValidSignature($pfData, $pfParamString);
+$check2 = pfValidIP();
+$check3 = pfValidPaymentData($cartTotal, $pfData);
+$check4 = pfValidServerConfirmation($pfParamString, $pfHost);
+
+$file=fopen('paymentNotification.json', 'wb') or die();
+if ($check1!==true){
+    $data=['payment_status'=>'failed','message'=>'something is wrong with the signature'];
+    fwrite($file, json_encode($data));
+    fclose($file);
+}
+if ($check2!==true){
+    $data=['payment_status'=>'failed','message'=>'something is wrong with the ip'];
+    fwrite($file, json_encode($data));
+    fclose($file);
+}
+if ($check3!==true){
+    $data=['payment_status'=>'failed','message'=>'something is wrong with the payment data'];
+    fwrite($file, json_encode($data));
+    fclose($file);
+}
+if ($check4!==true){
+    $data=['payment_status'=>'failed','message'=>'sever confirnmation failed'];
+    fwrite($file, json_encode($data));
+    fclose($file);
+}
+
+if($check1 && $check2 && $check3 && $check4) {
+    // All checks have passed, the payment is successful
+   
+    $data=['payment_status'=>'passed','message'=>'everything went right'];
+    fwrite($file, json_encode($data));
+    fclose($file);
+
+} 
 ?>
