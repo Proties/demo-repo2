@@ -69,14 +69,14 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             if($postDB->post->get_postID()==null){
                 throw new Exception('post id not defined');
             }
-            if(isset$_FILES['image']){
+            if(isset($_FILES['image'])){
                 $image->load_image();
                 $imageDB=new ImageDB($image);
                 $imageDB->set_db($db);
                 $imageDB->write_image();
                 $imageDB->write_image_post($postDB->post->get_postID());
             }
-            if(isset$_FILES['video']){
+            if(isset($_FILES['video'])){
                 $video->load_video();
                 $videoDB=new VideoDB($video);
                 $videoDB->set_db($db);
@@ -88,7 +88,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $db->commit();
     
             // setcookie('uploadPost',json_encode($data), time() +(86400 * 1), '/profile');
+            // echo json_encode($data);
+            header('Content-Type: application/json');
             echo json_encode($data);
+
     }catch(Exception $err){
         $db->rollBack();
         //rollback
@@ -96,7 +99,11 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $data['message']=$err->getMessage();
         $data['trace']=$err->getTraceAsString();
         $data['errorArray']=$errorMessages;
+        
+        // header('Location: '.$_SERVER['PHP_SELF']);
+        header('Content-Type: application/json');
         echo json_encode($data);
+        
     }
 }
 ?>

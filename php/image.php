@@ -107,6 +107,7 @@ class Image{
 				throw new Exception('did not upload');
 			}
 		}
+	}
 		catch(Exception $err){
 			echo $err->getMessage();
 		}

@@ -18,6 +18,7 @@ class ReviewPostUI{
 		this._reviewPostModal=document.getElementById('ReviewuploadModal');
 		this._reviewPostModal.style.display='none'
 		this._file;
+		this._rawFile;
 		this._src;
 		this._username=document.getElementById('post-username');
 		this._profilePicture=document.getElementById('post-profile-picture');
@@ -65,6 +66,12 @@ class ReviewPostUI{
 	}
 	get file(){
 		return this._file;
+	}
+	set rawFile(r){
+		this._rawFile=r;
+	}
+	get rawFile(){
+		return this._rawFile;
 	}
 	set src(r){
 		this._src=r;
@@ -157,6 +164,21 @@ class ReviewPostUI{
 	    reader.readAsDataURL(this.file);
 	  
 		}
+	make_hidden_input(){
+		let input=document.createElement('input');
+		input.setAttribute('type','file');
+		input.setAttribute('name','image');
+		this.form.append(input);
+		
+		console.log('========raw file');
+		console.log(this.rawFile[0]);
+
+		const fl=new DataTransfer();
+		fl.items.add(this.rawFile[0]);
+		input.files=fl.files;
+		
+
+	}
 
 }
 export class MakePostUI extends MakePost{
@@ -197,8 +219,10 @@ export class MakePostUI extends MakePost{
 			let file=evt.dataTransfer.files[0];
 		
 			if(evt.dataTransfer.files!==undefined){
+				this.reviewUpload.rawFile=evt.dataTransfer.files;
 				this.reviewUpload.file=file;
 				this.reviewUpload.download_media();
+				this.reviewUpload.make_hidden_input();
 				this.reviewUpload.reviewPostModal.style.display='block';
 				document.getElementById('uploadModal').style.display='none';
 				this.reviewUpload.submitFormBtn.addEventListener('click',(evt)=>{
@@ -207,10 +231,10 @@ export class MakePostUI extends MakePost{
 
 						const captionPattern=/[a-zA-Z]{3,}/;
 						const tagPattern=/[a-zA-Z]{3,}/i;
-						if(!captionPattern.test(this.reviewUpload.caption)){
+						if(captionPattern.test(this.reviewUpload.caption)==false){
 							throw 'not valid caption';
 						}
-						if(!tagPattern.test(this.reviewUpload.tags)){
+						if(tagPattern.test(this.reviewUpload.tags)==false){
 							throw 'not valid tags';
 						}
 						console.log('submitForm =====');
@@ -223,26 +247,26 @@ export class MakePostUI extends MakePost{
 					}
 					
 				});
-				this.reviewUpload.dropDownBtn.addEventListener('click',(evt)=>{
-					console.log('====get tags');
-					let cont=document.getElementsByClassName('add-tags')[0];
-					cont.append(this.reviewUpload.get_list_of_tags());
-					let inputField=document.getElementById('post-tags');
-					let selectTag=document.getElementsByClassName('post-tags-list-item');
-					let len=selectTag.length;
-					for(let si=0;si<len;si++){
-						selectTag[si].addEventListener('click',function(evt){
-							console.log(evt.target);
-							let txt=evt.target.innerHTML;
-							inputField.value='';
-							inputField.value=txt;
-							document.getElementById('post-tags-list').style.display='none';
+				// this.reviewUpload.dropDownBtn.addEventListener('click',(evt)=>{
+				// 	console.log('====get tags');
+				// 	let cont=document.getElementsByClassName('add-tags')[0];
+				// 	cont.append(this.reviewUpload.get_list_of_tags());
+				// 	let inputField=document.getElementById('post-tags');
+				// 	let selectTag=document.getElementsByClassName('post-tags-list-item');
+				// 	let len=selectTag.length;
+				// 	for(let si=0;si<len;si++){
+				// 		selectTag[si].addEventListener('click',function(evt){
+				// 			console.log(evt.target);
+				// 			let txt=evt.target.innerHTML;
+				// 			inputField.value='';
+				// 			inputField.value=txt;
+				// 			document.getElementById('post-tags-list').style.display='none';
 
 
-						})
-					}
+				// 		})
+				// 	}
 
-				});
+				// });
 				this.reviewUpload.closeReviewModalBtn.addEventListener('click',(evt)=>{
 					console.log('close review window');
 					this.reviewUpload.reviewPostModal.style.display='none';

@@ -58,11 +58,13 @@ class Video{
 				throw new Exception('did not upload');
 			}
 		}
+	}
 		catch(Exception $err){
-			echo $err->getMessage();
+			return $err;
 		}
 
-	}
+	
+}
 }
 
 ?>
