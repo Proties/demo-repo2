@@ -1,4 +1,7 @@
 <?php 
+namespace Insta\Database\Video;
+use Insta\Video\Video;
+use Insta\Databases\Database;
 class VideoDB extends Database{
 	public Video $video;
 	private $db;
@@ -7,7 +10,10 @@ class VideoDB extends Database{
 		$this->video=$video;
 	}
 
-	public function addVideo(){
+	public function set_db($db){
+		$this->db=$db;
+	}
+	public function write_video(){
 		$db=$this->db;
 		try{
 			$query='
@@ -24,6 +30,17 @@ class VideoDB extends Database{
 			$statement->execute();
 			$id=$statement->db2_last_insert_id($db);
 			$this->video->set_id($id);
+		}catch(PDOException $err){
+			return $err;
+		}
+	}
+	public function write_video_post(){
+		$db=$this->db;
+		try{
+			$query='
+						INSERT INTO VideoPost()
+						VALUES(:videoID,:postID)
+			';
 		}catch(PDOException $err){
 			return $err;
 		}

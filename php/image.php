@@ -94,5 +94,22 @@ class Image{
 	{
 		return $this->id;
 	}
+	public function load_image($dir){
+		try{
+			if(isset($_FILES['image'])){
+			$filename=$_FILES['image']['name'];
+			$filesize=$_FILES['image']['size'];
+			$tmpname=$_FILES['image']['tmp_name'];
+			$filetype=$_FILES['image']['type'];
+			
+			$newfile=$dir.$filename;
+			if(!move_uploaded_file($tmpname, $newfile)){
+				throw new Exception('did not upload');
+			}
+		}
+		catch(Exception $err){
+			echo $err->getMessage();
+		}
+	}
 }
 ?>

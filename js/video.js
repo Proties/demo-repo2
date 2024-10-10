@@ -87,3 +87,4 @@ export class VideoUI extends Video{
 	
 	
 }
+export default VideoUI;

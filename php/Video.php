@@ -1,4 +1,5 @@
 <?php 
+namespace Insta\Video;
 class Video{
 	private $id;
 	private $width;
@@ -20,14 +21,48 @@ class Video{
 	public function set_timeMade($id){}
 	public function set_status($id){}
 
-	public function get_id(){}
-	public function get_size(){}
-	public function get_width(){}
-	public function get_height(){}
-	public function get_filename(){}
-	public function get_dateMade(){}
-	public function get_timeMade(){}
-	public function get_status(){}
+	public function get_id(){
+		return $this->id;
+	}
+	public function get_size(){
+		return $this->size;
+	}
+	public function get_width(){
+		return $this->width;
+	}
+	public function get_height(){
+		return $this->height;
+	}
+	public function get_filename(){
+		return $this->filename;
+	}
+	public function get_dateMade(){
+		return $this->dateMade;
+	}
+	public function get_timeMade(){
+		return $this->timeMade;
+	}
+	public function get_status(){
+		return $this->status;
+	}
+	public function load_video($dir){
+		try{
+			if(isset($_FILES['video'])){
+			$filename=$_FILES['video']['name'];
+			$filesize=$_FILES['video']['size'];
+			$tmpname=$_FILES['video']['tmp_name'];
+			$filetype=$_FILES['video']['type'];
+			
+			$newfile=$dir.$filename;
+			if(!move_uploaded_file($tmpname, $newfile)){
+				throw new Exception('did not upload');
+			}
+		}
+		catch(Exception $err){
+			echo $err->getMessage();
+		}
+
+	}
 }
 
 ?>
