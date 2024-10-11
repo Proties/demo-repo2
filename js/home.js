@@ -100,7 +100,7 @@ let testData=[
 ];
 // let meData={fullname:'rotondwa',username:'sackie',bio:''};
 let meData=undefined;
-initialiseObjects(testData,meData);
+// initialiseObjects(testData,meData);
 
 function initialiseObjects(cookie_data,cookie_user){
     console.log('=========cookie data========');

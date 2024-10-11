@@ -48,8 +48,57 @@ public function chrono(Array $arr,int $userID=0){
     }
 }
 //this function will return a list of post that are similar to the person who shared a post to a current visiting user
+public function commonPostsWithSharer(){
 
+}
+//this sql query will get the video-filename,filepath or the image-filename,filepath of users
+//allow either image or video to be null
+//the number of posts per user will be capped at 3
+public function chronoTwo(){
+    $db=$this->db;
+    try{
 
+        $query='
+                SELECT 
+    userID, 
+    username, 
+    video_filename, 
+    video_filepath, 
+    image_filename, 
+    image_filepath 
+FROM 
+    (
+        SELECT 
+            u.userID, 
+            u.username, 
+            v.filename AS video_filename, 
+            v.filepath AS video_filepath, 
+            i.filename AS image_filename, 
+            i.filepath AS image_filepath,
+            ROW_NUMBER() OVER (PARTITION BY u.userID ORDER BY p.postID DESC) AS row_num
+        FROM 
+            Posts p 
+        INNER JOIN 
+            Users u ON p.userID = u.userID 
+        LEFT JOIN 
+            VideoPost vp ON p.postID = vp.postID 
+        LEFT JOIN 
+            Videos v ON vp.videoID = v.id 
+        LEFT JOIN 
+            PostImages ip ON p.postID = ip.postID 
+        LEFT JOIN 
+            Images i ON ip.imageID = i.imageID 
+    ) subquery
+WHERE 
+    row_num <= 3
+            ';
+        $stmt->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchall();
+    }catch(PDOExecption $err){
+        return $err;
+    }
+}
 public function Basic(Array $arr){
     $p='';
     try{
