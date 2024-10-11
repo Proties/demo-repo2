@@ -278,6 +278,58 @@ nav .profile-link {
   color: #A7991E;
 }
 
+
+/*challenge section*/
+
+.mission-section {
+  position: fixed;
+  right: 10px;
+  top: 120px; /* Adjust based on header height */
+  width: 20%;
+  max-width: 330px;
+  height: 40vh; /* Takes 80% of viewport height */
+  background-color: #ffffff;
+  border: 2px solid #A7991E;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  overflow: hidden; /* Prevent overflow */
+  border-radius: 25px;
+}
+
+.mission-container {
+  height: 100%;
+  overflow-y: scroll; /* Enables vertical scrolling */
+}
+
+.challenge-section h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #A7991E;
+}
+
+.challenge-title {
+  font-size: 18px;
+}
+
+.go-button {
+  background-color: #fff;
+  color: #A7991E;
+  padding: 3px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  border-color: #A7991E;
+}
+
+.go-button:hover {
+  background-color: #A7991E;
+}
+
+/**/
+
 .post-container {
   display: flex;
   flex-direction: column;
@@ -390,12 +442,16 @@ nav .profile-link {
   justify-items: center;   
 }
 
-.top-post:hover {
+.primary-post:hover {
     transform: scale(1.05);
 }
 
-.bottom-post:hover {
+.secondary-post:hover {
     transform: scale(1.05);
+}
+
+.tertiary-post:hover {
+  transform: scale(1.05);
 }
 
 .post img {
@@ -502,11 +558,12 @@ nav .profile-link {
     position: absolute;
     top: 10px;
     cursor: pointer;
+    transition: transform 0.3s ease-in-out;
 }
 
 .close:hover,
 .close:focus {
-    color: #000;
+     transform: scale(1.10);
     text-decoration: none;
     cursor: pointer;
 }
