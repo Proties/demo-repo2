@@ -534,8 +534,18 @@ async function formHandling(evt){
                 };
                 try{
                     user.data=profileItem;
-                    user.submit_profile_info();
+                    let formattedData=JSON.stringify(user.data);
+                    let xml=new XMLHttpRequest();
+                    xml.open('POST','/setup_profile');
+                    xml.setRequestHeader('Content-Type', 'application/json');
+                    xml.onreadystatechange=function (){
+                        console.log('======== setup page');
+                        console.log(this.responseText);
+                    }
+                    xml.send(formattedData);
+            
                     let d=get_profile_setup_info_from_cookie();
+                    console.log('data from cookie');
                     console.log(d);
                     if(d==false || d==undefined){
                         throw 'respose data not defined';
@@ -548,6 +558,7 @@ async function formHandling(evt){
                     }
                     console.log(d);
                     for(let e=0;e<d.errors.length;e++){
+                        console.log('creating tags');
                         let k=Object.keys(d.errors[e]);
                   
                         document.getElementById(k).innerHTML=d.errors[e][k];

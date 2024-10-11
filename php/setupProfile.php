@@ -28,42 +28,43 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 	$data=file_get_contents('php://input');
     $data_f=json_decode($data,true);
     try{
+
+    	if(empty($data_f['username']) OR $user->validate_username($data_f['username'])==false){
+    		$errors[]['errProfileUserName']='username not valid';
+    	}
+    	if(empty($data_f['fullname']) OR $user->validate_fullName($data_f['fullname'])==false){
+    		$errors[]['errProfileFullName']='profile full name not valid';
+    	}
+    	if(empty($data_f['gender']) OR $user->validate_gender($data_f['gender'])==false){
+    		$errors[]['errProfileGender']='gender not valid';
+    	}
+    	if(empty($data_f['occupation']) OR $user->validate_occupation($data_f['occupation'])==false){
+    		$errors[]['errProfileOccupation']='occupation is required';
+    	}
+    	if(empty($data_f['bio']) OR $user->validate_bio($data_f['bio'])==false){
+    		$errors[]['errProfileBio']='bio not valid';
+    	}
+    	if($userDB->search_username_in_db($data_f['username'])!==false){
+       		$errors[]['errProfilUsername']='Username already exists';
+       		throw new Exception('username taken');
+    	}
+
+    	if(count($errors)>1){
+    		throw new Exception('could not create user');
+    	}
     	$username=$data_f['username'];
     	$fullname=$data_f['fullname'];
     	$gender=$data_f['gender'];
     	$occupation=$data_f['occupation'];
     	$bio=$data_f['bio'];
 
-
     	$user->set_username($username);
     	$user->set_gender($gender);
     	$user->set_occupation($occupation);
     	$user->set_shortBio($bio);
     	$user->set_fullName($fullname);
-
-    	if($user->validate_username($user->get_username())==false){
-    		$errors[]['errProfileUserName']='username not valid';
-    	}
-    	if($user->validate_fullName($user->get_fullName())==false){
-    		$errors[]['errProfileFullName']='profile full name not valid';
-    	}
-    	if($user->validate_gender($user->get_gender())==false){
-    		$errors[]['errProfileGender']='gender not valid';
-    	}
-    	if($user->validate_occupation($user->get_occupation())==false){
-    		$errors[]['errProfileOccupation']='occupation is required';
-    	}
-    	if($user->validate_bio($user->get_bio())==false){
-    		$errors[]['errProfileBio']='bio not valid';
-    	}
-    	if($userDB->search_username_in_db($user->get_username())!==false){
-       		$errors[]['errProfilUsername']='Username already exists';
-       		throw new Exception('username taken');
-    	}
-    	if(count($errors)>1){
-    		throw new Exception('could not create user');
-    	}
 		$userDB->write_user();
+
 		if($userDB->user->get_id()>0){
         $_SESSION['userID']=$userDB->user->get_id();
      
@@ -79,23 +80,25 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $status=$user->userFolder->create_user_folder($user->get_username());
 		$bigData['status']='success';
 		$bigData['message']='everything all good';
-		$allData=['status'=>'success','username'=>$user->get_username(),'bio'=>$user->get_bio(),'fullname'=>$user->get_fullName()];
-		setcookie('setUpProfile',json_encode($allData), time() + (86400 * 1), '/'); 
-		setcookie('user',json_encode($allData), time() + (86400 * 1), '/'); 
+		$bigData['data']=['username'=>$user->get_username(),'shortBio'=>$user->get_shortBio(),'fullname'=>$user->get_fullName()];
 		$_SESSION['userID']=$user->get_id();
 		$_SESSION['username']=$user->get_username();
-      	echo json_encode($bigData);
-      	return;
+      	// echo json_encode($bigData);
+      
     }
-     throw new Exception('user failed to be created');
+    else{
+
+    	throw new Exception('user failed to be created');
+    }
 	}catch(Exception $err){
 		$bigData['errors']=$errors;
 		$bigData['status']='failed';
 		$bigData['message']=$err->getMessage();
-		setcookie('setUpProfile',json_encode($bigData), time() - (86400 * 1), '/');
-		echo json_encode($bigData);
-		return;
+		
+		// echo json_encode($bigData);
+		
 	}
+	setcookie('setUpProfile',json_encode($bigData), time() + (86400 * 1), '/');
 
 }
 
