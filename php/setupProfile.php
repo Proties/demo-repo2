@@ -98,7 +98,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		// echo json_encode($bigData);
 		
 	}
-	setcookie('setUpProfile',json_encode($bigData), time() + (86400 * 1), '/');
+	setcookie('setUpProfile',json_encode($bigData), time() + (86 * 1), '/');
 
 }
 

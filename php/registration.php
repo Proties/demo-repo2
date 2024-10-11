@@ -9,7 +9,12 @@ $err=new ErrorHandler();
 $errorMessages=[];
 $dataObj=array();
 $jsonData=[];
+setcookie('registration','', time() + (86400 * 1), '/'); 
 try{
+    unset($_SESSION['firstName']);
+    unset($_SESSION['password']);
+    unset($_SESSION['lastName']);
+    unset($_SESSION['email']);
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $data=file_get_contents('php://input');
         $dataObj=json_decode($data,true);
@@ -54,5 +59,5 @@ try{
     $jsonData['msg']=$error->getMessage();
     $jsonData['errorArray']=$errorMessages;
 }
-setcookie('registration',json_encode($jsonData), time() + (86400 * 1), '/'); 
+setcookie('registration',json_encode($jsonData), time() + (86 * 1), '/'); 
 ?>
