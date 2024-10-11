@@ -9,7 +9,7 @@ use Insta\Users\UserFile;
 use Insta\Images\Image;
 use Insta\Databases\Images\ImageDB;
 use Insta\Video\Video;
-use Insta\Databases\Video\VideoDB;
+use Insta\Database\Video\VideoDB;
 
 
 

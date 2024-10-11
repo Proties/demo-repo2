@@ -134,6 +134,9 @@ class ReviewPostUI{
 		let video=document.createElement('video');
 		video.setAttribute('class','basic');
 		video.setAttribute('src',this.src);
+		video.width=309;
+		video.setAttribute('controls',true);
+		// video.height=1209;
 		this.placeHolderMedia.append(video);
 	}
 	get_list_of_tags(){
@@ -167,7 +170,7 @@ class ReviewPostUI{
 	make_hidden_input(){
 		let input=document.createElement('input');
 		input.setAttribute('type','file');
-		input.setAttribute('name','image');
+		
 		this.form.append(input);
 		
 		console.log('========raw file');
@@ -176,6 +179,12 @@ class ReviewPostUI{
 		const fl=new DataTransfer();
 		fl.items.add(this.rawFile[0]);
 		input.files=fl.files;
+		if(this.rawFile[0].type=='image/png'){
+			input.setAttribute('name','image');
+		}else{
+			input.setAttribute('name','video');
+		}
+		
 		
 
 	}

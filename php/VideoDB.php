@@ -17,18 +17,20 @@ class VideoDB extends Database{
 		$db=$this->db;
 		try{
 			$query='
-					INSERT INTO Video
-					VALUES(:filename,:size,:type,:dateMade,:timeMade,:status)
+					INSERT INTO Videos
+					VALUES(:type,:size,:width,:height,:dateMade,:updated_at,:filepath,:filename)
 			';
 			$statement=$db->prepare($query);
 			$statement->bindValue(':filename',$this->video->get_filename());
+			$statement->bindValue(':filepath',$this->video->get_filepath());
+			$statement->bindValue(':updated_at',$this->video->get_dateUpdated());
 			$statement->bindValue(':size',$this->video->get_size());
 			$statement->bindValue(':type',$this->video->get_type());
 			$statement->bindValue(':dateMade',$this->video->get_dateMade());
-			$statement->bindValue(':timeMade',$this->video->get_timeMade());
-			$statement->bindValue(':status',$this->video->get_status());
+			$statement->bindValue(':height',$this->video->get_height());
+			$statement->bindValue(':width',$this->video->get_width());
 			$statement->execute();
-			$id=$statement->db2_last_insert_id($db);
+			$id=$db->last_insert_id();
 			$this->video->set_id($id);
 		}catch(PDOException $err){
 			return $err;
@@ -41,6 +43,11 @@ class VideoDB extends Database{
 						INSERT INTO VideoPost()
 						VALUES(:videoID,:postID)
 			';
+			$statement=$db->prepare($query);
+			$statement->bindValue(':videoID',$this->video->get_id());
+			$statement->bindValue(':postID',$this->video->get_postID());
+			$statement->execute();
+
 		}catch(PDOException $err){
 			return $err;
 		}

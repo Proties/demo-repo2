@@ -17,15 +17,15 @@ class Image{
 		$this->file=new ImageFile();
 		$this->width='200px';
 		$this->height='100px';
-		$this->dateMade=date('Y:m:d');
-		$this->dateModified=date('Y:m:d');
+		$this->dateMade='';
+		$this->dateModified='';
 		$this->size='300px';
 		$this->id=0;
 
 
 	}
 	public function set_dateMade(string $dt){
-		$this->dateMade=$dt;
+		$this->dateMade=date('Y:m:d');
 	}
 	
 	public function set_dateModifed(string $dt){
