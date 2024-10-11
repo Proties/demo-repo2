@@ -128,7 +128,6 @@
               </div>                 
             </div>            
            <div class="post">
-              <button>Daily Sketch Novice</button>
               <div class="Primary-post">
 
                 <img
@@ -174,7 +173,6 @@
             </div>
             <div class="post">
               <div class="Primary-post">
-                <button>tag</button>
                 <img
                   src="/Image/Comic.png.png"
                   alt="Post Image 6"
@@ -204,7 +202,7 @@
       </section>
 
       <!-- Modal Window -->
-      <section id="postModal" class="modal">
+      <section id="postModal" class="modal" style="display: none;">
         <span class="close" id="closeModal">&times;</span>
         <div class="modal-post">
           <img
@@ -222,16 +220,16 @@
       </section>
 
       <!-- Register Pop-up -->
-      <section id="registerModal" class="modal" style="display:none">
+      <section id="registerModal" class="modal" style="display:block">
         <div class="modal-container">
           <div class="heading-container">
           <span class="close" id="closeModalReg">&times;</span>
-          <h2 class="register-heading">Register</h2>
+          <h2 class="register-heading">Create Account</h2>
         </div>
           <div id="Form-container" class="form">
           <form id="registerForm">
             <div class="input-group">
-              <input type="text" id="name" name="name" placeholder="Name" required />
+              <input type="text" id="name" name="name" placeholder="First Name" required />
                <p id="errName"></p>
               <input type="text" id="surname" name="surname" placeholder="Last Name" required />
                <p id="errLastName"></p>
@@ -242,8 +240,12 @@
             <input type="password" id="password" name="password" placeholder="Password" required />
             <p id="errPassword"></p>
           </form>
-          <button type="submit" id="registerUserBtn">SUBMIT</button>
+          <button type="submit" id="registerUserBtn">Create Account</button>
         </div>
+        <div class="Log-in">
+        <p class="CAT">Already a member?</p><a href="" class="log-in-link">Log in</a>
+      </div>
+
         </div>
       </section>
 
