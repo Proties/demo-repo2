@@ -321,6 +321,7 @@ export class MyProfile extends ProfileUI{
                         user.registrationBtn.style.display='none';
                         return;
                     }
+                    
                     console.log(data);
                     for(let e=0;e<data.errors.length;e++){
                         let k=Object.keys(data.errors[e]);

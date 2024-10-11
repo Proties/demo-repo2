@@ -42,18 +42,17 @@ try{
         throw new Exception('could not create user');
     }
     
-    $jsonData['status']='success';
+  
     $_SESSION['firstName']=$user->get_name();
     $_SESSION['password']=$user->get_password();
     $_SESSION['lastName']=$user->get_lastName();
     $_SESSION['email']=$user->get_email();
-    setcookie('registration',json_encode($jsonData), time() + (86400 * 1), '/'); 
-    echo json_encode($jsonData);
-    return;
+    $jsonData['status']='success';
+    $jsonData['message']='user created succesfully';
 }catch(Exception $error){
-    $jsonData=array('status'=>'failed','msg'=>$error->getMessage(),"errorArray"=>$errorMessages);
-    setcookie('registration',json_encode($jsonData), time() + (86400 * 1), '/');
-    echo json_encode($jsonData);
+    $jsonData['status']='failed'
+    $jsonData['msg']=$error->getMessage();
+    $jsonData['errorArray']=$errorMessages;
 }
-
+setcookie('registration',json_encode($jsonData), time() + (86400 * 1), '/'); 
 ?>
