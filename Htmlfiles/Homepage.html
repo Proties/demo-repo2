@@ -36,7 +36,7 @@
     </header>
 
     <main>
-      <section class="challenge-section">
+      <section class="challenge-section" style="display: none;">
         <h2>Challenges</h2>
         <div class="challenge-container">
             <table>
@@ -89,7 +89,7 @@
         </div>
     </section>
 
-    <section class="challenge-filter-section">
+    <section class="challenge-filter-section" style="display: none;">
         <h2>Challenge Filter</h2>
         <div class="post-container">
             <!-- Example posts uploaded due to challenges -->
@@ -129,7 +129,9 @@
             </div>            
            <div class="post">
               <div class="Primary-post">
-
+                <div class="share-button">
+                  <img src="/Image/Share.png" alt="share">
+                </div>
                 <img
                   src="/Image/Comic.png.png"
                   alt="Post Image 6"
@@ -148,6 +150,9 @@
             </div>
             <div class="post">
               <div class="Primary-post">
+                <div class="share-button">
+                  <img src="/Image/Share.png" alt="share">
+                </div>
                 <img
                   src="/Image/Comic.png.png"
                   alt="Post Image 6"
@@ -155,6 +160,9 @@
                 />
               </div>
               <div class="Secondary-post">
+                <div class="share-button">
+                  <img src="/Image/Share.png" alt="share">
+                </div>
                 <img
                   src="/Image/Animation.png.jpg"
                   alt="Post Image 5"
@@ -167,12 +175,18 @@
           <div class="post-container-teriary">
             <div class="post-actions">
               <div class="profile-button">
+                <div class="share-button">
+                  <img src="/Image/Share.png" alt="share">
+                </div>
                 <img src="/Image/Test Account.png" alt="Profile Icon" class="profile-button-img"/>
                 <button class="follow-button" id="followBtn">Follow</button>
               </div>
             </div>
             <div class="post">
               <div class="Primary-post">
+                <div class="share-button">
+                  <img src="/Image/Share.png" alt="share">
+                </div>
                 <img
                   src="/Image/Comic.png.png"
                   alt="Post Image 6"
@@ -181,6 +195,9 @@
               </div>
 
               <div class="Secondary-post">
+                <div class="share-button">
+                  <img src="/Image/Share.png" alt="share">
+                </div>
                 <img
                   src="/Image/Animation.png.jpg"
                   alt="Post Image 5"
@@ -189,6 +206,9 @@
               </div>
 
               <div class="Tertiary-post">
+                <div class="share-button">
+                  <img src="/Image/Share.png" alt="share">
+                </div>
                 <img
                   src="/Image/Art.png"
                   alt="Post Image 5"
@@ -215,12 +235,13 @@
             <button class="modal-profile-button">
               <img src="/Image/Test Account.png" alt="profile-button" />
             </button>
+                <img src="/Image/Share.png" alt="share button" class="share">         
           </div>
         </div>
       </section>
 
       <!-- Register Pop-up -->
-      <section id="registerModal" class="modal" style="display:block">
+      <section id="registerModal" class="modal" style="display:none">
         <div class="modal-container">
           <div class="heading-container">
           <span class="close" id="closeModalReg">&times;</span>
@@ -243,7 +264,7 @@
           <button type="submit" id="registerUserBtn">Create Account</button>
         </div>
         <div class="Log-in">
-        <p class="CAT">Already a member?</p><a href="" class="log-in-link">Log in</a>
+        <p class="CAT">Already a member?<space></space> </p><a href="" class="log-in-link"> Log in</a>
       </div>
 
         </div>
@@ -266,17 +287,14 @@
             <div class="input-group">
               <input type="text" id="profileName" name="profileName" placeholder="User Name" required />
               <p id="errProfilUsername"></p>
-              <input type="text" id="fullName" name="fullName" placeholder="Full Name" required />
-              <p id="errProfileFullName"></p>
+              <input type="text" id="gender" name="gender" placeholder="Gender" required />
+              <p id="errProfileGender"></p>
             </div>
-      
-            <input type="text" id="gender" name="gender" placeholder="Gender" required />
-            <p id="errProfileGender"></p>
       
             <input type="text" id="occupation" name="occupation" placeholder="OCCUPATION" required />
             <p id="errProfileOccupation"></p>
       
-            <textarea id="biography" name="biography" placeholder="SHORT BIOGRAPHY" rows="4" required></textarea>
+            <textarea id="biography" name="biography" placeholder="Mini Bio" rows="4" required></textarea>
             <p id="errProfileBio"></p>
       
             <button type="submit" id="submitProfileSetup">SUBMIT</button>
