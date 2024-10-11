@@ -67,6 +67,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             if($postDB->post->get_postID()==null){
                 throw new Exception('post id not defined');
             }
+            $video->set_postID($postDB->post->get_postID());
             if(isset($_FILES['image'])){
                 $image->load_image($user->userFolder->get_dir());
                 $imageDB=new ImageDB($image);
@@ -78,6 +79,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
                 $video->load_video($user->userFolder->get_dir());
                 $videoDB=new VideoDB($video);
                 $videoDB->set_db($db);
+
                 $videoDB->write_video();
                 $videoDB->write_video_post($postDB->post->get_postID());
 

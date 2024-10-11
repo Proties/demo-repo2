@@ -11,9 +11,11 @@ class Video{
 	private $dateMade;
 	private $dateUpdated;
 	private $filepath;
+	private $postID;
 
 	public function __construct(){
 		$this->id=null;
+		$this->postID=null;
 		$this->filename='';
 		$this->filepath='';
 		$this->size='';
@@ -23,6 +25,9 @@ class Video{
 		$this->dateUpdated='';
 		$this->type='';
 		$this->status='show';
+	}
+	public function set_postID(int $id){
+		$this->postID=$id;
 	}
 	public function set_id(int $id){
 		$this->id=$id;
@@ -84,6 +89,9 @@ class Video{
 	}
 	public function get_type(){
 		return $this->type;
+	}
+	public function get_postID(){
+		return $this->postID;
 	}
 	public function load_video($dir){
 		try{

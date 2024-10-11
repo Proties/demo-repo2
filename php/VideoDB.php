@@ -17,7 +17,7 @@ class VideoDB extends Database{
 		$db=$this->db;
 		try{
 			$query='
-					INSERT INTO Videos
+					INSERT INTO Videos (video_type,video_size,video_width,video_height,created_at,updated_at,filepath,filename)
 					VALUES(:type,:size,:width,:height,:dateMade,:updated_at,:filepath,:filename)
 			';
 			$statement=$db->prepare($query);
@@ -30,7 +30,7 @@ class VideoDB extends Database{
 			$statement->bindValue(':height',$this->video->get_height());
 			$statement->bindValue(':width',$this->video->get_width());
 			$statement->execute();
-			$id=$db->last_insert_id();
+			$id=$db->lastInsertId();
 			$this->video->set_id($id);
 		}catch(PDOException $err){
 			return $err;
@@ -40,7 +40,7 @@ class VideoDB extends Database{
 		$db=$this->db;
 		try{
 			$query='
-						INSERT INTO VideoPost()
+						INSERT INTO VideoPost(videoID,postID)
 						VALUES(:videoID,:postID)
 			';
 			$statement=$db->prepare($query);
