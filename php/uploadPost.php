@@ -17,8 +17,6 @@ use Insta\Databases\Video\VideoDB;
 // use Insta\Database\Challenge\ChallengeDB;
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
-    $data=file_get_contents('php://input');
-    $data_f=json_decode($data,true);
     $errorMessages=[];
     $post=new Post();
     $data=[];
@@ -35,22 +33,22 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         }
         $user->set_username($_SESSION['username']);
         $user->set_id($_SESSION['userID']);
-        $post->set_caption($_POST['caption']);
+        $post->set_caption($_POST['post-caption']);
 
         $errorMessages=[];
-            if($data_f['img']==''){
+            if(isset($_FILES['image']) OR isset($_FILES['video'])){
                 $errorMessages=array('errImage'=>'no image');
             }
 
-            if($post->validate_caption($_POST['caption'])==false){
+            if($post->validate_caption($_POST['post-caption'])==false){
                 $errorMessages=array('errcaption'=>'not valid caption');
             }
       
             if(count($errorMessages)>1){
                 throw new Exception('could not create post');
             }
-            if($user->get_username()==''){
-                throw new Exception('no username');
+            if(empty($_SESSION['userID']) OR empty($_SESSION['username'])){
+                throw new Exception('no username no account');
             }
             // check if user folder is present if not create new folder
             if($user->userFolder->get_dir()==null){
@@ -70,14 +68,14 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
                 throw new Exception('post id not defined');
             }
             if(isset($_FILES['image'])){
-                $image->load_image();
+                $image->load_image($user->userFolder->get_dir());
                 $imageDB=new ImageDB($image);
                 $imageDB->set_db($db);
                 $imageDB->write_image();
                 $imageDB->write_image_post($postDB->post->get_postID());
             }
             if(isset($_FILES['video'])){
-                $video->load_video();
+                $video->load_video($user->userFolder->get_dir());
                 $videoDB=new VideoDB($video);
                 $videoDB->set_db($db);
                 $videoDB->write_video();
