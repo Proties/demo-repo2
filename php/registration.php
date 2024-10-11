@@ -9,7 +9,7 @@ $err=new ErrorHandler();
 $errorMessages=[];
 $dataObj=array();
 $jsonData=[];
-setcookie('registration','', time() + (86400 * 1), '/'); 
+// setcookie('registration','happy', time() - (30 * 600), '/'); 
 try{
     unset($_SESSION['firstName']);
     unset($_SESSION['password']);
@@ -26,6 +26,7 @@ try{
     $user->set_password($dataObj['password']);
     $user->set_email($dataObj['email']);
     $userDB=new UserDB($user);
+
     if($user->validate_name($user->get_name())==false){
         $errorMessages[]['errName']='Name not valid';
     }
@@ -52,12 +53,23 @@ try{
     $_SESSION['password']=$user->get_password();
     $_SESSION['lastName']=$user->get_lastName();
     $_SESSION['email']=$user->get_email();
+
     $jsonData['status']='success';
     $jsonData['message']='user created succesfully';
+    echo json_encode($jsonData);
 }catch(Exception $error){
-    $jsonData['status']='failed'
+    $jsonData['status']='failed';
     $jsonData['msg']=$error->getMessage();
     $jsonData['errorArray']=$errorMessages;
+    echo json_encode($jsonData);
 }
-setcookie('registration',json_encode($jsonData), time() + (86 * 1), '/'); 
+// $exp_date=time()+(60*30);
+// header('Set-Cookie: registration=' . json_encode($jsonData) . '; ' .
+//        'Expires=' . gmdate('D, d M Y H:i:s T', $exp_date) . '; ' .
+//        'Path=/; ' .
+//        'Secure; ' .  // Add Secure flag
+//        'HttpOnly; ' . // Add HttpOnly flag
+//        'SameSite=Strict'); 
+header('Cache-Control: no-cache');
+header('Pragma: no-cache');
 ?>

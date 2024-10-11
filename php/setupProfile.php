@@ -10,7 +10,7 @@ use Insta\Database\Template\TemplateDB;
 
 $user=new Users();
 
-
+// setcookie('setUpProfile','', time() - (30 * 20), '/');
 $bigData=[];
 $errors=[];
 
@@ -83,7 +83,12 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		$bigData['data']=['username'=>$user->get_username(),'shortBio'=>$user->get_shortBio(),'fullname'=>$user->get_fullName()];
 		$_SESSION['userID']=$user->get_id();
 		$_SESSION['username']=$user->get_username();
-      	// echo json_encode($bigData);
+      	echo json_encode($bigData);
+      	$store['userID']=$user->get_id();
+      	$store['username']->get_username();
+      	$store['shortBio']->get_shortBio();
+      	// $store['profilePicture']->get_profilePicture();
+      	setcookie('user',json_encode($$store), time() + (3000 * 600), '/');
       
     }
     else{
@@ -95,10 +100,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		$bigData['status']='failed';
 		$bigData['message']=$err->getMessage();
 		
-		// echo json_encode($bigData);
+		echo json_encode($bigData);
 		
 	}
-	setcookie('setUpProfile',json_encode($bigData), time() + (86 * 1), '/');
+	// setcookie('user',json_encode($bigData), time() + (30 * 60), '/');
 
 }
 

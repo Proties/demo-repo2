@@ -74,9 +74,6 @@ switch($action){
     case '/setup_profile':
         include_once('php/setupProfile.php');
         break;
-     // case '/upload_template':
-     //    include_once('php/uploadTemplate.php');
-     //    break;
     default:
         include_once('php/homePage.php');
         break;
