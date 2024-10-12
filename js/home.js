@@ -314,12 +314,18 @@ async function display_more_users(evt){
     }
     get_ish_form_cookie();
 }
+/*
+this function is called when a user presses the share button on a post 
 
+*/
+function shareModalPost(evt){
+
+}
 // this function listens to all events that take place ont the site and handles them
 function eventListeners(){
     let userProfile=document.getElementsByClassName("profile-button-img");
     let search_input=document.getElementById("search");
-    
+    let sharePost=document.getElementsByClassName('share-button');
     let selectTopPost=document.getElementsByClassName("Primary-post");
     let selectMiddlePost=document.getElementsByClassName("Secondary-post");
     let selectBottomPost=document.getElementsByClassName("Tertiary-post");
@@ -336,6 +342,9 @@ function eventListeners(){
     // viewMore.addEventListener("click",display_more_users);
     // morePosts.addEventListener("click",more_posts);
    
+    for(let i=0;i<sharePost.length;i++){
+        sharePost[i].addEventListener('click',shareModalPost);
+    }
     for(let i=0;i<userProfile.length;i++){
         userProfile[i].addEventListener('click',openUserProfile);
     }
