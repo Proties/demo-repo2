@@ -65,15 +65,13 @@ class ProfileUI extends Profile{
     }
     make_bio(){}
     make_user_info(){
-        document.getElementById('username').innerHTML=this.username;
-        document.getElementById('shortBio').innerHTML=this.shortBio;
-        document.getElementById('profilePicture').innerHTML=this.profilePicture;
-        document.getElementById('longBio').innerHTML=this.longBio;
-        document.getElementById('fullname').innerHTML=this.fullname;
-        // document.getElementById('fullBio').innerHTML=this.fullBio;
+        // document.getElementById('username').innerHTML=this.username;
+        // document.getElementById('shortBio').innerHTML=this.shortBio;
+        // document.getElementById('profilePicture').innerHTML=this.profilePicture;
+        // document.getElementById('longBio').innerHTML=this.longBio;
+        // document.getElementById('fullname').innerHTML=this.fullname;
+     
 
-        // document.getElementById('userBio').textContent=info.bio;
-        // document.getElementById('userProfilePicture').src=pic;
     }
  
 
@@ -81,7 +79,7 @@ class ProfileUI extends Profile{
 export class OtherProfile extends ProfileUI{
     constructor(){
         super();
-        this.posts;
+      
         this._data;
         this._cont;
         this._follow=new Follow();

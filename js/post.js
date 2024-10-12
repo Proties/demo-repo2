@@ -22,7 +22,7 @@ export class Post{
 		return this._className;
 	}
 	set id(i){
-		this._id=1;
+		this._id=i;
 	}
 	get id(){
 		return this._id;
@@ -71,8 +71,8 @@ export class PostUI extends Post{
 		this._postItem;
 		this._parentContainer;
 		this._cont;
-		this._yTop=this.cont.offsetTop;
-		this._yBottom=this.cont.offsetBottom;
+		this._yTop;
+		this._yBottom;
 	}
 	set yTop(i){
 		this._yTop=i;
@@ -107,7 +107,14 @@ export class PostUI extends Post{
         cont.setAttribute('id',this.id);
         this.cont=cont;
 	}
-
+	check_media_type(){
+		let pattern=/(.mp4)/i;
+		if(pattern.test(this.src)){
+			this.make_post();
+		}else{
+			this.make_video_post();
+		}
+	}
 	make_post(){
 		let con=document.createElement('div');
         let img=document.createElement('img');
@@ -122,9 +129,9 @@ export class PostUI extends Post{
 		let con=document.createElement('div');
         let video=document.createElement('video');
        
-        con.setAttribute('class','post');
+        con.setAttribute('class','posts-container');
         con.setAttribute('id',this.id);
-        img.setAttribute('src',this.src);
+        video.setAttribute('src',this.src);
         con.append(video);
         this.parentContainer.append(con);
 	}

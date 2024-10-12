@@ -35,8 +35,13 @@ function get_data_from_cookie(){
     let user_data=get_cookie('myprofile=');
     let setUpProfile=get_cookie('setUpProfile=');
     let data=get_cookie('profile=');
-    initialiseProfile(user_data); 
-    intialiseProfileObject(data,setUpProfile);
+    if(user_data!==undefined){
+        initialiseProfile(user_data); 
+    }else{
+         intialiseProfileObject(data,setUpProfile);
+    }
+    
+   
 }
 
 function get_template_upload_status(){
@@ -84,6 +89,9 @@ function readFile(file){
     // reader.readAsText(fileTwo);
             
 }
+function clear_placeholder_posts(){
+        
+}
 function clear_template_list(){
     let list=document.getElementsByClassName('templateContainer')[0];
     for(let tl=0;tl<list.childNodes.length;tl++){
@@ -106,7 +114,25 @@ function initialiseProfile(data){
         myProfile.fullname=data.userInfo.fullname;
         myProfile.shortBio=data.userInfo.shortBio;
         myProfile.longBio=data.userInfo.longBio;
-        myProfile.posts=data.post;
+       
+        myProfile.posts=data.posts;
+        myProfile.make_user_info();
+        myProfile.is_logged_in();
+        let parentContainer=document.getElementsByClassName("posts-section")[0];
+        console.log('parentContainer=========');
+        console.log(parentContainer)
+        const postLen=myProfile.posts.length;
+        for(let p=0;p<postLen;p++){
+            let post=new PostUI();
+            // post.populate_post();
+            post.parentContainer=parentContainer;
+
+            post.id=myProfile.posts[p].postID;
+            console.log(myProfile.posts[p]);
+            // post.src='/Image/Art.png';
+            post.src=myProfile.posts[p].filepath+'/'+myProfile.posts[p].filename;
+            post.check_media_type();
+    }
     }
     console.log('======my profile object=====');
     console.log(myProfile);
@@ -171,24 +197,24 @@ async function intialiseProfileObject(data,myData){
         currentProfile=new OtherProfile();
 
        
-        currentProfile.username=data.user[0].username;
-        currentProfile.shortBio=data.user[0].shortBio;
-        currentProfile.longBio=data.user[0].longBio;
-        currentProfile.fullname=data.user[0].fullname;
+        currentProfile.username=data.user.username;
+        currentProfile.shortBio=data.user.shortBio;
+        currentProfile.longBio=data.user.longBio;
+        currentProfile.fullname=data.user.fullname;
         currentProfile.make_user_info();
         console.log(currentProfile);
         let parentContainer=document.getElementsByClassName("posts-section")[0];
         console.log('parentContainer=========');
         console.log(parentContainer);
-        for(let p=0;p<data.posts.length;p++){
-            let post=new PostUI();
+        const otherProfilePostLen=data.posts.length;
+        for(let p=0;p<otherProfilePostLen;p++){
+            let postTwo=new PostUI();
             
-            post.parentContainer=parentContainer;
-            post.id=data.posts[p].postID;
-            // post.src='/Image/Art.png';
-            post.src=data.posts[p].img;
-            post.populate_post();
-            post.make_post();
+            postTwo.parentContainer=parentContainer;
+            postTwo.id=data.posts[p].postID;
+        
+            postTwo.src=data.posts[p].filepath+'/'+data.posts[p].filepath;
+            postTwo.check_media_type();
         }
 
        

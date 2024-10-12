@@ -15,23 +15,23 @@ if(isset($_SESSION['username']) && $_SESSION['username']!==null && isset($_SESSI
     setcookie('user','no account', time() - (86400 * 30), '/'); 
     setcookie('profile','no profile ', time() - (86400 * 30), '/'); 
 }
-function sortUserObjects(array $largeBlob,$prevUser,$newArray){
-    $len=count($largeBlob);
-    if($len==1){
-        return $newArray;
-    }
-    else{
-        $prevUser
-        if($largeBlob[$a]['userID']==$prevUser){
-            array_push($newArray, $largeBlob[$a]);
-        }
-        sortUserObjects(array $largeBlob,$prevUser,$newArray);
-    }
+// function sortUserObjects(array $largeBlob,$prevUser,$newArray){
+//     $len=count($largeBlob);
+//     if($len==1){
+//         return $newArray;
+//     }
+//     else{
+//         $prevUser
+//         if($largeBlob[$a]['userID']==$prevUser){
+//             array_push($newArray, $largeBlob[$a]);
+//         }
+//         sortUserObjects(array $largeBlob,$prevUser,$newArray);
+//     }
     
        
     
-}
-}
+// }
+
 try{
 
 
