@@ -36,7 +36,7 @@
     </header>
 
     <main>
-      <section class="challenge-section">
+      <section class="challenge-section" style="display: none;">
         <h2>Challenges</h2>
         <div class="challenge-container">
             <table>
@@ -89,7 +89,7 @@
         </div>
     </section>
 
-    <section class="challenge-filter-section">
+    <section class="challenge-filter-section" style="display: none;">
         <h2>Challenge Filter</h2>
         <div class="post-container">
             <!-- Example posts uploaded due to challenges -->
@@ -128,9 +128,10 @@
               </div>                 
             </div>            
            <div class="post">
-              
               <div class="Primary-post">
-
+                <div class="share-button">
+                  <img src="/Image/Share.png" alt="share">
+                </div>
                 <img
                   src="/Image/Comic.png.png"
                   alt="Post Image 6"
@@ -149,6 +150,9 @@
             </div>
             <div class="post">
               <div class="Primary-post">
+                <div class="share-button">
+                  <img src="/Image/Share.png" alt="share">
+                </div>
                 <img
                   src="/Image/Comic.png.png"
                   alt="Post Image 6"
@@ -156,6 +160,9 @@
                 />
               </div>
               <div class="Secondary-post">
+                <div class="share-button">
+                  <img src="/Image/Share.png" alt="share">
+                </div>
                 <img
                   src="/Image/Animation.png.jpg"
                   alt="Post Image 5"
@@ -174,7 +181,9 @@
             </div>
             <div class="post">
               <div class="Primary-post">
-                
+                <div class="share-button">
+                  <img src="/Image/Share.png" alt="share">
+                </div>
                 <img
                   src="/Image/Comic.png.png"
                   alt="Post Image 6"
@@ -183,6 +192,9 @@
               </div>
 
               <div class="Secondary-post">
+                <div class="share-button">
+                  <img src="/Image/Share.png" alt="share">
+                </div>
                 <img
                   src="/Image/Animation.png.jpg"
                   alt="Post Image 5"
@@ -191,6 +203,9 @@
               </div>
 
               <div class="Tertiary-post">
+                <div class="share-button">
+                  <img src="/Image/Share.png" alt="share">
+                </div>
                 <img
                   src="/Image/Art.png"
                   alt="Post Image 5"
@@ -203,8 +218,17 @@
         </div>
       </section>
 
+      <!--Mission Statement-->
+      <section class="mission-section" style="display: block;">
+        <h2>Supporting Nerstia is supporting a community where creativity thrives.
+        </h2>
+        <div class="mission-container">
+            
+        </div>
+    </section>
+
       <!-- Modal Window -->
-      <section id="postModal" class="modal">
+      <section id="postModal" class="modal" style="display: none;">
         <span class="close" id="closeModal">&times;</span>
         <div class="modal-post">
           <img
@@ -217,6 +241,7 @@
             <button class="modal-profile-button">
               <img src="/Image/Test Account.png" alt="profile-button" />
             </button>
+                <img src="/Image/Share.png" alt="share button" class="share">         
           </div>
         </div>
       </section>
@@ -226,12 +251,12 @@
         <div class="modal-container">
           <div class="heading-container">
           <span class="close" id="closeModalReg">&times;</span>
-          <h2 class="register-heading">Register</h2>
+          <h2 class="register-heading">Create Account</h2>
         </div>
           <div id="Form-container" class="form">
           <form id="registerForm">
             <div class="input-group">
-              <input type="text" id="name" name="name" placeholder="Name" required />
+              <input type="text" id="name" name="name" placeholder="First Name" required />
                <p id="errName"></p>
               <input type="text" id="surname" name="surname" placeholder="Last Name" required />
                <p id="errLastName"></p>
@@ -243,8 +268,12 @@
             <p id="errPassword"></p>
              <button type="submit" id="registerUserBtn">SUBMIT</button>
           </form>
-         
+          <button type="submit" id="registerUserBtn">Create Account</button>
         </div>
+        <div class="Log-in">
+        <p class="CAT">Already a member?<space></space> </p><a href="" class="log-in-link"> Log in</a>
+      </div>
+
         </div>
       </section>
 
@@ -265,17 +294,14 @@
             <div class="input-group">
               <input type="text" id="profileName" name="profileName" placeholder="User Name" required />
               <p id="errProfilUsername"></p>
-              <input type="text" id="fullName" name="fullName" placeholder="Full Name" required />
-              <p id="errProfileFullName"></p>
+              <input type="text" id="gender" name="gender" placeholder="Gender" required />
+              <p id="errProfileGender"></p>
             </div>
-      
-            <input type="text" id="gender" name="gender" placeholder="Gender" required />
-            <p id="errProfileGender"></p>
       
             <input type="text" id="occupation" name="occupation" placeholder="OCCUPATION" required />
             <p id="errProfileOccupation"></p>
       
-            <textarea id="biography" name="biography" placeholder="SHORT BIOGRAPHY" rows="4" required></textarea>
+            <textarea id="biography" name="biography" placeholder="Mini Bio" rows="4" required></textarea>
             <p id="errProfileBio"></p>
       
             <button type="submit" id="submitProfileSetup">SUBMIT</button>

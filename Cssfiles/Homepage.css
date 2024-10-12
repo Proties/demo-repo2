@@ -13,7 +13,7 @@ body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, figure, figcaption, blockquote, dl,
 }
 
 body {
-    font-family: Roboto;
+    font-family: 'Inter', sans-serif;
     font-size: 16px;
     line-height: 1.6;
     background-color: #f4f4f4;
@@ -282,6 +282,58 @@ display: none;
   color: #A7991E;
 }
 
+
+/*challenge section*/
+
+.mission-section {
+  position: fixed;
+  right: 10px;
+  top: 120px; /* Adjust based on header height */
+  width: 20%;
+  max-width: 330px;
+  height: 40vh; /* Takes 80% of viewport height */
+  background-color: #ffffff;
+  border: 2px solid #A7991E;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  overflow: hidden; /* Prevent overflow */
+  border-radius: 25px;
+}
+
+.mission-container {
+  height: 100%;
+  overflow-y: scroll; /* Enables vertical scrolling */
+}
+
+.challenge-section h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #A7991E;
+}
+
+.challenge-title {
+  font-size: 18px;
+}
+
+.go-button {
+  background-color: #fff;
+  color: #A7991E;
+  padding: 3px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  border-color: #A7991E;
+}
+
+.go-button:hover {
+  background-color: #A7991E;
+}
+
+/**/
+
 .post-container {
   display: flex;
   flex-direction: column;
@@ -387,19 +439,23 @@ display: none;
 
 .postfeed-wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(111%, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(106%, 1fr));
   grid-column-gap: 100px;
   overflow-y: auto;
   overflow-x: hidden;
   justify-items: center;   
 }
 
-.top-post:hover {
+.primary-post:hover {
     transform: scale(1.05);
 }
 
-.bottom-post:hover {
+.secondary-post:hover {
     transform: scale(1.05);
+}
+
+.tertiary-post:hover {
+  transform: scale(1.05);
 }
 
 .post img {
@@ -460,7 +516,11 @@ display: none;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
 
+.share-button{
+  width: 25px;
+  float: right;
 }
 
 /* View post window */
@@ -475,7 +535,7 @@ display: none;
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.87);
+    background-color: rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
     display: flex;
     justify-content: center;
@@ -494,19 +554,20 @@ display: none;
 }
 
 .close {
-    position: fixed;
-    top: 10px;
     left: 25px;
-    color: #fff;
+    color: #A7991E;
     font-size: 28px;
     font-weight: bold;
-    cursor: pointer;
     z-index: 1002; /* Ensure it stays on top of everything */
+    position: absolute;
+    top: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
 }
 
 .close:hover,
 .close:focus {
-    color: #000;
+     transform: scale(1.10);
     text-decoration: none;
     cursor: pointer;
 }
@@ -519,7 +580,6 @@ display: none;
     height: fit-content;
     background-color: transparent; /* Make background transparent */
     padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow-y: auto;
     box-sizing: border-box;
@@ -534,7 +594,7 @@ display: none;
     border: 1px solid #888;
     width: 80%;
     max-width: 600px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
 
@@ -554,12 +614,13 @@ display: none;
 }
 
 textarea {
-    width: 74%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    resize: vertical;
-    margin: 20px;
+  width: 74%;
+  padding: 10px;
+  border: 1px solid #A7991E;
+  border-radius: 5px;
+  resize: vertical;
+  margin: 20px;
+  color: #A7991E;
 }
 
 .modal-buttons {
@@ -626,6 +687,15 @@ textarea {
 transform: scale(1.10);
 }
 
+
+.share {
+  width: 50px;
+  height: auto;
+  position: absolute;
+  bottom: -5px;
+  right: 80px;
+}
+
 /* Register CSS */
 
 /* Modal background */
@@ -638,7 +708,7 @@ transform: scale(1.10);
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4); /* Modal background */
+    background-color: rgba(0, 0, 0, 0.1); /* Modal background */
     justify-content: center;
     align-items: center;
     display: flex;
@@ -646,11 +716,11 @@ transform: scale(1.10);
   
   /* Modal container */
   .modal-container {
-    background-color: #A7991E; /* Mustard yellow */
+    background-color: #fff;
     padding: 20px;
     border-radius: 40px;
-    width: 800px; /* Smaller width */
-    height: 550px;
+    width: 45%;
+    height: 555px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: absolute;
     text-align: center;
@@ -660,10 +730,10 @@ transform: scale(1.10);
   }
 
   .register-heading{
-    color: black;
-    top: 15px;
+    color: #A7991E;
+    top: 60px;
     position: absolute;
-    left: 369px;
+    left: 286px;
   }
 
 
@@ -673,15 +743,6 @@ transform: scale(1.10);
     align-items: center;
     padding: 20px;
 }
-  
-  /* Close button */
-  .close {
-    position: absolute;
-    top: 10px;
-    color: black;
-    font-size: 24px;
-    cursor: pointer;
-  } 
   
   /* Form styling */
   form {
@@ -709,29 +770,29 @@ transform: scale(1.10);
     width: 73%;
     padding: 10px;
     margin: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #A7991E;
     border-radius: 5px;
     font-size: 16px;
+    color: #A7991E;
   }
 
   /* Input fields styling */
   .input-group {
     display: flex;
     justify-content: space-between;
-    width: 80%;
+    width: 83%;
 
   }
  
   /* Submit button */
   button[type="submit"] {
     padding: 10px 20px;
-    background-color: white; /* Match button style */
-    color: black;
+    background-color: #A7991E;
+    color: white;
     border: none;
     border-radius: 15px;
     cursor: pointer;
     font-size: 16px;
-    margin-top: px;
   }
   
   button[type="submit"]:hover {
@@ -744,31 +805,28 @@ transform: scale(1.10);
     margin-bottom: 20px;
   }
 
-
-
-
-
-/*
- ProfileSetup Modal
-  /* Modal background *
-#profileSetupModal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4); /* Modal background *
+  .Log-in {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
+    margin-top: 35px;
+    position: absolute;
+    right: 266px;
   }
+
+  .CAT{
+    color: #333;
+    opacity:0.4;
+  }
+
+  .log-in-link{
+    color: #A7991E;
+    margin-left: 9px;
+  }
+
   
   /* Modal container */
     .profilesetupmodal-container {
-      background-color: #a7922f; /* Mustard yellow */
+      background-color: #fff;
       padding: 20px;
       border-radius: 40px;
       width: 800px; /* Smaller width */
@@ -777,92 +835,22 @@ transform: scale(1.10);
       position: absolute;
       text-align: center;
       align-content: center;
-      left: 345px;
-      top: 30px;
+      left: 373px;
+      top: 70px;
+      overflow: hidden;
   }
-  
-  
-  /* Close button *
-  .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: black;
-    font-size: 24px;
-    cursor: pointer;
-  }
-  
-  /* Form styling *
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  /* Profile Image Placeholder *
-  .profile-image-container {
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .profile-image-placeholder {
-    width: 80px;
-    height: 80px;
-    background-color: white;
-    border-radius: 50%;
-    line-height: 80px;
-    font-size: 14px;
-    color: black;
-  }
-  
-  /* Input fields styling *
-  .input-group {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  
-  .input-group input {
-    width: 48%; /* For PROFILE NAME and FULL NAME *
-  }
-  
-  input[type="text"],
-  textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  textarea {
-    resize: none;
-  }
-  
-  /* Submit button *
-  button[type="submit"] {
-    padding: 10px 20px;
-    background-color: white; /* Match button style *
-    color: black;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  button[type="submit"]:hover {
-    background-color: #ddd; /* Hover effect *
-  }
-  
-  /* Heading styling *
-  h2 {
-    color: black;
-    margin-bottom: 20px;
-  }
-*/
 
+  .profilesetupmodal-container h2{
+    color: #A7991E;
+    position: absolute;
+    top: 36px;
+    left: 90px;
+  }
+
+  .profile-image-container{
+    align-self: start;
+    margin-left: 61px;
+  }
 
 /*footer*/
 .footer {
