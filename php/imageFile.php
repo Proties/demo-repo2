@@ -2,8 +2,8 @@
 namespace Insta\Images;
 use Exception;
 class ImageFile{
-    private  $filename;
-    private  $filePath;
+    private string $filename;
+    private string $filePath;
     private string $imageType;
     private string $postLinkID;
     public function __construct(){
@@ -13,10 +13,10 @@ class ImageFile{
         $this->postLinkID='';
 
     }
-     public function set_filename(string|null $str){
+     public function set_filename(string $str){
         $this->filename=$str;
     }
-    public function set_filePath(string|null $str){
+    public function set_filePath(string $str){
         $this->filePath=$str;
     }
     public function set_postLinkID(string $str){
@@ -45,21 +45,21 @@ class ImageFile{
         }
     }
 
-    public function get_filename()
+    public function get_filename():string
     {
         return $this->filename;
     }
-    public function get_imageType() 
+    public function get_imageType():string
     {
         return $this->imageType;
     }
-    public function get_filePath()
+    public function get_filePath():string
     {
         return $this->filePath;
     }
-    public function get_postLinkID()
+    public function get_postLinkID():string
     {
-        return $this->filePath;
+        return $this->postLinkID;
     }
 }
 

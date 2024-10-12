@@ -110,16 +110,17 @@ export class PostUI extends Post{
 	check_media_type(){
 		let pattern=/(.mp4)/i;
 		if(pattern.test(this.src)){
-			this.make_post();
-		}else{
 			this.make_video_post();
+		}else{
+			
+			this.make_post();
 		}
 	}
 	make_post(){
 		let con=document.createElement('div');
         let img=document.createElement('img');
        
-        con.setAttribute('class','post');
+        con.setAttribute('class','posts-container');
         con.setAttribute('id',this.id);
         img.setAttribute('src',this.src);
         con.append(img);

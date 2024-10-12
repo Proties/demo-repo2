@@ -14,6 +14,7 @@ use Insta\Database\Follower\FollowerDB;
 
 $mainUser=new Users();
 $template=new Template();
+setcookie('myprofile','', time() - (86400 * 30), '/');
 if(isset($_SESSION['username']) && $_SESSION['username']!==null){
     $mainUser->userAuth->set_authanticate(true);
 }
@@ -23,21 +24,32 @@ $f_txt=urldecode($f_txt);
 $u=new Users();
 $udb=new UserDB($u);
 if($f_txt==='/profile'){
+
     $data;
     $personal=[];
     $author=new Users();
-    $author->set_username($_SESSION['username']);
-    $author->set_id($_SESSION['userID']);
+    if(isset($_SESSION['username'])){
+        $author->set_username($_SESSION['username']);
+        $author->set_id($_SESSION['userID']);
+    }
+    
     $authorDB=new UserDB($author);
     $authorDB->get_posts_with_username();
     $userDetails['userID']=$author->get_id();
     $userDetails['username']=$author->get_username();
+    $userDetails['shortBio']=$author->get_shortBio();
+    $userDetails['fullname']=$author->get_shortBio();
+    $userDetails['longBio']=$author->get_longBio();
+    $userDetails['following']=$author->get_followingNo();
+    $userDetails['follower']=$author->get_followersNo();
+    $userDetails['profilePicture']=$author->get_profilePicture();
     // $userDetails['profilePicture']=$author->get_profilePicture();
     $personal['userInfo']=$userDetails;
     $personal['posts']=$authorDB->user->postList->get_posts();
    setcookie('myprofile',json_encode($personal), time() + (86400 * 30), '/'); 
 }
 else if($u->validate_username_url($f_txt)==true ){
+    setcookie('myprofile','', time() - (86400 * 30), '/'); 
     try{
         $txt=substr($f_txt,2);
         $link=$txt;

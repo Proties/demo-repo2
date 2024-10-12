@@ -25,6 +25,8 @@ class Users implements Serializable{
     private string  $userProfileLink;
     private bool $status;
     private int $id;
+    private int $follower;
+    private int $following;
     private array $data;
     public Template $temp;
     public UserFolder $userFolder;
@@ -196,6 +198,14 @@ class Users implements Serializable{
         return $this->errorMessages;
     }
 
+    public function get_followingNo():int
+    {
+        return $this->following;
+    }
+    public function get_followersNo():int
+    {
+        return $this->follower;
+    }
    public function get_auth(){
     $this->userAuth;
    }

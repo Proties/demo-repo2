@@ -58,41 +58,42 @@ public function chronoTwo(){
     $db=$this->db;
     try{
 
-        $query='
+        $query="
                 SELECT 
-    userID, 
-    username, 
-    video_filename, 
-    video_filepath, 
-    image_filename, 
-    image_filepath 
-FROM 
-    (
-        SELECT 
-            u.userID, 
-            u.username, 
-            v.filename AS video_filename, 
-            v.filepath AS video_filepath, 
-            i.filename AS image_filename, 
-            i.filepath AS image_filepath,
-            ROW_NUMBER() OVER (PARTITION BY u.userID ORDER BY p.postID DESC) AS row_num
-        FROM 
-            Posts p 
-        INNER JOIN 
-            Users u ON p.userID = u.userID 
-        LEFT JOIN 
-            VideoPost vp ON p.postID = vp.postID 
-        LEFT JOIN 
-            Videos v ON vp.videoID = v.id 
-        LEFT JOIN 
-            PostImages ip ON p.postID = ip.postID 
-        LEFT JOIN 
-            Images i ON ip.imageID = i.imageID 
-    ) subquery
-WHERE 
-    row_num <= 3
-            ';
-        $stmt->prepare($query);
+                userID, 
+                username, 
+                video_filename, 
+                video_filepath, 
+                image_filename, 
+                image_filepath 
+            FROM 
+                (
+                SELECT 
+                    u.userID, 
+                    u.username, 
+                    v.filename AS video_filename, 
+                    v.filepath AS video_filepath, 
+                    i.filename AS image_filename, 
+                    i.filepath AS image_filepath,
+                    ROW_NUMBER() OVER (PARTITION BY u.userID ORDER BY p.postID DESC) AS row_num
+                FROM 
+                    Posts p 
+                INNER JOIN 
+                    Users u ON p.userID = u.userID 
+                LEFT JOIN 
+                    VideoPost vp ON p.postID = vp.postID 
+                LEFT JOIN 
+                    Videos v ON vp.videoID = v.id 
+                LEFT JOIN 
+                    PostImages ip ON p.postID = ip.postID 
+                LEFT JOIN 
+                    Images i ON ip.imageID = i.imageID 
+                ) subquery
+            WHERE 
+                row_num <= 3;
+
+        ";
+        $stmt=$db->prepare($query);
         $stmt->execute();
         return $stmt->fetchall();
     }catch(PDOExecption $err){

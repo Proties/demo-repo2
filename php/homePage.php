@@ -6,78 +6,62 @@ use Insta\Posts\Post;
 use Insta\Ranking\Ranking;
 
 $mainUser=new Users();
-
+setcookie('profile','no profile ', time() - (86400 * 30), '/'); 
 if(isset($_SESSION['username']) && $_SESSION['username']!==null && isset($_SESSION['userID'])){
     $mainUser->userAuth->set_authanticate(true);
     setcookie('user',json_encode($_SESSION['username']), time() + (86400 * 30), '/'); 
 }else{
     unset($_SESSION['username']);
     setcookie('user','no account', time() - (86400 * 30), '/'); 
-    setcookie('profile','no profile ', time() - (86400 * 30), '/'); 
+    
 }
-// function sortUserObjects(array $largeBlob,$prevUser,$newArray){
-//     $len=count($largeBlob);
-//     if($len==1){
-//         return $newArray;
-//     }
-//     else{
-//         $prevUser
-//         if($largeBlob[$a]['userID']==$prevUser){
-//             array_push($newArray, $largeBlob[$a]);
-//         }
-//         sortUserObjects(array $largeBlob,$prevUser,$newArray);
-//     }
-    
-       
-    
-// }
+/*
+this function will take an array or posts and will group the post made by the same user in a single  nested array
 
+*/
+function formatProfileObject(array $bigData){
+    $newArray=[];
+    $maxLen=count($bigData);
+    $i=0;
+    $c=0;
+    try{
+        while($maxLen>$i){
+        $username=$bigData[$i]['username'];
+        if($i==0){
+            
+            $userID=$bigData[$i]['userID'];
+            
+            $newArray[$username]=$bigData[$i];
+        }
+        else if($bigData[$i]['username']!==$bigData[$i-1]['username']){
+            $newArray[$username][]=$bigData[$i];
+            $i++;
+        }
+        else{
+            $newArray[$username][]=$bigData[$i-1];
+        }
+         $i++;
+    }
+}catch(Exception $err){
+    return  $err;
+}
+    
+    return $newArray;
+    
+}
 try{
 
 
 $arrayPosts=[];
 $data=[];
 $rank=new Ranking();
-$info=$rank->chrono($arrayPosts);
+$info=$rank->chronoTwo($arrayPosts);
 $arrLen=count($info);
-for($x=0;$x<$arrLen;$x++){
-    $user=new Users();
-
-    $primary_post=new Post();
-
-    $user->set_username($info[$x]['username']);
-    $string=$info[$x]['postLink'];
-    $path=substr($string,0,strpos($string, '/'));
-    $name=substr($string,strpos($string, '/'));
-    $primary_post->set_postLinkID($info[$x]['postLinkID']);
-    $primary_post->set_postID($info[$x]['postID']);
-
-    $primary_post->get_image()->set_filename($name);
-    $primary_post->get_image()->set_filePath($path);
-    
-    $secondary_post=new Post();
-    $string_two=$info[$x]['post2Link'];
-    $path_two=substr($string,0,strpos($string, '/'));
-    $name_two=substr($string,strpos($string, '/'));
-    $secondary_post->set_postID($info[$x]['post2ID']);
-    $secondary_post->set_postLinkID($info[$x]['post2LinkID']);
-    $primary_post->get_image()->set_filename($name_two);
-    $secondary_post->get_image()->set_filePath($path_two);
-    $data['users'][]=array(
-        'user_info'=>array('username'=>$user->get_username(),'userprofilePic'=>$user->get_profilePicture()),
-        'primary_post'=>array('img'=>$primary_post->get_image()->get_filePath().$primary_post->get_image()->get_fileName(),
-            'postID'=>$primary_post->get_postID(),
-            'postLinkID'=>$primary_post->get_postLinkID()),
-            'secondary_post'=>array('img'=>$secondary_post->get_image()->get_filePath().$secondary_post->get_image()->get_fileName(),
-            'postID'=>$secondary_post->get_postID(),
-            'postLinkID'=>$secondary_post->get_postLinkID()
-        ));
-
-
-    }
-    setcookie('users',json_encode($data) , time() + (8640 * 1), '/');
+    $newData=formatProfileObject($info);
+    setcookie('users',json_encode($newData) , time() + (8640 * 1), '/');
 }catch(Exception $err){
     echo $err->getMessage();
+    setcookie('users','' , time() - (8640 * 1), '/');
 }
 
 if($_SERVER['REQUEST_METHOD']=='GET'){
@@ -108,13 +92,13 @@ switch($action){
             
             $followerID=$_POST['followerID'];
          
-            // if(empty($_SESSION['userID']) or empty($_POST['followerID'])){
-            //     throw new Exception('make an account');
-            // }
+            if(empty($_SESSION['userID']) or empty($_POST['followerID'])){
+                throw new Exception('make an account');
+            }
            
-            // $f=new Follower($mainUser,$currentProfile);
-            // $fDB=new FollowerDB($f);
-            // $fDB->addFollower();
+            $f=new Follower($mainUser,$currentProfile);
+            $fDB=new FollowerDB($f);
+            $fDB->addFollower();
             
           
             $data['status']='success';
@@ -129,9 +113,9 @@ switch($action){
     case 'unfollow_user':
         try{
            
-            // if(!isset($_POST['followerID']) OR empty($_SESSION['userID'])){
-            //      throw new Exception('make an account');
-            // }
+            if(!isset($_POST['followerID']) OR empty($_SESSION['userID'])){
+                 throw new Exception('make an account');
+            }
             
             $data['status']='success';
             $data['message']='its all right';

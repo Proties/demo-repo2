@@ -36,22 +36,17 @@ function get_cookie(name){
 }
 }
 function get_ish_form_cookie(){
-    allData=get_cookie("users=");
-    let user_data=get_cookie("user=");
-    if(allData==undefined && user_data==undefined){
-        console.log('no posts or user account');
-        return;
-    }else if(user_data!==undefined){
-        console.log(user_data);
-        initialiseObjects(allData,user_data,);
+    let profilesObjs=get_cookie("users=");
+    let user_data=get_cookie("myprofile=");
+    if(profilesObjs==undefined){
+        console.log('no posts ');
     }else{
-        initialiseObjects(allData,user_data);
-        console.log(allData);
-        // init_img(allData);
-        // init_user(user_data);
+        initialiseObjects(profilesObjs,user_data);
+    }
+        
     }
     // init_categories(dtt.categories);
-}
+
 function get_registration_info_from_cookie(){
     let registration=get_cookie('registration=');
     if(registration!==undefined && registration!==false){
@@ -77,20 +72,21 @@ function get_username_search_results_info_from_cookie(){
     }
     return false;
 }
+function clear_posts(){
 
-let testData=[
-{username:'rotondwa',fullname:'',firstName:'',lastname:'nems',following:true,profilePicture:'/Image/Test Account.png',id:12,post:{id:2,src:'/Image/Comic.png.png'}},
-{username:'rinae',fullname:'',firstName:'',lastname:'nems',following:false,profilePicture:'/Image/Test Account.png',id:25,posts:[{id:3,src:'/Image/Comic.png.png'},{id:4,src:'/Image/Comic.png.png'}]},
-{username:'sindy',fullname:'',firstName:'',lastname:'nems',following:true,profilePicture:'/Image/Test Account.png',id:43,posts:[{id:5,src:'/Image/Comic.png.png'},{id:6,src:'/Image/Comic.png.png'},{id:7,src:'/Image/Comic.png.png'}]}
-];
+}
+// let testData=[
+// {username:'rotondwa',fullname:'',firstName:'',lastname:'nems',following:true,profilePicture:'/Image/Test Account.png',id:12,post:{id:2,src:'/Image/Comic.png.png'}},
+// {username:'rinae',fullname:'',firstName:'',lastname:'nems',following:false,profilePicture:'/Image/Test Account.png',id:25,posts:[{id:3,src:'/Image/Comic.png.png'},{id:4,src:'/Image/Comic.png.png'}]},
+// {username:'sindy',fullname:'',firstName:'',lastname:'nems',following:true,profilePicture:'/Image/Test Account.png',id:43,posts:[{id:5,src:'/Image/Comic.png.png'},{id:6,src:'/Image/Comic.png.png'},{id:7,src:'/Image/Comic.png.png'}]}
+// ];
 // let meData={fullname:'rotondwa',username:'sackie',bio:''};
 let meData=null;
-initialiseObjects(testData,meData);
+// initialiseObjects(testData,meData);
 
 function initialiseObjects(cookie_data,cookie_user){
     console.log('=========cookie data========');
     console.log(cookie_data);
-    console.log(cookie_user);
     console.log(cookie_user);
     if(cookie_user!==undefined){
         user.username=cookie_user.username;
@@ -99,9 +95,10 @@ function initialiseObjects(cookie_data,cookie_user){
         user.registrationBtn.style.display='none';
     }
    if(cookie_data!==undefined){
-        clear_posts();
+        // clear_posts();
         let parentCont=document.getElementsByClassName("postfeed-wrapper")[0];
         for(let i=0;i<cookie_data.length;i++){
+            console.log('=======array loop enternder');
             let profileItem=new OtherProfile();
             profileItem.id=cookie_data[i].id;
             profileItem.username=cookie_data.username;
@@ -388,7 +385,7 @@ function init_img(arr){
     }
 }
 open_postPreview();
-// get_ish_form_cookie();
+get_ish_form_cookie();
 eventListeners();
 
 

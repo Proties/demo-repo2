@@ -50,17 +50,17 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             if(empty($_SESSION['userID']) OR empty($_SESSION['username'])){
                 throw new Exception('no username no account');
             }
+            $user->userFolder->set_folderName($user->get_username());
             // check if user folder is present if not create new folder
             if($user->userFolder->get_dir()==null){
                   $user->userFolder->create_user_folder($user->get_username());   
             }
         
             $image->file->make_filename();
-            $video->make_filename();
             $post->set_postLinkID($image->file->get_postLinkID());
             $post->set_postLink('/@'.$user->get_username().'/'.$image->file->get_postLinkID());
             $post->set_authorID($user->get_id());
-            
+            $image->file->set_filepath($user->userFolder->get_dir());
           
             $postDB=new PostDB($post);
             $postDB->set_db($db);

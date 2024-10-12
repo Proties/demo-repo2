@@ -12,18 +12,20 @@ class Video{
 	private $dateUpdated;
 	private $filepath;
 	private $postID;
+	private $postLinkID;
 
 	public function __construct(){
 		$this->id=null;
 		$this->postID=null;
 		$this->filename='';
 		$this->filepath='';
+		$this->postLinkID='';
 		$this->size='';
 		$this->width='';
 		$this->height='';
 		$this->dateMade='';
 		$this->dateUpdated='';
-		$this->type='';
+		$this->type='.png';
 		$this->status='show';
 	}
 	public function set_postID(int $id){
@@ -59,6 +61,9 @@ class Video{
 	public function set_status($id){
 		$this->status=$id;
 	}
+	public function set_postLinkID($id){
+		$this->postLinkID=$id;
+	}
 
 	public function get_id(){
 		return $this->id;
@@ -93,6 +98,9 @@ class Video{
 	public function get_postID(){
 		return $this->postID;
 	}
+	public function get_postLinkID(){
+		return $this->postLinkID;
+	}
 	public function make_filename(){
         try{
            
@@ -104,7 +112,7 @@ class Video{
             if($ids_array[0]===''){
                 throw new Exception("not a valid id");
             }
-            $this->set_fileName($ids_array[0].$this->get_imageType());
+            $this->set_filename($ids_array[0].$this->get_type());
             $this->set_postLinkID($ids_array[0]);
             array_splice($ids_array,0,1);
             file_put_contents('php/ids.json', json_encode($ids_array));
@@ -124,6 +132,7 @@ class Video{
 			$filetype=$_FILES['video']['type'];
 
 			$this->set_filename($filename);
+			$this->set_filepath($dir);
 			$this->set_size($filesize);
 			$this->set_type($filetype);
 			$this->set_dateMade();
