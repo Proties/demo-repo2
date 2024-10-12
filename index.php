@@ -15,6 +15,9 @@ try{
     require_once 'php/Follower.php';
     require_once 'php/FollowerDB.php';
 
+    require_once 'php/Video.php';
+    require_once 'php/VideoDB.php';
+
     require_once 'php/userFile.php';
     require_once 'php/userAuth.php';
     require_once 'php/image.php';
@@ -70,6 +73,9 @@ switch($action){
         break;
     case '/upload_post':
         include_once('php/uploadPost.php');
+        break;
+    case '/upload_video':
+        include_once('php/uploadVideo.php');
         break;
     case '/setup_profile':
         include_once('php/setupProfile.php');

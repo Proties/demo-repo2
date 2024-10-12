@@ -24,7 +24,18 @@ $u=new Users();
 $udb=new UserDB($u);
 if($f_txt==='/profile'){
     $data;
-   setcookie('profile','no account', time() - (86400 * 30), '/'); 
+    $personal=[];
+    $author=new Users();
+    $author->set_username($_SESSION['username']);
+    $author->set_id($_SESSION['userID']);
+    $authorDB=new UserDB($author);
+    $authorDB->get_posts_with_username();
+    $userDetails['userID']=$author->get_id();
+    $userDetails['username']=$author->get_username();
+    // $userDetails['profilePicture']=$author->get_profilePicture();
+    $personal['userInfo']=$userDetails;
+    $personal['posts']=$authorDB->user->postList->get_posts();
+   setcookie('myprofile',json_encode($personal), time() + (86400 * 30), '/'); 
 }
 else if($u->validate_username_url($f_txt)==true ){
     try{
@@ -36,36 +47,15 @@ else if($u->validate_username_url($f_txt)==true ){
         $author->set_username($link);
         $authorDB=new UserDB($author);
         $authorDB->get_posts_with_username();
-       
-        $data['user'][0]=array('username'=>$authorDB->user->get_username(),'userProfilePicture'=>$authorDB->user->get_profilePicture(),
+ 
+        $data['user']=array('username'=>$authorDB->user->get_username(),'userProfilePicture'=>$authorDB->user->get_profilePicture(),
                                     'shortBio'=>$authorDB->user->get_shortBio(),'longBio'=>$authorDB->user->get_longBio());
-
-        $arr=$authorDB->user->postList->get_posts();
-        if(!is_array($arr)){
-            throw new Exception('not array');
-        }
-        if(($arr==null) || ($arr[0]['filename']==null)){
-            $data['posts']=$arr;
-
-        }else{
-        $lenArr=count($arr);
-        for ($i = 0; $i < $lenArr; $i++) {
-            $postItem = new Post();
-            $postItem->set_postID($arr[$i]['postID']);
-            $filename=$arr[$i]['filename'];
-            $path=$arr[$i]['filepath'];
-            $postItem->get_image()->file->set_filePath($path);
-            $postItem->get_image()->file->set_fileName($filename);
-            $data['posts'][$i] = array(
-                'filename' => $postItem->get_postID(),
-                'img' => $postItem->get_image()->file->get_filePath().$postItem->get_image()->file->get_fileName()
-            );
-        }
-        }
-    
+        $data['posts']=$authorDB->user->postList->get_posts();
         setcookie('profile',json_encode($data), time() + (86400 * 30), '/'); 
     }catch(Exception $err){
-        echo $err->getMessage();
+        $data['message']=$err->getMessage();
+        $data['status']='failed';
+        setcookie('profile',json_encode($data), time() + (86400 * 30), '/');
       
     }
 }

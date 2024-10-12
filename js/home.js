@@ -3,34 +3,19 @@ import {MyProfile,OtherProfile} from './profile.js';
 import {PostUI} from './post.js';
 import StackedPosts from './stackPosts.js';
 import RegistrationUI from './registration.js';
+
 import {Follow,UnFollow} from './follow.js';
+
+import VideoUI from './video.js';
+
 
 let user=new MyProfile();
 let allData;
 let profileList=[];
 let registrationForm=new RegistrationUI();
 
-function clear_posts(){
-    let postsItems=document.getElementsByClassName('post-container');
-    console.log('============removing posts=======');
-    let p=0;
-    let num=postsItems.length;
-    while(p<num){
-        if(postsItems[p]!==undefined){   
-            postsItems[p].remove();
-            p--;
-        }
-      
-         p++;
-    }
-    // for(let p=0;p<postsItems.childNodes.length;p++){
-    //     postsItems.removeChild(postsItems.childNodes[p]);
-    //     console.log(postsItems.childNodes[p]);
-    // }
-    console.log('============ done removing posts=======');
-}
-clear_posts();
-
+// let video=new VideoUI();
+// video.make_form_submission();
 function get_cookie(name){
     let data=document.cookie;
 
@@ -99,8 +84,8 @@ let testData=[
 {username:'sindy',fullname:'',firstName:'',lastname:'nems',following:true,profilePicture:'/Image/Test Account.png',id:43,posts:[{id:5,src:'/Image/Comic.png.png'},{id:6,src:'/Image/Comic.png.png'},{id:7,src:'/Image/Comic.png.png'}]}
 ];
 // let meData={fullname:'rotondwa',username:'sackie',bio:''};
-let meData=undefined;
-// initialiseObjects(testData,meData);
+let meData=null;
+initialiseObjects(testData,meData);
 
 function initialiseObjects(cookie_data,cookie_user){
     console.log('=========cookie data========');
@@ -328,7 +313,7 @@ function eventListeners(){
     let selectTopPost=document.getElementsByClassName("top-post");
     let selectBottomPost=document.getElementsByClassName("bottom-post");
     let viewMore=document.getElementsByClassName("view-more-btn")[0];
-    let registerBtn = document.querySelector(".register-button");
+    let registerBtn = document.getElementById('userRegistration');
     let closeReg = document.getElementById("closeModalReg");
 
     let modal = document.getElementById("registerModal");
@@ -351,7 +336,7 @@ function eventListeners(){
         selectBottomPost[i].addEventListener('click',openModal);
     }
 
-    registerBtn.addEventListener('click',function() {
+    registerBtn.addEventListener('click',function(evt) {
         modal.style.display = "block";
         // registrationForm.submissionBtn.addEventListener('click',function(evt){
         //     evt.preventDefault();

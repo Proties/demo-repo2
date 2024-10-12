@@ -1,87 +1,90 @@
-"strict";
-export class Video{
+"strict"
+class Video{
 	constructor(){
 		this._id;
 		this._src;
 		this._width;
-		this._height;
-		this._size;
-		this._name;
-		this._title;
-		this._dateModified;
-		this._timeModified;
-		this._extensions=['.mp4','.wav','.mkv'];
-		this._item={
-			id:this.id,
-			src:this.src,
-			dateModified:this.dateModified,
-			lastModified:this.lastModified,
-			size:this.size,
-			title:this.title,
-			name:this.name,
-		}
-	}
-	set dateModified(i){
-		this._dateModified=i;
-	}
-	get dateModified(){
-		return this._dateModified;
-	}
-	set lastModified(i){
-		this._lastModified=i;
-	}
-	get lastModified(){
-		return this._lastModified;
-	}
+		this._length;
 
+	}
 	set id(i){
 		this._id=i;
-	}
-	get id(){
-		return this._id;
 	}
 	set src(i){
 		this._src=i;
 	}
-	get src(){
-		return this._src;
-	}
 	set width(i){
 		this._width=i;
+	}
+	set length(i){
+		this._length=i;
+	}
+
+	get id(){
+		return this._id;
+	}
+	get src(){
+		return this._src;
 	}
 	get width(){
 		return this._width;
 	}
-	set height(i){
-		this._height=i;
+	get length(){
+		return this._length;
 	}
-	get height(){
-		return this._height;
-	}
-	set size(i){
-		this._size=i;
-	}
-	get size(){
-		return this._size;
-	}
-	set name(i){
-		this._name=i;
-	}
-	get name(){
-		return this._name;
-	}
-	set title(i){
-		this._title=i;
-	}
-	get title(){
-		return this._title;
-	}
-	
 }
-class VideoUI extends Video{
+export class VideoUI extends Video{
 	constructor(){
 		super();
+		this._cont;
+		this._parent=document.body;
+
 	}
-	checkAllowedExtensions(){}
-	previewVideo(){}
+	set cont(c){
+		this._cont=c;
+	}
+	get cont(){
+		return this._cont;
+	}
+	get parent(){
+		return this._parent;
+	}
+	make_form_submission(){
+		let form=document.createElement('form');
+		let lbl=document.createElement('Label');
+		let lblTxt=document.createTextNode('Video Submission: ');
+		let input=document.createElement('input');
+		let btn=document.createElement('button');
+		let btnTxt=document.createTextNode('Submit Video');
+
+
+		form.setAttribute('class','modal');
+		form.setAttribute('action','/upload_video');
+		form.setAttribute('enctype','multipart/form-data');
+		form.setAttribute('method','post');
+		input.setAttribute('type','file');
+		input.setAttribute('name','video');
+		btn.setAttribute('id','submitVideo');
+		lbl.append(lblTxt);
+		btn.append(btnTxt);
+		form.append(lbl);
+		form.append(input);
+		form.append(btn);
+
+		this.parent.append(form);
+		
+	}
+	make_video(){
+		let container=document.createElement('div');
+		let video=document.createElement('video');
+		container.setAttribute('class',);
+		container.setAttribute('id',);
+		video.setAttribute('class',);
+		video.setAttribute('id',);
+		container.append(video);
+		this.cont=container;
+	}
+	
+	
 }
+export default VideoUI;

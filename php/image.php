@@ -17,15 +17,15 @@ class Image{
 		$this->file=new ImageFile();
 		$this->width='200px';
 		$this->height='100px';
-		$this->dateMade=date('Y:m:d');
-		$this->dateModified=date('Y:m:d');
+		$this->dateMade='';
+		$this->dateModified='';
 		$this->size='300px';
 		$this->id=0;
 
 
 	}
 	public function set_dateMade(string $dt){
-		$this->dateMade=$dt;
+		$this->dateMade=date('Y:m:d');
 	}
 	
 	public function set_dateModifed(string $dt){
@@ -93,6 +93,24 @@ class Image{
 	public function get_id():int
 	{
 		return $this->id;
+	}
+	public function load_image($dir){
+		try{
+			if(isset($_FILES['image'])){
+			$filename=$_FILES['image']['name'];
+			$filesize=$_FILES['image']['size'];
+			$tmpname=$_FILES['image']['tmp_name'];
+			$filetype=$_FILES['image']['type'];
+			
+			$newfile=$dir.$filename;
+			if(!move_uploaded_file($tmpname, $newfile)){
+				throw new Exception('did not upload');
+			}
+		}
+	}
+		catch(Exception $err){
+			echo $err->getMessage();
+		}
 	}
 }
 ?>

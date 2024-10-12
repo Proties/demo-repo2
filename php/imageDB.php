@@ -6,11 +6,8 @@ class ImageDB extends Database{
     private Image $image;
     private $db;
     public function __construct(Image $image){
-
-    	Database::__construct();
-
         $this->image=$image;
-        $this->db=$this->get_connection();
+        $this->db=Database::get_connection();
     }
     public function set_db($d){
     	$this->db=$d;
