@@ -90,7 +90,13 @@ function readFile(file){
             
 }
 function clear_placeholder_posts(){
-        
+    let postCont=document.getElementsByClassName('posts-container');
+    let i=0;
+    let max=postCont.length;
+    while(i<max){
+        postCont[i].remove();
+        i++;
+    }
 }
 function clear_template_list(){
     let list=document.getElementsByClassName('templateContainer')[0];
@@ -122,6 +128,7 @@ function initialiseProfile(data){
         console.log('parentContainer=========');
         console.log(parentContainer)
         const postLen=myProfile.posts.length;
+        clear_placeholder_posts();
         for(let p=0;p<postLen;p++){
             let post=new PostUI();
             // post.populate_post();
@@ -172,7 +179,7 @@ async function intialiseProfileObject(data,myData){
         let con=document.getElementsByClassName('container')[0];
         
     currentProfile.make_user_info();
-   
+   clear_placeholder_posts();
     console.log(data);
     if(data!==undefined){
         let parentContainer=document.getElementsByClassName("posts-section")[0];
@@ -206,6 +213,7 @@ async function intialiseProfileObject(data,myData){
         let parentContainer=document.getElementsByClassName("posts-section")[0];
         console.log('parentContainer=========');
         console.log(parentContainer);
+        clear_placeholder_posts();
         const otherProfilePostLen=data.posts.length;
         for(let p=0;p<otherProfilePostLen;p++){
             let postTwo=new PostUI();

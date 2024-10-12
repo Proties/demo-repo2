@@ -73,7 +73,20 @@ function get_username_search_results_info_from_cookie(){
     return false;
 }
 function clear_posts(){
-
+    let postOne=document.getElementsByClassName('post-container-primary');
+    let postTwo=document.getElementsByClassName('post-container-secondary');
+    let postThree=document.getElementsByClassName('post-container-teriary');
+    let len=postOne.length;
+    let lenTwo=postTwo.length;
+    let lenThree=postThree.length;
+    let i=0;
+    while(i<len){
+        postOne[i].remove();
+        postTwo[i].remove();
+        postThree[i].remove();
+        i++;
+    }
+   
 }
 // let testData=[
 // {username:'rotondwa',fullname:'',firstName:'',lastname:'nems',following:true,profilePicture:'/Image/Test Account.png',id:12,post:{id:2,src:'/Image/Comic.png.png'}},
@@ -95,7 +108,7 @@ function initialiseObjects(cookie_data,cookie_user){
         user.registrationBtn.style.display='none';
     }
    if(cookie_data!==undefined){
-        // clear_posts();
+        clear_posts();
         let parentCont=document.getElementsByClassName("postfeed-wrapper")[0];
         for(let i=0;i<cookie_data.length;i++){
             console.log('=======array loop enternder');

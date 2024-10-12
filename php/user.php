@@ -37,6 +37,8 @@ class Users implements Serializable{
     $this->userFolder=new UserFolder();
     $this->userAuth=new UserAuth();
     $this->name='';
+    $this->following=0;
+    $this->follower=0;
     $this->username='';
     $this->lastName='';
     $this->fullName='';

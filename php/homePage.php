@@ -31,7 +31,7 @@ function formatProfileObject(array $bigData){
             
             $userID=$bigData[$i]['userID'];
             
-            $newArray[$username]=$bigData[$i];
+            $newArray[$username][]=$bigData[$i];
         }
         else if($bigData[$i]['username']!==$bigData[$i-1]['username']){
             $newArray[$username][]=$bigData[$i];
