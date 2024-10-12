@@ -93,6 +93,28 @@ class Video{
 	public function get_postID(){
 		return $this->postID;
 	}
+	public function make_filename(){
+        try{
+           
+            $ids=file_get_contents('php/ids.json');
+            $ids_array=json_decode($ids,true);
+            if($ids_array==null || !is_array($ids_array)){
+                throw new Exception('unique ids file is null');
+            }
+            if($ids_array[0]===''){
+                throw new Exception("not a valid id");
+            }
+            $this->set_fileName($ids_array[0].$this->get_imageType());
+            $this->set_postLinkID($ids_array[0]);
+            array_splice($ids_array,0,1);
+            file_put_contents('php/ids.json', json_encode($ids_array));
+            
+            
+        }catch(Execption $err){
+            echo $err->getMessage();
+            return $err;
+        }
+    }
 	public function load_video($dir){
 		try{
 			if(isset($_FILES['video'])){

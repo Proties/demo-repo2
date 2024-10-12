@@ -55,7 +55,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
                   $user->userFolder->create_user_folder($user->get_username());   
             }
         
-
+            $image->file->make_filename();
+            $video->make_filename();
             $post->set_postLinkID($image->file->get_postLinkID());
             $post->set_postLink('/@'.$user->get_username().'/'.$image->file->get_postLinkID());
             $post->set_authorID($user->get_id());
