@@ -128,7 +128,7 @@ function initialiseProfile(data){
         console.log('parentContainer=========');
         console.log(parentContainer)
         const postLen=myProfile.posts.length;
-        clear_placeholder_posts();
+        // clear_placeholder_posts();
         for(let p=0;p<postLen;p++){
             let post=new PostUI();
             // post.populate_post();
@@ -213,7 +213,7 @@ async function intialiseProfileObject(data,myData){
         let parentContainer=document.getElementsByClassName("posts-section")[0];
         console.log('parentContainer=========');
         console.log(parentContainer);
-        clear_placeholder_posts();
+        // clear_placeholder_posts();
         const otherProfilePostLen=data.posts.length;
         for(let p=0;p<otherProfilePostLen;p++){
             let postTwo=new PostUI();

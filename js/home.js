@@ -86,7 +86,7 @@ function clear_posts(){
         postThree[i].remove();
         i++;
     }
-   
+
 }
 // let testData=[
 // {username:'rotondwa',fullname:'',firstName:'',lastname:'nems',following:true,profilePicture:'/Image/Test Account.png',id:12,post:{id:2,src:'/Image/Comic.png.png'}},
@@ -108,7 +108,7 @@ function initialiseObjects(cookie_data,cookie_user){
         user.registrationBtn.style.display='none';
     }
    if(cookie_data!==undefined){
-        clear_posts();
+        // clear_posts();
         let parentCont=document.getElementsByClassName("postfeed-wrapper")[0];
         for(let i=0;i<cookie_data.length;i++){
             console.log('=======array loop enternder');
@@ -320,8 +320,9 @@ function eventListeners(){
     let userProfile=document.getElementsByClassName("profile-button-img");
     let search_input=document.getElementById("search");
     
-    let selectTopPost=document.getElementsByClassName("top-post");
-    let selectBottomPost=document.getElementsByClassName("bottom-post");
+    let selectTopPost=document.getElementsByClassName("Primary-post");
+    let selectMiddlePost=document.getElementsByClassName("Secondary-post");
+    let selectBottomPost=document.getElementsByClassName("Tertiary-post");
     let viewMore=document.getElementsByClassName("view-more-btn")[0];
     let registerBtn = document.getElementById('userRegistration');
     let closeReg = document.getElementById("closeModalReg");
@@ -341,6 +342,9 @@ function eventListeners(){
 
     for(let i=0;i<selectTopPost.length;i++){
         selectTopPost[i].addEventListener('click',openModal);
+    }
+     for(let i=0;i<selectMiddlePost.length;i++){
+        selectMiddlePost[i].addEventListener('click',openModal);
     }
     for(let i=0;i<selectBottomPost.length;i++){
         selectBottomPost[i].addEventListener('click',openModal);
