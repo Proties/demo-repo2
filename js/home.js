@@ -125,7 +125,6 @@ function initialiseObjects(cookie_data,cookie_user){
             // profileItem.make_posts();
             // profileItem.make_profilePic();
             profileItem.make_container();
-            
             console.log('++++++= following +++++++');
             console.log(cookie_data[i].following);
             profileItem.unfollow.influencer=profileItem.id;
@@ -334,7 +333,18 @@ function eventListeners(){
     let closeReg = document.getElementById("closeModalReg");
 
     let modal = document.getElementById("registerModal");
-
+    for(let sp=0;sp<sharePost.length;sp++){
+        sharePost[sp].addEventListener('click',async(evt)=>{
+            evt.stopPropagation()
+                    try{
+                        await navigator.share('share');
+                        alert('ok');
+                    }catch(err){
+                        console.log('could not share');
+                    }
+            });
+    }
+    
 
     // let morePosts=document.getElementById("");
 
