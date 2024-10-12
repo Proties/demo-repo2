@@ -32,7 +32,7 @@ function get_cookie(name){
 }
 }
 function get_data_from_cookie(){
-    let user_data=get_cookie('username=');
+    let user_data=get_cookie('myprofile=');
     let setUpProfile=get_cookie('setUpProfile=');
     let data=get_cookie('profile=');
     initialiseProfile(user_data); 
@@ -101,12 +101,16 @@ async function validateTemplateSubmission(evt){
 function initialiseProfile(data){
     myProfile=new MyProfile();
     if(data!==undefined){
-        myProfile.id=data.id;
-        myProfile.username=data.username;
-        myProfile.fullname=data.fullname;
-        myProfile.shortBio=data.shortBio;
-        myProfile.longBio=data.longBio;
+        myProfile.id=data.userInfo.userID;
+        myProfile.username=data.userInfo.username;
+        myProfile.fullname=data.userInfo.fullname;
+        myProfile.shortBio=data.userInfo.shortBio;
+        myProfile.longBio=data.userInfo.longBio;
+        myProfile.posts=data.post;
     }
+    console.log('======my profile object=====');
+    console.log(myProfile);
+    console.log('======my profile object=====');
 }
 async function intialiseProfileObject(data,myData){
    
@@ -129,7 +133,7 @@ async function intialiseProfileObject(data,myData){
         currentProfile=new MyProfile();
         currentProfile.is_logged_in();
         currentProfile.username=profile_data.username;
-        currentProfile.id=profile_data.id;
+        currentProfile.id=profile_data.userInfo.userID;
         console.log(profile_data);
        
         currentProfile.shortBio=profile_data.shortBio;

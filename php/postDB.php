@@ -129,9 +129,7 @@ class PostDB extends Database{
     public function set_db($d){
         $this->db=$d;
     }
-   public function write_postUser(){
 
-   }
     public function write_post(){
         $db=$this->db;
         try{
@@ -160,39 +158,8 @@ class PostDB extends Database{
             return $err;
         }
     }
-    public function read_likes(){
-        try{
-            $db=$this->get_connection();
-            $query="
-                    SELECT count(*) FROM likes
-                    WHERE id=:id;
-            ";
-            $stmt=$db->prepare($query);
-            $stmt->bindValue(':id',$this->post->get_postID());
-            $this->set_status($stmt->execute());
-        }catch(PDOExecption $err){
-            echo 'Database error '.$err->getMessage();
-        }
-    }
-    public function read_category_posts(){
-        try{
+ 
 
-            $db=$this->get_connection();
-            $query="
-            SELECT * FROM USER_POST up1
-            INNER JOIN post_category pc1 ON up1.postID=pc1.postID
-            INNER JOIN post_category pc2 ON pc1.postID=up1.post2ID
-            INNER JOIN category c1 ON pc1.categoryID=c1.categoryID
-            WHERE c1.categoryName=:name;
-            ";
-            $stmt=$db->prepare($query);
-            $stmt->bindValue(':name',$this->post->get_categoryName());
-            $stmt->execute();
-            return $stmt->fetchall();
-        }catch(PDOExecption $err){
-            echo 'error reading post from category id '.$err->getMessage();
-        }
-    }
     public function read_posts(){
         try{
 

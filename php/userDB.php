@@ -101,13 +101,15 @@ class UserDB extends Database{
     public function get_posts_with_username(){
         $db=$this->db;
         try{
-            $query="
-                SELECT p.postID,i.filepath,i.filename FROM Posts as p
+            $query='
+                SELECT p.postID,i.filepath,i.filename,v.filepath,v.filename FROM Posts as p
                 LEFT JOIN PostImages as ip ON p.postID=ip.postID
+                LEFT JOIN VideoPost as vp ON p.postID=vp.postID
                 LEFT JOIN Images as i ON ip.imageID=i.imageID  
-                LEFT JOIN Users as u ON p.userID=u.userID
+                LEFT JOIN Videos as v ON vp.videoID=v.id  
+                INNER JOIN Users as u ON p.userID=u.userID
                 WHERE u.username=:username;
-            ";
+            ';
         $statement=$db->prepare($query);
         $statement->bindValue(':username',$this->user->get_username());
         $statement->execute();

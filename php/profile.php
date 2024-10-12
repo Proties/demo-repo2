@@ -24,7 +24,18 @@ $u=new Users();
 $udb=new UserDB($u);
 if($f_txt==='/profile'){
     $data;
-   setcookie('profile','no account', time() - (86400 * 30), '/'); 
+    $personal=[];
+    $author=new Users();
+    $author->set_username($_SESSION['username']);
+    $author->set_id($_SESSION['userID']);
+    $authorDB=new UserDB($author);
+    $authorDB->get_posts_with_username();
+    $userDetails['userID']=$author->get_id();
+    $userDetails['username']=$author->get_username();
+    // $userDetails['profilePicture']=$author->get_profilePicture();
+    $personal['userInfo']=$userDetails;
+    array_push($personal,$authorDB->user->postList->get_posts());
+   setcookie('myprofile',json_encode($personal), time() + (86400 * 30), '/'); 
 }
 else if($u->validate_username_url($f_txt)==true ){
     try{
@@ -37,6 +48,9 @@ else if($u->validate_username_url($f_txt)==true ){
         $authorDB=new UserDB($author);
         $authorDB->get_posts_with_username();
        
+       var_dump($authorDB->postList->get_posts());
+       echo json_encode($authorDB->postList->get_posts());
+       return;
         $data['user'][0]=array('username'=>$authorDB->user->get_username(),'userProfilePicture'=>$authorDB->user->get_profilePicture(),
                                     'shortBio'=>$authorDB->user->get_shortBio(),'longBio'=>$authorDB->user->get_longBio());
 
@@ -65,7 +79,9 @@ else if($u->validate_username_url($f_txt)==true ){
     
         setcookie('profile',json_encode($data), time() + (86400 * 30), '/'); 
     }catch(Exception $err){
-        echo $err->getMessage();
+        $data['message']=$err->getMessage();
+        $data['status']='failed';
+        setcookie('profile',json_encode($data), time() + (86400 * 30), '/');
       
     }
 }
