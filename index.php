@@ -52,6 +52,13 @@ $user=new Users();
 $post=new Post();
 $userDB=new UserDB($user);
 $postDB=new PostDB($post);
+$url=$_SERVER['REQUEST_URI'];
+$pattern='/^\/@([a-zA-Z\/_.-]){1,}\/([a-zA-Z]){3,}/';
+// validate_post_link();
+if(preg_match($pattern,$url)){
+    include_once('php/previewPost.php');
+    return;
+}
 if(($user->validate_username_url($f_txt)==true) && ($userDB->validate_username_in_database($txt)!==false)){
     include_once('php/profile.php');
     return;

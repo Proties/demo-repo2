@@ -19,6 +19,7 @@ if(isset($_SESSION['username']) && $_SESSION['username']!==null && isset($_SESSI
 this function will take an array or posts and will group the post made by the same user in a single  nested array
 
 */
+
 function formatProfileObject(array $bigData){
     $newArray=[];
     $cont=[];
