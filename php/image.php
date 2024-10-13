@@ -94,6 +94,9 @@ class Image{
 	{
 		return $this->id;
 	}
+	public function validate_extension(){}
+	public function validate_size(){}
+	public function validate_video(){}
 	public function load_image($dir){
 		try{
 			if(isset($_FILES['image'])){

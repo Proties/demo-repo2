@@ -333,11 +333,14 @@ function eventListeners(){
     let closeReg = document.getElementById("closeModalReg");
 
     let modal = document.getElementById("registerModal");
+    let testShareData={
+        title:'happy'
+    };
     for(let sp=0;sp<sharePost.length;sp++){
         sharePost[sp].addEventListener('click',async(evt)=>{
             evt.stopPropagation()
                     try{
-                        await navigator.share('share');
+                        await navigator.share(testShareData);
                         alert('ok');
                     }catch(err){
                         console.log('could not share');

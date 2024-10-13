@@ -220,9 +220,15 @@ async function intialiseProfileObject(data,myData){
             
             postTwo.parentContainer=parentContainer;
             postTwo.id=data.posts[p].postID;
-        
-            postTwo.src=data.posts[p].filepath+'/'+data.posts[p].filepath;
-            postTwo.check_media_type();
+            if(data.posts[p].imageFileName==undefined){
+                postTwo.src=data.posts[p].videoFilePath+''+data.posts[p].videoFileName;
+                postTwo.check_media_type();
+            }else{
+                postTwo.src=data.posts[p].imageFilePath+''+data.posts[p].imageFileName;
+                postTwo.check_media_type();
+            }
+            
+           
         }
 
        

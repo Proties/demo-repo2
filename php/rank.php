@@ -62,10 +62,10 @@ public function chronoTwo(){
                 SELECT 
                 userID, 
                 username, 
-                video_filename, 
-                video_filepath, 
-                image_filename, 
-                image_filepath 
+                video_filename as videoFileName, 
+                video_filepath as videoFilePath, 
+                image_filename as imageFileName, 
+                image_filepath as imageFilePath
             FROM 
                 (
                 SELECT 
