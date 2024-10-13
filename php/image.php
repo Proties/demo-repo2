@@ -97,15 +97,15 @@ class Image{
 	public function validate_extension(){}
 	public function validate_size(){}
 	public function validate_video(){}
-	public function load_image($dir){
+	public function load_image($dir,$filename){
 		try{
 			if(isset($_FILES['image'])){
-			$filename=$_FILES['image']['name'];
+			// $filename=$_FILES['image']['name'];
 			$filesize=$_FILES['image']['size'];
 			$tmpname=$_FILES['image']['tmp_name'];
 			$filetype=$_FILES['image']['type'];
 			
-			$newfile=$dir.$this->file->get_filename();
+			$newfile=$dir.$filename;
 			if(!move_uploaded_file($tmpname, $newfile)){
 				throw new Exception('did not upload');
 			}

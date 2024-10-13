@@ -21,6 +21,7 @@ this function will take an array or posts and will group the post made by the sa
 */
 function formatProfileObject(array $bigData){
     $newArray=[];
+    $cont=[];
     $maxLen=count($bigData);
     $i=0;
     $c=0;
@@ -42,11 +43,12 @@ function formatProfileObject(array $bigData){
         }
          $i++;
     }
+    $cont[]=$newArray;
 }catch(Exception $err){
     return  $err;
 }
     
-    return $newArray;
+    return $cont;
     
 }
 try{

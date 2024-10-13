@@ -70,14 +70,14 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             }
             $video->set_postID($postDB->post->get_postID());
             if(isset($_FILES['image'])){
-                $image->load_image($user->userFolder->get_dir());
+                $image->load_image($user->userFolder->get_dir(),$image->file->get_filename());
                 $imageDB=new ImageDB($image);
                 $imageDB->set_db($db);
                 $imageDB->write_image();
                 $imageDB->write_image_post($postDB->post->get_postID());
             }
             if(isset($_FILES['video'])){
-                $video->load_video($user->userFolder->get_dir());
+                $video->load_video($user->userFolder->get_dir(),$image->file->get_filename());
                 $videoDB=new VideoDB($video);
                 $videoDB->set_db($db);
 

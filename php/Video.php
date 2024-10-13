@@ -123,10 +123,10 @@ class Video{
             return $err;
         }
     }
-	public function load_video($dir){
+	public function load_video($dir,$filename){
 		try{
 			if(isset($_FILES['video'])){
-			$filename=$_FILES['video']['name'];
+			// $filename=$_FILES['video']['name'];
 			$filesize=$_FILES['video']['size'];
 			$tmpname=$_FILES['video']['tmp_name'];
 			$filetype=$_FILES['video']['type'];
