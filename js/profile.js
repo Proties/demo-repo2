@@ -195,7 +195,9 @@ export class OtherProfile extends ProfileUI{
                 let c=document.createElement('div');
                 let img=document.createElement('img');
                 c.setAttribute('class',arrayPosts[ss]);    
-                img.setAttribute('src',this.data.posts[ss].src);
+                // img.setAttribute('src',this.data.posts[ss].imageFileName+''+this.data.posts[ss].imageFileName);
+                img.setAttribute('src','/Image/Art.png');
+                img.setAttribute('class','post-image');
                 c.append(img);
                 contFour.append(c);
         }
@@ -208,7 +210,7 @@ export class OtherProfile extends ProfileUI{
             // contTwo.append(profilePicBtn);
             
             
-            im.setAttribute('src',this.data.post.src);
+            im.setAttribute('src',this.data.post.imageFileName+''+this.data.post.imageFileName);
             contFive.setAttribute('class','Primary-post');
             
             contFive.append(im);

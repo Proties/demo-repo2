@@ -28,20 +28,60 @@ function formatProfileObject(array $bigData){
     try{
         while($maxLen>$i){
         $username=$bigData[$i]['username'];
+        $userID=$bigData[$i]['username'];
+        $email=$bigData[$i]['username'];
         if($i==0){
+            // $items['userInfo'];
+            // $items['posts'];
+            // $userID=$bigData[$i]['userID'];
+            $posts=[];
+            $posts['imageFileName']=$bigData[$i]['imageFileName'];
+            $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
+            // $posts['postID']=$bigData[$i]['postID'];
+            $posts['VideoFileName']=$bigData[$i]['videoFileName'];
+            $posts['videoFilePath']=$bigData[$i]['videoFilePath'];
             
-            $userID=$bigData[$i]['userID'];
-            
-            $newArray[$username][]=$bigData[$i];
+            $newArray['username']=$username;
+            $newArray['userID']=$userID;
+            $newArray['profilePicture']='/Image/Test Account.png';
+            $newArray['email']=$email;
+            $newArray['posts'][]=$posts;
+            // $newArray[$username][]=$bigData[$i];
+            // $posts['posts']
+            $i++;
         }
         else if($bigData[$i]['username']!==$bigData[$i-1]['username']){
-            $newArray[$username][]=$bigData[$i];
+            $posts=[];
+            $posts['imageFileName']=$bigData[$i]['imageFileName'];
+            $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
+            // $posts['postID']=$bigData[$i]['postID'];
+            $posts['VideoFileName']=$bigData[$i]['videoFileName'];
+            $posts['videoFilePath']=$bigData[$i]['videoFilePath'];
+
+            $newArray['username']=$username;
+            $newArray['userID']=$userID;
+            $newArray['profilePicture']='/Image/Test Account.png';
+            $newArray['email']=$email;
+            $newArray['posts'][]=$posts;
             $i++;
         }
         else{
-            $newArray[$username][]=$bigData[$i-1];
+            $posts=[];
+            $posts['imageFileName']=$bigData[$i]['imageFileName'];
+            $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
+            // $posts['postID']=$bigData[$i]['postID'];
+            $posts['VideoFileName']=$bigData[$i]['videoFileName'];
+            $posts['videoFilePath']=$bigData[$i]['videoFilePath'];
+
+            $newArray['username']=$username;
+            $newArray['userID']=$userID;
+            $newArray['profilePicture']='/Image/Test Account.png';
+            $newArray['email']=$email;
+            $newArray['posts'][]=$posts;
+            // $newArray['username'][$username]=$bigData[$i-1];
+            $i++;
         }
-         $i++;
+        
     }
     $cont[]=$newArray;
 }catch(Exception $err){

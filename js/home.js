@@ -3,6 +3,7 @@ import {MyProfile,OtherProfile} from './profile.js';
 import {PostUI} from './post.js';
 import StackedPosts from './stackPosts.js';
 import RegistrationUI from './registration.js';
+import LoginUI from './login.js';
 
 import {Follow,UnFollow} from './follow.js';
 
@@ -450,7 +451,7 @@ function openModal(evt) {
     // window.location.href=profile.id+'/'+cont.id;
     history.replaceState(null, null, profile.id+'/'+cont.id);
     if(profile.id=='' || cont.id==''){
-        throw new Error('no profile id specified');
+        throw 'no profile id specified';
     }
     try{
         let xml=new XMLHttpRequest();

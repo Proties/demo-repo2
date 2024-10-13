@@ -36,6 +36,11 @@ try{
 	$_SESSION['username'];
 	$_SESSION['userID'];
 	$_SESSION['email'];
+	$personal=[];
+	$personal['username']=$_SESSION['username'];
+	$personal['userID']=$_SESSION['userID'];
+	$personal['email']=$_SESSION['email'];
+	setcookie('myprofile',json_encode($personal), time() + (86400 * 30), '/'); 
 	echo json_encode($data);
 }catch(Exception $err){
 	$data['status']='failed';

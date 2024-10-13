@@ -6,6 +6,7 @@ class User{
         this._lastName='last name';
         this._username='username';
         this._email='';
+        this._profilePicture='/Image/Test Account.png';
         this._password='';
         this._logged_in=false;
         this._item={
