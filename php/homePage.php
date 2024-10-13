@@ -24,6 +24,7 @@ this function will take an array or posts and will group the post made by the sa
 function formatProfileObject(array $bigData){
     $newArray=[];
     $cont=[];
+    $countItem=0;
     $maxLen=count($bigData);
     $i=0;
     $c=0;
@@ -76,20 +77,16 @@ function formatProfileObject(array $bigData){
         }
         else{
             $posts=[];
-            $username=$bigData[$i]['username'];
-            $userID=$bigData[$i]['userID'];
+            
 
             $posts['imageFileName']=$bigData[$i]['imageFileName'];
             $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
             // $posts['postID']=$bigData[$i]['postID'];
             $posts['VideoFileName']=$bigData[$i]['videoFileName'];
             $posts['videoFilePath']=$bigData[$i]['videoFilePath'];
-
-            $newArray['username']=$username;
-            $newArray['userID']=$userID;
-            $newArray['profilePicture']='/Image/Test Account.png';
-        
-            $newArray['posts'][]=$posts;
+            array_push($cont[$i-1]['posts'], $posts);
+            
+            
             // $newArray['username'][$username]=$bigData[$i-1];
             $i++;
         }
