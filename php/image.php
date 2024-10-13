@@ -105,7 +105,7 @@ class Image{
 			$tmpname=$_FILES['image']['tmp_name'];
 			$filetype=$_FILES['image']['type'];
 			
-			$newfile=$dir.$filename;
+			$newfile=$dir.$this->file->get_filename();
 			if(!move_uploaded_file($tmpname, $newfile)){
 				throw new Exception('did not upload');
 			}

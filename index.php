@@ -65,6 +65,9 @@ switch($action){
     case '/registration':
         include_once('php/registration.php');
         break;
+    case '/login':
+        include_once('php/login.php');
+        break;
     case '/profile':
         include_once('php/profile.php');
         break;
