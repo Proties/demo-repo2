@@ -15,7 +15,7 @@ use Insta\Database\Follower\FollowerDB;
 $mainUser=new Users();
 $template=new Template();
 setcookie('users','', time() - (86400 * 30), '/'); 
-setcookie('myprofile','', time() - (86400 * 30), '/');
+// setcookie('myprofile','', time() - (86400 * 30), '/');
 if(isset($_SESSION['username']) && $_SESSION['username']!==null){
     $mainUser->userAuth->set_authanticate(true);
 }

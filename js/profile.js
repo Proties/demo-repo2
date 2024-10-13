@@ -196,7 +196,13 @@ export class OtherProfile extends ProfileUI{
                 let img=document.createElement('img');
                 c.setAttribute('class',arrayPosts[ss]);    
                 // img.setAttribute('src',this.data.posts[ss].imageFileName+''+this.data.posts[ss].imageFileName);
-                img.setAttribute('src','/Image/Art.png');
+                if(this.data.posts[ss].imageFilePath!==undefined){
+                    img.setAttribute('src',this.data.posts[ss].imageFilePath+'/'+this.data.posts[ss].imageFileName);
+                }else{
+                    img.setAttribute('src',this.data.posts[ss].videoFilePath+'/'+this.data.posts[ss].videoFileName);
+                }
+                
+                
                 img.setAttribute('class','post-image');
                 c.append(img);
                 contFour.append(c);

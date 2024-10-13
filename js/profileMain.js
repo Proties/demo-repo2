@@ -137,7 +137,12 @@ function initialiseProfile(data){
             post.id=myProfile.posts[p].postID;
             console.log(myProfile.posts[p]);
             // post.src='/Image/Art.png';
-            post.src=myProfile.posts[p].filepath+'/'+myProfile.posts[p].filename;
+            if(myProfile.posts[p].imageFilePath!==undefined){
+                post.src=myProfile.posts[p].imageFilePath+'/'+myProfile.posts[p].imageFileName;
+            }else{
+                post.src=myProfile.posts[p].videoFilePath+'/'+myProfile.posts[p].videoFileName;
+            }
+            
             post.check_media_type();
     }
     }

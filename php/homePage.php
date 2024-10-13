@@ -7,6 +7,7 @@ use Insta\Ranking\Ranking;
 
 $mainUser=new Users();
 setcookie('profile','no profile ', time() - (86400 * 30), '/'); 
+// setcookie('myprofile','', time() - (86400 * 30), '/');
 if(isset($_SESSION['username']) && $_SESSION['username']!==null && isset($_SESSION['userID'])){
     $mainUser->userAuth->set_authanticate(true);
     setcookie('user',json_encode($_SESSION['username']), time() + (86400 * 30), '/'); 
@@ -28,13 +29,14 @@ function formatProfileObject(array $bigData){
     $c=0;
     try{
         while($maxLen>$i){
-        $username=$bigData[$i]['username'];
-        $userID=$bigData[$i]['username'];
-        $email=$bigData[$i]['username'];
+        
         if($i==0){
             // $items['userInfo'];
             // $items['posts'];
             // $userID=$bigData[$i]['userID'];
+            $username=$bigData[$i]['username'];
+            $userID=$bigData[$i]['userID'];
+  
             $posts=[];
             $posts['imageFileName']=$bigData[$i]['imageFileName'];
             $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
@@ -45,29 +47,38 @@ function formatProfileObject(array $bigData){
             $newArray['username']=$username;
             $newArray['userID']=$userID;
             $newArray['profilePicture']='/Image/Test Account.png';
-            $newArray['email']=$email;
+        
             $newArray['posts'][]=$posts;
+            $cont[]=$newArray;
             // $newArray[$username][]=$bigData[$i];
             // $posts['posts']
             $i++;
         }
         else if($bigData[$i]['username']!==$bigData[$i-1]['username']){
             $posts=[];
+            $username=$bigData[$i]['username'];
+            $userID=$bigData[$i]['userID'];
+
             $posts['imageFileName']=$bigData[$i]['imageFileName'];
             $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
             // $posts['postID']=$bigData[$i]['postID'];
             $posts['VideoFileName']=$bigData[$i]['videoFileName'];
             $posts['videoFilePath']=$bigData[$i]['videoFilePath'];
+            if($bigData[$i])
 
             $newArray['username']=$username;
             $newArray['userID']=$userID;
             $newArray['profilePicture']='/Image/Test Account.png';
-            $newArray['email']=$email;
+        
             $newArray['posts'][]=$posts;
+            $cont[]=$newArray;
             $i++;
         }
         else{
             $posts=[];
+            $username=$bigData[$i]['username'];
+            $userID=$bigData[$i]['userID'];
+
             $posts['imageFileName']=$bigData[$i]['imageFileName'];
             $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
             // $posts['postID']=$bigData[$i]['postID'];
@@ -77,14 +88,14 @@ function formatProfileObject(array $bigData){
             $newArray['username']=$username;
             $newArray['userID']=$userID;
             $newArray['profilePicture']='/Image/Test Account.png';
-            $newArray['email']=$email;
+        
             $newArray['posts'][]=$posts;
             // $newArray['username'][$username]=$bigData[$i-1];
             $i++;
         }
-        
+     
     }
-    $cont[]=$newArray;
+    
 }catch(Exception $err){
     return  $err;
 }

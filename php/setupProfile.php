@@ -32,9 +32,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     	if(empty($data_f['username']) OR $user->validate_username($data_f['username'])==false){
     		$errors[]['errProfileUserName']='username not valid';
     	}
-    	if(empty($data_f['fullname']) OR $user->validate_fullName($data_f['fullname'])==false){
-    		$errors[]['errProfileFullName']='profile full name not valid';
-    	}
+  
     	if(empty($data_f['gender']) OR $user->validate_gender($data_f['gender'])==false){
     		$errors[]['errProfileGender']='gender not valid';
     	}
@@ -53,7 +51,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     		throw new Exception('could not create user');
     	}
     	$username=$data_f['username'];
-    	$fullname=$data_f['fullname'];
+    	$fullname=$_SESSION['firstName'].''.$_SESSION['lastName'];
     	$gender=$data_f['gender'];
     	$occupation=$data_f['occupation'];
     	$bio=$data_f['bio'];
@@ -85,10 +83,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		$_SESSION['username']=$user->get_username();
       	echo json_encode($bigData);
       	$store['userID']=$user->get_id();
-      	$store['username']->get_username();
-      	$store['shortBio']->get_shortBio();
+      	$store['username']=$user->get_username();
+      	$store['shortBio']=$user->get_shortBio();
       	// $store['profilePicture']->get_profilePicture();
-      	setcookie('user',json_encode($$store), time() + (3000 * 600), '/');
+      	setcookie('user',json_encode($store), time() + (38900 * 60), '/');
       
     }
     else{
@@ -103,8 +101,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		echo json_encode($bigData);
 		
 	}
-	// setcookie('user',json_encode($bigData), time() + (30 * 60), '/');
-
+	
 }
 
 

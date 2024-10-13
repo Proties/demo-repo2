@@ -532,7 +532,7 @@ async function formHandling(evt){
                 evt.preventDefault();
                 let profileItem={
                     username:document.getElementById('profileName').value,
-                    fullname:document.getElementById('fullName').value,
+                    // fullname:document.getElementById('fullName').value,
                     gender:document.getElementById('gender').value,
                     bio:document.getElementById('biography').value,
                     occupation:document.getElementById('occupation').value
