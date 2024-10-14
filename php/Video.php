@@ -1,5 +1,6 @@
 <?php 
 namespace Insta\Video;
+use Exception;
 class Video{
 	private $id;
 	private $width;
@@ -25,7 +26,7 @@ class Video{
 		$this->height='';
 		$this->dateMade='';
 		$this->dateUpdated='';
-		$this->type='.png';
+		$this->type='';
 		$this->status='show';
 	}
 	public function set_postID(int $id){
@@ -112,7 +113,7 @@ class Video{
             if($ids_array[0]===''){
                 throw new Exception("not a valid id");
             }
-            $this->set_filename($ids_array[0].$this->get_type());
+            $this->set_filename($ids_array[0]);
             $this->set_postLinkID($ids_array[0]);
             array_splice($ids_array,0,1);
             file_put_contents('php/ids.json', json_encode($ids_array));
@@ -123,7 +124,7 @@ class Video{
             return $err;
         }
     }
-	public function load_video($dir,$filename){
+	public function load_video($dir){
 		try{
 			if(isset($_FILES['video'])){
 			// $filename=$_FILES['video']['name'];
@@ -131,17 +132,23 @@ class Video{
 			$tmpname=$_FILES['video']['tmp_name'];
 			$filetype=$_FILES['video']['type'];
 
-			$this->set_filename($filename);
+			$this->set_type('.'.str_replace('video/', '', $filetype));
+			// $pattern='/(\/[a-zA-Z]){2,}(\/[a-zA-Z]){,2}/';
+			
+
+			$filename=$this->get_filename();
 			$this->set_filepath($dir);
 			$this->set_size($filesize);
-			$this->set_type($filetype);
+		
 			$this->set_dateMade();
 			$this->set_dateUpdated();
 
-			$newfile=$dir.$filename;
+			$newfile=$dir.$this->get_filename().$this->get_type();
 			if(!move_uploaded_file($tmpname, $newfile)){
 				throw new Exception('did not upload');
 			}
+			$fl=$this->get_filename().'.'.$this->get_type();
+			$this->set_filename($fl);
 		}
 	}
 		catch(Exception $err){
