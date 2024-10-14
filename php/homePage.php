@@ -54,8 +54,11 @@ function formatProfileObject(array $bigData){
             // $newArray[$username][]=$bigData[$i];
             // $posts['posts']
             $i++;
+            $c++;
+          
         }
         else if($bigData[$i]['username']!==$bigData[$i-1]['username']){
+        // else if($bigData[$i]['username']!==$cont[$c]['username']){
             $posts=[];
             $username=$bigData[$i]['username'];
             $userID=$bigData[$i]['userID'];
@@ -74,6 +77,7 @@ function formatProfileObject(array $bigData){
             $newArray['posts'][]=$posts;
             $cont[]=$newArray;
             $i++;
+            $c++;
         }
         else{
             $posts=[];
@@ -85,8 +89,7 @@ function formatProfileObject(array $bigData){
             $posts['VideoFileName']=$bigData[$i]['videoFileName'];
             $posts['videoFilePath']=$bigData[$i]['videoFilePath'];
             array_push($cont[$i-1]['posts'], $posts);
-            
-            
+        
             // $newArray['username'][$username]=$bigData[$i-1];
             $i++;
         }
