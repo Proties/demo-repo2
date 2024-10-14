@@ -108,7 +108,7 @@ export class PostUI extends Post{
         this.cont=cont;
 	}
 	check_media_type(){
-		let pattern=/(.mp4)/i;
+		let pattern=/(.mp4)/;
 		if(pattern.test(this.src)){
 			this.make_video_post();
 		}else{
@@ -133,6 +133,10 @@ export class PostUI extends Post{
         con.setAttribute('class','posts-container');
         con.setAttribute('id',this.id);
         video.setAttribute('src',this.src);
+        video.style.marginTop='1em';
+        video.setAttribute('width','60%');
+        video.setAttribute('height','60%');
+        video.setAttribute('controls',true);
         con.append(video);
         this.parentContainer.append(con);
 	}

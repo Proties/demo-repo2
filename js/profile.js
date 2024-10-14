@@ -192,31 +192,45 @@ export class OtherProfile extends ProfileUI{
 
        if(this.data.posts!==undefined){
              for(let ss=0;ss<this.data.posts.length;ss++){
+                if(this.data.posts[ss]==null){
+                    continue;
+                }
                 let c=document.createElement('div');
                 let img=document.createElement('img');
+                let vid=document.createElement('video');
                 c.setAttribute('class',arrayPosts[ss]);    
                 // img.setAttribute('src',this.data.posts[ss].imageFileName+''+this.data.posts[ss].imageFileName);
-                if(this.data.posts[ss].imageFilePath!==undefined){
-                    img.setAttribute('src',this.data.posts[ss].imageFilePath+'/'+this.data.posts[ss].imageFileName);
-                }else{
-                    img.setAttribute('src',this.data.posts[ss].videoFilePath+'/'+this.data.posts[ss].videoFileName);
+                console.log(this.data.posts[ss]);
+                const k=Object.keys(this.data.posts[ss]);
+                console.log(k[0]);
+                console.log(k[1]);
+                console.log(this.data.posts[ss][k]);
+                if(k[0]=='imageFileName' &&  k[1]=='imageFilePath'){
+                    img.setAttribute('src',this.data.posts[ss].imageFilePath+''+this.data.posts[ss].imageFileName);
+                    img.setAttribute('class','post-image');
+                    c.append(img);
+                }
+                else{
+                    console.log(k);
+                    vid.setAttribute('src',this.data.posts[ss].videoFilePath+''+this.data.posts[ss].VideoFileName);
+                    vid.setAttribute('class','post-image');
+                    c.append(vid);
                 }
                 
                 
-                img.setAttribute('class','post-image');
-                c.append(img);
+                
+                
                 contFour.append(c);
         }
         }
-        if(this.data.post!==undefined){
+        else if(this.data.post!==undefined || this.data.post!==null){
             let contFive=document.createElement('div');
             let im=document.createElement('img');
+
+            if (this.data.post.imageFilePath!==null) {
+                im.setAttribute('src',this.data.post.imageFilePath+''+this.data.post.imageFileName);
+            }
             
-            // profilePicBtn.append(profilePic);
-            // contTwo.append(profilePicBtn);
-            
-            
-            im.setAttribute('src',this.data.post.imageFileName+''+this.data.post.imageFileName);
             contFive.setAttribute('class','Primary-post');
             
             contFive.append(im);
@@ -226,6 +240,9 @@ export class OtherProfile extends ProfileUI{
             
             console.log('========container');
             console.log(cont);
+        }
+        else{
+
         }
   
             

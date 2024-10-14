@@ -131,19 +131,21 @@ function initialiseProfile(data){
         // clear_placeholder_posts();
         for(let p=0;p<postLen;p++){
             let post=new PostUI();
-            // post.populate_post();
+       
             post.parentContainer=parentContainer;
 
             post.id=myProfile.posts[p].postID;
             console.log(myProfile.posts[p]);
             // post.src='/Image/Art.png';
-            if(myProfile.posts[p].imageFilePath!==undefined){
+            if(myProfile.posts[p].imageFilePath!==null || myProfile.posts[p].imageFileName!==null){
                 post.src=myProfile.posts[p].imageFilePath+'/'+myProfile.posts[p].imageFileName;
+                post.make_post();
             }else{
                 post.src=myProfile.posts[p].videoFilePath+'/'+myProfile.posts[p].videoFileName;
+                post.make_video_post();
             }
             
-            post.check_media_type();
+            // post.check_media_type();
     }
     }
     console.log('======my profile object=====');
@@ -197,8 +199,15 @@ async function intialiseProfileObject(data,myData){
 
             post.id=data.posts[p].postID;
             // post.src='/Image/Art.png';
-            post.src=data.posts[p].img;
-            post.make_post();
+            console.log('========image file path');
+            if(data.posts[p].imageFilePath!==undefined || data.posts[p].imageFilePath!==null){
+                post.src=data.posts[p].imageFilePath+'/'+data.posts[p].imageFileName;
+                post.make_post();
+            }else{
+                post.src=data.posts[p].videoFilePath+'/'+data.posts[p].videoFileName;
+                post.make_video_post();
+            }
+            
     }
     }
  }

@@ -147,8 +147,9 @@ class Video{
 			if(!move_uploaded_file($tmpname, $newfile)){
 				throw new Exception('did not upload');
 			}
-			$fl=$this->get_filename().'.'.$this->get_type();
+			$fl=$this->get_filename().$this->get_type();
 			$this->set_filename($fl);
+			$this->set_type($filetype);
 		}
 	}
 		catch(Exception $err){

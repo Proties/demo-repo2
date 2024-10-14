@@ -22,7 +22,7 @@ this function will take an array or posts and will group the post made by the sa
 */
 
 function formatProfileObject(array $bigData){
-    $newArray=[];
+    // $newArray=[];
     $cont=[];
     $countItem=0;
     $maxLen=count($bigData);
@@ -30,67 +30,101 @@ function formatProfileObject(array $bigData){
     $c=0;
     try{
         while($maxLen>$i){
-        
+        $currentUsername=$bigData[$i]['username'];
         if($i==0){
-            // $items['userInfo'];
-            // $items['posts'];
-            // $userID=$bigData[$i]['userID'];
+            $newArray=[];
+        
             $username=$bigData[$i]['username'];
             $userID=$bigData[$i]['userID'];
-  
+           
             $posts=[];
-            $posts['imageFileName']=$bigData[$i]['imageFileName'];
-            $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
-            // $posts['postID']=$bigData[$i]['postID'];
-            $posts['VideoFileName']=$bigData[$i]['videoFileName'];
-            $posts['videoFilePath']=$bigData[$i]['videoFilePath'];
-            
+            if(isset($bigData[$i]['imageFileName'])){
+                $posts['imageFileName']=$bigData[$i]['imageFileName'];
+                $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
+            }
+            if(isset($bigData[$i]['videoFileName'])){
+                 $posts['VideoFileName']=$bigData[$i]['videoFileName'];
+                $posts['videoFilePath']=$bigData[$i]['videoFilePath'];
+            }
+          
             $newArray['username']=$username;
             $newArray['userID']=$userID;
             $newArray['profilePicture']='/Image/Test Account.png';
         
-            $newArray['posts'][]=$posts;
+            $newArray['post']=$posts;
+
+          
+            
             $cont[]=$newArray;
-            // $newArray[$username][]=$bigData[$i];
-            // $posts['posts']
+           
             $i++;
-            $c++;
+            
           
         }
-        else if($bigData[$i]['username']!==$bigData[$i-1]['username']){
-        // else if($bigData[$i]['username']!==$cont[$c]['username']){
+        else if($bigData[$i]['username']!==$cont[$c]['username']){
+            $newArray=[];
+            $placeholder=[];
             $posts=[];
             $username=$bigData[$i]['username'];
             $userID=$bigData[$i]['userID'];
 
-            $posts['imageFileName']=$bigData[$i]['imageFileName'];
-            $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
-            // $posts['postID']=$bigData[$i]['postID'];
-            $posts['VideoFileName']=$bigData[$i]['videoFileName'];
-            $posts['videoFilePath']=$bigData[$i]['videoFilePath'];
-            if($bigData[$i])
+            if(isset($bigData[$i]['imageFileName'])){
+                $posts['imageFileName']=$bigData[$i]['imageFileName'];
+                $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
+            }
+            if(isset($bigData[$i]['videoFileName'])){
+                $posts['VideoFileName']=$bigData[$i]['videoFileName'];
+                $posts['videoFilePath']=$bigData[$i]['videoFilePath'];
+            }
+  
 
             $newArray['username']=$username;
             $newArray['userID']=$userID;
             $newArray['profilePicture']='/Image/Test Account.png';
-        
             $newArray['posts'][]=$posts;
+
+            
             $cont[]=$newArray;
+            // var_dump(json_encode($cont));
+            // return;
             $i++;
             $c++;
         }
         else{
+            var_dump(json_encode($cont));
             $posts=[];
-            
+            $currentContent=[];
+            if(isset($bigData[$i]['imageFileName'])){
+                $posts['imageFileName']=$bigData[$i]['imageFileName'];
+                $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
+            }
+            if(isset($bigData[$i]['videoFileName'])){
+                $posts['VideoFileName']=$bigData[$i]['videoFileName'];
+                $posts['videoFilePath']=$bigData[$i]['videoFilePath'];
+            }
 
-            $posts['imageFileName']=$bigData[$i]['imageFileName'];
-            $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
-            // $posts['postID']=$bigData[$i]['postID'];
-            $posts['VideoFileName']=$bigData[$i]['videoFileName'];
-            $posts['videoFilePath']=$bigData[$i]['videoFilePath'];
-            array_push($cont[$i-1]['posts'], $posts);
-        
-            // $newArray['username'][$username]=$bigData[$i-1];
+            if(isset($cont[$c]['post'])){
+                if(isset($cont[$c]['post']['videoFilePath'])){
+                    $currentContent=$cont[$c]['post']['videoFilePath'];
+                    $currentContent=$cont[$c]['post']['videoFileName'];
+                }
+                else{
+                    $currentContent=$cont[$c]['post']['imageFilePath'];
+                    $currentContent=$cont[$c]['post']['imageFilePath'];
+                }
+
+                $cont[$c]['post']=null;
+                unset($cont[$c]['post']);
+                $cont[$c]['posts']=[];
+                array_push($cont[$c]['posts'],$currentContent);
+                array_push($cont[$c]['posts'],$posts);
+            }else{
+                if(isset($cont[$c]['posts'])){
+                    array_push($cont[$c]['posts'],$posts);
+                }
+                
+                
+            }
             $i++;
         }
      
