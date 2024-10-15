@@ -1,0 +1,179 @@
+@media screen and (max-width: 540px) {
+  body {
+    background-color: lightgreen;
+    /*width: 100%;*/
+    
+  }
+  main{
+    width: 100%;
+    height: 100%;
+  }
+  .nav-center{
+    display: none;
+  }
+  .mission-section{
+    display: none;
+  }
+  
+  .post-section {
+    /*padding: 10px;*/
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+}
+
+.post {
+    background-color: #ffffff;
+    border-radius: 8px;
+    max-width: 400px; /* Reduced the width */
+    transition: transform 0.3s ease-in-out;
+    z-index: 1;
+}
+
+
+  .post img {
+    display: block;
+    width: 70%;
+    height: auto;
+    max-height: 250px;
+    border-bottom: 1px solid #ddd;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+ .profile-button {
+  transition: transform 0.3s ease-in-out;
+  position: relative;
+  background-color: white;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 59px;
+  height: 66px;
+  right: 24px;
+  bottom: 90px;
+}
+.share-button{
+  width: 3em;
+  float: right;
+}
+ 
+/* Modal background */
+#registerModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.1); /* Modal background */
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+/* Modal container */
+  .modal-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 40px;
+    width: 85%;
+    height: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    text-align: center;
+    align-content: center;
+    margin-right: auto;
+    margin-left: auto;
+   /* margin-top: 60px;
+    margin-left: 341px;*/
+  }
+
+  .register-heading{
+    color: #A7991E;
+    top: 60px;
+    position: absolute;
+    left: 26px;
+  }
+  .Form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+.input-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .input-group input {
+    width: 48%; /* Make name and last name side by side */
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 73%;
+    padding: 10px;
+    margin: 20px;
+    border: 1px solid #A7991E;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #A7991E;
+  }
+
+  /* Input fields styling */
+  .input-group {
+    display: flex;
+    justify-content: space-between;
+    width: 83%;
+
+  }
+/* Modal container */
+    .profilesetupmodal-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 40px;
+      width: 80%; /* Smaller width */
+      height: 100%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      position: absolute;
+      text-align: center;
+      align-content: center;
+      left: 373px;
+      top: 70px;
+      overflow: hidden;
+  }
+  .post-container-primary{
+    width: 100%;
+  }
+  .profilesetupmodal-container h2{
+    color: #A7991E;
+    position: absolute;
+    top: 36px;
+    left: 90px;
+  }
+
+  .profile-image-container{
+    align-self: start;
+    margin-left: 61px;
+  }
+  .primary-post:hover {
+    transform: scale(1.04);
+  }
+
+  .secondary-post:hover {
+    transform: scale(1.05);
+  }
+
+.tertiary-post:hover {
+  transform: scale(1.05);
+}
+  
+}

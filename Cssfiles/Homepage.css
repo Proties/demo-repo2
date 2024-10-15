@@ -1,4 +1,5 @@
 /* Reset some default styles */
+
 ::before,
 *::after {
     margin: 0;

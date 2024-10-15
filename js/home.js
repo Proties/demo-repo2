@@ -433,38 +433,34 @@ function openModal(evt) {
    
     let postTitle='happy';
     console.log(evt.target);
+    let source=evt.target.src;
     let postImageSrc=evt.target.src;
+    const patttern='/(.mp4)/';
+   
+
     const modal = document.getElementById("postModal");
     const modalPostImage = document.getElementById("modalPostImage");
     let cont=evt.target.parentNode.parentNode.parentNode;
     let profile=cont.getElementsByClassName("profile-button")[0];
   
-    modalPostImage.src = postImageSrc;
-    modal.style.display = "block";
+    if(source.test(patttern)){
+        let video=document.createElement('video');
+        video.setAttribute('src',source);
+        modal.append(video);
+        modal.style.display = "block";
+    }
+    else{
+        modalPostImage.src = postImageSrc;
+        modal.style.display = "block";
+    }
+    
     document.getElementById("closeModal").addEventListener('click',closeModal);
-    // let username=pro;
-    // let postID=cont;
-    console.log('profile=====');
-    console.log(profile);
-    console.log('post=====');
-    console.log(profile.id+'/'+cont.id);
+
+    // console.log(profile.id+'/'+cont.id);
     // window.location.href=profile.id+'/'+cont.id;
-    history.replaceState(null, null, profile.id+'/'+cont.id);
-    if(profile.id=='' || cont.id==''){
-        throw 'no profile id specified';
-    }
-    try{
-        let xml=new XMLHttpRequest();
-        xml.open('GET',profile.id+'/'+cont.id);
-        xml.onreadystatechange=function(){
-            console.log(this.responseText);
-        }
-        // xml.setRequestHeader('Content-type','application/x-www-form-urlencoded');
-        // xml.send("action=initialise_preview");
-        xml.send();
-    }catch(err){
-        console.log(err);
-    }
+    // history.replaceState(null, null, profile.id+'/'+cont.id);
+   
+    
 
 }
 

@@ -91,7 +91,7 @@ function formatProfileObject(array $bigData){
             $c++;
         }
         else{
-            var_dump(json_encode($cont));
+            
             $posts=[];
             $currentContent=[];
             if(isset($bigData[$i]['imageFileName'])){
