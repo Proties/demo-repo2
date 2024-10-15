@@ -1,11 +1,11 @@
 /* Reset some default styles */
-@media screen and (mix-width: 600px) {
+@media screen and (min-width: 600px) {
 ::before,
 *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+} 
 
 body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
     margin: 0;
@@ -871,4 +871,5 @@ transform: scale(1.10);
 .footer-content img{
   width: 10%;
   margin: auto;
+}
 }
