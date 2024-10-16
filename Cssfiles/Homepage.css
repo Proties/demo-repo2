@@ -1,12 +1,11 @@
 /* Reset some default styles */
-
 @media screen and (min-width: 600px) {
 ::before,
 *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+} 
 
 body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
     margin: 0;
@@ -873,4 +872,8 @@ transform: scale(1.10);
   width: 10%;
   margin: auto;
 }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 0df5aa357d844b2ef7e38594b2a9fc84fcb0873b
