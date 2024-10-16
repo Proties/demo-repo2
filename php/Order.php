@@ -56,6 +56,9 @@ class Order{
 	public function get_uuid(){
 		return $this->uuid;
 	}
+	public function genarete_uuid(){
+		return $this->uuid;
+	}
 }
 
 

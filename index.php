@@ -124,7 +124,7 @@ switch($action){
         include_once('php/subscribe.php');
         break;
     case '/donate':
-        include_once('php/onceOffPurchase.php');
+        include_once('php/donate.php');
         break;
     case '/setup_profile':
         include_once('php/setupProfile.php');

@@ -1,5 +1,6 @@
 <?php 
 
-echo 'transaction passed';
+heder('Location: /');
+exit();
 
 ?>
