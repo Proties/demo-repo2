@@ -123,7 +123,7 @@ switch($action){
     case '/subscribe_to_premiunm':
         include_once('php/subscribe.php');
         break;
-    case '/once_off_purchase':
+    case '/donate':
         include_once('php/onceOffPurchase.php');
         break;
     case '/setup_profile':
