@@ -184,7 +184,7 @@
             <div class="post">
               <div class="Primary-post">
                 <div class="share-button">
-                  <img src="/Image/Share.png" alt="share">
+                  <img src="/Image/Share.png" alt="share" class="share-button-img">
                 </div>
                 <img
                   src="/Image/Comic.png.png"
@@ -225,13 +225,17 @@
         <h2>Supporting Nerstia is supporting a community where creativity thrives.
         </h2>
         <div class="mission-container">
-            
+            <p class="mission-statement">We are an inclusive space where artists of all levels share, inspire, and grow together. 
+            </p>
+            <p class="mission-statement">Help us nurture creativity and amplify artistic voices.</p>
+            <button class="Call-Action">Click Here</button>
+            <P class="mission-statement">Please support us by clicking the link above.</P>
         </div>
     </section>
 
       <!-- Modal Window -->
       <section id="postModal" class="modal" style="display: none;">
-        <span class="close" id="closeModal">&times;</span>
+        <span id="closeModal" class="postmodal-close">&times;</span>
         <div class="modal-post">
           <img
             id="modalPostImage"
@@ -256,7 +260,7 @@
           <h2 class="register-heading">Create Account</h2>
         </div>
           <div id="Form-container" class="form">
-          <form id="registerForm">
+          <form class="registration-form">
             <div class="input-group">
               <input type="text" id="name" name="name" placeholder="First Name" required />
                <p id="errName"></p>
@@ -268,7 +272,6 @@
             <p id="errEmail"></p>
             <input type="password" id="password" name="password" placeholder="Password" required />
             <p id="errPassword"></p>
-             <button type="submit" id="registerUserBtn">SUBMIT</button>
           </form>
           <button type="submit" id="registerUserBtn">Create Account</button>
         </div>
@@ -279,36 +282,78 @@
         </div>
       </section>
 
+    <!-- Login Pop-up -->
+    <section id="registerModal" class="modal" style="display: none">
+      <div class="modal-container">
+        <div class="heading-container">
+        <span class="close" id="closeModalReg">&times;</span>
+        <h2 class="login-heading">Welcome Back</h2>
+      </div>
+        <div id="Form-container" class="form">
+        <form class="login-form">        
+          <input type="email" id="email" name="email" placeholder="Email" required />
+          <p id="errEmail"></p>
+          <input type="password" id="password" name="password" placeholder="Password" required />
+          <p id="errPassword"></p>
+        </form>
+        <button type="submit" id="registerUserBtn">Log In</button>
+      </div>
+      <div class="Log-in">
+      <p class="CAT">Already a member?<space></space> </p><a href="" class="log-in-link"> Sign in</a>
+    </div>
+
+      </div>
+    </section>
+
+    <!-- Pick Template Modal-->
+    <section id="PickTemplateModal" class="modal" style="display: block">
+      <div class="PickTemplateModal-container">
+        <div class="heading-container">
+          <span class="close" id="closepicktemplate">&times;</span>
+          <h2>Pick Template</h2>
+        </div>
+        <div class="templatewrapper">
+          <div class="template-container">
+          <div class="template">
+            <span class="badge">Premium</span>
+            <img class="template-img" src="/Image/Demo - K.dot.png" alt="K.Dot">
+            <div class="Template-label">K.Dot</div>
+              </div>
+            </div>
+
+
+              </div>
+              
+
+      </div>
+    </section>
+
       <!-- Profile Setup Modal-->
       <section id="profileSetupModal" class="modal" style="display:none">
         <div class="profilesetupmodal-container">
-          <span class="close" id="closeProfileSetup">&times;</span>
-          <h2>Set Up Profile</h2>
-          
+          <div class="heading-container">
+            <span class="close" id="closeProfileSetup">&times;</span>
+            <h2>Set Up Profile</h2>
+          </div>
+          <div id="Form-container" class="form">
           <form id="profileSetupForm" >
-
-            <!-- Profile Image Circle -->
             <div class="profile-image-container">
               <img class="profile-image-placeholder" src="/Image/Test Account.png" alt="Profile Icon" />
             </div>
-      
-            <!-- Input Fields -->
             <div class="input-group">
               <input type="text" id="profileName" name="profileName" placeholder="User Name" required />
               <p id="errProfilUsername"></p>
               <input type="text" id="gender" name="gender" placeholder="Gender" required />
               <p id="errProfileGender"></p>
             </div>
-      
             <input type="text" id="occupation" name="occupation" placeholder="OCCUPATION" required />
             <p id="errProfileOccupation"></p>
-      
             <textarea id="biography" name="biography" placeholder="Mini Bio" rows="4" required></textarea>
             <p id="errProfileBio"></p>
-      
-            <button type="submit" id="submitProfileSetup">SUBMIT</button>
           </form>
+          <button type="submit" id="submitProfileSetup">SUBMIT</button>
         </div>
+      </div>
       </section>
 
       <footer class="footer">
