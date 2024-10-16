@@ -31,6 +31,27 @@ function get_cookie(name){
     }
 }
 }
+function getUploadStatus(){
+    let data=get_cookie('postUploadStatus=');
+  
+    console.log('======getting upload status');
+        
+        if(data==undefined || data==false){
+            return;
+        }
+        if(data.status=='success'){
+            alert('success')
+        }else{
+            //call review window 
+            //fill  in user details that user provided
+            alert(data.message);
+        }
+        console.log(data);
+        console.log('======getting upload status');
+    }
+    
+
+getUploadStatus();
 function get_data_from_cookie(){
     let user_data=get_cookie('myprofile=');
     let setUpProfile=get_cookie('setUpProfile=');

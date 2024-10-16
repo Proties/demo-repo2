@@ -89,10 +89,6 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $data['status']='success';
             $db->commit();
     
-            // setcookie('uploadPost',json_encode($data), time() +(86400 * 1), '/profile');
-            // echo json_encode($data);
-            header('Content-Type: application/json');
-            echo json_encode($data);
 
     }catch(Exception $err){
         $db->rollBack();
@@ -102,10 +98,12 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $data['trace']=$err->getTraceAsString();
         $data['errorArray']=$errorMessages;
         
-        // header('Location: '.$_SERVER['PHP_SELF']);
-        header('Content-Type: application/json');
-        echo json_encode($data);
+        
         
     }
+
+    setcookie('postUploadStatus',json_encode($data), time() + (864 * 30), '/'); 
+    header('Location: /profile');
+    die();
 }
 ?>
