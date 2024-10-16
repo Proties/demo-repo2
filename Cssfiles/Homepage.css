@@ -24,8 +24,10 @@ body {
 header {
     background-color: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 10px 20px;
-    z-index: 1;
+    z-index: 5;
+    position: fixed;
+    top: 0px;
+    width: 100%;
 }
 
 nav {
@@ -44,6 +46,7 @@ nav {
     width: 10vw; /* Adjust width relative to viewport */
     max-width: 70px;
     height: auto;
+    cursor: pointer;
 }
 
 /*
@@ -84,6 +87,7 @@ nav .profile-link {
 }
 
 .register-button {
+    transition: 0.9s ease;
     background-color: #A7991E;
     color: white;
     padding: 15px 40px;
@@ -94,7 +98,9 @@ nav .profile-link {
 }
 
 .register-button:hover {
-    background-color: #A7991E;
+    transform: scale(1.10);
+    box-shadow: 0 5px 10px #A7991E;
+    
 }
 
 .nav-center {
@@ -148,7 +154,7 @@ nav .profile-link {
 }
 
 .suggestion-list li:hover {
-    background-color: #f2f2f2;
+    background-color: #A7991E;
     cursor: pointer;
 }
 
@@ -161,8 +167,8 @@ nav .profile-link {
 }
 
 .nav-center input[type="text"]:focus {
-    border-color: #3ea6ff;
-    box-shadow: 0 0 8px rgba(62, 166, 255, 0.8);
+    border-color: #A7991E;
+    box-shadow: 0 0 8px rgba(167, 153, 30, 0.8);
 }
 
 .nav-center button {
@@ -262,7 +268,7 @@ display: none;
 /*challenges-filter */
 
 .challenge-filter-section {
-    display: none;
+  display: none;
   position: fixed;
   left: 10px;
   bottom: 5px; /* Adjust based on header height */
@@ -285,26 +291,6 @@ display: none;
 
 
 /*challenge section*/
-
-.mission-section {
-  position: fixed;
-  right: 10px;
-  top: 120px; /* Adjust based on header height */
-  width: 20%;
-  max-width: 330px;
-  height: 40vh; /* Takes 80% of viewport height */
-  background-color: #ffffff;
-  border: 2px solid #A7991E;
-  padding: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  overflow: hidden; /* Prevent overflow */
-  border-radius: 25px;
-}
-
-.mission-container {
-  height: 100%;
-  overflow-y: scroll; /* Enables vertical scrolling */
-}
 
 .challenge-section h2 {
   text-align: center;
@@ -331,6 +317,62 @@ display: none;
 
 .go-button:hover {
   background-color: #A7991E;
+}
+
+/*Mission Statement */
+
+.mission-section {
+  position: fixed;
+  right: 0px;
+  top: 81px; /* Adjust based on header height */
+  width: 20%;
+  max-width: 330px;
+  height: 60vh; /* Takes 80% of viewport height */
+  background-color: #ffffff;
+  border: 2px solid #A7991E;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  overflow: hidden; /* Prevent overflow */
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  text-align: center;
+  color: #A7991E;
+}
+
+.mission-container {
+  height: 100%;
+  overflow-y: scroll; /* Enables vertical scrolling */
+}
+
+.mission-section h2{
+  color: #A7991E;
+  font-size: 1.3em;
+  margin: 6px;
+  font-weight: bold;
+}
+
+.mission-statement{
+  margin-right: 19px;
+    margin-left: 19px;
+    margin-top: 24px;
+}
+
+.Call-Action {
+  transition: 0.9s ease;
+  background-color: #A7991E;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 8px 16px;
+  font-size: 13px;
+  border-radius: 8px;
+  margin: 20px;
+  cursor: pointer;
+}
+
+.Call-Action:hover {
+  box-shadow: 0 5px 15px #A7991E;
+  transform: scale(1.10);
 }
 
 /**/
@@ -397,14 +439,14 @@ display: none;
 /*Post section */
 
 .Primary-post {
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.5s ease-in-out;
   position: relative;
   z-index: 1; /* Bring the top post to the front */
   cursor: pointer;
 }
 
 .Secondary-post {
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.5s ease-in-out;
   position: relative;
   left: 30px;
   bottom: 150px;
@@ -413,7 +455,7 @@ display: none;
 }
 
 .Tertiary-post {
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.5s ease-in-out;
   position: relative;
   left: 100px;
   bottom: 310px;
@@ -440,7 +482,7 @@ display: none;
 
 .postfeed-wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(106%, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(104%, 1fr));
   grid-column-gap: 100px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -464,7 +506,6 @@ display: none;
     width: 100%;
     height: auto;
     max-height: 250px;
-    border-bottom: 1px solid #ddd;
     border-radius: 8px;
     object-fit: cover;
 }
@@ -481,9 +522,9 @@ display: none;
 }
 
 .profile-button {
-  transition: transform 0.3s ease-in-out;
+  transition: 0.5s ease-in-out;
   position: relative;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0);
   border-radius: 100%;
   display: flex;
   align-items: center;
@@ -500,7 +541,14 @@ display: none;
 .profile-button-img {
     object-fit: fill;
     margin-right: 8px; /* Adds space between icon and text */
+    transition: 0.5s ease-in-out;
 
+
+}
+
+.profile-button-img:hover {
+  transform: scale(1.10);
+  box-shadow: 0 5px 15px whitesmoke;
 }
 
 .profile-button:hover {
@@ -516,13 +564,26 @@ display: none;
   font-size: 13px;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: 0.9s ease;
+}
+
+.follow-button:hover {
+  box-shadow: 0 5px 15px #A7991E;
+  transform: scale(1.10);
 }
 
 .share-button{
   width: 25px;
   float: right;
+  transition: 0.9s ease;
+  background-color: rgba(255, 255, 255, 0);
 }
+
+.share-button:hover {
+  box-shadow: 0 5px 15px #A7991E;
+  transform: scale(1.10);
+}
+
 
 /* View post window */
 /* Modal Styling */
@@ -555,7 +616,7 @@ display: none;
 }
 
 .close {
-    left: 25px;
+    right: 35px;
     color: #A7991E;
     font-size: 28px;
     font-weight: bold;
@@ -563,11 +624,30 @@ display: none;
     position: absolute;
     top: 10px;
     cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.9s ease-in-out;
 }
 
 .close:hover,
 .close:focus {
+     transform: scale(1.10);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.postmodal-close{
+  left: 35px;
+    color: #A7991E;
+    font-size: 28px;
+    font-weight: bold;
+    z-index: 1002; /* Ensure it stays on top of everything */
+    position: absolute;
+    top: 10px;
+    cursor: pointer;
+    transition: transform 0.9s ease-in-out;
+}
+
+.postmodal-close:hover,
+.postmodal-close:focus {
      transform: scale(1.10);
     text-decoration: none;
     cursor: pointer;
@@ -665,7 +745,7 @@ textarea {
 }
 
 .modal-profile-button{
-    transition: transform 0.3s ease-in-out;
+    transition: 0.9s ease-in-out;
     margin-top: 90px;
     position: absolute;
     left: 80px;
@@ -680,11 +760,11 @@ textarea {
     cursor: pointer;
 }
 
-.profile-button img {
+.modal-profile-button img {
   object-fit: fill;
 }
 
-.profile-button:hover {
+.modal-profile-button:hover {
 transform: scale(1.10);
 }
 
@@ -695,7 +775,15 @@ transform: scale(1.10);
   position: absolute;
   bottom: -5px;
   right: 80px;
+  transition: 0.9s ease;
 }
+
+.share:hover {
+  box-shadow: 0 5px 15px #A7991E;
+  transform: scale(1.10);
+}
+
+
 
 /* Register CSS */
 
@@ -735,6 +823,15 @@ transform: scale(1.10);
     top: 60px;
     position: absolute;
     left: 286px;
+    font-weight: bold;
+  }
+
+  .login-heading{
+    color: #A7991E;
+    top: 60px;
+    position: absolute;
+    left: 270px;
+    font-weight: bold;
   }
 
 
@@ -746,7 +843,7 @@ transform: scale(1.10);
 }
   
   /* Form styling */
-  form {
+  .registration-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -755,6 +852,14 @@ transform: scale(1.10);
     margin-top: 50px;
   }
   
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+    margin-bottom: 67px;
+  }
+
   .input-group {
     display: flex;
     justify-content: space-between;
@@ -779,15 +884,18 @@ transform: scale(1.10);
 
   /* Input fields styling */
   .input-group {
+    width: 78%;
     display: flex;
-    justify-content: space-between;
-    width: 83%;
+    flex-direction: row;
+    margin-right: auto;
+    margin-left: auto;
 
   }
  
   /* Submit button */
   button[type="submit"] {
     padding: 10px 20px;
+    transition: 0.9s ease;
     background-color: #A7991E;
     color: white;
     border: none;
@@ -797,7 +905,8 @@ transform: scale(1.10);
   }
   
   button[type="submit"]:hover {
-    background-color: #ddd; /* Hover effect */
+      transform: scale(1.10);
+      box-shadow: 0 5px 10px #A7991E;  
   }
   
   /* Heading styling */
@@ -846,12 +955,44 @@ transform: scale(1.10);
     position: absolute;
     top: 36px;
     left: 90px;
+    font-weight: bold;
   }
 
-  .profile-image-container{
-    align-self: start;
-    margin-left: 61px;
+  .profile-image-placeholder{
+    margin-right: auto;
+    display: block;
+    margin-left: 6em;
   }
+
+
+
+
+  /*PickTemplate*/
+  .PickTemplateModal-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 40px;
+    width: 800px;
+    height: 660px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    text-align: center;
+    align-content: center;
+    left: 345px;
+    top: 30px;
+    }
+
+.PickTemplateModal-container img {
+    width: 110px;
+}
+
+.heading-container h2 {
+  color: #A7991E;
+  font-size: 1.3em;
+  margin: 6px;
+  font-weight: bold;
+}
+
 
 /*footer*/
 .footer {
