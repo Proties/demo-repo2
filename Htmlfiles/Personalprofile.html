@@ -19,7 +19,7 @@
       <nav class="navbar">
         <div class="nav-left">
           <a href="/" class="home-link">
-            <img src="/Image/Logo.png" alt="Logo" class="logo-image"
+            <img src="/Image/Logo-bright.png" alt="Logo" class="logo-image"
           /></a>
         </div>
 
@@ -28,14 +28,15 @@
         </div>
 
         <div class="nav-right">
-          <button
+         <!-- <button
             class="push-button"
             id="editProfileButton"
             onclick="window.location.href='/edit_profile'"
           >
             Edit Profile
-          </button>
-          <button class="upload-button" id="uploadBtn">Push</button>
+          </button> -->
+          <button class="upload-button" id="uploadBtn">Upload</button>
+          <button class="settings-button" id="settingsBtn"><img src="/Image/Settings.png" alt="settings"></button>
         </div>
       </nav>
     </header>
@@ -56,7 +57,7 @@
     </section>
 
     <!-- Second Section with a long bio -->
-    <section class="spaces">
+    <section class="spaces" >
       <div class="user-info-container">
         <h1 id="username">Username</h1>
         <p class="short-bio" id="shortBio">
@@ -64,7 +65,7 @@
         </p>
       </div>
 
-      <div class="Trophies-container">
+      <div class="Trophies-container" style="display: none;">
         <button class="add-trophies-button">+</button>
       </div>
     </section>
@@ -246,7 +247,7 @@
     <script type="module" src="js/profileMain.js"></script>
     <footer class="footer">
       <div class="footer-content">
-        <img src="/Image/Logo.png" alt="Post Image 8" class="post-image" />
+        <img src="/Image/Logo.png" alt="Logo" />
         <h2>Nerstia</h2>
       </div>
     </footer>
