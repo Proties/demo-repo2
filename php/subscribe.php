@@ -76,21 +76,26 @@ switch($action){
 			}
 			$order->set_type('free_trial');
 			$order->set_item();
+			$order->set_item_description();
 			$order->set_time_created($currentTime);
 			$order->set_date_created($currentDate);
 			$order->set_userID($_SESSION['userID']);
+
+			$token;
+			$nextRun;
+			$frequency;
 			
-			$subcription->set_type($type);
-			$subcription->set_initial_amount($intialAmount);
+			$subcription->set_type($order->get_type());
+			$subcription->set_initial_amount(0);
 			$subcription->set_token($token);
-			$subcription->set_amount($amount);
+			$subcription->set_amount($order->get_amount());
 			$subcription->set_next_run($nextRun);
 			$subcription->set_frequency($frequency);
-			$subcription->set_item_name($itemName);
+			$subcription->set_item_name($order->get_item_name());
 			$subcription->set_item_description($itemDescription);
-			$subcription->set_name_first($firstName);
-			$subcription->set_name_last($lastName);
-			$subcription->set_email_address($email);
+			$subcription->set_name_first($user->get_firstName());
+			$subcription->set_name_last($user->lastName());
+			$subcription->set_email_address($user->get_email());
 
 			$subdb=new SubscriptionDB($subcription);
 			$subdb->addSubscription();

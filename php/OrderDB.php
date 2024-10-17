@@ -11,10 +11,38 @@ class OrderDB extends Database{
 		$this->db=Database::get_connection();
 	}
 
-	public function addOrder(){}
-	public function updateOrder(){}
-	public function cancelOrder(){}
-	public function getOrder(){}
+	public function addOrder(){
+		$db=$this->db;
+		try{
+
+		}catch(PDOException $err){
+			return $err;
+		}
+	}
+	public function updateOrder(){
+		$db=$this->db;
+		try{
+
+		}catch(PDOException $err){
+			return $err;
+		}
+	}
+	public function cancelOrder(){
+		$db=$this->db;
+		try{
+
+		}catch(PDOException $err){
+			return $err;
+		}
+	}
+	public function getOrder(){
+		$db=$this->db;
+		try{
+
+		}catch(PDOException $err){
+			return $err;
+		}
+	}
 
 }
 
