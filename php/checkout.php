@@ -35,7 +35,7 @@ try{
     }
 
     // Construct variables
-    $cartTotal = $order->get_total(); // This amount needs to be sourced from your application
+   
     $passphrase = $merchant->get_passphrase();
     $data = array(
         // Merchant details
@@ -45,12 +45,12 @@ try{
         'cancel_url' => 'https://7d43-102-219-27-117.ngrok-free.app/php/deny.php',
         'notify_url' => 'https://7d43-102-219-27-117.ngrok-free.app/php/direct.php',
         // Buyer details
-        'name_first' => $user->get_name(),
-        'name_last'  => $user->get_lastName(),
-        'email_address'=> $user->get_email(),
+        'name_first' => $order->get_name(),
+        'name_last'  => $order->get_lastName(),
+        'email_address'=> $order->get_email(),
         // Transaction details
         'm_payment_id' => $order->get_id(), //Unique payment ID to pass through to notify_url
-        'amount' => number_format( sprintf( '%.2f', $cartTotal ), 2, '.', '' ),
+        'amount' => number_format( sprintf( '%.2f', $order->get_amount() ), 2, '.', '' ),
         'item_name' => $order->get_id()
     );
 

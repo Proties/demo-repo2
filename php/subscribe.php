@@ -20,6 +20,8 @@ $plan=new Plan();
 $subcription=new Subscription();
 $data=[];
 $action;
+$currentDate=date('Y:m:d');
+$currentTime=date('h:i');
 if(isset($_POST['subscriptionType'])){
 	$action=$_POST['subscriptionType'];
 }
@@ -29,11 +31,12 @@ switch($action){
 			if(!isset($_SESSION['userID'])){
 				throw new Exception('create account');
 			}
+
 			$order->set_type('subscription');
 			$order->set_item();
 			$order->set_amount($amount);
-			$order->set_time_created();
-			$order->set_date_created();
+			$order->set_time_created($currentTime);
+			$order->set_date_created($currentDate);
 			$order->set_userID($_SESSION['userID']);
 
 
@@ -54,8 +57,8 @@ switch($action){
 			$order->set_type('subscription');
 			$order->set_item();
 			$order->set_amount($amount);
-			$order->set_time_created();
-			$order->set_date_created();
+			$order->set_time_created($currentTime);
+			$order->set_date_created($currentDate);
 			$order->set_userID($_SESSION['userID']);
 			$_SESSION['orderDetail']=$order;
 			$orderDB=new OrderDB();
@@ -73,9 +76,25 @@ switch($action){
 			}
 			$order->set_type('free_trial');
 			$order->set_item();
-			$order->set_time_created();
-			$order->set_date_created();
+			$order->set_time_created($currentTime);
+			$order->set_date_created($currentDate);
 			$order->set_userID($_SESSION['userID']);
+			
+			$subcription->set_type($type);
+			$subcription->set_initial_amount($intialAmount);
+			$subcription->set_token($token);
+			$subcription->set_amount($amount);
+			$subcription->set_next_run($nextRun);
+			$subcription->set_frequency($frequency);
+			$subcription->set_item_name($itemName);
+			$subcription->set_item_description($itemDescription);
+			$subcription->set_name_first($firstName);
+			$subcription->set_name_last($lastName);
+			$subcription->set_email_address($email);
+
+			$subdb=new SubscriptionDB($subcription);
+			$subdb->addSubscription();
+
 			header('Location: /');
 		}catch(Exception $err){
 			$data['status']='failed';

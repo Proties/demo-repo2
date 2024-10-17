@@ -18,13 +18,13 @@ try{
 	}
 	$amount=$_POST['amount'];
 	$_SESSION['orderDetailes'];
-	$currentDate;
-	$currentTime;
+	$currentDate=date('Y:m:d');
+	$currentTime=date('h:i');
 	$order->set_type('donation');
-	$order->set_item();
+	$order->set_item('onceOfff prchase');
 	$order->set_amount($amount);
-	$order->set_time_created();
-	$order->set_date_created();
+	$order->set_time_created($currentTime);
+	$order->set_date_created($currentDate);
 	$order->set_userID($_SESSION['userID']);
 
 	$_SESSION['orderDetailes']=$order;
