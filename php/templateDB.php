@@ -12,6 +12,9 @@ class TemplateDB extends Database{
 		$this->template=$template;
 		$this->db=Database::get_connection();
 	}
+	public function set_db($db){
+		$this->db=$db;
+	}
 
 	public function get_current_template(){
 		$db=$this->db;
@@ -36,16 +39,19 @@ class TemplateDB extends Database{
 		$db=$this->db;
 		try{
 			$query='
-					INSERT INTO Template (creator,description,dateCreated,timeCreated,filename)
-					VALUES(:owner,:descr,:dateCreated,:timeCreated,:name)
+					INSERT INTO Template (name,filename,price,image,dateMade,timeMade,type)
+					VALUES(:name,:filename,:price,:image,:dateMade,:timeMade,:type)
 			';
 			$stmt=$db->prepare($query);
-			$stmt->bindValue(':owner',$this->template->get_creator());
-			$stmt->bindValue(':descr',$this->template->get_description());
-			$stmt->bindValue(':dateCreated',$this->template->get_dateMade());
-			$stmt->bindValue(':timeCreated',$this->template->get_timeMade());
-			$stmt->bindValue(':name',$this->template->get_filename());
-			$stmt->execute();
+			$stmt->bindValue(':dateMade',$this->template->get_dateMade());
+			$stmt->bindValue(':timeMase',$this->template->get_timeMade());
+			$stmt->bindValue(':name',$this->template->get_name());
+			$stmt->bindValue(':filename',$this->template->get_filename());
+			$stmt->bindValue(':price',$this->template->get_price());
+			$stmt->bindValue(':type',$this->template->get_type());
+			$stmt->bindValue(':image',$this->template->get_image());
+			
+			return $stmt->execute();
 		}catch(PDOException $err){
 			 return $err;
 		}
@@ -55,13 +61,13 @@ class TemplateDB extends Database{
 		try{
 			$query='
 
-					INSERT INTO UserTemplate()
+					INSERT INTO UserTemplate(userID,templateID,status)
 					VALUES(:userID,:templateID,:status)
 			';
 			$statement=$db->prepare($query);
-			$statement->bindValue(':userID',);
-			$statement->bindValue(':templateID',);
-			$statement->bindValue(':status',);
+			$statement->bindValue(':userID',$this->template->get_userID());
+			$statement->bindValue(':templateID',$this->template->get_id());
+			$statement->bindValue(':status','selected');
 			return $statement->execute();
 
 
@@ -75,7 +81,7 @@ class TemplateDB extends Database{
 			$db->startTransaction();
 			$queryOne='
 					UPDATE UserTemplate
-					SET status="not active"
+					SET status="not selected"
 					WHERE userID=:userID AND templateID=:templateID
 
 					';

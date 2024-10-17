@@ -79,6 +79,10 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
         $start=strpos($_SERVER['REQUEST_URI'], '@');
         $username=substr($_SERVER['REQUEST_URI'], $start+1);
     }
+    if(!isset($_SESSION['userID'])){
+        include_once('Htmlfiles/Personalprofile.html');
+        return;
+    }
     $template->set_username($username);
     $tempdb=new TemplateDB($template);
     $results=$tempdb->get_current_template();
@@ -86,11 +90,9 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
         $file=$template->get_directory().'/'.$template->get_filename();
         include_once($file);
     }
-    var_dump($results);
-    return;
+
     $file=$tempdb->template->get_directory().'/'.$tempdb->template->get_filename();
-    var_dump($file);
-    return;
+
 }
 $currentProfile=new Users();
 $action=$_POST['actions'];

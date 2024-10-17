@@ -2,72 +2,75 @@
 session_start();
 use Insta\Template\Template;
 use Insta\Database\Template\TemplateDB;
-use Insta\Users\User;
-use Insta\Database\Users\UserDB;
-use Insta\Image\Image;
-use Insta\Database\Image\ImageDB;
 use Insta\Databases\Database;
 $data=[];
 $errorMessages=[];
-$user=new Users();
+
 $temp=new Template();
-$image=new Image();
+ setcookie('uploadTemplateStatus','',time()-(30*10),'/');
 $db=Database::get_connection();
 try {
     
     $db->beginTransaction();
     if(empty($_POST['templateName'])){
-        $errorMessages['errTemplateName'][]='template name not valid';
+        $errorMessages[]['errTemplateName']='template name not valid';
     }
     if(empty($_POST['templatePrice'])){
-        $errorMessages['errTemplateName'][]='template name not valid';
+        $errorMessages[]['errTemplatePrice']='template price not valid';
     }
     if(empty($_POST['templateType'])){
-        $errorMessages['errTemplateName'][]='template name not valid';
+        $errorMessages[]['errTemplateType']='template type not valid';
     }
-    if(empty($_FILES['templateImage'])){
-        $errorMessages['errTemplateName'][]='template name not valid';
+    if(!isset($_FILES['templateImageFile'])){
+        $errorMessages[]['errTemplateImage']='template image not valid';
     }
-    if(empty($_FILES['templateHtml'])){
-        $errorMessages['errTemplateName'][]='template name not valid';
+    if(!isset($_FILES['templateHtmlFile'])){
+        $errorMessages[]['errTemplateHtmlFile']='template html file not valid';
     }
-    if(empty($_FILES['templateCss'])){
-        $errorMessages['errTemplateName'][]='template name not valid';
+    if(!isset($_FILES['templateCssFile'])){
+        $errorMessages[]['errTemplateCssFile']='template css file valid';
     }
     $errorLen=count($errorMessages);
     if($errorLen>1){
         throw new Exception('there are issues');
     }
 
+    $dateMade=date('Y:m:d');
+    $timeMade=date('h:i');
     $temp->set_name($_POST['templateName']);
     $temp->set_price($_POST['templatePrice']);
     $temp->set_type($_POST['templateType']);
-    $temp->set_html($_FILES['templateHtml']['name']);
-    $temp->set_css();
-    $temp->set_image($_FILES['templateImage']);
-    $temp->set_dateMade();
-    $temp->set_timeMade();
+    $temp->set_html($_FILES['templateHtmlFile']['tempName']);
+    $temp->set_image($_FILES['templateImageFile']['tempName']);
+    $temp->set_dateMade($dateMade);
+    $temp->set_timeMade($timeMade);
 
-    $image=new Image();
-    $imageDB=new ImageDB($image);
+   
     $tempDB=new TemplateDB($temp);
     $tempDB->set_db($db);
-    $imageDB->set_db($db);
+
 
     $status=$tempDB->addTemplate();
 
     if($status==false){
         throw new Exception('something went wrong writing to database');
     }
-    $imageDB->load_image();
-    if(){
-        move_uploaded_file($temp->get_filename(), destination);
+    $htmlTmpname=$_FILES['templateHtml']['tempName'];
+    $cssTmpname=$_FILES['templateHtml']['tempName'];
+    $imageTmpname=$_FILES['templateHtml']['tempName'];
+
+    $htmlTmpname='/templates/'.$htmlTmpname;
+    $cssTmpname='/templates/'.$cssTmpname;
+    $imageTmpname='/templates/'.$imageTmpname;
+
+    if(!move_uploaded_file($htmlTmpname, $htmlNewfile)){
+        throw new Exception('could not upload Html file');
     }
-    if(){
-        move_uploaded_file($temp->get_filename(), destination);
+    if(!move_uploaded_file($cssTmpname, $cssNewfile)){
+         throw new Exception('could not upload css file');
     }
-    if(){
-        move_uploaded_file($temp->get_filename(), destination);
+    if(!move_uploaded_file($imageTmpname, $imageNewfile)){
+         throw new Exception('could not upload image file');
     }
     $db->commit();
     $data['status']='success';
@@ -75,8 +78,12 @@ try {
     $db->rollBack();
     $data['status']='failed';
     $data['error']=$e->getMessage();
+    $data['errors']=$errorMessages;
 
    
 
 }
- setcookie('uploadTemplate',json_encode($data),time()+(30*10),'/');
+    // this cookie will have values that have passed validation checks then fill then in the form
+ // setcookie('uploadTemplateTempInfo',json_encode($data),time()+(30*10),'/');
+ setcookie('uploadTemplateStatus',json_encode($data),time()+(30*10),'/');
+ header('Location: /Htmlfiles/uploadTemplate.html');

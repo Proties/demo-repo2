@@ -558,6 +558,7 @@ async function formHandling(evt){
                             alert('it works');
                             user.setupProfileModal.style.display='none';
                             user.registrationBtn.style.display='none';
+                            temp.cont.style.display='block';
                             return;
                         }
                         
