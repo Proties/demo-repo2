@@ -1,5 +1,6 @@
 <?php 
 namespace Insta\Subscription;
+use Insta\Subscription\Subscription;
 class Plan{
 	private $id;
 	private $description;

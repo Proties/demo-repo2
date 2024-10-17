@@ -1,6 +1,7 @@
 <?php 
 session_start();
 use Insta\Users\User;
+use Insta\Database\User\UserDB;
 use Insta\Database\Users\UserDB;
 use Insta\Order\Order;
 use Insta\Database\Order\OrderDB;
@@ -28,9 +29,12 @@ try{
 
 	$_SESSION['orderDetailes']=$order;
 	$data['status']='success';
+	header('Location: /checkout');
+	exit();
 }catch(Exception $err){
 	$data['status']='failed';
 	$data['message']=$err->getMessage();
+	echo json_encode($data);
 }
 
 

@@ -110,15 +110,15 @@ switch($action){
     case '/upload_post':
         include_once('php/uploadPost.php');
         break;
-<<<<<<< HEAD
+
+
     case '/upload_template':
         include_once('php/uploadTemplate.php');
-=======
-    case '/upload_video':
-        include_once('php/uploadVideo.php');
+
+
     case '/checkout':
         include_once('php/checkout.php');
->>>>>>> b26ed95 (updates)
+
         break;
     case '/subscribe_to_premiunm':
         include_once('php/subscribe.php');
