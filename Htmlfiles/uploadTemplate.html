@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Adding Templates</title>
+	<link rel="stylesheet" type="text/css" href="/Cssfiles/uploadTemplate.css">
+</head>
+<body>
+<form action="/upload_template" method="post">
+	<div class="currentTemplateImagePreview" id="currentTemplateImagePreview">
+		<img src="">
+	</div>
+	<label for="templateName">Template Name</label>
+	<input type="text" name="templateName" id="templateName">
+	<p id="errTemplateName"></p>
+	<label for="templateImage">Template Image</label>
+	<input type="file" name="templateImageFile" id="templateImage">
+	<p id="errTemplateImage"></p>
+	<label for="templateHtml">Template Html File</label>
+	<input type="file" name="templateHtmlFile" id="templateHtml">
+	<p id="errTemplateHtmlFile"></p>
+	<label for="templateCss">Template Css File</label>
+	<input type="file" name="templateCssFile" id="templateCss">
+	<p id="errTemplateCssFile"></p>
+	<label for="templatePrice">Template Price:</label>
+	<input type="number" name="templatePrice" id="templatePrice">
+	<p id="errTemplatePrice"></p>
+	<label>Template Type</label>
+	<select name="templateType">
+		<option>Free</option>
+		<option>Paid</option>
+		<option>Premium</option>
+	</select>
+	<p id="errTemplateType"></p>
+	<button type="submit">Submit Template</button>
+</form>
+
+<div class="listOfTemplates">
+	
+</div>
+
+<script type="text/javascript" src="/js/handleTemplates.js"></script>
+</body>
+</html>

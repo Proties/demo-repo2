@@ -84,8 +84,8 @@ switch($action){
     case '/upload_post':
         include_once('php/uploadPost.php');
         break;
-    case '/upload_video':
-        include_once('php/uploadVideo.php');
+    case '/upload_template':
+        include_once('php/uploadTemplate.php');
         break;
     case '/setup_profile':
         include_once('php/setupProfile.php');

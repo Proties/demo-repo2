@@ -12,6 +12,7 @@ class Template{
 	private $elements;
 
 	private $filename;
+	private $imagePreview;
 	private $jsScripts;
 	private $html;
 	private $css;
@@ -27,13 +28,20 @@ class Template{
 		$this->dateMade=date('Y:m:d');
 		$this->id;
 		$this->price='R20';
+		$this->imagePreview='';
 		$this->filename='Personalprofile.html';
+	}
+	public function set_previewImage($temp){
+		$this->imagePreview=$temp;
 	}
 	public function set_filename($temp){
 		$this->filename=$temp;
 	}
 	public function set_username($temp){
 		$this->username=$temp;
+	}
+	public function get_previewImage(){
+		return $this->imagePreview;
 	}
 	public function get_username(){
 		return $this->username;

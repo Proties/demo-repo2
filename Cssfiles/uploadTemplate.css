@@ -1,0 +1,13 @@
+form{
+	position: relative;
+	border: 0.1em solid black;
+	padding: 1em;
+}
+.currentTemplateImagePreview{
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+p{
+	color: red;
+}

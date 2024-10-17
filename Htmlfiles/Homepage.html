@@ -122,7 +122,7 @@
 
       <section class="post-section">
         <div class="postfeed-wrapper">
-          <div class="post-container-primary">
+         <!--  <div class="post-container-primary">
             <div class="post-actions">
               <div class="profile-button">
                 <img src="/Image/Test Account.png" alt="Profile Icon" class="profile-button-img"/>
@@ -141,9 +141,9 @@
                 />
               </div>
             </div>            
-          </div>
+          </div> -->
 
-          <div class="post-container-secondary">
+         <!--  <div class="post-container-secondary">
             <div class="post-actions">
               <div class="profile-button">
                 <img src="/Image/Test Account.png" alt="Profile Icon" class="profile-button-img"/>
@@ -172,9 +172,9 @@
                 />
               </div>
             </div>
-          </div>
+          </div> -->
 
-          <div class="post-container-teriary">
+          <!-- <div class="post-container-teriary">
             <div class="post-actions">
               <div class="profile-button">
                 <img src="/Image/Test Account.png" alt="Profile Icon" class="profile-button-img"/>
@@ -215,7 +215,7 @@
                 />
               </div>
             </div>
-          </div>
+          </div> -->
 
         </div>
       </section>
@@ -260,7 +260,7 @@
           <h2 class="register-heading">Create Account</h2>
         </div>
           <div id="Form-container" class="form">
-          <form class="registration-form">
+          <form id="registerForm">
             <div class="input-group">
               <input type="text" id="name" name="name" placeholder="First Name" required />
                <p id="errName"></p>
@@ -272,8 +272,9 @@
             <p id="errEmail"></p>
             <input type="password" id="password" name="password" placeholder="Password" required />
             <p id="errPassword"></p>
+             <button type="submit" id="submitRegistration">Create Account</button>
           </form>
-          <button type="submit" id="registerUserBtn">Create Account</button>
+         
         </div>
         <div class="Log-in">
         <p class="CAT">Already a member?<space></space> </p><a href="" class="log-in-link"> Log in</a>
@@ -306,7 +307,7 @@
     </section>
 
     <!-- Pick Template Modal-->
-    <section id="PickTemplateModal" class="modal" style="display: block">
+    <section id="PickTemplateModal" class="modal" style="display: none">
       <div class="PickTemplateModal-container">
         <div class="heading-container">
           <span class="close" id="closepicktemplate">&times;</span>

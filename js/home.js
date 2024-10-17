@@ -4,6 +4,7 @@ import {PostUI} from './post.js';
 import StackedPosts from './stackPosts.js';
 import RegistrationUI from './registration.js';
 import LoginUI from './login.js';
+import TemplatePicker from './templateMain.js';
 
 import {Follow,UnFollow} from './follow.js';
 
@@ -14,7 +15,8 @@ let user=new MyProfile();
 let allData;
 let profileList=[];
 let registrationForm=new RegistrationUI();
-
+let temp=new TemplatePicker();
+temp.events_handler();
 // let video=new VideoUI();
 // video.make_form_submission();
 function get_cookie(name){
@@ -247,13 +249,14 @@ function search_user(){
         console.log('works');
         clear_search_results();
         let len=searchData.Results.length;
+
         for(let i=0;i<len;i++){
             const l=document.createElement('li');
             l.setAttribute('class','searchItem');
             l.textContent=searchData.Results[i].username;
             list.appendChild(l);
             console.log(searchData.Results[i]);
-            
+
         }
         let listItem=document.getElementsByClassName('searchItem');
         for(let i=0;i<listItem.length;i++){
@@ -261,7 +264,9 @@ function search_user(){
                 console.log("works=======");
                 console.log(evt.target.innerHTML);
                 window.location.href="/@"+evt.target.innerHTML;
+
             });
+
         }
         }
         
@@ -528,7 +533,6 @@ async function formHandling(evt){
                 evt.preventDefault();
                 let profileItem={
                     username:document.getElementById('profileName').value,
-                    // fullname:document.getElementById('fullName').value,
                     gender:document.getElementById('gender').value,
                     bio:document.getElementById('biography').value,
                     occupation:document.getElementById('occupation').value
@@ -554,6 +558,7 @@ async function formHandling(evt){
                             alert('it works');
                             user.setupProfileModal.style.display='none';
                             user.registrationBtn.style.display='none';
+                            temp.cont.style.display='block';
                             return;
                         }
                         
@@ -570,12 +575,7 @@ async function formHandling(evt){
 
             });
         }
-        // for(let i=0;i<data.errorArray.length;i++){
-        //         const k=Object.keys(data.errorArray[i]);
-        //         console.log(data.errorArray[i]);
-        //         console.log(data.errorArray[i][k]);
-        //         document.getElementById(k).innerHTML=data.errorArray[i][k];
-        //     }
+
         }
     
         xm.send(item);
