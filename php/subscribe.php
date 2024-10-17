@@ -6,9 +6,8 @@ use Insta\Subscription\Subscription;
 use Insta\Database\Subscription\SubscriptionDB;
 use Insta\Order\Order;
 use Insta\Plan\Plan;
-use Insta\Database\Plan\PlanDB;
 use Insta\Database\Order\OrderDB;
-use Insta\Cart\Cart;
+
 
 
 if($_SERVER['REQUEST_METHOD']=='GET'){
@@ -37,7 +36,7 @@ switch($action){
 			$order->set_date_created();
 			$order->set_userID($_SESSION['userID']);
 
-			
+
 			$_SESSION['orderDetail']=$order;
 			$orderDB=new OrderDB();
 			header('Location: /checkout');

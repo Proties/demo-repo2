@@ -36,7 +36,8 @@ try{
 	$data['message']=$err->getMessage();
 	echo json_encode($data);
 }
-
+header('Location: /');
+exit();
 
 
 ?>

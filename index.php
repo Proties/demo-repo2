@@ -21,8 +21,8 @@ try{
 
     require_once 'php/Video.php';
     require_once 'php/VideoDB.php';
-    require_once 'php/Payment.php';
-    require_once 'php/PaymentDB.php';
+    require_once 'php/Plan.php';
+
 
 
 
@@ -30,7 +30,7 @@ try{
     require_once 'php/OrderDB.php';
 
     require_once 'php/Merchant.php';
-    require_once 'php/MerchantDB.php';
+
 
 
     require_once 'php/Subscription.php';

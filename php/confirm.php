@@ -1,6 +1,4 @@
 <?php 
-
 heder('Location: /');
 exit();
-
 ?>
