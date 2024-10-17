@@ -4,8 +4,12 @@ use Insta\Users\Users;
 use Insta\Databases\User\UserDB;
 use Insta\Posts\Post;
 use Insta\Ranking\Ranking;
+use Insta\Template\Template;
+use Insta\Template\HtmlTemplate;
+use Insta\Database\Template\TemplateDB;
 
 $mainUser=new Users();
+$template=new Template();
 setcookie('profile','no profile ', time() - (86400 * 30), '/'); 
 // setcookie('myprofile','', time() - (86400 * 30), '/');
 if(isset($_SESSION['username']) && $_SESSION['username']!==null && isset($_SESSION['userID'])){
@@ -23,6 +27,7 @@ this function will take an array or posts and will group the post made by the sa
 
 function formatProfileObject(array $bigData){
     // $newArray=[];
+
     $cont=[];
     $countItem=0;
     $maxLen=count($bigData);
@@ -31,6 +36,8 @@ function formatProfileObject(array $bigData){
     try{
         while($maxLen>$i){
         $currentUsername=$bigData[$i]['username'];
+
+        
         if($i==0){
             $newArray=[];
         
@@ -118,7 +125,8 @@ function formatProfileObject(array $bigData){
                 $cont[$c]['posts']=[];
                 array_push($cont[$c]['posts'],$currentContent);
                 array_push($cont[$c]['posts'],$posts);
-            }else{
+            }
+            else{
                 if(isset($cont[$c]['posts'])){
                     array_push($cont[$c]['posts'],$posts);
                 }
@@ -129,22 +137,19 @@ function formatProfileObject(array $bigData){
         }
      
     }
-    
-}catch(Exception $err){
-    return  $err;
-}
-    
+    }catch(Exception $err){
+        echo $err->getMessage();
+    }  
     return $cont;
     
 }
+
 try{
-
-
-$arrayPosts=[];
-$data=[];
-$rank=new Ranking();
-$info=$rank->chronoTwo($arrayPosts);
-$arrLen=count($info);
+    $arrayPosts=[];
+    $data=[];
+    $rank=new Ranking();
+    $info=$rank->chronoTwo($arrayPosts);
+    $arrLen=count($info);
     $newData=formatProfileObject($info);
     setcookie('users',json_encode($newData) , time() + (8640 * 1), '/');
 }catch(Exception $err){
@@ -159,6 +164,43 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 
 $action=$_POST['action'];
 switch($action){
+    case 'get_templates':
+        try{
+            if(!isset($_SESSION['userID'])){
+                throw new Exception('create account first');
+            }
+
+            // $template->set_fileName();
+            $data['status']='success';
+            $data['message']='its all right';
+            echo json_encode($data);
+        }catch(Exception $err){
+            $data['status']='failed';
+            $data['message']=$err->getMessage();
+            echo json_encode($data);
+        }
+        break;
+    case 'pick_template':
+        try{
+            // if(!isset($_SESSION['userID'])){
+            //     throw new Exception('create account first');
+            // }
+            if(!isset($_POST['templateFileName'])){
+                throw new Exception('template must be selected');
+            }
+
+            $template->set_fileName($_POST['templateFileName']);
+            $tempdb=new $TemplateDB($template);
+            $tempdb->switchUserTemplate();
+            $data['status']='success';
+            $data['message']='its all right';
+            echo json_encode($data);
+        }catch(Exception $err){
+            $data['status']='failed';
+            $data['message']=$err->getMessage();
+            echo json_encode($data);
+        }
+        break;
     case 'view_post':
         try{
                 if(!is_int($mainUser->get_id())){
@@ -168,11 +210,11 @@ switch($action){
             $view->addPost();
             $data['status']='success';
             $data['message']='its all right';
-            echo $data;
+            echo json_encode($data);
         }catch(Exception $err){
             $data['status']='failed';
             $data['message']=$err->getMessage();
-            echo $data;
+            echo json_encode($data);
         }
         break;
     case 'follow_user':

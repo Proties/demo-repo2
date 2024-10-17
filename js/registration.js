@@ -52,7 +52,7 @@ class RegistrationUI extends Registration{
         this._email_error;
         this._password_error;
         this._formModal;
-        this._formData=new FormData(this.form);
+        // this._formData=new FormData(this.form);
 
 
     }

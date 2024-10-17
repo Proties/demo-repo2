@@ -69,7 +69,7 @@ class TemplateDB extends Database{
 			return $err;
 		}
 	}
-	public function switchTemplate($new){
+	public function switchUserTemplate($new){
 		$db=$this->db;
 		try{
 			$db->startTransaction();
