@@ -27,6 +27,40 @@ class Subscription{
 	public function set_name_first($type){}
 	public function set_name_last($type){}
 	public function set_email_address($type){}
+
+	public function get_type(){
+		return $this->type;
+	}
+	public function get_initial_amount(){
+		return $this->initial_amount;
+	}
+	public function get_token(){
+		return $this->token;
+	}
+	public function get_amount(){
+		return $this->amount;
+	}
+	public function get_next_run(){
+		return $this->next_run;
+	}
+	public function get_frequency(){
+		return $this->frequency;
+	}
+	public function get_item_name(){
+		return $this->item_name;
+	}
+	public function get_item_description(){
+		return $this->item_description;
+	}
+	public function get_name_first(){
+		return $this->name_first;
+	}
+	public function get_name_last(){
+		return $this->name_last;
+	}
+	public function get_email_address(){
+		return $this->email_address;
+	}
 	public function get_item(){
 		return $this->item=[
 			"type"=>"subscription.free-trial",

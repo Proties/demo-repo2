@@ -10,15 +10,50 @@ class SubscriptionDB extends Database{
 		$this->subscription=$sub;
 
 	}
-	public function addSubscription(){}
+	public function addSubscription(){
+		$db=$this->db;
+		try{
 
-	public function cancelSubscription(){}
+		}catch(PDOException $err){
+			return $err;
+		}
+	}
 
-	public function pauseSubscription(){}
+	public function cancelSubscription(){
+		$db=$this->db;
+		try{
 
-	public function resumeSubscription(){}
+		}catch(PDOException $err){
+			return $err;
+		}
+	}
 
-	public function getSubscription(){}
+	public function pauseSubscription(){
+		$db=$this->db;
+		try{
+
+		}catch(PDOException $err){
+			return $err;
+		}
+	}
+
+	public function resumeSubscription(){
+		$db=$this->db;
+		try{
+
+		}catch(PDOException $err){
+			return $err;
+		}
+	}
+
+	public function getSubscription(){
+		$db=$this->db;
+		try{
+
+		}catch(PDOException $err){
+			return $err;
+		}
+	}
 
 
 }
