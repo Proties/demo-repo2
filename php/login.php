@@ -37,14 +37,10 @@ try{
 	}
 	$data['status']='succes';
 	$data['message']='all works';
-	$_SESSION['username'];
-	$_SESSION['userID'];
-	$_SESSION['email'];
-	$personal=[];
-	$personal['username']=$_SESSION['username'];
-	$personal['userID']=$_SESSION['userID'];
-	$personal['email']=$_SESSION['email'];
-	setcookie('myprofile',json_encode($personal), time() + (86400 * 30), '/'); 
+	// $personal=[];
+	// $personal['username']=$_SESSION['username'];
+	// $personal['userID']=$_SESSION['userID'];
+	// $personal['email']=$_SESSION['email'];
 	echo json_encode($data);
 }catch(Exception $err){
 	$data['status']='failed';

@@ -12,6 +12,10 @@ try{
     require_once 'php/post.php';
     require_once 'php/postDB.php';
 
+    require_once 'php/ViewPostPool.php';
+    require_once 'php/MostViewPostPool.php';
+    require_once 'php/ProfilePool.php';
+
 
     require_once 'php/FollowerDB.php';
 
