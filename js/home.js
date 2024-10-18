@@ -441,7 +441,7 @@ function openModal(evt) {
     console.log(evt.target);
     let source=evt.target.src;
     let postImageSrc=evt.target.src;
-    const patttern='/(.mp4)/';
+    const patttern=/(.mp4)/;
    
 
     const modal = document.getElementById("postModal");
@@ -449,7 +449,7 @@ function openModal(evt) {
     let cont=evt.target.parentNode.parentNode.parentNode;
     let profile=cont.getElementsByClassName("profile-button")[0];
   
-    if(source.test(patttern)){
+    if(patttern.test(source)){
         let video=document.createElement('video');
         video.setAttribute('src',source);
         modal.append(video);
