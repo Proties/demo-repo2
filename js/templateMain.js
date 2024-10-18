@@ -45,6 +45,10 @@ class TemplatePicker{
 				console.log(this.responseText);
 				let bigContainer=document.getElementsByClassName('templatewrapper')[0];
 				let data=JSON.parse(this.responseText);
+				if(data.status=='failed'){
+					alert(data.message);
+					return;
+				}
 				let len=data.templateList.length;
 				for(let t=0;t<len;t++){
 					let cont=document.createElement('div');
