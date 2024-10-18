@@ -66,6 +66,22 @@ class ImageDB extends Database{
 			return $err;
 		}
 	}
+	public function write_image_profile_picture(){
+		$db=$this->db;
+		try{
+			$query='
+					INSERT INTO ProfileImages(userID,imageID,currentStatus)
+					VALUES(:postID,:imageID,:status)
+			';
+			$statement=$db->prepare($query);
+			$statement->bindValue(':imageID',$this->image->get_id());
+			$statement->bindValue(':userID',$this->image->get_userID());
+			$statement->bindValue(':status','selected');
+			$statement->execute();
+		}catch(PDOExecption $err){
+			return $err;
+		}
+	}
     public function write_image(){
     	$db=$this->db;
 		try{

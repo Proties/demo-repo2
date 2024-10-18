@@ -8,7 +8,10 @@ use Insta\Users\UserFile;
 use Insta\Template\Template;
 use Insta\Database\Template\TemplateDB;
 
+use Insta\Image\Image;
+use Insta\Database\Image\ImageDB;
 $user=new Users();
+$image=new Image();
 
 // setcookie('setUpProfile','', time() - (30 * 20), '/');
 $bigData=[];
@@ -27,7 +30,10 @@ $userDB=new UserDB($user);
 if($_SERVER['REQUEST_METHOD']=='POST'){
 	$data=file_get_contents('php://input');
     $data_f=json_decode($data,true);
+
+    $db=Database::get_connection();
     try{
+    	$db->beginTransaction();
 
     	if(empty($data_f['username']) OR $user->validate_username($data_f['username'])==false){
     		$errors[]['errProfileUserName']='username not valid';
@@ -51,7 +57,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     		throw new Exception('could not create user');
     	}
     	$username=$data_f['username'];
-    	$fullname=$_SESSION['firstName'].''.$_SESSION['lastName'];
+    	$fullname=$_SESSION['firstName'].' '.$_SESSION['lastName'];
     	$gender=$data_f['gender'];
     	$occupation=$data_f['occupation'];
     	$bio=$data_f['bio'];
@@ -65,7 +71,9 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
 		if($userDB->user->get_id()>0){
         $_SESSION['userID']=$userDB->user->get_id();
-     
+        $imageDB->write_image();
+     	$imageDB->write_image_profile_picture();
+     	$image->load_image();
        
         
 
@@ -86,6 +94,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
       	$store['username']=$user->get_username();
       	$store['shortBio']=$user->get_shortBio();
       	// $store['profilePicture']->get_profilePicture();
+      	$db->commit();
       	setcookie('user',json_encode($store), time() + (38900 * 60), '/');
       
     }
@@ -94,6 +103,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     	throw new Exception('user failed to be created');
     }
 	}catch(Exception $err){
+		$db->rollBack();
 		$bigData['errors']=$errors;
 		$bigData['status']='failed';
 		$bigData['message']=$err->getMessage();

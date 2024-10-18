@@ -1,13 +1,17 @@
 <?php 
 session_start();
-use Insta\Users\User;
+use Insta\Users\Users;
 use Insta\Database\Users\UserDB;
 $data=[];
 $errorMessages=[];
 $user=new Users();
+if(isset($_SERVER['REQUEST_METHOD']=='GET')){
+	include_once('Htmlfiles/login.html');
+	return
+}
 try{
-	if(empty($_POST['username'])OR empty($_POST['password'])){
-		throw Exception('username/password not valid')
+	if(empty($_POST['username']) OR empty($_POST['password'])){
+		throw new Exception('username/password cannot be empty');
 	}
 	$user->set_username($_POST['username']);
 	$user->set_password($_POST['password']);
@@ -21,10 +25,10 @@ try{
 	if($lenOne>1){
 		throw new Exception('there are errores');
 	}
-	if($userDB->validate_username()){
-		$errorMessages['errUsername'][]='not in database';
+	if($userDB->validate_username()!==false){
+		$errorMessages['errUsername'][]='usersname already exists';
 	}
-	if($userDB->validate_password()){
+	if($userDB->validate_password()==false){
 		$errorMessages['errUsername'][]='password does not match';
 	}
 	$lenTwo=count($errorMessages);

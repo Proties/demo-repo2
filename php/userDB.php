@@ -39,7 +39,7 @@ class UserDB extends Database{
         try{
             $db=$this->db;
             $query = '
-                SELECT username 
+                SELECT username,name,lastName 
                 FROM Users 
                 WHERE username LIKE :name 
                 LIMIT 5;
@@ -59,12 +59,13 @@ class UserDB extends Database{
         $db=$this->db;
         try{
             $query = "
-            INSERT INTO Users(email,name, username, password, dataMade, timeMade)
-            VALUES(:email,:name, :username, :userPassword, :dateMade, :timeMade);
+            INSERT INTO Users(email,name, username, password, dataMade, timeMade,lastName)
+            VALUES(:email,:name, :username, :userPassword, :dateMade, :timeMade,:lastName);
         ";
         $statement = $db->prepare($query);
         $statement->bindValue(':email', $this->user->get_email());
         $statement->bindValue(':name', $this->user->get_name());
+        $statement->bindValue(':lastName', $this->user->get_lastName());
         $statement->bindValue(':username', $this->user->get_username());
         $statement->bindValue(':userPassword', $this->user->get_password()); 
         $statement->bindValue(':dateMade', $this->user->get_date()); 
