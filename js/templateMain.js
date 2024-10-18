@@ -7,7 +7,7 @@ class TemplatePicker{
 		this._id;
 		this._fileName;
 		this._parentContainer;
-		this._cont=document.getElementsByClassName('PickTemplateModal-container')[0];
+		this._cont=document.getElementById('PickTemplateModal');
 		this._closeWindow=document.getElementById('closepicktemplate');
 
 	}

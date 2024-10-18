@@ -23,12 +23,12 @@ class TemplateDB extends Database{
 					SELECT t.filename FROM UserTemplate ut
 					INNER JOIN Users u ON ut.userID=u.userID
 					INNER JOIN Template t ON ut.templateID=t.id
-					WHERE ut.templateStatus=:status AND u.username=:username
+					WHERE ut.tempStatus=:status AND u.username=:username
 
 			";
 			$statement=$db->prepare($query);
-			$statement->bindValue(':status','active');
-			$statement->bindValue(':username','active');
+			$statement->bindValue(':status','selected');
+			$statement->bindValue(':username',$this->template->get_userID());
 			$statement->execute();
 			return $statement->fetch();
 		}catch(PDOException $err){
@@ -86,8 +86,8 @@ class TemplateDB extends Database{
 
 					';
 			$statement=$db->prepare($queryOne);
-			$statement->bindValue(':newTemp',$new);
-			$statement->bindValue(':userID',$this->template->get_username());
+			$statement->bindValue(':newTemp',$this->template->get_id());
+			$statement->bindValue(':userID',$this->template->get_userID());
 			$statement->execute();
 			
 			$queryTwo='
@@ -96,8 +96,8 @@ class TemplateDB extends Database{
 
 			';
 			$statement=$db->prepare($queryTwo);
-			$statement->bindValue(':newTemp',$new);
-			$statement->bindValue(':userID',$this->template->get_username());
+			$statement->bindValue(':newTemp',$this->template->get_id());
+			$statement->bindValue(':userID',$this->template->get_userID());
 			$statement->execute();
 		}catch(PDOException $err){
 			return $err;
@@ -107,7 +107,7 @@ class TemplateDB extends Database{
 		$db=$this->db;
 		try{
 			$query='
-					SELECT filename FROM Template
+					SELECT id,image,filename FROM Template
 			';
 			$stmt=$db->prepare($query);
 			$stmt->execute();

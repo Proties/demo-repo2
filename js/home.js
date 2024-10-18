@@ -16,6 +16,7 @@ let allData;
 let profileList=[];
 let registrationForm=new RegistrationUI();
 let temp=new TemplatePicker();
+temp.cont.style.display='block';
 temp.events_handler();
 // let video=new VideoUI();
 // video.make_form_submission();
@@ -512,6 +513,7 @@ async function formHandling(evt){
             
             if(this.readyState==4){
                console.log('========return data');
+               console.log(this.responseText);
                let data=JSON.parse(this.responseText);
                 if(data.status=='failed'){
                      for(let i=0;i<data.errorArray.length;i++){

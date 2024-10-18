@@ -3,9 +3,9 @@ session_start();
 use Insta\Users\Users;
 use Insta\Users\UserCache;
 use Insta\Databases\User\UserDB;
-use Insta\Exception\ErrorHandler;
+
 $user=new Users();
-$err=new ErrorHandler();
+
 $errorMessages=[];
 $dataObj=array();
 $jsonData=[];

@@ -170,7 +170,11 @@ switch($action){
                 throw new Exception('create account first');
             }
 
-            // $template->set_fileName();
+           ;
+            $tempdb=new TemplateDB($template);
+            $list=$tempdb->getTemplateList();
+
+            $data['templateList']=$list;
             $data['status']='success';
             $data['message']='its all right';
             echo json_encode($data);
@@ -182,15 +186,16 @@ switch($action){
         break;
     case 'pick_template':
         try{
-            // if(!isset($_SESSION['userID'])){
-            //     throw new Exception('create account first');
-            // }
+            if(!isset($_SESSION['userID'])){
+                throw new Exception('create account first');
+            }
             if(!isset($_POST['templateFileName'])){
                 throw new Exception('template must be selected');
             }
 
             $template->set_fileName($_POST['templateFileName']);
-            $tempdb=new $TemplateDB($template);
+            $template->set_userID($_SESSION['userID']);
+            $tempdb=new TemplateDB($template);
             $tempdb->switchUserTemplate();
             $data['status']='success';
             $data['message']='its all right';

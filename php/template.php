@@ -2,6 +2,7 @@
 namespace Insta\Template;
 class Template{
 	private $creator;
+	private $userID;
 	private $username;
 	private $dateMade;
 	private $timeMade;
@@ -48,6 +49,12 @@ class Template{
 	}
 	public function get_filename(){
 		return $this->filename;
+	}
+	public function set_userID($temp){
+		$this->userID=$temp;
+	}
+	public function get_userID(){
+		return $this->userID;
 	}
 	public function set_creator($temp){
 		$this->creator=$temp;
