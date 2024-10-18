@@ -35,12 +35,25 @@ class TemplatePicker{
 	get parentContainer(){
 		return this._parentContainer;
 	}
+	clear_templates(){
+		let templates=document.getElementsByClassName('template-container');
+		let i=0;
+		let max=templates.length;
+		while(max>i){
+			if(templates[i]!==undefined){
+				templates[i].remove();
+				i++;
+			}
+		}
+		console.log('done====');
+	}
 	get_templates(){
 		try{
 			let xml=new XMLHttpRequest();
 			xml.open('POST','/get_templates');
 			xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xml.onload=function(){
+				this.clear_templates();
 				console.log('======== sending tmeplates====');
 				console.log(this.responseText);
 				let bigContainer=document.getElementsByClassName('templatewrapper')[0];
@@ -62,6 +75,7 @@ class TemplatePicker{
 					let nameTxt=document.createTextNode(data.templateList[t].name);
 					let id;
 					cont.setAttribute('class','template-container');
+					cont.setAttribute('id','template'+data.templateList[t].id);
 					contTwo.setAttribute('class','template-case');
 					contThree.setAttribute('class','template');
 					img.setAttribute('class','template-img');
