@@ -332,7 +332,7 @@ display: none;
   border: 2px solid #A7991E;
   padding: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  overflow: hidden; /* Prevent overflow */
+  overflow: scroll; /* Prevent overflow */
   border-bottom-right-radius: 25px;
   border-bottom-left-radius: 25px;
   text-align: center;
@@ -357,6 +357,32 @@ display: none;
     margin-top: 24px;
 }
 
+.closing-statement {
+  margin-right: 19px;
+    margin-left: 19px;
+}
+
+.donationForm {
+  align-content: center;
+  margin: 50px;
+}
+
+.donationForm input {
+  display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 100%;
+    margin-right: auto;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-left: auto;
+}
+
+#thankYouMessage {
+  font-weight: bold;
+  margin: 40px;
+}
+
 .Call-Action {
   transition: 0.9s ease;
   background-color: #A7991E;
@@ -366,8 +392,10 @@ display: none;
   padding: 8px 16px;
   font-size: 13px;
   border-radius: 8px;
-  margin: 20px;
+  margin: 40px;
   cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .Call-Action:hover {
