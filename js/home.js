@@ -16,7 +16,7 @@ let allData;
 let profileList=[];
 let registrationForm=new RegistrationUI();
 let temp=new TemplatePicker();
-temp.cont.style.display='block';
+
 temp.events_handler();
 temp.get_templates();
 // let video=new VideoUI();
