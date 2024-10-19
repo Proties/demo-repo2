@@ -65,13 +65,14 @@ try {
     if($status==false){
         throw new Exception('something went wrong writing to database');
     }
+
     $htmlTmpname=$_FILES['templateHtmlFile']['tmp_name'];
     $cssTmpname=$_FILES['templateCssFile']['tmp_name'];
     $imageTmpname=$_FILES['templateImageFile']['tmp_name'];
 
-    $htmlNewfile='../templates/'.$htmlTmpname;
-    $cssNewfile='../templates/'.$cssTmpname;
-    $imageNewfile='../templates/'.$imageTmpname;
+    $htmlNewfile='templates/'.$htmlTmpname;
+    $cssNewfile='./templates/'.$cssTmpname;
+    $imageNewfile='./templates/'.$imageTmpname;
 
     if(!move_uploaded_file($htmlTmpname, $htmlNewfile)){
         throw new Exception('could not upload Html file');
