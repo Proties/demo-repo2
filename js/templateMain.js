@@ -50,11 +50,12 @@ class TemplatePicker{
 	get_templates(){
 		try{
 			let xml=new XMLHttpRequest();
-			xml.open('POST','/get_templates');
+			xml.open('POST','/');
+			
 			xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xml.onload=function(){
-				this.clear_templates();
-				console.log('======== sending tmeplates====');
+				// this.clear_templates();
+				console.log('======== get tmeplates====');
 				console.log(this.responseText);
 				let bigContainer=document.getElementsByClassName('templatewrapper')[0];
 				let data=JSON.parse(this.responseText);
@@ -65,38 +66,45 @@ class TemplatePicker{
 				let len=data.templateList.length;
 				for(let t=0;t<len;t++){
 					let cont=document.createElement('div');
+					let contOne=document.createElement('div');
 					let contTwo=document.createElement('div');
-					let contThree=document.createElement('div');
+				
 					let type=document.createElement('span');
 					let typeTxt=document.createTextNode(data.templateList[t].type);
-					let price;
+					let price=document.createElement('span');
+					let priceTxt=document.createTextNode('R'+data.templateList[t].price);
 					let image=document.createElement('img');
 					let name=document.createElement('span');
 					let nameTxt=document.createTextNode(data.templateList[t].name);
 					let id;
 					cont.setAttribute('class','template-container');
+					contOne.setAttribute('class','template');
 					cont.setAttribute('id','template'+data.templateList[t].id);
 					contTwo.setAttribute('class','template-case');
-					contThree.setAttribute('class','template');
-					img.setAttribute('class','template-img');
+					
+					price.setAttribute('class','badge');
+					image.setAttribute('class','template-img');
 					name.setAttribute('class','Template-label');
-					img.setAttribute('src',data.templateList[t].image);
+					image.setAttribute('src',data.templateList[t].image);
 
-					type.append(typeTxt);
+					price.append(priceTxt);
+					
 					name.append(nameTxt);
 
-					cont.append(type);
-					cont.append(image);
-					cont.append(name);
+				
+					contOne.append(price);
+					contOne.append(image);
 					
-					contTwo.append(cont);
-					contThree.append(contTwo);
-					bigContainer.append(contThree);
+					
+					contTwo.append(contOne);
+					contTwo.append(name);
+					cont.append(contTwo);
+					bigContainer.append(cont);
 				}
 				
 			}
-			xml.send();
-			parentContainer.append();
+			xml.send('action=get_templates');
+			
 		}catch(err){
 			console.log(err);
 		}

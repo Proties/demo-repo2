@@ -50,8 +50,8 @@ try {
     $temp->set_name($_POST['templateName']);
     $temp->set_price($_POST['templatePrice']);
     $temp->set_type($_POST['templateType']);
-    $temp->set_filename($_FILES['templateHtmlFile']['tmp_name']);
-    $temp->set_image($_FILES['templateImageFile']['tmp_name']);
+    $temp->set_filename('templates/'.$_FILES['templateHtmlFile']['name']);
+    $temp->set_image('templates/'.$_FILES['templateImageFile']['name']);
     $temp->set_dateMade($dateMade);
     $temp->set_timeMade($timeMade);
 
@@ -66,13 +66,19 @@ try {
         throw new Exception('something went wrong writing to database');
     }
 
+
     $htmlTmpname=$_FILES['templateHtmlFile']['tmp_name'];
     $cssTmpname=$_FILES['templateCssFile']['tmp_name'];
     $imageTmpname=$_FILES['templateImageFile']['tmp_name'];
+    $basePath = __DIR__ . '/..';
 
-    $htmlNewfile='templates/'.$htmlTmpname;
-    $cssNewfile='./templates/'.$cssTmpname;
-    $imageNewfile='./templates/'.$imageTmpname;
+    $templateDir=$basePath.'/templates/';
+    if (!is_dir($templateDir)) {
+    mkdir($templateDir, 0777, true);
+    }
+    $htmlNewfile=$templateDir . basename($_FILES['templateHtmlFile']['name']);
+    $cssNewfile=$templateDir . basename($_FILES['templateCssFile']['name']);
+    $imageNewfile=$templateDir . basename($_FILES['templateImageFile']['name']);
 
     if(!move_uploaded_file($htmlTmpname, $htmlNewfile)){
         throw new Exception('could not upload Html file');

@@ -107,7 +107,7 @@ class TemplateDB extends Database{
 		$db=$this->db;
 		try{
 			$query='
-					SELECT id,image,filename FROM Template
+					SELECT id,filename,name,type,image,price FROM Template;
 			';
 			$stmt=$db->prepare($query);
 			$stmt->execute();

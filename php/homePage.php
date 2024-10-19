@@ -142,7 +142,7 @@ function formatProfileObject(array $bigData){
      
     }
     }catch(Exception $err){
-        echo $err->getMessage();
+       return $err;
     }  
     return $cont;
     
@@ -169,12 +169,9 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 $action=$_POST['action'];
 switch($action){
     case 'get_templates':
+        $data=[];
         try{
-            if(!isset($_SESSION['userID'])){
-                throw new Exception('create account first');
-            }
-
-           ;
+ 
             $tempdb=new TemplateDB($template);
             $list=$tempdb->getTemplateList();
 
@@ -187,8 +184,10 @@ switch($action){
             $data['message']=$err->getMessage();
             echo json_encode($data);
         }
+        return;
         break;
     case 'pick_template':
+        $data=[];
         try{
             if(!isset($_SESSION['userID'])){
                 throw new Exception('create account first');
