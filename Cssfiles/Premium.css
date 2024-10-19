@@ -21,12 +21,12 @@
   }
   
   header {
-      background-color: #ffffff;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 9);
-      z-index: 5;
-      position: static;
-      top: 0px;
-      width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    z-index: 5;
+    position: fixed;
+    top: 0px;
+    width: 100%;
   }
   
   nav {
@@ -58,6 +58,7 @@
   padding: 45px;
   color: #ffffff;
   text-align: center;
+  margin-top: 5%;
   }
 
   .Premium h2{
@@ -90,10 +91,10 @@
   .essentials{
     position: absolute;
     left: 590px;
-    bottom: -155px;
-    width: 20%;
+    bottom: -257px;
+    width: 25%;
     max-width: 330px;
-    height: 60vh;
+    height: 70vh;
     background-color: #ffffff;
     border: 2px solid #A7991E;
     padding: 10px;
@@ -104,24 +105,78 @@
     color: #A7991E;
   }
 
-  .essentials h2{
+  .eheading h2{
     font-size: 28px;
   }
 
-  .essentials p{
+  .eheading p{
     color: black;
     padding: 25px;
   }
 
-.Per-month h3{
+.bold{
   font-weight: bold;
   font-size: 30px;
   color: black;
 }
 
+.Per-month{
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.calm{
+  font-weight: bold;
+  align-content: center;
+}
+
+.Annually {
+  color: black;
+  font-size: 14px;
+}
+
+.Call-Action {
+  transition: 0.9s ease;
+  background-color: #A7991E;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 8px 16px;
+  font-size: 13px;
+  border-radius: 8px;
+  margin: 40px;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.Call-Action:hover {
+  box-shadow: 0 5px 15px #A7991E;
+  transform: scale(1.10);
+}
+
+.features{
+  color: black;
+  text-align: left;
+  padding-left: 35px;
+}
+
+.features h2{
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+li::marker{
+  color: #a7922e;
+}
+
   .deadspace {
     background-color: white;
-  margin: 30%;
+  margin: 45%;
   }
 
 }
