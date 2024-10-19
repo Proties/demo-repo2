@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="/Cssfiles/Payment.css" />
+  </head>
+  <body>
+    <section class="payment">
+        <div class="payment-container">
+      <h2 class="payment-title">Start Your Premium Experience</h2>
+
+      <form action="#" method="POST">
+        <!-- Cardholder Name -->
+        <div class="input-group">
+          <label for="name">Cardholder Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="John Doe"
+            required
+          />
+        </div>
+
+        <!-- Card Number -->
+        <div class="input-group">
+          <label for="card-number">Card Number</label>
+          <input
+            type="text"
+            id="card-number"
+            name="card-number"
+            placeholder="1234 5678 9101 1121"
+            required
+          />
+        </div>
+
+        <!-- Expiration Date and CVV -->
+        <div class="input-group-row">
+          <div class="input-group">
+            <label for="exp-date">Expiration Date</label>
+            <input
+              type="text"
+              id="exp-date"
+              name="exp-date"
+              placeholder="MM/YY"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" name="cvv" placeholder="123" required />
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="Call-Action">START YOUR EXPERIENCE</button>
+    </div>
+      </form>
+    </section>
+  </body>
+</html>
