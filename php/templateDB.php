@@ -39,12 +39,12 @@ class TemplateDB extends Database{
 		$db=$this->db;
 		try{
 			$query='
-					INSERT INTO Template (name,filename,price,image,dateMade,timeMade,type)
-					VALUES(:name,:filename,:price,:image,:dateMade,:timeMade,:type)
+					INSERT INTO Template (filename,name,price,image,dateMade,timeMade,type)
+					VALUES(:filename,:name,:price,:image,:dateMade,:timeMade,:type)
 			';
 			$stmt=$db->prepare($query);
 			$stmt->bindValue(':dateMade',$this->template->get_dateMade());
-			$stmt->bindValue(':timeMase',$this->template->get_timeMade());
+			$stmt->bindValue(':timeMade',$this->template->get_timeMade());
 			$stmt->bindValue(':name',$this->template->get_name());
 			$stmt->bindValue(':filename',$this->template->get_filename());
 			$stmt->bindValue(':price',$this->template->get_price());

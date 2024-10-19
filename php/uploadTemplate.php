@@ -5,9 +5,19 @@ use Insta\Database\Template\TemplateDB;
 use Insta\Databases\Database;
 $data=[];
 $errorMessages=[];
+if($_SERVER['REQUEST_METHOD']=='GET'){
 
-$temp=new Template();
+
+    setcookie('uploadTemplateStatus','',time()-(30*10),'/');
+    include_once('Htmlfiles/uploadTemplate.html');
+    return;
+}
+if($_SERVER['REQUEST_METHOD']=='POST')
+{
+
  setcookie('uploadTemplateStatus','',time()-(30*10),'/');
+try{
+$temp=new Template();
 $db=Database::get_connection();
 try {
     
@@ -21,13 +31,13 @@ try {
     if(empty($_POST['templateType'])){
         $errorMessages[]['errTemplateType']='template type not valid';
     }
-    if(!isset($_FILES['templateImageFile'])){
-        $errorMessages[]['errTemplateImage']='template image not valid';
+    if(empty($_FILES['templateImageFile'])){
+        $errorMessages[]['errTemplateImage']='template image file not valid';
     }
-    if(!isset($_FILES['templateHtmlFile'])){
+    if(empty($_FILES['templateHtmlFile'])){
         $errorMessages[]['errTemplateHtmlFile']='template html file not valid';
     }
-    if(!isset($_FILES['templateCssFile'])){
+    if(empty($_FILES['templateCssFile'])){
         $errorMessages[]['errTemplateCssFile']='template css file valid';
     }
     $errorLen=count($errorMessages);
@@ -40,8 +50,8 @@ try {
     $temp->set_name($_POST['templateName']);
     $temp->set_price($_POST['templatePrice']);
     $temp->set_type($_POST['templateType']);
-    $temp->set_html($_FILES['templateHtmlFile']['tempName']);
-    $temp->set_image($_FILES['templateImageFile']['tempName']);
+    $temp->set_filename($_FILES['templateHtmlFile']['tmp_name']);
+    $temp->set_image($_FILES['templateImageFile']['tmp_name']);
     $temp->set_dateMade($dateMade);
     $temp->set_timeMade($timeMade);
 
@@ -55,13 +65,13 @@ try {
     if($status==false){
         throw new Exception('something went wrong writing to database');
     }
-    $htmlTmpname=$_FILES['templateHtml']['tempName'];
-    $cssTmpname=$_FILES['templateHtml']['tempName'];
-    $imageTmpname=$_FILES['templateHtml']['tempName'];
+    $htmlTmpname=$_FILES['templateHtmlFile']['tmp_name'];
+    $cssTmpname=$_FILES['templateCssFile']['tmp_name'];
+    $imageTmpname=$_FILES['templateImageFile']['tmp_name'];
 
-    $htmlTmpname='/templates/'.$htmlTmpname;
-    $cssTmpname='/templates/'.$cssTmpname;
-    $imageTmpname='/templates/'.$imageTmpname;
+    $htmlNewfile='../templates/'.$htmlTmpname;
+    $cssNewfile='../templates/'.$cssTmpname;
+    $imageNewfile='../templates/'.$imageTmpname;
 
     if(!move_uploaded_file($htmlTmpname, $htmlNewfile)){
         throw new Exception('could not upload Html file');
@@ -83,7 +93,12 @@ try {
    
 
 }
+}catch(PDOException $err){
+    $data['status']='failed';
+    $data['error']=$e->getMessage();
+}
     // this cookie will have values that have passed validation checks then fill then in the form
  // setcookie('uploadTemplateTempInfo',json_encode($data),time()+(30*10),'/');
- setcookie('uploadTemplateStatus',json_encode($data),time()+(30*10),'/');
- header('Location: /Htmlfiles/uploadTemplate.html');
+setcookie('uploadTemplateStatus',json_encode($data),time()+(30*10),'/');
+include_once('Htmlfiles/uploadTemplate.html');
+}
