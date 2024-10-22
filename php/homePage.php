@@ -9,10 +9,17 @@ use Insta\Template\HtmlTemplate;
 use Insta\Database\Template\TemplateDB;
 
 use Insta\Pool\MostViewPostPool;
-use Insta\Pool\ViewPostPool;
 use Insta\Pool\ProfilePool;
 
+
 $mainUser=new Users();
+
+$bigPool=new MostViewPostPool();
+$profilesPool=new ProfilePool();
+
+
+
+
 $template=new Template();
 setcookie('profile','no profile ', time() - (86400 * 30), '/'); 
 // setcookie('myprofile','', time() - (86400 * 30), '/');

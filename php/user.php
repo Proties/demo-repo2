@@ -4,6 +4,7 @@ use Serializable;
 use Insta\Users\UserAuth;
 use Insta\Users\UserFolder;
 use Insta\Template\Template;
+use Insta\User\Pool;
 class Users implements Serializable{
     use validateUser;
     private string $name;
@@ -32,6 +33,10 @@ class Users implements Serializable{
     public UserFolder $userFolder;
     public PostList $postList;
     public UserAuth $userAuth;
+
+    private ViewedPosts $viewPosts;
+    private ServedPosts $servedPosts;
+    private FollowingUsers $followers;
 
     public function __construct(){
     $this->userFolder=new UserFolder();

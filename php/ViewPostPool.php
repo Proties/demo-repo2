@@ -1,5 +1,5 @@
 <?php 
-namespace Insta\Pool;
+namespace Insta\User\Pool;
 class ViewedPosts{
 	private array $pool;
 	private int $poolLen;
