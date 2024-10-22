@@ -339,11 +339,22 @@ function eventListeners(){
     let viewMore=document.getElementsByClassName("view-more-btn")[0];
     let registerBtn = document.getElementById('userRegistration');
     let closeReg = document.getElementById("closeModalReg");
-
+    let donate=document.getElementById('donateBtn');
     let modal = document.getElementById("registerModal");
     let testShareData={
         title:'happy'
     };
+    donate.addEventListener('click',function(evt){
+        let dform=document.getElementsByClassName('donationForm')[0];
+       
+        if(dform.style.display=='none'){
+            dform.style.display='block';
+
+        }else{
+            dform.style.display='none';
+        }
+        console.log(dform.style.display);
+    });
     for(let sp=0;sp<sharePost.length;sp++){
         sharePost[sp].addEventListener('click',async(evt)=>{
             evt.stopPropagation()
