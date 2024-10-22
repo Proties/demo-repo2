@@ -5,6 +5,7 @@ class ProfilePool{
 	private array $pool;
 	private int $poolLen;
 	private int $size;
+	private $filename='Profiles.json';
 	public function __construct(){}
 
 	public function addItem($item){}

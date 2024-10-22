@@ -5,6 +5,7 @@ class MostViewPostPool{
 	private array $pool;
 	private int $poolLen;
 	private int $size;
+	private $filename='Users.json';
 	public function __construct(){}
 
 	public function addItem($item){}
