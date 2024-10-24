@@ -199,7 +199,7 @@ function formatProfileObject(array $bigData){
 try{
     $arrayPosts=[];
     $data=[];
-    unset($_SESSION['mainUser']);
+    
     $commonPostsTwo=compareServedPosts($mainUser);
     $commonFollowing=compareFollowingIds($mainUser);
     $commonPosts=compareViewedPosts($mainUser);

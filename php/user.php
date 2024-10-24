@@ -28,6 +28,8 @@ class Users implements Serializable{
     private string  $userProfileLink;
     private bool $status;
     private int $id;
+    private int $followingNo;
+    private int $followerNo;
 
 
     private array $data;
@@ -60,6 +62,8 @@ class Users implements Serializable{
     $this->email='';
     $this->phone='';
     $this->id=0;
+    $this->followingNo=0;
+    $this->followerNo=0;
     }
     //sets up associative array of to be serailized data
     public function __serialize():array 
@@ -211,11 +215,11 @@ class Users implements Serializable{
 
     public function get_followingNo():int
     {
-        return $this->following;
+        return $this->followingNo;
     }
     public function get_followersNo():int
     {
-        return $this->follower;
+        return $this->followerNo;
     }
    public function get_auth(){
     $this->userAuth;
