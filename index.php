@@ -110,12 +110,8 @@ switch($action){
     case '/upload_post':
         include_once('php/uploadPost.php');
         break;
-
-
     case '/upload_template':
         include_once('php/uploadTemplate.php');
-
-
     case '/checkout':
         include_once('php/checkout.php');
 

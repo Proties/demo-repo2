@@ -2,6 +2,7 @@
 namespace Insta\Order;
 class Order{
 	private $id;
+	private $uuid;
 	private $dateMade;
 	private $timeMade;
 	private $timeCompleted;

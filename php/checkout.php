@@ -3,19 +3,15 @@ use Insta\Order\Order;
 use Insta\Users\Users;
 use Insta\Database\Order\OrderDB;
 use Insta\Merchant\Merchant;
-use Insta\Database\Merchant\MerchantDB;
-/**
- * @param array $data
- * @param null $passPhrase
- * @return string
- */
+
+
 $user=new Users();
 $merchant=new Merchant();
-$merchantDB=new MerchantDB($merchant);
+
 $order=new Order();
 $orderDB=new OrderDB($order);
 try{
-    if(!isset($_SESSION['orderDetails'])){
+    if(empty($_SESSION['orderDetails'])){
         throw new Exception('order must be defined');
     }
     function generateSignature($data, $passPhrase = null) {
@@ -73,7 +69,9 @@ try{
 }catch(Exception $err){
     $data['status']='failed';
     $data['message']=$err->getMessage();
-    echo json_encode($data);
+    header('Location: /');
+    setcookie('checkoutStatus',json_encode($data),time()+(360*10),'/');
+    // echo json_encode($data);
 }
 
 ?>
