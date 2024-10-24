@@ -11,12 +11,20 @@ use Insta\Databases\Images\ImageDB;
 use Insta\Video\Video;
 use Insta\Database\Video\VideoDB;
 
+use Insta\Pool\MostViewPostPool;
+use Insta\Pool\ProfilePool;
 
 
-// use Insta\Challenge\Challenge;
-// use Insta\Database\Challenge\ChallengeDB;
-
+/*
+this function will check if profile is in pool if it is it will append the post to the post array 
+if the post array exceeds 10 the last post will be pushed out
+*/
+function profileInPool(){
+    $profilesPool->search_item($_SESSION['userID']);
+}
 if($_SERVER['REQUEST_METHOD']=='POST'){
+    $bigPool=new MostViewPostPool();
+    $profilesPool=new ProfilePool();
     $errorMessages=[];
     $post=new Post();
     $data=[];
@@ -88,7 +96,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             }
             $data['status']='success';
             $db->commit();
-    
+           
 
     }catch(Exception $err){
         $db->rollBack();

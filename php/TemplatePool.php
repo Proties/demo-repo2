@@ -1,30 +1,20 @@
 <?php 
 namespace Insta\Pool;
-class ProfilePool{
+class TemplatePool{
 
 	private array $pool;
 	private int $poolLen;
 	private int $size;
 	private int $maxSize;
-	private $filename='Profiles.json';
+	private $filename='Templates.json';
 	public function __construct(){
-		$this->maxSize=100;
-		$this->size=0;
-		$this->pool=[];
+		$this->maxSize=5;
 	}
-	public function getSize():int
-	{
-		return $this->size;
-	}
-	public function getPool():array
-	{
-		return $this->pool;
-	}
+
 	public function addItem($item){}
 	public function removeItem($item){}
 	public function updateItem($item){}
 	public function searchItem($item){}
-
 }
 
 

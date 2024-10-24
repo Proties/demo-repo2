@@ -4,7 +4,9 @@ use Serializable;
 use Insta\Users\UserAuth;
 use Insta\Users\UserFolder;
 use Insta\Template\Template;
-use Insta\User\Pool;
+use Insta\User\Pool\ViewedPosts;
+use Insta\User\Pool\ServedPosts;
+use Insta\User\Pool\FollowingUsers;
 class Users implements Serializable{
     use validateUser;
     private string $name;
@@ -26,24 +28,27 @@ class Users implements Serializable{
     private string  $userProfileLink;
     private bool $status;
     private int $id;
-    private int $follower;
-    private int $following;
+
+
     private array $data;
     public Template $temp;
     public UserFolder $userFolder;
     public PostList $postList;
     public UserAuth $userAuth;
 
-    private ViewedPosts $viewPosts;
-    private ServedPosts $servedPosts;
-    private FollowingUsers $followers;
+    public ViewedPosts $viewedPosts;
+    public ServedPosts $servedPosts;
+    public FollowingUsers $following;
 
     public function __construct(){
     $this->userFolder=new UserFolder();
     $this->userAuth=new UserAuth();
     $this->name='';
-    $this->following=0;
-    $this->follower=0;
+
+    $this->viewedPosts=new ViewedPosts();
+    $this->servedPosts=new ServedPosts();
+    $this->following=new FollowingUsers();
+
     $this->username='';
     $this->lastName='';
     $this->fullName='';
@@ -63,10 +68,9 @@ class Users implements Serializable{
          return $this->data; 
     }
     //restore arrray that was serialized
-    public function __unserialize(array $data) 
+    public function __unserialize(array $data):void
     {
-        $arr;
-        return $arr;
+        $this->data=$data;
     }
     public function serialize(){
         serialize($this->data);

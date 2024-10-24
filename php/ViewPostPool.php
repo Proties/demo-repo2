@@ -5,8 +5,18 @@ class ViewedPosts{
 	private int $poolLen;
 	private int $size;
 
-	public function __construct(){}
-
+	public function __construct(){
+		$this->size=0;
+		$this->pool=[];
+	}
+	public function getSize():int
+	{
+		return $this->size;
+	}
+	public function getPool():array
+	{
+		return $this->pool;
+	}
 	public function addItem(int $item){}
 	public function removeItem(int $item){}
 	public function searchItem(int $item){}
@@ -17,8 +27,19 @@ class ServedPosts{
 	private int $poolLen;
 	private int $size;
 
-	public function __construct(){}
+	public function __construct(){
+		$this->size=0;
+		$this->pool=[];
+	}
 
+	public function getSize():int
+	{
+		return $this->size;
+	}
+	public function getPool():array
+	{
+		return $this->pool;
+	}
 	public function addItem(int $item){}
 	public function removeItem(int $item){}
 	public function searchItem(int $item){}
@@ -29,8 +50,19 @@ class FollowingUsers{
 	private int $poolLen;
 	private int $size;
 
-	public function __construct(){}
+	public function __construct(){
+		$this->size=0;
+		$this->pool=[];
+	}
 
+	public function getSize():int
+	{
+		return $this->size;
+	}
+	public function getPool():array
+	{
+		return $this->pool;
+	}
 	public function addItem(int $item){}
 	public function removeItem(int $item){}
 	public function searchItem(int $item){}

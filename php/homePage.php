@@ -17,7 +17,48 @@ $mainUser=new Users();
 $bigPool=new MostViewPostPool();
 $profilesPool=new ProfilePool();
 
+function compareViewedPosts(Users $user){
+    $max=$user->viewedPosts->getSize();
+    $arr=$user->viewedPosts->getPool();
+    $c=0;
+    while($c<$max){
+        if($bigPool[$a]['posts'][$b]==$arr[$c]){
 
+            $c++;
+        }
+        
+    }
+    return false;
+}
+
+function compareServedPosts(Users $user){
+    $max=$user->viewedPosts->getSize();
+    $arr=$user->viewedPosts->getPool();
+    $c=0;
+    while($c<$max){
+        if($bigPool[$a]['posts'][$b]==$arr[$c]){
+
+            $c++;
+        }
+        
+    }
+    return false;
+}
+
+function compareFollowingIds(Users $user){
+    $max=$user->viewedPosts->getSize();
+    $arr=$user->viewedPosts->getPool();
+    $c=0;
+    while($c<$max){
+        if($bigPool[$a]['posts'][$b]==$arr[$c]){
+
+            $c++;
+        }
+
+        
+    }
+     return false;
+}
 
 
 $template=new Template();
@@ -158,10 +199,22 @@ function formatProfileObject(array $bigData){
 try{
     $arrayPosts=[];
     $data=[];
+    unset($_SESSION['mainUser']);
+    $commonPostsTwo=compareServedPosts($mainUser);
+    $commonFollowing=compareFollowingIds($mainUser);
+    $commonPosts=compareViewedPosts($mainUser);
+    if($commonPosts==false){
+
+    }else{
+
+
     $rank=new Ranking();
     $info=$rank->chronoTwo($arrayPosts);
     $arrLen=count($info);
     $newData=formatProfileObject($info);
+    $mainUser->servedPosts->add_item($newData);
+    $bigPool->add_item($newData);
+    }
     setcookie('users',json_encode($newData) , time() + (8640 * 1), '/');
 }catch(Exception $err){
     echo $err->getMessage();
