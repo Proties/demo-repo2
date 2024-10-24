@@ -5,16 +5,18 @@ use Insta\Database\User\UserDB;
 use Insta\Subscription\Subscription;
 use Insta\Database\Subscription\SubscriptionDB;
 use Insta\Order\Order;
-use Insta\Plan\Plan;
+use Insta\Subscription\Plan;
 use Insta\Database\Order\OrderDB;
 
 
 
 if($_SERVER['REQUEST_METHOD']=='GET'){
-	// return subrcrip feature list html page and diffent deals
-	// include_once('Htmlfiles/unlockPremium.html');
+	include_once('Htmlfiles/premium.html');
 	return;
 }
+if($_SERVER['REQUEST_METHOD']=='POST'){
+
+
 $order=new Order();
 $plan=new Plan();
 $subcription=new Subscription();
@@ -109,5 +111,5 @@ switch($action){
 		
 	break;
 }
-
+}
 ?>

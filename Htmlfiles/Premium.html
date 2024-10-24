@@ -53,8 +53,13 @@
           <p>Billed annually. Pay R480.99</p>
         </div>
       </div>
-
-      <button class="Call-Action">Buy Now</button>
+      <form method="post" action="/subscribe_to_premiunm">
+        <input type="hidden" name="subscriptionType" value="monthly">
+     <!--    <input type="hidden" name="">
+        <input type="hidden" name=""> -->
+        <button class="Call-Action" >Buy Now</button>
+      </form>
+      
 
       <div class="features">
         <h2>Features:</h2>
@@ -67,5 +72,6 @@
       </div>
     </section>
     <section class="deadspace"></section>
+    <script type="text/javascript" src="js/subscribe.js"></script>
   </body>
 </html>
