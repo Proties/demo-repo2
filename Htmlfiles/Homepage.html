@@ -235,10 +235,10 @@
             
               <!-- Donation Input and Submit Button (Hidden by default) -->
               <div class="donationForm" style="display: none;">
-                <form method="post" action="/checkout">
+                <form method="post" action="/checkout" name="donationForm">
                   
                
-                <input type="number" class="donationAmount" placeholder="Enter amount" min="1" required />
+                <input type="number" name ="donationAmount" class="donationAmount" placeholder="Enter amount" min="1" required />
                 <button class="Call-Action" id="donationSubmit">Submit</button>
                  </form>
               </div>

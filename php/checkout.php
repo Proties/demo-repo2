@@ -11,6 +11,17 @@ $merchant=new Merchant();
 $order=new Order();
 $orderDB=new OrderDB($order);
 try{
+    if($_POST['donationForm']){
+        if(empty($_POST['donationAmount'])){
+            throw new Exception('amount not enterd');
+        }
+        if(!is_int($_POST['donationAmount'])){
+            throw new Exception('amount not valid');
+        }
+        if($_POST['donationAmount']==0){
+            throw new Exception('amount cannot be 0');
+        }
+    }
     if(empty($_SESSION['orderDetails'])){
         throw new Exception('order must be defined');
     }
