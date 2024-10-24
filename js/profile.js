@@ -215,12 +215,14 @@ export class OtherProfile extends ProfileUI{
                 if(k[0]=='imageFileName' &&  k[1]=='imageFilePath'){
                     img.setAttribute('src',this.data.posts[ss].imageFilePath+''+this.data.posts[ss].imageFileName);
                     img.setAttribute('class','post-image');
+                    img.setAttribute('loading','lazy');
                     c.append(img);
                 }
                 else{
                     console.log(k);
                     vid.setAttribute('src',this.data.posts[ss].videoFilePath+''+this.data.posts[ss].VideoFileName);
                     vid.setAttribute('class','post-image');
+                    vid.setAttribute('loading','lazy');
                     c.append(vid);
                 }
                 
@@ -236,6 +238,7 @@ export class OtherProfile extends ProfileUI{
 
             if (this.data.post.imageFilePath!==null) {
                 im.setAttribute('src',this.data.post.imageFilePath+''+this.data.post.imageFileName);
+                im.setAttribute('loading','lazy');
             }
             
             contFive.setAttribute('class','Primary-post');
