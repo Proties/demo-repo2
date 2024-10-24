@@ -11,6 +11,10 @@ class Order{
 	private $orderItems;
 	private $total;
 	private $tax;
+
+	private $userName;
+	private $userLastName;
+	private $userEmail;
 	private array $dataItem;
 
 	public function __construct(){
@@ -19,7 +23,19 @@ class Order{
 		$this->orderItems=[];
 		$this->customer;
 		$this->uuid='00001';
+		$this->userEmail='';
+		$this->userName='';
+		$this->userLastName='';
 
+	}
+	public function set_userEmail($i){
+		$this->userEmail=$i;
+	}
+	public function set_userName($i){
+		$this->userName=$i;
+	}
+	public function set_userLastName($i){
+		$this->userLastName=$i;
 	}
 	public function set_id($i){
 		$this->id=$i;
@@ -36,6 +52,7 @@ class Order{
 	public function get_id(){
 		return $this->id;
 	}
+	
 	public function get_total(){
 		return $this->total;
 	}
@@ -59,6 +76,15 @@ class Order{
 	}
 	public function genarete_uuid(){
 		return $this->uuid;
+	}
+	public function get_userName(){
+		return $this->userName;
+	}
+	public function get_userLastName(){
+		return $this->userLastName;
+	}
+	public function get_userEmail(){
+		return $this->userEmail;
 	}
 }
 

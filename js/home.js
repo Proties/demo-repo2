@@ -452,6 +452,15 @@ function eventListeners(){
     });
   
 }
+function donationStatus(){
+    let status=get_cookie('checkoutStatus=');
+    if(status!==undefined){
+        alert(status.message);
+        return status;
+    }
+    return false;
+}
+donationStatus();
 function init_user(username){
     // hide register button if user is available
    

@@ -11,20 +11,17 @@ $merchant=new Merchant();
 $order=new Order();
 $orderDB=new OrderDB($order);
 try{
-    if($_POST['donationForm']){
-        if(empty($_POST['donationAmount'])){
-            throw new Exception('amount not enterd');
-        }
-        if(!is_int($_POST['donationAmount'])){
-            throw new Exception('amount not valid');
-        }
-        if($_POST['donationAmount']==0){
-            throw new Exception('amount cannot be 0');
-        }
+    
+    if(empty($_POST['donationAmount'])){
+        throw new Exception('amount not enterd');
     }
-    if(empty($_SESSION['orderDetails'])){
-        throw new Exception('order must be defined');
+    if(!is_int((int)$_POST['donationAmount'])){
+        throw new Exception('amount not valid');
     }
+    if((int)$_POST['donationAmount']==0){
+        throw new Exception('amount cannot be 0');
+    }
+
     function generateSignature($data, $passPhrase = null) {
         // Create parameter string
         $pfOutput = '';
@@ -52,12 +49,12 @@ try{
         'cancel_url' => 'https://7d43-102-219-27-117.ngrok-free.app/php/deny.php',
         'notify_url' => 'https://7d43-102-219-27-117.ngrok-free.app/php/direct.php',
         // Buyer details
-        'name_first' => $order->get_name(),
-        'name_last'  => $order->get_lastName(),
-        'email_address'=> $order->get_email(),
+        'name_first' => $order->get_userName(),
+        'name_last'  => $order->get_userLastName(),
+        'email_address'=> $order->get_userEmail(),
         // Transaction details
         'm_payment_id' => $order->get_id(), //Unique payment ID to pass through to notify_url
-        'amount' => number_format( sprintf( '%.2f', $order->get_amount() ), 2, '.', '' ),
+        'amount' => number_format( sprintf( '%.2f', $order->get_total() ), 2, '.', '' ),
         'item_name' => $order->get_id()
     );
 
@@ -81,7 +78,7 @@ try{
     $data['status']='failed';
     $data['message']=$err->getMessage();
     header('Location: /');
-    setcookie('checkoutStatus',json_encode($data),time()+(360*10),'/');
+    setcookie('checkoutStatus',json_encode($data),time()+(36*10),'/');
     // echo json_encode($data);
 }
 
