@@ -221,9 +221,9 @@ class Users implements Serializable{
     {
         return $this->followerNo;
     }
-   public function get_auth(){
-    $this->userAuth;
-   }
+    public function get_auth(){
+        return $this->userAuth;
+    }
    public function get_File(){
     $this->$UserFolder;
    }

@@ -160,11 +160,14 @@ export class OtherProfile extends ProfileUI{
         let contFour=document.createElement('div');
 
 
+        
+
         let follow=document.createElement('button');
         let followTxt=document.createTextNode('follow');
         
         let unFollow=document.createElement('button');
         let unFollowTxt=document.createTextNode('unfollow');
+        
         
 
         follow.setAttribute('class','follow-button');
@@ -195,9 +198,13 @@ export class OtherProfile extends ProfileUI{
                 if(this.data.posts[ss]==null){
                     continue;
                 }
+                let shareCont=document.createElement('div');
+                let shareImage=document.createTextNode('img');
                 let c=document.createElement('div');
                 let img=document.createElement('img');
                 let vid=document.createElement('video');
+                shareCont.setAttribute('class','share-button');
+                shareImage.setAttribute('src','/Image/Share.png');
                 c.setAttribute('class',arrayPosts[ss]);    
                 // img.setAttribute('src',this.data.posts[ss].imageFileName+''+this.data.posts[ss].imageFileName);
                 console.log(this.data.posts[ss]);
@@ -218,8 +225,8 @@ export class OtherProfile extends ProfileUI{
                 }
                 
                 
-                
-                
+                shareCont.append(shareImage);
+                c.append(shareCont);
                 contFour.append(c);
         }
         }
@@ -261,6 +268,7 @@ export class OtherProfile extends ProfileUI{
             this.followBtn=follow;
             currentFollowing=follow;
         }
+        
         
 
         contThree.append(profilePicBtn);
