@@ -8,7 +8,7 @@ use Insta\Users\UserFile;
 use Insta\Template\Template;
 use Insta\Database\Template\TemplateDB;
 
-use Insta\Image\Image;
+use Insta\Images\Image;
 use Insta\Database\Image\ImageDB;
 $user=new Users();
 $image=new Image();

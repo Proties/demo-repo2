@@ -195,7 +195,7 @@ function formatProfileObject(array $bigData){
     return $cont;
     
 }
-
+$newData=[];
 try{
     $arrayPosts=[];
     $data=[];

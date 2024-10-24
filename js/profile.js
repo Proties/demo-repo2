@@ -284,6 +284,27 @@ export class OtherProfile extends ProfileUI{
         console.log(cont);
         this.parentContainer.append(cont);
     }
+    lazy_loading(){
+        const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+              const image = entry.target;
+              image.src = image.dataset.src;
+              observer.unobserve(image);
+                }
+            });
+        }, {
+          threshold: 0.5, // Load image when 50% of it is visible
+        });
+
+        // Get all images with data-src attribute
+        const images = document.querySelectorAll('img[data-src]');
+
+        // Observe each image
+        images.forEach((image) => {
+            observer.observe(image);
+        });
+            }
 }
 export class MyProfile extends ProfileUI{
     constructor(){

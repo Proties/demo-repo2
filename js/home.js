@@ -508,10 +508,10 @@ async function formHandling(evt){
     // let form=document.getElementById("registerForm");
     // let formData=new FormData(document.getElementById("registerForm"));
     let item={
-        name:document.getElementById('name').value,
-        lastName:document.getElementById('surname').value,
-        password:document.getElementById('password').value,
-        email:document.getElementById('email').value
+        name:document.getElementById('registrationName').value,
+        lastName:document.getElementById('registrationSurname').value,
+        password:document.getElementById('registrationPassword').value,
+        email:document.getElementById('registrationEmail').value
     };
   
     item=JSON.stringify(item);
