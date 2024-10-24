@@ -198,23 +198,29 @@ function formatProfileObject(array $bigData){
 $newData=[];
 try{
     $arrayPosts=[];
-    $data=[];
+   
     
     $commonPostsTwo=compareServedPosts($mainUser);
     $commonFollowing=compareFollowingIds($mainUser);
     $commonPosts=compareViewedPosts($mainUser);
-    if($commonPosts==false){
-
-    }else{
+    
 
 
     $rank=new Ranking();
     $info=$rank->chronoTwo($arrayPosts);
     $arrLen=count($info);
     $newData=formatProfileObject($info);
-    $mainUser->servedPosts->add_item($newData);
-    $bigPool->add_item($newData);
-    }
+    // $mainUser->servedPosts->add_item($newData[0]);
+    // $mainUser->servedPosts->add_item($newData[1]);
+    // $mainUser->servedPosts->add_item($newData[2]);
+    // $mainUser->servedPosts->add_item($newData[3]);
+    // $mainUser->servedPosts->add_item($newData[4]);
+    // $bigPool->add_item($newData[0]);
+    // $bigPool->add_item($newData[1]);
+    // $bigPool->add_item($newData[2]);
+    // $bigPool->add_item($newData[3]);
+    // $bigPool->add_item($newData[4]);
+    
     setcookie('users',json_encode($newData) , time() + (8640 * 1), '/');
 }catch(Exception $err){
     echo $err->getMessage();

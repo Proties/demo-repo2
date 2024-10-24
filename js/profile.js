@@ -199,7 +199,7 @@ export class OtherProfile extends ProfileUI{
                     continue;
                 }
                 let shareCont=document.createElement('div');
-                let shareImage=document.createTextNode('img');
+                let shareImage=document.createElement('img');
                 let c=document.createElement('div');
                 let img=document.createElement('img');
                 let vid=document.createElement('video');
@@ -233,6 +233,34 @@ export class OtherProfile extends ProfileUI{
         }
         }
         else if(this.data.post!==undefined || this.data.post!==null){
+            if(this.data.post.VideoFileName!==undefined){
+                let shareCont=document.createElement('div');
+                let shareImage=document.createElement('img');
+                let contFive=document.createElement('div');
+                let im=document.createElement('video');
+
+                if (this.data.post.imageFilePath!==null) {
+                    im.setAttribute('src',this.data.post.videoFilePath+''+this.data.post.VideoFileName);
+                    im.setAttribute('loading','lazy');
+                }
+                
+                contFive.setAttribute('class','Primary-post');
+                shareCont.setAttribute('class','share-button');
+                shareImage.setAttribute('src','/Image/Share.png');
+                
+                shareCont.append(shareImage);
+                contFive.append(shareCont);
+                contFive.append(im);
+                contFour.append(contFive);
+                // cont.append(contFour);
+                // cont.append(contTwo);
+                
+                console.log('========container');
+                console.log(cont);
+            }else{
+
+            let shareCont=document.createElement('div');
+            let shareImage=document.createElement('img');
             let contFive=document.createElement('div');
             let im=document.createElement('img');
 
@@ -242,7 +270,10 @@ export class OtherProfile extends ProfileUI{
             }
             
             contFive.setAttribute('class','Primary-post');
-            
+            shareCont.setAttribute('class','share-button');
+            shareImage.setAttribute('src','/Image/Share.png');
+            shareCont.append(shareImage);
+            contFive.append(shareCont);
             contFive.append(im);
             contFour.append(contFive);
             // cont.append(contFour);
@@ -250,6 +281,7 @@ export class OtherProfile extends ProfileUI{
             
             console.log('========container');
             console.log(cont);
+        }
         }
         else{
 

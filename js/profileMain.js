@@ -40,11 +40,13 @@ function getUploadStatus(){
             return;
         }
         if(data.status=='success'){
-            alert('success')
+            alert('success');
+            // delete cookie
         }else{
             //call review window 
             //fill  in user details that user provided
             alert(data.message);
+            // delete cookie
         }
         console.log(data);
         console.log('======getting upload status');
