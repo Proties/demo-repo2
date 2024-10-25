@@ -157,14 +157,13 @@
         <button class="">></button>
         <h2>Edit Profile</h2>
 
-        <form id="EditProfileForm">
+        <form action='/profile' method='post' enctype="multipart">
           <!-- Profile Image Circle -->
           <div class="profile-image-container">
-            <form action='/profile' method='post' enctype="multipart">
+            
             <label for="settingsProfileImage">Image:</label>
             <input id="settingsProfileImage" type="file" name="settingsProfileImage" >
-            <button>Add Image</button>
-            </form>
+            
             
             <img
               class="profile-image-placeholder"
