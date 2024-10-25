@@ -30,13 +30,16 @@ if(isset($_POST['subscriptionType'])){
 switch($action){
 	case 'monthly_plan':
 		try{
+			if(empty($_SESSION['userID'])){
+				throw new Exception('create account');
+			}
 			if(!isset($_SESSION['userID'])){
 				throw new Exception('create account');
 			}
-
+			$amount=50;
 			$order->set_type('subscription');
 			$order->set_item();
-			$order->set_amount($amount);
+			$order->set_total($amount);
 			$order->set_time_created($currentTime);
 			$order->set_date_created($currentDate);
 			$order->set_userID($_SESSION['userID']);
@@ -53,12 +56,16 @@ switch($action){
 	break;
 	case 'annual_plan':
 		try{
+			if(empty($_SESSION['userID'])){
+				throw new Exception('create account');
+			}
 			if(!isset($_SESSION['userID'])){
 				throw new Exception('create account');
 			}
+			$amount=440;
 			$order->set_type('subscription');
 			$order->set_item();
-			$order->set_amount($amount);
+			$order->set_total($amount);
 			$order->set_time_created($currentTime);
 			$order->set_date_created($currentDate);
 			$order->set_userID($_SESSION['userID']);
@@ -73,6 +80,9 @@ switch($action){
 	break;
 	case 'free_trial':
 		try{
+			if(empty($_SESSION['userID'])){
+				throw new Exception('create account');
+			}
 			if(!isset($_SESSION['userID'])){
 				throw new Exception('create account');
 			}

@@ -8,13 +8,13 @@ class Plan{
 	private $features;
 	private $price;
 	private $billing_cycle;
-	public function __construct(array $data=[]){
-		$this->id=$data['id'] ?? null;
-		$this->description=$data['description'] ?? '';
-		$this->name=$data['name'] ?? '';
-		$this->features=$data['features'] ?? [];
-		$this->billing_cycle=$data['billing_cycle'] ?? '';
-		$this->price=$data['price'] ?? '';
+	public function __construct(){
+		$this->id=0;
+		$this->description='';
+		$this->name='';
+		$this->features=[];
+		$this->billing_cycle=3;
+		$this->price='';
 	}
 	public function get_id(){
 		return $this->id;

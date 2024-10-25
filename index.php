@@ -114,10 +114,12 @@ switch($action){
         include_once('php/uploadTemplate.php');
     case '/checkout':
         include_once('php/checkout.php');
-
         break;
     case '/subscribe_to_premiunm':
         include_once('php/subscribe.php');
+        break;
+    case '/buy_template':
+        include_once('php/buyTemplate.php');
         break;
     case '/donate':
         include_once('php/donate.php');
