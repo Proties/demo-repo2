@@ -33,6 +33,8 @@ try{
 	$order->set_time_created($currentTime);
 	$order->set_date_created($currentDate);
 	$order->set_userID($_SESSION['userID']);
+	$orderDB=new OrderDB($order);
+	$orderDB->addOrder();
 	$data['status']='success';
 	setcookie('buyTemplateStatus',json_encode($data),time()+(36*10),'/');
 	header('Location: /checkout');

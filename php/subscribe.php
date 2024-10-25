@@ -43,10 +43,11 @@ switch($action){
 			$order->set_time_created($currentTime);
 			$order->set_date_created($currentDate);
 			$order->set_userID($_SESSION['userID']);
-
+			$orderDB=new OrderDB($order);
+			$orderDB->addOrder();
 
 			$_SESSION['orderDetail']=$order;
-			$orderDB=new OrderDB();
+
 			header('Location: /checkout');
 		}catch(Exception $err){
 			$data['status']='failed';
@@ -69,8 +70,10 @@ switch($action){
 			$order->set_time_created($currentTime);
 			$order->set_date_created($currentDate);
 			$order->set_userID($_SESSION['userID']);
+			$orderDB=new OrderDB($order);
+			$orderDB->addOrder();
 			$_SESSION['orderDetail']=$order;
-			$orderDB=new OrderDB();
+			
 			header('Location: /checkout');
 		}catch(Exception $err){
 			$data['status']='failed';
@@ -92,6 +95,8 @@ switch($action){
 			$order->set_time_created($currentTime);
 			$order->set_date_created($currentDate);
 			$order->set_userID($_SESSION['userID']);
+			$orderDB=new OrderDB($order);
+			$orderDB->addOrder();
 
 			$token;
 			$nextRun;
