@@ -160,6 +160,12 @@
         <form id="EditProfileForm">
           <!-- Profile Image Circle -->
           <div class="profile-image-container">
+            <form action='/profile' method='post' enctype="multipart">
+            <label for="settingsProfileImage">Image:</label>
+            <input id="settingsProfileImage" type="file" name="settingsProfileImage" >
+            <button>Add Image</button>
+            </form>
+            
             <img
               class="profile-image-placeholder"
               src="/Image/Test Account.png"
