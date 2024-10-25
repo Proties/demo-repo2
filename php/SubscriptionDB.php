@@ -13,7 +13,18 @@ class SubscriptionDB extends Database{
 	public function addSubscription(){
 		$db=$this->db;
 		try{
-
+			$query='
+					INSERT INTO Subscription(type,startDate,startTime,nextPayment,userID,subscriptionStatus)
+					VALUES (:type,:startD,:startT,:nextP,:userID,:stat)
+			';
+			$statement=$db->prepare($query);
+			$statement->bindValue(':type',$this->subscription->get_type());
+			$statement->bindValue(':startD',$this->subscription->get_startDate());
+			$statement->bindValue(':startT',$this->subscription->get_startTime());
+			$statement->bindValue(':nextP',$this->subscription->get_nextPaymentDate());
+			$statement->bindValue(':userID',$this->subscription->get_userID());
+			$statement->bindValue(':stat',$this->subscription->get_status());
+			$statement->execute();
 		}catch(PDOException $err){
 			return $err;
 		}
@@ -22,7 +33,12 @@ class SubscriptionDB extends Database{
 	public function cancelSubscription(){
 		$db=$this->db;
 		try{
+			$query='
+					UPDATE Subscription
+					WHERE id=:id
 
+
+			';
 		}catch(PDOException $err){
 			return $err;
 		}
