@@ -35,7 +35,7 @@ try{
 	$orderDB=new OrderDB($order);
 	$orderDB->addOrder();
 
-	$_SESSION['orderDetailes']=$order;
+	$_SESSION['orderID']=$OrderDB->order->get_id();
 	$data['status']='success';
 	header('Location: /checkout');
 	exit();

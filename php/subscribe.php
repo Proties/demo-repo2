@@ -15,8 +15,6 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 	return;
 }
 if($_SERVER['REQUEST_METHOD']=='POST'){
-
-
 $order=new Order();
 $plan=new Plan();
 $subcription=new Subscription();
@@ -35,8 +33,8 @@ switch($action){
 			}
 			$amount=50;
 			$order->set_type('Monthly Subscription');
-			$order->set_itemName();
-			$order->set_itemDescription();
+			$order->set_itemName('subscription');
+			$order->set_itemDescription(' this is a monthly subscription');
 			$order->set_total($amount);
 			$order->set_time_created($currentTime);
 			$order->set_date_created($currentDate);
@@ -44,7 +42,7 @@ switch($action){
 			$orderDB=new OrderDB($order);
 			$orderDB->addOrder();
 
-			$_SESSION['orderDetail']=$OrderDB->order;
+			$_SESSION['orderID']=$OrderDB->order->get_id();
 
 			header('Location: /checkout');
 		}catch(Exception $err){
@@ -69,7 +67,7 @@ switch($action){
 			$order->set_userID($_SESSION['userID']);
 			$orderDB=new OrderDB($order);
 			$orderDB->addOrder();
-			$_SESSION['orderDetail']=$OrderDB->order;
+			$_SESSION['orderID']=$OrderDB->order->get_id();
 			
 			header('Location: /checkout');
 		}catch(Exception $err){
@@ -109,7 +107,7 @@ switch($action){
 			$subcription->set_next_run($nextRun);
 			$subcription->set_frequency($frequency);
 			$subcription->set_item_name($order->get_item_name());
-			$subcription->set_item_description($itemDescription);
+			$subcription->set_item_description($order->get_itemDescription());
 			$subcription->set_name_first($user->get_firstName());
 			$subcription->set_name_last($user->lastName());
 			$subcription->set_email_address($user->get_email());

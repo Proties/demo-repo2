@@ -25,19 +25,19 @@ class Order{
 	private array $dataItem;
 
 	public function __construct(){
-		$this->id='Order#123';
+		$this->id='';
 		$this->userID=0;
 		$this->total=0;
 		$this->orderItems=[];
 		$this->customer;
-		$this->uuid='00001';
+		$this->uuid='';
 		$this->type='';
 		$this->userEmail='';
 		$this->userName='';
 		$this->userLastName='';
 		$this->itemName='';
 		$this->itemDescription='';
-		$this->status='';
+		$this->status='pending';
 
 	}
 	public function set_userEmail($i){
@@ -86,6 +86,9 @@ class Order{
 	public function get_id(){
 		return $this->id;
 	}
+	public function get_userID(){
+		return $this->userID;
+	}
 	public function get_type(){
 		return $this->type;
 	}
@@ -115,7 +118,7 @@ class Order{
 		return $this->uuid;
 	}
 	public function genarete_uuid(){
-		return $this->uuid;
+		
 	}
 	public function get_userName(){
 		return $this->userName;

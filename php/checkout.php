@@ -1,4 +1,5 @@
 <?php 
+session_start();
 use Insta\Order\Order;
 use Insta\Users\Users;
 use Insta\Database\Order\OrderDB;
@@ -60,7 +61,9 @@ try{
     {
         $htmlForm .= '<input name="'.$name.'" type="hidden" value=\''.$value.'\' />';
     }
-
+    $htmlForm .='<div><h1>Order Details:</h1></div>';
+    $htmlForm .='<div><p>Item Name:'.$_SESSION['orderDetail']->get_itemName().'</p>';
+    $htmlForm .='<p>Item Description:'.$_SESSION['orderDetail']->get_itemDescription().'</p></div>';
     $htmlForm .= '<input type="submit" value="Pay Now" /></form>';
     echo $htmlForm;
 
