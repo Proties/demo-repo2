@@ -33,7 +33,6 @@ switch($action){
 			if(empty($_SESSION['userID'])){
 				throw new Exception('create account');
 			}
-		
 			$amount=50;
 			$order->set_type('Monthly Subscription');
 			$order->set_itemName();
@@ -62,8 +61,8 @@ switch($action){
 	
 			$amount=440;
 			$order->set_type('Annual Subscription');
-			$order->set_itemName();
-			$order->set_itemDescription();
+			$order->set_itemName('subscription');
+			$order->set_itemDescription('this is our annual plan');
 			$order->set_total($amount);
 			$order->set_time_created($currentTime);
 			$order->set_date_created($currentDate);
@@ -87,10 +86,12 @@ switch($action){
 			if(!isset($_SESSION['userID'])){
 				throw new Exception('create account');
 			}
+			$amount=0;
 			$order->set_type('Free Trial');
-			$order->set_itemName();
-			$order->set_itemDescription();
-			$order->set_item_description();
+			$order->set_itemName('free Trial');
+			$order->set_itemDescription('basic free trial system');
+			
+			$order->set_total($amount);
 			$order->set_time_created($currentTime);
 			$order->set_date_created($currentDate);
 			$order->set_userID($_SESSION['userID']);
