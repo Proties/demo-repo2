@@ -5,9 +5,9 @@ use Insta\Database\Users\UserDB;
 $data=[];
 $errorMessages=[];
 $user=new Users();
-if(isset($_SERVER['REQUEST_METHOD']=='GET')){
+if($_SERVER['REQUEST_METHOD']=='GET'){
 	include_once('Htmlfiles/login.html');
-	return
+	return;
 }
 try{
 	if(empty($_POST['username']) OR empty($_POST['password'])){
@@ -37,11 +37,11 @@ try{
 	}
 	$data['status']='succes';
 	$data['message']='all works';
-	// $personal=[];
-	// $personal['username']=$_SESSION['username'];
-	// $personal['userID']=$_SESSION['userID'];
-	// $personal['email']=$_SESSION['email'];
-	echo json_encode($data);
+	$_SESSION['userID'];
+	$_SESSION['username'];
+	setcookie('LoggingInStatus',json_encode($data),time()+(30*10));
+	header('Location /');
+	exit();
 }catch(Exception $err){
 	$data['status']='failed';
 	$data['message']=$err->getMessage();

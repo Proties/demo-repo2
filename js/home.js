@@ -40,6 +40,44 @@ function get_cookie(name){
     }
 }
 }
+function post_preview(){
+    console.log('====== workinh=====');
+    let status=get_cookie('postPreview=');
+    if(status!==undefined){
+        alert('previwing post now');
+         let postTitle='happy';
+        console.log(evt.target);
+        let data=status.data;
+        source=data.img;
+        let source=evt.target.src;
+        let postImageSrc=evt.target.src;
+        const patttern=/(.mp4)/;
+       
+
+        const modal = document.getElementById("postModal");
+        const modalPostImage = document.getElementById("modalPostImage");
+        let cont=evt.target.parentNode.parentNode.parentNode;
+        let profile=cont.getElementsByClassName("profile-button")[0];
+      
+        if(patttern.test(source)){
+            let video=document.createElement('video');
+            video.setAttribute('src',source);
+            modal.append(video);
+            modal.style.display = "block";
+        }
+        else{
+            modalPostImage.src = postImageSrc;
+            modal.style.display = "block";
+        }
+        
+        document.getElementById("closeModal").addEventListener('click',closeModal);
+
+    }
+    else{
+        return;
+    }
+}
+post_preview();
 function get_ish_form_cookie(){
     let profilesObjs=get_cookie("users=");
     let user_data=get_cookie("myprofile=");
@@ -194,6 +232,7 @@ function track(){
         postsArray[p].counter();
     }
 }
+
 // this function checks the url to see if a post has been selected if so it will get data from the serve
 function open_postPreview(){
     let url=window.location.href;
@@ -325,8 +364,23 @@ async function display_more_users(evt){
 this function is called when a user presses the share button on a post 
 
 */
-function shareModalPost(evt){
-
+async function shareModalPost(evt){
+    let postElement=evt.target.parentNode.parentNode;
+    let parentCont=postElement.parentNode.parentNode;
+    console.log('========product ===');
+    console.log(postElement);
+    console.log(parentCont);
+    // let url='www.nerstia.com/@'+user+'/'+post;
+    const urlText=location.href+'@holly';
+    const testShareData={
+        url:urlText,
+    };
+    try{
+        await navigator.share(testShareData);
+        alert('ok');
+    }catch(err){
+        console.log('could not share');
+    }
 }
 // this function listens to all events that take place ont the site and handles them
 function eventListeners(){
@@ -341,9 +395,7 @@ function eventListeners(){
     let closeReg = document.getElementById("closeModalReg");
     let donate=document.getElementById('donateBtn');
     let modal = document.getElementById("registerModal");
-    let testShareData={
-        title:'happy'
-    };
+
     donate.addEventListener('click',function(evt){
         let dform=document.getElementsByClassName('donationForm')[0];
        
@@ -357,13 +409,8 @@ function eventListeners(){
     });
     for(let sp=0;sp<sharePost.length;sp++){
         sharePost[sp].addEventListener('click',async(evt)=>{
-            evt.stopPropagation()
-                    try{
-                        await navigator.share(testShareData);
-                        alert('ok');
-                    }catch(err){
-                        console.log('could not share');
-                    }
+            evt.stopPropagation();
+            shareModalPost(evt);
             });
     }
     
@@ -442,7 +489,7 @@ function init_img(arr){
         console.log("======= end ======");
     }
 }
-open_postPreview();
+// open_postPreview();
 get_ish_form_cookie();
 eventListeners();
 
@@ -477,18 +524,7 @@ function openModal(evt) {
     // console.log(profile.id+'/'+cont.id);
     // window.location.href=profile.id+'/'+cont.id;
     // history.replaceState(null, null, profile.id+'/'+cont.id);
-   
-    try{
-        let xml=new XMLHttpRequest();
-        xml.open('POST','/');
-        xml.onreadystatechange=function(){
-            console.log('=======logging changes====');
-            console.log(this.responseText);
-        }
-        xml.send('actions=view_post');
-    }catch(err){
-        console.log(err);
-    }
+
 
 }
 

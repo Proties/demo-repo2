@@ -182,16 +182,20 @@ class PostDB extends Database{
   
             $db=$this->get_connection();
             $query="
-                    SELECT postID FROM post
+                    SELECT p.postID,videoFileName,videoFilePath,imageFileName,imageFilePath FROM Posts p
+                    LEFT JOIN PostImages pi ON p.postID=pi.postID
+                    LEFT JOIN VideoPost vp ON p.postID=vp.postID
+                    INNER JOIN Videos v On vp.vidoeID=v.videoID 
+                    INNER JOIN Images i On pi.ImageID=i.ImageID 
                     WHERE postLink=:link
             ";
             $stmt=$db->prepare($query);
             $stmt->bindValue(':link',$this->post->get_postLink());
             $stmt->execute();
             $id=$stmt->fetch();
-            $this->post->set_postID($id);
+            $this->post->set_postID($id['postID']);
         }catch(PDOExecption $err){
-            echo $err->getMessage();
+            return $err;
         }
     }
  
