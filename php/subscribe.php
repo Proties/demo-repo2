@@ -33,12 +33,11 @@ switch($action){
 			if(empty($_SESSION['userID'])){
 				throw new Exception('create account');
 			}
-			if(!isset($_SESSION['userID'])){
-				throw new Exception('create account');
-			}
+		
 			$amount=50;
-			$order->set_type('subscription');
-			$order->set_item();
+			$order->set_type('Monthly Subscription');
+			$order->set_itemName();
+			$order->set_itemDescription();
 			$order->set_total($amount);
 			$order->set_time_created($currentTime);
 			$order->set_date_created($currentDate);
@@ -46,7 +45,7 @@ switch($action){
 			$orderDB=new OrderDB($order);
 			$orderDB->addOrder();
 
-			$_SESSION['orderDetail']=$order;
+			$_SESSION['orderDetail']=$OrderDB->order;
 
 			header('Location: /checkout');
 		}catch(Exception $err){
@@ -60,19 +59,18 @@ switch($action){
 			if(empty($_SESSION['userID'])){
 				throw new Exception('create account');
 			}
-			if(!isset($_SESSION['userID'])){
-				throw new Exception('create account');
-			}
+	
 			$amount=440;
-			$order->set_type('subscription');
-			$order->set_item();
+			$order->set_type('Annual Subscription');
+			$order->set_itemName();
+			$order->set_itemDescription();
 			$order->set_total($amount);
 			$order->set_time_created($currentTime);
 			$order->set_date_created($currentDate);
 			$order->set_userID($_SESSION['userID']);
 			$orderDB=new OrderDB($order);
 			$orderDB->addOrder();
-			$_SESSION['orderDetail']=$order;
+			$_SESSION['orderDetail']=$OrderDB->order;
 			
 			header('Location: /checkout');
 		}catch(Exception $err){
@@ -89,8 +87,9 @@ switch($action){
 			if(!isset($_SESSION['userID'])){
 				throw new Exception('create account');
 			}
-			$order->set_type('free_trial');
-			$order->set_item();
+			$order->set_type('Free Trial');
+			$order->set_itemName();
+			$order->set_itemDescription();
 			$order->set_item_description();
 			$order->set_time_created($currentTime);
 			$order->set_date_created($currentDate);
@@ -116,7 +115,6 @@ switch($action){
 
 			$subdb=new SubscriptionDB($subcription);
 			$subdb->addSubscription();
-
 			header('Location: /');
 		}catch(Exception $err){
 			$data['status']='failed';

@@ -2,6 +2,7 @@
 namespace Insta\Order;
 class Order{
 	private $id;
+
 	private $userID;
 	private $type;
 	private $uuid;
@@ -14,6 +15,9 @@ class Order{
 	private $total;
 	private $tax;
 
+	private $itemName;
+	private $itemDescription;
+	private $status;
 
 	private $userName;
 	private $userLastName;
@@ -31,6 +35,9 @@ class Order{
 		$this->userEmail='';
 		$this->userName='';
 		$this->userLastName='';
+		$this->itemName='';
+		$this->itemDescription='';
+		$this->status='';
 
 	}
 	public function set_userEmail($i){
@@ -60,7 +67,16 @@ class Order{
 	public function set_type($i){
 		$this->type=$i;
 	}
+	public function set_status($i){
+		$this->status=$i;
+	}
 
+	public function set_itemName($i){
+		$this->itemName=$i;
+	}
+	public function set_itemDescription($i){
+		$this->itemDescription=$i;
+	}
 	public function add_items($item){
 		array_push($this->orderItems, $item);
 	}
@@ -72,6 +88,9 @@ class Order{
 	}
 	public function get_type(){
 		return $this->type;
+	}
+	public function get_status(){
+		return $this->status;
 	}
 	
 	public function get_total(){
@@ -107,6 +126,15 @@ class Order{
 	public function get_userEmail(){
 		return $this->userEmail;
 	}
+
+	public function get_itemName(){
+		return $this->itemName;
+	}
+	public function get_itemDescription(){
+		return $this->itemDescription;
+	}
+
+	
 }
 
 
