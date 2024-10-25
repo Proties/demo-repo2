@@ -147,6 +147,7 @@ function initialiseProfile(data){
         myProfile.posts=data.posts;
         myProfile.make_user_info();
         myProfile.is_logged_in();
+        fillInProfileSettings(data.userInfo);
         let parentContainer=document.getElementsByClassName("posts-section")[0];
         console.log('parentContainer=========');
         console.log(parentContainer)
@@ -246,6 +247,7 @@ async function intialiseProfileObject(data,myData){
         currentProfile.longBio=data.user.longBio;
         currentProfile.fullname=data.user.fullname;
         currentProfile.make_user_info();
+        fillInProfileSettings(data.user);
         console.log(currentProfile);
         let parentContainer=document.getElementsByClassName("posts-section")[0];
         console.log('parentContainer=========');
@@ -309,6 +311,15 @@ function open_upload_window(evt){
   
 }
 function expandTrophies(){
+
+}
+function fillInProfileSettings(data){
+    document.getElementById('profileName').innerHTML=data.name;
+    document.getElementById('occupation').innerHTML=data.occupation;
+    document.getElementById('fullname').innerHTML=data.fullname;
+    document.getElementById('biography').innerHTML=data.bio;
+    document.getElementById('gender').innerHTML=data.gender;
+    document.getElementById('profileImage').src=data.profileImage;
 
 }
 async function followProfile(evt){
