@@ -342,8 +342,15 @@ function addEventListeners(){
     let open_window=document.getElementsByClassName('upload-button')[0];
     let closeTemplateWindow=document.getElementById('closepicktemplate');
     let followUser=document.getElementById('followBtn');
+    let settings=document.getElementById('settingsBtn');
+    let closeSettings=document.getElementById('closeEditProfile');
     
-    
+    closeSettings.addEventListener('click',function(evt){
+        document.getElementById('EditProfileModal').style.display='none';
+    });
+    settings.addEventListener('click',function(evt){
+        document.getElementById('EditProfileModal').style.display='block';
+    });
     let expandTrophyCase=document.getElementsByClassName('add-trophies-button')[0];
     // Open upload modal
     expandTrophyCase.addEventListener('click',expandTrophies);
