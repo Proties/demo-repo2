@@ -2,6 +2,7 @@
 namespace Insta\Databases\Post;
 use Insta\Databases\Database;
 use Insta\Posts\Post;
+use Exception;
 class PostDB extends Database{
     public Post $post;
     private $db;
@@ -182,19 +183,25 @@ class PostDB extends Database{
   
             $db=$this->get_connection();
             $query="
-                    SELECT p.postID,videoFileName,videoFilePath,imageFileName,imageFilePath FROM Posts p
+                    SELECT p.postID,v.fileName,v.filePath,i.fileName,i.filePath FROM Posts p
                     LEFT JOIN PostImages pi ON p.postID=pi.postID
                     LEFT JOIN VideoPost vp ON p.postID=vp.postID
-                    INNER JOIN Videos v On vp.vidoeID=v.videoID 
-                    INNER JOIN Images i On pi.ImageID=i.ImageID 
+                    INNER JOIN Videos v On vp.videoID=v.id 
+                    INNER JOIN Images i On pi.imageID=i.ImageID 
                     WHERE postLink=:link
             ";
             $stmt=$db->prepare($query);
             $stmt->bindValue(':link',$this->post->get_postLink());
             $stmt->execute();
             $id=$stmt->fetch();
+            if($id==false){
+                throw new Exception('error');
+            }
             $this->post->set_postID($id['postID']);
         }catch(PDOExecption $err){
+            return $err;
+        }
+        catch(Exception $err){
             return $err;
         }
     }
