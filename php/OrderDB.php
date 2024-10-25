@@ -16,11 +16,12 @@ class OrderDB extends Database{
 		try{
 			$query='
 					INSERT INTO OrderPayments(uuid,userID,dateMade,timeMade,itemName,itemDescription,total,status)
-					VALUES (:uuid,:dateM,:timeM,:itemN,:itemD,:total,:stat)
+					VALUES (:uuid,:userID,:dateM,:timeM,:itemN,:itemD,:total,:stat)
 
 			';
 			$statement=$db->prepare($query);
 			$statement->bindValue(':uuid',$this->order->get_uuid());
+			$statement->bindValue(':userID',$this->order->get_userID());
 			$statement->bindValue(':dateM',$this->order->get_dateMade());
 			$statement->bindValue(':timeM',$this->order->get_timeMade());
 			$statement->bindValue(':itemN',$this->order->get_itemName());
