@@ -27,7 +27,8 @@ try{
 	$currentDate=date('Y:m:d');
 	$currentTime=date('h:i');
 	$order->set_type('donation');
-	$order->add_items('onceOfff prchase');
+	$order->set_itemName('donation trans');
+	$order->set_itemDescription('item description ');
 	$order->set_total($amount);
 	$order->set_time_created($currentTime);
 	$order->set_date_created($currentDate);
@@ -35,7 +36,7 @@ try{
 	$orderDB=new OrderDB($order);
 	$orderDB->addOrder();
 
-	$_SESSION['orderID']=$OrderDB->order->get_id();
+	$_SESSION['orderID']=$orderDB->order->get_id();
 	$data['status']='success';
 	header('Location: /checkout');
 	exit();

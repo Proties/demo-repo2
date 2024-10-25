@@ -4,7 +4,7 @@ use Insta\Order\Order;
 use Insta\Databases\Database;
 
 class OrderDB extends Database{
-	private Order $order;
+	public Order $order;
 	private $db;
 	public function __construct(Order $order){
 		$this->order=$order;
@@ -54,21 +54,20 @@ class OrderDB extends Database{
 		$db=$this->db;
 		try{
 			$query='
-					SELECT * FROM OrderPayments
+					SELECT userID,dateMade,timeMade,itemName,total,itemDescription FROM OrderPayments
 					WHERE id=:id
 			';
 			$statement=$db->prepare($query);
 			$statement->bindValue(':id',$this->order->get_id());
 			$statement->execute();
 			$data=$statement->fetch();
-			$this->order->set_dateMade();
-			$this->order->set_timeMade();
-			$this->order->set_itemName();
-			$this->order->set_itemDescription();
-			$this->order->set_userID();
-			$this->order->set_userName();
-			$this->order->set_userLastName();
-			$this->order->set_userEmail();
+			$this->order->set_date_created($data['dateMade']);
+			$this->order->set_time_created($data['timeMade']);
+			$this->order->set_itemName($data['itemName']);
+			$this->order->set_total($data['total']);
+			$this->order->set_itemDescription($data['itemDescription']);
+			$this->order->set_userID($data['userID']);
+		
 		}catch(PDOException $err){
 			return $err;
 		}

@@ -45,9 +45,9 @@ try{
         'name_last'  => $order->get_userLastName(),
         'email_address'=> $order->get_userEmail(),
         // Transaction details
-        'm_payment_id' => $order->get_id(), //Unique payment ID to pass through to notify_url
-        'amount' => number_format( sprintf( '%.2f', $order->get_total() ), 2, '.', '' ),
-        'item_name' => $order->get_id()
+        'm_payment_id' => $orderDB->order->get_id(), //Unique payment ID to pass through to notify_url
+        'amount' => number_format( sprintf( '%.2f', $orderDB->order->get_total() ), 2, '.', '' ),
+        'item_name' => $orderDB->order->get_id()
     );
 
     $signature = generateSignature($data, $passphrase);
@@ -63,8 +63,8 @@ try{
         $htmlForm .= '<input name="'.$name.'" type="hidden" value=\''.$value.'\' />';
     }
     $htmlForm .='<div><h1>Order Details:</h1></div>';
-    $htmlForm .='<div><p>Item Name:'.$_SESSION['orderDetail']->get_itemName().'</p>';
-    $htmlForm .='<p>Item Description:'.$_SESSION['orderDetail']->get_itemDescription().'</p></div>';
+    $htmlForm .='<div><p>Item Name:'.$orderDB->order->get_itemName().'</p>';
+    $htmlForm .='<p>Item Description:'.$orderDB->order->get_itemDescription().'</p></div>';
     $htmlForm .= '<input type="submit" value="Pay Now" /></form>';
     echo $htmlForm;
 
