@@ -17,9 +17,12 @@ class ViewedPosts{
 	{
 		return $this->pool;
 	}
-	public function addItem(int $item){}
-	public function removeItem(int $item){}
-	public function searchItem(int $item){}
+	public function addItem(int $item):bool 
+	{}
+	public function removeItem(int $item):bool 
+	{}
+	public function searchItem(int $item):void 
+	{}
 
 }
 class ServedPosts{
@@ -40,9 +43,12 @@ class ServedPosts{
 	{
 		return $this->pool;
 	}
-	public function addItem(int $item){}
-	public function removeItem(int $item){}
-	public function searchItem(int $item){}
+	public function addItem(int $item):bool 
+	{}
+	public function removeItem(int $item):bool 
+	{}
+	public function searchItem(int $item):void 
+	{}
 
 }
 class FollowingUsers{
@@ -63,9 +69,12 @@ class FollowingUsers{
 	{
 		return $this->pool;
 	}
-	public function addItem(int $item){}
-	public function removeItem(int $item){}
-	public function searchItem(int $item){}
+	public function addItem(int $item):bool 
+	{}
+	public function removeItem(int $item):bool 
+	{}
+	public function searchItem(int $item):void 
+	{}
 }
 
 ?>

@@ -140,6 +140,7 @@ export class OtherProfile extends ProfileUI{
     makeChanges(){
 
         document.getElementById("uploadBtn").style.display='none';
+        document.getElementById("settingsBtn").style.display='none';
         document.getElementById("editProfileButton").style.display='none';
         document.getElementById("uploadModal").style.display='none';
         document.getElementById("ReviewuploadModal").style.display='none';
@@ -422,6 +423,20 @@ export class MyProfile extends ProfileUI{
             console.log(err)
         }
 
+    }
+    makeChanges(){
+
+        document.getElementById("uploadBtn").style.display='block';
+        document.getElementById("settingsBtn").style.display='block';
+        document.getElementById("editProfileButton").style.display='none';
+        document.getElementById("uploadModal").style.display='none';
+        document.getElementById("ReviewuploadModal").style.display='none';
+        let modal=document.getElementsByClassName('modal');
+        for(let i=0;i<modal.length;i++){
+            console.log( modal[i]);
+            modal[i].remove();
+        }
+        
     }
     hide_registration_btn(){
         let reg=document.getElementById('userRegistration');

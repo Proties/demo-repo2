@@ -478,7 +478,17 @@ function openModal(evt) {
     // window.location.href=profile.id+'/'+cont.id;
     // history.replaceState(null, null, profile.id+'/'+cont.id);
    
-    
+    try{
+        let xml=new XMLHttpRequest();
+        xml.open('POST','/');
+        xml.onreadystatechange=function(){
+            console.log('=======logging changes====');
+            console.log(this.responseText);
+        }
+        xml.send('actions=view_post');
+    }catch(err){
+        console.log(err);
+    }
 
 }
 

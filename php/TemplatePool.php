@@ -11,10 +11,14 @@ class TemplatePool{
 		$this->maxSize=5;
 	}
 
-	public function addItem($item){}
-	public function removeItem($item){}
-	public function updateItem($item){}
-	public function searchItem($item){}
+	public function addItem($item):bool 
+	{}
+	public function removeItem($item):bool 
+	{}
+	public function updateItem($item):bool 
+	{}
+	public function searchItem($item):void 
+	{}
 }
 
 

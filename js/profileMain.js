@@ -147,6 +147,7 @@ function initialiseProfile(data){
         myProfile.posts=data.posts;
         myProfile.make_user_info();
         myProfile.is_logged_in();
+        myProfile.makeChanges();
         fillInProfileSettings(data.userInfo);
         let parentContainer=document.getElementsByClassName("posts-section")[0];
         console.log('parentContainer=========');
@@ -205,7 +206,7 @@ async function intialiseProfileObject(data,myData){
         currentProfile.fullname=profile_data.fullname;
         currentProfile.make_user_info();
         currentProfile.is_logged_in();
-        
+        currentProfile.makeChanges();
         console.log(currentProfile);
         let con=document.getElementsByClassName('container')[0];
         
@@ -319,7 +320,7 @@ function fillInProfileSettings(data){
     document.getElementById('fullname').innerHTML=data.fullname;
     document.getElementById('biography').innerHTML=data.bio;
     document.getElementById('gender').innerHTML=data.gender;
-    document.getElementById('profileImage').src=data.profileImage;
+    // document.getElementById('profileImage').src=data.profileImage;
 
 }
 async function followProfile(evt){
