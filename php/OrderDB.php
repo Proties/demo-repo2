@@ -60,6 +60,15 @@ class OrderDB extends Database{
 			$statement=$db->prepare($query);
 			$statement->bindValue(':id',$this->order->get_id());
 			$statement->execute();
+			$data=$statement->fetch();
+			$this->order->set_dateMade();
+			$this->order->set_timeMade();
+			$this->order->set_itemName();
+			$this->order->set_itemDescription();
+			$this->order->set_userID();
+			$this->order->set_userName();
+			$this->order->set_userLastName();
+			$this->order->set_userEmail();
 		}catch(PDOException $err){
 			return $err;
 		}

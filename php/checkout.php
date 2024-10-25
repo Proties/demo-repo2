@@ -10,9 +10,10 @@ $user=new Users();
 $merchant=new Merchant();
 
 $order=new Order();
+$order->set_id($_SESSION['orderID']);
 $orderDB=new OrderDB($order);
 try{
-    
+    $orderDB->getOrder();
     function generateSignature($data, $passPhrase = null) {
         // Create parameter string
         $pfOutput = '';
