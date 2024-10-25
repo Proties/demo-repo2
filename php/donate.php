@@ -1,18 +1,15 @@
 <?php 
 session_start();
-use Insta\Users\User;
-use Insta\Database\User\UserDB;
-use Insta\Database\Users\UserDB;
+use Insta\Users\Users;
+use Insta\Databases\User\UserDB;
 use Insta\Order\Order;
 use Insta\Database\Order\OrderDB;
 
-$user=new User();
+$user=new Users();
 $order=new Order();
 $data=[];
 try{
-	if(!isset($_POST['amount']){
-		throw new Exception('amount must be specified');
-	}
+
 	if(!isset($_SESSION['userID'])){
 		throw new Exception('create account');
 	}
@@ -25,13 +22,13 @@ try{
     if((int)$_POST['donationAmount']==0){
         throw new Exception('amount cannot be 0');
     }
-	$amount=$_POST['amount'];
-	$_SESSION['orderDetailes'];
+	$amount=$_POST['donationAmount'];
+
 	$currentDate=date('Y:m:d');
 	$currentTime=date('h:i');
 	$order->set_type('donation');
-	$order->set_item('onceOfff prchase');
-	$order->set_amount($amount);
+	$order->add_items('onceOfff prchase');
+	$order->set_total($amount);
 	$order->set_time_created($currentTime);
 	$order->set_date_created($currentDate);
 	$order->set_userID($_SESSION['userID']);
@@ -45,10 +42,11 @@ try{
 }catch(Exception $err){
 	$data['status']='failed';
 	$data['message']=$err->getMessage();
-	echo json_encode($data);
-}
-header('Location: /');
+	setcookie('donationStatus',json_encode($data),time()+(36*10),'/');
+	header('Location: /');
 exit();
+}
+
 
 
 ?>

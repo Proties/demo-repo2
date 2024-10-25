@@ -2,6 +2,8 @@
 namespace Insta\Order;
 class Order{
 	private $id;
+	private $userID;
+	private $type;
 	private $uuid;
 	private $dateMade;
 	private $timeMade;
@@ -12,6 +14,7 @@ class Order{
 	private $total;
 	private $tax;
 
+
 	private $userName;
 	private $userLastName;
 	private $userEmail;
@@ -19,10 +22,12 @@ class Order{
 
 	public function __construct(){
 		$this->id='Order#123';
-		$this->total=100.34;
+		$this->userID=0;
+		$this->total=0;
 		$this->orderItems=[];
 		$this->customer;
 		$this->uuid='00001';
+		$this->type='';
 		$this->userEmail='';
 		$this->userName='';
 		$this->userLastName='';
@@ -34,15 +39,28 @@ class Order{
 	public function set_userName($i){
 		$this->userName=$i;
 	}
+	public function set_userID($i){
+		$this->userID=$i;
+	}
 	public function set_userLastName($i){
 		$this->userLastName=$i;
 	}
 	public function set_id($i){
 		$this->id=$i;
 	}
+	public function set_time_created($tm){
+		$this->timeMade=$tm;
+	}
+	public function set_date_created($dt){
+		$this->dateMade=$dt;
+	}
 	public function set_total($i){
 		$this->total=$i;
 	}
+	public function set_type($i){
+		$this->type=$i;
+	}
+
 	public function add_items($item){
 		array_push($this->orderItems, $item);
 	}
@@ -51,6 +69,9 @@ class Order{
 	}
 	public function get_id(){
 		return $this->id;
+	}
+	public function get_type(){
+		return $this->type;
 	}
 	
 	public function get_total(){

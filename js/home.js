@@ -115,6 +115,13 @@ function get_username_search_results_info_from_cookie(){
     }
     return false;
 }
+function getDonationStatus(){
+    let stat=get_cookie('donationStatus=');
+    if(stat!==undefined){
+        alert(stat.message);
+    }
+}
+getDonationStatus();
 function clear_posts(){
     let postOne=document.getElementsByClassName('post-container-primary');
     let postTwo=document.getElementsByClassName('post-container-secondary');
