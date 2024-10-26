@@ -19,19 +19,20 @@ class ImageDB extends Database{
 		try{
 			$db=$this->get_connection();
 			$query='
-					SELECT fileName,filePath FROM Images
-					WHERE imageID=:id; 
+					SELECT fileName,filePath FROM Images i
+					INNER JOIN PostImages pi ON i.imageID=pi.imageID
+					WHERE pi.postID=:id; 
 
 
 			';
 			$stmt=$db->prepare($query);
-			$stmt->bindValue(':id',$this->image->get_imageID());
+			$stmt->bindValue(':id',$this->image->get_postID());
 			$stmt->execute();
 			$arr=$stmt->fetch();
-			$this->image->set_fileName($arr['fileName']);
-			$this->image->set_filePath($arr['filePath']);
+			return $arr;
+			
 		}catch(PDOExecption $err){
-			echo 'database error read image '.$err->getMessage();
+			return $err;
 		}
 	}
     public function read_images(){

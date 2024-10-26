@@ -162,9 +162,10 @@ class PostDB extends Database{
  
 
     public function read_posts(){
+         $db=$this->db;
         try{
 
-            $db=$this->get_connection();
+            
             $query="
                     SELECT * FROM post
                     WHERE userID=:userID;
@@ -179,9 +180,10 @@ class PostDB extends Database{
         }
     }
     public function read_postID(){
+         $db=$this->db;
         try{
   
-            $db=$this->get_connection();
+            
             $query="
                     SELECT p.postID,v.fileName,v.filePath,i.fileName,i.filePath FROM Posts p
                     LEFT JOIN PostImages pi ON p.postID=pi.postID
@@ -206,27 +208,28 @@ class PostDB extends Database{
         }
     }
  
-    public function get_postID_from_link($id){
-        try{
-   
-            $db=$this->get_connection();
-            $query="
-                    SELECT postID FROM post
-                    WHERE postLinkID=:id;
-            ";
+    public function get_postID_from_link(){
+         $db=$this->db;
+        try{ 
+            $query='
+
+                    SELECT postID,postLink FROM Posts
+                    WHERE postLink=:id;
+
+                    ';
             $stmt=$db->prepare($query);
-            $stmt->bindValue(':id',$id);
+            $stmt->bindValue(':id',$this->post->get_postLink());
             $stmt->execute();
             return $stmt->fetch();
         }catch(PDOExecption $err){
-            echo 'Database error '.$err->getMessage();
+           return $err;
         }
     }
     public function read_post(){
+         $db=$this->db;
         try{
    
-            $db=$this->get_connection();
-            $query="
+              $query="
                     SELECT * FROM post
                     WHERE id=:postID;
             ";
@@ -238,6 +241,24 @@ class PostDB extends Database{
             echo 'Database error '.$err->getMessage();
         }
     }
+    public function getVideo(){
+        $db=$this->db;
+        try{
+   
+            
+            $query='
+                    SELECT id FROM VideoPost
+                    WHERE postID=:postID;
+
+                    ';
+            $stmt=$db->prepare($query);
+            $stmt->bindValue(':postID',$this->post->get_postID());
+            $stmt->execute();
+            return $stmt->fetch();
+        }catch(PDOExecption $err){
+            return $err;
+        }
+    } 
 }
 
 

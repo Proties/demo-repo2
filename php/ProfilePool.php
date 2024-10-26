@@ -3,7 +3,7 @@ namespace Insta\Pool;
 class ProfilePool{
 
 	private array $pool;
-	private int $poolLen;
+
 	private int $size;
 	private int $maxSize;
 	private $filename='Profiles.json';

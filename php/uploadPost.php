@@ -11,7 +11,7 @@ use Insta\Databases\Images\ImageDB;
 use Insta\Video\Video;
 use Insta\Database\Video\VideoDB;
 
-use Insta\Pool\MostViewPostPool;
+
 use Insta\Pool\ProfilePool;
 
 
@@ -19,8 +19,17 @@ use Insta\Pool\ProfilePool;
 this function will check if profile is in pool if it is it will append the post to the post array 
 if the post array exceeds 10 the last post will be pushed out
 */
+
+
 function profileInPool(){
-    $profilesPool->search_item($_SESSION['userID']);
+    $mainUser=new Users();
+    $mainUser->set_id($_SESSION['userID']);
+    $status=$profilesPool->search_item($mainUser);
+    if($status==false){
+        return false;
+    }else{
+        return true;
+    }
 }
 if($_SERVER['REQUEST_METHOD']=='POST'){
     $bigPool=new MostViewPostPool();

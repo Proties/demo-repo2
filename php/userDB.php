@@ -103,7 +103,7 @@ class UserDB extends Database{
         $db=$this->db;
         try{
             $query='
-                SELECT p.postID,i.filepath as imageFilePath,i.filename as imageFileName,
+                SELECT p.postID,p.postLink,i.filepath as imageFilePath,i.filename as imageFileName,
                 v.filepath as videoFilePath,v.filename as videoFileName FROM Posts as p
                 LEFT JOIN PostImages as ip ON p.postID=ip.postID
                 LEFT JOIN VideoPost as vp ON p.postID=vp.postID

@@ -95,37 +95,31 @@ function formatProfileObject(array $bigData){
     try{
         while($maxLen>$i){
         $currentUsername=$bigData[$i]['username'];
-
-        
         if($i==0){
             $newArray=[];
-        
             $username=$bigData[$i]['username'];
             $userID=$bigData[$i]['userID'];
            
             $posts=[];
             if(isset($bigData[$i]['imageFileName'])){
+                $posts['postLink']=$bigData[$i]['postLink'];
+                $posts['postID']=$bigData[$i]['postID'];
                 $posts['imageFileName']=$bigData[$i]['imageFileName'];
                 $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
             }
             if(isset($bigData[$i]['videoFileName'])){
-                 $posts['VideoFileName']=$bigData[$i]['videoFileName'];
+                $posts['postLink']=$bigData[$i]['postLink'];
+                $posts['postID']=$bigData[$i]['postID'];
+                $posts['VideoFileName']=$bigData[$i]['videoFileName'];
                 $posts['videoFilePath']=$bigData[$i]['videoFilePath'];
             }
           
             $newArray['username']=$username;
             $newArray['userID']=$userID;
             $newArray['profilePicture']='/Image/Test Account.png';
-        
             $newArray['post']=$posts;
-
-          
-            
-            $cont[]=$newArray;
-           
-            $i++;
-            
-          
+            $cont[]=$newArray;    
+            $i++; 
         }
         else if($bigData[$i]['username']!==$cont[$c]['username']){
             $newArray=[];
@@ -135,21 +129,21 @@ function formatProfileObject(array $bigData){
             $userID=$bigData[$i]['userID'];
 
             if(isset($bigData[$i]['imageFileName'])){
+                $posts['postLink']=$bigData[$i]['postLink'];
+                $posts['postID']=$bigData[$i]['postID'];
                 $posts['imageFileName']=$bigData[$i]['imageFileName'];
                 $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
             }
             if(isset($bigData[$i]['videoFileName'])){
+                $posts['postLink']=$bigData[$i]['postLink'];
+                $posts['postID']=$bigData[$i]['postID'];
                 $posts['VideoFileName']=$bigData[$i]['videoFileName'];
                 $posts['videoFilePath']=$bigData[$i]['videoFilePath'];
             }
-  
-
             $newArray['username']=$username;
             $newArray['userID']=$userID;
             $newArray['profilePicture']='/Image/Test Account.png';
             $newArray['posts'][]=$posts;
-
-            
             $cont[]=$newArray;
             // var_dump(json_encode($cont));
             // return;
@@ -161,22 +155,31 @@ function formatProfileObject(array $bigData){
             $posts=[];
             $currentContent=[];
             if(isset($bigData[$i]['imageFileName'])){
+                $posts['postLink']=$bigData[$i]['postLink'];
+                $posts['postID']=$bigData[$i]['postID'];
                 $posts['imageFileName']=$bigData[$i]['imageFileName'];
                 $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
             }
             if(isset($bigData[$i]['videoFileName'])){
+                $posts['postLink']=$bigData[$i]['postLink'];
+                $posts['postID']=$bigData[$i]['postID'];
                 $posts['VideoFileName']=$bigData[$i]['videoFileName'];
                 $posts['videoFilePath']=$bigData[$i]['videoFilePath'];
             }
 
             if(isset($cont[$c]['post'])){
+                
                 if(isset($cont[$c]['post']['videoFilePath'])){
+                    $currentContent=$cont[$c]['postLink'];
+                    $currentContent=$cont[$c]['postID'];
                     $currentContent=$cont[$c]['post']['videoFilePath'];
                     $currentContent=$cont[$c]['post']['videoFileName'];
                 }
                 else{
+                    $currentContent=$cont[$c]['post']['postLink'];
+                    $currentContent=$cont[$c]['post']['postID'];
                     $currentContent=$cont[$c]['post']['imageFilePath'];
-                    $currentContent=$cont[$c]['post']['imageFilePath'];
+                    $currentContent=$cont[$c]['post']['imageFileName'];
                 }
 
                 $cont[$c]['post']=null;
@@ -188,13 +191,11 @@ function formatProfileObject(array $bigData){
             else{
                 if(isset($cont[$c]['posts'])){
                     array_push($cont[$c]['posts'],$posts);
-                }
-                
+                }  
                 
             }
             $i++;
         }
-     
     }
     }catch(Exception $err){
        return $err;

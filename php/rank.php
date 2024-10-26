@@ -62,6 +62,8 @@ public function chronoTwo(){
                 SELECT 
                 userID, 
                 username, 
+                postID,
+                postLink,
                 video_filename as videoFileName, 
                 video_filepath as videoFilePath, 
                 image_filename as imageFileName, 
@@ -71,6 +73,8 @@ public function chronoTwo(){
                 SELECT 
                     u.userID, 
                     u.username, 
+                    p.postID, 
+                    p.postLink,
                     v.filename AS video_filename, 
                     v.filepath AS video_filepath, 
                     i.filename AS image_filename, 

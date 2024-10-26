@@ -3,6 +3,8 @@ namespace Insta\Images;
 use Insta\Images\ImageFile;
 class Image{
 	private int $id;
+	private string $filename;
+    private string $filePath;
 	private string $dateMade;
 	private string $dateModified;
 	private string $width;
@@ -15,6 +17,8 @@ class Image{
 
 	public function __construct(){
 		$this->file=new ImageFile();
+		$this->filename='';
+        $this->filePath='';
 		$this->width='200px';
 		$this->height='100px';
 		$this->dateMade='';
@@ -24,6 +28,21 @@ class Image{
 
 
 	}
+	  public function set_filename(string $str){
+        $this->filename=$str;
+    }
+    public function set_filePath(string $str){
+        $this->filePath=$str;
+    }
+     public function get_filename():string
+    {
+        return $this->filename;
+    }
+   
+    public function get_filePath():string
+    {
+        return $this->filePath;
+    }
 	public function set_dateMade(string $dt){
 		$this->dateMade=date('Y:m:d');
 	}
@@ -47,9 +66,7 @@ class Image{
 	public function set_id(int $dt){
 		$this->id=$dt;
 	}
-	public function set_filePath(string $dt){
-		$this->filePath=$dt;
-	}
+	
 
 	public function set_imageSize(int $dt){
 		$this->imageSize=$dt;
@@ -81,7 +98,7 @@ class Image{
 	{
 		return $this->height;
 	}
-	public function get_postID():string 
+	public function get_postID():int 
 	{
 		return $this->postID;
 	}
