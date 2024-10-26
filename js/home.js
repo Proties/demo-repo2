@@ -241,36 +241,36 @@ function track(){
 }
 
 // this function checks the url to see if a post has been selected if so it will get data from the serve
-function open_postPreview(){
-    let url=window.location.href;
-    const pattern=/^(\/\@[a-zA-Z]+)(\/[a-zA-Z0-9]+)$/;
-    console.log(url);
-    console.log('prviewing post working');
+// function open_postPreview(){
+//     let url=window.location.href;
+//     const pattern=/^(\/\@[a-zA-Z]+)(\/[a-zA-Z0-9]+)$/;
+//     console.log(url);
+//     console.log('prviewing post working');
     
-    if(!pattern.test(url)){
-        console.log('not valid post');
-        history.replaceState(null,null,'/');
-        return;
-    }
-    console.log('valid post');
-    try{
-        let xm=new XMLHttpRequest();
-        xm.open('GET',url);
-        xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xm.onreadystatechange=function(){
-            let data=JSON.parse(this.responseText);
-            openModal(data);
-            console.log(data);
-            console.log('hahaha');
-        }
-        xm.send('action=initialise_post_preview');
-    }catch(err){
-        console.log(err);
-    }
+//     if(!pattern.test(url)){
+//         console.log('not valid post');
+//         history.replaceState(null,null,'/');
+//         return;
+//     }
+//     console.log('valid post');
+//     try{
+//         let xm=new XMLHttpRequest();
+//         xm.open('GET',url);
+//         xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+//         xm.onreadystatechange=function(){
+//             let data=JSON.parse(this.responseText);
+//             openModal(data);
+//             console.log(data);
+//             console.log('hahaha');
+//         }
+//         xm.send('action=initialise_post_preview');
+//     }catch(err){
+//         console.log(err);
+//     }
 
-return false;
+// return false;
 
-}
+// }
 function clear_search_results(){
     let list=document.getElementById('suggestion-list');
     for(let l=0;l<list.childNodes.length;l++){

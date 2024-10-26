@@ -204,6 +204,7 @@ export class OtherProfile extends ProfileUI{
                 let c=document.createElement('div');
                 let img=document.createElement('img');
                 let vid=document.createElement('video');
+               
                 shareCont.setAttribute('class','share-button');
                 shareImage.setAttribute('src','/Image/Share.png');
                 c.setAttribute('class',arrayPosts[ss]);    
@@ -217,6 +218,9 @@ export class OtherProfile extends ProfileUI{
                     img.setAttribute('src',this.data.posts[ss].imageFilePath+''+this.data.posts[ss].imageFileName);
                     img.setAttribute('class','post-image');
                     img.setAttribute('loading','lazy');
+                    img.setAttribute('controls','true');
+                    img.setAttribute('width','500');
+                    img.setAttribute('height','250');
                     c.append(img);
                 }
                 else{
@@ -224,6 +228,8 @@ export class OtherProfile extends ProfileUI{
                     vid.setAttribute('src',this.data.posts[ss].videoFilePath+''+this.data.posts[ss].VideoFileName);
                     vid.setAttribute('class','post-image');
                     vid.setAttribute('loading','lazy');
+                    vid.style.width='20em';
+                    vid.setAttribute('controll','true');
                     c.append(vid);
                 }
                 
@@ -248,6 +254,9 @@ export class OtherProfile extends ProfileUI{
                 contFive.setAttribute('class','Primary-post');
                 shareCont.setAttribute('class','share-button');
                 shareImage.setAttribute('src','/Image/Share.png');
+                im.setAttribute('controls','true');
+                im.setAttribute('width','500');
+                im.setAttribute('height','250');
                 
                 shareCont.append(shareImage);
                 contFive.append(shareCont);

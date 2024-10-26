@@ -72,7 +72,7 @@ $userDB=new UserDB($user);
 $postDB=new PostDB($post);
 $url=urldecode($_SERVER['REQUEST_URI']);
 
-$pattern='/^\/@([a-zA-Z%\s\$]){2,}\/([a-zA-Z]){3,}/';
+$pattern='/^\/@([a-zA-Z%\s]){2,}\/([a-zA-Z]){3,}/';
 // validate_post_link();
 // setcookie('postPreview','',time()-(36*10),'/');
 if(!isset($_COOKIE['postPreview'])){

@@ -51,7 +51,7 @@ try{
 	$data['status']='failed';
 	$data['message']=$err->getMessage();
 	// $data['trace']=$err->getStackTrace();
-	setcookie('postPreview',json_encode($data),time()+(36*10),'/');
+	setcookie('postPreview',json_encode($data),time()-(36*10),'/');
 }
 header('Location: '.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].$url);
 ?>
