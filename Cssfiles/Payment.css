@@ -35,17 +35,38 @@
   /* Title Styling */
   .payment-title {
     font-size: 24px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     text-align: center;
   }
   
+.switch-border-monthly{
+  border-color: #A7991E;
+    border-style: solid;
+    width: 50%;
+    text-align: center;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.switch-border-annually{
+  color: #ffffff;
+  border-color: #A7991E;
+    border-style: solid;
+    width: 50%;
+    text-align: center;
+    background-color: #A7991E;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+
+}
+
 .form{
-    margin-top: 75px;
+    margin-top: 35px;
 }
 
   /* Input Group Styling */
   .input-group {
-    margin-bottom: 15px;
+    margin-bottom: 40px;
   }
   
   .input-group label {
@@ -70,9 +91,16 @@
   }
   
   .input-group-row .input-group {
-    width: 48%;
+    width: 28%;
   }
   
+  .switch-option{
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    width: 31%;
+  }
+
   /* Pay Button */
   .Call-Action {
     transition: 0.9s ease;
