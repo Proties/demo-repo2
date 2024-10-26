@@ -285,29 +285,19 @@ function get_new_post(){
     return false;
 }
 function clear_upload_file(){
-    let mediaImage=document.getElementsByTagName('img');
-    let mediaVideo=document.getElementsByTagName('video');
-    let maxImage=mediaImage.length;
-    let maxVideo=mediaVideo.length;
+    console.log('function called=====');
+    let media=document.getElementsByClassName('media-placeholder')[0];
+    let childen=media.childNodes.length;
+    let max=childen.length;
     let i=0;
-    let c=0;
-    while(i<maxImage ){
-        if(mediaImage[i]!==undefined){
-            mediaImage[i].remove();
-            i++;
+    while(i<max ){
+        if(childen[i]!==undefined){
+            childen[i].removeChild();
+           
         }
+         i++;
     }
 
-     while( c<maxVideo){
-        
-        
-        if(mediaVideo[c]!==undefined){
-            mediaVideo[c].remove();
-            c++;
-        }
-
- 
-    }
 }
 
 function clear_review_data(){
@@ -315,10 +305,14 @@ function clear_review_data(){
 }
 
 function open_upload_window(evt){
-    // clear_upload_file();
+    
     uploadPost.uploadPostModal.style.display='block';
     clear_review_data();
-    
+    console.log(uploadPost.uploadPostModal.style.display);
+    if(uploadPost.uploadPostModal.style.display=='none'){
+        console.log('problem');
+        return;
+    }
     uploadPost.make_drop_drag_window();
     // const uploadModal = document.getElementById('uploadModal');
     uploadPost.uploadFile.addEventListener('change',function(evt){
@@ -330,7 +324,9 @@ function open_upload_window(evt){
         uploadPost.reviewUpload.download_media();
         console.log(uploadPost.reviewUpload.file);
         uploadPost.reviewUpload.closeReviewModalBtn.addEventListener('click',function(evt){
-            uploadPost.reviewUpload.reviewPostModal.style.display='none'
+            clear_upload_file();
+            uploadPost.reviewUpload.reviewPostModal.style.display='none';
+
         });
         uploadPost.reviewUpload.submitForm.addEventListener('click',function(evt){
             evt.preventDefault();

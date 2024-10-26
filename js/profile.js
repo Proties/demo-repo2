@@ -444,11 +444,11 @@ export class MyProfile extends ProfileUI{
         // document.getElementById("editProfileButton").style.display='none';
         // document.getElementById("uploadModal").style.display='none';
         // document.getElementById("ReviewuploadModal").style.display='none';
-        let modal=document.getElementsByClassName('modal');
-        for(let i=0;i<modal.length;i++){
-            console.log( modal[i]);
-            modal[i].remove();
-        }
+        // let modal=document.getElementsByClassName('modal');
+        // for(let i=0;i<modal.length;i++){
+        //     console.log( modal[i]);
+        //     modal[i].remove();
+        // }
 
         
     }

@@ -211,6 +211,21 @@ export class MakePostUI extends MakePost{
 	make_form(){
 
 	}
+	clear_upload_file(){
+	    console.log('function called=====');
+	    const media=document.getElementsByClassName('basic');
+	    let max=media.length;
+	    let i=0;
+	    while(i<max ){
+	        if(media[i]!==undefined){
+	            media[i].remove();
+	           i++;
+
+	        }
+	         	    }
+
+	}
+
 	make_drop_drag_window(){
 		console.log('drag and drop active========');
 		let uploadBox=document.getElementsByClassName('dragndrop')[0];
@@ -266,6 +281,7 @@ export class MakePostUI extends MakePost{
 
 				// });
 				this.reviewUpload.closeReviewModalBtn.addEventListener('click',(evt)=>{
+					this.clear_upload_file();
 					console.log('close review window');
 					this.reviewUpload.reviewPostModal.style.display='none';
 				});
