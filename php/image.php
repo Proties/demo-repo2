@@ -5,6 +5,7 @@ class Image{
 	private int $id;
 	private string $filename;
     private string $filePath;
+    private string $fileExtension;
 	private string $dateMade;
 	private string $dateModified;
 	private string $width;
@@ -19,6 +20,7 @@ class Image{
 		$this->file=new ImageFile();
 		$this->filename='';
         $this->filePath='';
+        $this->fileExtension='.png';
 		$this->width='200px';
 		$this->height='100px';
 		$this->dateMade='';
@@ -33,6 +35,13 @@ class Image{
     }
     public function set_filePath(string $str){
         $this->filePath=$str;
+    }
+    public function set_fileExtension(string $str){
+        $this->fileExtension=$str;
+    }
+    public function get_fileExtension():string
+    {
+        return $this->fileExtension;
     }
      public function get_filename():string
     {
@@ -122,7 +131,7 @@ class Image{
 			$tmpname=$_FILES['image']['tmp_name'];
 			$filetype=$_FILES['image']['type'];
 			
-			$newfile=$dir.$filename;
+			$newfile=$dir.$filename.$this->get_fileExtension();
 			if(!move_uploaded_file($tmpname, $newfile)){
 				throw new Exception('did not upload');
 			}

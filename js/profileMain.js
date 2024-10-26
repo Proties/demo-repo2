@@ -148,7 +148,7 @@ function initialiseProfile(data){
         myProfile.make_user_info();
         myProfile.is_logged_in();
         myProfile.makeChanges();
-        fillInProfileSettings(data.userInfo);
+        // fillInProfileSettings(data.userInfo);
         let parentContainer=document.getElementsByClassName("posts-section")[0];
         console.log('parentContainer=========');
         console.log(parentContainer)
@@ -206,12 +206,12 @@ async function intialiseProfileObject(data,myData){
         currentProfile.fullname=profile_data.fullname;
         currentProfile.make_user_info();
         currentProfile.is_logged_in();
-        currentProfile.makeChanges();
+        // currentProfile.makeChanges();
         console.log(currentProfile);
         let con=document.getElementsByClassName('container')[0];
         
     currentProfile.make_user_info();
-   clear_placeholder_posts();
+  
     console.log(data);
     if(data!==undefined){
         let parentContainer=document.getElementsByClassName("posts-section")[0];
@@ -274,21 +274,55 @@ async function intialiseProfileObject(data,myData){
        
     }
 }
-
-function clear_upload_file(){
-    
+function get_new_post(){
+    let status=get_cookie('uploadpostStatus');
+    if(status!==undefined){
+        let post=new PostUI();
+        post.src=status.data.filePath+'/'+status.data.fileName;
+        post.check_media_type();
+        post.parentContainer=document.getElementsByClassName('posts-section')[0];
+    }
+    return false;
 }
+function clear_upload_file(){
+    let mediaImage=document.getElementsByTagName('img');
+    let mediaVideo=document.getElementsByTagName('video');
+    let maxImage=mediaImage.length;
+    let maxVideo=mediaVideo.length;
+    let i=0;
+    let c=0;
+    while(i<maxImage ){
+        if(mediaImage[i]!==undefined){
+            mediaImage[i].remove();
+            i++;
+        }
+    }
+
+     while( c<maxVideo){
+        
+        
+        if(mediaVideo[c]!==undefined){
+            mediaVideo[c].remove();
+            c++;
+        }
+
+ 
+    }
+}
+
 function clear_review_data(){
     
 }
 
 function open_upload_window(evt){
-    clear_upload_file();
+    // clear_upload_file();
+    uploadPost.uploadPostModal.style.display='block';
     clear_review_data();
+    
     uploadPost.make_drop_drag_window();
-    const uploadModal = document.getElementById('uploadModal');
+    // const uploadModal = document.getElementById('uploadModal');
     uploadPost.uploadFile.addEventListener('change',function(evt){
-        uploadModal.style.display='none';
+       uploadPost.uploadPostModal.style.display='none';
         uploadPost.reviewUpload.reviewPostModal.style.display='block';
         let file=document.getElementById('fileInput');
         uploadPost.reviewUpload.file=file.files[0];
@@ -308,7 +342,7 @@ function open_upload_window(evt){
             
         });
     });
-    uploadModal.style.display='block';
+    uploadPost.uploadPostModal.style.display='block';
   
 }
 function expandTrophies(){
@@ -372,13 +406,6 @@ function addEventListeners(){
     });
     open_window.addEventListener('click', open_upload_window);
 
-    // Close modal when clicking outside the modal content
-    // window.addEventListener('click', function(event) {
-        
-    //     if (event.target == uploadModal || event.target == captionModal) {
-    //         uploadModal.style.display = 'none';
-    //     }
-    // });
 
     // Close modal when clicking the close button
     const closeButtons = document.querySelectorAll('.close');
@@ -388,52 +415,6 @@ function addEventListeners(){
         });
     });
 }
-    // Upload post from device
-//     uploadFromDeviceBtn.addEventListener('click', () => {
-//         try{
-//             let item={};
-//             let file=fileInput.files[0];
-//             let read=new FileReader();
-//             read.readAsDataURL(file);
-//             read.onloadend=()=>{
-                
-//                 item.img=read.result;
-//                 console.log(JSON.stringify(item));
-//                 let num=(window.location.href).indexOf("@");
-//                 let str=window.location.href;
-//                 let name=str.substring(num+1);
-//                 console.log(name);
-//                 console.log('user nmae=======');
-//                 let data={
-//                     img:item,
-//                     username:name
-                    
-//                 };
-//                 xm=new XMLHttpRequest();
-//                 xm.open('POST','/upload_post');
-//                 xm.onload=function(){
-//                     console.log(this.responseText);
-//                     let dt=JSON.parse(this.responseText);
-//                     if(dt.status=='failed'){
-//                         if(dt.msg=='create account'){
-//                             alert('create account');
-//                         }
-//                     }
-//                     for(let d=0;d<dt.errorArray.length;d++){
-//                         console.log(dt.errorArray[d]);
-//                     }
-//                 }
-//                 xm.send(JSON.stringify(data));
-//             }
-            
-           
-//         }catch(err){
-//             console.log(err);
-//         }
-//     });
-
-    
-// }
 
 addEventListeners();
 get_data_from_cookie();

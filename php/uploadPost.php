@@ -12,7 +12,7 @@ use Insta\Video\Video;
 use Insta\Database\Video\VideoDB;
 
 
-use Insta\Pool\ProfilePool;
+// use Insta\Pool\ProfilePool;
 
 
 /*
@@ -21,23 +21,22 @@ if the post array exceeds 10 the last post will be pushed out
 */
 
 
-function profileInPool(){
-    $mainUser=new Users();
-    $mainUser->set_id($_SESSION['userID']);
-    $status=$profilesPool->search_item($mainUser);
-    if($status==false){
-        return false;
-    }else{
-        return true;
-    }
-}
+// function profileInPool(){
+//     $mainUser=new Users();
+//     $mainUser->set_id($_SESSION['userID']);
+//     $status=$profilesPool->search_item($mainUser);
+//     if($status==false){
+//         return false;
+//     }else{
+//         return true;
+//     }
+// }
 if($_SERVER['REQUEST_METHOD']=='POST'){
-    $bigPool=new MostViewPostPool();
-    $profilesPool=new ProfilePool();
+   
     $errorMessages=[];
     $post=new Post();
     $data=[];
-    // $challenge=new Challenge();
+
     $user=new Users();
     $database=new Database();
     $db=$database->get_connection();

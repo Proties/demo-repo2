@@ -155,7 +155,8 @@ function initialiseObjects(cookie_data,cookie_user){
         user.username=cookie_user.username;
         user.fullName=cookie_user.fullname;
         user.bio=cookie_user.bio;
-        user.registrationBtn.style.display='none';
+        user.is_logged_in_homepage();
+       
     }
    if(cookie_data!==undefined){
         // clear_posts();
@@ -402,7 +403,10 @@ function eventListeners(){
     let closeReg = document.getElementById("closeModalReg");
     let donate=document.getElementById('donateBtn');
     let modal = document.getElementById("registerModal");
-
+    let openLogin=document.getElementById('login');
+    openLogin.addEventListener('click',function(evt){
+        document.getElementById('LoginModal').style.display='block';
+    });
     donate.addEventListener('click',function(evt){
         let dform=document.getElementsByClassName('donationForm')[0];
        

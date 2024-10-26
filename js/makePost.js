@@ -257,28 +257,8 @@ export class MakePostUI extends MakePost{
 					}
 					
 				});
-<<<<<<< HEAD
-				// this.reviewUpload.dropDownBtn.addEventListener('click',(evt)=>{
-				// 	console.log('====get tags');
-				// 	let cont=document.getElementsByClassName('add-tags')[0];
-				// 	cont.append(this.reviewUpload.get_list_of_tags());
-				// 	let inputField=document.getElementById('post-tags');
-				// 	let selectTag=document.getElementsByClassName('post-tags-list-item');
-				// 	let len=selectTag.length;
-				// 	for(let si=0;si<len;si++){
-				// 		selectTag[si].addEventListener('click',function(evt){
-				// 			console.log(evt.target);
-				// 			let txt=evt.target.innerHTML;
-				// 			inputField.value='';
-				// 			inputField.value=txt;
-				// 			document.getElementById('post-tags-list').style.display='none';
-=======
-				this.reviewUpload.dropDownBtn.addEventListener('click',(evt)=>{
-					console.log('====get tags');
-					let cont=document.getElementsByClassName('add-tags')[0];
-					cont.append(this.reviewUpload.get_list_of_tags());
-					this.reviewUpload.dropDownList=true;
->>>>>>> ebceec1 (start)
+
+
 
 
 				// 		})
@@ -289,14 +269,7 @@ export class MakePostUI extends MakePost{
 					console.log('close review window');
 					this.reviewUpload.reviewPostModal.style.display='none';
 				});
-<<<<<<< HEAD
-				
-=======
-				if(this.reviewUpload.dropDownList==true){
-						document.getElementById('post-tags-list').style.display='none';
-					
-				}
->>>>>>> ebceec1 (start)
+
 				
 		
 				

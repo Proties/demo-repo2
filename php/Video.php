@@ -9,6 +9,7 @@ class Video{
 	private $status;
 	private $filename;
 	private $type;
+	private $fileExtension;
 	private $dateMade;
 	private $dateUpdated;
 	private $filepath;
@@ -19,6 +20,7 @@ class Video{
 		$this->id=null;
 		$this->postID=null;
 		$this->filename='';
+		$this->fileExtension='.mp4';
 		$this->filepath='';
 		$this->postLinkID='';
 		$this->size='';
@@ -50,6 +52,9 @@ class Video{
 	public function set_filename($id){
 		$this->filename=$id;
 	}
+	public function set_fileExtention($id){
+		$this->fileExtention=$id;
+	}
 	public function set_filepath($id){
 		$this->filepath=$id;
 	}
@@ -80,6 +85,9 @@ class Video{
 	}
 	public function get_filename(){
 		return $this->filename;
+	}
+	public function get_fileExtention(){
+		return $this->fileExtention;
 	}
 	public function get_filepath(){
 		return $this->filepath;
@@ -143,7 +151,7 @@ class Video{
 			$this->set_dateMade();
 			$this->set_dateUpdated();
 
-			$newfile=$dir.$this->get_filename().$this->get_type();
+			$newfile=$dir.$this->get_filename().$this->get_fileExtention();
 			if(!move_uploaded_file($tmpname, $newfile)){
 				throw new Exception('did not upload');
 			}

@@ -84,6 +84,7 @@ export class OtherProfile extends ProfileUI{
         this._cont;
         this._follow=new Follow();
         this._unfollow=new UnFollow();
+
         this._followBtn;
         this._unfollowBtn;
 
@@ -357,6 +358,7 @@ export class MyProfile extends ProfileUI{
         this._uploadPost=true;
         this._editPost=true;
         this._showSettings=true;
+        this._showProfile;
         this._analytics;
         this._registrationBtn=document.getElementById('userRegistration');
         this._data;
@@ -365,8 +367,9 @@ export class MyProfile extends ProfileUI{
     }
     is_logged_in(){
             document.getElementById('followBtn').style.display='none';
+            
     }
-        
+      
             
     set registrationBtn(i){
        this._registrationBtn=i;
@@ -438,19 +441,29 @@ export class MyProfile extends ProfileUI{
 
         document.getElementById("uploadBtn").style.display='block';
         document.getElementById("settingsBtn").style.display='block';
-        document.getElementById("editProfileButton").style.display='none';
-        document.getElementById("uploadModal").style.display='none';
-        document.getElementById("ReviewuploadModal").style.display='none';
+        // document.getElementById("editProfileButton").style.display='none';
+        // document.getElementById("uploadModal").style.display='none';
+        // document.getElementById("ReviewuploadModal").style.display='none';
         let modal=document.getElementsByClassName('modal');
         for(let i=0;i<modal.length;i++){
             console.log( modal[i]);
             modal[i].remove();
         }
+
         
     }
-    hide_registration_btn(){
+    is_logged_in_homepage(){
         let reg=document.getElementById('userRegistration');
         reg.style.display='none';
+        let link=document.createElement('a');
+        let profilePic=document.createElement('img');
+        link.setAttribute('href','/profile');
+        profilePic.setAttribute('src','/Image/Test Account.png');
+        profilePic.setAttribute('class','');
+        console.log('========works=====');
+        console.log(profilePic);
+        link.append(profilePic);
+        document.getElementsByClassName('nav-right')[0].append(link);
     }
     
 

@@ -5,10 +5,7 @@ use Insta\Database\Users\UserDB;
 $data=[];
 $errorMessages=[];
 $user=new Users();
-if($_SERVER['REQUEST_METHOD']=='GET'){
-	include_once('Htmlfiles/login.html');
-	return;
-}
+
 try{
 	if(empty($_POST['username']) OR empty($_POST['password'])){
 		throw new Exception('username/password cannot be empty');

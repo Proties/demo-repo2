@@ -24,9 +24,11 @@
             <img src="/Image/Search.png" alt="Search" />
           </button>
         </div>
-        <div class="nav-right"></div>
-          <button class="register-button" id="userRegistration">Register</button>
+        <div class="nav-right">
+           <button class="register-button" id="userRegistration">Register</button>
         </div>
+         
+      
         <!--
         <div class="nav-right">
           <a href="/profile" class="profile-link">
@@ -296,7 +298,7 @@
       </section>
 
     <!-- Login Pop-up -->
-    <section id="registerModal" class="modal" style="display: none">
+    <section id="LoginModal" class="modal" style="display: none">
       <div class="modal-container">
         <div class="heading-container">
         <span class="close" id="closeModalReg">&times;</span>
@@ -392,6 +394,7 @@
           <form id="profileSetupForm" >
             <div class="profile-image-container">
               <img class="profile-image-placeholder" src="/Image/Test Account.png" alt="Profile Icon" />
+              <input type="file" name="profileImage">
             </div>
             <div class="input-group">
               <input type="text" id="profileName" name="profileName" placeholder="User Name" required />
