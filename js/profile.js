@@ -219,8 +219,9 @@ export class OtherProfile extends ProfileUI{
                     img.setAttribute('class','post-image');
                     img.setAttribute('loading','lazy');
                     img.setAttribute('controls','true');
-                    img.setAttribute('width','500');
-                    img.setAttribute('height','250');
+                    img.setAttribute('width','90%');
+                    img.setAttribute('height','75%');
+                
                     c.append(img);
                 }
                 else{
@@ -255,8 +256,8 @@ export class OtherProfile extends ProfileUI{
                 shareCont.setAttribute('class','share-button');
                 shareImage.setAttribute('src','/Image/Share.png');
                 im.setAttribute('controls','true');
-                im.setAttribute('width','500');
-                im.setAttribute('height','250');
+                im.setAttribute('width','90%');
+                im.setAttribute('height','75%');
                 
                 shareCont.append(shareImage);
                 contFive.append(shareCont);
