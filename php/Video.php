@@ -53,7 +53,7 @@ class Video{
 		$this->filename=$id;
 	}
 	public function set_fileExtention($id){
-		$this->fileExtention=$id;
+		$this->fileExtension=$id;
 	}
 	public function set_filepath($id){
 		$this->filepath=$id;
@@ -87,7 +87,7 @@ class Video{
 		return $this->filename;
 	}
 	public function get_fileExtention(){
-		return $this->fileExtention;
+		return $this->fileExtension;
 	}
 	public function get_filepath(){
 		return $this->filepath;
@@ -139,9 +139,29 @@ class Video{
 			$filesize=$_FILES['video']['size'];
 			$tmpname=$_FILES['video']['tmp_name'];
 			$filetype=$_FILES['video']['type'];
-
-			$this->set_type('.'.str_replace('video/', '', $filetype));
-			// $pattern='/(\/[a-zA-Z]){2,}(\/[a-zA-Z]){,2}/';
+			switch ($filetype) {
+				case 'video/mp4':
+					$this->set_fileExtention('.mp4');
+					break;
+				case 'video/webM':
+					$this->set_fileExtention('.webm');
+					break;
+				case 'video/ogg':
+					$this->set_fileExtention('.ogg');
+					break;
+				case 'video/avi':
+					$this->set_fileExtention('.avi');
+					break;
+				case 'video/mogg':
+					$this->set_fileExtention('.mogg');
+					break;
+				case 'video/av1':
+					$this->set_fileExtention('.av1');
+					break;
+				default:
+					throw new Exception('not supported file type');
+					break;
+			}
 			
 
 			$filename=$this->get_filename();

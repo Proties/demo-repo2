@@ -369,17 +369,14 @@ async function display_more_users(evt){
     get_ish_form_cookie();
 }
 /*
+
 this function is called when a user presses the share button on a post 
 
 */
 async function shareModalPost(evt){
     let postElement=evt.target.parentNode.parentNode;
-    let parentCont=postElement.parentNode.parentNode;
-    console.log('========product ===');
-    console.log(postElement);
-    console.log(parentCont);
-    // let url='www.nerstia.com/@'+user+'/'+post;
-    const urlText=location.href+'@holly';
+   
+    const urlText=location.href+postElement.id;
     const testShareData={
         url:urlText,
     };
@@ -403,10 +400,7 @@ function eventListeners(){
     let closeReg = document.getElementById("closeModalReg");
     let donate=document.getElementById('donateBtn');
     let modal = document.getElementById("registerModal");
-    let openLogin=document.getElementById('login');
-    openLogin.addEventListener('click',function(evt){
-        document.getElementById('LoginModal').style.display='block';
-    });
+    
     donate.addEventListener('click',function(evt){
         let dform=document.getElementsByClassName('donationForm')[0];
        
@@ -432,9 +426,7 @@ function eventListeners(){
     // viewMore.addEventListener("click",display_more_users);
     // morePosts.addEventListener("click",more_posts);
    
-    for(let i=0;i<sharePost.length;i++){
-        sharePost[i].addEventListener('click',shareModalPost);
-    }
+  
     for(let i=0;i<userProfile.length;i++){
         userProfile[i].addEventListener('click',openUserProfile);
     }

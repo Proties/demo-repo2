@@ -86,7 +86,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             }
             $video->set_postID($postDB->post->get_postID());
             if(isset($_FILES['image'])){
-                $image->load_image($user->userFolder->get_dir(),$image->file->get_filename());
+                $image->load_image($user->userFolder->get_dir());
+              
                 $imageDB=new ImageDB($image);
                 $imageDB->set_db($db);
                 $imageDB->write_image();

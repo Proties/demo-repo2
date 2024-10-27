@@ -209,6 +209,7 @@ export class OtherProfile extends ProfileUI{
                 shareCont.setAttribute('class','share-button');
                 shareImage.setAttribute('src','/Image/Share.png');
                 c.setAttribute('class',arrayPosts[ss]);    
+                c.setAttribute('id',this.data.posts[ss].postLink);    
                 // img.setAttribute('src',this.data.posts[ss].imageFileName+''+this.data.posts[ss].imageFileName);
                 console.log(this.data.posts[ss]);
                 const k=Object.keys(this.data.posts[ss]);
@@ -251,6 +252,7 @@ export class OtherProfile extends ProfileUI{
                 }
                 
                 contFive.setAttribute('class','Primary-post');
+                contFive.setAttribute('id',this.data.post.postLink);
                 shareCont.setAttribute('class','share-button');
                 shareImage.setAttribute('src','/Image/Share.png');
                 im.setAttribute('controls','true');
@@ -279,6 +281,7 @@ export class OtherProfile extends ProfileUI{
             }
             
             contFive.setAttribute('class','Primary-post');
+            contFive.setAttribute('id',this.data.post.postLink);
             shareCont.setAttribute('class','share-button');
             shareImage.setAttribute('src','/Image/Share.png');
             shareCont.append(shareImage);
