@@ -13,6 +13,9 @@ const uploadPost=new MakePostUI();
 const editProfile=new EditProfile();
 
 let temp=new TemplateUI();
+function delete_cookie(name){
+    
+}
 function get_cookie(name){
     let data=document.cookie;
     let dec=decodeURIComponent(data);
@@ -41,6 +44,13 @@ function getUploadStatus(){
         }
         if(data.status=='success'){
             alert('success');
+            let post=new PostUI();
+            post.src=status.data.filepath+'/'+status.filename;
+            post.id=status.data.id;
+             post.check_media_type();
+            post.postLink=status.data.postLink;
+            post.parentContainer=document.getElementsByClassName('posts-section')[0];
+
             // delete cookie
         }else{
             //call review window 
@@ -54,6 +64,7 @@ function getUploadStatus(){
     
 
 getUploadStatus();
+
 function get_data_from_cookie(){
     let user_data=get_cookie('myprofile=');
     let setUpProfile=get_cookie('setUpProfile=');
@@ -274,16 +285,7 @@ async function intialiseProfileObject(data,myData){
        
     }
 }
-function get_new_post(){
-    let status=get_cookie('uploadpostStatus');
-    if(status!==undefined){
-        let post=new PostUI();
-        post.src=status.data.filePath+'/'+status.data.fileName;
-        post.check_media_type();
-        post.parentContainer=document.getElementsByClassName('posts-section')[0];
-    }
-    return false;
-}
+
 function clear_upload_file(){
     console.log('function called=====');
     let media=document.getElementsByClassName('media-placeholder')[0];

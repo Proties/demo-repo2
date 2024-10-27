@@ -347,7 +347,7 @@ switch($action){
             
             $userDB=new UserDB($user);
             $arrayData=$userDB->search_user($target);
-
+            $profiles;
             $data['status']='success';
             $data['searchResults']=$arrayData;
             $data['Results']=$arrayData;

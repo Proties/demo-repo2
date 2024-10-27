@@ -21,6 +21,9 @@ temp.events_handler();
 temp.get_templates();
 // let video=new VideoUI();
 // video.make_form_submission();
+function delete_cookie(name){
+    
+}
 function get_cookie(name){
     let data=document.cookie;
 
@@ -558,12 +561,21 @@ function handleLogginIn(){
     if(status!==undefined){
         if(status.status=='success'){
              alert(status.message);
+             document.getElementById('LoginModal').style.display='none';
+             //delete cookie
+             //hide login form
+             // hide registration btn
+             // show profile icon 
+
+             return;
          }else{
             document.getElementById('LoginModal').style.display='block';
-            let max=status.errors.length;
-            if(max>1){
-                for(let i=0;i<max;i++){
-                    document.getElementById(status.errors[i]).innerHTML=status.errors[i];
+            if(status.errors!==undefined){
+                let max=status.errors.length;
+                if(max>1){
+                    for(let i=0;i<max;i++){
+                        document.getElementById(status.errors[i]).innerHTML=status.errors[i];
+                    }
                 }
             }
             alert(status.message);
