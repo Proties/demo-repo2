@@ -21,6 +21,9 @@ temp.events_handler();
 temp.get_templates();
 // let video=new VideoUI();
 // video.make_form_submission();
+function delete_cookie(name){
+    
+}
 function get_cookie(name){
     let data=document.cookie;
 
@@ -155,7 +158,8 @@ function initialiseObjects(cookie_data,cookie_user){
         user.username=cookie_user.username;
         user.fullName=cookie_user.fullname;
         user.bio=cookie_user.bio;
-        user.registrationBtn.style.display='none';
+        user.is_logged_in_homepage();
+       
     }
    if(cookie_data!==undefined){
         // clear_posts();
@@ -368,17 +372,14 @@ async function display_more_users(evt){
     get_ish_form_cookie();
 }
 /*
+
 this function is called when a user presses the share button on a post 
 
 */
 async function shareModalPost(evt){
     let postElement=evt.target.parentNode.parentNode;
-    let parentCont=postElement.parentNode.parentNode;
-    console.log('========product ===');
-    console.log(postElement);
-    console.log(parentCont);
-    // let url='www.nerstia.com/@'+user+'/'+post;
-    const urlText=location.href+'@holly';
+   
+    const urlText=location.href+postElement.id;
     const testShareData={
         url:urlText,
     };
@@ -403,6 +404,7 @@ function eventListeners(){
     let donate=document.getElementById('donateBtn');
     let modal = document.getElementById("registerModal");
 
+    
     donate.addEventListener('click',function(evt){
         let dform=document.getElementsByClassName('donationForm')[0];
        
@@ -428,9 +430,7 @@ function eventListeners(){
     // viewMore.addEventListener("click",display_more_users);
     // morePosts.addEventListener("click",more_posts);
    
-    for(let i=0;i<sharePost.length;i++){
-        sharePost[i].addEventListener('click',shareModalPost);
-    }
+  
     for(let i=0;i<userProfile.length;i++){
         userProfile[i].addEventListener('click',openUserProfile);
     }
@@ -447,6 +447,18 @@ function eventListeners(){
 
     registerBtn.addEventListener('click',function(evt) {
         modal.style.display = "block";
+        let login =document.getElementById('openLoginModal');
+
+        login.addEventListener('click',function(evt){
+            document.getElementById('registerModal').style.display='none';
+            document.getElementById('LoginModal').style.display='block';
+            });
+
+        let close=document.getElementById('closeLoginModal');
+        close.addEventListener('click',function(evt){
+            evt.target.parentNode.parentNode.parentNode.style.display='none';
+        });
+    
         // registrationForm.submissionBtn.addEventListener('click',function(evt){
         //     evt.preventDefault();
         //     clear_error_messages();
@@ -544,6 +556,33 @@ function openModal(evt) {
 
 }
 
+function handleLogginIn(){
+    let status=get_cookie('LoggingInStatus=');
+    if(status!==undefined){
+        if(status.status=='success'){
+             alert(status.message);
+             document.getElementById('LoginModal').style.display='none';
+             //delete cookie
+             //hide login form
+             // hide registration btn
+             // show profile icon 
+
+             return;
+         }else{
+            document.getElementById('LoginModal').style.display='block';
+            if(status.errors!==undefined){
+                let max=status.errors.length;
+                if(max>1){
+                    for(let i=0;i<max;i++){
+                        document.getElementById(status.errors[i]).innerHTML=status.errors[i];
+                    }
+                }
+            }
+            alert(status.message);
+         }
+    }
+}
+handleLogginIn();
 function closeModal() {
     history.replaceState(null, null, '/');
     const modal = document.getElementById("postModal");

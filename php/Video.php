@@ -9,6 +9,7 @@ class Video{
 	private $status;
 	private $filename;
 	private $type;
+	private $fileExtension;
 	private $dateMade;
 	private $dateUpdated;
 	private $filepath;
@@ -19,6 +20,7 @@ class Video{
 		$this->id=null;
 		$this->postID=null;
 		$this->filename='';
+		$this->fileExtension='.mp4';
 		$this->filepath='';
 		$this->postLinkID='';
 		$this->size='';
@@ -50,6 +52,9 @@ class Video{
 	public function set_filename($id){
 		$this->filename=$id;
 	}
+	public function set_fileExtention($id){
+		$this->fileExtension=$id;
+	}
 	public function set_filepath($id){
 		$this->filepath=$id;
 	}
@@ -80,6 +85,9 @@ class Video{
 	}
 	public function get_filename(){
 		return $this->filename;
+	}
+	public function get_fileExtention(){
+		return $this->fileExtension;
 	}
 	public function get_filepath(){
 		return $this->filepath;
@@ -131,9 +139,29 @@ class Video{
 			$filesize=$_FILES['video']['size'];
 			$tmpname=$_FILES['video']['tmp_name'];
 			$filetype=$_FILES['video']['type'];
-
-			$this->set_type('.'.str_replace('video/', '', $filetype));
-			// $pattern='/(\/[a-zA-Z]){2,}(\/[a-zA-Z]){,2}/';
+			switch ($filetype) {
+				case 'video/mp4':
+					$this->set_fileExtention('.mp4');
+					break;
+				case 'video/webM':
+					$this->set_fileExtention('.webm');
+					break;
+				case 'video/ogg':
+					$this->set_fileExtention('.ogg');
+					break;
+				case 'video/avi':
+					$this->set_fileExtention('.avi');
+					break;
+				case 'video/mogg':
+					$this->set_fileExtention('.mogg');
+					break;
+				case 'video/av1':
+					$this->set_fileExtention('.av1');
+					break;
+				default:
+					throw new Exception('not supported file type');
+					break;
+			}
 			
 
 			$filename=$this->get_filename();
@@ -143,7 +171,7 @@ class Video{
 			$this->set_dateMade();
 			$this->set_dateUpdated();
 
-			$newfile=$dir.$this->get_filename().$this->get_type();
+			$newfile=$dir.$this->get_filename().$this->get_fileExtention();
 			if(!move_uploaded_file($tmpname, $newfile)){
 				throw new Exception('did not upload');
 			}

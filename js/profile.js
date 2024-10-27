@@ -84,6 +84,7 @@ export class OtherProfile extends ProfileUI{
         this._cont;
         this._follow=new Follow();
         this._unfollow=new UnFollow();
+
         this._followBtn;
         this._unfollowBtn;
 
@@ -204,33 +205,33 @@ export class OtherProfile extends ProfileUI{
                 let c=document.createElement('div');
                 let img=document.createElement('img');
                 let vid=document.createElement('video');
+                let source=document.createElement('source');
                
                 shareCont.setAttribute('class','share-button');
                 shareImage.setAttribute('src','/Image/Share.png');
                 c.setAttribute('class',arrayPosts[ss]);    
+                c.setAttribute('id',this.data.posts[ss].postLink);    
                 // img.setAttribute('src',this.data.posts[ss].imageFileName+''+this.data.posts[ss].imageFileName);
                 console.log(this.data.posts[ss]);
                 const k=Object.keys(this.data.posts[ss]);
-                console.log(k[0]);
-                console.log(k[1]);
+                console.log(k[2]);
+                console.log(k[3]);
+                console.log('assigning types =====');
                 console.log(this.data.posts[ss][k]);
-                if(k[0]=='imageFileName' &&  k[1]=='imageFilePath'){
+                if(k[2]=='imageFileName' &&  k[3]=='imageFilePath'){
                     img.setAttribute('src',this.data.posts[ss].imageFilePath+''+this.data.posts[ss].imageFileName);
                     img.setAttribute('class','post-image');
                     img.setAttribute('loading','lazy');
-                    img.setAttribute('controls','true');
-                    img.setAttribute('width','90%');
-                    img.setAttribute('height','75%');
-                
                     c.append(img);
                 }
                 else{
                     console.log(k);
-                    vid.setAttribute('src',this.data.posts[ss].videoFilePath+''+this.data.posts[ss].VideoFileName);
+                    source.setAttribute('src',this.data.posts[ss].videoFilePath+''+this.data.posts[ss].VideoFileName);
                     vid.setAttribute('class','post-image');
                     vid.setAttribute('loading','lazy');
                     vid.style.width='20em';
-                    vid.setAttribute('controll','true');
+                    vid.setAttribute('controls','true');
+                    vid.append(source);
                     c.append(vid);
                 }
                 
@@ -246,13 +247,15 @@ export class OtherProfile extends ProfileUI{
                 let shareImage=document.createElement('img');
                 let contFive=document.createElement('div');
                 let im=document.createElement('video');
+                let source=document.createElement('source');
 
                 if (this.data.post.imageFilePath!==null) {
-                    im.setAttribute('src',this.data.post.videoFilePath+''+this.data.post.VideoFileName);
+                    source.setAttribute('src',this.data.post.videoFilePath+''+this.data.post.VideoFileName);
                     im.setAttribute('loading','lazy');
                 }
                 
                 contFive.setAttribute('class','Primary-post');
+                contFive.setAttribute('id',this.data.post.postLink);
                 shareCont.setAttribute('class','share-button');
                 shareImage.setAttribute('src','/Image/Share.png');
                 im.setAttribute('controls','true');
@@ -261,6 +264,7 @@ export class OtherProfile extends ProfileUI{
                 
                 shareCont.append(shareImage);
                 contFive.append(shareCont);
+                im.append(source);
                 contFive.append(im);
                 contFour.append(contFive);
                 // cont.append(contFour);
@@ -281,6 +285,7 @@ export class OtherProfile extends ProfileUI{
             }
             
             contFive.setAttribute('class','Primary-post');
+            contFive.setAttribute('id',this.data.post.postLink);
             shareCont.setAttribute('class','share-button');
             shareImage.setAttribute('src','/Image/Share.png');
             shareCont.append(shareImage);
@@ -357,6 +362,7 @@ export class MyProfile extends ProfileUI{
         this._uploadPost=true;
         this._editPost=true;
         this._showSettings=true;
+        this._showProfile;
         this._analytics;
         this._registrationBtn=document.getElementById('userRegistration');
         this._data;
@@ -365,8 +371,9 @@ export class MyProfile extends ProfileUI{
     }
     is_logged_in(){
             document.getElementById('followBtn').style.display='none';
+            
     }
-        
+      
             
     set registrationBtn(i){
        this._registrationBtn=i;
@@ -438,19 +445,29 @@ export class MyProfile extends ProfileUI{
 
         document.getElementById("uploadBtn").style.display='block';
         document.getElementById("settingsBtn").style.display='block';
-        document.getElementById("editProfileButton").style.display='none';
-        document.getElementById("uploadModal").style.display='none';
-        document.getElementById("ReviewuploadModal").style.display='none';
-        let modal=document.getElementsByClassName('modal');
-        for(let i=0;i<modal.length;i++){
-            console.log( modal[i]);
-            modal[i].remove();
-        }
+        // document.getElementById("editProfileButton").style.display='none';
+        // document.getElementById("uploadModal").style.display='none';
+        // document.getElementById("ReviewuploadModal").style.display='none';
+        // let modal=document.getElementsByClassName('modal');
+        // for(let i=0;i<modal.length;i++){
+        //     console.log( modal[i]);
+        //     modal[i].remove();
+        // }
+
         
     }
-    hide_registration_btn(){
+    is_logged_in_homepage(){
         let reg=document.getElementById('userRegistration');
         reg.style.display='none';
+        let link=document.createElement('a');
+        let profilePic=document.createElement('img');
+        link.setAttribute('href','/profile');
+        profilePic.setAttribute('src','/Image/Test Account.png');
+        profilePic.setAttribute('class','');
+        console.log('========works=====');
+        console.log(profilePic);
+        link.append(profilePic);
+        document.getElementsByClassName('nav-right')[0].append(link);
     }
     
 

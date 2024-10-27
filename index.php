@@ -112,6 +112,7 @@ switch($action){
         break;
     case '/upload_template':
         include_once('php/uploadTemplate.php');
+        break;
     case '/checkout':
         include_once('php/checkout.php');
         break;

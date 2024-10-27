@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 use Insta\Template\Template;
 use Insta\Database\Template\TemplateDB;
 use Insta\Databases\Database;

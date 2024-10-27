@@ -39,8 +39,9 @@ class UserDB extends Database{
         try{
             $db=$this->db;
             $query = '
-                SELECT username,name,lastName 
-                FROM Users 
+                SELECT username,i.filename,i.filepath FROM Users u
+                INNER JOIN ProfileImages pi ON  pi.userID=u.userID 
+                INNER JOIN Images i ON i.imgeID=pi.imageID
                 WHERE username LIKE :name 
                 LIMIT 5;
             ';
@@ -234,6 +235,44 @@ class UserDB extends Database{
             ";
             $stmt=$db->prepare($query);
             $stmt->bindValue(':username',$name);
+            $stmt->execute();
+            $id=$stmt->fetch();
+            
+            return $id;
+        }catch(PDOException $err){
+            echo 'Database error while validating username'.$err->getMessage();
+            return $err;;
+        }
+    }
+    public function validate_email_in_database(){
+        try{
+            $db=$this->db;
+            $query="
+                    SELECT email FROM Users
+                    WHERE email=:username;
+            ";
+            $stmt=$db->prepare($query);
+            $stmt->bindValue(':username',$this->user->get_email());
+            $stmt->execute();
+            $id=$stmt->fetch();
+            
+            return $id;
+        }catch(PDOException $err){
+            echo 'Database error while validating username'.$err->getMessage();
+            return $err;;
+        }
+    }
+     public function validate_password_in_database(){
+        try{
+            $db=$this->db;
+            $query="
+                    SELECT email FROM Users
+                    WHERE password=:password
+                    AND email=:email;
+            ";
+            $stmt=$db->prepare($query);
+            $stmt->bindValue(':password',$this->user->get_password());
+            $stmt->bindValue(':email',$this->user->get_email());
             $stmt->execute();
             $id=$stmt->fetch();
             

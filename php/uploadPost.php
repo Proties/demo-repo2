@@ -12,7 +12,7 @@ use Insta\Video\Video;
 use Insta\Database\Video\VideoDB;
 
 
-use Insta\Pool\ProfilePool;
+// use Insta\Pool\ProfilePool;
 
 
 /*
@@ -21,23 +21,39 @@ if the post array exceeds 10 the last post will be pushed out
 */
 
 
-function profileInPool(){
-    $mainUser=new Users();
-    $mainUser->set_id($_SESSION['userID']);
-    $status=$profilesPool->search_item($mainUser);
-    if($status==false){
+// function profileInPool(){
+//     $mainUser=new Users();
+//     $mainUser->set_id($_SESSION['userID']);
+//     $status=$profilesPool->search_item($mainUser);
+//     if($status==false){
+//         return false;
+//     }else{
+//         return true;
+//     }
+// }
+function is_image_created(string $dir,string $filename){
+     // search $dir for $filename if found return true else return false
+    try{
+        $files=scandir($dir);
+        foreach ($files as $fils) {
+            if($files==$filename){
+                return true;
+            }
+
+        }
         return false;
-    }else{
-        return true;
+    }catch(Exception $err){
+        return false;
     }
+   
+    
 }
 if($_SERVER['REQUEST_METHOD']=='POST'){
-    $bigPool=new MostViewPostPool();
-    $profilesPool=new ProfilePool();
+   
     $errorMessages=[];
     $post=new Post();
     $data=[];
-    // $challenge=new Challenge();
+
     $user=new Users();
     $database=new Database();
     $db=$database->get_connection();
@@ -87,11 +103,15 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             }
             $video->set_postID($postDB->post->get_postID());
             if(isset($_FILES['image'])){
-                $image->load_image($user->userFolder->get_dir(),$image->file->get_filename());
+                $image->load_image($user->userFolder->get_dir());
+                if(is_image_created($user->userFolder->get_dir(),$image->get_filename())==false){
+                    throw new Exception('image was not created');
+                }
                 $imageDB=new ImageDB($image);
                 $imageDB->set_db($db);
                 $imageDB->write_image();
                 $imageDB->write_image_post($postDB->post->get_postID());
+                
             }
             if(isset($_FILES['video'])){
                 $video->make_filename();

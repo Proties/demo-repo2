@@ -69,12 +69,16 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     	$user->set_fullName($fullname);
 		$userDB->write_user();
 
+		if(isset($_FILES['profileImage'])){
+			$imageDB->set_db($db);
+        	$imageDB->write_image();
+	     	$imageDB->write_image_profile_picture();
+	     
+	     	$image->load_image($user->userFolder->get_dir());
+        }
+
 		if($userDB->user->get_id()>0){
         $_SESSION['userID']=$userDB->user->get_id();
-        $imageDB->write_image();
-     	$imageDB->write_image_profile_picture();
-     	$image->load_image();
-       
         
 
         //create an entry at user template if successfull
