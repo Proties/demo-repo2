@@ -34,15 +34,14 @@ try{
 	}
 	$data['status']='succes';
 	$data['message']='all works';
-	$_SESSION['userID'];
-	$_SESSION['username'];
+	// setcookie('myprofile',json_encode($personal),time()+(36*10),'/');
 	setcookie('LoggingInStatus',json_encode($data),time()+(30*10));
-	header('Location /');
-	exit();
 }catch(Exception $err){
 	$data['status']='failed';
 	$data['message']=$err->getMessage();
 	$data['errors']=$errorMessages;
-	echo json_encode($data);
+	setcookie('LoggingInStatus',json_encode($data),time()+(30*10));
 }
+header('Location: /');
+exit();
 ?>

@@ -31,6 +31,23 @@ if the post array exceeds 10 the last post will be pushed out
 //         return true;
 //     }
 // }
+function is_image_created(string $dir,string $filename){
+     // search $dir for $filename if found return true else return false
+    try{
+        $files=scandir($dir);
+        foreach ($files as $fils) {
+            if($files==$filename){
+                return true;
+            }
+
+        }
+        return false;
+    }catch(Exception $err){
+        return false;
+    }
+   
+    
+}
 if($_SERVER['REQUEST_METHOD']=='POST'){
    
     $errorMessages=[];
@@ -87,11 +104,14 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $video->set_postID($postDB->post->get_postID());
             if(isset($_FILES['image'])){
                 $image->load_image($user->userFolder->get_dir());
-              
+                if(is_image_created($user->userFolder->get_dir(),$image->get_filename())==false){
+                    throw new Exception('image was not created');
+                }
                 $imageDB=new ImageDB($image);
                 $imageDB->set_db($db);
                 $imageDB->write_image();
                 $imageDB->write_image_post($postDB->post->get_postID());
+                
             }
             if(isset($_FILES['video'])){
                 $video->make_filename();

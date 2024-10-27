@@ -197,6 +197,7 @@ class Image{
 				throw new Exception('not valid file extension');
 			}
 			$newfile=$dir.$filename.$this->get_fileExtension();
+			$this->set_filename($newfile);
 			if(!move_uploaded_file($tmpname, $newfile)){
 				throw new Exception('did not upload');
 			}

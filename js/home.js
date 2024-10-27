@@ -400,6 +400,7 @@ function eventListeners(){
     let closeReg = document.getElementById("closeModalReg");
     let donate=document.getElementById('donateBtn');
     let modal = document.getElementById("registerModal");
+
     
     donate.addEventListener('click',function(evt){
         let dform=document.getElementsByClassName('donationForm')[0];
@@ -443,6 +444,18 @@ function eventListeners(){
 
     registerBtn.addEventListener('click',function(evt) {
         modal.style.display = "block";
+        let login =document.getElementById('openLoginModal');
+
+        login.addEventListener('click',function(evt){
+            document.getElementById('registerModal').style.display='none';
+            document.getElementById('LoginModal').style.display='block';
+            });
+
+        let close=document.getElementById('closeLoginModal');
+        close.addEventListener('click',function(evt){
+            evt.target.parentNode.parentNode.parentNode.style.display='none';
+        });
+    
         // registrationForm.submissionBtn.addEventListener('click',function(evt){
         //     evt.preventDefault();
         //     clear_error_messages();
@@ -540,6 +553,24 @@ function openModal(evt) {
 
 }
 
+function handleLogginIn(){
+    let status=get_cookie('LoggingInStatus=');
+    if(status!==undefined){
+        if(status.status=='success'){
+             alert(status.message);
+         }else{
+            document.getElementById('LoginModal').style.display='block';
+            let max=status.errors.length;
+            if(max>1){
+                for(let i=0;i<max;i++){
+                    document.getElementById(status.errors[i]).innerHTML=status.errors[i];
+                }
+            }
+            alert(status.message);
+         }
+    }
+}
+handleLogginIn();
 function closeModal() {
     history.replaceState(null, null, '/');
     const modal = document.getElementById("postModal");

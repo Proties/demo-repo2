@@ -291,7 +291,7 @@
          
         </div>
         <div class="Log-in">
-        <p class="CAT">Already a member?<space></space> </p><a href="/login" class="log-in-link"> Log in</a>
+        <p class="CAT">Already a member?<space></space> </p><button class="log-in-link" id="openLoginModal"> Log in</button>
       </div>
 
         </div>
@@ -301,21 +301,20 @@
     <section id="LoginModal" class="modal" style="display: none">
       <div class="modal-container">
         <div class="heading-container">
-        <span class="close" id="closeModalReg">&times;</span>
+        <span class="close" id="closeLoginModal">&times;</span>
         <h2 class="login-heading">Welcome Back</h2>
       </div>
         <div id="Form-container" class="form">
-        <form class="login-form">        
+        <form action='/login' method='post' class="login-form">        
           <input type="email" id="loginEmail" name="email" placeholder="Email" required />
           <p id="errEmail"></p>
           <input type="password" id="loginPassword" name="password" placeholder="Password" required />
           <p id="errPassword"></p>
+          <button type="submit" id="registerUserBtn">Log In</button>
         </form>
-        <button type="submit" id="registerUserBtn">Log In</button>
+        
       </div>
-      <div class="Log-in">
-      <p class="CAT">Already a member?<space></space> </p><a href="" class="log-in-link"> Sign in</a>
-    </div>
+   
 
       </div>
     </section>
