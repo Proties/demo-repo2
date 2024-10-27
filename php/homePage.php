@@ -101,13 +101,13 @@ function formatProfileObject(array $bigData){
             $userID=$bigData[$i]['userID'];
            
             $posts=[];
-            if(isset($bigData[$i]['imageFileName'])){
+            if(isset($bigData[$i]['imageFileName']) OR $bigData[$i]['imageFileName']!==NULL){
                 $posts['postLink']=$bigData[$i]['postLink'];
                 $posts['postID']=$bigData[$i]['postID'];
                 $posts['imageFileName']=$bigData[$i]['imageFileName'];
                 $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
             }
-            if(isset($bigData[$i]['videoFileName'])){
+            if(isset($bigData[$i]['videoFileName']) or $bigData[$i]['videoFileName']!==null){
                 $posts['postLink']=$bigData[$i]['postLink'];
                 $posts['postID']=$bigData[$i]['postID'];
                 $posts['VideoFileName']=$bigData[$i]['videoFileName'];
@@ -128,13 +128,13 @@ function formatProfileObject(array $bigData){
             $username=$bigData[$i]['username'];
             $userID=$bigData[$i]['userID'];
 
-            if(isset($bigData[$i]['imageFileName'])){
+            if(isset($bigData[$i]['imageFileName']) or $bigData[$i]['imageFileName']!==null){
                 $posts['postLink']=$bigData[$i]['postLink'];
                 $posts['postID']=$bigData[$i]['postID'];
                 $posts['imageFileName']=$bigData[$i]['imageFileName'];
                 $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
             }
-            if(isset($bigData[$i]['videoFileName'])){
+            if(isset($bigData[$i]['videoFileName']) or $bigData[$i]['videoFileName']!==null){
                 $posts['postLink']=$bigData[$i]['postLink'];
                 $posts['postID']=$bigData[$i]['postID'];
                 $posts['VideoFileName']=$bigData[$i]['videoFileName'];
@@ -154,13 +154,13 @@ function formatProfileObject(array $bigData){
             
             $posts=[];
             $currentContent=[];
-            if(isset($bigData[$i]['imageFileName'])){
+            if(isset($bigData[$i]['imageFileName']) or $bigData[$i]['imageFileName']!==null){
                 $posts['postLink']=$bigData[$i]['postLink'];
                 $posts['postID']=$bigData[$i]['postID'];
                 $posts['imageFileName']=$bigData[$i]['imageFileName'];
                 $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
             }
-            if(isset($bigData[$i]['videoFileName'])){
+            if(isset($bigData[$i]['videoFileName']) or $bigData[$i]['videoFileName']!==null){
                 $posts['postLink']=$bigData[$i]['postLink'];
                 $posts['postID']=$bigData[$i]['postID'];
                 $posts['VideoFileName']=$bigData[$i]['videoFileName'];
@@ -169,7 +169,7 @@ function formatProfileObject(array $bigData){
 
             if(isset($cont[$c]['post'])){
                 
-                if(isset($cont[$c]['post']['videoFilePath'])){
+                if(isset($cont[$c]['post']['videoFilePath']) or $cont[$c]['post']['videoFilePath']!==null){
                     $currentContent=$cont[$c]['postLink'];
                     $currentContent=$cont[$c]['postID'];
                     $currentContent=$cont[$c]['post']['videoFilePath'];

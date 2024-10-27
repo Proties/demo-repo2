@@ -222,6 +222,7 @@ export class MakePostUI extends MakePost{
 	           i++;
 
 	        }
+	        i--;
 	         	    }
 
 	}

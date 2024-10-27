@@ -212,17 +212,14 @@ export class OtherProfile extends ProfileUI{
                 // img.setAttribute('src',this.data.posts[ss].imageFileName+''+this.data.posts[ss].imageFileName);
                 console.log(this.data.posts[ss]);
                 const k=Object.keys(this.data.posts[ss]);
-                console.log(k[0]);
-                console.log(k[1]);
+                console.log(k[2]);
+                console.log(k[3]);
+                console.log('assigning types =====');
                 console.log(this.data.posts[ss][k]);
-                if(k[0]=='imageFileName' &&  k[1]=='imageFilePath'){
+                if(k[2]=='imageFileName' &&  k[3]=='imageFilePath'){
                     img.setAttribute('src',this.data.posts[ss].imageFilePath+''+this.data.posts[ss].imageFileName);
                     img.setAttribute('class','post-image');
                     img.setAttribute('loading','lazy');
-                    img.setAttribute('controls','true');
-                    img.setAttribute('width','90%');
-                    img.setAttribute('height','75%');
-                
                     c.append(img);
                 }
                 else{
