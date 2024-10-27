@@ -205,6 +205,7 @@ export class OtherProfile extends ProfileUI{
                 let c=document.createElement('div');
                 let img=document.createElement('img');
                 let vid=document.createElement('video');
+                let source=document.createElement('source');
                
                 shareCont.setAttribute('class','share-button');
                 shareImage.setAttribute('src','/Image/Share.png');
@@ -225,11 +226,12 @@ export class OtherProfile extends ProfileUI{
                 }
                 else{
                     console.log(k);
-                    vid.setAttribute('src',this.data.posts[ss].videoFilePath+''+this.data.posts[ss].VideoFileName);
+                    source.setAttribute('src',this.data.posts[ss].videoFilePath+''+this.data.posts[ss].VideoFileName);
                     vid.setAttribute('class','post-image');
                     vid.setAttribute('loading','lazy');
                     vid.style.width='20em';
-                    vid.setAttribute('controll','true');
+                    vid.setAttribute('controls','true');
+                    vid.append(source);
                     c.append(vid);
                 }
                 
@@ -245,9 +247,10 @@ export class OtherProfile extends ProfileUI{
                 let shareImage=document.createElement('img');
                 let contFive=document.createElement('div');
                 let im=document.createElement('video');
+                let source=document.createElement('source');
 
                 if (this.data.post.imageFilePath!==null) {
-                    im.setAttribute('src',this.data.post.videoFilePath+''+this.data.post.VideoFileName);
+                    source.setAttribute('src',this.data.post.videoFilePath+''+this.data.post.VideoFileName);
                     im.setAttribute('loading','lazy');
                 }
                 
@@ -261,6 +264,7 @@ export class OtherProfile extends ProfileUI{
                 
                 shareCont.append(shareImage);
                 contFive.append(shareCont);
+                im.append(source);
                 contFive.append(im);
                 contFour.append(contFive);
                 // cont.append(contFour);
