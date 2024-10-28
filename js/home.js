@@ -455,7 +455,7 @@ function handleLogginIn(){
     let status=get_cookie('LoggingInStatus=');
     if(status!==undefined){
         if(status.status=='success'){
-             alert(status.message);
+            
              document.getElementById('LoginModal').style.display='none';
              delete_cookie('LoggingInStatus');
              //delete cookie
@@ -466,17 +466,24 @@ function handleLogginIn(){
              return;
          }else{
             document.getElementById('LoginModal').style.display='block';
-            if(status.errors!==undefined){
+           
+                console.log('===========something=========');
+                console.log(status);
                 let max=status.errors.length;
-                if(max>1){
+               
                     for(let i=0;i<max;i++){
-                        document.getElementById(status.errors[i]).innerHTML=status.errors[i];
-                    }
-                }
+                        const key=Object.keys(status.errors[i]);
+                        console.log('data======');
+                        console.log(key[0]);
+                        console.log(status.errors[i][key]);
+                        document.getElementById(key[0]).innerHTML=status.errors[i][key];
+                    
+                
             }
-            alert(status.message);
+           
          }
     }
+    delete_cookie('LoggingInStatus');
 }
 handleLogginIn();
 function closeModal() {

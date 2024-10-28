@@ -169,7 +169,7 @@ function formatProfileObject(array $bigData){
 
             if(isset($cont[$c]['post'])){
                 
-                if(isset($cont[$c]['post']['videoFilePath']) or $cont[$c]['post']['videoFilePath']!==null){
+                if(isset($cont[$c]['post']['videoFilePath']) ){
                     $currentContent=$cont[$c]['postLink'];
                     $currentContent=$cont[$c]['postID'];
                     $currentContent=$cont[$c]['post']['videoFilePath'];

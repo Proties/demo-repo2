@@ -111,23 +111,27 @@ $check2 = pfValidIP();
 $check3 = pfValidPaymentData($cartTotal, $pfData);
 $check4 = pfValidServerConfirmation($pfParamString, $pfHost);
 
-$file=fopen('paymentNotification.json', 'wb') or die();
+
 if ($check1!==true){
+    $file=fopen('paymentNotification.json', 'wb') or die();
     $data=['payment_status'=>'failed','message'=>'something is wrong with the signature'];
     fwrite($file, json_encode($data));
     fclose($file);
 }
 if ($check2!==true){
+    $file=fopen('paymentNotification.json', 'wb') or die();
     $data=['payment_status'=>'failed','message'=>'something is wrong with the ip'];
     fwrite($file, json_encode($data));
     fclose($file);
 }
 if ($check3!==true){
+    $file=fopen('paymentNotification.json', 'wb') or die();
     $data=['payment_status'=>'failed','message'=>'something is wrong with the payment data'];
     fwrite($file, json_encode($data));
     fclose($file);
 }
 if ($check4!==true){
+    $file=fopen('paymentNotification.json', 'wb') or die();
     $data=['payment_status'=>'failed','message'=>'sever confirnmation failed'];
     fwrite($file, json_encode($data));
     fclose($file);
@@ -135,10 +139,10 @@ if ($check4!==true){
 
 if($check1 && $check2 && $check3 && $check4) {
     // All checks have passed, the payment is successful
-   
+    $orderDB=new OrderDB($order);
+    $orderDB->updateStatusSuccess();
     $data=['payment_status'=>'passed','message'=>'everything went right'];
-    fwrite($file, json_encode($data));
-    fclose($file);
+    setcookie('paymentStatus',json_encode($data),time()+(36*10),'/');
 
 } 
 ?>

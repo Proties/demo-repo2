@@ -56,7 +56,6 @@ function is_video_created(string $dir,string $filename){
             if($files==$filename){
                 return true;
             }
-
         }
         return false;
     }catch(Exception $err){
@@ -135,8 +134,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             if(isset($_FILES['video'])){
                 $video->make_filename();
                 $video->load_video($user->userFolder->get_dir());
-                if(!is_video_created($user->userFolder->get_dir(),$video->get_filename()){
-                    throw new Exception('video could not be creates');
+                if(is_video_created($user->userFolder->get_dir(),$video->get_filename()==false){
+                    throw new Exception('video could not be created');
                 }
                 $videoDB=new VideoDB($video);
                 $videoDB->set_db($db);
