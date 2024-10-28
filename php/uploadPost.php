@@ -48,6 +48,23 @@ function is_image_created(string $dir,string $filename){
    
     
 }
+function is_video_created(string $dir,string $filename){
+     // search $dir for $filename if found return true else return false
+    try{
+        $files=scandir($dir);
+        foreach ($files as $fils) {
+            if($files==$filename){
+                return true;
+            }
+
+        }
+        return false;
+    }catch(Exception $err){
+        return false;
+    }
+   
+    
+}
 if($_SERVER['REQUEST_METHOD']=='POST'){
    
     $errorMessages=[];
@@ -111,19 +128,27 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
                 $imageDB->set_db($db);
                 $imageDB->write_image();
                 $imageDB->write_image_post($postDB->post->get_postID());
+                $data['data']=('postID'=>$imageDB->image->get_postID(),'filename'=>$imageDB->image->get_filename(),
+                'filepath'=>$imageDB->image->get_filepath(),'postLink'=>$imageDB->image->get_postLink());
                 
             }
             if(isset($_FILES['video'])){
                 $video->make_filename();
                 $video->load_video($user->userFolder->get_dir());
+                if(!is_video_created($user->userFolder->get_dir(),$video->get_filename()){
+                    throw new Exception('video could not be creates');
+                }
                 $videoDB=new VideoDB($video);
                 $videoDB->set_db($db);
 
                 $videoDB->write_video();
                 $videoDB->write_video_post($postDB->post->get_postID());
+                $data['data']=('postID'=>$videoDB->video->get_postID(),'filename'=>$videoDB->video->get_filename(),
+                'filepath'=>$videoDB->video->get_filepath(),'postLink'=>$videoDB->video->get_postLink());
 
             }
             $data['status']='success';
+            
             $db->commit();
            
 

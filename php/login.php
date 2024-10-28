@@ -12,10 +12,10 @@ try{
 	}
 	$user->set_email($_POST['loginEmail']);
 	$user->set_password($_POST['loginPassword']);
-	if($user->validate_email($user->get_email())){
+	if($user->validate_email($user->get_email()==false)){
 		$errorMessages['errUsername'][]='username not valid';
 	}
-	if($user->validate_password($user->get_password())){
+	if($user->validate_password($user->get_password()==false)){
 		$errorMessages['errUserpassword'][]='password not valid';
 	}
 	$lenOne=count($errorMessages);
@@ -26,7 +26,7 @@ try{
 	if($userDB->validate_email_in_database()!==false){
 		$errorMessages['errUsername'][]='usersname already exists';
 	}
-	if($userDB->validate_password_in_database()==false){
+	if($userDB->validate_password_in_database()!==false){
 		$errorMessages['errUsername'][]='password does not match';
 	}
 	$lenTwo=count($errorMessages);
