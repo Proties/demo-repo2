@@ -24,6 +24,7 @@ try{
 	if(empty($_POST['templateName'])){
 		throw new Exception('template name not defined');
 	}
+
 	$currentTime=date('H:i');
 	$currentDate=date('Y:m:d');
 	$tempaDB->getTemplate();

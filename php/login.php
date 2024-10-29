@@ -36,7 +36,6 @@ try{
   	$store['username']=$userDB->user->get_username();
   	$store['shortBio']=$userDB->user->get_shortBio();
   	$store['profilePicture']=$userDB->user->get_profilePicture();
-
   	setcookie('user',json_encode($store), time() + (38900 * 600), '/');
 	setcookie('LoggingInStatus',json_encode($data),time()+(30*10),'/');
 }catch(Exception $err){
