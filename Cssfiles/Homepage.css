@@ -418,31 +418,33 @@ display: none;
 
 .post-container-primary {
   display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  margin: 90px;
-  width: 720px;
-  height: 70%;
-  align-items: center;
-  margin-bottom: 150px;
+    flex-direction: column;
+    overflow: hidden;
+    width: 700px;
+    height: 70%;
+    align-items: center;
+    padding-top: 100px;
+    margin-bottom: 150px;
 }
 
 .post-container-secondary {
   display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  width: 720px;
-  height: 70%;
-  align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    width: 700px;
+    height: 70%;
+    align-items: center;
+    padding-top: 100px;
 }
 
 .post-container-teriary {
   display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  width: 720px;
-  height: 61%;
-  align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    width: 700px;
+    height: 70%;
+    align-items: center;
+    padding-top: 100px;
 }
 
 .post-challenge {
@@ -500,21 +502,21 @@ display: none;
 }
 
 .post {
-    background-color: #ffffff;
-    border-radius: 8px;
-    max-width: 500px; /* Reduced the width */
-    transition: transform 0.3s ease-in-out;
-    z-index: 1;
+  background-color: #ffffff;
+  border-radius: 8px;
+  max-width: 455px;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1;
 }
 
 
 .postfeed-wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(104%, 1fr));
-  grid-column-gap: 100px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  justify-items: center;   
+    grid-template-columns: repeat(auto-fit, minmax(101%, 0fr));
+    grid-column-gap: 150px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    justify-items: center; 
 }
 
 .primary-post:hover {
@@ -538,19 +540,27 @@ display: none;
     object-fit: cover;
 }
 
+.post video {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 250px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
 .post-actions {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    position: absolute;
-    gap: 10px; /* Adds space between buttons */
-    flex-wrap: wrap; /* Allows wrapping on smaller screens */
-    z-index: 3;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  position: absolute;
+  gap: 10px;
+  flex-wrap: wrap;
+  z-index: 3;
+  align-items: center;
 }
 
 .profile-button {
-  transition: 0.5s ease-in-out;
   position: relative;
   background-color: rgba(255, 255, 255, 0);
   border-radius: 100%;
@@ -570,29 +580,40 @@ display: none;
     object-fit: fill;
     margin-right: 8px; /* Adds space between icon and text */
     transition: 0.5s ease-in-out;
-
-
 }
 
-.profile-button-img:hover {
-  transform: scale(1.10);
-  box-shadow: 0 5px 15px whitesmoke;
+.Account {
+  transition: 0.5s ease-in-out;
+  display: flex;
+  flex-direction: row;
 }
 
-.profile-button:hover {
+.Account:hover {
   transform: scale(1.10);
+}
+
+.Identity{
+  color: #A7991E;
+  margin: auto;
+}
+
+.Identity h3:hover {
+  box-shadow: 0 5px 15px #A7991E;
 }
 
 .follow-button {
   background-color: #A7991E;
-  color: white;
-  font-weight: bold;
-  border: none;
-  padding: 8px 16px;
-  font-size: 13px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.9s ease;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.9s ease;
+    position: absolute;
+    left: 530;
+    bottom: 16;
 }
 
 .follow-button:hover {
@@ -601,13 +622,18 @@ display: none;
 }
 
 .share-button{
-  width: 25px;
-  float: right;
-  transition: 0.9s ease;
-  background-color: rgba(255, 255, 255, 0);
+     background: none;
+    width: 25px;
+    float: right;
+    background-color: rgba(255, 255, 255, 0);
 }
 
-.share-button:hover {
+.share-button img{
+  background: none;
+  transition: 0.9s ease;
+}
+
+.share-button img:hover {
   box-shadow: 0 5px 15px #A7991E;
   transform: scale(1.10);
 }
