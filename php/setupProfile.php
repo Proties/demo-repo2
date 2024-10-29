@@ -97,9 +97,9 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
       	$store['userID']=$user->get_id();
       	$store['username']=$user->get_username();
       	$store['shortBio']=$user->get_shortBio();
-      	// $store['profilePicture']->get_profilePicture();
+      	$store['profilePicture']->get_profilePicture();
       	$db->commit();
-      	setcookie('user',json_encode($store), time() + (38900 * 60), '/');
+      	setcookie('user',json_encode($store), time() + (38900 * 600), '/');
       
     }
     else{

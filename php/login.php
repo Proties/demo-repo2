@@ -25,23 +25,29 @@ try{
 	$userDB=new UserDB($user);
 	if($userDB->validate_email_in_database()!==false){
 		$errorMessages[]=array('errLoginUsername'=>'usersname already exists');
-	}
-	if($userDB->validate_password_in_database()!==false){
-		$errorMessages[]=array('errLoginUserpassword'=>'password does not match');
-	}
-	$lenTwo=count($errorMessages);
-	if($lenTwo>0){
 		throw new Exception('there are errores');
 	}
+	if($userDB->validate_password_in_database()==false){
+		$errorMessages[]=array('errLoginUserpassword'=>'password does not match');
+		throw new Exception('there are errores');
+	}
+	
 	$data['status']='success';
 	$data['message']='all works in the login modal';
 	// setcookie('myprofile',json_encode($personal),time()+(36*10),'/');
-	setcookie('LoggingInStatus',json_encode($data),time()+(30*10));
+	$store['userID']=$user->get_id();
+  	$store['username']=$user->get_username();
+  	$store['shortBio']=$user->get_shortBio();
+  	$store['profilePicture']->get_profilePicture();
+
+  	setcookie('user',json_encode($store), time() + (38900 * 600), '/');
+	setcookie('LoggingInStatus',json_encode($data),time()+(30*10),'/');
 }catch(Exception $err){
 	$data['status']='failed';
 	$data['message']=$err->getMessage();
 	$data['errors']=$errorMessages;
-	setcookie('LoggingInStatus',json_encode($data),time()+(30*10));
+	$data['data']=['email'=>$user->get_email(),'password'=>$user->get_password()];
+	setcookie('LoggingInStatus',json_encode($data),time()+(30*10),'/');
 }
 header('Location: /');
 exit();

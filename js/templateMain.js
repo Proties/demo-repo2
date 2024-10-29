@@ -76,7 +76,7 @@ class TemplatePicker{
 					let type=document.createElement('span');
 					let typeTxt=document.createTextNode(data.templateList[t].type);
 					if(data.templateList[t].type=='Premium'){
-						tempForm.setAttribute('action','/premium');
+						tempForm.setAttribute('action','/subscribe_to_premiunm');
 						tempForm.setAttribute('method','post');
 						let input=document.createElement('input');
 						input.setAttribute('value','');
