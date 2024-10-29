@@ -187,6 +187,9 @@ nav .profile-link {
     opacity: 60%;
 }
 
+.navbottom {
+  display: none;
+}
 
 /* Challenge-containter table*/
 .challenge-container table {
