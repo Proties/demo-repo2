@@ -14,7 +14,7 @@ const editProfile=new EditProfile();
 
 let temp=new TemplateUI();
 function delete_cookie(name){
-    
+    document.cookie = name+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
 function get_cookie(name){
     let data=document.cookie;
@@ -40,6 +40,7 @@ function getUploadStatus(){
     console.log('======getting upload status');
         
         if(data==undefined || data==false){
+            delete_cookie('postUploadStatus');
             return;
         }
         if(data.status=='success'){
@@ -50,15 +51,17 @@ function getUploadStatus(){
              post.check_media_type();
             post.postLink=status.data.postLink;
             post.parentContainer=document.getElementsByClassName('posts-section')[0];
-
+            delete_cookie('postUploadStatus');
             // delete cookie
         }else{
             //call review window 
             //fill  in user details that user provided
             alert(data.message);
+            delete_cookie('postUploadStatus');
             // delete cookie
         }
         console.log(data);
+        delete_cookie('postUploadStatus');
         console.log('======getting upload status');
     }
     
@@ -70,9 +73,12 @@ function get_data_from_cookie(){
     let setUpProfile=get_cookie('setUpProfile=');
     let data=get_cookie('profile=');
     if(user_data!==undefined){
+        delete_cookie('myprofile');
         initialiseProfile(user_data); 
     }else{
-         intialiseProfileObject(data,setUpProfile);
+        delete_cookie('myprofile');
+        delete_cookie('setUpProfile');
+        intialiseProfileObject(data,setUpProfile);
     }
     
    
@@ -82,14 +88,18 @@ function get_template_upload_status(){
     let uploadStatus=get_cookie('templateUpload=');
     if(uploadStatus!==undefined){
         return uploadStatus;
+        delete_cookie('templateUpload');
     }
+
     return false;
 }
 function template_info_from_cookie(){
     let list=get_cookie('templateList=');
     if(list!==undefined){
+        delete_cookie('templateList');
         return list;
     }
+    delete_cookie('templateList');
     console.log(list);
     return false;
 }

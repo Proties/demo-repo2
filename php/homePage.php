@@ -154,27 +154,33 @@ function formatProfileObject(array $bigData){
             
             $posts=[];
             $currentContent=[];
-            if(isset($bigData[$i]['imageFileName']) or $bigData[$i]['imageFileName']!==null){
+            if(isset($bigData[$i]['imageFileName']) ){
+                if($bigData[$i]['imageFileName']!==null){
                 $posts['postLink']=$bigData[$i]['postLink'];
                 $posts['postID']=$bigData[$i]['postID'];
                 $posts['imageFileName']=$bigData[$i]['imageFileName'];
                 $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
             }
-            if(isset($bigData[$i]['videoFileName']) or $bigData[$i]['videoFileName']!==null){
+        }
+            if(isset($bigData[$i]['videoFileName'])){
+                if( $bigData[$i]['videoFileName']!==null){
                 $posts['postLink']=$bigData[$i]['postLink'];
                 $posts['postID']=$bigData[$i]['postID'];
                 $posts['VideoFileName']=$bigData[$i]['videoFileName'];
                 $posts['videoFilePath']=$bigData[$i]['videoFilePath'];
             }
+        }
 
             if(isset($cont[$c]['post'])){
                 
-                if(isset($cont[$c]['post']['videoFilePath']) or $cont[$c]['post']['videoFilePath']!==null){
+                if(isset($cont[$c]['post']['videoFilePath']) ){
+                    if($cont[$c]['post']['videoFilePath']!==null){
                     $currentContent=$cont[$c]['postLink'];
                     $currentContent=$cont[$c]['postID'];
                     $currentContent=$cont[$c]['post']['videoFilePath'];
                     $currentContent=$cont[$c]['post']['videoFileName'];
                 }
+            }
                 else{
                     $currentContent=$cont[$c]['post']['postLink'];
                     $currentContent=$cont[$c]['post']['postID'];

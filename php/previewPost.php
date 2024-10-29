@@ -21,6 +21,9 @@ try{
 	$post->set_postLink($url);
 	$postDB=new PostDB($post);
 	$postDB->get_postID_from_link();
+	if(isset($_POST['shareID'])){
+		
+	}
 	// if(isset($_SESSION['mainUser'])){
 	// 	$_SESSION['mainUser']->following->addItem($postDb->post->get_postID());
 	// }

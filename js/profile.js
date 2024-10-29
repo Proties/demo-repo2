@@ -237,7 +237,7 @@ export class OtherProfile extends ProfileUI{
                 
                 
                 shareCont.append(shareImage);
-                c.append(shareCont);
+                contFour.append(shareCont);
                 contFour.append(c);
         }
         }
@@ -263,8 +263,9 @@ export class OtherProfile extends ProfileUI{
                 im.setAttribute('height','75%');
                 
                 shareCont.append(shareImage);
-                contFive.append(shareCont);
+                
                 im.append(source);
+                contFive.append(shareCont);
                 contFive.append(im);
                 contFour.append(contFive);
                 // cont.append(contFour);
@@ -289,8 +290,9 @@ export class OtherProfile extends ProfileUI{
             shareCont.setAttribute('class','share-button');
             shareImage.setAttribute('src','/Image/Share.png');
             shareCont.append(shareImage);
-            contFive.append(shareCont);
+            
             contFive.append(im);
+            contFour.append(shareCont);
             contFour.append(contFive);
             // cont.append(contFour);
             // cont.append(contTwo);

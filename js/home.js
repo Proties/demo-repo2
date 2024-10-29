@@ -5,9 +5,7 @@ import StackedPosts from './stackPosts.js';
 import RegistrationUI from './registration.js';
 import LoginUI from './login.js';
 import TemplatePicker from './templateMain.js';
-
 import {Follow,UnFollow} from './follow.js';
-
 import VideoUI from './video.js';
 
 
@@ -21,8 +19,14 @@ temp.events_handler();
 temp.get_templates();
 // let video=new VideoUI();
 // video.make_form_submission();
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  let expires = "expires="+d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
 function delete_cookie(name){
-    
+    document.cookie = name+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
 function get_cookie(name){
     let data=document.cookie;
@@ -51,6 +55,7 @@ function post_preview(){
          let postTitle='happy';
         console.log(evt.target);
         let data=status.data;
+        delete_cookie('postPreview');
         source=data.img;
         let source=evt.target.src;
         let postImageSrc=evt.target.src;
@@ -104,6 +109,7 @@ function get_registration_info_from_cookie(){
 function get_profile_setup_info_from_cookie(){
     let profileSetUp=get_cookie('setUpProfile=');
     if(profileSetUp!==undefined && profileSetUp!==false){
+        delete_cookie('setUpProfile');
         return profileSetUp;
     }
     return profileSetUp;
@@ -113,6 +119,7 @@ function get_username_search_results_info_from_cookie(){
     console.log(usernames);
     if(usernames!==undefined && usernames!==false){
         console.log('----usernames results-------');
+        delete_cookie('usernameSearchResults');
         console.log(usernames);
         return usernames;
     }
@@ -122,6 +129,7 @@ function getDonationStatus(){
     let stat=get_cookie('donationStatus=');
     if(stat!==undefined){
         alert(stat.message);
+        delete_cookie('donationStatus');
     }
 }
 getDonationStatus();
@@ -213,68 +221,6 @@ function initialiseObjects(cookie_data,cookie_user){
 
 
 
-
-// console.log(JSON.parse(dtt));
-// this function get post data like images,athtorname form the server
-function initialise_image(){
-    try{
-        let xml = new XMLHttpRequest();
-    xml.open('POST', '/');
-    xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xml.onreadystatechange = function() {
-        if(this.readyState==4){
-        // console.log(this.responseText);
-        let data=JSON.parse(this.responseText);
-        // document.getElementsByClassName('profile-link').href="@"+data.user.user_info.username;
-        console.log(data);
-        init_user(data.user);
-        init_categories(data.categories);
-        init_img(data.users);
-        }
-}
-xml.send('action=initialise_image');
-    }catch(err){
-        console.log(err);
-    }
-}
-
-function track(){
-    for(let p=0;p<postsArray.length;p++){
-        postsArray[p].counter();
-    }
-}
-
-// this function checks the url to see if a post has been selected if so it will get data from the serve
-// function open_postPreview(){
-//     let url=window.location.href;
-//     const pattern=/^(\/\@[a-zA-Z]+)(\/[a-zA-Z0-9]+)$/;
-//     console.log(url);
-//     console.log('prviewing post working');
-    
-//     if(!pattern.test(url)){
-//         console.log('not valid post');
-//         history.replaceState(null,null,'/');
-//         return;
-//     }
-//     console.log('valid post');
-//     try{
-//         let xm=new XMLHttpRequest();
-//         xm.open('GET',url);
-//         xm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-//         xm.onreadystatechange=function(){
-//             let data=JSON.parse(this.responseText);
-//             openModal(data);
-//             console.log(data);
-//             console.log('hahaha');
-//         }
-//         xm.send('action=initialise_post_preview');
-//     }catch(err){
-//         console.log(err);
-//     }
-
-// return false;
-
-// }
 function clear_search_results(){
     let list=document.getElementById('suggestion-list');
     for(let l=0;l<list.childNodes.length;l++){
@@ -356,21 +302,6 @@ function select_post(evt){
    window.loaction.href=link;
 }
 
-async function display_more_users(evt){
-    console.log(evt);
-    try{
-        let xml=new XMLHttpRequest();
-        xml.open('POST','/');
-        xml.readyState=function(){
-
-        }
-        xml.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-        xml.send('action=morePosts');
-    }catch(err){
-        console.log(err);
-    }
-    get_ish_form_cookie();
-}
 /*
 
 this function is called when a user presses the share button on a post 
@@ -471,53 +402,17 @@ function eventListeners(){
     });
   
 }
-function donationStatus(){
+function checkoutStatus(){
     let status=get_cookie('checkoutStatus=');
     if(status!==undefined){
         alert(status.message);
+        delete_cookie('checkoutStatus');
         return status;
     }
     return false;
 }
-donationStatus();
-function init_user(username){
-    // hide register button if user is available
-   
-    if(username==null || username==''){
-        console.log('null username');
-        return ;
-    }
-    document.getElementsByClassName("register-button")[0].style.display='none';
-    console.log(username);
-    document.getElementsByClassName("profile-link")[0].href="/@"+username;
-}
+checkoutStatus();
 
-function init_img(arr){
-    console.log(arr);
-    if(!Array.isArray(arr)){
-        return;
-    }
-    console.log(arr);
-    console.log('quick look=====');
-    let p=document.getElementsByClassName("post-container");
-    
-    console.log(arr);
-    for(let n=0;n<p.length;n++){
-        console.log(typeof(p[n]));
-        if(typeof(arr[n])!=='object'){
-           console.log('======erorr');
-           continue;
-        }
-        let ele=p[n].getElementsByClassName('post-image')[0];
-        p[n].id=arr[n].primary_post.postLinkID;
-        let ele_two=p[n].getElementsByClassName('post-image')[1];
-        p[n].getElementsByClassName("profile-button")[0].id="/@"+arr[n].user_info.username;
-        ele.src = arr[n].primary_post.img;
-        ele_two.src =arr[n].secondary_post.img;
-        console.log("======= end ======");
-    }
-}
-// open_postPreview();
 get_ish_form_cookie();
 eventListeners();
 
@@ -560,8 +455,9 @@ function handleLogginIn(){
     let status=get_cookie('LoggingInStatus=');
     if(status!==undefined){
         if(status.status=='success'){
-             alert(status.message);
+            
              document.getElementById('LoginModal').style.display='none';
+             delete_cookie('LoggingInStatus');
              //delete cookie
              //hide login form
              // hide registration btn
@@ -570,17 +466,24 @@ function handleLogginIn(){
              return;
          }else{
             document.getElementById('LoginModal').style.display='block';
-            if(status.errors!==undefined){
+           
+                console.log('===========something=========');
+                console.log(status);
                 let max=status.errors.length;
-                if(max>1){
+               
                     for(let i=0;i<max;i++){
-                        document.getElementById(status.errors[i]).innerHTML=status.errors[i];
-                    }
-                }
+                        const key=Object.keys(status.errors[i]);
+                        console.log('data======');
+                        console.log(key[0]);
+                        console.log(status.errors[i][key]);
+                        document.getElementById(key[0]).innerHTML=status.errors[i][key];
+                    
+                
             }
-            alert(status.message);
+           
          }
     }
+    delete_cookie('LoggingInStatus');
 }
 handleLogginIn();
 function closeModal() {
@@ -589,14 +492,8 @@ function closeModal() {
     modal.style.display = "none";
 }
 
-function getCookieFromHeaders(headers) {
-  const cookieHeader = headers.match(/^(.*?cookie: .*?)\n/i);
-  if (cookieHeader) {
-    return cookieHeader[0].split(':')[1].trim();
-  }
-  return null;
-}
-// get_registration_info_from_cookie();
+
+
 // Form submission
 document.getElementById("registerForm").onsubmit=formHandling;
 async function formHandling(evt){
@@ -635,8 +532,6 @@ async function formHandling(evt){
                         console.log(data.errorArray[i][k]);
                         document.getElementById(k).innerHTML=data.errorArray[i][k];
                     }
-
-                  
                 }
             else{
                  alert('succesfull logged in');
@@ -678,15 +573,11 @@ async function formHandling(evt){
                         }
                         
                     }
-                    xml.send(formattedData);
-            
-                    
+                    xml.send(formattedData);                               
                     }
                 catch(err){
                     console.log(err);
                 }
-                
-             
 
             });
         }
@@ -694,16 +585,8 @@ async function formHandling(evt){
         }
     
         xm.send(item);
-    
-
-                
-    
 }
-        
-   
 catch(err){
         console.log(err);
     }
 }
-           
-
