@@ -104,7 +104,11 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 
 }
 $currentProfile=new Users();
-$action=$_POST['actions'];
+$action='';
+if(isset($_POST['actions'])){
+    $action=$_POST['actions'];
+}
+
 switch($action){
     case 'view_post':
         break;
