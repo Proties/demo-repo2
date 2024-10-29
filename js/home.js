@@ -387,7 +387,7 @@ function eventListeners(){
 
         let close=document.getElementById('closeLoginModal');
         close.addEventListener('click',function(evt){
-            evt.target.parentNode.parentNode.parentNode.style.display='none';
+            document.getElementById('LoginModal').style.display='none';
         });
     
         // registrationForm.submissionBtn.addEventListener('click',function(evt){

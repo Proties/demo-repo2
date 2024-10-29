@@ -79,10 +79,20 @@ class TemplatePicker{
 						tempForm.setAttribute('action','/subscribe_to_premiunm');
 						tempForm.setAttribute('method','post');
 						let input=document.createElement('input');
-						input.setAttribute('value','');
-						input.setAttribute('name','');
+						let inputTwo=document.createElement('input');
+						
+						input.setAttribute('value',this.templateList[t].templateID);
+						input.setAttribute('name','templateID');
 						input.setAttribute('type','hidden');
+
+						inputTwo.setAttribute('value',this.templateList[t].templateName);
+						inputTwo.setAttribute('name','templateName');
+						inputTwo.setAttribute('type','hidden');
+
+						
+
 						tempForm.append(input);
+						tempForm.append(inputTwo);
 						let submitBtnTxt=document.createTextNode('select Template');
 						let priceTxt=document.createTextNode('Premium');
 						submitBtn.append(submitBtnTxt);
@@ -99,10 +109,18 @@ class TemplatePicker{
 						tempForm.setAttribute('action','/buy_template');
 						tempForm.setAttribute('method','post');
 						let input=document.createElement('input');
-						input.setAttribute('value','');
-						input.setAttribute('name','');
+						let inputTwo=document.createElement('input');
+						
+						input.setAttribute('value',this.templateList[t].templateID);
+						input.setAttribute('name','templateID');
 						input.setAttribute('type','hidden');
+
+						inputTwo.setAttribute('value',this.templateList[t].templateName);
+						inputTwo.setAttribute('name','templateName');
+						inputTwo.setAttribute('type','hidden');
+
 						tempForm.append(input);
+						tempForm.append(inputTwo);
 						let submitBtnTxt=document.createTextNode('Buy Template');
 						submitBtn.append(submitBtnTxt);
 						let priceTxt=document.createTextNode('R'+data.templateList[t].price);
