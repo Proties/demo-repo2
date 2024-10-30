@@ -37,9 +37,9 @@ try{
         // Merchant details
         'merchant_id' => $merchant->get_id(),
         'merchant_key' => $merchant->get_key(),
-        'return_url' => 'https://dbce-102-219-27-117.ngrok-free.app/php/confirm.php',
-        'cancel_url' => 'https://dbce-102-219-27-117.ngrok-free.app/php/deny.php',
-        'notify_url' => 'https://dbce-102-219-27-117.ngrok-free.app/php/direct.php',
+        'return_url' => 'https://021f-102-219-27-117.ngrok-free.app/php/confirm.php',
+        'cancel_url' => 'hhttps://021f-102-219-27-117.ngrok-free.app/php/deny.php',
+        'notify_url' => 'https://021f-102-219-27-117.ngrok-free.app/php/direct.php',
         // Buyer details
         'name_first' => $order->get_userName(),
         'name_last'  => $order->get_userLastName(),

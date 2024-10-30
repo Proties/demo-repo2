@@ -68,15 +68,70 @@ class TemplatePicker{
 					let cont=document.createElement('div');
 					let contOne=document.createElement('div');
 					let contTwo=document.createElement('div');
+					let tempForm=document.createElement('form');
+					let price=document.createElement('span');
+					let submitBtn=document.createElement('button');
+					
 				
 					let type=document.createElement('span');
 					let typeTxt=document.createTextNode(data.templateList[t].type);
-					let price=document.createElement('span');
-					let priceTxt=document.createTextNode('R'+data.templateList[t].price);
+					if(data.templateList[t].type=='Premium'){
+						tempForm.setAttribute('action','/subscribe_to_premiunm');
+						tempForm.setAttribute('method','post');
+						let input=document.createElement('input');
+						let inputTwo=document.createElement('input');
+						
+						input.setAttribute('value',this.templateList[t].templateID);
+						input.setAttribute('name','templateID');
+						input.setAttribute('type','hidden');
+
+						inputTwo.setAttribute('value',this.templateList[t].templateName);
+						inputTwo.setAttribute('name','templateName');
+						inputTwo.setAttribute('type','hidden');
+
+						
+
+						tempForm.append(input);
+						tempForm.append(inputTwo);
+						let submitBtnTxt=document.createTextNode('select Template');
+						let priceTxt=document.createTextNode('Premium');
+						submitBtn.append(submitBtnTxt);
+						price.append(priceTxt);
+					}
+					if(data.templateList[t].type=='Free'){
+						let submitBtnTxt=document.createTextNode('select Template');
+						let priceTxt=document.createTextNode('Free');
+					
+						submitBtn.append(submitBtnTxt);
+						price.append(priceTxt);
+					}
+					if(data.templateList[t].type=='Paid'){
+						tempForm.setAttribute('action','/buy_template');
+						tempForm.setAttribute('method','post');
+						let input=document.createElement('input');
+						let inputTwo=document.createElement('input');
+						
+						input.setAttribute('value',this.templateList[t].templateID);
+						input.setAttribute('name','templateID');
+						input.setAttribute('type','hidden');
+
+						inputTwo.setAttribute('value',this.templateList[t].templateName);
+						inputTwo.setAttribute('name','templateName');
+						inputTwo.setAttribute('type','hidden');
+
+						tempForm.append(input);
+						tempForm.append(inputTwo);
+						let submitBtnTxt=document.createTextNode('Buy Template');
+						submitBtn.append(submitBtnTxt);
+						let priceTxt=document.createTextNode('R'+data.templateList[t].price);
+						price.append(priceTxt);
+					}
+					
 					let image=document.createElement('img');
 					let name=document.createElement('span');
 					let nameTxt=document.createTextNode(data.templateList[t].name);
 					let id;
+					
 					cont.setAttribute('class','template-container');
 					contOne.setAttribute('class','template');
 					cont.setAttribute('id','template'+data.templateList[t].id);
@@ -87,7 +142,7 @@ class TemplatePicker{
 					name.setAttribute('class','Template-label');
 					image.setAttribute('src',data.templateList[t].image);
 
-					price.append(priceTxt);
+					
 					
 					name.append(nameTxt);
 
@@ -99,7 +154,14 @@ class TemplatePicker{
 					contTwo.append(contOne);
 					contTwo.append(name);
 					cont.append(contTwo);
+					
+					tempForm.append(contOne);
+					tempForm.append(submitBtn);
+					cont.append(tempForm);
+
 					bigContainer.append(cont);
+					
+					
 				}
 				
 			}

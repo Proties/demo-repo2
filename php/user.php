@@ -285,7 +285,7 @@ trait validateUser{
     }
     function validate_email(string $txt)
     {
-        $pattern='/(http://)?([a-z]{3,})*([0-9@.]{1})*([a-zA-Z]{2,})$/';
+        $pattern='/^[a-zA-Z0-9]{1,}(.)+(@){1}([a-zA-Z\.]{1,})?[a-zA-Z]{1,}$/';
         if(preg_match($pattern,$txt)){
             return true;
         }

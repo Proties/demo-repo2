@@ -71,14 +71,7 @@ setcookie('profile','no profile ', time() - (86400 * 30), '/');
 if(isset($_SESSION['subscriptionID'])){
     //unlock features
 }
-if(isset($_SESSION['username']) && $_SESSION['username']!==null && isset($_SESSION['userID'])){
-    $mainUser->userAuth->set_authanticate(true);
-    setcookie('user',json_encode($_SESSION['username']), time() + (86400 * 30), '/'); 
-}else{
-    unset($_SESSION['username']);
-    setcookie('user','no account', time() - (86400 * 30), '/'); 
-    
-}
+
 /*
 this function will take an array or posts and will group the post made by the same user in a single  nested array
 

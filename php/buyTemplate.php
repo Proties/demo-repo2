@@ -24,11 +24,13 @@ try{
 	if(empty($_POST['templateName'])){
 		throw new Exception('template name not defined');
 	}
+
 	$currentTime=date('H:i');
 	$currentDate=date('Y:m:d');
 	$tempaDB->getTemplate();
 	$order->set_type('template');
-	$order->set_item();
+	$order->set_itemName('Custom Template');
+	$order->set_itemDescription('this is a special template design by the best designer in our presence');
 	$order->set_total($amount);
 	$order->set_time_created($currentTime);
 	$order->set_date_created($currentDate);

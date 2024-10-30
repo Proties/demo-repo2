@@ -1,10 +1,52 @@
 <?php
-
+session_start();
 use Insta\Template\Template;
 use Insta\Database\Template\TemplateDB;
 use Insta\Databases\Database;
+use Insta\Images\Image;
+use Insta\Databases\Images\ImageDB;
 $data=[];
 $errorMessages=[];
+function is_image_created(string $dir,string $filename){
+     // search $dir for $filename if found return true else return false
+    try{
+        $files=scandir($dir);
+        foreach ($files as $fils) {
+            if($files==$filename){
+                return true;
+            }
+
+        }
+        return false;
+    }catch(Exception $err){
+        return false;
+    }
+   
+    
+}
+function is_video_created(string $dir,string $filename){
+     // search $dir for $filename if found return true else return false
+    try{
+        $files=scandir($dir);
+        foreach ($files as $fils) {
+            if($files==$filename){
+                return true;
+            }
+        }
+        return false;
+    }catch(Exception $err){
+        return false;
+    }
+   
+    
+}
+
+//if user admin return files and template info back at them to make changes
+if(isset($_SESSION['adminID'])){
+
+}
+if(isset($_POST['updateTemplate'])){}
+if(isset($_POST['deleteTemplate'])){}
 if($_SERVER['REQUEST_METHOD']=='GET'){
 
 
@@ -15,9 +57,8 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 if($_SERVER['REQUEST_METHOD']=='POST')
 {
 
- setcookie('uploadTemplateStatus','',time()-(30*10),'/');
-try{
 $temp=new Template();
+$image=new Image();
 $db=Database::get_connection();
 try {
     
@@ -91,21 +132,18 @@ try {
     }
     $db->commit();
     $data['status']='success';
+    setcookie('uploadTemplateStatus',json_encode($data),time()+(30*10),'/');
 } catch (Exception $e) {
     $db->rollBack();
     $data['status']='failed';
     $data['error']=$e->getMessage();
     $data['errors']=$errorMessages;
+    setcookie('uploadTemplateStatus',json_encode($data),time()+(30*10),'/');
+
 
    
 
 }
-}catch(PDOException $err){
-    $data['status']='failed';
-    $data['error']=$e->getMessage();
-}
-    // this cookie will have values that have passed validation checks then fill then in the form
- // setcookie('uploadTemplateTempInfo',json_encode($data),time()+(30*10),'/');
-setcookie('uploadTemplateStatus',json_encode($data),time()+(30*10),'/');
+
 include_once('Htmlfiles/uploadTemplate.html');
 }

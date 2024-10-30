@@ -22,6 +22,9 @@ function get_cookie(name){
     }
 }
 }
+function delete_cookie(name){
+    document.cookie = name+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
 
 function getUploadStatus(){
 	let status=get_cookie('uploadTemplateStatus=');
@@ -36,15 +39,14 @@ let data=getUploadStatus();
 
 if(data.status=='success'){
 	alert('template successfully added');
+	delete_cookie('uploadTemplateStatus');
 	
 }
 else{
-	alert(data.message);
-	let dataLen;
+	delete_cookie(uploadTemplateStatus);
 	if(data.errors!==undefined){
 		dataLen=data.errors.length;
 	}
-
 	for(let i=0;i<dataLen;i++){
 		const k=Object.keys(data.errors[i]);
 		document.getElementById(k).innerHTML=data.errors[i][k];

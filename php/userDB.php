@@ -266,7 +266,9 @@ class UserDB extends Database{
         try{
             $db=$this->db;
             $query="
-                    SELECT email FROM Users
+                    SELECT email,userID,username,shortBio,i.filename,i.filepath FROM Users u
+                    LEFT JOIN ProfileImages p FROM p.userID=u.userID
+                    INNER JOIN Images i FROM i.imageID=p.imageID
                     WHERE password=:password
                     AND email=:email;
             ";
@@ -275,10 +277,13 @@ class UserDB extends Database{
             $stmt->bindValue(':email',$this->user->get_email());
             $stmt->execute();
             $id=$stmt->fetch();
-            
+            $this->user->set_id($id['userID']);
+            $this->user->set_username($id['username']);
+            $this->user->set_profilePicture($id['filepath'].'/'.$id['filename']);
+            $this->user->set_email($id['email']);
+            $this->user->set_shortBio($id['shortBio']);
             return $id;
         }catch(PDOException $err){
-            echo 'Database error while validating username'.$err->getMessage();
             return $err;;
         }
     }
