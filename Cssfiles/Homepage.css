@@ -1,5 +1,5 @@
 /* Reset some default styles */
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 868px) {
 ::before,
 *::after {
     margin: 0;
@@ -516,10 +516,10 @@ display: none;
 .postfeed-wrapper {
   display: grid;
     grid-template-columns: repeat(auto-fit, minmax(101%, 0fr));
-    grid-column-gap: 150px;
     overflow-y: hidden;
     overflow-x: hidden;
     justify-items: center; 
+    margin-top: 60px;
 }
 
 .primary-post:hover {
@@ -600,12 +600,8 @@ display: none;
   margin: auto;
 }
 
-.Identity h3:hover {
-  box-shadow: 0 5px 15px #A7991E;
-}
-
 .follow-button {
-  background-color: #A7991E;
+    background-color: #A7991E;
     color: white;
     font-weight: bold;
     border: none;
@@ -615,8 +611,8 @@ display: none;
     cursor: pointer;
     transition: 0.9s ease;
     position: absolute;
-    left: 530;
-    bottom: 16;
+    left: 425px;
+    bottom: 16px;
 }
 
 .follow-button:hover {
