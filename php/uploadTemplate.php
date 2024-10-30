@@ -91,8 +91,8 @@ try {
     $temp->set_name($_POST['templateName']);
     $temp->set_price($_POST['templatePrice']);
     $temp->set_type($_POST['templateType']);
-    $temp->set_filename('templates/'.$_FILES['templateHtmlFile']['name']);
-    $temp->set_image('templates/'.$_FILES['templateImageFile']['name']);
+    $temp->set_filename('/templates/'.$_FILES['templateHtmlFile']['name']);
+    $temp->set_image('/templates/'.$_FILES['templateImageFile']['name']);
     $temp->set_dateMade($dateMade);
     $temp->set_timeMade($timeMade);
 
@@ -114,11 +114,11 @@ try {
 
 
     $image->set_filename($_FILES['templateImageFile']['name']);
-    $image->set_filePath('/templates');
+    $image->set_filePath('/templates/');
     $image->load_image($dir);
 
-    $htmlNewfile='/templates' . basename($_FILES['templateHtmlFile']['name']);
-    $cssNewfile='/templates' . basename($_FILES['templateCssFile']['name']);
+    $htmlNewfile='/templates/' . basename($_FILES['templateHtmlFile']['name']);
+    $cssNewfile='/templates/' . basename($_FILES['templateCssFile']['name']);
     
 
     if(!move_uploaded_file($htmlTmpname, $htmlNewfile)){
