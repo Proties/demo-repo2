@@ -97,6 +97,7 @@ try {
     $temp->set_timeMade($timeMade);
 
    
+
     $tempDB=new TemplateDB($temp);
     $tempDB->set_db($db);
 
@@ -110,16 +111,15 @@ try {
 
     $htmlTmpname=$_FILES['templateHtmlFile']['tmp_name'];
     $cssTmpname=$_FILES['templateCssFile']['tmp_name'];
-    $imageTmpname=$_FILES['templateImageFile']['tmp_name'];
-    $basePath = __DIR__ . '/..';
 
-    $templateDir=$basePath.'/templates/';
-    if (!is_dir($templateDir)) {
-    mkdir($templateDir, 0777, true);
-    }
-    $htmlNewfile=$templateDir . basename($_FILES['templateHtmlFile']['name']);
-    $cssNewfile=$templateDir . basename($_FILES['templateCssFile']['name']);
-    $imageNewfile=$templateDir . basename($_FILES['templateImageFile']['name']);
+
+    $image->set_filename($_FILES['templateImageFile']['name']);
+    $image->set_filePath('/templates');
+    $image->load_image($dir);
+
+    $htmlNewfile='/templates' . basename($_FILES['templateHtmlFile']['name']);
+    $cssNewfile='/templates' . basename($_FILES['templateCssFile']['name']);
+    
 
     if(!move_uploaded_file($htmlTmpname, $htmlNewfile)){
         throw new Exception('could not upload Html file');
@@ -127,9 +127,7 @@ try {
     if(!move_uploaded_file($cssTmpname, $cssNewfile)){
          throw new Exception('could not upload css file');
     }
-    if(!move_uploaded_file($imageTmpname, $imageNewfile)){
-         throw new Exception('could not upload image file');
-    }
+  
     $db->commit();
     $data['status']='success';
     setcookie('uploadTemplateStatus',json_encode($data),time()+(30*10),'/');

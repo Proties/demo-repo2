@@ -6,6 +6,7 @@ class Video{
 	private $width;
 	private $height;
 	private $size;
+	private $Maxsize;
 	private $status;
 	private $filename;
 	private $type;
@@ -15,12 +16,14 @@ class Video{
 	private $filepath;
 	private $postID;
 	private $postLinkID;
+	private string $videoName;
 
 	public function __construct(){
 		$this->id=null;
 		$this->postID=null;
 		$this->filename='';
 		$this->fileExtension='.mp4';
+		$this->videoName='';
 		$this->filepath='';
 		$this->postLinkID='';
 		$this->size='';
@@ -30,6 +33,18 @@ class Video{
 		$this->dateUpdated='';
 		$this->type='';
 		$this->status='show';
+	}
+	public function set_videoName(string $name){
+		$this->videoName=$name;
+	}
+	public function get_videoName(){
+		return $this->videoName;
+	}
+	public function set_maxSize(int $max){
+		$this->Maxsize=$max;
+	}
+	public function get_maxSize(){
+		return $this->Maxsize;
 	}
 	public function set_postID(int $id){
 		$this->postID=$id;
@@ -110,6 +125,100 @@ class Video{
 	public function get_postLinkID(){
 		return $this->postLinkID;
 	}
+	public function validate_fileExtension(){
+			try{
+				$video=$this->get_videoName();
+				$filetype=$_FILES[$video]['type'];
+			switch ($filetype) {
+				case 'video/mp4':
+					$this->set_type('video/mp4');
+					$this->set_fileExtention('.mp4');
+					break;
+				case 'video/webM':
+					$this->set_type('video/mp4');
+					$this->set_fileExtention('.webm');
+					break;
+				case 'video/ogg':
+					$this->set_type('video/mp4');
+					$this->set_fileExtention('.ogg');
+					break;
+				case 'video/avi':
+					$this->set_type('video/mp4');
+					$this->set_fileExtention('.avi');
+					break;
+				case 'video/mogg':
+					$this->set_type('video/mp4');
+					$this->set_fileExtention('.mogg');
+					break;
+				case 'video/av1':
+					$this->set_type('video/mp4');
+					$this->set_fileExtention('.av1');
+					break;
+				default:
+					throw new Exception('not supported file type');
+					break;
+			}
+			return true;
+		}catch(Execption $err){
+			return false;
+		}
+			
+			
+	}
+	public function validate_error(){
+		try{
+			$video=$this->get_videoName();
+			if($_FILES[$video]['error']){
+				return true;
+			}
+			return false;
+		}catch(Execption $errr){
+			return $err;
+		}
+	}
+
+	public function validate_size(){
+		try{
+			$video=$this->get_videoName();
+			if($_FILES[$video]['size']<=$this->get_maxSize()){
+				return true;
+			}
+			return false;
+		}catch(Execption $errr){
+			return $err;
+		}
+		
+
+	}
+	public function make_fileExtension(){
+		$filetype=$_FILES[$this->get_videoName()]['type'];
+		$this->set_type($filetype);
+		switch ($filetype) {
+				case 'video/mp4':
+					$this->set_fileExtention('.mp4');
+					break;
+				case 'video/webM':
+		
+					$this->set_fileExtention('.webm');
+					break;
+				case 'video/ogg':
+					
+					$this->set_fileExtention('.ogg');
+					break;
+				case 'video/avi':
+				
+					$this->set_fileExtention('.avi');
+					break;
+				case 'video/mogg':
+					
+					$this->set_fileExtention('.mogg');
+					break;
+				case 'video/av1':
+			
+					$this->set_fileExtention('.av1');
+					break;
+			}
+	}
 	public function make_filename(){
         try{
            
@@ -121,7 +230,7 @@ class Video{
             if($ids_array[0]===''){
                 throw new Exception("not a valid id");
             }
-            $this->set_filename($ids_array[0]);
+            
             $this->set_postLinkID($ids_array[0]);
             array_splice($ids_array,0,1);
             file_put_contents('php/ids.json', json_encode($ids_array));
@@ -132,53 +241,34 @@ class Video{
             return $err;
         }
     }
-	public function load_video($dir){
+	public function load_video(){
 		try{
-			if(isset($_FILES['video'])){
-			// $filename=$_FILES['video']['name'];
-			$filesize=$_FILES['video']['size'];
-			$tmpname=$_FILES['video']['tmp_name'];
-			$filetype=$_FILES['video']['type'];
-			switch ($filetype) {
-				case 'video/mp4':
-					$this->set_fileExtention('.mp4');
-					break;
-				case 'video/webM':
-					$this->set_fileExtention('.webm');
-					break;
-				case 'video/ogg':
-					$this->set_fileExtention('.ogg');
-					break;
-				case 'video/avi':
-					$this->set_fileExtention('.avi');
-					break;
-				case 'video/mogg':
-					$this->set_fileExtention('.mogg');
-					break;
-				case 'video/av1':
-					$this->set_fileExtention('.av1');
-					break;
-				default:
-					throw new Exception('not supported file type');
-					break;
-			}
 			
+			// $filename=$_FILES['video']['name'];
+			$videoName=$this->get_videoName();
+			$filesize=$_FILES[$videoName]['size'];
+			$tmpname=$_FILES[$videoName]['tmp_name'];
+			$type=$_FILES[$videoName]['type'];
 
-			$filename=$this->get_filename();
-			$this->set_filepath($dir);
+			$this->set_type($type);
 			$this->set_size($filesize);
 		
 			$this->set_dateMade();
 			$this->set_dateUpdated();
-
-			$newfile=$dir.$this->get_filename().$this->get_fileExtention();
+			if(validate_fileExtension()!==true){
+				throw new Exception('not valid video');
+			}
+			if(validate_error()!==true){
+				throw new Exception('error uploading video file');
+			}
+			if(validate_size()!==true){
+				throw new Exception('the vide file is too big');
+			}
+			
+			$newfile=$this->get_filepath().$this->get_filename();
 			if(!move_uploaded_file($tmpname, $newfile)){
 				throw new Exception('did not upload');
 			}
-			$fl=$this->get_filename().$this->get_type();
-			$this->set_filename($fl);
-			$this->set_type($filetype);
-		}
 	}
 		catch(Exception $err){
 			return $err;

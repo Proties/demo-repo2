@@ -72,7 +72,7 @@ class ImageDB extends Database{
 		try{
 			$query='
 					INSERT INTO ProfileImages(userID,imageID,currentStatus)
-					VALUES(:postID,:imageID,:status)
+					VALUES(:userID,:imageID,:status)
 			';
 			$statement=$db->prepare($query);
 			$statement->bindValue(':imageID',$this->image->get_id());
@@ -92,8 +92,8 @@ class ImageDB extends Database{
 			';
 			$stmt=$db->prepare($query);
 
-			$stmt->bindValue(':typ',$this->image->file->get_imageType());
-			$stmt->bindValue(':size',$this->image->get_size());
+			$stmt->bindValue(':typ',$this->image->file->get_type());
+			$stmt->bindValue(':size',$this->image->get_fileSize());
 			$stmt->bindValue(':width',$this->image->get_width());
 			$stmt->bindValue(':height',$this->image->get_height());
 			$stmt->bindValue(':made',$this->image->get_dateMade());
@@ -103,6 +103,7 @@ class ImageDB extends Database{
 			$stmt->execute();
 			$id=(int)$db->lastInsertId();
 			$this->image->set_id($id);
+			$this->image->postLink('userDir'.'postLinkID');
 		}catch(PDOExecption $err){
 			echo 'error while writing to image '.$err->getMessage();
 		}

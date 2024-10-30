@@ -70,11 +70,20 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		$userDB->write_user();
 
 		if(isset($_FILES['profileImage'])){
+			$image->set_postLinkID($id);
+			$image->set_imageName('profileImage');
+			$image->make_fileExtension();
+			$id=$image->make_filename();
+			$file=$id.$image->get_fileExtension();
+			$image->set_filename($file);
+			$image->set_filepath($user->userFolder->get_dir());
+			
+			$imageDB=new ImageDB($image);
 			$imageDB->set_db($db);
         	$imageDB->write_image();
 	     	$imageDB->write_image_profile_picture();
 	     
-	     	$image->load_image($user->userFolder->get_dir());
+	     	$image->load_image();
         }
 
 		if($userDB->user->get_id()>0){
