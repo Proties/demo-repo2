@@ -88,7 +88,7 @@ function post_preview(){
 post_preview();
 function get_ish_form_cookie(){
     let profilesObjs=get_cookie("users=");
-    let user_data=get_cookie("myprofile=");
+    let user_data=get_cookie("user=");
     if(profilesObjs==undefined){
         console.log('no posts ');
     }else{
@@ -149,14 +149,7 @@ function clear_posts(){
     }
 
 }
-// let testData=[
-// {username:'rotondwa',fullname:'',firstName:'',lastname:'nems',following:true,profilePicture:'/Image/Test Account.png',id:12,post:{id:2,src:'/Image/Comic.png.png'}},
-// {username:'rinae',fullname:'',firstName:'',lastname:'nems',following:false,profilePicture:'/Image/Test Account.png',id:25,posts:[{id:3,src:'/Image/Comic.png.png'},{id:4,src:'/Image/Comic.png.png'}]},
-// {username:'sindy',fullname:'',firstName:'',lastname:'nems',following:true,profilePicture:'/Image/Test Account.png',id:43,posts:[{id:5,src:'/Image/Comic.png.png'},{id:6,src:'/Image/Comic.png.png'},{id:7,src:'/Image/Comic.png.png'}]}
-// ];
-// let meData={fullname:'rotondwa',username:'sackie',bio:''};
-let meData=null;
-// initialiseObjects(testData,meData);
+
 
 function initialiseObjects(cookie_data,cookie_user){
     console.log('=========cookie data========');
@@ -464,7 +457,8 @@ function handleLogginIn(){
              // show profile icon 
 
              return;
-         }else{
+         }
+         if(status.status=='failed'){
             document.getElementById('LoginModal').style.display='block';
            
                 console.log('===========something=========');

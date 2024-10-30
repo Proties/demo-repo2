@@ -266,11 +266,11 @@ class UserDB extends Database{
         try{
             $db=$this->db;
             $query="
-                    SELECT email,userID,username,shortBio,i.filename,i.filepath FROM Users u
-                    LEFT JOIN ProfileImages p FROM p.userID=u.userID
-                    INNER JOIN Images i FROM i.imageID=p.imageID
-                    WHERE password=:password
-                    AND email=:email;
+                    SELECT email,u.userID,username,shortBio,i.filename as filename,i.filepath as filepath FROM Users u
+                    LEFT JOIN ProfileImages p ON p.userID=u.userID
+                    LEFT JOIN Images i ON i.imageID=p.imageID
+                    WHERE u.password=:password AND email=:email;
+                    
             ";
             $stmt=$db->prepare($query);
             $stmt->bindValue(':password',$this->user->get_password());

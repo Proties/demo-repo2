@@ -45,13 +45,13 @@ if($f_txt==='/profile'){
     
     $authorDB=new UserDB($author);
     $authorDB->get_posts_with_username();
-    $userDetails['userID']=$author->get_id();
-    $userDetails['username']=$author->get_username();
-    $userDetails['shortBio']=$author->get_shortBio();
-    $userDetails['fullname']=$author->get_shortBio();
-    $userDetails['longBio']=$author->get_longBio();
-    $userDetails['following']=$author->get_followingNo();
-    $userDetails['follower']=$author->get_followersNo();
+    $userDetails['userID']=$authorDB->author->get_id();
+    $userDetails['username']=$authorDB->author->get_username();
+    $userDetails['shortBio']=$authorDB->author->get_shortBio();
+    $userDetails['fullname']=$authorDB->author->get_shortBio();
+    $userDetails['longBio']=$authorDB->author->get_longBio();
+    $userDetails['following']=$authorDB->author->get_followingNo();
+    $userDetails['follower']=$authorDB->author->get_followersNo();
     $userDetails['profilePicture']=$author->get_profilePicture();
     // $userDetails['profilePicture']=$author->get_profilePicture();
     $personal['userInfo']=$userDetails;
