@@ -355,9 +355,9 @@ function eventListeners(){
     // morePosts.addEventListener("click",more_posts);
    
   
-    for(let i=0;i<userProfile.length;i++){
-        userProfile[i].addEventListener('click',openUserProfile);
-    }
+    // for(let i=0;i<userProfile.length;i++){
+    //     userProfile[i].addEventListener('click',openUserProfile);
+    // }
 
     for(let i=0;i<selectTopPost.length;i++){
         selectTopPost[i].addEventListener('click',openModal);

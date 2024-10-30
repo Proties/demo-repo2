@@ -154,7 +154,7 @@ export class OtherProfile extends ProfileUI{
     }
     make_container(){
         let cont=document.createElement('div');
-        let profilePicBtn=document.createElement('div');
+        let profilePicBtn=document.createElement('a');
         let profilePic=document.createElement('img');
         let post=document.createElement('div');
         let contTwo=document.createElement('div');
@@ -183,8 +183,10 @@ export class OtherProfile extends ProfileUI{
         usernameCont.setAttribute('class','Identity');
         follow.setAttribute('class','follow-button');
         unFollow.setAttribute('class','follow-button');
-        profilePicBtn.setAttribute('class','profile-button-img');
+        
         profilePic.setAttribute('src',this.profilePicture);
+        profilePic.setAttribute('class','profile-button-img');
+        profilePicBtn.setAttribute('href','/@'+this.data.username);
         
         contTwo.setAttribute('class','post-actions');
         contThree.setAttribute('class','profile-button');
