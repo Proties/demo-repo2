@@ -15,8 +15,8 @@ let profileList=[];
 let registrationForm=new RegistrationUI();
 let temp=new TemplatePicker();
 
-temp.events_handler();
-temp.get_templates();
+// temp.events_handler();
+// temp.get_templates();
 // let video=new VideoUI();
 // video.make_form_submission();
 function setCookie(cname, cvalue, exdays) {
