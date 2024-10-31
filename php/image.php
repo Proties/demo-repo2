@@ -1,5 +1,6 @@
 <?php  declare(strict_types=1);
 namespace Insta\Images;
+use Insta\Images\BrowserSupportedFormats;
 use Insta\Images\ImageFile;
 use Exception;
 class Image{
@@ -19,6 +20,7 @@ class Image{
 	private int $fileSize;
 	private int $maxSize;
 	private string $size;
+	public BrowserSupportedFormats $browser;
 	public ImageFile $file;
 	private array $data;
 

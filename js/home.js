@@ -401,7 +401,7 @@ function openModal(evt) {
     console.log(evt.target.src);
     const source=evt.target.src;
     let postImageSrc=evt.target.src;
-    const patttern=/(.png|.gif)/;
+    const patttern=/(.png|.gif|.jpeg|.jpg)/;
    
 
     const modal = document.getElementById("postModal");
