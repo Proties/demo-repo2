@@ -47,7 +47,7 @@ class TemplatePicker{
 		}
 		console.log('done====');
 	}
-	get_templates(){
+	async get_templates(){
 		try{
 			let xml=new XMLHttpRequest();
 			xml.open('POST','/');

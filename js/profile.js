@@ -154,13 +154,20 @@ export class OtherProfile extends ProfileUI{
     }
     make_container(){
         let cont=document.createElement('div');
-        let profilePicBtn=document.createElement('div');
+        let profilePicBtn=document.createElement('a');
         let profilePic=document.createElement('img');
         let post=document.createElement('div');
         let contTwo=document.createElement('div');
         let contThree=document.createElement('div');
         let contFour=document.createElement('div');
 
+        let account=document.createElement('div');
+        let usernameCont=document.createElement('div');
+        let username=document.createElement('h3');
+        let usernameTxt=document.createTextNode(this.data.username);
+        username.append(usernameTxt);
+        usernameCont.append(username);
+        
 
         
 
@@ -172,10 +179,14 @@ export class OtherProfile extends ProfileUI{
         
         
 
+        account.setAttribute('class','Account');
+        usernameCont.setAttribute('class','Identity');
         follow.setAttribute('class','follow-button');
         unFollow.setAttribute('class','follow-button');
-        profilePicBtn.setAttribute('class','profile-button-img');
+        
         profilePic.setAttribute('src',this.profilePicture);
+        profilePic.setAttribute('class','profile-button-img');
+        profilePicBtn.setAttribute('href','/@'+this.data.username);
         
         contTwo.setAttribute('class','post-actions');
         contThree.setAttribute('class','profile-button');
@@ -324,7 +335,9 @@ export class OtherProfile extends ProfileUI{
         
         
 
-        contThree.append(profilePicBtn);
+        account.append(profilePicBtn);
+        account.append(usernameCont);
+        contThree.append(account);
         contThree.append(currentFollowing);
         contTwo.append(contThree);
        
