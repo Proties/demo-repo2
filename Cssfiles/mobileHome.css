@@ -17,6 +17,7 @@ body {
   line-height: 1.6;
   background-color: #f4f4f4;
   color: #333;
+  overflow-x: hidden;
 }
 
 header {
@@ -1135,11 +1136,13 @@ margin-top: 25px;
 max-width: 1000px;
 }
 
+@media screen and (max-width: 868px) {
 .modal-profile-button{
   transition: 0.9s ease-in-out;
   margin-top: 90px;
   position: absolute;
   left: 80px;
+  bottom: 20px;
   background-color: white;
   border: 2px solid #ddd;
   border-radius: 100%;
@@ -1150,6 +1153,28 @@ max-width: 1000px;
   justify-content: center;
   cursor: pointer;
 }
+}
+
+
+@media screen and (max-width: 320px) {
+  .modal-profile-button{
+    transition: 0.9s ease-in-out;
+    margin-top: 90px;
+    position: absolute;
+    left: 80px;
+    bottom: 20px;
+    background-color: white;
+    border: 2px solid #ddd;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  }
+
 
 .modal-profile-button img {
 object-fit: fill;
@@ -1159,7 +1184,7 @@ object-fit: fill;
 transform: scale(1.10);
 }
 
-
+@media screen and (max-width: 868px) {
 .share {
 width: 50px;
 height: auto;
@@ -1167,6 +1192,18 @@ position: absolute;
 bottom: -5px;
 right: 80px;
 transition: 0.9s ease;
+}
+}
+
+@media screen and (max-width: 320px) {
+.share {
+  width: 35px;
+    height: auto;
+    position: absolute;
+    bottom: -5px;
+    right: 80px;
+    transition: 0.9s ease;
+}
 }
 
 .share:hover {
