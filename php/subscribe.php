@@ -45,10 +45,13 @@ switch($action){
 			$_SESSION['orderID']=$OrderDB->order->get_id();
 
 			header('Location: /checkout');
+			exit();
 		}catch(Exception $err){
 			$data['status']='failed';
 			$data['message']=$err->getMessage();
-			echo json_encode($data);
+			setcookie('subscriptionStatus',json_encode($data),time()+(30*10),'/');
+			header('Location: /subscribe_to_premiunm');
+			exit();
 		}
 	break;
 	case 'annual_plan':
@@ -73,7 +76,9 @@ switch($action){
 		}catch(Exception $err){
 			$data['status']='failed';
 			$data['message']=$err->getMessage();
-			echo json_encode($data);
+			setcookie('subscriptionStatus',json_encode($data),time()+(30*10),'/');
+			header('Location: /subscribe_to_premiunm');
+			exit();
 		}
 	break;
 	case 'free_trial':
@@ -118,7 +123,9 @@ switch($action){
 		}catch(Exception $err){
 			$data['status']='failed';
 			$data['message']=$err->getMessage();
-			echo json_encode($data);
+			setcookie('subscriptionStatus',json_encode($data),time()+(30*10),'/');
+			header('Location: /subscribe_to_premiunm');
+			exit();
 		}
 		
 	break;
