@@ -8,6 +8,7 @@ import TemplatePicker from './templateMain.js';
 import {Follow,UnFollow} from './follow.js';
 import VideoUI from './video.js';
 
+import {MobileGallery,DesktopGallery} from './imageGallery.js';
 
 let user=new MyProfile();
 let allData;
