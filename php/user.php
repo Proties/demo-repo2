@@ -30,6 +30,7 @@ class Users implements Serializable{
     private int $id;
     private int $followingNo;
     private int $followerNo;
+    private array $recentSearchResults;
 
 
     private array $data;
@@ -137,6 +138,13 @@ class Users implements Serializable{
 
     public function set_profileLink($pl){
         $this->userProfileLink;
+    }
+    public function set_recentSearchResults(array $pl){
+        $this->recentSearchResults=$pl;
+    }
+    public function get_recentSearchResults():array 
+    {
+       return $this->recentSearchResults;
     }
     public function get_name():string 
     {

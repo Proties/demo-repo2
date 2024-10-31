@@ -233,7 +233,9 @@ export class OtherProfile extends ProfileUI{
                     img.setAttribute('src',this.data.posts[ss].imageFilePath+''+this.data.posts[ss].imageFileName);
                     img.setAttribute('class','post-image');
                     img.setAttribute('loading','lazy');
-                    c.append(img);
+                    shareCont.append(shareImage);
+                    c.append(shareCont);
+                    c.append(vid);
                 }
                 else{
                     console.log(k);
@@ -243,12 +245,13 @@ export class OtherProfile extends ProfileUI{
                     vid.style.width='20em';
                     vid.setAttribute('controls','true');
                     vid.append(source);
+                    shareCont.append(shareImage);
+                    c.append(shareCont);
                     c.append(vid);
                 }
                 
                 
-                shareCont.append(shareImage);
-                contFour.append(shareCont);
+               
                 contFour.append(c);
         }
         }
@@ -278,6 +281,7 @@ export class OtherProfile extends ProfileUI{
                 im.append(source);
                 contFive.append(shareCont);
                 contFive.append(im);
+
                 contFour.append(contFive);
                 // cont.append(contFour);
                 // cont.append(contTwo);
@@ -302,8 +306,9 @@ export class OtherProfile extends ProfileUI{
             shareImage.setAttribute('src','/Image/Share.png');
             shareCont.append(shareImage);
             
-            contFive.append(im);
             contFour.append(shareCont);
+            contFive.append(im);
+            
             contFour.append(contFive);
             // cont.append(contFour);
             // cont.append(contTwo);
