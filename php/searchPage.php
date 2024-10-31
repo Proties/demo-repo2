@@ -15,7 +15,7 @@ function validate_search_term(string $keyword){
 }
 
 if($_SERVER['REQUEST_METHOD']=='GET'){
-	include_once('/Htmlfiles/searchPage.html');
+	include_once('Htmlfiles/Searchmobile.html');
 	return;
 }
 if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -33,7 +33,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		
 		}
 		if(!isset($_POST['search_term']) OR empty($_POST['search_term'])){
-			throw new Exception('no search term defined')
+			throw new Exception('no search term defined');
 		}
 		if (validate_search_term($_POST['search_term'])==false){
 			throw new Exception('not valid search term');

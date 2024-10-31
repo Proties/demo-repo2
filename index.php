@@ -103,7 +103,7 @@ switch($action){
         include_once('php/login.php');
         break;
      case '/search_page':
-        include_once('php/profile.php');
+        include_once('php/searchPage.php');
         break;
     case '/profile':
         include_once('php/profile.php');
