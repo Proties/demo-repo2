@@ -319,9 +319,8 @@ function eventListeners(){
     let userProfile=document.getElementsByClassName("profile-button-img");
     let search_input=document.getElementById("search");
     let sharePost=document.getElementsByClassName('share-button');
-    let selectTopPost=document.getElementsByClassName("Primary-post");
-    let selectMiddlePost=document.getElementsByClassName("Secondary-post");
-    let selectBottomPost=document.getElementsByClassName("Tertiary-post");
+    let selectTopPost=document.getElementsByClassName("post-image");
+    
     let viewMore=document.getElementsByClassName("view-more-btn")[0];
     let registerBtn = document.getElementById('userRegistration');
     let closeReg = document.getElementById("closeModalReg");
@@ -348,27 +347,12 @@ function eventListeners(){
     }
     
 
-    // let morePosts=document.getElementById("");
-
     search_input.addEventListener("input",search_user);
-    // viewMore.addEventListener("click",display_more_users);
-    // morePosts.addEventListener("click",more_posts);
-   
-  
-    // for(let i=0;i<userProfile.length;i++){
-    //     userProfile[i].addEventListener('click',openUserProfile);
-    // }
-
-    for(let i=0;i<selectTopPost.length;i++){
+    let postImageLen=selectTopPost.length;
+    for(let i=0;i<postImageLen;i++){
         selectTopPost[i].addEventListener('click',openModal);
     }
-     for(let i=0;i<selectMiddlePost.length;i++){
-        selectMiddlePost[i].addEventListener('click',openModal);
-    }
-    for(let i=0;i<selectBottomPost.length;i++){
-        selectBottomPost[i].addEventListener('click',openModal);
-    }
-
+ 
     registerBtn.addEventListener('click',function(evt) {
         modal.style.display = "block";
         let login =document.getElementById('openLoginModal');
@@ -411,28 +395,37 @@ eventListeners();
 
 
 function openModal(evt) {
-   
+    //clear all post in the modal
     let postTitle='happy';
-    console.log(evt.target);
-    let source=evt.target.src;
+    const element=evt.target;
+    console.log(evt.target.src);
+    const source=evt.target.src;
     let postImageSrc=evt.target.src;
-    const patttern=/(.mp4)/;
+    const patttern=/(.png|.gif)/;
    
 
     const modal = document.getElementById("postModal");
     const modalPostImage = document.getElementById("modalPostImage");
-    let cont=evt.target.parentNode.parentNode.parentNode;
-    let profile=cont.getElementsByClassName("profile-button")[0];
+    const cont=document.getElementById('modalContainerHolder');
   
-    if(patttern.test(source)){
+    modal.style.display = "block";
+    if(!patttern.test(element.src)){
+        const videoSource=element.getElementByTagName('source')[0];
         let video=document.createElement('video');
-        video.setAttribute('src',source);
-        modal.append(video);
-        modal.style.display = "block";
+        let sourceElement=document.createElement('source');
+        sourceElement.setAttribute('src',videoSource);
+        video.append(sourceElement);
+        cont.append(video);
+        console.log(element);
+        console.log('=====display video');
     }
     else{
-        modalPostImage.src = postImageSrc;
-        modal.style.display = "block";
+        let image=document.createElement('img');
+        image.setAttribute('src',source);
+        cont.append(image);
+        console.log(element);
+        console.log('=====display image');
+   
     }
     
     document.getElementById("closeModal").addEventListener('click',closeModal);
