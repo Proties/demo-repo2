@@ -19,6 +19,7 @@ body {
     line-height: 1.6;
     background-color: #f4f4f4;
     color: #333;
+    overflow-x: hidden;
 }
 
 header {
@@ -798,19 +799,20 @@ textarea {
 }
 
 .modal-profile-button{
-    transition: 0.9s ease-in-out;
-    margin-top: 90px;
-    position: absolute;
-    left: 80px;
-    background-color: white;
-    border: 2px solid #ddd;
-    border-radius: 100%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+  transition: 0.9s ease-in-out;
+  margin-top: 90px;
+  position: absolute;
+  left: 80px;
+  background-color: white;
+  border: 2px solid #ddd;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  bottom: 20px;
 }
 
 .modal-profile-button img {
