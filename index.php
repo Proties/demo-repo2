@@ -96,6 +96,9 @@ switch($action){
     case '/':
         include_once('php/homePage.php');
         break;
+    case '/log':
+        include_once('php/log.php');
+        break;
     case '/registration':
         include_once('php/registration.php');
         break;

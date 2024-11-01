@@ -82,6 +82,7 @@ export class OtherProfile extends ProfileUI{
       
         this._data;
         this._cont;
+        this._bigcont;
         this._follow=new Follow();
         this._unfollow=new UnFollow();
 
@@ -121,6 +122,12 @@ export class OtherProfile extends ProfileUI{
     }
     get cont(){
         return this._cont;
+    }
+    set bigCont(i){
+        this._bigcont=i;
+    }
+    get bigCont(){
+        return this._bigcont;
     }
      make_posts(){
         if (this.data.posts.length>1) {
@@ -242,7 +249,7 @@ export class OtherProfile extends ProfileUI{
                     source.setAttribute('src',this.data.posts[ss].videoFilePath+''+this.data.posts[ss].VideoFileName);
                     vid.setAttribute('class','post-image');
                     vid.setAttribute('loading','lazy');
-                    vid.style.width='20em';
+                   
                     vid.setAttribute('controls','true');
                     vid.append(source);
                     shareCont.append(shareImage);
@@ -273,8 +280,8 @@ export class OtherProfile extends ProfileUI{
                 shareCont.setAttribute('class','share-button');
                 shareImage.setAttribute('src','/Image/Share.png');
                 im.setAttribute('controls','true');
-                im.setAttribute('width','90%');
-                im.setAttribute('height','75%');
+                
+                
                 
                 shareCont.append(shareImage);
                 
@@ -350,6 +357,7 @@ export class OtherProfile extends ProfileUI{
         cont.append(contFour);
         console.log(' ======cont======');
         console.log(cont);
+        this.bigCont=cont;
         this.parentContainer.append(cont);
     }
     make_small_container(){

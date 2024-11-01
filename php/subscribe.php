@@ -120,6 +120,7 @@ switch($action){
 			$subdb=new SubscriptionDB($subcription);
 			$subdb->addSubscription();
 			header('Location: /');
+			exit();
 		}catch(Exception $err){
 			$data['status']='failed';
 			$data['message']=$err->getMessage();
