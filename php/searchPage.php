@@ -20,8 +20,8 @@ if(isset($_SESSION['userID'])){
 }
 
 $userDB=new UserDB($user);
-if(!isset('popularProfiles')){
-	$userDB->get_profiles();
+if(!isset($_COOKIE['popularProfiles'])){
+	// $userDB->get_profiles();
 	$data=[];
 	setcookie('popularProfiles',json_encode($data),time()+(54900*30),'/');
 }
@@ -88,7 +88,9 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 					if(!isset($_SESSION['userID']) OR empty($_SESSION['userID'])){
 						throw new Exception('not valid search term');
 					}
-					$userData=['newPosts'=>0,'followingStatus'=>,'username'=>,'profilePicture'=>''];
+					$data=[];
+					$userDB->search_user();
+					$userData=['newPosts'=>$userDB->user->get_newPosts(),'followingStatus'=>$userDB->user->get_followingStatus(),'username'=>$userDB->user->get_username(),'profilePicture'=>$userDB->user->get_profilePicture()];
 					$_SESSION['recentSearchResults'][]=$userData;
 					if(count($_SESSION['recentSearchResults'])>5){
 						// remove the last entry item
@@ -112,6 +114,9 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 					if(!isset($_SESSION['userID']) OR empty($_SESSION['userID'])){
 						throw new Exception('create account');
 					}
+					if(isset($_COOKIE['popularProfiles'])){
+
+					}
 				}catch(Exception $err){
 					$data['status']='failed';
 					$data['message']=$err->getMessage();
@@ -124,6 +129,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 					if(!isset($_SESSION['userID']) OR empty($_SESSION['userID'])){
 						throw new Exception('create account');
 					}
+					if(!isset($_SESSION['recentSearchResults'])){
+						throw new Exception('no sessions');
+					}
+				}
 				catch(Exception $err){
 					$data['status']='failed';
 					$data['message']=$err->getMessage();

@@ -128,8 +128,11 @@ function populate_popular_profiles(){
 }
 function addEventListeners(){
 	let submit=document.getElementById('searchBtn');
-	submit.addEventListner('click',function(evt){
-		let input=document.getElementById('search').innerHTML;
+	const input=document.getElementById('search');
+	input.addEventListener('change',search_user);
+
+	submit.addEventListener('click',function(evt){
+		let text=input.innerHTML;
 		try{
 			let xml=new XMLHttpRequest();
 			xml.open();
@@ -140,12 +143,73 @@ function addEventListeners(){
 				let data=JSON.parse(this.responseText);
 				console.log(data.results);
 			}
-			xml.send();
+			xml.send('actions='+text);
 
 		}catch(err){
 			console.log(err);
 		}
 	});
+}
+// this function get called when user entres text on the search box it then takes the text to the serve
+// and preforms a search of matchin words on the database of usernames
+function search_user(){
+    let text=document.getElementById("search").value;
+    let list=document.getElementById('suggestion-list');
+    
+    console.log(text);
+    
+    try{
+        let xml=new XMLHttpRequest();
+        xml.open('POST','/search_page');
+        xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xml.send("action=search&q="+text);
+        let searchData=get_cookie('searchResults=');
+        if(searchData==undefined){
+        	throw 'search results is empty';
+        }
+        if(searchData.status=='success'){
+
+
+        list.style.display='block';
+        list.innerHTML='';
+        console.log('works');
+        clear_search_results();
+        let len=searchData.Results.length;
+
+        for(let i=0;i<len;i++){
+            const l=document.createElement('li');
+            l.setAttribute('class','searchItem');
+            l.textContent=searchData.Results[i].username;
+            list.appendChild(l);
+            console.log(searchData.Results[i]);
+
+        }
+        let listItem=document.getElementsByClassName('searchItem');
+        for(let i=0;i<listItem.length;i++){
+            listItem[i].addEventListener("click",function(evt){
+                console.log("works=======");
+                console.log(evt.target.innerHTML);
+                window.location.href="/@"+evt.target.innerHTML;
+
+            });
+
+        }
+        }
+        
+        
+    }catch(err){
+        console.log(err);
+    }
+    document.addEventListener('click',function(evt){
+        if(evt.target.className!=='searchItem'){
+            list.style.display='none';
+        }
+        
+    });
+    // document.getElementById("search").addEventListener("focusout",()=>{
+    //     list.style.display='none';
+        
+    // });
 }
 addEventListeners();
 populate_recent_profiles();
