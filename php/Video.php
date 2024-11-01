@@ -1,5 +1,6 @@
 <?php 
 namespace Insta\Video;
+use Insta\Video\BrowserSupportedFormats;
 use Exception;
 class Video{
 	private $id;
@@ -17,6 +18,7 @@ class Video{
 	private $postID;
 	private $postLinkID;
 	private string $videoName;
+	public BrowserSupportedFormats $browser;
 
 	public function __construct(){
 		$this->id=null;

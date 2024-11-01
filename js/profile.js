@@ -233,7 +233,9 @@ export class OtherProfile extends ProfileUI{
                     img.setAttribute('src',this.data.posts[ss].imageFilePath+''+this.data.posts[ss].imageFileName);
                     img.setAttribute('class','post-image');
                     img.setAttribute('loading','lazy');
-                    c.append(img);
+                    shareCont.append(shareImage);
+                    c.append(shareCont);
+                    c.append(vid);
                 }
                 else{
                     console.log(k);
@@ -243,12 +245,13 @@ export class OtherProfile extends ProfileUI{
                     vid.style.width='20em';
                     vid.setAttribute('controls','true');
                     vid.append(source);
+                    shareCont.append(shareImage);
+                    c.append(shareCont);
                     c.append(vid);
                 }
                 
                 
-                shareCont.append(shareImage);
-                contFour.append(shareCont);
+               
                 contFour.append(c);
         }
         }
@@ -278,6 +281,7 @@ export class OtherProfile extends ProfileUI{
                 im.append(source);
                 contFive.append(shareCont);
                 contFive.append(im);
+
                 contFour.append(contFive);
                 // cont.append(contFour);
                 // cont.append(contTwo);
@@ -302,8 +306,9 @@ export class OtherProfile extends ProfileUI{
             shareImage.setAttribute('src','/Image/Share.png');
             shareCont.append(shareImage);
             
-            contFive.append(im);
             contFour.append(shareCont);
+            contFive.append(im);
+            
             contFour.append(contFive);
             // cont.append(contFour);
             // cont.append(contTwo);
@@ -346,6 +351,48 @@ export class OtherProfile extends ProfileUI{
         console.log(' ======cont======');
         console.log(cont);
         this.parentContainer.append(cont);
+    }
+    make_small_container(){
+        let cont=document.createElement('div');
+        let usernameTxt=document.createTextNode(list[i].username);
+        let username=document.createElement('h3');
+        let postsNo=document.createElement('p');
+        let postsNoTxt=document.createTextNode('2 new post');
+        let profilePictureLink=document.createElement('a');
+        let profilePicture=document.createElement('img');
+
+        let unfollowBtn=document.createElement('button');
+        let followBtn=document.createElement('button');
+        let unfollowBtnTxt=document.createTextNode('unfollow');
+        let followBtnTxt=document.createTextNode('follow');
+
+        let removeBtn=document.createElement('button');
+        let removeBtnTxt=document.createTextNode('*');
+
+        cont.setAttribute('id','');
+        cont.setAttribute('class','');
+        username.setAttribute('class','');
+        postsNo.setAttribute('class','');
+        profilePictureLink.setAttribute('class','');
+        profilePicture.setAttribute('class','');
+        followBtn.setAttribute('class','');
+
+        username.append(usernameTxt);
+        postsNo.append(postsNoTxt);
+        profilePictureLink.append(profilePicture);
+        unfollowBtn.append(unfollowBtnTxt);
+        followBtn.append(followBtnTxt);
+        removeBtn.append(removeBtnTxt);
+
+        cont.append(username);
+        cont.append(profilePictureLink);
+        cont.append(postsNo);
+        cont.append(unfollowBtn);
+        cont.append(followBtn);
+        cont.append(removeBtn);
+
+        return cont;
+
     }
     lazy_loading(){
         const observer = new IntersectionObserver((entries) => {

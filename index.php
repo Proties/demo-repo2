@@ -15,6 +15,7 @@ try{
     require_once 'php/ViewPostPool.php';
     require_once 'php/MostViewPostPool.php';
     require_once 'php/ProfilePool.php';
+    require_once 'php/profileRank.php';
 
 
     require_once 'php/FollowerDB.php';
@@ -101,6 +102,9 @@ switch($action){
     case '/login':
         include_once('php/login.php');
         break;
+     case '/search_page':
+        include_once('php/searchPage.php');
+        break;
     case '/profile':
         include_once('php/profile.php');
         break;
@@ -127,9 +131,6 @@ switch($action){
         break;
     case '/setup_profile':
         include_once('php/setupProfile.php');
-        break;
-    case '/test_payments':
-        include_once('Htmlfiles/dummyForm.html');
         break;
     default:
         include_once('php/homePage.php');

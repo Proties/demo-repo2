@@ -32,10 +32,11 @@ class BrowserSupportedFormats{
 	{
 
 	}
-	public function get_types($browsers):array
+	public function get_valid_types($browser):array
 	{
 
 	}
+
 	
 
 }

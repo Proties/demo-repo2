@@ -8,6 +8,7 @@ import TemplatePicker from './templateMain.js';
 import {Follow,UnFollow} from './follow.js';
 import VideoUI from './video.js';
 
+import {MobileGallery,DesktopGallery} from './imageGallery.js';
 
 let user=new MyProfile();
 let allData;
@@ -401,7 +402,7 @@ function openModal(evt) {
     console.log(evt.target.src);
     const source=evt.target.src;
     let postImageSrc=evt.target.src;
-    const patttern=/(.png|.gif)/;
+    const patttern=/(.png|.gif|.jpeg|.jpg)/;
    
 
     const modal = document.getElementById("postModal");
