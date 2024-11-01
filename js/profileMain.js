@@ -16,6 +16,33 @@ let temp=new TemplateUI();
 function delete_cookie(name){
     document.cookie = name+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
+window.addEventListener('error',function(error){
+    console.log(error);
+    console.log(error.error.message);
+    try{
+        let xml=new XMLHttpRequest();
+        xml.open('POST','/log');
+        xml.setRequestHeader('Content-Type','application/json');
+        let item={
+            message:error.error.message,
+            stack:error.error.stack,
+            filename:error.filename,
+            stack:error.error.srcElement,
+            stack:error.timeStamp,
+            lineno:error.lineno
+       
+        };
+        xml.send(JSON.stringify(item));
+        xml.onload=function(){
+            console.log('succesfull sent====');
+            console.log(this.responseText);
+        }
+        console.log('sent error log to server');
+    }catch(err){
+        console.log(err);
+    }
+    
+});
 function get_cookie(name){
     let data=document.cookie;
     let dec=decodeURIComponent(data);

@@ -5,7 +5,19 @@ class Gallery{
 		this._imageSize=0;
 		this._currentImage;
 		this._bigCont;
+		this._currentItem={
+				html:'',
+				index:0
 
+				};
+
+	}
+	set currentItem(data){
+		this._currentItem.html=data.html;
+		this._currentItem.index=data.index;
+	}
+	get currentItem(){
+		return this._currentItem;
 	}
 	set bigCont(s){
 		this._bigCont=s;
@@ -13,8 +25,11 @@ class Gallery{
 	get bigCont(){
 		return this._bigCont;
 	}
-	set currentImage(s){
-		this._currentImage=s;
+	set imageList(s){
+		this._imageList=s;
+	}
+	set currentImage(a){
+		this._currentImage=a;
 	}
 	get currentImage(){
 		return this._currentImage;
@@ -46,19 +61,144 @@ export class MobileGallery extends Gallery{
 		super();
 		
 	}
-	swipe_left(){
-		if(distanceX<=40){
 
-			let maxIndex=arr.length;
+	
 
-			if(i<=maxIndex){
+
+	eventHandling(){
+		const arr=[];
+	
+
+		let startx=0.0;
+		let starty=0.0;
+		const swipeThreshold=50;
+		const swipeTime=500;
+		let startTime;
+		let endx=0.0;
+		let endy=0.0;
+
+		arr.push(this.bigCont.getElementsByClassName('Primary-post')[0]);
+		arr.push(this.bigCont.getElementsByClassName('Secondary-post')[0]);
+		arr.push(this.bigCont.getElementsByClassName('Tertiary-post')[0]);
+		this.imageList=arr;
+		this.bigCont.getElementsByClassName('Primary-post')[0].addEventListener('touchstart',function(evt){
+			console.log('====touch strat====');
+		
+			startx=evt.touches[0].clientX;
+			starty=evt.touches[0].clientY;
+			startTime=new Date().getTime();
+
+		});
+		if(this.bigCont.getElementsByClassName('Secondary-post')[0]!==undefined){
+			this.bigCont.getElementsByClassName('Secondary-post')[0].addEventListener('touchstart',function(evt){
+				console.log('====touch strat====');
+	
+				startx=evt.touches[0].clientX;
+				starty=evt.touches[0].clientY;
+				startTime=new Date().getTime();
+			});
+		}
+		if(this.bigCont.getElementsByClassName('Tertiary-post')[0]!==undefined){
+			this.bigCont.getElementsByClassName('Tertiary-post')[0].addEventListener('touchstart',function(evt){
+				console.log('====touch strat====');
+			
+			startx=evt.touches[0].clientX;
+			starty=evt.touches[0].clientY;
+			startTime=new Date().getTime();
+			});
+		}
+		
+
+		this.bigCont.getElementsByClassName('Primary-post')[0].addEventListener('touchend',(evt)=>{
+			console.log('touch ====end');
+			endx=evt.changedTouches[0].clientX;
+			endy=evt.changedTouches[0].clientY;
+
+			const distanceX=Math.abs(endx-startx);
+			const distanceY=Math.abs(endy-starty);
+
+			const endTime=new Date().getTime();
+			const deltaTime=endTime-startTime;
+			const deltaX=endx-startx;
+			const deltaY=endy-starty;
+
+			console.log(distanceX);
+			if(deltaTime<swipeTime && Math.abs(deltaX)>Math.abs(deltaY) ){
+				if(deltaX>swipeThreshold){
+					this.swipe_right();
+				}else if(deltaX< swipeThreshold){
+					this.swipe_left();
+				}else{
+
+				}
 				
+			}
+		});
+		if(this.bigCont.getElementsByClassName('Secondary-post')[0]!==undefined){
+		this.bigCont.getElementsByClassName('Secondary-post')[0].addEventListener('touchend',(evt)=>{
+			console.log('touch ====end');
+			endx=evt.changedTouches[0].clientX;
+			endy=evt.changedTouches[0].clientY;
+
+			const distanceX=Math.abs(endx-startx);
+			const distanceY=Math.abs(endy-starty);
+
 			
-			//move the current image x px to the right
-			// change the zIndex of the current image 
-			// change the image below to  a higher zIndex
-			// all[i].style.display='none';
+			const endTime=new Date().getTime();
+			const deltaTime=endTime-startTime;
+			const deltaX=endx-startx;
+			const deltaY=endy-starty;
+
+			console.log(distanceX);
+			if(deltaTime<swipeTime && Math.abs(deltaX)>Math.abs(deltaY) ){
+				if(deltaX>swipeThreshold){
+					this.swipe_right();
+				}else if(deltaX< swipeThreshold){
+					this.swipe_left();
+				}else{
+
+				}
+				
+			}
+		});
+	}
+		if(this.bigCont.getElementsByClassName('Tertiary-post')[0]!==undefined){
+		this.bigCont.getElementsByClassName('Tertiary-post')[0].addEventListener('touchend',(evt)=>{
+			console.log('touch ====end');
+			endx=evt.changedTouches[0].clientX;
+			endy=evt.changedTouches[0].clientY;
+
+			const distanceX=Math.abs(endx-startx);
+			const distanceY=Math.abs(endy-starty);
+
 			
+			const endTime=new Date().getTime();
+			const deltaTime=endTime-startTime;
+			const deltaX=endx-startx;
+			const deltaY=endy-starty;
+
+			console.log(distanceX);
+			if(deltaTime<swipeTime && Math.abs(deltaX)>Math.abs(deltaY) ){
+				if(deltaX>swipeThreshold){
+					this.swipe_right();
+				}else if(deltaX< swipeThreshold){
+					this.swipe_left();
+				}else{
+
+				}
+				
+			}
+		});
+	}
+
+	
+	}
+swipe_left(){
+		let arr=this.imageList;
+		let i=0;
+		let maxIndex=arr.length;
+
+		if(i<=maxIndex){
 			console.log(arr[i]);
 			arr[i].style.transition='transform 0.5s ease-in-out';
 			arr[i+1].style.transition='transform 0.5s ease-in-out';
@@ -73,150 +213,42 @@ export class MobileGallery extends Gallery{
 				arr[i].style.transform='translateX(-40px)';
 				arr[i+1].style.transform='translateX(20px)';
 
-				arr[i].style.transform='translateY(-10px)';
-				arr[i+1].style.transform='translateY(-1px)';
+				arr[i].style.transform='translateY(30px)';
+				arr[i+1].style.transform='translateY(-40px)';
 				i++;
 			},500);
 				
+	
 		}
-	}
 	}
 	swipe_right(){
-		console.log('touch ====end');
-			endx=evt.changedTouches[0].clientX;
-			endy=evt.changedTouches[0].clientY;
+		let arr=this.imageList;
+		let i=0;
+		let maxIndex=arr.length;
 
-			const distanceX=Math.abs(endx-startx);
-			const distanceY=Math.abs(endy-starty);
+		if(i<=maxIndex){
 
-			console.log(distanceX);
-			if(distanceX>=40){
+			console.log(arr[i]);
+			arr[i].style.transition='transform 0.5s ease-in-out';
+			arr[i+1].style.transition='transform 0.5s ease-in-out';
+			arr[i].style.transform='translateX(-150px)';
+			arr[i+1].style.transform='translateX(100px)';
+			
 
-
-				
-				let maxIndex=arr.length;
-
-				if(i<=maxIndex){
-					
-				
-				//move the current image x px to the right
-				// change the zIndex of the current image 
-				// change the image below to  a higher zIndex
-				// all[i].style.display='none';
-				
-				console.log(arr[i]);
+			setTimeout(()=>{
+				arr[i].style.zIndex=20;
 				arr[i].style.transition='transform 0.5s ease-in-out';
 				arr[i+1].style.transition='transform 0.5s ease-in-out';
-				arr[i].style.transform='translateX(-150px)';
-				arr[i+1].style.transform='translateX(100px)';
-				
+				arr[i].style.transform='translateX(40px)';
+				arr[i+1].style.transform='translateX(-20px)';
 
-				setTimeout(()=>{
-					arr[i].style.zIndex=20;
-					arr[i].style.transition='transform 0.5s ease-in-out';
-					arr[i+1].style.transition='transform 0.5s ease-in-out';
-					arr[i].style.transform='translateX(40px)';
-					arr[i+1].style.transform='translateX(-20px)';
-
-					arr[i].style.transform='translateY(-10px)';
-					arr[i+1].style.transform='translateY(-1px)';
-					i++;
-				},500);
-				
-			}
-
+				arr[i].style.transform='translateY(60px)';
+				arr[i+1].style.transform='translateY(-40px)';
+				i++;
+			},500);
 			
-		}
+			}
 	}
-
-
-	eventHandling(){
-		let arr=[];
-		let i=0;
-
-		let startx=0.0;
-		let starty=0.0;
-
-		let endx=0.0;
-		let endy=0.0;
-
-		arr.push(this.bigCont.getElementsByClassName('Primary-post')[0]);
-		arr.push(this.bigCont.getElementsByClassName('Secondary-post')[0]);
-		arr.push(this.bigCont.getElementsByClassName('Tertiary-post')[0]);
-
-		this.bigCont.getElementsByClassName('Primary-post')[0].addEventListener('touchstart',function(evt){
-			startx=evt.touches[0].clientX;
-			starty=evt.touches[0].clientY;
-		});
-		if(this.bigCont.getElementsByClassName('Secondary-post')[0]!==undefined){
-			this.bigCont.getElementsByClassName('Secondary-post')[0].addEventListener('touchstart',function(evt){
-				startx=evt.touches[0].clientX;
-				starty=evt.touches[0].clientY;
-			});
-		}
-		if(this.bigCont.getElementsByClassName('Tertiary-post')[0]!==undefined){
-			this.bigCont.getElementsByClassName('Tertiary-post')[0].addEventListener('touchstart',function(evt){
-			startx=evt.touches[0].clientX;
-			starty=evt.touches[0].clientY;
-			});
-		}
-		
-
-		this.bigCont.getElementsByClassName('Primary-post')[0].addEventListener('touchend',function(evt){
-			console.log('touch ====end');
-			endx=evt.changedTouches[0].clientX;
-			endy=evt.changedTouches[0].clientY;
-
-			const distanceX=Math.abs(endx-startx);
-			const distanceY=Math.abs(endy-starty);
-
-			console.log(distanceX);
-			if(distanceX >=40){
-				this.swipe_right();
-			}
-			if(distanceX <=40){
-				this.swipe_left();
-			}
-		});
-		if(this.bigCont.getElementsByClassName('Secondary-post')[0]!==undefined){
-		this.bigCont.getElementsByClassName('Secondary-post')[0].addEventListener('touchend',function(evt){
-			console.log('touch ====end');
-			endx=evt.changedTouches[0].clientX;
-			endy=evt.changedTouches[0].clientY;
-
-			const distanceX=Math.abs(endx-startx);
-			const distanceY=Math.abs(endy-starty);
-
-			console.log(distanceX);
-			if(distanceX >=40){
-				this.swipe_right();
-			}
-			if(distanceX <=40){
-				this.swipe_left();
-			}
-		});
-	}
-		if(this.bigCont.getElementsByClassName('Tertiary-post')[0]!==undefined){
-		this.bigCont.getElementsByClassName('Tertiary-post')[0].addEventListener('touchend',function(evt){
-			console.log('touch ====end');
-			endx=evt.changedTouches[0].clientX;
-			endy=evt.changedTouches[0].clientY;
-
-			const distanceX=Math.abs(endx-startx);
-			const distanceY=Math.abs(endy-starty);
-
-			if(distanceX >=40){
-				this.swipe_right();
-			}
-			if(distanceX <=40){
-				this.swipe_left();
-			}
-		});
-	}
-
-	
-	}
-
 	
 
 }
