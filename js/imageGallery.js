@@ -76,10 +76,13 @@ export class MobileGallery extends Gallery{
 		let startTime;
 		let endx=0.0;
 		let endy=0.0;
-
+		
 		arr.push(this.bigCont.getElementsByClassName('Primary-post')[0]);
 		arr.push(this.bigCont.getElementsByClassName('Secondary-post')[0]);
 		arr.push(this.bigCont.getElementsByClassName('Tertiary-post')[0]);
+
+		this.currentItem.html=arr[arr.length];
+		this.currentItem.index=arr.length;
 		this.imageList=arr;
 		this.bigCont.getElementsByClassName('Primary-post')[0].addEventListener('touchstart',function(evt){
 			console.log('====touch strat====');
@@ -198,52 +201,57 @@ swipe_left(){
 		let i=0;
 		let maxIndex=arr.length;
 
-		if(i<=maxIndex){
+		if(i==0){
+			i=maxIndex;
+		}
 			console.log(arr[i]);
-			arr[i].style.transition='transform 0.5s ease-in-out';
-			arr[i+1].style.transition='transform 0.5s ease-in-out';
-			arr[i].style.transform='translateX(150px)';
-			arr[i+1].style.transform='translateX(-100px)';
+			this.currentItem.html
+			this.currentItem.html.style.transition='transform 0.5s ease-in-out';
+			this.currentItem.index-1.style.transition='transform 0.5s ease-in-out';
+			this.currentItem.html.style.transform='translateX(150px)';
+			this.currentItem.index-1.style.transform='translateX(-100px)';
 			
 
 			setTimeout(()=>{
-				arr[i].style.zIndex=20;
-				arr[i].style.transition='transform 0.5s ease-in-out';
-				arr[i+1].style.transition='transform 0.5s ease-in-out';
-				arr[i].style.transform='translateX(-40px)';
-				arr[i+1].style.transform='translateX(20px)';
+				this.currentItem.html.style.zIndex=20;
+				this.currentItem.html.style.transition='transform 0.5s ease-in-out';
+				this.currentItem.index-1.style.transition='transform 0.5s ease-in-out';
+				this.currentItem.html.style.transform='translateX(-40px)';
+				this.currentItem.index-1.style.transform='translateX(20px)';
 
-				arr[i].style.transform='translateY(30px)';
-				arr[i+1].style.transform='translateY(-40px)';
-				i++;
+				this.currentItem.html.style.transform='translateY(30px)';
+				this.currentItem.html.index-1.style.transform='translateY(-40px)';
+				i--;
 			},500);
 				
 	
-		}
+		
 	}
 	swipe_right(){
 		let arr=this.imageList;
 		let i=0;
 		let maxIndex=arr.length;
 
-		if(i<=maxIndex){
+		if(i==maxIndex){
+			i=0;
+		}
 
 			console.log(arr[i]);
-			arr[i].style.transition='transform 0.5s ease-in-out';
-			arr[i+1].style.transition='transform 0.5s ease-in-out';
-			arr[i].style.transform='translateX(-150px)';
-			arr[i+1].style.transform='translateX(100px)';
+			this.currentItem.html.style.transition='transform 0.5s ease-in-out';
+			this.currentItem.index+1.style.transition='transform 0.5s ease-in-out';
+			this.currentItem.html.style.transform='translateX(-150px)';
+			this.currentItem.index+1.style.transform='translateX(100px)';
 			
 
 			setTimeout(()=>{
-				arr[i].style.zIndex=20;
-				arr[i].style.transition='transform 0.5s ease-in-out';
-				arr[i+1].style.transition='transform 0.5s ease-in-out';
-				arr[i].style.transform='translateX(40px)';
-				arr[i+1].style.transform='translateX(-20px)';
+				this.currentItem.html.style.zIndex=20;
+				this.currentItem.html.style.transition='transform 0.5s ease-in-out';
+				this.currentItem.index+1.style.transition='transform 0.5s ease-in-out';
+				this.currentItem.html.style.transform='translateX(40px)';
+				this.currentItem.index+1.style.transform='translateX(-20px)';
 
-				arr[i].style.transform='translateY(60px)';
-				arr[i+1].style.transform='translateY(-40px)';
+				this.currentItem.html.style.transform='translateY(60px)';
+				this.currentItem.index+1.style.transform='translateY(-40px)';
 				i++;
 			},500);
 			
