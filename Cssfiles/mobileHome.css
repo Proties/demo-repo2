@@ -27,7 +27,7 @@ header {
     position: fixed;
     top: 0px;
     width: 100%;
-    min-height: 18%;
+    min-height: 10%;
   }
 
 nav {
@@ -42,11 +42,11 @@ margin-left: 40px;
 }
 
 .nav-left img {
-  width: 16vw;
+  width: 11vw;
     max-width: 85px;
     height: auto;
     cursor: pointer;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 /*
@@ -797,7 +797,7 @@ cursor: pointer;
 @media screen and (max-width: 869px) {
 .postfeed-wrapper {
 display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140%, 0fr));
+  grid-template-columns: repeat(auto-fit, minmax(125%, 0fr));
   overflow-y: hidden;
   overflow-x: hidden;
   justify-items: center; 
@@ -807,7 +807,7 @@ display: grid;
 @media screen and (max-width: 640px) {
   .postfeed-wrapper {
   display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(147%, 0fr));
+    grid-template-columns: repeat(auto-fit, minmax(128%, 0fr));
     overflow-y: hidden;
     overflow-x: hidden;
     justify-items: center; 
@@ -817,7 +817,7 @@ display: grid;
   @media screen and (max-width: 550px) {
     .postfeed-wrapper {
     display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(155%, 0fr));
+      grid-template-columns: repeat(auto-fit, minmax(135%, 0fr));
       overflow-y: hidden;
       overflow-x: hidden;
       justify-items: center; 
@@ -827,7 +827,7 @@ display: grid;
     @media screen and (max-width: 450px) {
       .postfeed-wrapper {
       display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(164%, 0fr));
+        grid-template-columns: repeat(auto-fit, minmax(140%, 0fr));
         overflow-y: hidden;
         overflow-x: hidden;
         justify-items: center; 
@@ -837,7 +837,7 @@ display: grid;
       @media screen and (max-width: 400px) {
         .postfeed-wrapper {
         display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(171%, 0fr));
+          grid-template-columns: repeat(auto-fit, minmax(145%, 0fr));
           overflow-y: hidden;
           overflow-x: hidden;
           justify-items: center; 
@@ -848,7 +848,7 @@ display: grid;
         @media screen and (max-width: 300px) {
           .postfeed-wrapper {
           display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(191%, 0fr));
+            grid-template-columns: repeat(auto-fit, minmax(155%, 0fr));
             overflow-y: hidden;
             overflow-x: hidden;
             justify-items: center; 

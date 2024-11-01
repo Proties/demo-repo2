@@ -38,11 +38,15 @@ top: 0;
 
 .nav-left {
   margin-left: 40px;
-}
-
-.nav-left img {
-    width: 70px;
-}
+  }
+  
+  .nav-left img {
+    width: 11vw;
+      max-width: 85px;
+      height: auto;
+      cursor: pointer;
+      margin-top: 20px;
+  }
 
 .nav-right {
   display: flex;
