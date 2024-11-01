@@ -154,6 +154,12 @@ function clear_posts(){
 window.addEventListener('error',function(error){
     console.log(error);
     console.log(error.error.message);
+    const t=new Date();
+    const time=t.getTime();
+    const date=t.getDate();
+    const id=0;
+    const browser=navigator.userAgent;
+ 
     try{
         let xml=new XMLHttpRequest();
         xml.open('POST','/log');
@@ -164,7 +170,11 @@ window.addEventListener('error',function(error){
             filename:error.filename,
             stack:error.error.srcElement,
             stack:error.timeStamp,
-            lineno:error.lineno
+            lineno:error.lineno,
+            date:date,
+            time:time,
+            userID:id,
+            device:browser
        
         };
         xml.send(JSON.stringify(item));

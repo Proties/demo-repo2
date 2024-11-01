@@ -287,7 +287,52 @@ class UserDB extends Database{
             return $err;;
         }
     }
-}
+    public function add_profile_view($date,$time,$link){
+        try{
+            $db=$this->db;
+            $query='
+                    INSERT INTO ProfileViews(userID,profileLink,dateVisited,timeVisited)
+                    VALUES(:userID,:link,:dateV,:timeV);
+            ';
+            $stmt=$db->prepare($query);
+            $stmt->bindValue(':userID',$this->user->get_id());
+            $stmt->bindValue(':link',$link);
+            $stmt->bindValue(':dateV',$date);
+            $stmt->bindValue(':timeV',$time);
+            $stmt->execute();
+        }catch(PDOException $err){
+            return $err;
+        }
+    }
+    public function get_profiles(){
+        try{
+            $db=$this->db;
+            $query='
+                SELECT newPosts,followingStatus,username,profilePicture,userID FROM Users u 
+                HiddenProfiles
+                ';
 
+            $stmt=$db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchall();
+    }catch(PDOException $err){
+        return $err;
+    }
+}
+    public function add_hidden_profile(){
+        try{
+            $db=$this->db;
+            $query='
+                INSERT INTO HiddenProfiles(profileID,userID,dateMade)
+                VALUES(:profile,:userID,:dateM);
+            ';
+            $stmt=$db->prepare($query);
+            $stmt->execute();
+
+    }catch(PDOException $err){
+        return $err;
+    }
+
+}
 
 ?>

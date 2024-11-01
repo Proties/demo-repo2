@@ -375,15 +375,16 @@ export class OtherProfile extends ProfileUI{
         let followBtnTxt=document.createTextNode('follow');
 
         let removeBtn=document.createElement('button');
-        let removeBtnTxt=document.createTextNode('*');
+        let removeBtnTxt=document.createTextNode('&times;');
 
         cont.setAttribute('id','');
-        cont.setAttribute('class','');
-        username.setAttribute('class','');
-        postsNo.setAttribute('class','');
+        cont.setAttribute('class','post-item');
+        username.setAttribute('class','user-name-p');
+        postsNo.setAttribute('class','post-count');
         profilePictureLink.setAttribute('class','');
-        profilePicture.setAttribute('class','');
-        followBtn.setAttribute('class','');
+        profilePicture.setAttribute('class','user-icon-p');
+        followBtn.setAttribute('class','follow-btn');
+        removeBtn.setAttribute('class','close-icon');
 
         username.append(usernameTxt);
         postsNo.append(postsNoTxt);

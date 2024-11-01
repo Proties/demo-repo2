@@ -67,6 +67,10 @@ else if($u->validate_username_url($f_txt)==true ){
         $author=new Users();
         $author->set_username($link);
         $authorDB=new UserDB($author);
+        $date=date('Y:m:d');
+        $time=date('H:i');
+        $link=$f_txt;
+        $authorDB->add_profile_view($date,$time,$link);
         $authorDB->get_posts_with_username();
  
         $data['user']=array('username'=>$authorDB->user->get_username(),'userProfilePicture'=>$authorDB->user->get_profilePicture(),

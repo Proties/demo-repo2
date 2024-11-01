@@ -200,27 +200,28 @@ swipe_left(){
 		let arr=this.imageList;
 		let i=0;
 		let maxIndex=arr.length;
-
-		if(i==0){
-			i=maxIndex;
+		let currentIndex=0;
+		if(this.currentItem.index==0){
+			currentIndex=maxIndex;
 		}
 			console.log(arr[i]);
-			this.currentItem.html
-			this.currentItem.html.style.transition='transform 0.5s ease-in-out';
-			this.currentItem.index-1.style.transition='transform 0.5s ease-in-out';
-			this.currentItem.html.style.transform='translateX(150px)';
-			this.currentItem.index-1.style.transform='translateX(-100px)';
+	
+			arr[this.currentItem.index].style.transition='transform 0.5s ease-in-out';
+			arr[currentIndex-1].style.transition='transform 0.5s ease-in-out';
+			arr[this.currentItem.index].style.transform='translateX(150px)';
+			arr[currentIndex-1].style.transform='translateX(-100px)';
 			
 
 			setTimeout(()=>{
-				this.currentItem.html.style.zIndex=20;
-				this.currentItem.html.style.transition='transform 0.5s ease-in-out';
-				this.currentItem.index-1.style.transition='transform 0.5s ease-in-out';
-				this.currentItem.html.style.transform='translateX(-40px)';
-				this.currentItem.index-1.style.transform='translateX(20px)';
+				arr[this.currentItem.index].style.zIndex=20;
+				arr[this.currentItem.index].style.transition='transform 0.5s ease-in-out';
+				arr[currentIndex-1].style.transition='transform 0.5s ease-in-out';
+				arr[this.currentItem.index].style.transform='translateX(-40px)';
+				arr[this.currentItem.index-1].style.transform='translateX(20px)';
 
-				this.currentItem.html.style.transform='translateY(30px)';
-				this.currentItem.html.index-1.style.transform='translateY(-40px)';
+				arr[this.currentItem.index].style.transform='translateY(30px)';
+				arr[currentIndex-1].style.transform='translateY(-40px)';
+				this.currentItem.index=currentIndex;
 				i--;
 			},500);
 				
@@ -231,32 +232,34 @@ swipe_left(){
 		let arr=this.imageList;
 		let i=0;
 		let maxIndex=arr.length;
+		let currentIndex=0;
 
-		if(i==maxIndex){
-			i=0;
+		if(this.currentItem.index==maxIndex){
+			currentIndex=0;
 		}
 
 			console.log(arr[i]);
-			this.currentItem.html.style.transition='transform 0.5s ease-in-out';
-			this.currentItem.index+1.style.transition='transform 0.5s ease-in-out';
-			this.currentItem.html.style.transform='translateX(-150px)';
-			this.currentItem.index+1.style.transform='translateX(100px)';
+			arr[this.currentItem.index].style.transition='transform 0.5s ease-in-out';
+			arr[currentIndex+1].style.transition='transform 0.5s ease-in-out';
+			arr[this.currentItem.index].transform='translateX(-150px)';
+			arr[currentIndex+1].style.transform='translateX(100px)';
 			
 
 			setTimeout(()=>{
-				this.currentItem.html.style.zIndex=20;
-				this.currentItem.html.style.transition='transform 0.5s ease-in-out';
-				this.currentItem.index+1.style.transition='transform 0.5s ease-in-out';
-				this.currentItem.html.style.transform='translateX(40px)';
-				this.currentItem.index+1.style.transform='translateX(-20px)';
+				arr[this.currentItem.index].style.zIndex=20;
+				arr[this.currentItem.index].style.transition='transform 0.5s ease-in-out';
+				arr[currentIndex+1].style.transition='transform 0.5s ease-in-out';
+				arr[this.currentItem.index].style.transform='translateX(40px)';
+				arr[currentIndex+1].style.transform='translateX(-20px)';
 
-				this.currentItem.html.style.transform='translateY(60px)';
-				this.currentItem.index+1.style.transform='translateY(-40px)';
+				arr[this.currentItem.index].style.transform='translateY(60px)';
+				arr[currentIndex+1].style.transform='translateY(-40px)';
 				i++;
+				this.currentItem.index=currentIndex;
 			},500);
 			
 			}
-	}
+	
 	
 
 }

@@ -3,21 +3,31 @@ import {MyProfile,OtherProfile} from './profile.js';
 import {Follow,UnFollow} from './follow.js';
 
 let user=new MyProfile();
-
+console.log('=======working');
 window.addEventListener('error',function(error){
     console.log(error);
     console.log(error.error.message);
+    const t=new Date();
+    const time=t.getTime();
+    const date=t.getDate();
+    const id=0;
+    const browser=navigator.userAgent;
+ 
     try{
         let xml=new XMLHttpRequest();
         xml.open('POST','/log');
         xml.setRequestHeader('Content-Type','application/json');
         let item={
-            message:error.error.message,
+             message:error.error.message,
             stack:error.error.stack,
             filename:error.filename,
             stack:error.error.srcElement,
             stack:error.timeStamp,
-            lineno:error.lineno
+            lineno:error.lineno,
+            date:date,
+            time:time,
+            userID:id,
+            device:browser
        
         };
         xml.send(JSON.stringify(item));
@@ -65,9 +75,7 @@ function get_user_info(){
 
 	
 }
-function is_subcriprion_on(){
 
-}
 function clear_search_bar(){
 	document.getElementById('').innerHTML='';
 }
@@ -76,19 +84,20 @@ function populate_recent_profiles(){
 	if(list==undefined){
 		return;
 	}
+	console.log('===== recent profiles');
 	let len=list.length;
 	for(let i=0;i<len;i++){
 		let other=new OtherProfile();
-		other.id;
-		other.src;
-		other.username;
-		other.newPosts;
-		other.followStatus;
+		other.id=list[i].userID;
+		other.src=list[i].src;
+		other.username=list[i].username;
+		other.newPosts=list[i].newPosts;
+		other.followStatus=list[i].followStatus;
 		let cont=other.make_small_container();
 		other.removeBtn.addEventListner('click',remove_profile);
 		other.followBtn.addEventListner('click',follow_user);
 		other.unfollowBtn.addEventListner('click',unfollow_user);
-		document.getElementById('').append(cont);
+		document.getElementById('recent-posts').append(cont);
 	}
 }
 function populate_popular_profiles(){
@@ -96,39 +105,48 @@ function populate_popular_profiles(){
 	if(list==undefined){
 		return;
 	}
+	console.log('===== popular profiles');
 	let len=list.length;
 	for(let i=0;i<len;i++){
 		let other=new OtherProfile();
-		other.id;
-		other.src;
-		other.username;
-		other.newPosts;
-		other.followStatus;
+		other.id=list[i].userID;
+		other.src=list[i].src;
+		other.username=list[i].username;
+		other.newPosts=list[i].newPosts;
+		other.followStatus=list[i].followStatus;
+		other.cont.setAttribute('class','follow-item-'+i);
+		other.profilePicture.setAttribute('class','user-icon');
+		other.followBtn.setAttribute('class','who-follow-btn');
+		
+
 		let cont=other.make_small_container();
 		other.removeBtn.addEventListner('click',remove_profile);
 		other.followBtn.addEventListner('click',follow_user);
 		other.unfollowBtn.addEventListner('click',unfollow_user);
-		document.getElementById('').append(cont);
+		document.getElementById('who-to-follow').append(cont);
 	}
 }
+function addEventListeners(){
+	let submit=document.getElementById('searchBtn');
+	submit.addEventListner('click',function(evt){
+		let input=document.getElementById('search').innerHTML;
+		try{
+			let xml=new XMLHttpRequest();
+			xml.open();
+			xml.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+			xml.onload=function(){
+				console.log('get search results====');
+				console.log(this.responseText);
+				let data=JSON.parse(this.responseText);
+				console.log(data.results);
+			}
+			xml.send();
 
-function close_search_modal(){
-
+		}catch(err){
+			console.log(err);
+		}
+	});
 }
-function follow_user(evt){
-
-}
-function unfollow_user(evt){
-
-}
-function remove_profile(evt){
-
-}
-
-function addEventListners(){
-	let leftScroll;
-	let rightScroll;
-	let submitSearch;
-
-}
-addEventListners();
+addEventListeners();
+populate_recent_profiles();
+populate_popular_profiles();
