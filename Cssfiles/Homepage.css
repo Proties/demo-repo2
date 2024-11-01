@@ -838,7 +838,42 @@ transform: scale(1.10);
   transform: scale(1.10);
 }
 
+/* Swipe buttons*/
 
+.secondary-swap-buttons {
+  position: relative;
+  bottom: 125px;
+  z-index: 7;
+  left: 285px;
+}
+
+.swipe-left{
+  width: 5%;
+  margin-right: 40px;
+  transition: 0.9s ease;
+  cursor: pointer;
+}
+
+.swipe-right{
+  width: 5%;
+    transition: 0.9s ease;
+    cursor: pointer;
+  }
+
+.swipe-right:hover{
+  transform: scale(1.10);
+}
+
+.swipe-left:hover{
+  transform: scale(1.10);
+}
+
+.tertiary-swap-buttons {
+  position: relative;
+  bottom: 288px;
+  z-index: 7;
+  left: 287px;
+}
 
 /* Register CSS */
 

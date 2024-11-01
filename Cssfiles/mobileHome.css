@@ -466,6 +466,22 @@ display: none;
   }
    }
 
+   .secondary-swap-buttons {
+    display: none;
+    position: relative;
+    bottom: 125px;
+    z-index: 7;
+    left: 285px;
+  }
+
+   .tertiary-swap-buttons {
+    display: none;
+    position: relative;
+    bottom: 288px;
+    z-index: 7;
+    left: 287px;
+  }
+
 
 
 /* Challenge-containter table*/
