@@ -12,16 +12,113 @@
     <title>Nerstia Home</title>
     <link rel="stylesheet" type="text/css" href="/Cssfiles/Searchmobile.css" />
   </head>
+
+  
   <body>
-    <nav></nav>
-    <div></div>
-    <div></div>
-    <div></div>
+    <header>
+      <nav>
+        <div class="nav-left">
+          <a href="/profile" class="profile-link">
+            <img src="Image/Test Account.png" alt="profile-link"
+          /></a>
+      </div>
+        <div class="nav-center">
+          <input type="text" placeholder="Search" id="search" />
+          <ul id="suggestion-list"></ul>
+          <button class="search-button" id="searchBtn">
+            <img src="/Image/Search.png" alt="Search" />
+          </button>
+        </div>
+        </div>
+      </nav>
+    </header>
+
+  <!-- Recent Posts Section -->
+  <section class="recent-posts">
+    <h2>Recent Posts</h2>
+    <div class="post-list">
+      <div class="post-item">
+        <div class="user-icon-p"></div>
+        <div class="user-info">
+          <p class="user-name-p">User</p>
+          <p class="post-count">2 New Posts</p>
+        </div>
+        <button class="follow-btn">FOLLOW</button>
+        <span class="close-icon">&times;</span>
+      </div>
+      <div class="post-item">
+        <div class="user-icon-p"></div>
+        <div class="user-info">
+          <p class="user-name-p">User</p>
+          <p class="post-count">2 New Posts</p>
+        </div>
+        <button class="follow-btn">FOLLOW</button>
+        <span class="close-icon">&times;</span>
+      </div>
+      <!-- Add more post items as needed -->
+    </div>
+  </section>
+
+  <!-- Premium Experience Section -->
+  <section class="premium-experience">
+    <div class="features">
+      <h2>Unlock Your Premium Experience</h2>
+    <p>Gain access to our premium features to have a premium experience.</p>
+    </div>    
+    <div class="features-box">
+      <h3>Feature:</h3>
+      <ul>
+        <li>Get Custom Templates</li>
+        <li>Stack your posts</li>
+        <li>Upload HD Images</li>
+        <li>Upload HD Videos</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Who to Follow Section -->
+  <section class="who-to-follow">
+    <h2>Who to follow</h2>
+    <div class="follow-list">
+      <div class="follow-item-1">
+        <div class="user-icon"></div>
+        <p class="user-name">User</p>
+        <button class="who-follow-btn">FOLLOW</button>
+        <span class="close-icon">&times;</span>
+      </div>
+
+      <div class="follow-item-2">
+        <div class="user-icon"></div>
+        <p class="user-name">User</p>
+        <button class="who-follow-btn">FOLLOW</button>
+        <span class="close-icon">&times;</span>
+      </div>
+
+      <div class="follow-item-3">
+        <div class="user-icon"></div>
+        <p class="user-name">User</p>
+        <button class="who-follow-btn">FOLLOW</button>
+        <span class="close-icon">&times;</span>
+      </div>
+
+      <div class="follow-item-4">
+        <div class="user-icon"></div>
+        <p class="user-name">User</p>
+        <button class="who-follow-btn">FOLLOW</button>
+        <span class="close-icon">&times;</span>
+      </div>
+    </div>
+  </section>
+
     <div class="navbottom">
       <div class="bottom-left">
-        <a href='/'><img src="/Image/Home.png" alt="home" class="home" /></a>
-        <a href='/'><img src="/Image/bottom-Search.png" alt="search" class="search" /></a>
-        <a href='/'><img src="/Image/Pressme.png" alt="pressme" class="pressme" /></a>
+        <a href="/"><img src="/Image/Home.png" alt="home" class="home" /></a>
+        <a href="/search_page"
+          ><img src="/Image/bottom-Search.png" alt="search" class="search"
+        /></a>
+        <a href="/subscribe_to_premiunm"
+          ><img src="/Image/Pressme.png" alt="pressme" class="pressme"
+        /></a>
       </div>
     </div>
     <script type="text/javascript" js="js/mobileSearchPage.js"></script>

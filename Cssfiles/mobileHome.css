@@ -466,22 +466,22 @@ display: none;
   }
    }
 
+
    .secondary-swap-buttons {
-    display: none;
     position: relative;
     bottom: 125px;
     z-index: 7;
     left: 285px;
+    display: none;
   }
 
-   .tertiary-swap-buttons {
-    display: none;
+  .tertiary-swap-buttons {
     position: relative;
     bottom: 288px;
     z-index: 7;
     left: 287px;
+    display: none;
   }
-
 
 
 /* Challenge-containter table*/
@@ -721,7 +721,7 @@ display: flex;
   height: 70%;
   align-items: center;
   padding-top: 100px;
-  margin-bottom: 80px;
+  margin-bottom: 75px;
 }
 
 .post-container-secondary {
@@ -776,7 +776,7 @@ cursor: pointer;
   transition: transform 0.5s ease-in-out;
     position: relative;
     left: 17px;
-    bottom: 65px;
+    bottom: 115px;
     z-index: 2;
     cursor: pointer;
 }
@@ -784,8 +784,8 @@ cursor: pointer;
 .Tertiary-post {
   transition: transform 0.5s ease-in-out;
     position: relative;
-    left: 35px;
-    bottom: 157px;
+    left: 41px;
+    bottom: 258px;
     z-index: 2;
     cursor: pointer;
 }
