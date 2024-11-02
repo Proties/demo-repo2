@@ -433,7 +433,7 @@ function addEventListeners(){
     let open_window=document.getElementsByClassName('upload-button')[0];
     let closeTemplateWindow=document.getElementById('closepicktemplate');
     let followUser=document.getElementById('followBtn');
-    let settings=document.getElementById('settingsBtn');
+    let settings=document.getElementsByClassName('settings-button')[0];
     let closeSettings=document.getElementById('closeEditProfile');
     
     closeSettings.addEventListener('click',function(evt){

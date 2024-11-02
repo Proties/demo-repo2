@@ -58,19 +58,24 @@ if($f_txt==='/profile'){
    setcookie('myprofile',json_encode($personal), time() + (86400 * 30), '/'); 
 }
 else if($u->validate_username_url($f_txt)==true ){
-    setcookie('myprofile','', time() - (86400 * 30), '/'); 
+    
     try{
         $txt=substr($f_txt,2);
         $link=$txt;
         $data=[];
         $userPosts=array();
         $author=new Users();
+
         $author->set_username($link);
         $authorDB=new UserDB($author);
         $date=date('Y:m:d');
         $time=date('H:i');
         $link=$f_txt;
-        $authorDB->add_profile_view($date,$time,$link);
+        if(isset($_SESSION['userID'])){
+            $authorDB->user->set_id($_SESSION['userID']);
+            $authorDB->add_profile_view($date,$time,$link);
+        }
+        
         $authorDB->get_posts_with_username();
  
         $data['user']=array('username'=>$authorDB->user->get_username(),'userProfilePicture'=>$authorDB->user->get_profilePicture(),

@@ -123,6 +123,7 @@ export class PostUI extends Post{
         con.setAttribute('class','posts-container');
         con.setAttribute('id',this.id);
         img.setAttribute('src',this.src);
+        img.setAttribute('class','post-image');
         con.append(img);
         this.parentContainer.append(con);
 	}
@@ -136,6 +137,7 @@ export class PostUI extends Post{
         video.style.marginTop='1em';
         video.setAttribute('width','60%');
         video.setAttribute('height','60%');
+        video.setAttribute('class','post-image');
         video.setAttribute('controls',true);
         con.append(video);
         this.parentContainer.append(con);
