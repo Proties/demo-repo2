@@ -446,16 +446,45 @@ export class OtherProfile extends ProfileUI{
 
     }
     remove_profile(evt){
-        // const element=evt.target.parentNode;
-        const element=this.cont;
-        element.remove();
+        try{
+            let xml=new XMLHttpRequest();
+            xml.open('POST','/search_page');
+            xml.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            xml.send('actions=remove_profile');
+             // const element=evt.target.parentNode;
+            const element=this.cont;
+            element.remove();
+        }catch(err){
+            console.log('error');
+        }
+       
 
     }
     follow_user(evt){
-
+        try{
+            let xml=new XMLHttpRequest();
+            xml.open('POST','/search_page');
+            xml.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            xml.send('actions=follow_user');
+             // const element=evt.target.parentNode;
+            const element=this.cont;
+            element.remove();
+        }catch(err){
+            console.log('error');
+        }
     }
     unfollow_user(evt){
-
+        try{
+            let xml=new XMLHttpRequest();
+            xml.open('POST','/search_page');
+            xml.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            xml.send('actions=unfollow_user');
+             // const element=evt.target.parentNode;
+            const element=this.cont;
+            element.remove();
+        }catch(err){
+            console.log('error');
+        }
     }
     lazy_loading(){
         const observer = new IntersectionObserver((entries) => {
