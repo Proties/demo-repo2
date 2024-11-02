@@ -138,16 +138,16 @@ function populate_popular_profiles(){
 function addEventListeners(){
 	let submit=document.getElementById('searchBtn');
 	const input=document.getElementById('search');
-	const donation=document.getElementById('donation');
+	// const donation=document.getElementById('donation');
 	
 
-	donation.addEventListener('click',function(evt){
-		document.getElementById('donationModal').style.display='block';
-		const closeModal=donation.getElementsByClassName('close-icon')[0];
-		closeModal.addEventListener('click',function(evt){
-		document.getElementById('donationModal').style.display='none';
-	});
-	});
+	// donation.addEventListener('click',function(evt){
+	// 	document.getElementById('donationModal').style.display='block';
+	// 	const closeModal=donation.getElementsByClassName('close-icon')[0];
+	// 	closeModal.addEventListener('click',function(evt){
+	// 	document.getElementById('donationModal').style.display='none';
+	// });
+	// });
 	
 	input.addEventListener('change',search_user);
 
