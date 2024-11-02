@@ -29,7 +29,7 @@ try{
 			['username'=>'pal','userID'=>32,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>true,'newPosts'=>2],
 			['username'=>'singer','userID'=>12,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>false,'newPosts'=>1]];
 
-	setcookie('popularProfiles',json_encode($dataTwo),time()+(10*30),'/');
+	setcookie('popularProfiles',json_encode($dataTwo),time()+(100*300),'/');
 	// }
 
 
@@ -39,7 +39,7 @@ try{
 			['username'=>'pal','newPosts'=>1,'userID'=>32,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>true],
 			['username'=>'singer','newPosts'=>1,'userID'=>12,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>false]];
 
-	setcookie('recentSearches',json_encode($data),time()+(10*30),'/');
+	setcookie('recentSearches',json_encode($data),time()+(100*300),'/');
 	// }
 		include_once('Htmlfiles/Searchmobile.html');
 		return;

@@ -131,13 +131,19 @@ function populate_popular_profiles(){
 		other.removeBtn.addEventListener('click',other.remove_popular_profile);
 		other.followBtn.setAttribute('class','who-follow-btn');
 		other.followBtn.addEventListener('click',other.follow_user);
-		
+
 		document.getElementById('who-to-follow').append(cont);
 	}
 }
 function addEventListeners(){
 	let submit=document.getElementById('searchBtn');
 	const input=document.getElementById('search');
+	// const donation=document.getElementById('donation');
+	// const closeModal=document.getElementById('closeModal');
+
+	// donation.addEventListener('click',function(evt){
+	// 	document.getElementById('donationModal').style.display='block';
+	// });
 	input.addEventListener('change',search_user);
 
 	submit.addEventListener('click',function(evt){
