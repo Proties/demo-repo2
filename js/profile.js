@@ -82,13 +82,41 @@ export class OtherProfile extends ProfileUI{
       
         this._data;
         this._cont;
+        this._bigcont;
         this._follow=new Follow();
         this._unfollow=new UnFollow();
-
+        this._newPosts=0;
         this._followBtn;
         this._unfollowBtn;
+        this._removeBtn;
+        this._profilePicture;
+        this._followingStatus;
 
        
+    }
+    set followingStatus(i){
+        this._followingStatus=i;
+    }
+    get followingStatus(){
+        return this._followingStatus;
+    }
+    set newPosts(i){
+        this._newPosts=i;
+    }
+    get newPosts(){
+        return this._newPosts;
+    }
+    set profilePicture(i){
+        this._profilePicture=i;
+    }
+    get profilePicture(){
+        return this._profilePicture;
+    }
+    set removeBtn(i){
+        this._removeBtn=i;
+    }
+    get removeBtn(){
+        return this._removeBtn;
     }
     set followBtn(i){
         this._followBtn=i;
@@ -121,6 +149,12 @@ export class OtherProfile extends ProfileUI{
     }
     get cont(){
         return this._cont;
+    }
+    set bigCont(i){
+        this._bigcont=i;
+    }
+    get bigCont(){
+        return this._bigcont;
     }
      make_posts(){
         if (this.data.posts.length>1) {
@@ -242,7 +276,7 @@ export class OtherProfile extends ProfileUI{
                     source.setAttribute('src',this.data.posts[ss].videoFilePath+''+this.data.posts[ss].VideoFileName);
                     vid.setAttribute('class','post-image');
                     vid.setAttribute('loading','lazy');
-                    vid.style.width='20em';
+                   
                     vid.setAttribute('controls','true');
                     vid.append(source);
                     shareCont.append(shareImage);
@@ -273,8 +307,8 @@ export class OtherProfile extends ProfileUI{
                 shareCont.setAttribute('class','share-button');
                 shareImage.setAttribute('src','/Image/Share.png');
                 im.setAttribute('controls','true');
-                im.setAttribute('width','90%');
-                im.setAttribute('height','75%');
+                
+                
                 
                 shareCont.append(shareImage);
                 
@@ -350,14 +384,16 @@ export class OtherProfile extends ProfileUI{
         cont.append(contFour);
         console.log(' ======cont======');
         console.log(cont);
+        this.bigCont=cont;
         this.parentContainer.append(cont);
     }
     make_small_container(){
         let cont=document.createElement('div');
-        let usernameTxt=document.createTextNode(list[i].username);
+        let userInfo=document.createElement('div');
+        let usernameTxt=document.createTextNode(this.username);
         let username=document.createElement('h3');
         let postsNo=document.createElement('p');
-        let postsNoTxt=document.createTextNode('2 new post');
+        let postsNoTxt=document.createTextNode(this.newPosts+' new posts');
         let profilePictureLink=document.createElement('a');
         let profilePicture=document.createElement('img');
 
@@ -366,16 +402,19 @@ export class OtherProfile extends ProfileUI{
         let unfollowBtnTxt=document.createTextNode('unfollow');
         let followBtnTxt=document.createTextNode('follow');
 
-        let removeBtn=document.createElement('button');
-        let removeBtnTxt=document.createTextNode('*');
+        let removeBtn=document.createElement('span');
+        let removeBtnTxt=document.createTextNode('&times;');
 
-        cont.setAttribute('id','');
-        cont.setAttribute('class','');
-        username.setAttribute('class','');
-        postsNo.setAttribute('class','');
-        profilePictureLink.setAttribute('class','');
-        profilePicture.setAttribute('class','');
-        followBtn.setAttribute('class','');
+        cont.setAttribute('id',this.id);
+        userInfo.setAttribute('class','user-info');
+        cont.setAttribute('class','post-item');
+        username.setAttribute('class','user-name-p');
+        postsNo.setAttribute('class','post-count');
+        profilePictureLink.setAttribute('href','/@'+this.username);
+        profilePicture.setAttribute('class','user-icon-p');
+        profilePicture.setAttribute('src',this.src);
+        followBtn.setAttribute('class','follow-btn');
+        removeBtn.setAttribute('class','close-icon');
 
         username.append(usernameTxt);
         postsNo.append(postsNoTxt);
@@ -384,15 +423,68 @@ export class OtherProfile extends ProfileUI{
         followBtn.append(followBtnTxt);
         removeBtn.append(removeBtnTxt);
 
-        cont.append(username);
+        userInfo.append(username);
         cont.append(profilePictureLink);
-        cont.append(postsNo);
-        cont.append(unfollowBtn);
+        userInfo.append(postsNo);
+        cont.append(userInfo);
+        if(this.followingStatus==true){
+          cont.append(unfollowBtn);
+          this.unfollowBtn=unfollowBtn;
+        }else{
+            cont.append(followBtn);
+            this.followBtn=followBtn;
+        }
+        
         cont.append(followBtn);
         cont.append(removeBtn);
-
+        this.profilePicture=profilePicture;
+        this.cont=cont;
+        this.removeBtn=removeBtn;
+        
+        
         return cont;
 
+    }
+    remove_profile(evt){
+        try{
+            let xml=new XMLHttpRequest();
+            xml.open('POST','/search_page');
+            xml.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            xml.send('actions=remove_profile');
+             // const element=evt.target.parentNode;
+            const element=this.cont;
+            element.remove();
+        }catch(err){
+            console.log('error');
+        }
+       
+
+    }
+    follow_user(evt){
+        try{
+            let xml=new XMLHttpRequest();
+            xml.open('POST','/search_page');
+            xml.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            xml.send('actions=follow_user');
+             // const element=evt.target.parentNode;
+            const element=this.cont;
+            element.remove();
+        }catch(err){
+            console.log('error');
+        }
+    }
+    unfollow_user(evt){
+        try{
+            let xml=new XMLHttpRequest();
+            xml.open('POST','/search_page');
+            xml.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            xml.send('actions=unfollow_user');
+             // const element=evt.target.parentNode;
+            const element=this.cont;
+            element.remove();
+        }catch(err){
+            console.log('error');
+        }
     }
     lazy_loading(){
         const observer = new IntersectionObserver((entries) => {

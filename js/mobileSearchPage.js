@@ -3,7 +3,44 @@ import {MyProfile,OtherProfile} from './profile.js';
 import {Follow,UnFollow} from './follow.js';
 
 let user=new MyProfile();
-
+console.log('=======working');
+window.addEventListener('error',function(error){
+    console.log(error);
+    console.log(error.error.message);
+    const t=new Date();
+    const time=t.getTime();
+    const date=t.getDate();
+    const id=0;
+    const browser=navigator.userAgent;
+ 
+    try{
+        let xml=new XMLHttpRequest();
+        xml.open('POST','/log');
+        xml.setRequestHeader('Content-Type','application/json');
+        let item={
+             message:error.error.message,
+            stack:error.error.stack,
+            filename:error.filename,
+            stack:error.error.srcElement,
+            stack:error.timeStamp,
+            lineno:error.lineno,
+            date:date,
+            time:time,
+            userID:id,
+            device:browser
+       
+        };
+        xml.send(JSON.stringify(item));
+        xml.onload=function(){
+            console.log('succesfull sent====');
+            console.log(this.responseText);
+        }
+        console.log('sent error log to server');
+    }catch(err){
+        console.log(err);
+    }
+    
+});
 function delete_cookie(name){
     document.cookie = name+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
@@ -38,9 +75,7 @@ function get_user_info(){
 
 	
 }
-function is_subcriprion_on(){
 
-}
 function clear_search_bar(){
 	document.getElementById('').innerHTML='';
 }
@@ -49,19 +84,25 @@ function populate_recent_profiles(){
 	if(list==undefined){
 		return;
 	}
+	console.log('===== recent profiles');
 	let len=list.length;
 	for(let i=0;i<len;i++){
 		let other=new OtherProfile();
-		other.id;
-		other.src;
-		other.username;
-		other.newPosts;
-		other.followStatus;
+		other.id=list[i].userID;
+		other.src=list[i].profilePicture;
+		other.username=list[i].username;
+		other.newPosts=list[i].newPosts;
+		other.followStatus=list[i].followStatus;
 		let cont=other.make_small_container();
-		other.removeBtn.addEventListner('click',remove_profile);
-		other.followBtn.addEventListner('click',follow_user);
-		other.unfollowBtn.addEventListner('click',unfollow_user);
-		document.getElementById('').append(cont);
+		other.removeBtn.addEventListener('click',other.remove_profile);
+		if(list[i].followStatus==true){
+			other.unfollowBtn.addEventListener('click',other.unfollow_user);
+		}else{
+			other.followBtn.addEventListener('click',other.follow_user);
+		}
+		
+		
+		document.getElementById('recent-posts').append(cont);
 	}
 }
 function populate_popular_profiles(){
@@ -69,39 +110,117 @@ function populate_popular_profiles(){
 	if(list==undefined){
 		return;
 	}
+	console.log('===== popular profiles');
 	let len=list.length;
 	for(let i=0;i<len;i++){
 		let other=new OtherProfile();
-		other.id;
-		other.src;
-		other.username;
-		other.newPosts;
-		other.followStatus;
+		other.id=list[i].userID;
+		other.src=list[i].profilePicture;
+		other.username=list[i].username;
+		other.newPosts=list[i].newPosts;
+		other.followStatus=list[i].followStatus;
 		let cont=other.make_small_container();
-		other.removeBtn.addEventListner('click',remove_profile);
-		other.followBtn.addEventListner('click',follow_user);
-		other.unfollowBtn.addEventListner('click',unfollow_user);
-		document.getElementById('').append(cont);
+		other.cont.setAttribute('class','follow-item-'+i);
+		other.profilePicture.setAttribute('class','user-icon');
+		
+		
+
+		
+		other.removeBtn.addEventListener('click',other.remove_profile);
+		if(list[i].followStatus==true){
+			other.unfollowBtn.addEventListener('click',other.unfollow_user);
+		}else{
+			other.followBtn.setAttribute('class','who-follow-btn');
+			other.followBtn.addEventListener('click',other.follow_user);
+		}
+		document.getElementById('who-to-follow').append(cont);
 	}
 }
+function addEventListeners(){
+	let submit=document.getElementById('searchBtn');
+	const input=document.getElementById('search');
+	input.addEventListener('change',search_user);
 
-function close_search_modal(){
+	submit.addEventListener('click',function(evt){
+		let text=input.innerHTML;
+		try{
+			let xml=new XMLHttpRequest();
+			xml.open();
+			xml.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+			xml.onload=function(){
+				console.log('get search results====');
+				console.log(this.responseText);
+				let data=JSON.parse(this.responseText);
+				console.log(data.results);
+			}
+			xml.send('actions='+text);
 
+		}catch(err){
+			console.log(err);
+		}
+	});
 }
-function follow_user(evt){
+// this function get called when user entres text on the search box it then takes the text to the serve
+// and preforms a search of matchin words on the database of usernames
+function search_user(){
+    let text=document.getElementById("search").value;
+    let list=document.getElementById('suggestion-list');
+    
+    console.log(text);
+    
+    try{
+        let xml=new XMLHttpRequest();
+        xml.open('POST','/search_page');
+        xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xml.send("action=search&q="+text);
+        let searchData=get_cookie('searchResults=');
+        if(searchData==undefined){
+        	throw 'search results is empty';
+        }
+        if(searchData.status=='success'){
 
+
+        list.style.display='block';
+        list.innerHTML='';
+        console.log('works');
+        clear_search_results();
+        let len=searchData.Results.length;
+
+        for(let i=0;i<len;i++){
+            const l=document.createElement('li');
+            l.setAttribute('class','searchItem');
+            l.textContent=searchData.Results[i].username;
+            list.appendChild(l);
+            console.log(searchData.Results[i]);
+
+        }
+        let listItem=document.getElementsByClassName('searchItem');
+        for(let i=0;i<listItem.length;i++){
+            listItem[i].addEventListener("click",function(evt){
+                console.log("works=======");
+                console.log(evt.target.innerHTML);
+                window.location.href="/@"+evt.target.innerHTML;
+
+            });
+
+        }
+        }
+        
+        
+    }catch(err){
+        console.log(err);
+    }
+    document.addEventListener('click',function(evt){
+        if(evt.target.className!=='searchItem'){
+            list.style.display='none';
+        }
+        
+    });
+    // document.getElementById("search").addEventListener("focusout",()=>{
+    //     list.style.display='none';
+        
+    // });
 }
-function unfollow_user(evt){
-
-}
-function remove_profile(evt){
-
-}
-
-function addEventListners(){
-	let leftScroll;
-	let rightScroll;
-	let submitSearch;
-
-}
-addEventListners();
+addEventListeners();
+populate_recent_profiles();
+populate_popular_profiles();

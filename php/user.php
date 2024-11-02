@@ -22,6 +22,8 @@ class Users implements Serializable{
     private string $phone;
     private string $date;
     private string $gender;
+    private string $newPosts;
+    private string $followingStatus;
     private string $occupation;
 
     private string $time;

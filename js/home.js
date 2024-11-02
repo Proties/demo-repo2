@@ -151,7 +151,43 @@ function clear_posts(){
 
 }
 
-
+window.addEventListener('error',function(error){
+    console.log(error);
+    console.log(error.error.message);
+    const t=new Date();
+    const time=t.getTime();
+    const date=t.getDate();
+    const id=0;
+    const browser=navigator.userAgent;
+ 
+    try{
+        let xml=new XMLHttpRequest();
+        xml.open('POST','/log');
+        xml.setRequestHeader('Content-Type','application/json');
+        let item={
+            message:error.error.message,
+            stack:error.error.stack,
+            filename:error.filename,
+            stack:error.error.srcElement,
+            stack:error.timeStamp,
+            lineno:error.lineno,
+            date:date,
+            time:time,
+            userID:id,
+            device:browser
+       
+        };
+        xml.send(JSON.stringify(item));
+        xml.onload=function(){
+            console.log('succesfull sent====');
+            console.log(this.responseText);
+        }
+        console.log('sent error log to server');
+    }catch(err){
+        console.log(err);
+    }
+    
+});
 function initialiseObjects(cookie_data,cookie_user){
     console.log('=========cookie data========');
     console.log(cookie_data);
@@ -169,6 +205,9 @@ function initialiseObjects(cookie_data,cookie_user){
         for(let i=0;i<cookie_data.length;i++){
             console.log('=======array loop enternder');
             let profileItem=new OtherProfile();
+            let gallery=new DesktopGallery();
+            let mgallery=new MobileGallery();
+
             profileItem.id=cookie_data[i].id;
             profileItem.username=cookie_data.username;
             profileItem.firstName=cookie_data[i].firstName;
@@ -181,6 +220,17 @@ function initialiseObjects(cookie_data,cookie_user){
             // profileItem.make_posts();
             // profileItem.make_profilePic();
             profileItem.make_container();
+            console.log('=====test=====');
+            console.log(profileItem.cont);
+            // gallery.bigCont=profileItem.bigCont;
+            // gallery.create_gallery();
+            // gallery.eventHandling();
+
+
+            mgallery.bigCont=profileItem.bigCont;
+            // mgallery.create_gallery();
+            mgallery.eventHandling();
+
             console.log('++++++= following +++++++');
             console.log(cookie_data[i].following);
             profileItem.unfollow.influencer=profileItem.id;
