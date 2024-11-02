@@ -33,24 +33,24 @@
       </nav>
     </header>
 
-  <!-- Recent Posts Section -->
-  <section class="recent-posts" >
-    <h2>Recent Posts</h2>
-    <div class="post-list" id="recent-posts">
-     <!-- <div class="post-item">
+  <!-- Recent Profile Section -->
+  <section class="recent-profiles" >
+    <h2>Recent Profiles</h2>
+    <div class="profile-list" id="recent-posts">
+     <!-- <div class="profile-item">
         <div class="user-icon-p"><img src="/Image/Test Account.png" alt="Profile" class="user-icon-p"></div>
         <div class="user-info">
           <p class="user-name-p">User</p>
-          <p class="post-count">2 New Posts</p>
+          <p class="profile-count">2 New Posts</p>
         </div>
         <button class="follow-btn">FOLLOW</button>
         <span class="close-icon">&times;</span>
       </div>
-      <div class="post-item">
+      <div class="profiles-item">
         <div class="user-icon-p"><img src="/Image/Test Account.png" alt="Profile" class="user-icon-p"></div>
         <div class="user-info">
           <p class="user-name-p">User</p>
-          <p class="post-count">2 New Posts</p>
+          <p class="profiles-count">2 New Posts</p>
         </div>
         <button class="follow-btn">FOLLOW</button>
         <span class="close-icon">&times;</span>
@@ -79,8 +79,8 @@
   <!-- Who to Follow Section -->
   <section class="who-to-follow" >
     <h2>Who to follow</h2>
-    <div class="follow-list" id="who-to-follow">
-       <div class="follow-item-1">
+   <div class="follow-list" id="who-to-follow">
+       <!-- <div class="follow-item-1">
         <div class="user-icon"><img src="/Image/Test Account.png" alt="Profile" class="user-icon-p"></div>
         <p class="user-name">User</p>
         <button class="who-follow-btn">FOLLOW</button>
@@ -106,12 +106,12 @@
         <p class="user-name">User</p>
         <button class="who-follow-btn">FOLLOW</button>
         <span class="close-icon">x</span>
-      </div>
-    </div>
+      </div> -->
+    </div> 
   </section>
 
 
-  <section class="mission-modal" id="donation-modal" >
+  <section class="mission-modal" id="donation-modal" style="display: none;">
     <span class="close-icon">x</span>
     <h2>Supporting Nerstia is supporting a community where creativity thrives.
     </h2>
@@ -122,7 +122,7 @@
 
         <div id="donateContainer">
           <!-- Initial Donate Button -->
-          <button class="Call-Action" id="donateBtn">Donate</button>
+          <button class="Call-Action-modal" id="donateBtn">Donate</button>
         
           <!-- Donation Input and Submit Button (Hidden by default) -->
           <div class="donationForm" style="display: none;">
@@ -147,10 +147,9 @@
         <a href="/search_page"
           ><img src="/Image/bottom-Search.png" alt="search" class="search"
         /></a>
-        <a href="/subscribe_to_premiunm"
-          ><img src="/Image/Donate.png" alt="pressme" class="pressme"
-        /></a>
-      </div>
+          <!-- Initial Donate Button -->
+          <button class="Call-Action" id="donateBtn">Donate</button>
+    </div>
     </div>
     <script type="module" src="../js/mobileSearchPage.js"></script>
   </body>
