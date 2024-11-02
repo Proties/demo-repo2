@@ -361,6 +361,12 @@ display: none;
     margin-top: 24px;
 }
 
+
+/*mission modal*/
+.mission-modal{
+  display: none;
+}
+
 .closing-statement {
   margin-right: 19px;
     margin-left: 19px;
