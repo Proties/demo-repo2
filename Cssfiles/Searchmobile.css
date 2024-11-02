@@ -481,9 +481,8 @@ nav .profile-link {
 .user-icon-p {
   width: 50px;
     height: 50px;
-    background-color: #000000;
     border-radius: 50%;
-    margin-right: 5px;
+    margin-right: 14px;
 }
 
 .user-info {
@@ -554,7 +553,7 @@ nav .profile-link {
 }
 
 .features{
-  margin-top: 40px;
+  margin-top: 55px;
 }
 
 .premium-experience h2 {
@@ -682,7 +681,6 @@ nav .profile-link {
 .follow-item .user-icon {
   width: 50px;
     height: 50px;
-    background-color: #000000;
     border-radius: 50%;
 }
 
