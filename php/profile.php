@@ -1,5 +1,6 @@
 <?php
 session_start();
+date_default_timezone_set('Africa/Johannesburg');
 use Monolog\Handler\StreamHandler;
 use Insta\Users\Users;
 use Insta\Databases\User\UserDB;
@@ -21,6 +22,8 @@ $template=new Template();
 setcookie('users','', time() - (86400 * 30), '/'); 
 // setcookie('myprofile','', time() - (86400 * 30), '/');
 if(isset($_SESSION['username']) && $_SESSION['username']!==null){
+    $mainUser->set_username($_SESSION['username']);
+    $mainUser->set_id($_SESSION['userID']);
     $mainUser->userAuth->set_authanticate(true);
 }
 
@@ -37,13 +40,9 @@ if($f_txt==='/profile'){
 
     $data;
     $personal=[];
-    $author=new Users();
-    if(isset($_SESSION['username'])){
-        $author->set_username($_SESSION['username']);
-        $author->set_id($_SESSION['userID']);
-    }
+
     
-    $authorDB=new UserDB($author);
+    $authorDB=new UserDB($mainUser);
     $authorDB->get_posts_with_username();
     $userDetails['userID']=$authorDB->user->get_id();
     $userDetails['username']=$authorDB->user->get_username();
@@ -64,28 +63,23 @@ else if($u->validate_username_url($f_txt)==true ){
         $link=$txt;
         $data=[];
         $userPosts=array();
-        $author=new Users();
-
-        $author->set_username($link);
-        $authorDB=new UserDB($author);
+        $mainUser->set_username($link);
+        $authorDB=new UserDB($mainUser);
         $date=date('Y:m:d');
         $time=date('H:i');
         $link=$f_txt;
-        if(isset($_SESSION['userID'])){
-            $authorDB->user->set_id($_SESSION['userID']);
-            $authorDB->add_profile_view($date,$time,$link);
-        }
-        
+        $authorDB->add_profile_view($date,$time,$link);
+ 
         $authorDB->get_posts_with_username();
  
         $data['user']=array('username'=>$authorDB->user->get_username(),'userProfilePicture'=>$authorDB->user->get_profilePicture(),
                                     'shortBio'=>$authorDB->user->get_shortBio(),'longBio'=>$authorDB->user->get_longBio());
         $data['posts']=$authorDB->user->postList->get_posts();
-        setcookie('profile',json_encode($data), time() + (86400 * 30), '/'); 
+        setcookie('profile',json_encode($data), time() + (86 * 30), '/'); 
     }catch(Exception $err){
         $data['message']=$err->getMessage();
         $data['status']='failed';
-        setcookie('profile',json_encode($data), time() + (86400 * 30), '/');
+        setcookie('profile',json_encode($data), time() + (86 * 30), '/');
       
     }
 }

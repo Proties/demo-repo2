@@ -239,7 +239,7 @@ swipe_left(){
 	swipe_right() {
     const imageList = this.imageList;
     const currentIndex = this.currentItem.index;
-    const prevIndex = (currentIndex - 1 + imageList.length) % imageList.length; // loop around to end if at start
+   	let prevIndex;
 
     // Animate swap
     const currentImage = imageList[currentIndex];
