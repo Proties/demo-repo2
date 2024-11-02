@@ -520,23 +520,7 @@ export class OtherProfile extends ProfileUI{
             console.log('error');
         }
     }
-    unfollow_user(evt){
-        try{
-            let xml=new XMLHttpRequest();
-            xml.open('POST','/search_page');
-            xml.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            
-            xml.onstatechange=function(){
-                if(this.readyState==4){
-                 
-                }
-            }
-            xml.send('actions=unfollow_user');
-        
-        }catch(err){
-            console.log('error');
-        }
-    }
+    
     lazy_loading(){
         const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
