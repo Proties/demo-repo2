@@ -321,6 +321,23 @@ class UserDB extends Database{
         return $err;
     }
 }
+public function get_popular_profiles(){
+        try{
+            $db=$this->db;
+            $query='
+                SELECT newPosts,followingStatus,u.username,profilePicture,u.userID FROM Users u 
+                LEFT JOIN ProfileImages pi u.userID=pi.userID
+                LEFT JOIN Images i pi.imageID=i.imageID
+                LEFT JOIN HiddenProfiles hp u.userID=hp.profileID;
+                ';
+
+            $stmt=$db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchall();
+    }catch(PDOException $err){
+        return $err;
+    }
+}
     public function add_hidden_profile(){
         try{
             $db=$this->db;

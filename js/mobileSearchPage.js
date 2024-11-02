@@ -131,6 +131,7 @@ function populate_popular_profiles(){
 		other.removeBtn.addEventListener('click',other.remove_popular_profile);
 		other.followBtn.setAttribute('class','who-follow-btn');
 		other.followBtn.addEventListener('click',other.follow_user);
+		
 		document.getElementById('who-to-follow').append(cont);
 	}
 }
