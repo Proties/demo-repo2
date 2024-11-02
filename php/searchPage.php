@@ -24,7 +24,7 @@ $userDB=new UserDB($user);
 $dataTwo=[['username'=>'hall','userID'=>2,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>false,'newPosts'=>2],
 		['username'=>'pal','userID'=>32,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>true,'newPosts'=>2],
 		['username'=>'singer','userID'=>12,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>false,'newPosts'=>1]];
-$dataTwo['status']='success';
+
 setcookie('popularProfiles',json_encode($dataTwo),time()+(10*30),'/');
 
 
@@ -32,7 +32,7 @@ setcookie('popularProfiles',json_encode($dataTwo),time()+(10*30),'/');
 $data=[['username'=>'hall','newPosts'=>1,'userID'=>2,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>false],
 		['username'=>'pal','newPosts'=>1,'userID'=>32,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>true],
 		['username'=>'singer','newPosts'=>1,'userID'=>12,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>false]];
-$dataTwo['status']='success';
+
 setcookie('recentSearches',json_encode($data),time()+(10*30),'/');
 
 

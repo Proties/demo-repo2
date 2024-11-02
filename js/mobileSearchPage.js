@@ -109,10 +109,12 @@ function populate_recent_profiles(){
 function populate_popular_profiles(){
 	let list=get_cookie('popularProfiles=');
 	if(list==undefined){
+		console.log('====popular posts list empty');
 		return;
 	}
 	console.log('===== popular profiles');
 	let len=list.length;
+	let c=1;
 	for(let i=0;i<len;i++){
 		let other=new OtherProfile();
 		other.id=list[i].userID;
@@ -122,12 +124,10 @@ function populate_popular_profiles(){
 		other.className='follow-item-'+i;
 		other.followStatus=list[i].followStatus;
 		let cont=other.make_small_container();
-		other.cont.setAttribute('class','follow-item-'+i);
+		
+		other.cont.setAttribute('class','follow-item-'+c);
+		c++;
 		other.profilePicture.setAttribute('class','user-icon');
-		
-		
-
-		
 		other.removeBtn.addEventListener('click',other.remove_popular_profile);
 		if(list[i].followStatus==true){
 			other.unfollowBtn.addEventListener('click',other.unfollow_user);
