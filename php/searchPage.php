@@ -20,16 +20,19 @@ if(isset($_SESSION['userID'])){
 }
 
 $userDB=new UserDB($user);
-if(!isset($_COOKIE['popularProfiles'])){
-	// $userDB->get_profiles();
-	$data=[];
-	setcookie('popularProfiles',json_encode($data),time()+(54900*30),'/');
-}
 
-if(isset($_SESSION['recentSearchResults'])){
-	$data=[];
-	setcookie('recentSearches',json_encode($data),time()+(1000*30),'/');
-}
+$dataTwo=[['username'=>'hall','userID'=>2,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>false,'newPosts'=>2],
+		['username'=>'pal','userID'=>32,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>true,'newPosts'=>2],
+		['username'=>'singer','userID'=>12,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>false,'newPosts'=>1]];
+setcookie('popularProfiles',json_encode($dataTwo),time()+(10*30),'/');
+
+
+
+$data=[['username'=>'hall','newPosts'=>1,'userID'=>2,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>false],
+		['username'=>'pal','newPosts'=>1,'userID'=>32,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>true],
+		['username'=>'singer','newPosts'=>1,'userID'=>12,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>false]];
+setcookie('recentSearches',json_encode($data),time()+(10*30),'/');
+
 
 if($_SERVER['REQUEST_METHOD']=='GET'){
 	include_once('Htmlfiles/Searchmobile.html');
@@ -93,8 +96,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 					$userData=['newPosts'=>$userDB->user->get_newPosts(),'followingStatus'=>$userDB->user->get_followingStatus(),'username'=>$userDB->user->get_username(),'profilePicture'=>$userDB->user->get_profilePicture()];
 					$_SESSION['recentSearchResults'][]=$userData;
 					if(count($_SESSION['recentSearchResults'])>5){
-						// remove the last entry item
-						// $_SESSION['recentSearchResults']
+						unset($_SESSION['recentSearchResults'][6]);
+						
 					}
 					
 					setcookie('recentSearchResults',json_encode($userData),time()+(45033*43),'/');

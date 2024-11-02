@@ -89,14 +89,19 @@ function populate_recent_profiles(){
 	for(let i=0;i<len;i++){
 		let other=new OtherProfile();
 		other.id=list[i].userID;
-		other.src=list[i].src;
+		other.src=list[i].profilePicture;
 		other.username=list[i].username;
 		other.newPosts=list[i].newPosts;
 		other.followStatus=list[i].followStatus;
 		let cont=other.make_small_container();
-		other.removeBtn.addEventListner('click',remove_profile);
-		other.followBtn.addEventListner('click',follow_user);
-		other.unfollowBtn.addEventListner('click',unfollow_user);
+		other.removeBtn.addEventListener('click',other.remove_profile);
+		if(list[i].followStatus==true){
+			other.unfollowBtn.addEventListener('click',other.unfollow_user);
+		}else{
+			other.followBtn.addEventListener('click',other.follow_user);
+		}
+		
+		
 		document.getElementById('recent-posts').append(cont);
 	}
 }
@@ -110,19 +115,24 @@ function populate_popular_profiles(){
 	for(let i=0;i<len;i++){
 		let other=new OtherProfile();
 		other.id=list[i].userID;
-		other.src=list[i].src;
+		other.src=list[i].profilePicture;
 		other.username=list[i].username;
 		other.newPosts=list[i].newPosts;
 		other.followStatus=list[i].followStatus;
+		let cont=other.make_small_container();
 		other.cont.setAttribute('class','follow-item-'+i);
 		other.profilePicture.setAttribute('class','user-icon');
-		other.followBtn.setAttribute('class','who-follow-btn');
+		
 		
 
-		let cont=other.make_small_container();
-		other.removeBtn.addEventListner('click',remove_profile);
-		other.followBtn.addEventListner('click',follow_user);
-		other.unfollowBtn.addEventListner('click',unfollow_user);
+		
+		other.removeBtn.addEventListener('click',other.remove_profile);
+		if(list[i].followStatus==true){
+			other.unfollowBtn.addEventListener('click',other.unfollow_user);
+		}else{
+			other.followBtn.setAttribute('class','who-follow-btn');
+			other.followBtn.addEventListener('click',other.follow_user);
+		}
 		document.getElementById('who-to-follow').append(cont);
 	}
 }

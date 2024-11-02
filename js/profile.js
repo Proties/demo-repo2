@@ -85,11 +85,38 @@ export class OtherProfile extends ProfileUI{
         this._bigcont;
         this._follow=new Follow();
         this._unfollow=new UnFollow();
-
+        this._newPosts=0;
         this._followBtn;
         this._unfollowBtn;
+        this._removeBtn;
+        this._profilePicture;
+        this._followingStatus;
 
        
+    }
+    set followingStatus(i){
+        this._followingStatus=i;
+    }
+    get followingStatus(){
+        return this._followingStatus;
+    }
+    set newPosts(i){
+        this._newPosts=i;
+    }
+    get newPosts(){
+        return this._newPosts;
+    }
+    set profilePicture(i){
+        this._profilePicture=i;
+    }
+    get profilePicture(){
+        return this._profilePicture;
+    }
+    set removeBtn(i){
+        this._removeBtn=i;
+    }
+    get removeBtn(){
+        return this._removeBtn;
     }
     set followBtn(i){
         this._followBtn=i;
@@ -362,10 +389,11 @@ export class OtherProfile extends ProfileUI{
     }
     make_small_container(){
         let cont=document.createElement('div');
-        let usernameTxt=document.createTextNode(list[i].username);
+        let userInfo=document.createElement('div');
+        let usernameTxt=document.createTextNode(this.username);
         let username=document.createElement('h3');
         let postsNo=document.createElement('p');
-        let postsNoTxt=document.createTextNode('2 new post');
+        let postsNoTxt=document.createTextNode(this.newPosts+' new posts');
         let profilePictureLink=document.createElement('a');
         let profilePicture=document.createElement('img');
 
@@ -374,15 +402,17 @@ export class OtherProfile extends ProfileUI{
         let unfollowBtnTxt=document.createTextNode('unfollow');
         let followBtnTxt=document.createTextNode('follow');
 
-        let removeBtn=document.createElement('button');
+        let removeBtn=document.createElement('span');
         let removeBtnTxt=document.createTextNode('&times;');
 
-        cont.setAttribute('id','');
+        cont.setAttribute('id',this.id);
+        userInfo.setAttribute('class','user-info');
         cont.setAttribute('class','post-item');
         username.setAttribute('class','user-name-p');
         postsNo.setAttribute('class','post-count');
-        profilePictureLink.setAttribute('class','');
+        profilePictureLink.setAttribute('href','/@'+this.username);
         profilePicture.setAttribute('class','user-icon-p');
+        profilePicture.setAttribute('src',this.src);
         followBtn.setAttribute('class','follow-btn');
         removeBtn.setAttribute('class','close-icon');
 
@@ -393,14 +423,38 @@ export class OtherProfile extends ProfileUI{
         followBtn.append(followBtnTxt);
         removeBtn.append(removeBtnTxt);
 
-        cont.append(username);
+        userInfo.append(username);
         cont.append(profilePictureLink);
-        cont.append(postsNo);
-        cont.append(unfollowBtn);
+        userInfo.append(postsNo);
+        cont.append(userInfo);
+        if(this.followingStatus==true){
+          cont.append(unfollowBtn);
+          this.unfollowBtn=unfollowBtn;
+        }else{
+            cont.append(followBtn);
+            this.followBtn=followBtn;
+        }
+        
         cont.append(followBtn);
         cont.append(removeBtn);
-
+        this.profilePicture=profilePicture;
+        this.cont=cont;
+        this.removeBtn=removeBtn;
+        
+        
         return cont;
+
+    }
+    remove_profile(evt){
+        // const element=evt.target.parentNode;
+        const element=this.cont;
+        element.remove();
+
+    }
+    follow_user(evt){
+
+    }
+    unfollow_user(evt){
 
     }
     lazy_loading(){

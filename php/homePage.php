@@ -239,7 +239,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
     return;
 }
 
-$action=$_POST['action'];
+$action=$_POST['actions'];
 switch($action){
     case 'get_templates':
         $data=[];
@@ -324,7 +324,7 @@ switch($action){
     case 'unfollow_user':
         try{
            
-            if(!isset($_POST['followerID']) OR empty($_SESSION['userID'])){
+            if(!isset($_SESSION['userID']) OR empty($_SESSION['userID'])){
                  throw new Exception('make an account');
             }
             
