@@ -705,5 +705,9 @@ nav .profile-link {
   cursor: pointer;
 }
 
+.mission-modal {
+  margin: auto;
+}
+
 
 }

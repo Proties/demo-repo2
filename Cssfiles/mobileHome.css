@@ -484,6 +484,12 @@ display: none;
   }
 
 
+  /*mission modal*/
+.mission-modal{
+  margin: auto;
+}
+
+
 /* Challenge-containter table*/
 .challenge-container table {
 display: none;

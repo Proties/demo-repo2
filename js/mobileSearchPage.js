@@ -92,6 +92,7 @@ function populate_recent_profiles(){
 		other.src=list[i].profilePicture;
 		other.username=list[i].username;
 		other.newPosts=list[i].newPosts;
+		other.className='post-item';
 		other.followStatus=list[i].followStatus;
 		let cont=other.make_small_container();
 		other.removeBtn.addEventListener('click',other.remove_profile);
@@ -108,31 +109,29 @@ function populate_recent_profiles(){
 function populate_popular_profiles(){
 	let list=get_cookie('popularProfiles=');
 	if(list==undefined){
+		console.log('====popular posts list empty');
 		return;
 	}
 	console.log('===== popular profiles');
 	let len=list.length;
+	let c=1;
 	for(let i=0;i<len;i++){
 		let other=new OtherProfile();
 		other.id=list[i].userID;
 		other.src=list[i].profilePicture;
 		other.username=list[i].username;
 		other.newPosts=list[i].newPosts;
+		other.className='follow-item-'+i;
 		other.followStatus=list[i].followStatus;
 		let cont=other.make_small_container();
-		other.cont.setAttribute('class','follow-item-'+i);
+		
+		other.cont.setAttribute('class','follow-item-'+c);
+		c++;
 		other.profilePicture.setAttribute('class','user-icon');
+		other.removeBtn.addEventListener('click',other.remove_popular_profile);
+		other.followBtn.setAttribute('class','who-follow-btn');
+		other.followBtn.addEventListener('click',other.follow_user);
 		
-		
-
-		
-		other.removeBtn.addEventListener('click',other.remove_profile);
-		if(list[i].followStatus==true){
-			other.unfollowBtn.addEventListener('click',other.unfollow_user);
-		}else{
-			other.followBtn.setAttribute('class','who-follow-btn');
-			other.followBtn.addEventListener('click',other.follow_user);
-		}
 		document.getElementById('who-to-follow').append(cont);
 	}
 }
@@ -173,26 +172,26 @@ function search_user(){
         xml.open('POST','/search_page');
         xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xml.send("action=search&q="+text);
-        let searchData=get_cookie('searchResults=');
+
+        let searchData=get_cookie('recentSearches=');
         if(searchData==undefined){
         	throw 'search results is empty';
         }
-        if(searchData.status=='success'){
-
-
+    	console.log('==== search works====');
         list.style.display='block';
         list.innerHTML='';
-        console.log('works');
-        clear_search_results();
-        let len=searchData.Results.length;
+        
+        let len=searchData.length;
 
         for(let i=0;i<len;i++){
             const l=document.createElement('li');
+            const link=document.createElement('a');
+            const linkTxt=document.createTextNode(searchData[i].username);
             l.setAttribute('class','searchItem');
-            l.textContent=searchData.Results[i].username;
+            link.setAttribute('href','/@'+searchData[i].username);
+            link.append(linkTxt);
+            l.append(link);
             list.appendChild(l);
-            console.log(searchData.Results[i]);
-
         }
         let listItem=document.getElementsByClassName('searchItem');
         for(let i=0;i<listItem.length;i++){
@@ -204,7 +203,7 @@ function search_user(){
             });
 
         }
-        }
+        
         
         
     }catch(err){

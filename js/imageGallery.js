@@ -200,31 +200,33 @@ swipe_left(){
 		let arr=this.imageList;
 		let i=0;
 		let maxIndex=arr.length;
-		let currentIndex=0;
-		if(this.currentItem.index==0){
-			currentIndex=maxIndex;
-		}
-			console.log(arr[i]);
+		let currentIndex=this.currentItem.index;
 	
-			arr[this.currentItem.index].style.transition='transform 0.5s ease-in-out';
-			arr[currentIndex-1].style.transition='transform 0.5s ease-in-out';
-			arr[this.currentItem.index].style.transform='translateX(150px)';
-			arr[currentIndex-1].style.transform='translateX(-100px)';
-			
-
-			setTimeout(()=>{
-				arr[this.currentItem.index].style.zIndex=20;
+			console.log(arr[i]);
+			while(i<maxIndex){
+				if(currentIndex==maxIndex){
+				currentIndex=0;
+			}
 				arr[this.currentItem.index].style.transition='transform 0.5s ease-in-out';
-				arr[currentIndex-1].style.transition='transform 0.5s ease-in-out';
-				arr[this.currentItem.index].style.transform='translateX(-40px)';
-				arr[this.currentItem.index-1].style.transform='translateX(20px)';
-
-				arr[this.currentItem.index].style.transform='translateY(30px)';
-				arr[currentIndex-1].style.transform='translateY(-40px)';
-				this.currentItem.index=currentIndex;
-				i--;
-			},500);
+				arr[currentIndex+1].style.transition='transform 0.5s ease-in-out';
+				arr[this.currenttem.index].style.transform='translateX(150px)';
+				arr[currentIndex+1].style.transform='translateX(-100px)';
 				
+
+				setTimeout(()=>{
+					arr[this.currentItem.index].style.zIndex=20;
+					arr[this.currentItem.index].style.transition='transform 0.5s ease-in-out';
+					arr[currentIndex+1].style.transition='transform 0.5s ease-in-out';
+					arr[this.currentItem.index].style.transform='translateX(-40px)';
+					arr[this.currentItem.index+1].style.transform='translateX(20px)';
+
+					arr[this.currentItem.index].style.transform='translateY(30px)';
+					arr[currentIndex+1].style.transform='translateY(-40px)';
+					this.currentItem.index=currentIndex;
+					
+					},500);
+				i++;
+				}
 	
 		
 	}
@@ -232,36 +234,39 @@ swipe_left(){
 		let arr=this.imageList;
 		let i=0;
 		let maxIndex=arr.length;
-		let currentIndex=0;
+		let currentIndex=this.currentItem.index;
 
-		if(this.currentItem.index==maxIndex){
-			currentIndex=0;
-		}
+		while(i<maxIndex){
+			if(currentIndex==0){
+					currentIndex=maxIndex;
+				}
 
 			console.log(arr[i]);
 			arr[this.currentItem.index].style.transition='transform 0.5s ease-in-out';
-			arr[currentIndex+1].style.transition='transform 0.5s ease-in-out';
+			arr[currentIndex-1].style.transition='transform 0.5s ease-in-out';
 			arr[this.currentItem.index].transform='translateX(-150px)';
-			arr[currentIndex+1].style.transform='translateX(100px)';
+			arr[currentIndex-1].style.transform='translateX(100px)';
 			
 
 			setTimeout(()=>{
 				arr[this.currentItem.index].style.zIndex=20;
 				arr[this.currentItem.index].style.transition='transform 0.5s ease-in-out';
-				arr[currentIndex+1].style.transition='transform 0.5s ease-in-out';
+				arr[currentIndex-1].style.transition='transform 0.5s ease-in-out';
 				arr[this.currentItem.index].style.transform='translateX(40px)';
-				arr[currentIndex+1].style.transform='translateX(-20px)';
+				arr[currentIndex-1].style.transform='translateX(-20px)';
 
 				arr[this.currentItem.index].style.transform='translateY(60px)';
-				arr[currentIndex+1].style.transform='translateY(-40px)';
+				arr[currentIndex-1].style.transform='translateY(-40px)';
 				i++;
 				this.currentItem.index=currentIndex;
-			},500);
+				},500);
 			
+			i++;
 			}
 	
 	
 
+}
 }
 
 export class DesktopGallery extends Gallery{
