@@ -18,12 +18,13 @@ if(isset($_SESSION['userID'])){
 	$user->set_id($_SESSION['userID']);
 	$user->set_username($_SESSION['username']);
 }
-
+if($_SERVER['REQUEST_METHOD']=='GET'){
 $userDB=new UserDB($user);
 
 $dataTwo=[['username'=>'hall','userID'=>2,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>false,'newPosts'=>2],
 		['username'=>'pal','userID'=>32,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>true,'newPosts'=>2],
 		['username'=>'singer','userID'=>12,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>false,'newPosts'=>1]];
+$dataTwo['status']='success';
 setcookie('popularProfiles',json_encode($dataTwo),time()+(10*30),'/');
 
 
@@ -31,10 +32,11 @@ setcookie('popularProfiles',json_encode($dataTwo),time()+(10*30),'/');
 $data=[['username'=>'hall','newPosts'=>1,'userID'=>2,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>false],
 		['username'=>'pal','newPosts'=>1,'userID'=>32,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>true],
 		['username'=>'singer','newPosts'=>1,'userID'=>12,'profilePicture'=>'/Image/Test Account.png','followingStatus'=>false]];
+$dataTwo['status']='success';
 setcookie('recentSearches',json_encode($data),time()+(10*30),'/');
 
 
-if($_SERVER['REQUEST_METHOD']=='GET'){
+
 	include_once('Htmlfiles/Searchmobile.html');
 	return;
 }
@@ -82,10 +84,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 				break;
 			case 'search':
 				try{
-					if(!isset($_POST['search_term']) OR empty($_POST['search_term'])){
+					if(!isset($_POST['q']) OR empty($_POST['q'])){
 					throw new Exception('no search term defined');
 					}
-					if (validate_search_term($_POST['search_term'])==false){
+					if (validate_search_term($_POST['q'])==false){
 						throw new Exception('not valid search term');
 					}
 					if(!isset($_SESSION['userID']) OR empty($_SESSION['userID'])){

@@ -92,7 +92,15 @@ export class OtherProfile extends ProfileUI{
         this._profilePicture;
         this._followingStatus;
 
+        this._className;
+
        
+    }
+    set className(i){
+        this._className=i;
+    }
+    get className(){
+        return this._className;
     }
     set followingStatus(i){
         this._followingStatus=i;
@@ -402,8 +410,10 @@ export class OtherProfile extends ProfileUI{
         let unfollowBtnTxt=document.createTextNode('unfollow');
         let followBtnTxt=document.createTextNode('follow');
 
+
         let removeBtn=document.createElement('span');
-        let removeBtnTxt=document.createTextNode('&times;');
+        removeBtn.innerHTML='&times';
+        let removeBtnTxt=document.createTextNode('');
 
         cont.setAttribute('id',this.id);
         userInfo.setAttribute('class','user-info');
@@ -423,10 +433,19 @@ export class OtherProfile extends ProfileUI{
         followBtn.append(followBtnTxt);
         removeBtn.append(removeBtnTxt);
 
-        userInfo.append(username);
+       
+
         cont.append(profilePictureLink);
-        userInfo.append(postsNo);
-        cont.append(userInfo);
+        if(this.className=='post-item'){
+            userInfo.append(username);
+            userInfo.append(postsNo);
+            cont.append(userInfo);
+        }
+        else{
+            cont.append(username);
+        }
+        
+        
         if(this.followingStatus==true){
           cont.append(unfollowBtn);
           this.unfollowBtn=unfollowBtn;
@@ -435,7 +454,7 @@ export class OtherProfile extends ProfileUI{
             this.followBtn=followBtn;
         }
         
-        cont.append(followBtn);
+      
         cont.append(removeBtn);
         this.profilePicture=profilePicture;
         this.cont=cont;
@@ -450,10 +469,35 @@ export class OtherProfile extends ProfileUI{
             let xml=new XMLHttpRequest();
             xml.open('POST','/search_page');
             xml.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            xml.onstatechange=function(){
+                if(this.readyState==4){
+                     // const element=evt.target.parentNode;
+                    const element=evt.target.parentNode;
+                    element.remove();
+                }
+            }
             xml.send('actions=remove_profile');
-             // const element=evt.target.parentNode;
-            const element=this.cont;
-            element.remove();
+            
+        }catch(err){
+            console.log('error');
+        }
+       
+
+    }
+    remove_popular_profile(evt){
+        try{
+            let xml=new XMLHttpRequest();
+            xml.open('POST','/search_page');
+            xml.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            xml.onstatechange=function(){
+                if(this.readyState==4){
+                    const element=evt.target.parentNode.parentNode;
+                    element.remove();
+                    
+                }
+            }
+            xml.send('actions=remove_popular_profile');
+        
         }catch(err){
             console.log('error');
         }
@@ -465,10 +509,13 @@ export class OtherProfile extends ProfileUI{
             let xml=new XMLHttpRequest();
             xml.open('POST','/search_page');
             xml.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            xml.onstatechange=function(){
+                if(this.readyState==4){
+             
+                }
+            }
             xml.send('actions=follow_user');
-             // const element=evt.target.parentNode;
-            const element=this.cont;
-            element.remove();
+            
         }catch(err){
             console.log('error');
         }
@@ -478,10 +525,14 @@ export class OtherProfile extends ProfileUI{
             let xml=new XMLHttpRequest();
             xml.open('POST','/search_page');
             xml.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            
+            xml.onstatechange=function(){
+                if(this.readyState==4){
+                 
+                }
+            }
             xml.send('actions=unfollow_user');
-             // const element=evt.target.parentNode;
-            const element=this.cont;
-            element.remove();
+        
         }catch(err){
             console.log('error');
         }
