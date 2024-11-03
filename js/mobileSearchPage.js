@@ -92,7 +92,7 @@ function populate_recent_profiles(){
 		other.src=list[i].profilePicture;
 		other.username=list[i].username;
 		other.newPosts=list[i].newPosts;
-		other.className='post-item';
+		other.className='profile-item';
 		other.followStatus=list[i].followStatus;
 		let cont=other.make_small_container();
 		other.removeBtn.addEventListener('click',other.remove_profile);

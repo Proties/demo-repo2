@@ -250,7 +250,7 @@ export class OtherProfile extends ProfileUI{
 
        if(this.data.posts!==undefined){
              for(let ss=0;ss<this.data.posts.length;ss++){
-                if(this.data.posts[ss]==null){
+                if(this.data.posts[ss]==null && this.data.posts[ss]==undefined){
                     continue;
                 }
                 let shareCont=document.createElement('div');
@@ -264,36 +264,26 @@ export class OtherProfile extends ProfileUI{
                 shareImage.setAttribute('src','/Image/Share.png');
                 c.setAttribute('class',arrayPosts[ss]);    
                 c.setAttribute('id',this.data.posts[ss].postLink);    
-                // img.setAttribute('src',this.data.posts[ss].imageFileName+''+this.data.posts[ss].imageFileName);
-                console.log(this.data.posts[ss]);
-                const k=Object.keys(this.data.posts[ss]);
-                console.log(k[2]);
-                console.log(k[3]);
-                console.log('assigning types =====');
-                console.log(this.data.posts[ss][k]);
-                if(k[2]=='imageFileName' &&  k[3]=='imageFilePath'){
-                    img.setAttribute('src',this.data.posts[ss].imageFilePath+''+this.data.posts[ss].imageFileName);
+                
+                if(this.data.posts[ss]['imageFileName']!==undefined && this.data.posts[ss]['imageFileName']!==null){
+                    img.setAttribute('src',this.data.posts[ss]['imageFilePath']+''+this.data.posts[ss]['imageFileName']);
                     img.setAttribute('class','post-image');
                     img.setAttribute('loading','lazy');
                     shareCont.append(shareImage);
                     c.append(shareCont);
-                    c.append(vid);
+                    c.append(img);
                 }
                 else{
-                    console.log(k);
-                    source.setAttribute('src',this.data.posts[ss].videoFilePath+''+this.data.posts[ss].VideoFileName);
+                    source.setAttribute('src',this.data.posts[ss]['videoFilePath']+''+this.data.posts[ss]['VideoFileName']);
                     vid.setAttribute('class','post-image');
                     vid.setAttribute('loading','lazy');
-                   
                     vid.setAttribute('controls','true');
                     vid.append(source);
                     shareCont.append(shareImage);
                     c.append(shareCont);
                     c.append(vid);
                 }
-                
-                
-               
+
                 contFour.append(c);
         }
         }
@@ -305,19 +295,14 @@ export class OtherProfile extends ProfileUI{
                 let im=document.createElement('video');
                 let source=document.createElement('source');
 
-                if (this.data.post.imageFilePath!==null) {
-                    source.setAttribute('src',this.data.post.videoFilePath+''+this.data.post.VideoFileName);
-                    im.setAttribute('loading','lazy');
-                }
-                
+               
+                source.setAttribute('src',this.data.post.videoFilePath+''+this.data.post.VideoFileName);
+                im.setAttribute('loading','lazy');
                 contFive.setAttribute('class','Primary-post');
                 contFive.setAttribute('id',this.data.post.postLink);
                 shareCont.setAttribute('class','share-button');
                 shareImage.setAttribute('src','/Image/Share.png');
                 im.setAttribute('controls','true');
-                
-                
-                
                 shareCont.append(shareImage);
                 
                 im.append(source);
@@ -327,7 +312,6 @@ export class OtherProfile extends ProfileUI{
                 contFour.append(contFive);
                 // cont.append(contFour);
                 // cont.append(contTwo);
-                
                 console.log('========container');
                 console.log(cont);
             }else{
@@ -336,41 +320,28 @@ export class OtherProfile extends ProfileUI{
             let shareImage=document.createElement('img');
             let contFive=document.createElement('div');
             let im=document.createElement('img');
-
-            if (this.data.post.imageFilePath!==null) {
-                im.setAttribute('src',this.data.post.imageFilePath+''+this.data.post.imageFileName);
-                im.setAttribute('loading','lazy');
-            }
-            
+            im.setAttribute('src',this.data.post.imageFilePath+''+this.data.post.imageFileName);
+            im.setAttribute('loading','lazy');
             contFive.setAttribute('class','Primary-post');
             contFive.setAttribute('id',this.data.post.postLink);
             shareCont.setAttribute('class','share-button');
             shareImage.setAttribute('src','/Image/Share.png');
             shareCont.append(shareImage);
-            
             contFour.append(shareCont);
             contFive.append(im);
-            
             contFour.append(contFive);
-            // cont.append(contFour);
-            // cont.append(contTwo);
             
-            console.log('========container');
-            console.log(cont);
         }
         }
         else{
 
         }
-  
-            
             // this.parentContainer.append(cont);
         profilePicBtn.append(profilePic);
         let currentFollowing;
         if(this.data.following==true){
             unFollow.append(unFollowTxt);
             this.unfollowBtn=unFollow;
-            
             currentFollowing=unFollow;
             
         }
@@ -417,7 +388,7 @@ export class OtherProfile extends ProfileUI{
 
         cont.setAttribute('id',this.id);
         userInfo.setAttribute('class','user-info');
-        cont.setAttribute('class','post-item');
+        cont.setAttribute('class','profile-item');
         username.setAttribute('class','user-name-p');
         postsNo.setAttribute('class','post-count');
         profilePictureLink.setAttribute('href','/@'+this.username);

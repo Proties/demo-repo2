@@ -378,8 +378,21 @@ function eventListeners(){
     let donate=document.getElementById('donateBtn');
     let modal = document.getElementById("registerModal");
 
+    if(document.getElementById('donation')!==undefined && document.getElementById('donation')!==null){
+        const donation=document.getElementById('donation');
+        donation.addEventListener('click',function(evt){
+             document.getElementById('donationModal').style.display='block';
+             const closeModal=donation.getElementsByClassName('close-icon')[0];
+             closeModal.addEventListener('click',function(evt){
+             document.getElementById('donationModal').style.display='none';
+            });
+        });
+    }
     
-    donate.addEventListener('click',function(evt){
+    
+
+    if(document.getElementById('donateBtn')!==undefined && document.getElementById('donateBtn')!==undefined){
+        donate.addEventListener('click',function(evt){
         let dform=document.getElementsByClassName('donationForm')[0];
        
         if(dform.style.display=='none'){
@@ -390,6 +403,8 @@ function eventListeners(){
         }
         console.log(dform.style.display);
     });
+    }
+
     for(let sp=0;sp<sharePost.length;sp++){
         sharePost[sp].addEventListener('click',async(evt)=>{
             evt.stopPropagation();

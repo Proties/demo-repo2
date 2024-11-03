@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Africa/Johannesburg');
 try{
     require_once 'php/database.php';
 
