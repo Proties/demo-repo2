@@ -55,6 +55,105 @@ class Gallery{
 	remove_image(){
 
 	}
+	// /this code will be triggerd when the threshold of a left swipe is met
+// this code will rearrange the order or the images in a reveres order
+//the current image will be moved to the left and the image after it will be moved to its place
+
+swipe_left(){
+	while(i<this.imageList.length-1){
+
+
+		const imageList = this.imageList;
+		let i=0;
+		let nextIndex;
+		let currentIndex = this.currentItem.index;
+		let maxIndex=imageList.length;
+		if(currentIndex==maxIndex){
+			nextIndex=currentIndex-1;
+		}else{
+			nextIndex = currentIndex + i;
+		}
+
+	    
+
+	    // Swap current and next images
+	    console.log('====== next image index====');
+	    console.log(nextIndex);
+	    let currentImage = imageList[currentIndex];
+	    const nextImage = imageList[nextIndex];
+	 
+	    // Animate swap
+	    currentImage.style.transition = 'transform 0.5s ease-in-out';
+	    nextImage.style.transition = 'transform 0.5s ease-in-out';
+
+	    currentImage.style.transform = 'translateX(-10px)'; // move current image out of view
+	    nextImage.style.transform = 'translateX(0)'; // bring next image into view
+
+	    // Update current index after animation completes
+	    setTimeout(() => {
+	    	currentImage.style.transition = 'transform 0.5s ease-in-out';
+	    	nextImage.style.transition = 'transform 0.5s ease-in-out';
+
+	    	currentImage.style.transform = 'translateX(-10px)'; // move current image out of view
+	    	nextImage.style.transform = 'translateX(0)'; // bring next 
+	        this.currentItem.index = nextIndex;
+
+	    }, 500);
+	
+	
+		i++;
+	}
+}
+	//this function will be callded when the thres hold of a right swipe has been met 
+	//it will take the current image and put it at the end of the array and take the array befor it
+	// and place it at the front
+	swipe_right() {
+		let i=0;
+		const imageList = this.imageList;
+		let maxIndex=imageList.length;
+		let currentIndex = this.currentItem.index;
+
+		    
+		   	
+		    
+		   	this.currentItem.index=currentIndex-1;
+
+
+		    let currentImage = imageList[currentIndex];
+		    currentImage.style.transition = 'transform 0.5s ease-in-out';
+		    currentImage.style.transform = 'translateX(50px)'; // move current image out of view
+		for(i=0;i<this.imageList.length-1;i+=2){
+			let currentIndex = this.currentItem.index;
+
+		   let currentImage = imageList[currentIndex];
+			let prevIndex=currentIndex-1;
+		    const prevImage = imageList[prevIndex];
+		    
+
+		    
+		    prevImage.style.transition = 'transform 0.5s ease-in-out';
+
+		   
+		    prevImage.style.transform = 'translateX(-40px)'; // bring previous image into view
+
+		    // Update current index after animation completes
+		    setTimeout(() => {
+		    	prevImage.style.zIndex = 13+i;
+		    	currentImage.style.zIndex = 0;
+		    	currentImage.style.transform = 'translateX(-40px)';
+			    prevImage.style.transform = 'translateX(-200px)'; 
+
+			    currentImage.style.transform = 'translateY(-105px)'; 
+			    prevImage.style.transform = 'translateY(120px)';
+			    
+		      
+		    }, 500);
+		    
+		 this.currentItem.index--;
+
+		
+	}
+	}
 }
 export class MobileGallery extends Gallery{
 	constructor(){
@@ -460,6 +559,204 @@ export class DesktopGallery extends Gallery{
 			console.log(arr[i][0]);
 			console.log('=====right button');
 		});
+	}
+
+}
+export class ProfileGallery extends Gallery{
+	constructor(){
+		super();
+	}
+	eventHandling(){
+		const arr=[];
+	
+
+		let startx=0.0;
+		let starty=0.0;
+		const swipeThreshold=50;
+		const swipeTime=500;
+		let startTime;
+		let endx=0.0;
+		let endy=0.0;
+		
+	
+		
+		
+		
+		
+		arr.push(this.bigCont.getElementsByClassName('follow-item-3')[0]);
+		arr.push(this.bigCont.getElementsByClassName('follow-item-1')[0]);
+		arr.push(this.bigCont.getElementsByClassName('follow-item-2')[0]);
+		arr.push(this.bigCont.getElementsByClassName('follow-item-4')[0]);
+		
+		
+		
+
+		
+		let placeholder=[];
+		for(let ar=0;ar<arr.length;ar++){
+			if(arr[ar]!==undefined){
+				placeholder.push(arr[ar]);
+			}
+		}
+		this.imageList=placeholder;
+		this.currentItem.html=arr[arr.length];
+		this.currentItem.index=placeholder.length-1;
+		this.bigCont.getElementsByClassName('follow-item-1')[0].addEventListener('touchstart',function(evt){
+			console.log('====touch strat====');
+		
+			startx=evt.touches[0].clientX;
+			starty=evt.touches[0].clientY;
+			startTime=new Date().getTime();
+
+		});
+		if(this.bigCont.getElementsByClassName('follow-item-2')[0]!==undefined){
+			this.bigCont.getElementsByClassName('follow-item-2')[0].addEventListener('touchstart',function(evt){
+				console.log('====touch strat====');
+	
+				startx=evt.touches[0].clientX;
+				starty=evt.touches[0].clientY;
+				startTime=new Date().getTime();
+			});
+		}
+		if(this.bigCont.getElementsByClassName('follow-item-3')[0]!==undefined){
+			this.bigCont.getElementsByClassName('follow-item-3')[0].addEventListener('touchstart',function(evt){
+				console.log('====touch strat====');
+			
+			startx=evt.touches[0].clientX;
+			starty=evt.touches[0].clientY;
+			startTime=new Date().getTime();
+			});
+		}
+		if(this.bigCont.getElementsByClassName('follow-item-4')[0]!==undefined){
+			this.bigCont.getElementsByClassName('follow-item-4')[0].addEventListener('touchstart',function(evt){
+				console.log('====touch strat====');
+			
+			startx=evt.touches[0].clientX;
+			starty=evt.touches[0].clientY;
+			startTime=new Date().getTime();
+			});
+		}
+		
+
+		this.bigCont.getElementsByClassName('follow-item-1')[0].addEventListener('touchend',(evt)=>{
+			console.log('touch ====end');
+			endx=evt.changedTouches[0].clientX;
+			endy=evt.changedTouches[0].clientY;
+
+			const distanceX=Math.abs(endx-startx);
+			const distanceY=Math.abs(endy-starty);
+
+			const endTime=new Date().getTime();
+			const deltaTime=endTime-startTime;
+			const deltaX=endx-startx;
+			const deltaY=endy-starty;
+
+			console.log(distanceX);
+			if(deltaTime<swipeTime && Math.abs(deltaX)>Math.abs(deltaY) ){
+				if(deltaX>swipeThreshold){
+					console.log('right swipe');
+					this.swipe_right();
+				}else if(deltaX< swipeThreshold){
+					this.swipe_left();
+					console.log('left swipe');
+				}else{
+
+				}
+				
+			}
+		});
+		if(this.bigCont.getElementsByClassName('follow-item-3')[0]!==undefined){
+		this.bigCont.getElementsByClassName('follow-item-3')[0].addEventListener('touchend',(evt)=>{
+			console.log('touch ====end');
+			endx=evt.changedTouches[0].clientX;
+			endy=evt.changedTouches[0].clientY;
+
+			const distanceX=Math.abs(endx-startx);
+			const distanceY=Math.abs(endy-starty);
+
+			
+			const endTime=new Date().getTime();
+			const deltaTime=endTime-startTime;
+			const deltaX=endx-startx;
+			const deltaY=endy-starty;
+
+			console.log(distanceX);
+			if(deltaTime<swipeTime && Math.abs(deltaX)>Math.abs(deltaY) ){
+				if(deltaX>swipeThreshold){
+					console.log('right swipe');
+					this.swipe_right();
+				}else if(deltaX< swipeThreshold){
+					console.log('left swipe');
+					this.swipe_left();
+				}else{
+
+				}
+				
+			}
+		});
+	}
+	if(this.bigCont.getElementsByClassName('follow-item-4')[0]!==undefined){
+		this.bigCont.getElementsByClassName('follow-item-4')[0].addEventListener('touchend',(evt)=>{
+			console.log('touch ====end');
+			endx=evt.changedTouches[0].clientX;
+			endy=evt.changedTouches[0].clientY;
+
+			const distanceX=Math.abs(endx-startx);
+			const distanceY=Math.abs(endy-starty);
+
+			
+			const endTime=new Date().getTime();
+			const deltaTime=endTime-startTime;
+			const deltaX=endx-startx;
+			const deltaY=endy-starty;
+
+			console.log(distanceX);
+			if(deltaTime<swipeTime && Math.abs(deltaX)>Math.abs(deltaY) ){
+				if(deltaX>swipeThreshold){
+					console.log('right swipe');
+					this.swipe_right();
+				}else if(deltaX< swipeThreshold){
+					console.log('left swipe');
+					this.swipe_left();
+				}else{
+
+				}
+				
+			}
+		});
+	}
+		if(this.bigCont.getElementsByClassName('follow-item-2')[0]!==undefined){
+		this.bigCont.getElementsByClassName('follow-item-2')[0].addEventListener('touchend',(evt)=>{
+			console.log('touch ====end');
+			endx=evt.changedTouches[0].clientX;
+			endy=evt.changedTouches[0].clientY;
+
+			const distanceX=Math.abs(endx-startx);
+			const distanceY=Math.abs(endy-starty);
+
+			
+			const endTime=new Date().getTime();
+			const deltaTime=endTime-startTime;
+			const deltaX=endx-startx;
+			const deltaY=endy-starty;
+
+			console.log(distanceX);
+			if(deltaTime<swipeTime && Math.abs(deltaX)>Math.abs(deltaY) ){
+				if(deltaX>swipeThreshold){
+					
+					this.swipe_right();
+				}else if(deltaX< swipeThreshold){
+					
+					this.swipe_left();
+				}else{
+
+				}
+				
+			}
+		});
+	}
+
+	
 	}
 
 }
