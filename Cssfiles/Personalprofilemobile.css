@@ -325,6 +325,80 @@ li {
 
 
 @media screen and (max-width: 684px){
+
+  header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    position: static;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: -webkit-sticky; /* Safari */
+position: sticky;
+top: 0;
+  background-color: white;
+  color: white;
+  padding: 10px 20px;
+}
+
+
+.nav-left {
+  margin-left: 40px;
+  }
+  
+  .nav-left img {
+    width: 9vw;
+    max-width: 85px;
+    height: auto;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  margin-right: 4px;
+}
+
+.nav-center {
+  color: #A7991E;
+  font-size: 15px;
+}
+
+.nav-center h2 {
+  color: #A7991E;
+}
+
+.title {
+  font-weight: bold;
+  margin-left: 70px;
+}
+
+.push-button, .upload-button {
+  margin-right: 20px;
+    padding: 13px 30px;
+    background-color: #A7991E;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.settings-button{
+  width: 85px;
+  height: 55px;
+}
+
+  .nav-center{
+    display: none;
+  }
+
 .follow-button {
   background-color: #A7991E;
   color: white;
@@ -357,22 +431,22 @@ li {
 
 /* User Info */
 .user-info-container {
-flex-direction: column;
-justify-content: center;
-background-color: #fff;
-text-align: center;
-position: absolute;
-padding: 30px;
-border-radius: 55px;
-width: 33%;
-max-width: 500px;
-height: 40vh;
-display: flex;
-left: 45px;
-top: 375px;
-margin-top: 90px;
-border-color: #A7991E;
-border-style: solid;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #fff;
+  text-align: center;
+  position: absolute;
+  padding: 30px;
+  border-radius: 55px;
+  width: 46%;
+  max-width: 500px;
+  height: 40vh;
+  display: flex;
+  left: 143px;
+  top: 463px;
+  margin-top: 90px;
+  border-color: #A7991E;
+  border-style: solid;
 }
 
 .user-info h1 {
@@ -388,19 +462,19 @@ border-style: solid;
 
 .Fol{
   flex-direction: column;
-  justify-content: center;
-  background-color: #fff;
-  text-align: center;
-  position: absolute;
-  border-radius: 55px;
-  width: 33%;
-  max-width: 500px;
-  height: 69vh;
-  display: flex;
-  right: 60px;
-  top: 350px;
-  margin-top: 90px;
-  color: #A7991E;
+      justify-content: center;
+      background-color: #fff;
+      text-align: center;
+      position: absolute;
+      border-radius: 55px;
+      width: 42%;
+      max-width: 500px;
+      height: 20vh;
+      display: flex;
+      right: 183px;
+      top: 302px;
+      margin-top: 90px;
+      color: #A7991E;
 }
 
 .Follower li{
@@ -417,6 +491,10 @@ li {
 
 
 @media screen and (max-width: 626px){
+  .nav-center{
+    display: none;
+  }
+
   .follow-button {
     background-color: #A7991E;
     color: white;
@@ -449,22 +527,22 @@ li {
   
   /* User Info */
   .user-info-container {
-  flex-direction: column;
-  justify-content: center;
-  background-color: #fff;
-  text-align: center;
-  position: absolute;
-  padding: 30px;
-  border-radius: 55px;
-  width: 33%;
-  max-width: 500px;
-  height: 40vh;
-  display: flex;
-  left: 45px;
-  top: 375px;
-  margin-top: 90px;
-  border-color: #A7991E;
-  border-style: solid;
+    flex-direction: column;
+      justify-content: center;
+      background-color: #fff;
+      text-align: center;
+      position: absolute;
+      padding: 30px;
+      border-radius: 55px;
+      width: 46%;
+      max-width: 500px;
+      height: 40vh;
+      display: flex;
+      left: 126px;
+      top: 463px;
+      margin-top: 90px;
+      border-color: #A7991E;
+      border-style: solid;
   }
   
   .user-info h1 {
@@ -480,19 +558,19 @@ li {
   
   .Fol{
     flex-direction: column;
-    justify-content: center;
-    background-color: #fff;
-    text-align: center;
-    position: absolute;
-    border-radius: 55px;
-    width: 33%;
-    max-width: 500px;
-    height: 69vh;
-    display: flex;
-    right: 60px;
-    top: 350px;
-    margin-top: 90px;
-    color: #A7991E;
+      justify-content: center;
+      background-color: #fff;
+      text-align: center;
+      position: absolute;
+      border-radius: 55px;
+      width: 42%;
+      max-width: 500px;
+      height: 20vh;
+      display: flex;
+      right: 183px;
+      top: 302px;
+      margin-top: 90px;
+      color: #A7991E;
   }
   
   .Follower li{
@@ -508,6 +586,80 @@ li {
   }
 
   @media screen and (max-width: 552px){
+
+    header {
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 10px 20px;
+      position: static;
+      top: 0;
+      z-index: 1000;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    background-color: white;
+    color: white;
+    padding: 10px 20px;
+  }
+  
+  
+  .nav-left {
+    margin-left: 40px;
+    }
+    
+    .nav-left img {
+      width: 9vw;
+      max-width: 85px;
+      height: auto;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+  
+  .nav-right {
+    display: flex;
+    align-items: center;
+    margin-right: 4px;
+  }
+  
+  .nav-center {
+    color: #A7991E;
+    font-size: 15px;
+  }
+  
+  .nav-center h2 {
+    color: #A7991E;
+  }
+  
+  .title {
+    font-weight: bold;
+    margin-left: 70px;
+  }
+  
+  .push-button, .upload-button {
+    margin-right: 20px;
+    padding: 12px 29px;
+    background-color: #A7991E;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 20px;
+  }
+  
+  .settings-button{
+    width: 80px;
+    height: 50px;
+  }
+
+    .nav-center{
+      display: none;
+    }
+
     .profile-image {
       border-radius: 50%;
       width: 180px;
@@ -548,21 +700,21 @@ li {
     /* User Info */
     .user-info-container {
       flex-direction: column;
-      justify-content: center;
-      background-color: #fff;
-      text-align: center;
-      position: absolute;
-      padding: 30px;
-      border-radius: 55px;
-      width: 45%;
-      max-width: 500px;
-      height: 40vh;
-      display: flex;
-      left: 96px;
-      top: 477px;
-      margin-top: 90px;
-      border-color: #A7991E;
-      border-style: solid;
+    justify-content: center;
+    background-color: #fff;
+    text-align: center;
+    position: absolute;
+    padding: 30px;
+    border-radius: 55px;
+    width: 46%;
+    max-width: 500px;
+    height: 40vh;
+    display: flex;
+    left: 105px;
+    top: 463px;
+    margin-top: 90px;
+    border-color: #A7991E;
+    border-style: solid;
     }
     
     .user-info h1 {
@@ -578,19 +730,19 @@ li {
     
     .Fol{
       flex-direction: column;
-  justify-content: center;
-  background-color: #fff;
-  text-align: center;
-  position: absolute;
-  border-radius: 55px;
-  width: 44%;
-  max-width: 500px;
-  height: 35vh;
-  display: flex;
-  right: 151px;
-  top: 297px;
-  margin-top: 90px;
-  color: #A7991E;
+      justify-content: center;
+      background-color: #fff;
+      text-align: center;
+      position: absolute;
+      border-radius: 55px;
+      width: 44%;
+      max-width: 500px;
+      height: 11vh;
+      display: flex;
+      right: 173px;
+      top: 302px;
+      margin-top: 90px;
+      color: #A7991E;
     }
     
     .Follower li{
@@ -605,7 +757,184 @@ li {
     }
     }
 
+
+    @media screen and (max-width: 434px){
+      .nav-center{
+        display: none;
+      }
+
+      .profile-image {
+        border-radius: 50%;
+        width: 180px;
+        height: 180px;
+        object-fit: cover;
+    }
+  
+      .follow-button {
+        background-color: #A7991E;
+        color: white;
+        font-weight: bold;
+        border: none;
+        padding: 8px 16px;
+        font-size: 13px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        outline: none;
+      }
+      
+      /* Hover effect for Follow button */
+      .follow-button:hover {
+        background-color: #A7991E;
+      }
+      
+      /* Optional: If the user is already following, change the button state */
+      .follow-button.following {
+        background-color: white;
+        color: black;
+        border: 1px solid #dbdbdb;
+      }
+      
+      .follow-button.following:hover {
+        background-color: #f0f0f0;
+        border-color: #bfbfbf;
+      }
+      
+      /* User Info */
+      .user-info-container {
+        flex-direction: column;
+      justify-content: center;
+      background-color: #fff;
+      text-align: center;
+      position: absolute;
+      padding: 30px;
+      border-radius: 55px;
+      width: 46%;
+      max-width: 500px;
+      height: 40vh;
+      display: flex;
+      left: 82px;
+      top: 463px;
+      margin-top: 90px;
+      border-color: #A7991E;
+      border-style: solid;
+      }
+      
+      .user-info h1 {
+        font-size: 2rem;
+        margin: 0;
+      }
+      
+      .user-info .short-bio {
+        font-size: 1rem;
+        color: #666;
+        margin-top: 10px;
+      }
+      
+      .Fol{
+        flex-direction: column;
+        justify-content: center;
+        background-color: #fff;
+        text-align: center;
+        position: absolute;
+        border-radius: 55px;
+        width: 42%;
+        max-width: 500px;
+        height: 20vh;
+        display: flex;
+        right: 173px;
+        top: 302px;
+        margin-top: 90px;
+        color: #A7991E;
+      }
+      
+      .Follower li{
+      font-weight: bold;
+      font-size: 14px;
+      }
+      
+      li {
+        display: inline-block;
+        margin: 12px;
+        font-size: 13px;
+      }
+      }
+
+
     @media screen and (max-width: 410px){
+      header {
+        background-color: #ffffff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 10px 20px;
+        position: static;
+        top: 0;
+        z-index: 1000;
+    }
+    
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+      background-color: white;
+      color: white;
+      padding: 10px 20px;
+    }
+    
+    
+    .nav-left {
+      margin-left: 40px;
+      }
+      
+      .nav-left img {
+        width: 12vw;
+        max-width: 85px;
+        height: auto;
+        cursor: pointer;
+        margin-top: 4px;
+      }
+    
+    .nav-right {
+      display: flex;
+      align-items: center;
+      margin-right: 4px;
+    }
+    
+    .nav-center {
+      color: #A7991E;
+      font-size: 15px;
+    }
+    
+    .nav-center h2 {
+      color: #A7991E;
+    }
+    
+    .title {
+      font-weight: bold;
+      margin-left: 70px;
+    }
+    
+    .push-button, .upload-button {
+      margin-right: 20px;
+      padding: 12px 29px;
+      background-color: #A7991E;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 20px;
+    }
+    
+    .settings-button{
+      width: 80px;
+      height: 50px;
+    }
+
+      .nav-center{
+        display: none;
+      }
+
       .profile-image {
         border-radius: 50%;
         width: 150px;
@@ -646,21 +975,21 @@ li {
       /* User Info */
       .user-info-container {
         flex-direction: column;
-  justify-content: center;
-  background-color: #fff;
-  text-align: center;
-  position: absolute;
-  padding: 30px;
-  border-radius: 55px;
-  width: 45%;
-  max-width: 500px;
-  height: 40vh;
-  display: flex;
-  left: 96px;
-  top: 477px;
-  margin-top: 90px;
-  border-color: #A7991E;
-  border-style: solid;
+      justify-content: center;
+      background-color: #fff;
+      text-align: center;
+      position: absolute;
+      padding: 30px;
+      border-radius: 55px;
+      width: 46%;
+      max-width: 500px;
+      height: 40vh;
+      display: flex;
+      left: 63px;
+      top: 463px;
+      margin-top: 90px;
+      border-color: #A7991E;
+      border-style: solid;
       }
       
       .user-info h1 {
@@ -676,19 +1005,19 @@ li {
       
       .Fol{
         flex-direction: column;
-  justify-content: center;
-  background-color: #fff;
-  text-align: center;
-  position: absolute;
-  border-radius: 55px;
-  width: 51%;
-  max-width: 500px;
-  height: 35vh;
-  display: flex;
-  right: 151px;
-  top: 297px;
-  margin-top: 90px;
-  color: #A7991E;
+      justify-content: center;
+      background-color: #fff;
+      text-align: center;
+      position: absolute;
+      border-radius: 55px;
+      width: 53%;
+      max-width: 500px;
+      height: 11vh;
+      display: flex;
+      right: 111px;
+      top: 302px;
+      margin-top: 90px;
+      color: #A7991E;
       }
       
       .Follower li{
@@ -705,6 +1034,10 @@ li {
 
 
       @media screen and (max-width: 340px){
+        .nav-center{
+          display: none;
+        }
+
         .profile-image {
           border-radius: 50%;
           width: 150px;
@@ -751,12 +1084,12 @@ li {
           position: absolute;
           padding: 30px;
           border-radius: 55px;
-          width: 50%;
+          width: 46%;
           max-width: 500px;
           height: 40vh;
           display: flex;
-          left: 50px;
-          top: 477px;
+          left: 54px;
+          top: 463px;
           margin-top: 90px;
           border-color: #A7991E;
           border-style: solid;
@@ -780,12 +1113,12 @@ li {
           text-align: center;
           position: absolute;
           border-radius: 55px;
-          width: 67%;
+          width: 53%;
           max-width: 500px;
-          height: 35vh;
+          height: 20vh;
           display: flex;
-          right: 87px;
-          top: 297px;
+          right: 93px;
+          top: 302px;
           margin-top: 90px;
           color: #A7991E;
         }
@@ -803,6 +1136,10 @@ li {
         }
   
         @media screen and (max-width: 336px){
+          .nav-center{
+            display: none;
+          }
+
           .profile-image {
             border-radius: 50%;
             width: 150px;
@@ -849,12 +1186,12 @@ li {
             position: absolute;
             padding: 30px;
             border-radius: 55px;
-            width: 50%;
+            width: 46%;
             max-width: 500px;
-            height: 40vh;
+            height: 35vh;
             display: flex;
-            left: 50px;
-            top: 477px;
+            left: 60px;
+            top: 463px;
             margin-top: 90px;
             border-color: #A7991E;
             border-style: solid;
@@ -878,12 +1215,12 @@ li {
             text-align: center;
             position: absolute;
             border-radius: 55px;
-            width: 53%;
+            width: 56%;
             max-width: 500px;
-            height: 35vh;
+            height: 20vh;
             display: flex;
-            right: 126px;
-            top: 297px;
+            right: 98px;
+            top: 302px;
             margin-top: 90px;
             color: #A7991E;
           }
@@ -901,6 +1238,10 @@ li {
           }
 
           @media screen and (max-width: 336px){
+            .nav-center{
+              display: none;
+            }
+
             .profile-image {
               border-radius: 50%;
               width: 150px;
@@ -947,12 +1288,12 @@ li {
               position: absolute;
               padding: 30px;
               border-radius: 55px;
-              width: 50%;
+              width: 46%;
               max-width: 500px;
               height: 40vh;
               display: flex;
-              left: 50px;
-              top: 477px;
+              left: 150px;
+              top: 463px;
               margin-top: 90px;
               border-color: #A7991E;
               border-style: solid;
@@ -976,12 +1317,12 @@ li {
               text-align: center;
               position: absolute;
               border-radius: 55px;
-              width: 67%;
+              width: 42%;
               max-width: 500px;
-              height: 35vh;
+              height: 20vh;
               display: flex;
-              right: 87px;
-              top: 297px;
+              right: 183px;
+              top: 302px;
               margin-top: 90px;
               color: #A7991E;
             }
