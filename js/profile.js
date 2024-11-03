@@ -31,7 +31,8 @@ export class MakeProfile extends Profile{
 class ProfileUI extends Profile{
     constructor(){
         super();
-        this._posts=[];
+        this._posts;
+    
         this._editProfile=false;
         this._deletePost=false;
         this._uploadPost=false;
@@ -57,6 +58,7 @@ class ProfileUI extends Profile{
     get posts(){
         return this._posts;
     }
+    
     add_post(ps){
         this.posts.push(ps);
     }
@@ -79,7 +81,7 @@ class ProfileUI extends Profile{
 export class OtherProfile extends ProfileUI{
     constructor(){
         super();
-      
+        this._postsHtml=[];
         this._data;
         this._cont;
         this._bigcont;
@@ -95,6 +97,12 @@ export class OtherProfile extends ProfileUI{
         this._className;
 
        
+    }
+    set postsHtml(i){
+        this._postsHtml=i;
+    }
+    get postsHtml(){
+        return this._postsHtml;
     }
     set className(i){
         this._className=i;
@@ -272,6 +280,7 @@ export class OtherProfile extends ProfileUI{
                     shareCont.append(shareImage);
                     c.append(shareCont);
                     c.append(img);
+                    this.postsHtml.push(c);
                 }
                 else{
                     source.setAttribute('src',this.data.posts[ss]['videoFilePath']+''+this.data.posts[ss]['VideoFileName']);
@@ -282,6 +291,7 @@ export class OtherProfile extends ProfileUI{
                     shareCont.append(shareImage);
                     c.append(shareCont);
                     c.append(vid);
+                    this.postsHtml.push(c);
                 }
 
                 contFour.append(c);
@@ -302,12 +312,13 @@ export class OtherProfile extends ProfileUI{
                 contFive.setAttribute('id',this.data.post.postLink);
                 shareCont.setAttribute('class','share-button');
                 shareImage.setAttribute('src','/Image/Share.png');
-                im.setAttribute('controls','true');
+                // im.setAttribute('controls','true');
                 shareCont.append(shareImage);
                 
                 im.append(source);
                 contFive.append(shareCont);
                 contFive.append(im);
+                this.postsHtml.push(contFive);
 
                 contFour.append(contFive);
                 // cont.append(contFour);
@@ -329,6 +340,7 @@ export class OtherProfile extends ProfileUI{
             shareCont.append(shareImage);
             contFour.append(shareCont);
             contFive.append(im);
+            this.postsHtml.push(contFive)
             contFour.append(contFive);
             
         }
@@ -429,6 +441,7 @@ export class OtherProfile extends ProfileUI{
         cont.append(removeBtn);
         this.profilePicture=profilePicture;
         this.cont=cont;
+
         this.removeBtn=removeBtn;
         
         

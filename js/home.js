@@ -93,7 +93,7 @@ function get_ish_form_cookie(){
     if(profilesObjs==undefined){
         console.log('no posts ');
     }else{
-        initialiseObjects(profilesObjs,user_data);
+        initialiseObjects(profilesObjs);
     }
         
     }
@@ -188,17 +188,20 @@ window.addEventListener('error',function(error){
     }
     
 });
-function initialiseObjects(cookie_data,cookie_user){
-    console.log('=========cookie data========');
-    console.log(cookie_data);
-    console.log(cookie_user);
-    if(cookie_user!==undefined){
+
+function initialisePersoalObejct(){
+    const cookie_user=get_cookie('user=');
+     if(cookie_user!==undefined){
         user.username=cookie_user.username;
         user.fullName=cookie_user.fullname;
         user.bio=cookie_user.bio;
         user.is_logged_in_homepage();
        
     }
+}
+initialisePersoalObejct();
+function initialiseObjects(cookie_data){
+   
    if(cookie_data!==undefined){
         // clear_posts();
         let parentCont=document.getElementsByClassName("postfeed-wrapper")[0];
@@ -216,10 +219,18 @@ function initialiseObjects(cookie_data,cookie_user){
             profileItem.profilePicture=cookie_data[i].profilePicture;
             profileItem.data=cookie_data[i];
             profileItem.parentContainer=parentCont;
+            profileItem.posts=cookie_data[i].posts;
            // profileItem.make_container();
             // profileItem.make_posts();
             // profileItem.make_profilePic();
             profileItem.make_container();
+       
+          
+            for(let p=0;p<profileItem.postsHtml.length;p++){
+                console.log('====== posts =====');
+                console.log(profileItem.postsHtml[p]);
+                profileItem.postsHtml[p].addEventListener('click',openModal);
+            }
             console.log('=====test=====');
             console.log(profileItem.cont);
             // gallery.bigCont=profileItem.bigCont;
@@ -370,13 +381,26 @@ function eventListeners(){
     let userProfile=document.getElementsByClassName("profile-button-img");
     let search_input=document.getElementById("search");
     let sharePost=document.getElementsByClassName('share-button');
-    let selectTopPost=document.getElementsByClassName("post-image");
     
     let viewMore=document.getElementsByClassName("view-more-btn")[0];
     let registerBtn = document.getElementById('userRegistration');
     let closeReg = document.getElementById("closeModalReg");
     let donate=document.getElementById('donateBtn');
     let modal = document.getElementById("registerModal");
+
+    //this will check if user is at the end of the html page
+    // if so it will trigger the conditional code
+    window.addEventListener('scroll',function(evt){
+         const scrolledToBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
+         if(scrolledToBottom){
+            get_ish_form_cookie();
+
+        
+    }else{
+        
+    }
+    });
+    
 
     if(document.getElementById('donation')!==undefined && document.getElementById('donation')!==null){
         const donation=document.getElementById('donation');
@@ -414,10 +438,7 @@ function eventListeners(){
     
 
     search_input.addEventListener("input",search_user);
-    let postImageLen=selectTopPost.length;
-    for(let i=0;i<postImageLen;i++){
-        selectTopPost[i].addEventListener('click',openModal);
-    }
+   
  
     registerBtn.addEventListener('click',function(evt) {
         modal.style.display = "block";
@@ -461,9 +482,31 @@ eventListeners();
 
 
 function openModal(evt) {
-    //clear all post in the modal
+    evt.stopPropagation();
+    let media=document.getElementsByClassName('modal-image-content');
+    let maxLen=media.length;
+    for(let mc=0;mc<maxLen;mc++){
+        media[mc].remove();
+    }
+
+
+    let mediaType='image';
+  
+    console.log('====== opening modal =====');
     let postTitle='happy';
     const element=evt.target;
+    
+    if(element.getElementsByTagName('img')!==undefined){
+        mediaType='image';
+   }
+    else if(element.getElementsByTagName('video')[0]!==undefined){
+        element.getElementsByTagName('source')[0].src;
+        console.log('===== a ok');
+        mediaType='video';
+    }else
+    {
+        throw 'html element undefined';
+    }
     console.log(evt.target.src);
     const source=evt.target.src;
     let postImageSrc=evt.target.src;
@@ -475,11 +518,13 @@ function openModal(evt) {
     const cont=document.getElementById('modalContainerHolder');
   
     modal.style.display = "block";
-    if(!patttern.test(element.src)){
-        const videoSource=element.getElementByTagName('source')[0];
+    if(mediaType=='video'){
+        const videoSource= element.getElementsByTagName('source')[0].src;
         let video=document.createElement('video');
         let sourceElement=document.createElement('source');
         sourceElement.setAttribute('src',videoSource);
+        video.setAttribute('controls',true);
+        video.setAttribute('class','modal-image-content');
         video.append(sourceElement);
         cont.append(video);
         console.log(element);
@@ -488,6 +533,7 @@ function openModal(evt) {
     else{
         let image=document.createElement('img');
         image.setAttribute('src',source);
+        image.setAttribute('class','modal-image-content');
         cont.append(image);
         console.log(element);
         console.log('=====display image');
@@ -495,12 +541,6 @@ function openModal(evt) {
     }
     
     document.getElementById("closeModal").addEventListener('click',closeModal);
-
-    // console.log(profile.id+'/'+cont.id);
-    // window.location.href=profile.id+'/'+cont.id;
-    // history.replaceState(null, null, profile.id+'/'+cont.id);
-
-
 }
 
 function handleLogginIn(){
