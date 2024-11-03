@@ -237,7 +237,7 @@ swipe_left(){
 	    currentImage.style.transition = 'transform 0.5s ease-in-out';
 	    nextImage.style.transition = 'transform 0.5s ease-in-out';
 
-	    currentImage.style.transform = 'translateX(-100%)'; // move current image out of view
+	    currentImage.style.transform = 'translateX(-10px)'; // move current image out of view
 	    nextImage.style.transform = 'translateX(0)'; // bring next image into view
 
 	    // Update current index after animation completes
@@ -245,7 +245,7 @@ swipe_left(){
 	    	currentImage.style.transition = 'transform 0.5s ease-in-out';
 	    	nextImage.style.transition = 'transform 0.5s ease-in-out';
 
-	    	currentImage.style.transform = 'translateX(-100%)'; // move current image out of view
+	    	currentImage.style.transform = 'translateX(-10px)'; // move current image out of view
 	    	nextImage.style.transform = 'translateX(0)'; // bring next 
 	        this.currentItem.index = nextIndex;
 
@@ -287,10 +287,10 @@ swipe_left(){
     setTimeout(() => {
     	prevImage.style.zIndex = 30;
     	currentImage.style.zIndex = 10;
-    	currentImage.style.transform = 'translateX(-100%)';
-	    prevImage.style.transform = 'translateX(10%)'; 
+    	currentImage.style.transform = 'translateX(-10px)';
+	    prevImage.style.transform = 'translateX(10px)'; 
 
-	    currentImage.style.transform = 'translateY(-10%)'; 
+	    currentImage.style.transform = 'translateY(-10px)'; 
 	    prevImage.style.transform = 'translateY(10%)';
 	    this.currentItem.index=prevIndex;
         
