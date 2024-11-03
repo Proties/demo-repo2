@@ -96,9 +96,7 @@ function populate_recent_profiles(){
 		other.followStatus=list[i].followStatus;
 		let cont=other.make_small_container();
 		other.removeBtn.addEventListener('click',other.remove_profile);
-		if(list[i].followStatus==true){
-			other.unfollowBtn.addEventListener('click',other.unfollow_user);
-		}else{
+		if(list[i].followStatus==false){
 			other.followBtn.addEventListener('click',other.follow_user);
 		}
 		
@@ -131,7 +129,7 @@ function populate_popular_profiles(){
 		other.removeBtn.addEventListener('click',other.remove_popular_profile);
 		other.followBtn.setAttribute('class','who-follow-btn');
 		other.followBtn.addEventListener('click',other.follow_user);
-
+		
 		document.getElementById('who-to-follow').append(cont);
 	}
 }

@@ -81,9 +81,16 @@ export class MobileGallery extends Gallery{
 		arr.push(this.bigCont.getElementsByClassName('Secondary-post')[0]);
 		arr.push(this.bigCont.getElementsByClassName('Tertiary-post')[0]);
 
+		
+		let placeholder=[];
+		for(let ar=0;ar<arr.length;ar++){
+			if(arr[ar]!==undefined){
+				placeholder.push(arr[ar]);
+			}
+		}
+		this.imageList=placeholder;
 		this.currentItem.html=arr[arr.length];
-		this.currentItem.index=arr.length;
-		this.imageList=arr;
+		this.currentItem.index=placeholder.length-1;
 		this.bigCont.getElementsByClassName('Primary-post')[0].addEventListener('touchstart',function(evt){
 			console.log('====touch strat====');
 		
@@ -128,9 +135,11 @@ export class MobileGallery extends Gallery{
 			console.log(distanceX);
 			if(deltaTime<swipeTime && Math.abs(deltaX)>Math.abs(deltaY) ){
 				if(deltaX>swipeThreshold){
+					console.log('right swipe');
 					this.swipe_right();
 				}else if(deltaX< swipeThreshold){
 					this.swipe_left();
+					console.log('left swipe');
 				}else{
 
 				}
@@ -155,8 +164,10 @@ export class MobileGallery extends Gallery{
 			console.log(distanceX);
 			if(deltaTime<swipeTime && Math.abs(deltaX)>Math.abs(deltaY) ){
 				if(deltaX>swipeThreshold){
+					console.log('right swipe');
 					this.swipe_right();
 				}else if(deltaX< swipeThreshold){
+					console.log('left swipe');
 					this.swipe_left();
 				}else{
 
@@ -203,21 +214,25 @@ export class MobileGallery extends Gallery{
 //the current image will be moved to the left and the image after it will be moved to its place
 
 swipe_left(){
-		let arr=this.imageList;
+		const imageList = this.imageList;
 		let i=0;
-		let maxIndex=arr.length;
-		
-		
-	    const imageList = this.imageList;
-	    const currentIndex = this.currentItem.index;
-	    const nextIndex = (currentIndex + 1) % imageList.length; // loop around to start if at end
+		let nextIndex;
+		let currentIndex = this.currentItem.index;
+		let maxIndex=imageList.length;
+		if(currentIndex==maxIndex){
+			nextIndex=currentIndex-1;
+		}else{
+			nextIndex = currentIndex + 1;
+		}
+
+	    
 
 	    // Swap current and next images
-	    const currentImage = imageList[currentIndex];
+	    console.log('====== next image index====');
+	    console.log(nextIndex);
+	    let currentImage = imageList[currentIndex];
 	    const nextImage = imageList[nextIndex];
-	    if(currentImage==undefined){
-	    	return;
-	    }
+	 
 	    // Animate swap
 	    currentImage.style.transition = 'transform 0.5s ease-in-out';
 	    nextImage.style.transition = 'transform 0.5s ease-in-out';
@@ -227,7 +242,13 @@ swipe_left(){
 
 	    // Update current index after animation completes
 	    setTimeout(() => {
+	    	currentImage.style.transition = 'transform 0.5s ease-in-out';
+	    	nextImage.style.transition = 'transform 0.5s ease-in-out';
+
+	    	currentImage.style.transform = 'translateX(-100%)'; // move current image out of view
+	    	nextImage.style.transform = 'translateX(0)'; // bring next 
 	        this.currentItem.index = nextIndex;
+
 	    }, 500);
 	
 	
@@ -238,22 +259,41 @@ swipe_left(){
 	// and place it at the front
 	swipe_right() {
     const imageList = this.imageList;
-    const currentIndex = this.currentItem.index;
-   	let prevIndex;
+    let currentIndex = this.currentItem.index;
+    let prevIndex;
+    if(currentIndex==0){
+    	prevIndex =currentIndex+1;
+    }else{
+    	prevIndex =currentIndex-1;
+    }
+   	
+
 
     // Animate swap
-    const currentImage = imageList[currentIndex];
+    console.log(currentIndex);
+    console.log(this.imageList);
+
+    let currentImage = imageList[currentIndex];
+
     const prevImage = imageList[prevIndex];
 
     currentImage.style.transition = 'transform 0.5s ease-in-out';
     prevImage.style.transition = 'transform 0.5s ease-in-out';
 
-    currentImage.style.transform = 'translateX(-100%)'; // move current image out of view
-    prevImage.style.transform = 'translateX(0)'; // bring previous image into view
+    currentImage.style.transform = 'translateX(100%)'; // move current image out of view
+    prevImage.style.transform = 'translateX(-50%)'; // bring previous image into view
 
     // Update current index after animation completes
     setTimeout(() => {
-        this.currentItem.index = prevIndex;
+    	prevImage.style.zIndex = 30;
+    	currentImage.style.zIndex = 10;
+    	currentImage.style.transform = 'translateX(-100%)';
+	    prevImage.style.transform = 'translateX(10%)'; 
+
+	    currentImage.style.transform = 'translateY(-10%)'; 
+	    prevImage.style.transform = 'translateY(10%)';
+	    this.currentItem.index=prevIndex;
+        
     }, 500);
 }
 }

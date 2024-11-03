@@ -60,6 +60,7 @@ try{
 				}catch(Exception $err){
 					$data['status']='failed';
 					$data['message']=$err->getMessage();
+					echo json_encode($data);
 					setcookie('searchResults',json_encode($data),time()+(45033*43),'/');
 				}
 				break;
@@ -71,6 +72,7 @@ try{
 				}catch(Exception $err){
 					$data['status']='failed';
 					$data['message']=$err->getMessage();
+					echo json_encode($data);
 					setcookie('searchResults',json_encode($data),time()+(45033*43),'/');
 				}
 				break;
@@ -103,6 +105,7 @@ try{
 				}
 				break;
 			case 'remove_popular_profile':
+				$data=[];
 				try{
 					if(!isset($_SESSION['userID']) OR empty($_SESSION['userID'])){
 						throw new Exception('create account');
@@ -110,10 +113,14 @@ try{
 					if(isset($_COOKIE['popularProfiles'])){
 
 					}
+					$data['status']='success';
+					$data['message']='popular profile removed';
+					$data['data']=['username'=>'loner','profilePicture'=>''];
+					echo json_encode($data);
 				}catch(Exception $err){
 					$data['status']='failed';
 					$data['message']=$err->getMessage();
-					
+					echo json_encode($data);
 				}
 				break;
 			case 'remove_profile':
@@ -128,6 +135,7 @@ try{
 				catch(Exception $err){
 					$data['status']='failed';
 					$data['message']=$err->getMessage();
+					echo json_encode($data);
 					
 				}
 				break;
