@@ -1202,7 +1202,7 @@ nav .profile-link {
 
 /* Recent Posts Section */
 .recent-profiles{
-  margin-top: 60px;
+  margin-top: 90px;
 }
 
 .recent-profiles h2 {
@@ -1217,7 +1217,7 @@ nav .profile-link {
     flex-direction: column;
 }
 
-.profiles-item {
+.profile-item {
   display: flex;
     align-items: center;
     border-radius: 10px;

@@ -483,6 +483,7 @@ display: none;
   position: relative;
   z-index: 1; /* Bring the top post to the front */
   cursor: pointer;
+  width: 500px;
 }
 
 .Secondary-post {
@@ -492,6 +493,7 @@ display: none;
   bottom: 150px;
   z-index: 2;
   cursor: pointer;
+  width: 500px;
 }
 
 .Tertiary-post {
@@ -501,6 +503,7 @@ display: none;
   bottom: 310px;
   z-index: 2;
   cursor: pointer;
+  width: 500px;
 }
 
 .post-section {
