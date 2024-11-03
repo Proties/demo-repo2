@@ -1,4 +1,11 @@
 /* Reset some default styles */
+.modal-image-content{
+  width: 70%;
+  height: 80%;
+  margin-right:auto;
+  margin-left:auto;
+}
+
 @media screen and (min-width: 868px) {
 ::before,
 *::after {

@@ -1,6 +1,7 @@
 "strict";
 import {MyProfile,OtherProfile} from './profile.js';
 import {Follow,UnFollow} from './follow.js';
+import {ProfileGallery} from './imageGallery.js';
 
 let user=new MyProfile();
 console.log('=======working');
@@ -96,9 +97,7 @@ function populate_recent_profiles(){
 		other.followStatus=list[i].followStatus;
 		let cont=other.make_small_container();
 		other.removeBtn.addEventListener('click',other.remove_profile);
-		if(list[i].followStatus==true){
-			other.unfollowBtn.addEventListener('click',other.unfollow_user);
-		}else{
+		if(list[i].followStatus==false){
 			other.followBtn.addEventListener('click',other.follow_user);
 		}
 		
@@ -112,9 +111,12 @@ function populate_popular_profiles(){
 		console.log('====popular posts list empty');
 		return;
 	}
+	let contprofiles=[];
 	console.log('===== popular profiles');
 	let len=list.length;
 	let c=1;
+	let mgllery=new ProfileGallery();
+	
 	for(let i=0;i<len;i++){
 		let other=new OtherProfile();
 		other.id=list[i].userID;
@@ -131,23 +133,28 @@ function populate_popular_profiles(){
 		other.removeBtn.addEventListener('click',other.remove_popular_profile);
 		other.followBtn.setAttribute('class','who-follow-btn');
 		other.followBtn.addEventListener('click',other.follow_user);
-
+		
+		contprofiles.push(cont);
 		document.getElementById('who-to-follow').append(cont);
 	}
+	mgllery.bigCont=document.getElementById('who-to-follow');
+	mgllery.imageList=contprofiles;
+	mgllery.eventHandling();
 }
 function addEventListeners(){
 	let submit=document.getElementById('searchBtn');
 	const input=document.getElementById('search');
-	// const donation=document.getElementById('donation');
+	const donation=document.getElementById('displaModal');
 	
 
-	// donation.addEventListener('click',function(evt){
-	// 	document.getElementById('donationModal').style.display='block';
-	// 	const closeModal=donation.getElementsByClassName('close-icon')[0];
-	// 	closeModal.addEventListener('click',function(evt){
-	// 	document.getElementById('donationModal').style.display='none';
-	// });
-	// });
+	donation.addEventListener('click',function(evt){
+		let modal=document.getElementById('donation-modal');
+		modal.style.display='block';
+		const closeModal=modal.getElementsByClassName('close-icon')[0];
+		closeModal.addEventListener('click',function(evt){
+		document.getElementById('donation-modal').style.display='none';
+	});
+	});
 	
 	input.addEventListener('change',search_user);
 

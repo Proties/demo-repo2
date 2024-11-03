@@ -22,7 +22,7 @@ class Users implements Serializable{
     private string $phone;
     private string $date;
     private string $gender;
-    private string $newPosts;
+    private int $newPosts;
     private string $followingStatus;
     private string $occupation;
 
@@ -84,8 +84,23 @@ class Users implements Serializable{
         
     }
     public function unserialize($value){
-        unserialize($value);
-        return $s;
+        $data=unserialize($value);
+        $this->set_id($data['userID']);
+        $this->set_username($data['username']);
+        $this->set_fullName($data['fullName']);
+        $this->set_lastName($data['lastName']);
+        $this->set_name($data['name']);
+        $this->set_shortBio($data['shortBio']);
+        $this->set_longBio($data['longBio']);
+        $this->set_profilePicture($data['profilePicture']);
+        $this->set_followingNo($data['followerNo']);
+        $this->set_followerNo($data['followerNo']);
+        $this->set_email($data['email']);
+        $this->set_phone($data['phone']);
+        $this->set_password($data['password']);
+        $this->set_gender($data['gender']);
+
+   
     }
 
     public function initialise(array $arr)
@@ -235,7 +250,7 @@ class Users implements Serializable{
         return $this->userAuth;
     }
    public function get_File(){
-    $this->$UserFolder;
+        $this->$UserFolder;
    }
     public function get_longBio():string
     {
@@ -245,9 +260,10 @@ class Users implements Serializable{
     {
         return $this->shortBio;
     }
-
-    public function search_user_in_cache(){}
-    public function search_email_in_cache(){}
+    public function hash_password(){
+        $hash='';
+        $this->set_password($hash);
+    }
 }
 
 trait validateUser{

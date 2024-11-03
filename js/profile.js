@@ -31,7 +31,8 @@ export class MakeProfile extends Profile{
 class ProfileUI extends Profile{
     constructor(){
         super();
-        this._posts=[];
+        this._posts;
+    
         this._editProfile=false;
         this._deletePost=false;
         this._uploadPost=false;
@@ -57,6 +58,7 @@ class ProfileUI extends Profile{
     get posts(){
         return this._posts;
     }
+    
     add_post(ps){
         this.posts.push(ps);
     }
@@ -79,7 +81,7 @@ class ProfileUI extends Profile{
 export class OtherProfile extends ProfileUI{
     constructor(){
         super();
-      
+        this._postsHtml=[];
         this._data;
         this._cont;
         this._bigcont;
@@ -95,6 +97,12 @@ export class OtherProfile extends ProfileUI{
         this._className;
 
        
+    }
+    set postsHtml(i){
+        this._postsHtml=i;
+    }
+    get postsHtml(){
+        return this._postsHtml;
     }
     set className(i){
         this._className=i;
@@ -272,6 +280,7 @@ export class OtherProfile extends ProfileUI{
                     shareCont.append(shareImage);
                     c.append(shareCont);
                     c.append(img);
+                    this.postsHtml.push(c);
                 }
                 else{
                     source.setAttribute('src',this.data.posts[ss]['videoFilePath']+''+this.data.posts[ss]['VideoFileName']);
@@ -282,6 +291,7 @@ export class OtherProfile extends ProfileUI{
                     shareCont.append(shareImage);
                     c.append(shareCont);
                     c.append(vid);
+                    this.postsHtml.push(c);
                 }
 
                 contFour.append(c);
@@ -302,12 +312,13 @@ export class OtherProfile extends ProfileUI{
                 contFive.setAttribute('id',this.data.post.postLink);
                 shareCont.setAttribute('class','share-button');
                 shareImage.setAttribute('src','/Image/Share.png');
-                im.setAttribute('controls','true');
+                // im.setAttribute('controls','true');
                 shareCont.append(shareImage);
                 
                 im.append(source);
                 contFive.append(shareCont);
                 contFive.append(im);
+                this.postsHtml.push(contFive);
 
                 contFour.append(contFive);
                 // cont.append(contFour);
@@ -329,6 +340,7 @@ export class OtherProfile extends ProfileUI{
             shareCont.append(shareImage);
             contFour.append(shareCont);
             contFive.append(im);
+            this.postsHtml.push(contFive)
             contFour.append(contFive);
             
         }
@@ -407,20 +419,19 @@ export class OtherProfile extends ProfileUI{
        
 
         cont.append(profilePictureLink);
-        if(this.className=='post-item'){
+        if(this.className=='profile-item'){
             userInfo.append(username);
             userInfo.append(postsNo);
             cont.append(userInfo);
         }
         else{
             cont.append(username);
+            cont.append(followBtn);
+            this.followBtn=followBtn;
         }
         
         
-        if(this.followingStatus==true){
-          cont.append(unfollowBtn);
-          this.unfollowBtn=unfollowBtn;
-        }else{
+        if(this.followingStatus==false){
             cont.append(followBtn);
             this.followBtn=followBtn;
         }
@@ -429,6 +440,7 @@ export class OtherProfile extends ProfileUI{
         cont.append(removeBtn);
         this.profilePicture=profilePicture;
         this.cont=cont;
+
         this.removeBtn=removeBtn;
         
         
@@ -437,15 +449,29 @@ export class OtherProfile extends ProfileUI{
     }
     remove_profile(evt){
         try{
+        
             let xml=new XMLHttpRequest();
             xml.open('POST','/search_page');
             xml.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            xml.onstatechange=function(){
-                if(this.readyState==4){
-                     // const element=evt.target.parentNode;
-                    const element=evt.target.parentNode;
-                    element.remove();
-                }
+            xml.onload=function(){
+              
+                    console.log('====== server response====');
+                    console.log(this.responseText);
+                    let data=JSON.parse(this.responseText);
+                    if(data.status=='failed'){
+                        alert(data.message);
+                    }
+                    if(data.status=='success'){
+                         const element=evt.target.parentNode;
+                        element.remove();
+                        this.useraname=data.data.username;
+                        this.profilePicture=data.data.profilePicture;
+                        this.followingStatus=data.data.followingStatus;
+                        this.id=data.data.username;
+                     
+                    }
+                    
+                
             }
             xml.send('actions=remove_profile');
             
@@ -456,16 +482,31 @@ export class OtherProfile extends ProfileUI{
 
     }
     remove_popular_profile(evt){
+        console.log('=====remvoe popular');
+
+     
         try{
             let xml=new XMLHttpRequest();
             xml.open('POST','/search_page');
             xml.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            xml.onstatechange=function(){
-                if(this.readyState==4){
-                    const element=evt.target.parentNode.parentNode;
-                    element.remove();
+            xml.onload=function(){
+   
+                  console.log('====== server response====');
+                   let data=JSON.parse(this.responseText);
+                    if(data.status=='failed'){
+                        alert(data.message);
+                    }
+                    if(data.status=='success'){
+                        const element=evt.target.parentNode;
+                        element.remove();
+                        this.useraname=data.data.username;
+                        this.profilePicture=data.data.profilePicture;
+                        this.followingStatus=data.data.followingStatus;
+                        this.id=data.data.username;
+                        this.make_small_container();
+                    }
                     
-                }
+                
             }
             xml.send('actions=remove_popular_profile');
         
@@ -477,21 +518,61 @@ export class OtherProfile extends ProfileUI{
     }
     follow_user(evt){
         try{
+           
             let xml=new XMLHttpRequest();
             xml.open('POST','/search_page');
             xml.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            xml.onstatechange=function(){
-                if(this.readyState==4){
+            xml.onload=function(){
+               
+                     console.log('====== server response====');
+                    let data=JSON.parse(this.responseText);
+                    if(data.status=='failed'){
+                        alert(data.message);
+                    }
+                    if(data.status=='success'){
+                        this.followingStatus=data.data.followingStatus;
+                    }
              
-                }
+                
             }
-            xml.send('actions=follow_user');
+            xml.send('actions=follow');
             
         }catch(err){
             console.log('error');
         }
     }
-    
+    follow_recommended_user(evt){
+        try{
+           
+            let xml=new XMLHttpRequest();
+            xml.open('POST','/search_page');
+            xml.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            xml.onload=function(){
+               
+                     console.log('====== server response====');
+                    let data=JSON.parse(this.responseText);
+                    if(data.status=='failed'){
+                        alert(data.message);
+                    }
+                    if(data.status=='success'){
+                         const element=evt.target.parentNode;
+                        element.remove();
+                        
+                        this.useraname=data.data.username;
+                        this.profilePicture=data.data.profilePicture;
+                        this.followingStatus=data.data.followingStatus;
+                        this.id=data.data.username;
+                        this.make_small_container();
+                    }
+             
+                
+            }
+            xml.send('actions=follow');
+            
+        }catch(err){
+            console.log('error');
+        }
+    }
     lazy_loading(){
         const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {

@@ -287,31 +287,32 @@ class UserDB extends Database{
             return $err;;
         }
     }
-    public function add_profile_view($date,$time,$link){
+    public function add_profile_view($date,$time,$link,$id){
         try{
             $db=$this->db;
             $query='
-                    INSERT INTO ProfileViews(userID,profileLink,dateVisited,timeVisited)
-                    VALUES(:userID,:link,:dateV,:timeV);
+                    INSERT INTO ProfileViews(userID,profileLink,dateVisited,timeVisited,profileID)
+                    VALUES(:userID,:link,:dateV,:timeV,:profileID);
             ';
             $stmt=$db->prepare($query);
             $stmt->bindValue(':userID',$this->user->get_id());
             $stmt->bindValue(':link',$link);
             $stmt->bindValue(':dateV',$date);
             $stmt->bindValue(':timeV',$time);
+            $stmt->bindValue(':profileID',$id);
             $stmt->execute();
         }catch(PDOException $err){
             return $err;
         }
     }
+    //this sql query gets the profiles that are the users most recently visited
     public function get_profiles(){
         try{
             $db=$this->db;
             $query='
-                SELECT newPosts,followingStatus,u.username,profilePicture,u.userID FROM Users u 
+                SELECT u.username,i.filename,i.filepath,u.userID,count() as visits FROM ProfileViews pv
                 LEFT JOIN ProfileImages pi u.userID=pi.userID
-                LEFT JOIN Images i pi.imageID=i.imageID
-                LEFT JOIN HiddenProfiles hp u.userID=hp.profileID;
+                LEFT JOIN Images i pi.imageID=i.imageID;
                 ';
 
             $stmt=$db->prepare($query);
@@ -321,14 +322,19 @@ class UserDB extends Database{
         return $err;
     }
 }
+//this sql query gets the profiles with the most visits 
+//that are not in hiddenProfile table
+//that are also not in follower table
 public function get_popular_profiles(){
         try{
             $db=$this->db;
             $query='
-                SELECT newPosts,followingStatus,u.username,profilePicture,u.userID FROM Users u 
+                SELECT u.username,i.filename,i.filepath,u.userID,count() as visits FROM ProfileViews pv
+                INNER JOIN Users u ON pv.profileID=u.userID
                 LEFT JOIN ProfileImages pi u.userID=pi.userID
                 LEFT JOIN Images i pi.imageID=i.imageID
                 LEFT JOIN HiddenProfiles hp u.userID=hp.profileID;
+                LEFT JOIN Follower f pv.profileID=f.userID;
                 ';
 
             $stmt=$db->prepare($query);

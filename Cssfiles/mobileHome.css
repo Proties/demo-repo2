@@ -1193,9 +1193,14 @@ transform: scale(1.10);
 
 .postmodal-close{
   left: 35px;
+  background-color: whitesmoke;
+  border: 0.1em solid black;
+  width: 1.5em;
+  height: 2em;
   color: #A7991E;
   font-size: 28px;
   font-weight: bold;
+  text-align: center;
   z-index: 1002; /* Ensure it stays on top of everything */
   position: absolute;
   top: 10px;
@@ -1304,15 +1309,15 @@ max-width: 1000px;
 @media screen and (max-width: 868px) {
 .modal-profile-button{
   transition: 0.9s ease-in-out;
-  margin-top: 90px;
-  position: absolute;
-  left: 80px;
-  bottom: 20px;
+  
+
+
+ 
   background-color: white;
   border: 2px solid #ddd;
   border-radius: 100%;
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1324,15 +1329,14 @@ max-width: 1000px;
 @media screen and (max-width: 320px) {
   .modal-profile-button{
     transition: 0.9s ease-in-out;
-    margin-top: 90px;
+  
     position: absolute;
-    left: 80px;
-    bottom: 20px;
+  
     background-color: white;
     border: 2px solid #ddd;
     border-radius: 100%;
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;

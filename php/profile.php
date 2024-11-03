@@ -68,7 +68,9 @@ else if($u->validate_username_url($f_txt)==true ){
         $date=date('Y:m:d');
         $time=date('H:i');
         $link=$f_txt;
-        $authorDB->add_profile_view($date,$time,$link);
+        // this is the id of the current profile beign viewed
+        $id;
+        $authorDB->add_profile_view($date,$time,$link,$id);
  
         $authorDB->get_posts_with_username();
  
