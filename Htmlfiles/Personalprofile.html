@@ -80,7 +80,7 @@
     </section>
 
     <!-- Upload Post Modal -->
-    <div id="uploadModal" class="modal">
+    <div id="uploadModal" class="modal" style="display: none;">
       <div class="Upload-container">
         <div class="heading-container">
           <span class="close">&times;</span>
@@ -90,11 +90,11 @@
         </div>
 
         <div class="dragndrop">
-          <img src="/Image/Add Image.png" alt="Add Post" />
+          <img src="/Image/Add Image.png" alt="Add Post" class="add-post" />
           <p>drag & drop photos here</p>
+          <input type="file" id="fileInput"/>
         </div>
         <div id="uploadProgress" class="progress-bar"></div>
-        <input type="file" id="fileInput"/>
         <button class="uploadFromDeviceBtn">Upload from Device</button>
       </div>
     </div>
@@ -146,7 +146,6 @@
         <!-- <input type="file" id="fileInput" accept="image/*, video/*" /> -->
       </div>
     </div>
-
 
     <!-- Edit Profile Modal-->
     <section id="EditProfileModal" class="modal">

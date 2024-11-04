@@ -28,8 +28,8 @@ header {
   justify-content: space-between;
   align-items: center;
   position: -webkit-sticky; /* Safari */
-position: sticky;
-top: 0;
+  position: sticky;
+  top: 0;
   background-color: white;
   color: white;
   padding: 10px 20px;
@@ -491,7 +491,7 @@ font-weight: bold;
     position: absolute;
     top: 10px;
     left: 30px;
-    color: black;
+    color: #a7922f;
     font-size: 24px;
     cursor: pointer;
     font-weight: bold;
@@ -539,7 +539,7 @@ font-weight: bold;
   button[type="submit"] {
     padding: 10px 20px;
     background-color: white; /* Match button style */
-    color: black;
+    color: #a7922f;
     border: none;
     border-radius: 15px;
     cursor: pointer;
@@ -553,7 +553,7 @@ font-weight: bold;
   
   /* Heading styling */
   h2 {
-    color: black;
+    color: #a7922f;
     margin-bottom: 5px;
   }
 
@@ -589,7 +589,7 @@ font-weight: bold;
     position: absolute;
     top: 10px;
     left: 30px;
-    color: black;
+    color: #a7922f;
     font-size: 24px;
     cursor: pointer;
     font-weight: bold;
@@ -608,7 +608,7 @@ font-weight: bold;
   button[type="submit"] {
     padding: 10px 20px;
     background-color: white; /* Match button style */
-    color: black;
+    color: #a7922f;
     border: none;
     border-radius: 15px;
     cursor: pointer;
@@ -622,7 +622,7 @@ font-weight: bold;
   
   /* Heading styling */
   h2 {
-    color: black;
+    color: #a7922f;
     margin-bottom: 5px;
   }
 
@@ -793,13 +793,17 @@ font-weight: bold;
     position: absolute;
     top: 10px;
     left: 30px;
-    color: black;
+    color: #a7922f;
     font-size: 24px;
     cursor: pointer;
     font-weight: bold;
     z-index: 1002; /* Ensure it stays on top of everything */
   } 
   
+  .close:hover{
+    color: #a7922f;
+  }
+
   /* Form styling */
   form {
     display: flex;
@@ -826,7 +830,7 @@ font-weight: bold;
   
   /* Heading styling */
   h2 {
-    color: black;
+    color: #a7922f;
     margin-bottom: 5px;
   }
 
