@@ -80,7 +80,7 @@
     </section>
 
     <!-- Upload Post Modal -->
-    <div id="uploadModal" class="modal" style="display: none;">
+    <div id="uploadModal" class="modal">
       <div class="Upload-container">
         <div class="heading-container">
           <span class="close">&times;</span>
@@ -100,7 +100,7 @@
     </div>
 
     <!-- Upload Post II Modal -->
-    <div id="ReviewuploadModal" class="modal" style="display: block">
+    <div id="ReviewuploadModal" class="modal">
       <div class="ReviewUpload-container">
         <div class="heading-container">
           <span class="close" id="close-review-modal">&times;</span>
@@ -151,7 +151,6 @@
     <section id="EditProfileModal" class="modal">
       <div class="EditProfileModal-container">
         <span class="close" id="closeEditProfile">&times;</span>
-        <button class="">></button>
         <h2>Edit Profile</h2>
 
         <form action='/profile' method='post' enctype="multipart">
@@ -227,7 +226,7 @@
           ></textarea>
           <p id="errProfileBio"></p>
 
-          <button type="submit" id="submitProfileSetup">SUBMIT</button>
+          <button type="submit" id="submitProfileSetup" class="Call-Action">SUBMIT</button>
         </form>
       </div>
     </section>

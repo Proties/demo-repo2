@@ -630,6 +630,85 @@ display: none;
 }
 
 
+@media screen and (max-width: 812px) {
+  .mission-modal {
+    margin: auto;
+      position: fixed;
+      top: 27px;
+      width: 80%;
+      max-width: 330px;
+      height: 413px;
+      background-color: #ffffff;
+      border: 2px solid #A7991E;
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      overflow: scroll;
+      border-radius: 25px;
+      text-align: center;
+      color: #A7991E;
+      z-index: 7;
+      right: 215px;
+  }
+
+  .close-icon{
+    position: absolute;
+    left: 19px;
+  }
+
+  .mission-modal h2 {
+    color: #A7991E;
+    font-size: 15px;
+    margin-right: 20px;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-bottom: 15px;
+  }
+
+  .closing-statement {
+    margin-top: -37px;
+  }
+}
+
+@media screen and (max-width: 412px) {
+  .mission-modal {
+    margin: auto;
+      position: fixed;
+      top: 27px;
+      width: 80%;
+      max-width: 330px;
+      height: 413px;
+      background-color: #ffffff;
+      border: 2px solid #A7991E;
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      overflow: scroll;
+      border-radius: 25px;
+      text-align: center;
+      color: #A7991E;
+      z-index: 7;
+      right: 22px;
+  }
+
+  .close-icon{
+    position: absolute;
+    left: 19px;
+  }
+
+  .mission-modal h2 {
+    color: #A7991E;
+    font-size: 15px;
+    margin-right: 20px;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-bottom: 15px;
+  }
+
+  .closing-statement {
+    margin-top: -37px;
+  }
+}
+
+
 /* Challenge-containter table*/
 .challenge-container table {
 display: none;
