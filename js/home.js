@@ -386,8 +386,30 @@ function eventListeners(){
     let registerBtn = document.getElementById('userRegistration');
     let closeReg = document.getElementById("closeModalReg");
     let donate=document.getElementById('donateBtn');
+    let mobileDonate=document.getElementById('mobileDonateBtn');
+    let openDonation=document.getElementById('openDonationModal');
     let modal = document.getElementById("registerModal");
 
+    openDonation.addEventListener('click',function(evt){
+        let mobileDonationForm=document.getElementById('donation-modal');
+        mobileDonationForm.style.display='block';
+        mobileDonate.addEventListener('click',function(evt){
+        let dform=mobileDonationForm.getElementsByClassName('donationForm')[0];
+       
+        if(dform.style.display=='none'){
+            dform.style.display='block';
+
+        }else{
+            dform.style.display='none';
+        }
+        console.log(dform.style.display);
+    });
+        let closeDonationModal=mobileDonationForm.getElementsByClassName('close-icon')[0];
+        closeDonationModal.addEventListener('click',function(evt){
+           mobileDonationForm.style.display='none';
+        });
+     });
+   
     //this will check if user is at the end of the html page
     // if so it will trigger the conditional code
     window.addEventListener('scroll',function(evt){
@@ -429,6 +451,7 @@ function eventListeners(){
     });
     }
 
+   
     for(let sp=0;sp<sharePost.length;sp++){
         sharePost[sp].addEventListener('click',async(evt)=>{
             evt.stopPropagation();

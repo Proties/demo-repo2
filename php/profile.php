@@ -69,7 +69,8 @@ else if($u->validate_username_url($f_txt)==true ){
         $time=date('H:i');
         $link=$f_txt;
         // this is the id of the current profile beign viewed
-        $id;
+        $authorDB->read_userID();
+        $id=$authorDB->user->get_id();
         $authorDB->add_profile_view($date,$time,$link,$id);
  
         $authorDB->get_posts_with_username();
@@ -78,7 +79,7 @@ else if($u->validate_username_url($f_txt)==true ){
                                     'shortBio'=>$authorDB->user->get_shortBio(),'longBio'=>$authorDB->user->get_longBio());
         $data['posts']=$authorDB->user->postList->get_posts();
         setcookie('profile',json_encode($data), time() + (86 * 30), '/'); 
-    }catch(Exception $err){
+ }catch(Exception $err){
         $data['message']=$err->getMessage();
         $data['status']='failed';
         setcookie('profile',json_encode($data), time() + (86 * 30), '/');

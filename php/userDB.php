@@ -3,6 +3,7 @@ namespace Insta\Databases\User;
 use Insta\Databases\Database;
 use Insta\Users\Users;
 use Exception;
+use PDOException;
 class UserDB extends Database{
     public $user;
     private $db;
@@ -168,7 +169,7 @@ class UserDB extends Database{
            throw new PDOException('not valid user id ');
            
         }catch(PDOException $err){
-            echo 'Database error while reading id'.$err->getMessage();
+           
             return $err;
         }
     }
