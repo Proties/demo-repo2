@@ -57,30 +57,56 @@ function compareServedPosts(Users $user,array $bigData){
     }
 }
 
+/**
+ * 
+ * this is a test function that will deleted when i get the site working
+ * Compares two nested arrays and returns postIDs of matching posts.
+ *
+ * @param array $data
+ * @param array $bigData
+ * @return array|bool Repeat post IDs or FALSE on error
+ */
+function compareServedPostsWithSaved(array $data, array $bigData) {
+    $repeatPosts = [];
+    try {
+        foreach ($data as $key => $datum) {
+            if (!isset($bigData[$key])) {
+                continue;
+            }
+            foreach ($datum['posts'] as $post) {
+                foreach ($bigData[$key]['posts'] as $bigPost) {
+                    if ($post['postID'] === $bigPost['postID']) {
+                        $repeatPosts[] = $post['postID'];
+                    }
+                }
+            }
+        }
+        return $repeatPosts;
+    } catch (Exception $err) {
+        // Log or handle error
+        return false;
+    }
+}
+//this function will take 2 large nested arrays and see the array that are equal to each are other add
+// thier postIDs to a new array repeatPosts and return that arrat
 function compareServedPostsWithSaved(array $data,array $bigData){
     $max=count($data);
     $maxReq=count($bigData);
-    $i=0;
-    $a=0;
-    $b=0;
-    $c=0;
+    $repeatPosts=[];
     try{
-        while($a<$maxReq){
-            if($data[$a]['posts'][$d]['postID']==$bigData[$i]['posts'][$c]['postID']){
-                throw new Exception('no new posts');
-            }
-        
-
-        $a++;
-        $c++;
-        $i++;
-        $d++;
+        for($a=0;$a<$max;$a++){
+            for ($b=0;$b<;$b;$b++) { 
+                if($data[$a]['posts'][$b]['postID']==$bigData[$a]['posts'][$d]['postID']){
+                    }  
+                    array_push($repeatPosts,$data[$a]['posts'][$b]['postID']);
+                    }
         }
         return true;
     }catch(Exception $err){
         return false;
     }
 }
+
 function compareFollowingIds(Users $user,array $bigData){
     $max=$user->viewedPosts->getSize();
     $arr=$user->viewedPosts->getPool();
