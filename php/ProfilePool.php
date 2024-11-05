@@ -6,8 +6,9 @@ class ProfilePool{
 
 	private int $size;
 	private int $maxSize;
-	private $filename='Profiles.json';
+	private string $filename;
 	public function __construct(){
+		$this->filename='Profiles.json';
 		$this->maxSize=100;
 		$this->size=0;
 		$this->pool=[];
@@ -20,19 +21,26 @@ class ProfilePool{
 	{
 		return $this->pool;
 	}
-	public function addItem(Users $item):bool
+	public function addItem(array $item):bool
+	{
+		try{
+			$file=fopen($this->filename,'ab');
+			fwrite($file,json_encode($item));
+			fclose($file);
+			return true;
+		}catch(Exception $err){
+			return false;
+		}
+	}
+	public function removeItem(array $item):bool
 	{
 
 	}
-	public function removeItem(Users $item):bool
+	public function updateItem(array $item):bool
 	{
 
 	}
-	public function updateItem(Users $item):bool
-	{
-
-	}
-	public function searchItem(Users $item):void
+	public function searchItem(array $item):void
 	{
 
 	}

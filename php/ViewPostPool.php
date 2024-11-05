@@ -43,8 +43,16 @@ class ServedPosts{
 	{
 		return $this->pool;
 	}
-	public function addItem(int $item):bool 
-	{}
+	public function add_item(int $item):bool 
+	{
+		try{
+			array_push($this->pool,$item);
+			return true;
+		}catch(Exception $err){
+			return false;
+		}
+		
+	}
 	public function removeItem(int $item):bool 
 	{}
 	public function searchItem(int $item):void 
