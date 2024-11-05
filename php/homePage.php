@@ -57,6 +57,30 @@ function compareServedPosts(Users $user,array $bigData){
     }
 }
 
+function compareServedPostsWithSaved(array $data,array $bigData){
+    $max=count($data);
+    $maxReq=count($bigData);
+    $i=0;
+    $a=0;
+    $b=0;
+    $c=0;
+    try{
+        while($a<$maxReq){
+            if($data[$a]['posts'][$d]['postID']==$bigData[$i]['posts'][$c]['postID']){
+                throw new Exception('no new posts');
+            }
+        
+
+        $a++;
+        $c++;
+        $i++;
+        $d++;
+        }
+        return true;
+    }catch(Exception $err){
+        return false;
+    }
+}
 function compareFollowingIds(Users $user,array $bigData){
     $max=$user->viewedPosts->getSize();
     $arr=$user->viewedPosts->getPool();
@@ -214,108 +238,120 @@ $newData=[];
 try{
     $arrayPosts=[];
     $rank=new Ranking();
-    $info=$rank->chronoTwo($arrayPosts);
-    $arrLen=count($info);
-    $newData=formatProfileObject($info);
-    $commonPostsTwo=compareServedPosts($mainUser,$newData);
+    $newData=$bigPool->getPool();
+    if(count($newData)==0){
+        $info=$rank->chronoTwo($arrayPosts);
+        $newData=formatProfileObject($info);
+    }
+    if(!is_array($newData)){
+        throw Exception('not valid array');
+    }
     $commonFollowing=compareFollowingIds($mainUser,$newData);
     $commonPosts=compareViewedPosts($mainUser,$newData);
     
-    if($commonPostsTwo==false){
-        throw new Exception('no new posts');
-    }
+  
 
-    
-    if(isset($newData[0])){
-        if($newData[0]!==NULL){
-            if(isset($newData[0]['posts'])){
-                $mainUser->servedPosts->add_item($newData[0]['posts'][0]['postID']);
-                if(isset($newData[1]['posts'][1])){
-                    $mainUser->servedPosts->add_item($newData[1]['posts'][1]['postID']);
+
+    if($mainUser->servedPosts->getSize()==0){
+        if(isset($newData[0])){
+            if($newData[0]!==NULL){
+                if(isset($newData[0]['posts'])){
+                    $mainUser->servedPosts->add_item($newData[0]['posts'][0]['postID']);
+                    if(isset($newData[0]['posts'][1])){
+                        $mainUser->servedPosts->add_item($newData[0]['posts'][1]['postID']);
+                    }
+                    if(isset($newData[0]['posts'][2])){
+                        $mainUser->servedPosts->add_item($newData[0]['posts'][2]['postID']);
+                    }
                 }
-                if(isset($newData[1]['posts'][2])){
-                    $mainUser->servedPosts->add_item($newData[1]['posts'][2]['postID']);
-                }
-            }else{
-                $mainUser->servedPosts->add_item($newData[0]['post']['postID']);
-            }
-            
-            $bigPool->add_item($newData[0]);
-    }
-    }
-    if(isset($newData[1])){
-        if($newData[1]!==NULL){
-            if(isset($newData[1]['posts'])){
-                $mainUser->servedPosts->add_item($newData[1]['posts'][0]['postID']);
-                if(isset($newData[1]['posts'][1])){
-                    $mainUser->servedPosts->add_item($newData[1]['posts'][1]['postID']);
-                }
-                if(isset($newData[1]['posts'][2])){
-                    $mainUser->servedPosts->add_item($newData[1]['posts'][2]['postID']);
-                }
-            }else{
-                if($newData[1]['post']['postID']!==null){
-                    $mainUser->servedPosts->add_item($newData[1]['post']['postID']);
+                else{
+                    $mainUser->servedPosts->add_item($newData[0]['post']['postID']);
                 }
                 
-            }
-            $bigPool->add_item($newData[1]);
+                $bigPool->add_item($newData[0]);
+        }
+        }
+        if(isset($newData[1])){
+            if($newData[1]!==NULL){
+                if(isset($newData[1]['posts'])){
+                    $mainUser->servedPosts->add_item($newData[1]['posts'][0]['postID']);
+                    if(isset($newData[1]['posts'][1])){
+                        $mainUser->servedPosts->add_item($newData[1]['posts'][1]['postID']);
+                    }
+                    if(isset($newData[1]['posts'][2])){
+                        $mainUser->servedPosts->add_item($newData[1]['posts'][2]['postID']);
+                    }
+                }else{
+                    if($newData[1]['post']['postID']!==null){
+                        $mainUser->servedPosts->add_item($newData[1]['post']['postID']);
+                    }
+                    
+                }
+                $bigPool->add_item($newData[1]);
+        }
+        }
+        
+        if(isset($newData[2])){
+            if($newData[2]!==NULL){
+                if(isset($newData[0]['posts'])){
+                    $mainUser->servedPosts->add_item($newData[2]['posts'][0]['postID']);
+                    if(isset($newData[2]['posts'][1])){
+                        $mainUser->servedPosts->add_item($newData[2]['posts'][1]['postID']);
+                    }
+                    if(isset($newData[2]['posts'][2])){
+                        $mainUser->servedPosts->add_item($newData[2]['posts'][2]['postID']);
+                    }
+                }else{
+                    $mainUser->servedPosts->add_item($newData[2]['post']['postID']);
+                }
+                $bigPool->add_item($newData[2]);
+        } 
+        }
+        if(isset($newData[3])){
+            if($newData[3]!==NULL){
+                if(isset($newData[3]['posts'])){
+                    $mainUser->servedPosts->add_item($newData[3]['posts'][0]['postID']);
+                    if(isset($newData[3]['posts'][1])){
+                        $mainUser->servedPosts->add_item($newData[3]['posts'][1]['postID']);
+                    }
+                    if(isset($newData[3]['posts'][2])){
+                        $mainUser->servedPosts->add_item($newData[3]['posts'][2]['postID']);
+                    }
+                }else{
+                    $mainUser->servedPosts->add_item($newData[3]['post']['postID']);
+                }
+                $bigPool->add_item($newData[3]);
+         } 
+        }
+        if(isset($newData[4])){
+            if($newData[4]!==NULL ){
+                if(isset($newData[0]['posts'])){
+                    $mainUser->servedPosts->add_item($newData[4]['posts'][0]['postID']);
+                    if(isset($newData[4]['posts'][1])){
+                        $mainUser->servedPosts->add_item($newData[4]['posts'][1]['postID']);
+                    }
+                    if(isset($newData[4]['posts'][2])){
+                        $mainUser->servedPosts->add_item($newData[4]['posts'][2]['postID']);
+                    }
+                }else{
+                    $mainUser->servedPosts->add_item($newData[4]['post']['postID']);
+                }
+                $bigPool->add_item($newData[4]);
+        } 
+        }
+        $bigPool->load_data_to_file();
     }
+    else{
+        $commonPostsTwo=compareServedPosts($mainUser,$newData);
+            if($commonPostsTwo==false){
+                throw new Exception('no new posts');
+        }
     }
     
-    if(isset($newData[2])){
-        if($newData[2]!==NULL){
-            if(isset($newData[0]['posts'])){
-                $mainUser->servedPosts->add_item($newData[2]['posts'][0]['postID']);
-                if(isset($newData[1]['posts'][1])){
-                    $mainUser->servedPosts->add_item($newData[1]['posts'][1]['postID']);
-                }
-                if(isset($newData[1]['posts'][2])){
-                    $mainUser->servedPosts->add_item($newData[1]['posts'][2]['postID']);
-                }
-            }else{
-                $mainUser->servedPosts->add_item($newData[2]['post']['postID']);
-            }
-            $bigPool->add_item($newData[2]);
-    } 
-    }
-    if(isset($newData[3])){
-        if($newData[3]!==NULL){
-            if(isset($newData[0]['posts'])){
-                $mainUser->servedPosts->add_item($newData[3]['posts'][0]['postID']);
-                if(isset($newData[1]['posts'][1])){
-                    $mainUser->servedPosts->add_item($newData[1]['posts'][1]['postID']);
-                }
-                if(isset($newData[1]['posts'][2])){
-                    $mainUser->servedPosts->add_item($newData[1]['posts'][2]['postID']);
-                }
-            }else{
-                $mainUser->servedPosts->add_item($newData[3]['post']['postID']);
-            }
-            $bigPool->add_item($newData[3]);
-     } 
-    }
-    if(isset($newData[4])){
-        if($newData[4]!==NULL ){
-            if(isset($newData[0]['posts'])){
-                $mainUser->servedPosts->add_item($newData[4]['posts'][0]['postID']);
-                if(isset($newData[1]['posts'][1])){
-                    $mainUser->servedPosts->add_item($newData[1]['posts'][1]['postID']);
-                }
-                if(isset($newData[1]['posts'][2])){
-                    $mainUser->servedPosts->add_item($newData[1]['posts'][2]['postID']);
-                }
-            }else{
-                $mainUser->servedPosts->add_item($newData[4]['post']['postID']);
-            }
-            $bigPool->add_item($newData[4]);
-    } 
-    }
-    $bigPool->load_data_to_file();
    
    
 
-    setcookie('users',json_encode($newData) , time() + (8640 * 1), '/');
+    setcookie('users',json_encode($newData) , time() + (86 * 1), '/');
 }catch(Exception $err){
     $data['status']='failed';
     $data['message']=$err->getMessage();

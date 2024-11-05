@@ -36,7 +36,8 @@ class MostViewPostPool{
 				$data=[];
 			}else{
 				$data=fread($file, $length);
-				$this->pool=explode(',',$data);
+				$data=json_decode($data,true);
+				$this->pool=$data;
 
 			}
 			

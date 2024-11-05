@@ -2,7 +2,6 @@
 namespace Insta\User\Pool;
 class ViewedPosts{
 	private array $pool;
-	private int $poolLen;
 	private int $size;
 
 	public function __construct(){
@@ -27,7 +26,6 @@ class ViewedPosts{
 }
 class ServedPosts{
 	private array $pool;
-	private int $poolLen;
 	private int $size;
 
 	public function __construct(){
@@ -38,6 +36,10 @@ class ServedPosts{
 	public function getSize():int
 	{
 		return $this->size;
+	}
+	public function setSize():int
+	{
+		$this->size=count($this->pool);
 	}
 	public function getPool():array
 	{
@@ -61,7 +63,6 @@ class ServedPosts{
 }
 class FollowingUsers{
 	private array $pool;
-	private int $poolLen;
 	private int $size;
 
 	public function __construct(){
