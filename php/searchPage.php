@@ -8,7 +8,8 @@ use Insta\Pool\ProfilePool;
 use Insta\Subscription\Subscription;
 use Insta\Database\Subscription\SubscriptionDB;
 
-
+use Insta\Follower\Follower;
+use Insta\Database\Follower\FollowerDB;
 
 function validate_search_term(string $keyword){
 
@@ -56,26 +57,47 @@ try{
 			case 'follow':
 				try{
 					if(!isset($_SESSION['userID']) OR empty($_SESSION['userID'])){
-						throw new Exception('create account');
+                 		throw new Exception('make an account');
+           			}
+					if(!isset($_POST['followerID'])){
+               			throw new Exception('follower ID not defined');
+          			}
+           
+		            $f=new Follower();
+		            $f->set_current_userID($_SESSION['userID']);
+		            $f->set_follower_userID($followerID);
+		            $fDB=new FollowerDB($f);
+		            $fDB->addFollower();
+		          
+					}catch(Exception $err){
+						$data['status']='failed';
+						$data['message']=$err->getMessage();
+						echo json_encode($data);
+						setcookie('searchResults',json_encode($data),time()+(45033*43),'/');
 					}
-				}catch(Exception $err){
-					$data['status']='failed';
-					$data['message']=$err->getMessage();
-					echo json_encode($data);
-					setcookie('searchResults',json_encode($data),time()+(45033*43),'/');
-				}
 				break;
 			case 'unfollow':
 				try{
 					if(!isset($_SESSION['userID']) OR empty($_SESSION['userID'])){
-						throw new Exception('create account');
+                 		throw new Exception('make an account');
+           			}
+           			if(!isset($_POST['followerID'])){
+               			throw new Exception('follower ID not defined');
+	          			}
+		            $f=new Follower();
+		            $f->set_current_userID($_SESSION['userID']);
+		            $f->set_follower_userID($followerID);
+		            $fDB=new FollowerDB($f);
+		            $followerDB->unFollowUser();
+		            $data['status']='success';
+		            $data['message']='its all right';
+		            echo json_encode($data);
+					}catch(Exception $err){
+						$data['status']='failed';
+						$data['message']=$err->getMessage();
+						echo json_encode($data);
+						setcookie('searchResults',json_encode($data),time()+(45033*43),'/');
 					}
-				}catch(Exception $err){
-					$data['status']='failed';
-					$data['message']=$err->getMessage();
-					echo json_encode($data);
-					setcookie('searchResults',json_encode($data),time()+(45033*43),'/');
-				}
 				break;
 			case 'search':
 				try{

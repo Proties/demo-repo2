@@ -19,6 +19,7 @@ try{
     require_once 'php/profileRank.php';
 
 
+    require_once 'php/Follower.php';
     require_once 'php/FollowerDB.php';
 
     require_once 'php/Video.php';

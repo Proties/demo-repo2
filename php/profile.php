@@ -123,20 +123,22 @@ switch($action){
         break;
     case 'follow_user':
         try{
-            $userID=$_POST['userID'];
+            
             $followerID=$_POST['followerID'];
-         
-            if(!is_int($userID) or !is_int($followerID)){
-                throw new Exception('make an account');
+            if(!isset($followerID)){
+                throw new Exception('follower id not defined');
             }
-            if($userID==$mainUser->get_id()){
-                $f=new Follower($mainUser,$currentProfile);
-                $fDB=new FollowerDB($f);
-                $fDB->addFollower();
+            if(empty($_SESSION['userID']) OR !isset($_SESSION['userID'])){
+                throw new Exception('create an account');
             }
-            else{
-                throw new Exception('user not allowed to perform action');
-            }
+
+            
+            $f=new Follower();
+            $f->set_current_userID($_SESSION['userID']);
+            $f->set_follower_userID($followerID);
+            $fDB=new FollowerDB($f);
+            $fDB->addFollower();
+            
             $data['status']='success';
             $data['message']='its all right';
             echo json_encode($data);
@@ -148,14 +150,21 @@ switch($action){
         break;
     case 'unfollow_user':
         try{
-            $userID=$_POST['userID'];
+    
             $followerID=$_POST['followerID'];
-            if($userID==$mainUser->get_id()){
-                
+            if(!isset($followerID)){
+                throw new Exception('follower id not defined');
             }
-            else{
-                throw new Exception('user not allowed to perform action');
+            if(empty($_SESSION['userID']) OR !isset($_SESSION['userID'])){
+                throw new Exception('create an account');
             }
+
+            $f=new Follower();
+            $f->set_current_userID($_SESSION['userID']);
+            $f->set_follower_userID($followerID);
+            $followerDB=new FollowerDB($f);
+            $followerDB->unFollowUser();
+
             $data['status']='success';
             $data['message']='its all right';
             echo json_encode($data);

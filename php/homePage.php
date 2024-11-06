@@ -10,17 +10,22 @@ use Insta\Database\Template\TemplateDB;
 
 use Insta\Pool\MostViewPostPool;
 use Insta\Pool\ProfilePool;
-
+use Insta\Follower\Follower;
+use Insta\Database\Follower\FollowerDB;
 
 use Insta\Subscription\Subscription;
 use Insta\Database\Subscription\SubscriptionDB;
 
 $subscription=new Subscription();
 $mainUser=new Users();
+
+$follow=new Follower();
 if(isset($_SESSION['userObject'])){
     $mainUser->unserialize($_SESSION['userObject']);
-    // var_dump($mainUser->servedPosts);
-    // return;
+    $follow->set_current_userID($mainUser->get_id());
+    $followeDB=new FollowerDB($follow);
+    $followeDB->getFollowerList();
+    $followeDB->getFollowingList();
 }
 
 
@@ -513,10 +518,11 @@ switch($action){
                 throw new Exception('make an account');
             }
            
-            $f=new Follower($mainUser,$currentProfile);
+            $f=new Follower();
+            $f->set_current_userID($_SESSION['userID']);
+            $f->set_follower_userID($followerID);
             $fDB=new FollowerDB($f);
             $fDB->addFollower();
-            
           
             $data['status']='success';
             $data['message']='its all right';
@@ -533,7 +539,11 @@ switch($action){
             if(!isset($_SESSION['userID']) OR empty($_SESSION['userID'])){
                  throw new Exception('make an account');
             }
-            
+            $f=new Follower();
+            $f->set_current_userID($_SESSION['userID']);
+            $f->set_follower_userID($followerID);
+            $fDB=new FollowerDB($f);
+            $followerDB->unFollowUser();
             $data['status']='success';
             $data['message']='its all right';
             echo json_encode($data);
