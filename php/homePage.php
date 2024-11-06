@@ -335,6 +335,7 @@ try{
     
     $status=compareServedPosts($mainUser,$newData);
     if(is_array($status)){
+        // var_dump($status['matchingIDs']);
         throw new Exception('all the posts have been viewed');
     }
         if(isset($newData[0])){

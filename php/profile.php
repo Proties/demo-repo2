@@ -15,7 +15,9 @@ use Insta\Database\Follower\FollowerDB;
 
 use Insta\Subscription\Subscription;
 use Insta\Database\Subscription\SubscriptionDB;
+use Insta\Pool\ProfilePool;
 
+$pool=new ProfilePool();
 $subscription=new Subscription();
 $mainUser=new Users();
 $template=new Template();
@@ -74,10 +76,12 @@ else if($u->validate_username_url($f_txt)==true ){
         $authorDB->add_profile_view($date,$time,$link,$id);
  
         $authorDB->get_posts_with_username();
- 
+        
         $data['user']=array('username'=>$authorDB->user->get_username(),'userProfilePicture'=>$authorDB->user->get_profilePicture(),
                                     'shortBio'=>$authorDB->user->get_shortBio(),'longBio'=>$authorDB->user->get_longBio());
         $data['posts']=$authorDB->user->postList->get_posts();
+        // $pool->add_item($data);
+        // $pool->load_data_to_file();
         setcookie('profile',json_encode($data), time() + (86 * 30), '/'); 
  }catch(Exception $err){
         $data['message']=$err->getMessage();

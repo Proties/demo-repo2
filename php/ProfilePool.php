@@ -17,15 +17,54 @@ class ProfilePool{
 	{
 		return $this->size;
 	}
+	public function create_file(){
+		$file=fopen($this->filename,'a');
+		fclose($file);
+	}
+	private function set_pool(){
+		try{
+			$data;
+			if(!file_exists($this->filename)){
+				$this->create_file();
+			}
+			$file=fopen($this->filename,'r+');
+			if(!$file){
+				throw new Exception("could not create file");
+				
+			}
+			$length = filesize($this->filename);
+			if($length<1){
+				$data=[];
+			}else{
+				$data=fread($file, $length);
+				$data=json_decode($data,true);
+				$this->pool=$data;
+
+			}
+			
+			fclose($file);
+			
+		}catch(Exception $err){
+			return $err;
+		}
+	}
 	public function getPool():array
 	{
 		return $this->pool;
 	}
-	public function addItem(array $item):bool
+	public function add_item(array $item):bool
 	{
 		try{
-			$file=fopen($this->filename,'ab');
-			fwrite($file,json_encode($item));
+			array_push($this->pool, $item);
+			return true;
+		}catch(Exception $err){
+			return false;
+		}
+	}
+	public function load_data_to_file(){
+		try{
+			$file=fopen($this->filename,'w');
+			fwrite($file,json_encode($this->pool));
 			fclose($file);
 			return true;
 		}catch(Exception $err){
