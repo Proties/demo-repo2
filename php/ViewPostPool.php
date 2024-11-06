@@ -37,9 +37,13 @@ class ServedPosts{
 	{
 		return $this->size;
 	}
-	public function setSize():int
+	public function setSize():void
 	{
 		$this->size=count($this->pool);
+	}
+	public function setPool(array $pool)
+	{
+		$this->pool=$pool;
 	}
 	public function getPool():array
 	{
@@ -49,6 +53,7 @@ class ServedPosts{
 	{
 		try{
 			array_push($this->pool,$item);
+			$this->setSize();
 			return true;
 		}catch(Exception $err){
 			return false;

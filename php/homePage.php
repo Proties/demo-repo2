@@ -17,6 +17,12 @@ use Insta\Database\Subscription\SubscriptionDB;
 
 $subscription=new Subscription();
 $mainUser=new Users();
+if(isset($_SESSION['userObject'])){
+    $mainUser->unserialize($_SESSION['userObject']);
+    // var_dump($mainUser->servedPosts);
+    // return;
+}
+
 
 $bigPool=new MostViewPostPool();
 $profilesPool=new ProfilePool();
@@ -36,20 +42,28 @@ function compareViewedPosts(Users $user,array $bigData){
     return false;
 }
 
-function compareServedPosts(Users $user,array $bigData){
-    $max=$user->viewedPosts->getSize();
-    $arr=$user->viewedPosts->getPool();
-    $c=0;
-    $totalViewed=[];
-    $len=count($bigData);
+function compareServedPosts(Users $mainUser,array $bigData){
+    $max=$mainUser->servedPosts->getSize();
+    $arr=$mainUser->servedPosts->getPool();
+    $max=count($arr);
     try{
-        for($i=0;$i<$max;$i++){
-            if($user->servedPosts[$i]==$bigData['posts'][$i]['postID']){
-                array_push($totalViewed,$$bigData['posts'][$i]);
+        for($a=0;$a<$max;$a++){
+            for ($i=0; $i < count($bigData); $i++) { 
+                if(isset($bigData['posts'])){
+                    for($b=0;$b<count($bigData[$i]['posts']);$b++){
+
+                        if($arr[$a]==$bigData[$i]['posts'][$b]['postID']){
+                            throw new Exception('repeating posts');
+                        }
+                    }
+                }else{
+                    if($arr[$a]==$bigData[$i]['post']['postID']){
+                        throw new Exception('repeating posts');
+                    }
+                }
+                
+               
             }
-        }
-        if(count($totalViewed)>0){
-            throw new Exception('no new posts');
         }
         return true;
     }catch(Exception $err){
@@ -66,27 +80,27 @@ function compareServedPosts(Users $user,array $bigData){
  * @param array $bigData
  * @return array|bool Repeat post IDs or FALSE on error
  */
-function compareServedPostsWithSaved(array $data, array $bigData) {
-    $repeatPosts = [];
-    try {
-        foreach ($data as $key => $datum) {
-            if (!isset($bigData[$key])) {
-                continue;
-            }
-            foreach ($datum['posts'] as $post) {
-                foreach ($bigData[$key]['posts'] as $bigPost) {
-                    if ($post['postID'] === $bigPost['postID']) {
-                        $repeatPosts[] = $post['postID'];
-                    }
-                }
-            }
-        }
-        return $repeatPosts;
-    } catch (Exception $err) {
-        // Log or handle error
-        return false;
-    }
-}
+// function compareServedPostsWithSaved(array $data, array $bigData) {
+//     $repeatPosts = [];
+//     try {
+//         foreach ($data as $key => $datum) {
+//             if (!isset($bigData[$key])) {
+//                 continue;
+//             }
+//             foreach ($datum['posts'] as $post) {
+//                 foreach ($bigData[$key]['posts'] as $bigPost) {
+//                     if ($post['postID'] === $bigPost['postID']) {
+//                         $repeatPosts[] = $post['postID'];
+//                     }
+//                 }
+//             }
+//         }
+//         return $repeatPosts;
+//     } catch (Exception $err) {
+//         // Log or handle error
+//         return false;
+//     }
+// }
 //this function will take 2 large nested arrays and see the array that are equal to each are other add
 // thier postIDs to a new array repeatPosts and return that arrat
 function compareServedPostsWithSaved(array $data,array $bigData){
@@ -95,8 +109,8 @@ function compareServedPostsWithSaved(array $data,array $bigData){
     $repeatPosts=[];
     try{
         for($a=0;$a<$max;$a++){
-            for ($b=0;$b<;$b;$b++) { 
-                if($data[$a]['posts'][$b]['postID']==$bigData[$a]['posts'][$d]['postID']){
+            for ($b=0;$b<$maxReq;$b++) { 
+                if($data[$a]['posts'][$b]['postID']==$bigData[$b]['posts'][$b]['postID']){
                     }  
                     array_push($repeatPosts,$data[$a]['posts'][$b]['postID']);
                     }
@@ -122,6 +136,25 @@ function compareFollowingIds(Users $user,array $bigData){
      return false;
 }
 
+function load_more_data(){
+        try{
+            $info=$rank->chronoTwo($arrayPosts);
+            $newNewData=formatProfileObject($info);
+
+            $status=compareServedPostsWithSaved($bigPool->getPool(),$newData);
+            if(!is_array($status)){
+                throw new Exception('no new posts');
+            }
+            for($i=0;$i<count($newNewData);$i++){
+                $bigPool->add_item($newData[$i]);
+            }
+            $bigPool->load_data_to_file();
+        }catch(Exception $err){
+            return $err;
+        }
+        
+        
+}
 
 $template=new Template();
 setcookie('profile','no profile ', time() - (86400 * 30), '/'); 
@@ -260,25 +293,46 @@ function formatProfileObject(array $bigData){
     return $cont;
     
 }
-$newData=[];
+$newData;
 try{
     $arrayPosts=[];
     $rank=new Ranking();
     $newData=$bigPool->getPool();
+    
     if(count($newData)==0){
+
         $info=$rank->chronoTwo($arrayPosts);
         $newData=formatProfileObject($info);
-    }
-    if(!is_array($newData)){
-        throw Exception('not valid array');
-    }
+
+        $status=compareServedPostsWithSaved($bigPool->getPool(),$newData);
+       
+        if(is_array($status)){
+            throw new Exception('no new posts even after looking in the database');
+        }
+       
+        for($i=0;$i<count($newData);$i++){
+            if(isset($newData[$i])){
+                $bigPool->add_item($newData[$i]);
+            }
+            
+        }
+        $bigPool->load_data_to_file();
+        }
+    // if(count($newData)<=3){
+    //     throw new Exception('no more new posts');
+    // }
     $commonFollowing=compareFollowingIds($mainUser,$newData);
     $commonPosts=compareViewedPosts($mainUser,$newData);
     
-  
+    $status=compareServedPosts($mainUser,$newData);
+    if($status==false){
+        throw new Exception('throw handws');
+    }
+   
+    if($mainUser->servedPosts->getSize()>1){
+        throw new Exception('no new posts');
 
-
-    if($mainUser->servedPosts->getSize()==0){
+    }
         if(isset($newData[0])){
             if($newData[0]!==NULL){
                 if(isset($newData[0]['posts'])){
@@ -294,7 +348,7 @@ try{
                     $mainUser->servedPosts->add_item($newData[0]['post']['postID']);
                 }
                 
-                $bigPool->add_item($newData[0]);
+                
         }
         }
         if(isset($newData[1])){
@@ -313,7 +367,7 @@ try{
                     }
                     
                 }
-                $bigPool->add_item($newData[1]);
+               
         }
         }
         
@@ -330,7 +384,7 @@ try{
                 }else{
                     $mainUser->servedPosts->add_item($newData[2]['post']['postID']);
                 }
-                $bigPool->add_item($newData[2]);
+                
         } 
         }
         if(isset($newData[3])){
@@ -346,7 +400,7 @@ try{
                 }else{
                     $mainUser->servedPosts->add_item($newData[3]['post']['postID']);
                 }
-                $bigPool->add_item($newData[3]);
+                
          } 
         }
         if(isset($newData[4])){
@@ -362,21 +416,18 @@ try{
                 }else{
                     $mainUser->servedPosts->add_item($newData[4]['post']['postID']);
                 }
-                $bigPool->add_item($newData[4]);
+               
         } 
-        }
-        $bigPool->load_data_to_file();
+        
+        
     }
-    else{
-        $commonPostsTwo=compareServedPosts($mainUser,$newData);
-            if($commonPostsTwo==false){
-                throw new Exception('no new posts');
-        }
-    }
+   
+        
+    
     
    
    
-
+    $_SESSION['userObject']=$mainUser->serialize();
     setcookie('users',json_encode($newData) , time() + (86 * 1), '/');
 }catch(Exception $err){
     $data['status']='failed';
