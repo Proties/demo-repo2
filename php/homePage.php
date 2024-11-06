@@ -46,28 +46,37 @@ function compareServedPosts(Users $mainUser,array $bigData){
     $max=$mainUser->servedPosts->getSize();
     $arr=$mainUser->servedPosts->getPool();
     $max=count($arr);
+    $matching=[];
+    $data=[];
     try{
         for($a=0;$a<$max;$a++){
             for ($i=0; $i < count($bigData); $i++) { 
-                if(isset($bigData['posts'])){
+                if(isset($bigData[$i]['posts'])){
                     for($b=0;$b<count($bigData[$i]['posts']);$b++){
 
                         if($arr[$a]==$bigData[$i]['posts'][$b]['postID']){
-                            throw new Exception('repeating posts');
+                            array_push($matching,$bigData[$i]['posts'][$b]['postID']);
+                            // throw new Exception('repeating posts');
                         }
                     }
                 }else{
                     if($arr[$a]==$bigData[$i]['post']['postID']){
-                        throw new Exception('repeating posts');
+                        array_push($matching,$bigData[$i]['post']['postID']);
+                        // throw new Exception('repeating posts');
                     }
                 }
                 
                
             }
         }
+        if(count($matching)>1){
+            throw new Exception('throw hands');
+        }
         return true;
     }catch(Exception $err){
-         return false;
+        $data['message']=$err->getMessage();
+        $data['matchingIDs']=$matching;
+        return $data;
     }
 }
 
@@ -325,13 +334,8 @@ try{
     $commonPosts=compareViewedPosts($mainUser,$newData);
     
     $status=compareServedPosts($mainUser,$newData);
-    if($status==false){
-        throw new Exception('throw handws');
-    }
-   
-    if($mainUser->servedPosts->getSize()>1){
-        throw new Exception('no new posts');
-
+    if(is_array($status)){
+        throw new Exception('all the posts have been viewed');
     }
         if(isset($newData[0])){
             if($newData[0]!==NULL){
