@@ -83,23 +83,25 @@ function getUploadStatus(){
         if(data.status=='success'){
             alert('success');
             let post=new PostUI();
-            post.src=status.data.filepath+'/'+status.filename;
-            post.id=status.data.id;
-             post.check_media_type();
-            post.postLink=status.data.postLink;
+            post.src=data.data.filepath+'/'+data.data.filename;
+            // post.id=data.id;
             post.parentContainer=document.getElementsByClassName('posts-section')[0];
+             post.check_media_type();
+           
+            
             delete_cookie('postUploadStatus');
             // delete cookie
-        }else{
-            //call review window 
-            //fill  in user details that user provided
+        }else if(data.status=='failed'){
+            
             alert(data.message);
             delete_cookie('postUploadStatus');
             // delete cookie
+        }else{
+             delete_cookie('postUploadStatus');
+        console.log('======getting upload status');
         }
         console.log(data);
-        delete_cookie('postUploadStatus');
-        console.log('======getting upload status');
+       
     }
     
 

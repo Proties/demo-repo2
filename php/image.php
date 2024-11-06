@@ -10,11 +10,13 @@ class Image{
 	private string $filename;
     private string $filePath;
     private string $fileExtension;
+    private string $type;
 	private string $dateMade;
 	private string $dateModified;
 	private string $timeStamp;
 	private string $width;
 	private string $height;
+	private string $postLink;
 	private int $postID;
 
 	private int $fileSize;
@@ -30,6 +32,8 @@ class Image{
 		$this->filename='';
         $this->filePath='';
         $this->timeStamp='';
+        $this->postLink='';
+        $this->type='';
         $this->fileExtension='.png';
 		$this->width='200px';
 		$this->height='100px';
@@ -37,6 +41,7 @@ class Image{
 		$this->dateModified=date('Y:m:d');
 		$this->maxSize=0;
 		$this->fileSize=0;
+		$this->postID=0;
 		$this->size='300px';
 		$this->id=0;
 
@@ -112,7 +117,12 @@ class Image{
 	public function set_id(int $dt){
 		$this->id=$dt;
 	}
-	
+	public function set_type(string $dt){
+		$this->type=$dt;
+	}
+	public function set_postLink(string $link){
+		$this->postLink=$link;
+	}
 
 
 	public function set_enoded_base64_string(string $str){
@@ -123,7 +133,9 @@ class Image{
 		$this->set_width($arr[0]);
 		$this->set_height($arr[1]);
 	}
-
+	public function get_postLink(){
+		return $this->postLink;
+	}
 	public function get_dateMade():string
 	{
 		return $this->dateMade;
@@ -150,6 +162,10 @@ class Image{
 	{
 		return $this->size;
 	}
+	public function get_type()
+	{
+		return $this->type;
+	}
 	public function get_id():int
 	{
 		return $this->id;
@@ -160,9 +176,8 @@ class Image{
 			$tmpname=$_FILES[$image]['tmp_name'];
 			$image_type=exif_imagetype($tmpname);
 
-			switch($filetype){
+			switch($image_type){
 				case IMAGETYPE_GIF:
-					
 					$this->set_fileExtension(image_type_to_extension(IMAGETYPE_GIF,true));
 					break;
 				case IMAGETYPE_JPEG:
@@ -294,8 +309,8 @@ class Image{
 		}
     }
     
-	public function load_image($dir){
-		$error='';
+	public function load_image(){
+		
 		$image=$this->get_imageName();
 		try{
 			$filesize=$_FILES[$image]['size'];
@@ -304,28 +319,28 @@ class Image{
 
 			$this->set_type($type);
 			$this->set_fileSize($filesize);
-			if(validate_extension()!==true){
+			if($this->validate_extension()!==true){
 				throw new Exception('not valid image extenesion');
 			}
-			if(validate_error()!==true){
+			if($this->validate_error()!==true){
 				throw new Exception('not valid image');
 			}
-			if(validate_size()!==true){
+			if($this->validate_size()!==true){
 				throw new Exception('image size to large');
 			}
-			if($error=='error'){
-				throw new Exception('not valid file ');
-			}
+			// if($error=='error'){
+			// 	throw new Exception('not valid file ');
+			// }
 			
 			$newfile=$this->get_filePath().$this->get_filename();
-			$this->set_filename($newfile);
 			if(!move_uploaded_file($tmpname, $newfile)){
 				throw new Exception('did not upload');
 			
 		}
 	}
 		catch(Exception $err){
-			return $err;
+			$data=['errorMessage'=>$err->getMessage()];
+			return $data;
 		}
 	}
 }

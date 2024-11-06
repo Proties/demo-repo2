@@ -201,10 +201,17 @@ function initialisePersoalObejct(){
 }
 initialisePersoalObejct();
 function initialiseObjects(cookie_data){
-   
+   let parentCont=document.getElementsByClassName("postfeed-wrapper")[0];
    if(cookie_data!==undefined){
-        // clear_posts();
-        let parentCont=document.getElementsByClassName("postfeed-wrapper")[0];
+        if(cookie_data.status=='failed'){
+            let p=document.createElement('h1');
+            let pTxt=document.createTextNode('No new Posts');
+            p.append(pTxt);
+            parentCont.append(p);
+
+            return;
+        }
+        
         for(let i=0;i<cookie_data.length;i++){
             console.log('=======array loop enternder');
             let profileItem=new OtherProfile();

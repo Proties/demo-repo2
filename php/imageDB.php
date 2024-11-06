@@ -3,7 +3,7 @@ namespace Insta\Databases\Images;
 use Insta\Databases\Database;
 use Insta\Images\Image;
 class ImageDB extends Database{
-    private Image $image;
+    public Image $image;
     private $db;
     public function __construct(Image $image){
         $this->image=$image;
@@ -92,18 +92,18 @@ class ImageDB extends Database{
 			';
 			$stmt=$db->prepare($query);
 
-			$stmt->bindValue(':typ',$this->image->file->get_type());
+			$stmt->bindValue(':typ',$this->image->get_type());
 			$stmt->bindValue(':size',$this->image->get_fileSize());
 			$stmt->bindValue(':width',$this->image->get_width());
 			$stmt->bindValue(':height',$this->image->get_height());
 			$stmt->bindValue(':made',$this->image->get_dateMade());
 			$stmt->bindValue(':updat',$this->image->get_dateModifed());
-			$stmt->bindValue(':fname',$this->image->file->get_fileName());
-			$stmt->bindValue(':fpath',$this->image->file->get_filePath());
+			$stmt->bindValue(':fname',$this->image->get_fileName());
+			$stmt->bindValue(':fpath',$this->image->get_filePath());
 			$stmt->execute();
 			$id=(int)$db->lastInsertId();
 			$this->image->set_id($id);
-			$this->image->postLink('userDir'.'postLinkID');
+			
 		}catch(PDOExecption $err){
 			echo 'error while writing to image '.$err->getMessage();
 		}

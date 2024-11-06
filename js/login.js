@@ -50,12 +50,14 @@ class LoginUI extends Login{
 					alert('succesfull logged in');
 
 				}
-				else{
+				else if(data.status=='failed'){
+					alert(data.message);
 					let errorLen=data.errors.length;
 					for(let e=0;e<errorLen;e++){
 
 					}
 				}
+				else{}
 				
 			}
 			xml.send(this.data);

@@ -77,7 +77,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $video=new Video();
     try{
         $db->beginTransaction();
-        if(empty($_SESSION['userID'])  OR empty($_SESSION['username'])){
+        if(empty($_SESSION['userID'])  OR !isset($_SESSION['userID'])){
             throw new Exception('create an account');
         }
         $user->set_username($_SESSION['username']);
@@ -104,12 +104,12 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             if($user->userFolder->get_dir()==null){
                   $user->userFolder->create_user_folder($user->get_username());   
             }
-            $postId=new Image();
-            $id=$postId->make_filename();
+            $id=$post->make_filename();
+
             $post->set_postLinkID($id);
             $post->set_postLink('/@'.$user->get_username().'/'.$id);
             $post->set_authorID($user->get_id());
-            $image->set_filepath($user->userFolder->get_dir());
+            
           
             $postDB=new PostDB($post);
             $postDB->set_db($db);
@@ -117,19 +117,23 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             if($postDB->post->get_postID()==null){
                 throw new Exception('post id not defined');
             }
-            $video->set_postID($postDB->post->get_postID());
+            // $video->set_postID($postDB->post->get_postID());
             if(isset($_FILES['image'])){
+                $image->set_imageName('image');
                 $image->set_postLinkID($id);
 
                 $image->make_fileExtension();
-                $file=$id+$image->get_fileExtension()
+                $file=$id.$image->get_fileExtension();
                 $image->set_filename($file);
                 $image->set_filePath($user->userFolder->get_dir());
                 $image->set_imageName('image');
-                $image->load_image();
-                if(is_image_created($user->userFolder->get_dir(),$image->get_filename())==false){
-                    throw new Exception('image was not created');
+                $imageUpload=$image->load_image();
+                if(is_array($imageUpload)){
+                    throw new Exception($imageUpload['errorMessage']);
                 }
+                // if(is_image_created($user->userFolder->get_dir(),$image->get_filename())==false){
+                //     throw new Exception('image was not created');
+                // }
                 $imageDB=new ImageDB($image);
                 $imageDB->set_db($db);
                 $imageDB->write_image();
@@ -140,26 +144,31 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             }
             if(isset($_FILES['video'])){
                 $video->set_postLinkID($id);
+                $video->set_videoName('video');
                 $video->make_fileExtension();
                 $file=$video->get_postLinkID().$video->get_fileExtention();
                 $video->set_filename($file);
 
                 $video->set_filepath($user->userFolder->get_dir());
                 $video->set_videoName('video');
-                $video->load_video();
-                if(is_video_created($user->userFolder->get_dir(),$video->get_filename())==false){
-                    throw new Exception('video could not be created');
+                $videoUpload=$video->load_video();
+                if(is_array($videoUpload)){
+                    throw new Exception($videoUpload['errorMessage']);
                 }
+                // if(is_video_created($user->userFolder->get_dir(),$video->get_filename())==false){
+                //     throw new Exception('video could not be created');
+                // }
                 $videoDB=new VideoDB($video);
                 $videoDB->set_db($db);
 
                 $videoDB->write_video();
                 $videoDB->write_video_post($postDB->post->get_postID());
                 $data['data']=['postID'=>$videoDB->video->get_postID(),'filename'=>$videoDB->video->get_filename(),
-                'filepath'=>$videoDB->video->get_filepath(),'postLink'=>$videoDB->video->get_postLink()];
+                'filepath'=>$videoDB->video->get_filepath()];
 
             }
             $data['status']='success';
+            setcookie('postUploadStatus',json_encode($data), time() + (864 * 30), '/'); 
             $db->commit();
     }catch(Exception $err){
         $db->rollBack();
@@ -168,12 +177,12 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $data['message']=$err->getMessage();
         $data['trace']=$err->getTraceAsString();
         $data['errorArray']=$errorMessages;
-        
+        setcookie('postUploadStatus',json_encode($data), time() + (864 * 30), '/'); 
         
         
     }
 
-    setcookie('postUploadStatus',json_encode($data), time() + (864 * 30), '/'); 
+    
     header('Location: /profile');
     die();
 }

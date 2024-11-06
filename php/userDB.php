@@ -266,26 +266,29 @@ class UserDB extends Database{
      public function validate_password_in_database(){
         try{
             $db=$this->db;
-            $query="
-                    SELECT email,u.userID,username,shortBio,i.filename as filename,i.filepath as filepath FROM Users u
+            $query='
+                    SELECT email,u.userID as userID,username,shortBio,i.filename as filename,i.filepath as filepath FROM Users u
                     LEFT JOIN ProfileImages p ON p.userID=u.userID
                     LEFT JOIN Images i ON i.imageID=p.imageID
                     WHERE u.password=:password AND email=:email;
-                    
-            ";
+                    ';
             $stmt=$db->prepare($query);
             $stmt->bindValue(':password',$this->user->get_password());
             $stmt->bindValue(':email',$this->user->get_email());
             $stmt->execute();
             $id=$stmt->fetch();
+            if($id==false){
+                throw new PDOException('user info not defined');
+            }
             $this->user->set_id($id['userID']);
             $this->user->set_username($id['username']);
             $this->user->set_profilePicture($id['filepath'].'/'.$id['filename']);
             $this->user->set_email($id['email']);
             $this->user->set_shortBio($id['shortBio']);
-            return $id;
+            
         }catch(PDOException $err){
-            return $err;;
+            $data=array('errorMessage'=>$err->getMessage());
+            return $data;
         }
     }
     public function add_profile_view($date,$time,$link,$id){

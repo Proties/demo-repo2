@@ -36,7 +36,7 @@ class VideoDB extends Database{
 			return $err;
 		}
 	}
-	public function write_video_post(){
+	public function write_video_post($postID){
 		$db=$this->db;
 		try{
 			$query='
@@ -45,7 +45,7 @@ class VideoDB extends Database{
 			';
 			$statement=$db->prepare($query);
 			$statement->bindValue(':videoID',$this->video->get_id());
-			$statement->bindValue(':postID',$this->video->get_postID());
+			$statement->bindValue(':postID',$postID);
 			$statement->execute();
 
 		}catch(PDOException $err){
