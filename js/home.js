@@ -203,14 +203,14 @@ initialisePersoalObejct();
 function initialiseObjects(cookie_data){
    let parentCont=document.getElementsByClassName("postfeed-wrapper")[0];
    if(cookie_data!==undefined){
-        if(cookie_data.status=='failed'){
-            let p=document.createElement('h1');
-            let pTxt=document.createTextNode('No new Posts');
-            p.append(pTxt);
-            parentCont.append(p);
+        // if(cookie_data.status=='failed'){
+        //     let p=document.createElement('h1');
+        //     let pTxt=document.createTextNode('No new Posts');
+        //     p.append(pTxt);
+        //     parentCont.append(p);
 
-            return;
-        }
+        //     return;
+        // }
         
         for(let i=0;i<cookie_data.length;i++){
             console.log('=======array loop enternder');
@@ -419,9 +419,25 @@ function eventListeners(){
    
     //this will check if user is at the end of the html page
     // if so it will trigger the conditional code
-    window.addEventListener('scroll',function(evt){
-         const scrolledToBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
-         if(scrolledToBottom){
+    if(profileList.length<5){
+        let p=document.createElement('h3');
+        let pTxt=document.createTextNode('no new posts');
+        p.append(pTxt);
+        document.getElementsByClassName('postfeed-wrapper')[0].append(p);
+
+
+    }else if(profileList.length==5){
+        try{
+            let xml=new XMLHttpRequest();
+            xml.open('GET','/');
+            xml.send();
+
+        }catch(err){
+            console.log('working');
+        }
+        window.addEventListener('scroll',function(evt){
+            const scrolledToBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
+            if(scrolledToBottom){
             get_ish_form_cookie();
 
         
@@ -430,6 +446,8 @@ function eventListeners(){
     }
     });
     
+    }
+   
 
     if(document.getElementById('donation')!==undefined && document.getElementById('donation')!==null){
         const donation=document.getElementById('donation');

@@ -94,47 +94,71 @@ function compareServedPosts(Users $mainUser,array $bigData){
  * @param array $bigData
  * @return array|bool Repeat post IDs or FALSE on error
  */
-// function compareServedPostsWithSaved(array $data, array $bigData) {
-//     $repeatPosts = [];
-//     try {
-//         foreach ($data as $key => $datum) {
-//             if (!isset($bigData[$key])) {
-//                 continue;
-//             }
-//             foreach ($datum['posts'] as $post) {
-//                 foreach ($bigData[$key]['posts'] as $bigPost) {
-//                     if ($post['postID'] === $bigPost['postID']) {
-//                         $repeatPosts[] = $post['postID'];
-//                     }
-//                 }
-//             }
-//         }
-//         return $repeatPosts;
-//     } catch (Exception $err) {
-//         // Log or handle error
-//         return false;
-//     }
-// }
-//this function will take 2 large nested arrays and see the array that are equal to each are other add
-// thier postIDs to a new array repeatPosts and return that arrat
-function compareServedPostsWithSaved(array $data,array $bigData){
-    $max=count($data);
-    $maxReq=count($bigData);
-    $repeatPosts=[];
-    try{
-        for($a=0;$a<$max;$a++){
-            for ($b=0;$b<$maxReq;$b++) { 
-                if($data[$a]['posts'][$b]['postID']==$bigData[$b]['posts'][$b]['postID']){
-                    }  
-                    array_push($repeatPosts,$data[$a]['posts'][$b]['postID']);
+function compareServedPostsWithSaved(array $data, array $bigData) {
+    $repeatPosts = [];
+    try {
+        foreach ($data as $key => $datum) {
+            if (!isset($bigData[$key])) {
+                continue;
+            }
+            foreach ($datum['posts'] as $post) {
+                foreach ($bigData[$key]['posts'] as $bigPost) {
+                    if ($post['postID'] === $bigPost['postID']) {
+                        $repeatPosts[] = $post['postID'];
                     }
+                }
+            }
         }
-        return true;
-    }catch(Exception $err){
+        return $repeatPosts;
+    } catch (Exception $err) {
+        // Log or handle error
         return false;
     }
 }
-
+// this function will take 2 large nested arrays and see the array that are equal to each are other add
+// thier postIDs to a new array repeatPosts and return that arrat
+// function compareServedPostsWithSaved(array $data,array $bigData){
+//     $max=count($data);
+//     $maxPosts=count($data);
+//     $maxReq=count($bigData);
+//     $repeatPosts=[];
+//     try{
+//         for($a=0;$a<$max;$a++){
+//             if(isset($data[$a]['posts'])){
+//                 for ($b=0;$b<count($data[$a]['posts']);$b++) { 
+//                     for($c=0;$c<5;$c++){
+//                         if($data[$a]['posts'][$b]['postID']==$bigData[$b]['posts'][$c]['postID']){
+                    
+//                             array_push($repeatPosts,$data[$a]['posts'][$b]['postID']);
+//                         }
+//                     }
+                    
+                
+//                } 
+//             }else{
+//                 if($data[$a]['post']['postID']==$bigData[$b]['post']['postID']){
+//                     array_push($repeatPosts,$data[$a]['post']['postID']);
+                    
+//             }
+//         }
+    
+// }
+//         return true;
+//     }catch(Exception $err){
+//         return false;
+//     }
+// }
+function compareSavedUsers($data,$newData){
+    $repeat=[];
+    for($i=0;$i<count($data);$i++){
+        for($a=0;$a<count($newData);$a++){
+            if($data[$i]['username']==$newData[$a]['username']){
+                $repeat[]=$data[$i];
+            }
+    }
+    return $repeat;
+}
+}
 function compareFollowingIds(Users $user,array $bigData){
     $max=$user->viewedPosts->getSize();
     $arr=$user->viewedPosts->getPool();
@@ -313,17 +337,19 @@ try{
     $rank=new Ranking();
     $newData=$bigPool->getPool();
     
-    if(count($newData)==0){
+    if(count($newData)<100){
 
         $info=$rank->chronoTwo($arrayPosts);
         $newData=formatProfileObject($info);
-
-        $status=compareServedPostsWithSaved($bigPool->getPool(),$newData);
-       
-        if(is_array($status)){
-            throw new Exception('no new posts even after looking in the database');
+        $commonUsers=compareSavedUsers($bigPool->getPool(),$newData);
+        if(is_array($commonUsers)){
+            // throw new Exception('common users already exists');
         }
-       
+        // $status=compareServedPostsWithSaved($bigPool->getPool(),$newData);
+        // if(is_array($status)){
+        //     throw new Exception('no new posts even after looking in the database');
+        // }
+
         for($i=0;$i<count($newData);$i++){
             if(isset($newData[$i])){
                 $bigPool->add_item($newData[$i]);
@@ -332,17 +358,16 @@ try{
         }
         $bigPool->load_data_to_file();
         }
-    // if(count($newData)<=3){
-    //     throw new Exception('no more new posts');
-    // }
+  
     $commonFollowing=compareFollowingIds($mainUser,$newData);
     $commonPosts=compareViewedPosts($mainUser,$newData);
     
     $status=compareServedPosts($mainUser,$newData);
     if(is_array($status)){
         // var_dump($status['matchingIDs']);
-        throw new Exception('all the posts have been viewed');
+        // throw new Exception('all the posts have been viewed');
     }
+    else{
         if(isset($newData[0])){
             if($newData[0]!==NULL){
                 if(isset($newData[0]['posts'])){
@@ -383,7 +408,7 @@ try{
         
         if(isset($newData[2])){
             if($newData[2]!==NULL){
-                if(isset($newData[0]['posts'])){
+                if(isset($newData[2]['posts'])){
                     $mainUser->servedPosts->add_item($newData[2]['posts'][0]['postID']);
                     if(isset($newData[2]['posts'][1])){
                         $mainUser->servedPosts->add_item($newData[2]['posts'][1]['postID']);
@@ -431,7 +456,7 @@ try{
         
         
     }
-   
+   }
         
     
     
