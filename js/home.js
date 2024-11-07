@@ -538,24 +538,25 @@ function openModal(evt) {
     }
 
 
-    let mediaType='image';
+    let mediaType='video';
   
     console.log('====== opening modal =====');
+
     let postTitle='happy';
     const element=evt.target;
+    console.log(element);
     
-    if(element.getElementsByTagName('img')!==undefined){
+    if(element.src!==undefined && element.src!==null && element.src!==''){
         mediaType='image';
+        console.log(evt.target.src);
    }
-    else if(element.getElementsByTagName('video')[0]!==undefined){
-        element.getElementsByTagName('source')[0].src;
+    else{
+        // (element.getElementsByTagName('source')[0]!==undefined){
+        // element.getElementsByTagName('source')[0].src;
         console.log('===== a ok');
+        console.log(element.getElementsByTagName('source')[0].src);
         mediaType='video';
-    }else
-    {
-        throw 'html element undefined';
     }
-    console.log(evt.target.src);
     const source=evt.target.src;
     let postImageSrc=evt.target.src;
     const patttern=/(.png|.gif|.jpeg|.jpg)/;
