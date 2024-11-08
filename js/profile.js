@@ -283,7 +283,7 @@ export class OtherProfile extends ProfileUI{
                     this.postsHtml.push(c);
                 }
                 else{
-                    source.setAttribute('src',this.data.posts[ss]['videoFilePath']+''+this.data.posts[ss]['VideoFileName']);
+                    source.setAttribute('src',this.data.posts[ss]['videoFilePath']+''+this.data.posts[ss]['videoFileName']);
                     vid.setAttribute('class','post-image');
                     vid.setAttribute('loading','lazy');
                     vid.setAttribute('controls','true');
@@ -298,7 +298,7 @@ export class OtherProfile extends ProfileUI{
         }
         }
         else if(this.data.post!==undefined || this.data.post!==null){
-            if(this.data.post.VideoFileName!==undefined){
+            if(this.data.post.videoFileName!==undefined){
                 let shareCont=document.createElement('div');
                 let shareImage=document.createElement('img');
                 let contFive=document.createElement('div');
@@ -306,7 +306,7 @@ export class OtherProfile extends ProfileUI{
                 let source=document.createElement('source');
 
                
-                source.setAttribute('src',this.data.post.videoFilePath+''+this.data.post.VideoFileName);
+                source.setAttribute('src',this.data.post.videoFilePath+''+this.data.post.videoFileName);
                 im.setAttribute('loading','lazy');
                 contFive.setAttribute('class','Primary-post');
                 contFive.setAttribute('id',this.data.post.postLink);
