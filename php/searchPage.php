@@ -25,7 +25,7 @@ try{
 	$userDB=new UserDB($user);
 
 
-	if(isset($_COOKIE['popularProfiles'])){
+	// if(isset($_COOKIE['popularProfiles'])){
 		$dataTwo=[];
 		$popularContainer=$userDB->get_popular_profiles();
 		if(!is_array($popularContainer)){
@@ -41,7 +41,7 @@ try{
 			$dataTwo[]=$item;
 		}
 		setcookie('popularProfiles',json_encode($dataTwo),time()+(20*300),'/');
-		}
+		// }
 		include_once('Htmlfiles/Searchmobile.html');
 		return;
 	}
