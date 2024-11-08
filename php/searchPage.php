@@ -117,12 +117,19 @@ try{
 						var_dump($results);
 						throw new Exception('there are errors');
 					}
-
+					$cont=[];
 					for($r=0;$r<count($results);$r++){
-						$resultsArray[]=['username'=>$results[$r]['username'],'profilePicture'=>$results[$r]['filepath'].'/'.$results[$r]['filename'],
+						$resultsArray[]=['username'=>$results[$r]['username'],'profilePicture'=>$results[$r]['filepath'].'/'.$results[$r]['filename']
 					,'userID'=>$results[$r]['userID'],'newPosts'=>0];
 					}
-					
+					// for($rr=0;$rr<count($recentArray);$rr++){
+					// 	if(isset($recentArray[$rr+1])){
+					// 		if($recentArray[$rr]['username']==$recentArray[$rr+1]['username']){
+					// 			unset($recentArray[$rr+1]);
+					// 		}
+					// 	}
+						
+					// }
 					$data['searchResults']=$resultsArray;
 					$data['status']='success';
 

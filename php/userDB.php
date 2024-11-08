@@ -40,10 +40,10 @@ class UserDB extends Database{
         try{
             $db=$this->db;
             $query = '
-                SELECT u.userID,u.username,i.filename,i.filepath FROM Users u
+                SELECT u.userID,u.username,i.filename as filename,i.filepath as filepath FROM Users u
                 LEFT JOIN ProfileImages pi ON  pi.userID=u.userID 
                 LEFT JOIN Images i ON i.imageID=pi.imageID
-                WHERE u.username LIKE :name 
+                WHERE u.username LIKE :name
                 LIMIT 5;
             ';
 
