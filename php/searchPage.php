@@ -25,11 +25,10 @@ try{
 	$userDB=new UserDB($user);
 
 
-	// if(!isset($_COOKIE['popularProfiles'])){
+	if(isset($_COOKIE['popularProfiles'])){
 		$dataTwo=[];
 		$popularContainer=$userDB->get_popular_profiles();
 		if(!is_array($popularContainer)){
-			
 			throw new Exception('popular profiles has errors');
 		}
 		for($i=0;$i<count($popularContainer);$i++){
@@ -39,10 +38,10 @@ try{
 					'profilePicture'=>$popularContainer[$i]['filepath'].'/'.$popularContainer[$i]['filename']
 				];
 			
-			array_push($dataTwo,$item);
+			$dataTwo[]=$item;
 		}
-		setcookie('popularProfiles',json_encode($dataTwo),time()+(100*300),'/search_page');
-		// }
+		setcookie('popularProfiles',json_encode($dataTwo),time()+(20*300),'/');
+		}
 		include_once('Htmlfiles/Searchmobile.html');
 		return;
 	}
@@ -134,7 +133,8 @@ try{
 					$data['status']='success';
 
 					
-					// setcookie('searchResults',json_encode($data),time()+(23*43),'/search_page');
+					
+					setcookie('searchResults',json_encode($data),time()+(23*43),'/search_page');
 					echo json_encode($data);
 				}catch(Exception $err){
 					$data['status']='failed';
@@ -145,6 +145,7 @@ try{
 				break;
 			case 'visit_profile':
 				$data=[];
+				$recentArray=[];
 				try{
 					if(!isset($_POST['username']) OR empty($_POST['username'])){
 							throw new Exception('no username was provided');
@@ -153,11 +154,15 @@ try{
 					$profile->set_username($_POST['username']);
 					$profileDB=new UserDB($profile);
 					$profileDB->read_user_with_username();
-					$recentArray=$_SESSION['recentSearches'];
+					// unset($_SESSION['recentSearches']);
+					if(isset($_SESSION['recentSearches'])){
+						$recentArray=$_SESSION['recentSearches'];
+					}
+					
 					$recentItem=['username'=>$profileDB->user->get_username(),'userID'=>$profileDB->user->get_id(),
 								'profilePicture'=>$profileDB->user->get_profilePicture(),'newPosts'=>0];
 					$recentArray[]=$recentItem;
-					$_SESSION['recentSearches'][]=$recentItem;
+					$_SESSION['recentSearches'][]=$recentArray;
 					$data['status']='success';
 					setcookie('recentSearchResults',json_encode($recentArray),time()+(4003*430),'/search_page');
 				}catch(Exception $err){
@@ -197,11 +202,11 @@ try{
 						throw new Exception('create account');
 					}
 
-					if(!isset($_POST['userID']) OR empty($_POST['userID'])){
-						throw new Exception('no account identified');
+					if(!isset($_POST['userID'])){
+						throw new Exception('no account identified userid');
 					}
-					if(!isset($_POST['username']) OR empty($_POST['username'])){
-						throw new Exception('no account identified');
+					if(!isset($_POST['username'])){
+						throw new Exception('no account identified username');
 					}
 
 					$data['status']='success';

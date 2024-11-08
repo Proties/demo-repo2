@@ -464,16 +464,16 @@ export class OtherProfile extends ProfileUI{
                     if(data.status=='success'){
                          const element=evt.target.parentNode;
                         element.remove();
-                        this.useraname=data.data.username;
+                        this.username=data.data.username;
                         this.profilePicture=data.data.profilePicture;
                         this.followingStatus=data.data.followingStatus;
-                        this.id=data.data.username;
+                        this.id=data.data.userID;
                      
                     }
                     
                 
             }
-            xml.send('actions=remove_profile');
+            xml.send('actions=remove_profile&userID='+this.id+'&username='+this.username);
             
         }catch(err){
             console.log('error');

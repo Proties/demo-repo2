@@ -313,21 +313,41 @@ class UserDB extends Database{
         }
     }
     
-//this sql query gets the profiles with the most visits 
-//that are not in hiddenProfile table
-//that are also not in follower table
+/*
+this sql query get user profiles with the most view in the profilesView table
+the userid should not be in the hidden profiles 
+
+
+*/
 public function get_popular_profiles(){
         try{
             $db=$this->db;
             $query='
-                SELECT u.username,i.filename as filename,i.filepath as filepath,u.userID FROM ProfileViews pv
-                INNER JOIN Users u ON u.userID=pv.profileID
-                LEFT JOIN ProfileImages pi ON pi.userID=u.userID
-                LEFT JOIN Images i ON i.imageID=pi.imageID
-                LIMIT 4;
+                SELECT DISTINCT 
+                u.username, 
+                i.filename AS filename, 
+                i.filepath AS filepath, 
+                u.userID
+            FROM 
+                ProfileViews pv
+            INNER JOIN 
+                Users u ON u.userID = pv.profileID
+            LEFT JOIN 
+                ProfileImages pi ON pi.userID = u.userID
+            LEFT JOIN 
+                Images i ON i.imageID = pi.imageID
+            WHERE 
+                u.userID NOT IN (SELECT profileID   FROM HiddenProfiles)
+                AND u.userID NOT IN (SELECT followerID FROM followers)
+            GROUP BY 
+                u.username
+            ORDER BY 
+                COUNT(pv.profileID) DESC
+            LIMIT 4;
                 ';
 
             $stmt=$db->prepare($query);
+            $stmt->bindValue(':userID',$this->user->get_id());
             $stmt->execute();
             return $stmt->fetchall();
     }catch(PDOException $err){

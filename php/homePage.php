@@ -196,11 +196,6 @@ function load_more_data(){
 }
 
 $template=new Template();
-setcookie('profile','no profile ', time() - (86400 * 30), '/'); 
-// setcookie('myprofile','', time() - (86400 * 30), '/');
-if(isset($_SESSION['subscriptionID'])){
-    //unlock features
-}
 
 /*
 this function will take an array or posts and will group the post made by the same user in a single  nested array
@@ -464,11 +459,11 @@ try{
    
    
     $_SESSION['userObject']=$mainUser->serialize();
-    setcookie('users',json_encode($newData) , time() + (86 * 1), '/');
+    setcookie('users',json_encode($newData) , time() + (86 * 100), '/');
 }catch(Exception $err){
     $data['status']='failed';
     $data['message']=$err->getMessage();
-    setcookie('users',json_encode($data) , time() + (86 * 1), '/');
+    // setcookie('users',json_encode($data) , time() + (86 * 100), '/');
 }
 
 if($_SERVER['REQUEST_METHOD']=='GET'){

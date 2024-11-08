@@ -83,9 +83,11 @@ function clear_search_bar(){
 function populate_recent_profiles(){
 	let list=get_cookie('recentSearchResults=');
 	if(list==undefined){
+		console.log('===== no recent profiles');
 		return;
 	}
-	console.log('===== recent profiles');
+	
+	
 	let len=list.length;
 	for(let i=0;i<len;i++){
 		let other=new OtherProfile();
