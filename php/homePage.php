@@ -333,7 +333,7 @@ try{
     $rank=new Ranking();
     $newData=$bigPool->getPool();
     
-    if(count($newData)<100){
+    if(count($newData)<10000){
 
         $info=$rank->chronoTwo($arrayPosts);
         $newData=formatProfileObject($info);
