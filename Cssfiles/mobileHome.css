@@ -1494,6 +1494,103 @@ transform: scale(1.10);
   margin-left: 341px;
 }
 
+@media screen and (max-width: 812px) {
+  .modal-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 40px;
+    width: 65%;
+    height: 415px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    text-align: center;
+    align-content: center;
+    margin-top: 60px;
+    margin-left: 135px;
+  }
+}
+
+@media screen and (max-width: 803px) {
+  .modal-container {
+    background-color: #fff;
+      padding: 20px;
+      border-radius: 40px;
+      width: 65%;
+      height: 439px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      position: absolute;
+      text-align: center;
+      align-content: center;
+      margin-top: 60px;
+      margin-left: 130px;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .modal-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 40px;
+    width: 78%;
+    height: 445px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    text-align: center;
+    align-content: center;
+    margin-top: 60px;
+    margin-left: 70px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .modal-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 40px;
+    width: 78%;
+    height: 439px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    text-align: center;
+    align-content: center;
+    margin-top: 60px;
+    margin-left: 29px;
+  }
+}
+
+@media screen and (max-width: 386px) {
+  .modal-container {
+    background-color: #fff;
+      padding: 20px;
+      border-radius: 40px;
+      width: 82%;
+      height: 402px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      position: absolute;
+      text-align: center;
+      align-content: center;
+      margin-top: 60px;
+      margin-left: 17px;
+  }
+}
+
+
+@media screen and (max-width: 377px) {
+  .modal-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 40px;
+    width: 75%;
+    height: 403px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    text-align: center;
+    align-content: center;
+    margin-top: 60px;
+    margin-left: 30px;
+  }
+}
+
 .register-heading{
   color: #A7991E;
   top: 60px;
@@ -1565,7 +1662,66 @@ input[type="password"] {
   flex-direction: row;
   margin-right: auto;
   margin-left: auto;
+}
 
+@media screen and (max-width: 812px) {
+  .input-group {
+    width: 84%;
+    display: flex;
+    flex-direction: row;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 803px) {
+  .input-group {
+    width: 84%;
+      display: flex;
+      flex-direction: row;
+      margin-right: auto;
+      margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .input-group {
+    width: 83%;
+    display: flex;
+    flex-direction: row;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .input-group {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 386px) {
+  .input-group {
+    width: 91%;
+    display: flex;
+    flex-direction: row;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 377px) {
+  .input-group {
+    width: 94%;
+    display: flex;
+    flex-direction: row;
+    margin-right: auto;
+    margin-left: auto;
+  }
 }
 
 /* Submit button */
@@ -1599,6 +1755,56 @@ h2 {
   right: 266px;
 }
 
+@media screen and (max-width: 812px) {
+  .Log-in {
+    display: flex;
+    flex-direction: row;
+    margin-top: 35px;
+    position: absolute;
+    right: 186px;
+  }
+}
+
+@media screen and (max-width: 803px) {
+  .Log-in {
+    display: flex;
+    flex-direction: row;
+    margin-top: 35px;
+    position: absolute;
+    right: 64px;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .Log-in {
+    display: flex;
+    flex-direction: row;
+    margin-top: 35px;
+    position: absolute;
+    right: 221px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .Log-in {
+    display: flex;
+    flex-direction: row;
+    margin-top: 35px;
+    position: absolute;
+    right: 82px;
+  }
+}
+
+@media screen and (max-width: 386px) {
+  .Log-in {
+    display: flex;
+    flex-direction: row;
+    margin-top: 35px;
+    position: absolute;
+    right: 85px;
+  }
+}
+
 .CAT{
   color: #333;
   opacity:0.4;
@@ -1606,7 +1812,8 @@ h2 {
 
 .log-in-link{
   color: #A7991E;
-  margin-left: 9px;
+    margin-left: 9px;
+    background-color: rgba(0, 0, 0, 0.0);
 }
 
 
@@ -1615,16 +1822,84 @@ h2 {
     background-color: #fff;
     padding: 20px;
     border-radius: 40px;
-    width: 800px; /* Smaller width */
-    height: 640px;
+    width: 555px;
+    height: 565px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: absolute;
     text-align: center;
     align-content: center;
-    left: 373px;
+    left: 120px;
     top: 70px;
     overflow: hidden;
-}
+  }
+
+  @media screen and (max-width: 770px) {
+    .profilesetupmodal-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 40px;
+      width: 555px;
+      height: 565px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      position: absolute;
+      text-align: center;
+      align-content: center;
+      left: 85px;
+      top: 70px;
+      overflow: hidden;
+    }
+  }
+
+  @media screen and (max-width: 403px) {
+    .profilesetupmodal-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 40px;
+      width: 335px;
+      height: 565px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      position: absolute;
+      text-align: center;
+      align-content: center;
+      left: 15px;
+      top: 70px;
+      overflow: hidden;
+    }
+  }
+
+  @media screen and (max-width: 386px) {
+    .profilesetupmodal-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 40px;
+      width: 335px;
+      height: 565px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      position: absolute;
+      text-align: center;
+      align-content: center;
+      left: 6px;
+      top: 70px;
+      overflow: hidden;
+    }
+  }
+
+  @media screen and (max-width: 377px) {
+    .profilesetupmodal-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 40px;
+      width: 324px;
+      height: 535px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      position: absolute;
+      text-align: center;
+      align-content: center;
+      left: 7px;
+      top: 70px;
+      overflow: hidden;
+    }
+  }
 
 .profilesetupmodal-container h2{
   color: #A7991E;
@@ -1668,6 +1943,90 @@ font-weight: bold;
 position: absolute;
 top: 36px;
 left: 360px;
+}
+
+@media screen and (min-width: 1280px) {
+  .heading-container h2 {
+    color: #A7991E;
+    font-size: 1.3em;
+    margin: 6px;
+    font-weight: bold;
+    position: absolute;
+    top: 36px;
+    left: 228px;
+  }
+}
+
+@media screen and (max-width: 812px) {
+  .heading-container h2 {
+    color: #A7991E;
+    font-size: 1.3em;
+    margin: 6px;
+    font-weight: bold;
+    position: absolute;
+    top: 36px;
+    left: 207px;
+  }
+}
+
+@media screen and (max-width: 803px) {
+  .heading-container h2 {
+    color: #A7991E;
+    font-size: 1.3em;
+    margin: 6px;
+    font-weight: bold;
+    position: absolute;
+    top: 36px;
+    left: 185px;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .heading-container h2 {
+    color: #A7991E;
+    font-size: 1.3em;
+    margin: 6px;
+    font-weight: bold;
+    position: absolute;
+    top: 36px;
+    left: 225px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .heading-container h2 {
+    color: #A7991E;
+    font-size: 1.3em;
+    margin: 6px;
+    font-weight: bold;
+    position: absolute;
+    top: 36px;
+    left: 107px;
+  }
+}
+
+@media screen and (max-width: 886px) {
+  .heading-container h2 {
+    color: #A7991E;
+    font-size: 1.3em;
+    margin: 6px;
+    font-weight: bold;
+    position: absolute;
+    top: 36px;
+    left: 94px;
+  }
+}
+
+@media screen and (max-width: 377px) {
+  .heading-container h2 {
+    color: #A7991E;
+    font-size: 18px;
+    margin: 6px;
+    font-weight: bold;
+    position: absolute;
+    top: 36px;
+    left: 89px;
+  }
 }
 
 .templatewrapper {
