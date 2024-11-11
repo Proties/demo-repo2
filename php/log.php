@@ -4,7 +4,7 @@ $logArray=[];
 function readLogs(){
 	$logs;
 	$file=fopen('logjs.json','r+');
-	$logs=fread($file, filesize($file));
+	$logs=fread($file, filesize('logjs.json'));
 	fclose($file);
 	return $logs;
 }

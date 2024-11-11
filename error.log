@@ -1,7 +1,0 @@
-[11-Nov-2024 20:16:21 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: filesize(): Argument #1 ($filename) must be of type string, resource given in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php:7
-Stack trace:
-#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php(7): filesize(Resource id #8)
-#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php(21): readLogs()
-#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(106): include_once('/Users/rotondwa...')
-#3 {main}
-  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php on line 7
