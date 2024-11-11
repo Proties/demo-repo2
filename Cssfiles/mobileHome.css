@@ -176,7 +176,7 @@ display: none;
 }
 
 .nav-center input[type="text"]:focus {
-  border-color: #A7991E;
+  border-color: #807F7A;
   box-shadow: 0 0 8px rgba(167, 153, 30, 0.8);
 }
 
@@ -575,19 +575,19 @@ display: none;
     max-width: 330px;
     height: 85vh;
     background-color: #ffffff;
-    border: 2px solid #A7991E;
+    border: 2px solid rgba(128, 127, 122, 0.3);
     padding: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     overflow: scroll;
     border-radius: 25px;
     text-align: center;
-    color: #A7991E;
+    color: #807F7A;
     z-index: 7;
-    right: 175px;
+    right: 175px; 
 }
 
 .mission-modal h2{
-  color: #A7991E;
+  color: rgba(167, 153, 30, 0.8);
     font-size: 14px;
     margin-right: 20px;
     font-weight: bold;
@@ -967,6 +967,7 @@ display: flex;
   height: 70%;
   align-items: center;
   padding-top: 100px;
+  margin-bottom: 110px;
 }
 
 .post-challenge {
@@ -1176,7 +1177,7 @@ transform: scale(1.10);
 }
 
 .Identity{
-color: #A7991E;
+color: #807F7A;
 margin: auto;
 font-size: 14px;
 }
@@ -1649,10 +1650,10 @@ input[type="password"] {
   width: 73%;
   padding: 10px;
   margin: 20px;
-  border: 1px solid #A7991E;
+  border: 1px solid #807F7A;
   border-radius: 5px;
   font-size: 16px;
-  color: #A7991E;
+  color: #807F7A;
 }
 
 /* Input fields styling */
@@ -2074,12 +2075,10 @@ margin: 18px;
 
 /*footer*/
 .footer {
-  background-color: #a7922f;
-  color: #a7922f;
-  padding: 20px;
-  text-align: center;
-  min-width: 106%;
-  display: none;
+  background-color: #807F7A;
+    color: #807F7A;
+    padding: 20px;
+    text-align: center;
 }
 
 .footer-content {
