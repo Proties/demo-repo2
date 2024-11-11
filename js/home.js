@@ -700,13 +700,17 @@ async function formHandling(evt){
             }
            
             document.getElementById('submitProfileSetup').addEventListener('click',function(evt){
-                // evt.preventDefault();
+                evt.preventDefault();
                 let profileItem={
                     username:document.getElementById('profileName').value,
                     gender:document.getElementById('gender').value,
                     bio:document.getElementById('biography').value,
                     occupation:document.getElementById('occupation').value
                 };
+                if(profileItem.username!==null  &&
+                    profileItem.gender!==null && profileItem.occupation!==null){
+                    document.getElementById('profileSetupForm').submit();
+                }
                 
 
             });

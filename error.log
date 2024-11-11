@@ -19,3 +19,54 @@ Stack trace:
 #2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(106): include_once('/Users/rotondwa...')
 #3 {main}
   thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php on line 7
+[11-Nov-2024 23:31:16 Africa/Johannesburg] PHP Warning:  Trying to access array offset on null in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/setupProfile.php on line 51
+[11-Nov-2024 23:32:21 Africa/Johannesburg] PHP Fatal error:  Uncaught ValueError: fread(): Argument #2 ($length) must be greater than 0 in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php:7
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php(7): fread(Resource id #8, 0)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php(21): readLogs()
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(106): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php on line 7
+[11-Nov-2024 23:32:50 Africa/Johannesburg] PHP Fatal error:  Uncaught ValueError: fread(): Argument #2 ($length) must be greater than 0 in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php:7
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php(7): fread(Resource id #7, 0)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php(21): readLogs()
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(106): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php on line 7
+[11-Nov-2024 23:33:14 Africa/Johannesburg] PHP Fatal error:  Uncaught ValueError: fread(): Argument #2 ($length) must be greater than 0 in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php:7
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php(7): fread(Resource id #7, 0)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php(21): readLogs()
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(106): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php on line 7
+[11-Nov-2024 23:33:38 Africa/Johannesburg] PHP Fatal error:  Uncaught ValueError: fread(): Argument #2 ($length) must be greater than 0 in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php:7
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php(7): fread(Resource id #7, 0)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php(21): readLogs()
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(106): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php on line 7
+[11-Nov-2024 23:34:12 Africa/Johannesburg] PHP Fatal error:  Uncaught ValueError: fread(): Argument #2 ($length) must be greater than 0 in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php:7
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php(7): fread(Resource id #7, 0)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php(21): readLogs()
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(106): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php on line 7
+[11-Nov-2024 23:34:18 Africa/Johannesburg] PHP Fatal error:  Uncaught ValueError: fread(): Argument #2 ($length) must be greater than 0 in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php:7
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php(7): fread(Resource id #7, 0)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php(21): readLogs()
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(106): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php on line 7
+[11-Nov-2024 23:41:47 Africa/Johannesburg] PHP Warning:  Trying to access array offset on null in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/setupProfile.php on line 51
+[11-Nov-2024 23:41:51 Africa/Johannesburg] PHP Fatal error:  Uncaught ValueError: fread(): Argument #2 ($length) must be greater than 0 in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php:7
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php(7): fread(Resource id #7, 0)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php(21): readLogs()
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(106): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php on line 7
