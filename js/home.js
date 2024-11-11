@@ -634,7 +634,25 @@ function closeModal() {
     modal.style.display = "none";
 }
 
-
+// validate setup profile status
+let dataTwo=get_cookie('setupProfileStatus');
+if(dataTwo!==undefined){
+    if(dataTwo.status=='failed'){
+    user.setupProfileModal.style.display='block';
+    user.registrationBtn.style.display='block';
+    console.log(dataTwo);
+    for(let e=0;e<dataTwo.errors.length;e++){
+        console.log('creating tags');
+        let k=Object.keys(dataTwo.errors[e]);
+        document.getElementById(k).innerHTML=dataTwo.errors[e][k];
+    }
+    }
+    else{
+      
+       
+    } 
+}
+                              
 
 // Form submission
 document.getElementById("registerForm").onsubmit=formHandling;
@@ -682,44 +700,14 @@ async function formHandling(evt){
             }
            
             document.getElementById('submitProfileSetup').addEventListener('click',function(evt){
-                evt.preventDefault();
+                // evt.preventDefault();
                 let profileItem={
                     username:document.getElementById('profileName').value,
                     gender:document.getElementById('gender').value,
                     bio:document.getElementById('biography').value,
                     occupation:document.getElementById('occupation').value
                 };
-                try{
-                    user.data=profileItem;
-                    let formattedData=JSON.stringify(user.data);
-                    let xml=new XMLHttpRequest();
-                    xml.open('POST','/setup_profile');
-                    xml.setRequestHeader('Content-Type', 'application/json');
-                    xml.onreadystatechange=function(){
-                        console.log(this.responseText);
-                        let dataTwo=JSON.parse(this.responseText);
-                        if(dataTwo.status=='failed'){
-                            console.log(dataTwo);
-                            for(let e=0;e<dataTwo.errors.length;e++){
-                                console.log('creating tags');
-                                let k=Object.keys(dataTwo.errors[e]);
-                                document.getElementById(k).innerHTML=dataTwo.errors[e][k];
-                            }
-                        }
-                        else{
-                          
-                            user.setupProfileModal.style.display='none';
-                            user.registrationBtn.style.display='none';
-                            
-                            return;
-                        }
-                        
-                    }
-                    xml.send(formattedData);                               
-                    }
-                catch(err){
-                    console.log(err);
-                }
+                
 
             });
         }

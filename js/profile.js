@@ -685,8 +685,7 @@ export class MyProfile extends ProfileUI{
     makeChanges(){
 
         document.getElementById("uploadBtn").style.display='block';
-        // document.getElementById("settingsBtn").style.display='block';
-        // document.getElementById("editProfileButton").style.display='none';
+        document.getElementById("settingsBtn").style.display='block';
         // document.getElementById("uploadModal").style.display='none';
         // document.getElementById("ReviewuploadModal").style.display='none';
         // let modal=document.getElementsByClassName('modal');

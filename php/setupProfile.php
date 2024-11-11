@@ -109,6 +109,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
       	$store['profilePicture']->get_profilePicture();
       	$db->commit();
       	setcookie('user',json_encode($store), time() + (38900 * 600), '/');
+      	$bigData['status']='success';
+      	setcookie('setupProfileStatus',json_encode($bigData), time() + (31 * 6), '/');
       
     }
     else{
@@ -120,8 +122,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		$bigData['errors']=$errors;
 		$bigData['status']='failed';
 		$bigData['message']=$err->getMessage();
-		
-		echo json_encode($bigData);
+		setcookie('setupProfileStatus',json_encode($bigData), time() + (31 * 6), '/');
 		
 	}
 	

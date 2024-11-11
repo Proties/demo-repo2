@@ -117,7 +117,7 @@ function get_data_from_cookie(){
     }else{
         delete_cookie('myprofile');
         delete_cookie('setUpProfile');
-        intialiseProfileObject(data,setUpProfile);
+        intialiseProfileObject(data);
     }
     
    
@@ -207,7 +207,7 @@ function initialiseProfile(data){
         myProfile.posts=data.posts;
         myProfile.make_user_info();
         myProfile.is_logged_in();
-        myProfile.makeChanges();
+        // myProfile.makeChanges();
         // fillInProfileSettings(data.userInfo);
         let parentContainer=document.getElementsByClassName("posts-section")[0];
         console.log('parentContainer=========');
@@ -237,10 +237,10 @@ function initialiseProfile(data){
     console.log(myProfile);
     console.log('======my profile object=====');
 }
-async function intialiseProfileObject(data,myData){
+function intialiseProfileObject(data){
    
-    let profile_data;
-    console.log(data);
+    let profile_data=data;
+
     let url=location.href;
     let last=url.lastIndexOf('/');
     url=url.slice(last+1,url.length);
@@ -249,9 +249,7 @@ async function intialiseProfileObject(data,myData){
     if(url=='profile'){
         console.log('======myprofile ======');
         console.log(url);
-        if(myData!==undefined){
-            profile_data=myData;
-        }
+        
         url=url.slice(1,url.length);
         console.log('profile data======');
         console.log(profile_data);
@@ -260,13 +258,13 @@ async function intialiseProfileObject(data,myData){
         currentProfile.username=profile_data.username;
         currentProfile.id=profile_data.userInfo.userID;
         console.log(profile_data);
-       
+  
         currentProfile.shortBio=profile_data.shortBio;
         currentProfile.longBio=profile_data.longBio;
         currentProfile.fullname=profile_data.fullname;
         currentProfile.make_user_info();
         currentProfile.is_logged_in();
-        // currentProfile.makeChanges();
+        currentProfile.makeChanges();
         console.log(currentProfile);
         let con=document.getElementsByClassName('container')[0];
         
