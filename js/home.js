@@ -670,13 +670,13 @@ async function formHandling(evt){
                 if(data.status=='failed'){
                      for(let i=0;i<data.errorArray.length;i++){
                         const k=Object.keys(data.errorArray[i]);
-                        console.log(data.errorArray[i]);
+                        console.log(k);
                         console.log(data.errorArray[i][k]);
                         document.getElementById(k).innerHTML=data.errorArray[i][k];
                     }
                 }
             else{
-                 alert('succesfull logged in');
+                
                 modal.style.display='none';
                 user.setup_profile();
             }
@@ -707,7 +707,7 @@ async function formHandling(evt){
                             }
                         }
                         else{
-                            alert('it works');
+                          
                             user.setupProfileModal.style.display='none';
                             user.registrationBtn.style.display='none';
                             
