@@ -1,6 +1,0 @@
-[12-Nov-2024 17:13:54 Africa/Johannesburg] PHP Warning:  Undefined array key "profilePicture" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/setupProfile.php on line 109
-[12-Nov-2024 17:13:54 Africa/Johannesburg] PHP Fatal error:  Uncaught Error: Call to a member function get_profilePicture() on null in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/setupProfile.php:109
-Stack trace:
-#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(142): include_once()
-#1 {main}
-  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/setupProfile.php on line 109
