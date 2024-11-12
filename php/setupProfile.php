@@ -28,27 +28,25 @@ else{
 }
 $userDB=new UserDB($user);
 if($_SERVER['REQUEST_METHOD']=='POST'){
-	$data=file_get_contents('php://input');
-    $data_f=json_decode($data,true);
 
     $db=Database::get_connection();
     try{
     	$db->beginTransaction();
 
-    	if(empty($data_f['username']) OR $user->validate_username($data_f['username'])==false){
+    	if(empty($_POST['profileName']) OR $user->validate_username($_POST['profileName'])==false){
     		$errors[]['errProfilUsername']='username not valid';
     	}
   
-    	if(empty($data_f['gender']) OR $user->validate_gender($data_f['gender'])==false){
+    	if(empty($_POST['gender']) OR $user->validate_gender($_POST['gender'])==false){
     		$errors[]['errProfileGender']='gender not valid';
     	}
-    	if(empty($data_f['occupation']) OR $user->validate_occupation($data_f['occupation'])==false){
+    	if(empty($_POST['occupation']) OR $user->validate_occupation($_POST['occupation'])==false){
     		$errors[]['errProfileOccupation']='occupation is required';
     	}
-    	if(empty($data_f['bio']) OR $user->validate_bio($data_f['bio'])==false){
+    	if(empty($_POST['bio']) OR $user->validate_bio($_POST['bio'])==false){
     		$errors[]['errProfileBio']='bio not valid';
     	}
-    	if($userDB->search_username_in_db($data_f['username'])!==false){
+    	if($userDB->search_username_in_db($_POST['profileName'])!==false){
        		$errors[]['errProfilUsername']='Username already exists';
        		throw new Exception('username taken');
     	}
@@ -56,11 +54,11 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     	if(count($errors)>1){
     		throw new Exception('could not create user');
     	}
-    	$username=$data_f['username'];
+    	$username=$_POST['profileName'];
     	$fullname=$_SESSION['firstName'].' '.$_SESSION['lastName'];
-    	$gender=$data_f['gender'];
-    	$occupation=$data_f['occupation'];
-    	$bio=$data_f['bio'];
+    	$gender=$_POST['gender'];
+    	$occupation=$_POST['occupation'];
+    	$bio=$_POST['bio'];
 
     	$user->set_username($username);
     	$user->set_gender($gender);

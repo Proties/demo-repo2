@@ -81,3 +81,4 @@ Stack trace:
 [12-Nov-2024 13:01:52 Africa/Johannesburg] PHP Warning:  Trying to access array offset on null in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/setupProfile.php on line 51
 [12-Nov-2024 13:10:03 Africa/Johannesburg] PHP Warning:  Trying to access array offset on null in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/setupProfile.php on line 51
 [12-Nov-2024 13:10:34 Africa/Johannesburg] PHP Warning:  Trying to access array offset on null in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/setupProfile.php on line 51
+[12-Nov-2024 13:19:19 Africa/Johannesburg] PHP Warning:  Trying to access array offset on null in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/setupProfile.php on line 51

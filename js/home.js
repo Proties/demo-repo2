@@ -637,6 +637,7 @@ function closeModal() {
 // validate setup profile status
 let dataTwo=get_cookie('setupProfileStatus=');
 if(dataTwo!==undefined){
+    delete_cookie('setupProfileStatus');
     if(dataTwo.status=='failed'){
     user.setupProfileModal.style.display='block';
     user.registrationBtn.style.display='block';
