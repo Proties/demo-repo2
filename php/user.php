@@ -364,7 +364,7 @@ trait validateUser{
     }
      function validate_bio(string $txt)
     {
-        $pattern='/[a-z0-9]{4,/i';
+        $pattern='/([a-z0-9\s\n]){4,/i';
         if(preg_match($pattern,$txt)){
             return true;
         }

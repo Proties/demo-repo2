@@ -9,7 +9,7 @@ use Insta\Template\Template;
 use Insta\Database\Template\TemplateDB;
 
 use Insta\Images\Image;
-use Insta\Database\Image\ImageDB;
+use Insta\Databases\Images\ImageDB;
 $user=new Users();
 $image=new Image();
 
@@ -43,7 +43,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     	if(empty($_POST['occupation']) OR $user->validate_occupation($_POST['occupation'])==false){
     		$errors[]['errProfileOccupation']='occupation is required';
     	}
-    	if(empty($_POST['bio']) OR $user->validate_bio($_POST['bio'])==false){
+    	if(empty($_POST['biography']) OR $user->validate_bio($_POST['biography'])==false){
     		$errors[]['errProfileBio']='bio not valid';
     	}
     	if($userDB->search_username_in_db($_POST['profileName'])!==false){
@@ -58,7 +58,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     	$fullname=$_SESSION['firstName'].' '.$_SESSION['lastName'];
     	$gender=$_POST['gender'];
     	$occupation=$_POST['occupation'];
-    	$bio=$_POST['bio'];
+    	$bio=$_POST['biography'];
 
     	$user->set_username($username);
     	$user->set_gender($gender);
@@ -68,10 +68,11 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		$userDB->write_user();
 
 		if(isset($_FILES['profileImage'])){
+			$id=$image->make_filename();
 			$image->set_postLinkID($id);
 			$image->set_imageName('profileImage');
 			$image->make_fileExtension();
-			$id=$image->make_filename();
+			
 			$file=$id.$image->get_fileExtension();
 			$image->set_filename($file);
 			$image->set_filepath($user->userFolder->get_dir());
@@ -100,7 +101,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		$bigData['data']=['username'=>$user->get_username(),'shortBio'=>$user->get_shortBio(),'fullname'=>$user->get_fullName()];
 		$_SESSION['userID']=$user->get_id();
 		$_SESSION['username']=$user->get_username();
-      	echo json_encode($bigData);
+      	// echo json_encode($bigData);
       	$store['userID']=$user->get_id();
       	$store['username']=$user->get_username();
       	$store['shortBio']=$user->get_shortBio();
@@ -110,7 +111,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
       	$bigData['status']='success';
       	setcookie('setupProfileStatus',json_encode($bigData), time() + (31 * 6), '/');
       	header('Location: /');
-		exit();
+		return;
       
     }
     else{
@@ -124,7 +125,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		$bigData['message']=$err->getMessage();
 		setcookie('setupProfileStatus',json_encode($bigData), time() + (31 * 6), '/');
 		header('Location: /');
-		exit();
+		return;
 		
 	}
 
