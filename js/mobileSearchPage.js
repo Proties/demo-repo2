@@ -81,11 +81,13 @@ function clear_search_bar(){
 	document.getElementById('').innerHTML='';
 }
 function populate_recent_profiles(){
-	let list=get_cookie('recentSearches=');
+	let list=get_cookie('recentSearchResults=');
 	if(list==undefined){
+		console.log('===== no recent profiles');
 		return;
 	}
-	console.log('===== recent profiles');
+	
+	
 	let len=list.length;
 	for(let i=0;i<len;i++){
 		let other=new OtherProfile();
@@ -156,7 +158,7 @@ function addEventListeners(){
 	});
 	});
 	
-	input.addEventListener('change',search_user);
+	input.addEventListener('input',search_user);
 
 	submit.addEventListener('click',function(evt){
 		let text=input.innerHTML;
@@ -177,6 +179,17 @@ function addEventListeners(){
 		}
 	});
 }
+
+function visit_profile(){
+
+}
+function clear_results(){
+	let list=document.getElementById('suggestion-list')
+	let l=list.getElementsByTagName('li');
+	for(let i=0;i<l.length;i++){
+		l[i].remove();
+	}
+}
 // this function get called when user entres text on the search box it then takes the text to the serve
 // and preforms a search of matchin words on the database of usernames
 function search_user(){
@@ -189,38 +202,68 @@ function search_user(){
         let xml=new XMLHttpRequest();
         xml.open('POST','/search_page');
         xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xml.send("action=search&q="+text);
+        xml.onload=function(){
+        	console.log('==== search works====');
+        	list.style.display='block';
+       		
+        	let searchData=JSON.parse(this.responseText);
+        	console.log('=====return data=====');
+        	console.log(searchData['searchResults']);
+        	let len=searchData['searchResults'].length;
+        	const results=searchData['searchResults'];
+        	clear_results();
+        	for(let i=0;i<len;i++){
+	            const l=document.createElement('li');
+	            const cont=document.createElement('div');
 
-        let searchData=get_cookie('recentSearches=');
-        if(searchData==undefined){
-        	throw 'search results is empty';
-        }
-    	console.log('==== search works====');
-        list.style.display='block';
-        list.innerHTML='';
-        
-        let len=searchData.length;
+	            const profilePic=document.createElement('img');
+	            const username=document.createElement('p');
+	            const usernameTxt=document.createTextNode(results[i].username);
+	         
+	            cont.setAttribute('class','searchItem');
+	            cont.setAttribute('id','userID'+results[i].userID);
+	            profilePic.setAttribute('class','');
+	            profilePic.setAttribute('src',results[i].profilePicture);
+	            username.setAttribute('class','username');
 
-        for(let i=0;i<len;i++){
-            const l=document.createElement('li');
-            const link=document.createElement('a');
-            const linkTxt=document.createTextNode(searchData[i].username);
-            l.setAttribute('class','searchItem');
-            link.setAttribute('href','/@'+searchData[i].username);
-            link.append(linkTxt);
-            l.append(link);
-            list.appendChild(l);
-        }
-        let listItem=document.getElementsByClassName('searchItem');
+	            username.append(usernameTxt);
+	          	cont.append(profilePic);
+	            cont.append(username);
+	            l.append(cont);
+	            list.append(l);
+	        }
+	        let listItem=document.getElementsByClassName('searchItem');
         for(let i=0;i<listItem.length;i++){
             listItem[i].addEventListener("click",function(evt){
-                console.log("works=======");
-                console.log(evt.target.innerHTML);
-                window.location.href="/@"+evt.target.innerHTML;
+            	evt.stopPropagation();
+            	const element=evt.target;
+            	console.log(element);
+            	let selectedUsername=element.innerHTML;
+            	try{
+            		let xml=new XMLHttpRequest();
+            		xml.open('POST','/search_page');
+            		xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            		
+            		xml.onload=function(){
+            			console.log("works=======");
+		                console.log(evt.target.innerHTML);
+		                window.location.href="/@"+evt.target.innerHTML;
 
+            		}
+            		xml.send('actions=visit_profile&username='+selectedUsername);
+
+            	}catch(err){
+            		console.log(err);
+            	}
+                
             });
 
         }
+        }
+        xml.send("actions=search&q="+text);
+
+
+        
         
         
         

@@ -3,6 +3,7 @@ namespace Insta\Databases\User;
 use Insta\Databases\Database;
 use Insta\Users\Users;
 use Exception;
+use PDOException;
 class UserDB extends Database{
     public $user;
     private $db;
@@ -39,15 +40,24 @@ class UserDB extends Database{
         try{
             $db=$this->db;
             $query = '
-                SELECT username,i.filename,i.filepath FROM Users u
-                INNER JOIN ProfileImages pi ON  pi.userID=u.userID 
-                INNER JOIN Images i ON i.imgeID=pi.imageID
-                WHERE username LIKE :name 
-                LIMIT 5;
+                SELECT DISTINCT 
+                u.userID,
+                u.username,
+                i.filename AS filename,
+                i.filepath AS filepath
+            FROM 
+                Users u
+            LEFT JOIN 
+                ProfileImages pi ON pi.userID = u.userID
+            LEFT JOIN 
+                Images i ON i.imageID = pi.imageID
+            WHERE 
+                LOWER(u.username) LIKE LOWER(:name)
+            LIMIT 5;
             ';
 
             $stmt = $db->prepare($query);
-            $stmt->bindValue(':name', '%' . $user . '%'); // Add wildcards
+            $stmt->bindValue(':name', '%' . $user . '%');
             $stmt->execute();
             return $stmt->fetchall();
         }catch(PDOException $err){
@@ -82,7 +92,9 @@ class UserDB extends Database{
           $db=$this->db;
           try{
             $query='
-                    SELECT username,userID FROM Users
+                    SELECT username,userID,i.filename,i.filepath FROM Users u
+                    LEFT JOIN ProfileImages pi ON pi.userID=u.userID
+                    LEFT JOIN Images i ON i.imageID=pi.imageID
                     WHERE username=:id;
             ';
             $statement=$db->prepare($query);
@@ -94,6 +106,7 @@ class UserDB extends Database{
             }
             $this->user->set_id($data['userID']);
             $this->user->set_username($data['username']);
+            $this->user->set_profilePicture($data['filepath'].'/'.$data['filename']);
             // $this->user->set_name($data['fullname']);
         }catch(PDOException $err){
             echo 'Database error while read user'.$err->getMessage();
@@ -168,7 +181,7 @@ class UserDB extends Database{
            throw new PDOException('not valid user id ');
            
         }catch(PDOException $err){
-            echo 'Database error while reading id'.$err->getMessage();
+           
             return $err;
         }
     }
@@ -265,26 +278,29 @@ class UserDB extends Database{
      public function validate_password_in_database(){
         try{
             $db=$this->db;
-            $query="
-                    SELECT email,u.userID,username,shortBio,i.filename as filename,i.filepath as filepath FROM Users u
+            $query='
+                    SELECT email,u.userID as userID,username,shortBio,i.filename as filename,i.filepath as filepath FROM Users u
                     LEFT JOIN ProfileImages p ON p.userID=u.userID
                     LEFT JOIN Images i ON i.imageID=p.imageID
                     WHERE u.password=:password AND email=:email;
-                    
-            ";
+                    ';
             $stmt=$db->prepare($query);
             $stmt->bindValue(':password',$this->user->get_password());
             $stmt->bindValue(':email',$this->user->get_email());
             $stmt->execute();
             $id=$stmt->fetch();
+            if($id==false){
+                throw new PDOException('user info not defined');
+            }
             $this->user->set_id($id['userID']);
             $this->user->set_username($id['username']);
             $this->user->set_profilePicture($id['filepath'].'/'.$id['filename']);
             $this->user->set_email($id['email']);
             $this->user->set_shortBio($id['shortBio']);
-            return $id;
+            
         }catch(PDOException $err){
-            return $err;;
+            $data=array('errorMessage'=>$err->getMessage());
+            return $data;
         }
     }
     public function add_profile_view($date,$time,$link,$id){
@@ -305,39 +321,42 @@ class UserDB extends Database{
             return $err;
         }
     }
-    //this sql query gets the profiles that are the users most recently visited
-    public function get_profiles(){
-        try{
-            $db=$this->db;
-            $query='
-                SELECT u.username,i.filename,i.filepath,u.userID,count() as visits FROM ProfileViews pv
-                LEFT JOIN ProfileImages pi u.userID=pi.userID
-                LEFT JOIN Images i pi.imageID=i.imageID;
-                ';
+    
+/*
+this sql query get user profiles with the most view in the profilesView table
+the userid should not be in the hidden profiles 
 
-            $stmt=$db->prepare($query);
-            $stmt->execute();
-            return $stmt->fetchall();
-    }catch(PDOException $err){
-        return $err;
-    }
-}
-//this sql query gets the profiles with the most visits 
-//that are not in hiddenProfile table
-//that are also not in follower table
+
+*/
 public function get_popular_profiles(){
         try{
             $db=$this->db;
             $query='
-                SELECT u.username,i.filename,i.filepath,u.userID,count() as visits FROM ProfileViews pv
-                INNER JOIN Users u ON pv.profileID=u.userID
-                LEFT JOIN ProfileImages pi u.userID=pi.userID
-                LEFT JOIN Images i pi.imageID=i.imageID
-                LEFT JOIN HiddenProfiles hp u.userID=hp.profileID;
-                LEFT JOIN Follower f pv.profileID=f.userID;
+                SELECT DISTINCT 
+                u.username, 
+                i.filename AS filename, 
+                i.filepath AS filepath, 
+                u.userID
+            FROM 
+                ProfileViews pv
+            INNER JOIN 
+                Users u ON u.userID = pv.profileID
+            LEFT JOIN 
+                ProfileImages pi ON pi.userID = u.userID
+            LEFT JOIN 
+                Images i ON i.imageID = pi.imageID
+            WHERE 
+                u.userID NOT IN (SELECT profileID   FROM HiddenProfiles)
+                AND u.userID NOT IN (SELECT followerID FROM followers)
+            GROUP BY 
+                u.username
+            ORDER BY 
+                COUNT(pv.profileID) DESC
+            LIMIT 4;
                 ';
 
             $stmt=$db->prepare($query);
+            $stmt->bindValue(':userID',$this->user->get_id());
             $stmt->execute();
             return $stmt->fetchall();
     }catch(PDOException $err){

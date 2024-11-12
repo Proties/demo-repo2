@@ -24,9 +24,9 @@ try{
 	}
 	$userDB=new UserDB($user);
 	
-	if($userDB->validate_password_in_database()==false){
+	if(is_array($userDB->validate_password_in_database())){
 		$errorMessages[]=array('errLoginUserpassword'=>'email/password does not match');
-		throw new Exception('there are errores');
+		throw new Exception('there are errors');
 	}
 	
 	$data['status']='success';

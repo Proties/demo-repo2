@@ -291,7 +291,7 @@
   
           <div id="donateContainer">
             <!-- Initial Donate Button -->
-            <button class="Call-Action-modal" id="donateBtn">Donate</button>
+            <button class="Call-Action-modal" id="mobileDonateBtn">Donate</button>
           
             <!-- Donation Input and Submit Button (Hidden by default) -->
             <div class="donationForm" style="display: none;">
@@ -299,7 +299,7 @@
                 
              
               <input type="number" name="donationAmount" class="donationAmount" placeholder="Enter amount" min="1" required />
-              <button class="Call-Action-modal" id="donationSubmit">Submit</button>
+              <button class="Call-Action-modal" id="mobileDonationSubmit">Submit</button>
                </form>
             </div>
           </div>
@@ -448,7 +448,7 @@
             <h2>Set Up Profile</h2>
           </div>
           <div id="Form-container" class="form">
-          <form id="profileSetupForm" >
+          <form id="profileSetupForm" action="/setup_profile" method="post" enctype="multipart/form-data">
             <div class="profile-image-container">
               <img class="profile-image-placeholder" src="/Image/Test Account.png" alt="Profile Icon" />
               <input type="file" name="profileImage">
@@ -463,8 +463,9 @@
             <p id="errProfileOccupation"></p>
             <textarea id="biography" name="biography" placeholder="Mini Bio" rows="4" required></textarea>
             <p id="errProfileBio"></p>
+             <button type="submit" id="submitProfileSetup">SUBMIT</button>
           </form>
-          <button type="submit" id="submitProfileSetup">Create Account</button>
+          <button type="submit" id="submitProfileSetup">SUBMIT</button>
         </div>
       </div>
       </section>
@@ -477,7 +478,7 @@
             ><img src="/Image/bottom-Search.png" alt="search" class="search"
           /></a>
             <!-- Initial Donate Button -->
-            <button class="Call-Action" id="donateBtn">Donate</button>
+            <button class="Call-Action" id="openDonationModal">Donate</button>
       </div>
       </div>
 
@@ -490,6 +491,6 @@
           <h2>Nerstia</h2>
       </footer>
     </main>
-    <script type="module" src="../js/home.js"></script>
+    <script type="module" src="../js/home.js?timestamp=${new Date().getTime()}"></script>
   </body>
 </html>

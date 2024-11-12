@@ -15,7 +15,9 @@ use Insta\Database\Follower\FollowerDB;
 
 use Insta\Subscription\Subscription;
 use Insta\Database\Subscription\SubscriptionDB;
+use Insta\Pool\ProfilePool;
 
+$pool=new ProfilePool();
 $subscription=new Subscription();
 $mainUser=new Users();
 $template=new Template();
@@ -69,16 +71,19 @@ else if($u->validate_username_url($f_txt)==true ){
         $time=date('H:i');
         $link=$f_txt;
         // this is the id of the current profile beign viewed
-        $id;
+        $authorDB->read_userID();
+        $id=$authorDB->user->get_id();
         $authorDB->add_profile_view($date,$time,$link,$id);
  
         $authorDB->get_posts_with_username();
- 
+        
         $data['user']=array('username'=>$authorDB->user->get_username(),'userProfilePicture'=>$authorDB->user->get_profilePicture(),
                                     'shortBio'=>$authorDB->user->get_shortBio(),'longBio'=>$authorDB->user->get_longBio());
         $data['posts']=$authorDB->user->postList->get_posts();
+        // $pool->add_item($data);
+        // $pool->load_data_to_file();
         setcookie('profile',json_encode($data), time() + (86 * 30), '/'); 
-    }catch(Exception $err){
+ }catch(Exception $err){
         $data['message']=$err->getMessage();
         $data['status']='failed';
         setcookie('profile',json_encode($data), time() + (86 * 30), '/');
@@ -118,20 +123,22 @@ switch($action){
         break;
     case 'follow_user':
         try{
-            $userID=$_POST['userID'];
+            
             $followerID=$_POST['followerID'];
-         
-            if(!is_int($userID) or !is_int($followerID)){
-                throw new Exception('make an account');
+            if(!isset($followerID)){
+                throw new Exception('follower id not defined');
             }
-            if($userID==$mainUser->get_id()){
-                $f=new Follower($mainUser,$currentProfile);
-                $fDB=new FollowerDB($f);
-                $fDB->addFollower();
+            if(empty($_SESSION['userID']) OR !isset($_SESSION['userID'])){
+                throw new Exception('create an account');
             }
-            else{
-                throw new Exception('user not allowed to perform action');
-            }
+
+            
+            $f=new Follower();
+            $f->set_current_userID($_SESSION['userID']);
+            $f->set_follower_userID($followerID);
+            $fDB=new FollowerDB($f);
+            $fDB->addFollower();
+            
             $data['status']='success';
             $data['message']='its all right';
             echo json_encode($data);
@@ -143,14 +150,21 @@ switch($action){
         break;
     case 'unfollow_user':
         try{
-            $userID=$_POST['userID'];
+    
             $followerID=$_POST['followerID'];
-            if($userID==$mainUser->get_id()){
-                
+            if(!isset($followerID)){
+                throw new Exception('follower id not defined');
             }
-            else{
-                throw new Exception('user not allowed to perform action');
+            if(empty($_SESSION['userID']) OR !isset($_SESSION['userID'])){
+                throw new Exception('create an account');
             }
+
+            $f=new Follower();
+            $f->set_current_userID($_SESSION['userID']);
+            $f->set_follower_userID($followerID);
+            $followerDB=new FollowerDB($f);
+            $followerDB->unFollowUser();
+
             $data['status']='success';
             $data['message']='its all right';
             echo json_encode($data);

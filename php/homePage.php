@@ -10,7 +10,8 @@ use Insta\Database\Template\TemplateDB;
 
 use Insta\Pool\MostViewPostPool;
 use Insta\Pool\ProfilePool;
-
+use Insta\Follower\Follower;
+use Insta\Database\Follower\FollowerDB;
 
 use Insta\Subscription\Subscription;
 use Insta\Database\Subscription\SubscriptionDB;
@@ -18,10 +19,21 @@ use Insta\Database\Subscription\SubscriptionDB;
 $subscription=new Subscription();
 $mainUser=new Users();
 
+$follow=new Follower();
+if(isset($_SESSION['userObject'])){
+    $mainUser->unserialize($_SESSION['userObject']);
+    $follow->set_current_userID($mainUser->get_id());
+    $followeDB=new FollowerDB($follow);
+    $followeDB->getFollowerList();
+    $followeDB->getFollowingList();
+}
+
+
 $bigPool=new MostViewPostPool();
 $profilesPool=new ProfilePool();
 
-function compareViewedPosts(Users $user){
+
+function compareViewedPosts(Users $user,array $bigData){
     $max=$user->viewedPosts->getSize();
     $arr=$user->viewedPosts->getPool();
     $c=0;
@@ -35,21 +47,120 @@ function compareViewedPosts(Users $user){
     return false;
 }
 
-function compareServedPosts(Users $user){
-    $max=$user->viewedPosts->getSize();
-    $arr=$user->viewedPosts->getPool();
-    $c=0;
-    while($c<$max){
-        if($bigPool[$a]['posts'][$b]==$arr[$c]){
+function compareServedPosts(Users $mainUser,array $bigData){
+    $max=$mainUser->servedPosts->getSize();
+    $arr=$mainUser->servedPosts->getPool();
+    $max=count($arr);
+    $matching=[];
+    $data=[];
+    try{
+        for($a=0;$a<$max;$a++){
+            for ($i=0; $i < count($bigData); $i++) { 
+                if(isset($bigData[$i]['posts'])){
+                    for($b=0;$b<count($bigData[$i]['posts']);$b++){
 
-            $c++;
+                        if($arr[$a]==$bigData[$i]['posts'][$b]['postID']){
+                            array_push($matching,$bigData[$i]['posts'][$b]['postID']);
+                            // throw new Exception('repeating posts');
+                        }
+                    }
+                    
+                }else{
+                    if($arr[$a]==$bigData[$i]['post']['postID']){
+                        array_push($matching,$bigData[$i]['post']['postID']);
+                        // throw new Exception('repeating posts');
+                    }
+                }
+                
+               
+            }
         }
-        
+        if(count($matching)>1){
+            throw new Exception('throw hands');
+        }
+        return true;
+    }catch(Exception $err){
+        $data['message']=$err->getMessage();
+        $data['matchingIDs']=$matching;
+        return $data;
     }
-    return false;
 }
 
-function compareFollowingIds(Users $user){
+/**
+ * 
+ * this is a test function that will deleted when i get the site working
+ * Compares two nested arrays and returns postIDs of matching posts.
+ *
+ * @param array $data
+ * @param array $bigData
+ * @return array|bool Repeat post IDs or FALSE on error
+ */
+function compareServedPostsWithSaved(array $data, array $bigData) {
+    $repeatPosts = [];
+    try {
+        foreach ($data as $key => $datum) {
+            if (!isset($bigData[$key])) {
+                continue;
+            }
+            foreach ($datum['posts'] as $post) {
+                foreach ($bigData[$key]['posts'] as $bigPost) {
+                    if ($post['postID'] === $bigPost['postID']) {
+                        $repeatPosts[] = $post['postID'];
+                    }
+                }
+            }
+        }
+        return $repeatPosts;
+    } catch (Exception $err) {
+        // Log or handle error
+        return false;
+    }
+}
+// this function will take 2 large nested arrays and see the array that are equal to each are other add
+// thier postIDs to a new array repeatPosts and return that arrat
+// function compareServedPostsWithSaved(array $data,array $bigData){
+//     $max=count($data);
+//     $maxPosts=count($data);
+//     $maxReq=count($bigData);
+//     $repeatPosts=[];
+//     try{
+//         for($a=0;$a<$max;$a++){
+//             if(isset($data[$a]['posts'])){
+//                 for ($b=0;$b<count($data[$a]['posts']);$b++) { 
+//                     for($c=0;$c<5;$c++){
+//                         if($data[$a]['posts'][$b]['postID']==$bigData[$b]['posts'][$c]['postID']){
+                    
+//                             array_push($repeatPosts,$data[$a]['posts'][$b]['postID']);
+//                         }
+//                     }
+                    
+                
+//                } 
+//             }else{
+//                 if($data[$a]['post']['postID']==$bigData[$b]['post']['postID']){
+//                     array_push($repeatPosts,$data[$a]['post']['postID']);
+                    
+//             }
+//         }
+    
+// }
+//         return true;
+//     }catch(Exception $err){
+//         return false;
+//     }
+// }
+function compareSavedUsers($data,$newData){
+    $repeat=[];
+    for($i=0;$i<count($data);$i++){
+        for($a=0;$a<count($newData);$a++){
+            if($data[$i]['username']==$newData[$a]['username']){
+                $repeat[]=$data[$i];
+            }
+    }
+    return $repeat;
+}
+}
+function compareFollowingIds(Users $user,array $bigData){
     $max=$user->viewedPosts->getSize();
     $arr=$user->viewedPosts->getPool();
     $c=0;
@@ -64,13 +175,27 @@ function compareFollowingIds(Users $user){
      return false;
 }
 
+function load_more_data(){
+        try{
+            $info=$rank->chronoTwo($arrayPosts);
+            $newNewData=formatProfileObject($info);
+
+            $status=compareServedPostsWithSaved($bigPool->getPool(),$newData);
+            if(!is_array($status)){
+                throw new Exception('no new posts');
+            }
+            for($i=0;$i<count($newNewData);$i++){
+                $bigPool->add_item($newData[$i]);
+            }
+            $bigPool->load_data_to_file();
+        }catch(Exception $err){
+            return $err;
+        }
+        
+        
+}
 
 $template=new Template();
-setcookie('profile','no profile ', time() - (86400 * 30), '/'); 
-// setcookie('myprofile','', time() - (86400 * 30), '/');
-if(isset($_SESSION['subscriptionID'])){
-    //unlock features
-}
 
 /*
 this function will take an array or posts and will group the post made by the same user in a single  nested array
@@ -94,16 +219,16 @@ function formatProfileObject(array $bigData){
             $userID=$bigData[$i]['userID'];
            
             $posts=[];
-            if(isset($bigData[$i]['imageFileName']) OR $bigData[$i]['imageFileName']!==NULL){
+            if(isset($bigData[$i]['imageFileName']) AND $bigData[$i]['imageFileName']!==NULL){
                 $posts['postLink']=$bigData[$i]['postLink'];
                 $posts['postID']=$bigData[$i]['postID'];
                 $posts['imageFileName']=$bigData[$i]['imageFileName'];
                 $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
             }
-            if(isset($bigData[$i]['videoFileName']) or $bigData[$i]['videoFileName']!==null){
+            if(isset($bigData[$i]['videoFileName']) AND $bigData[$i]['videoFileName']!==null){
                 $posts['postLink']=$bigData[$i]['postLink'];
                 $posts['postID']=$bigData[$i]['postID'];
-                $posts['VideoFileName']=$bigData[$i]['videoFileName'];
+                $posts['videoFileName']=$bigData[$i]['videoFileName'];
                 $posts['videoFilePath']=$bigData[$i]['videoFilePath'];
             }
           
@@ -121,16 +246,16 @@ function formatProfileObject(array $bigData){
             $username=$bigData[$i]['username'];
             $userID=$bigData[$i]['userID'];
 
-            if(isset($bigData[$i]['imageFileName']) or $bigData[$i]['imageFileName']!==null){
+            if(isset($bigData[$i]['imageFileName']) AND $bigData[$i]['imageFileName']!==null){
                 $posts['postLink']=$bigData[$i]['postLink'];
                 $posts['postID']=$bigData[$i]['postID'];
                 $posts['imageFileName']=$bigData[$i]['imageFileName'];
                 $posts['imageFilePath']=$bigData[$i]['imageFilePath'];
             }
-            if(isset($bigData[$i]['videoFileName']) or $bigData[$i]['videoFileName']!==null){
+            if(isset($bigData[$i]['videoFileName']) AND $bigData[$i]['videoFileName']!==null){
                 $posts['postLink']=$bigData[$i]['postLink'];
                 $posts['postID']=$bigData[$i]['postID'];
-                $posts['VideoFileName']=$bigData[$i]['videoFileName'];
+                $posts['videoFileName']=$bigData[$i]['videoFileName'];
                 $posts['videoFilePath']=$bigData[$i]['videoFilePath'];
             }
             $newArray['username']=$username;
@@ -159,7 +284,7 @@ function formatProfileObject(array $bigData){
                 if( $bigData[$i]['videoFileName']!==null){
                 $posts['postLink']=$bigData[$i]['postLink'];
                 $posts['postID']=$bigData[$i]['postID'];
-                $posts['VideoFileName']=$bigData[$i]['videoFileName'];
+                $posts['videoFileName']=$bigData[$i]['videoFileName'];
                 $posts['videoFilePath']=$bigData[$i]['videoFilePath'];
             }
         }
@@ -168,17 +293,17 @@ function formatProfileObject(array $bigData){
                 
                 if(isset($cont[$c]['post']['videoFilePath']) ){
                     if($cont[$c]['post']['videoFilePath']!==null){
-                    $currentContent=$cont[$c]['postLink'];
-                    $currentContent=$cont[$c]['postID'];
-                    $currentContent=$cont[$c]['post']['videoFilePath'];
-                    $currentContent=$cont[$c]['post']['videoFileName'];
+                    $currentContent['postLink']=$cont[$c]['post']['postLink'];
+                    $currentContent['postID']=$cont[$c]['post']['postID'];
+                    $currentContent['videoFilePath']=$cont[$c]['post']['videoFilePath'];
+                    $currentContent['videoFileName']=$cont[$c]['post']['videoFileName'];
                 }
             }
                 else{
-                    $currentContent=$cont[$c]['post']['postLink'];
-                    $currentContent=$cont[$c]['post']['postID'];
-                    $currentContent=$cont[$c]['post']['imageFilePath'];
-                    $currentContent=$cont[$c]['post']['imageFileName'];
+                    $currentContent['postLink']=$cont[$c]['post']['postLink'];
+                    $currentContent['postID']=$cont[$c]['post']['postID'];
+                    $currentContent['imageFilePath']=$cont[$c]['post']['imageFilePath'];
+                    $currentContent['imageFileName']=$cont[$c]['post']['imageFileName'];
                 }
 
                 $cont[$c]['post']=null;
@@ -202,36 +327,143 @@ function formatProfileObject(array $bigData){
     return $cont;
     
 }
-$newData=[];
+$newData;
 try{
     $arrayPosts=[];
-   
-    
-    $commonPostsTwo=compareServedPosts($mainUser);
-    $commonFollowing=compareFollowingIds($mainUser);
-    $commonPosts=compareViewedPosts($mainUser);
-    
-
-
     $rank=new Ranking();
-    $info=$rank->chronoTwo($arrayPosts);
-    $arrLen=count($info);
-    $newData=formatProfileObject($info);
-    // $mainUser->servedPosts->add_item($newData[0]);
-    // $mainUser->servedPosts->add_item($newData[1]);
-    // $mainUser->servedPosts->add_item($newData[2]);
-    // $mainUser->servedPosts->add_item($newData[3]);
-    // $mainUser->servedPosts->add_item($newData[4]);
-    // $bigPool->add_item($newData[0]);
-    // $bigPool->add_item($newData[1]);
-    // $bigPool->add_item($newData[2]);
-    // $bigPool->add_item($newData[3]);
-    // $bigPool->add_item($newData[4]);
+    $newData=$bigPool->getPool();
     
-    setcookie('users',json_encode($newData) , time() + (8640 * 1), '/');
+    if(count($newData)<10000){
+
+        $info=$rank->chronoTwo($arrayPosts);
+        $newData=formatProfileObject($info);
+        $commonUsers=compareSavedUsers($bigPool->getPool(),$newData);
+        if(is_array($commonUsers)){
+            // throw new Exception('common users already exists');
+        }
+        // $status=compareServedPostsWithSaved($bigPool->getPool(),$newData);
+        // if(is_array($status)){
+        //     throw new Exception('no new posts even after looking in the database');
+        // }
+
+        for($i=0;$i<count($newData);$i++){
+            if(isset($newData[$i])){
+                $bigPool->add_item($newData[$i]);
+            }
+            
+        }
+        $bigPool->load_data_to_file();
+        }
+  
+    $commonFollowing=compareFollowingIds($mainUser,$newData);
+    $commonPosts=compareViewedPosts($mainUser,$newData);
+    
+    $status=compareServedPosts($mainUser,$newData);
+    if(is_array($status)){
+        // var_dump($status['matchingIDs']);
+        // throw new Exception('all the posts have been viewed');
+    }
+    else{
+        if(isset($newData[0])){
+            if($newData[0]!==NULL){
+                if(isset($newData[0]['posts'])){
+                    $mainUser->servedPosts->add_item($newData[0]['posts'][0]['postID']);
+                    if(isset($newData[0]['posts'][1])){
+                        $mainUser->servedPosts->add_item($newData[0]['posts'][1]['postID']);
+                    }
+                    if(isset($newData[0]['posts'][2])){
+                        $mainUser->servedPosts->add_item($newData[0]['posts'][2]['postID']);
+                    }
+                }
+                else{
+                    $mainUser->servedPosts->add_item($newData[0]['post']['postID']);
+                }
+                
+                
+        }
+        }
+        if(isset($newData[1])){
+            if($newData[1]!==NULL){
+                if(isset($newData[1]['posts'])){
+                    $mainUser->servedPosts->add_item($newData[1]['posts'][0]['postID']);
+                    if(isset($newData[1]['posts'][1])){
+                        $mainUser->servedPosts->add_item($newData[1]['posts'][1]['postID']);
+                    }
+                    if(isset($newData[1]['posts'][2])){
+                        $mainUser->servedPosts->add_item($newData[1]['posts'][2]['postID']);
+                    }
+                }else{
+                    if($newData[1]['post']['postID']!==null){
+                        $mainUser->servedPosts->add_item($newData[1]['post']['postID']);
+                    }
+                    
+                }
+               
+        }
+        }
+        
+        if(isset($newData[2])){
+            if($newData[2]!==NULL){
+                if(isset($newData[2]['posts'])){
+                    $mainUser->servedPosts->add_item($newData[2]['posts'][0]['postID']);
+                    if(isset($newData[2]['posts'][1])){
+                        $mainUser->servedPosts->add_item($newData[2]['posts'][1]['postID']);
+                    }
+                    if(isset($newData[2]['posts'][2])){
+                        $mainUser->servedPosts->add_item($newData[2]['posts'][2]['postID']);
+                    }
+                }else{
+                    $mainUser->servedPosts->add_item($newData[2]['post']['postID']);
+                }
+                
+        } 
+        }
+        if(isset($newData[3])){
+            if($newData[3]!==NULL){
+                if(isset($newData[3]['posts'])){
+                    $mainUser->servedPosts->add_item($newData[3]['posts'][0]['postID']);
+                    if(isset($newData[3]['posts'][1])){
+                        $mainUser->servedPosts->add_item($newData[3]['posts'][1]['postID']);
+                    }
+                    if(isset($newData[3]['posts'][2])){
+                        $mainUser->servedPosts->add_item($newData[3]['posts'][2]['postID']);
+                    }
+                }else{
+                    $mainUser->servedPosts->add_item($newData[3]['post']['postID']);
+                }
+                
+         } 
+        }
+        if(isset($newData[4])){
+            if($newData[4]!==NULL ){
+                if(isset($newData[4]['posts'])){
+                    $mainUser->servedPosts->add_item($newData[4]['posts'][0]['postID']);
+                    if(isset($newData[4]['posts'][1])){
+                        $mainUser->servedPosts->add_item($newData[4]['posts'][1]['postID']);
+                    }
+                    if(isset($newData[4]['posts'][2])){
+                        $mainUser->servedPosts->add_item($newData[4]['posts'][2]['postID']);
+                    }
+                }else{
+                    $mainUser->servedPosts->add_item($newData[4]['post']['postID']);
+                }
+               
+        } 
+        
+        
+    }
+   }
+        
+    
+    
+   
+   
+    $_SESSION['userObject']=$mainUser->serialize();
+    setcookie('users',json_encode($newData) , time() + (86 * 100), '/');
 }catch(Exception $err){
-    echo $err->getMessage();
-    setcookie('users','' , time() - (8640 * 1), '/');
+    $data['status']='failed';
+    $data['message']=$err->getMessage();
+    // setcookie('users',json_encode($data) , time() + (86 * 100), '/');
 }
 
 if($_SERVER['REQUEST_METHOD']=='GET'){
@@ -307,10 +539,11 @@ switch($action){
                 throw new Exception('make an account');
             }
            
-            $f=new Follower($mainUser,$currentProfile);
+            $f=new Follower();
+            $f->set_current_userID($_SESSION['userID']);
+            $f->set_follower_userID($followerID);
             $fDB=new FollowerDB($f);
             $fDB->addFollower();
-            
           
             $data['status']='success';
             $data['message']='its all right';
@@ -327,7 +560,11 @@ switch($action){
             if(!isset($_SESSION['userID']) OR empty($_SESSION['userID'])){
                  throw new Exception('make an account');
             }
-            
+            $f=new Follower();
+            $f->set_current_userID($_SESSION['userID']);
+            $f->set_follower_userID($followerID);
+            $fDB=new FollowerDB($f);
+            $followerDB->unFollowUser();
             $data['status']='success';
             $data['message']='its all right';
             echo json_encode($data);

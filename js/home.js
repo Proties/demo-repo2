@@ -201,10 +201,17 @@ function initialisePersoalObejct(){
 }
 initialisePersoalObejct();
 function initialiseObjects(cookie_data){
-   
+   let parentCont=document.getElementsByClassName("postfeed-wrapper")[0];
    if(cookie_data!==undefined){
-        // clear_posts();
-        let parentCont=document.getElementsByClassName("postfeed-wrapper")[0];
+        // if(cookie_data.status=='failed'){
+        //     let p=document.createElement('h1');
+        //     let pTxt=document.createTextNode('No new Posts');
+        //     p.append(pTxt);
+        //     parentCont.append(p);
+
+        //     return;
+        // }
+        
         for(let i=0;i<cookie_data.length;i++){
             console.log('=======array loop enternder');
             let profileItem=new OtherProfile();
@@ -386,13 +393,51 @@ function eventListeners(){
     let registerBtn = document.getElementById('userRegistration');
     let closeReg = document.getElementById("closeModalReg");
     let donate=document.getElementById('donateBtn');
+    let mobileDonate=document.getElementById('mobileDonateBtn');
+    let openDonation=document.getElementById('openDonationModal');
     let modal = document.getElementById("registerModal");
 
+    openDonation.addEventListener('click',function(evt){
+        let mobileDonationForm=document.getElementById('donation-modal');
+        mobileDonationForm.style.display='block';
+        mobileDonate.addEventListener('click',function(evt){
+        let dform=mobileDonationForm.getElementsByClassName('donationForm')[0];
+       
+        if(dform.style.display=='none'){
+            dform.style.display='block';
+
+        }else{
+            dform.style.display='none';
+        }
+        console.log(dform.style.display);
+    });
+        let closeDonationModal=mobileDonationForm.getElementsByClassName('close-icon')[0];
+        closeDonationModal.addEventListener('click',function(evt){
+           mobileDonationForm.style.display='none';
+        });
+     });
+   
     //this will check if user is at the end of the html page
     // if so it will trigger the conditional code
-    window.addEventListener('scroll',function(evt){
-         const scrolledToBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
-         if(scrolledToBottom){
+    if(profileList.length<5){
+        let p=document.createElement('h3');
+        let pTxt=document.createTextNode('no new posts');
+        p.append(pTxt);
+        document.getElementsByClassName('postfeed-wrapper')[0].append(p);
+
+
+    }else if(profileList.length==5){
+        try{
+            let xml=new XMLHttpRequest();
+            xml.open('GET','/');
+            xml.send();
+
+        }catch(err){
+            console.log('working');
+        }
+        window.addEventListener('scroll',function(evt){
+            const scrolledToBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
+            if(scrolledToBottom){
             get_ish_form_cookie();
 
         
@@ -401,6 +446,8 @@ function eventListeners(){
     }
     });
     
+    }
+   
 
     if(document.getElementById('donation')!==undefined && document.getElementById('donation')!==null){
         const donation=document.getElementById('donation');
@@ -429,6 +476,7 @@ function eventListeners(){
     });
     }
 
+   
     for(let sp=0;sp<sharePost.length;sp++){
         sharePost[sp].addEventListener('click',async(evt)=>{
             evt.stopPropagation();
@@ -490,24 +538,25 @@ function openModal(evt) {
     }
 
 
-    let mediaType='image';
+    let mediaType='video';
   
     console.log('====== opening modal =====');
+
     let postTitle='happy';
     const element=evt.target;
+    console.log(element);
     
-    if(element.getElementsByTagName('img')!==undefined){
+    if(element.src!==undefined && element.src!==null && element.src!==''){
         mediaType='image';
+        console.log(evt.target.src);
    }
-    else if(element.getElementsByTagName('video')[0]!==undefined){
-        element.getElementsByTagName('source')[0].src;
+    else{
+        // (element.getElementsByTagName('source')[0]!==undefined){
+        // element.getElementsByTagName('source')[0].src;
         console.log('===== a ok');
+        console.log(element.getElementsByTagName('source')[0].src);
         mediaType='video';
-    }else
-    {
-        throw 'html element undefined';
     }
-    console.log(evt.target.src);
     const source=evt.target.src;
     let postImageSrc=evt.target.src;
     const patttern=/(.png|.gif|.jpeg|.jpg)/;
@@ -585,7 +634,25 @@ function closeModal() {
     modal.style.display = "none";
 }
 
-
+// validate setup profile status
+let dataTwo=get_cookie('setupProfileStatus');
+if(dataTwo!==undefined){
+    if(dataTwo.status=='failed'){
+    user.setupProfileModal.style.display='block';
+    user.registrationBtn.style.display='block';
+    console.log(dataTwo);
+    for(let e=0;e<dataTwo.errors.length;e++){
+        console.log('creating tags');
+        let k=Object.keys(dataTwo.errors[e]);
+        document.getElementById(k).innerHTML=dataTwo.errors[e][k];
+    }
+    }
+    else{
+      
+       
+    } 
+}
+                              
 
 // Form submission
 document.getElementById("registerForm").onsubmit=formHandling;
@@ -621,13 +688,13 @@ async function formHandling(evt){
                 if(data.status=='failed'){
                      for(let i=0;i<data.errorArray.length;i++){
                         const k=Object.keys(data.errorArray[i]);
-                        console.log(data.errorArray[i]);
+                        console.log(k);
                         console.log(data.errorArray[i][k]);
                         document.getElementById(k).innerHTML=data.errorArray[i][k];
                     }
                 }
             else{
-                 alert('succesfull logged in');
+                
                 modal.style.display='none';
                 user.setup_profile();
             }
@@ -640,37 +707,11 @@ async function formHandling(evt){
                     bio:document.getElementById('biography').value,
                     occupation:document.getElementById('occupation').value
                 };
-                try{
-                    user.data=profileItem;
-                    let formattedData=JSON.stringify(user.data);
-                    let xml=new XMLHttpRequest();
-                    xml.open('POST','/setup_profile');
-                    xml.setRequestHeader('Content-Type', 'application/json');
-                    xml.onreadystatechange=function(){
-                        console.log(this.responseText);
-                        let dataTwo=JSON.parse(this.responseText);
-                        if(dataTwo.status=='failed'){
-                            console.log(dataTwo);
-                            for(let e=0;e<dataTwo.errors.length;e++){
-                                console.log('creating tags');
-                                let k=Object.keys(dataTwo.errors[e]);
-                                document.getElementById(k).innerHTML=dataTwo.errors[e][k];
-                            }
-                        }
-                        else{
-                            alert('it works');
-                            user.setupProfileModal.style.display='none';
-                            user.registrationBtn.style.display='none';
-                            temp.cont.style.display='block';
-                            return;
-                        }
-                        
-                    }
-                    xml.send(formattedData);                               
-                    }
-                catch(err){
-                    console.log(err);
+                if(profileItem.username!==null  &&
+                    profileItem.gender!==null && profileItem.occupation!==null){
+                    document.getElementById('profileSetupForm').submit();
                 }
+                
 
             });
         }

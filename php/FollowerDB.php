@@ -21,10 +21,10 @@ class FollowerDB extends Database{
                     VALUES(:userId,:followerID,:dataMade,:timeMade);
             ';
             $statement=$db->prepare($query);
-            $statement->bindValue(':userId',$this->follower->get_userID());
-            $statement->bindValue(':followerID',$this->follower->get_userID());
-            $statement->bindValue(':dataMade',$this->follower->get_userID());
-            $statement->bindValue(':timeMade',$this->follower->get_userID());
+            $statement->bindValue(':userId',$this->follower->get_current_userID());
+            $statement->bindValue(':followerID',$this->follower->get_follower_userID());
+            $statement->bindValue(':dataMade',$this->follower->get_date());
+            $statement->bindValue(':timeMade',$this->follower->get_time());
             return $statement->execute();
 
         }catch(PDOException $err){
@@ -38,8 +38,8 @@ class FollowerDB extends Database{
                     WHERE userID=:userID AND followerID=:followID
             ';
             $statement=$db->prepare($query);
-            $statement->bindValue(':userID',$this->follower->get_userID());
-            $statement->bindValue(':userID',$this->follower->get_followerID());
+            $statement->bindValue(':userID',$this->follower->get_current_userID());
+            $statement->bindValue(':userID',$this->follower->get_follower_userID());
             return $statement->execute();
         }catch(PDOException $err){
             return $err;
@@ -55,7 +55,7 @@ class FollowerDB extends Database{
                     WHERE userID=:userID;
             ';
             $statement=$db->prepare($query);
-            $statement->bindValue(':userID',$this->follower->userID());
+            $statement->bindValue(':userID',$this->follower->get_current_userID());
             $statement->execute();
             return $statement->fetchall();
         }catch(PDOException $err){
@@ -71,7 +71,7 @@ class FollowerDB extends Database{
                     WHERE userID=:userID;
             ';
             $statement=$db->prepare($query);
-            $statement->bindValue(':userID',$this->follower->userID());
+            $statement->bindValue(':userID',$this->follower->get_current_userID());
             $statement->execute();
             return $statement->fetchall();
 

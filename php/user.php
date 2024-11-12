@@ -54,6 +54,7 @@ class Users implements Serializable{
     $this->servedPosts=new ServedPosts();
     $this->following=new FollowingUsers();
 
+    $this->gender='';
     $this->username='';
     $this->lastName='';
     $this->fullName='';
@@ -67,6 +68,7 @@ class Users implements Serializable{
     $this->id=0;
     $this->followingNo=0;
     $this->followerNo=0;
+    $this->data=[];
     }
     //sets up associative array of to be serailized data
     public function __serialize():array 
@@ -80,7 +82,7 @@ class Users implements Serializable{
         $this->data=$data;
     }
     public function serialize(){
-        serialize($this->data);
+        return serialize($this->get_data());
         
     }
     public function unserialize($value){
@@ -96,9 +98,11 @@ class Users implements Serializable{
         $this->set_followingNo($data['followerNo']);
         $this->set_followerNo($data['followerNo']);
         $this->set_email($data['email']);
-        $this->set_phone($data['phone']);
+       
         $this->set_password($data['password']);
         $this->set_gender($data['gender']);
+        $this->servedPosts->setPool($data['servedPosts']);
+
 
    
     }
@@ -158,6 +162,31 @@ class Users implements Serializable{
     }
     public function set_recentSearchResults(array $pl){
         $this->recentSearchResults=$pl;
+    }
+    public function set_followingNo(int $no){
+        $this->followingNo=$no;
+    }
+     public function set_followerNo(int $no){
+        $this->followerNo=$no;
+    }
+    public function get_data(){
+        return $this->data=[
+                'name'=>$this->get_name(),
+                'lastName'=>$this->get_lastName(),
+                'username'=>$this->get_username(),
+                'fullName'=>$this->get_fullName(),
+                'email'=>$this->get_email(),
+                'password'=>$this->get_password(),
+                
+                'gender'=>$this->get_gender(),
+                'shortBio'=>$this->get_shortBio(),
+                'longBio'=>$this->get_longBio(),
+                'userID'=>$this->get_id(),
+                'profilePicture'=>$this->get_profilePicture(),
+                'followingNo'=>$this->get_followingNo(),
+                'followerNo'=>$this->get_followersNo(),
+                'servedPosts'=>$this->servedPosts->getPool()
+                ];
     }
     public function get_recentSearchResults():array 
     {

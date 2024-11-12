@@ -1,10 +1,14 @@
 <?php
 date_default_timezone_set('Africa/Johannesburg');
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+ini_set('error_log', 'error.log');
 try{
     require_once 'php/database.php';
 
     require_once 'php/template.php';
-    require_once 'php/HtmlTemplate.php';
+    // require_once 'php/HtmlTemplate.php';
     require_once 'php/templateDB.php';
     require_once 'php/postsList.php';
 
@@ -19,6 +23,7 @@ try{
     require_once 'php/profileRank.php';
 
 
+    require_once 'php/Follower.php';
     require_once 'php/FollowerDB.php';
 
     require_once 'php/Video.php';

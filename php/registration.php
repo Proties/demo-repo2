@@ -31,7 +31,7 @@ try{
         $errorMessages[]['errName']='Name not valid';
     }
     if($user->validate_lastName($user->get_lastName())==false){
-        $errorMessages[]['errlastName']='username not valid';
+        $errorMessages[]['errLastName']='lastName  not valid';
     }
     if($user->validate_password($user->get_password())==false){
         $errorMessages[]['errPassword']='Password must be at least 13 characters and contain at least 2 special characters';

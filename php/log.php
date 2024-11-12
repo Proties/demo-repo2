@@ -1,5 +1,15 @@
 <?php 
 $errorData = json_decode(file_get_contents('php://input'), true);
+$logArray=[];
+function readLogs(){
+	$logs;
+	$file=fopen('logjs.json','r+');
+	$logs=fread($file, filesize('logjs.json'));
+	fclose($file);
+	return $logs;
+}
+
+
 try{
 	if($errorData==null){
 		throw new Exception('error cannot be null');
@@ -8,8 +18,9 @@ try{
 	if(!$file){
 		throw new Exception('error opening file');
 	}
-
-	fwrite($file, json_encode($errorData));
+	$logArray=readLogs();
+	array_push($logArray, $errorData);
+	fwrite($file, json_encode($logArray));
 	fclose($file);
 	http_response_code(200);
 }catch(Exception $err){

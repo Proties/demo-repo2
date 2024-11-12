@@ -34,6 +34,7 @@ class Video{
 		$this->dateMade='';
 		$this->dateUpdated='';
 		$this->type='';
+		$this->Maxsize=50000000;
 		$this->status='show';
 	}
 	public function set_videoName(string $name){
@@ -168,15 +169,13 @@ class Video{
 			
 	}
 	public function validate_error(){
-		try{
+		
 			$video=$this->get_videoName();
-			if($_FILES[$video]['error']){
+			if($_FILES[$video]['error']==UPLOAD_ERR_OK){
 				return true;
 			}
 			return false;
-		}catch(Execption $errr){
-			return $err;
-		}
+		
 	}
 
 	public function validate_size(){
@@ -185,9 +184,9 @@ class Video{
 			if($_FILES[$video]['size']<=$this->get_maxSize()){
 				return true;
 			}
-			return false;
+	
 		}catch(Execption $errr){
-			return $err;
+			return false;
 		}
 		
 
@@ -257,13 +256,13 @@ class Video{
 		
 			$this->set_dateMade();
 			$this->set_dateUpdated();
-			if(validate_fileExtension()!==true){
+			if($this->validate_fileExtension()!==true){
 				throw new Exception('not valid video');
 			}
-			if(validate_error()!==true){
+			if($this->validate_error()!==true){
 				throw new Exception('error uploading video file');
 			}
-			if(validate_size()!==true){
+			if($this->validate_size()!==true){
 				throw new Exception('the vide file is too big');
 			}
 			
@@ -273,7 +272,8 @@ class Video{
 			}
 	}
 		catch(Exception $err){
-			return $err;
+			$data=['errorMessage'=>$err->getMessage()];
+			return $data;
 		}
 
 	

@@ -283,7 +283,7 @@ export class OtherProfile extends ProfileUI{
                     this.postsHtml.push(c);
                 }
                 else{
-                    source.setAttribute('src',this.data.posts[ss]['videoFilePath']+''+this.data.posts[ss]['VideoFileName']);
+                    source.setAttribute('src',this.data.posts[ss]['videoFilePath']+''+this.data.posts[ss]['videoFileName']);
                     vid.setAttribute('class','post-image');
                     vid.setAttribute('loading','lazy');
                     vid.setAttribute('controls','true');
@@ -298,7 +298,7 @@ export class OtherProfile extends ProfileUI{
         }
         }
         else if(this.data.post!==undefined || this.data.post!==null){
-            if(this.data.post.VideoFileName!==undefined){
+            if(this.data.post.videoFileName!==undefined){
                 let shareCont=document.createElement('div');
                 let shareImage=document.createElement('img');
                 let contFive=document.createElement('div');
@@ -306,7 +306,7 @@ export class OtherProfile extends ProfileUI{
                 let source=document.createElement('source');
 
                
-                source.setAttribute('src',this.data.post.videoFilePath+''+this.data.post.VideoFileName);
+                source.setAttribute('src',this.data.post.videoFilePath+''+this.data.post.videoFileName);
                 im.setAttribute('loading','lazy');
                 contFive.setAttribute('class','Primary-post');
                 contFive.setAttribute('id',this.data.post.postLink);
@@ -464,16 +464,16 @@ export class OtherProfile extends ProfileUI{
                     if(data.status=='success'){
                          const element=evt.target.parentNode;
                         element.remove();
-                        this.useraname=data.data.username;
+                        this.username=data.data.username;
                         this.profilePicture=data.data.profilePicture;
                         this.followingStatus=data.data.followingStatus;
-                        this.id=data.data.username;
+                        this.id=data.data.userID;
                      
                     }
                     
                 
             }
-            xml.send('actions=remove_profile');
+            xml.send('actions=remove_profile&userID='+this.id+'&username='+this.username);
             
         }catch(err){
             console.log('error');
@@ -686,7 +686,6 @@ export class MyProfile extends ProfileUI{
 
         document.getElementById("uploadBtn").style.display='block';
         document.getElementById("settingsBtn").style.display='block';
-        // document.getElementById("editProfileButton").style.display='none';
         // document.getElementById("uploadModal").style.display='none';
         // document.getElementById("ReviewuploadModal").style.display='none';
         // let modal=document.getElementsByClassName('modal');

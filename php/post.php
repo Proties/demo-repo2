@@ -159,7 +159,26 @@ public function get_collaboratorList(){
 public function get_location(){
     return $this->location;
 }
-  
+public function make_filename(){
+        try{
+           
+            $ids=file_get_contents('php/ids.json');
+            $ids_array=json_decode($ids,true);
+            if($ids_array==null || !is_array($ids_array)){
+                throw new Exception('unique ids file is null');
+            }
+            if($ids_array[0]===''){
+                throw new Exception('not a valid id');
+            }
+            $id=$ids_array[0];
+            array_splice($ids_array,0,1);
+            file_put_contents('php/ids.json', json_encode($ids_array));
+            return $id;
+        }catch(Execption $err){
+            echo $err->getMessage();
+            return $err;
+        }
+    }
 }
 
 
