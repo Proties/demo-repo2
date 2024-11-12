@@ -37,13 +37,13 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     		$errors[]['errProfilUsername']='username not valid';
     	}
   
-    	if(empty($_POST['gender']) OR $user->validate_gender($_POST['gender'])==false){
+    	if(empty($_POST['gender']) ){
     		$errors[]['errProfileGender']='gender not valid';
     	}
-    	if(empty($_POST['occupation']) OR $user->validate_occupation($_POST['occupation'])==false){
+    	if(empty($_POST['occupation'])){
     		$errors[]['errProfileOccupation']='occupation is required';
     	}
-    	if(empty($_POST['biography']) OR $user->validate_bio($_POST['biography'])==false){
+    	if(empty($_POST['biography'])){
     		$errors[]['errProfileBio']='bio not valid';
     	}
     	if($userDB->search_username_in_db($_POST['profileName'])!==false){
@@ -75,6 +75,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 			
 			$file=$id.$image->get_fileExtension();
 			$image->set_filename($file);
+			$image->set_userID($userDB->user->get_id());
 			$image->set_filepath($user->userFolder->get_dir());
 			
 			$imageDB=new ImageDB($image);
