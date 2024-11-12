@@ -356,7 +356,7 @@ trait validateUser{
     }
      function validate_occupation(string $txt)
     {
-        $pattern='/^(?=.)/';
+        $pattern='/[a-z]{2,}/i';
         if(preg_match($pattern,$txt)){
             return true;
         }
@@ -364,7 +364,7 @@ trait validateUser{
     }
      function validate_bio(string $txt)
     {
-        $pattern='/^(?=.)/';
+        $pattern='/[a-z0-9]{4,/i';
         if(preg_match($pattern,$txt)){
             return true;
         }

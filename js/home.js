@@ -635,7 +635,7 @@ function closeModal() {
 }
 
 // validate setup profile status
-let dataTwo=get_cookie('setupProfileStatus');
+let dataTwo=get_cookie('setupProfileStatus=');
 if(dataTwo!==undefined){
     if(dataTwo.status=='failed'){
     user.setupProfileModal.style.display='block';
@@ -644,6 +644,8 @@ if(dataTwo!==undefined){
     for(let e=0;e<dataTwo.errors.length;e++){
         console.log('creating tags');
         let k=Object.keys(dataTwo.errors[e]);
+        console.log(k);
+        console.log(dataTwo.errors[e][k]);
         document.getElementById(k).innerHTML=dataTwo.errors[e][k];
     }
     }

@@ -70,3 +70,14 @@ Stack trace:
 #2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(106): include_once('/Users/rotondwa...')
 #3 {main}
   thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php on line 7
+[12-Nov-2024 12:54:39 Africa/Johannesburg] PHP Warning:  Trying to access array offset on null in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/setupProfile.php on line 51
+[12-Nov-2024 12:54:44 Africa/Johannesburg] PHP Fatal error:  Uncaught ValueError: fread(): Argument #2 ($length) must be greater than 0 in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php:7
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php(7): fread(Resource id #8, 0)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php(21): readLogs()
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(106): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/log.php on line 7
+[12-Nov-2024 13:01:52 Africa/Johannesburg] PHP Warning:  Trying to access array offset on null in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/setupProfile.php on line 51
+[12-Nov-2024 13:10:03 Africa/Johannesburg] PHP Warning:  Trying to access array offset on null in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/setupProfile.php on line 51
+[12-Nov-2024 13:10:34 Africa/Johannesburg] PHP Warning:  Trying to access array offset on null in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/setupProfile.php on line 51

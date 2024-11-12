@@ -36,7 +36,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     	$db->beginTransaction();
 
     	if(empty($data_f['username']) OR $user->validate_username($data_f['username'])==false){
-    		$errors[]['errProfileUserName']='username not valid';
+    		$errors[]['errProfilUsername']='username not valid';
     	}
   
     	if(empty($data_f['gender']) OR $user->validate_gender($data_f['gender'])==false){
