@@ -1459,35 +1459,113 @@ nav .profile-link {
   cursor: pointer;
 }
 
-.mission-modal {
-  margin: auto;
+/*Mission Statement */
+
+.mission-section {
   position: fixed;
-    top: 0px;
+  right: 0px;
+  top: 81px; /* Adjust based on header height */
+  width: 20%;
+  max-width: 330px;
+  height: 60vh; /* Takes 80% of viewport height */
+  background-color: #ffffff;
+  border: 2px solid #A7991E;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  overflow: scroll; /* Prevent overflow */
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  text-align: center;
+  color: #A7991E;
+  display: none;
+  }
+  
+  .mission-container {
+  height: 100%;
+  overflow-y: scroll; /* Enables vertical scrolling */
+  }
+  
+  .mission-section h2{
+    color: rgba(167, 153, 30, 0.8);
+      font-size: 1.3em;
+      margin: 6px;
+      font-weight: bold;
+  }
+  
+  .mission-statement{
+  margin-right: 19px;
+    margin-left: 19px;
+    margin-top: 24px;
+  }
+  
+  .closing-statement {
+  margin-right: 19px;
+    margin-left: 19px;
+  }
+  
+  .donationForm {
+  align-content: center;
+  margin: 50px;
+  }
+  
+  .donationForm input {
+  display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 100%;
+    margin-right: auto;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-left: auto;
+  }
+  
+  #thankYouMessage {
+  font-weight: bold;
+  margin: 40px;
+  }
+  
+  .Call-Action-modal {
+  transition: 0.9s ease;
+  background-color: #A7991E;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 8px 16px;
+  font-size: 13px;
+  border-radius: 8px;
+  margin: 40px;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+  }
+  
+  .Call-Action-modal:hover {
+  box-shadow: 0 5px 15px #A7991E;
+  transform: scale(1.10);
+  }
+
+   /*mission modal*/
+.mission-modal{
+  margin: auto;
+    position: fixed;
+    top: 105px;
     width: 80%;
     max-width: 330px;
-    height: 85vh;
+    height: 413px;
     background-color: #ffffff;
-    border: 2px solid #A7991E;
+    border: 2px solid rgba(128, 127, 122, 0.3);
     padding: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     overflow: scroll;
     border-radius: 25px;
     text-align: center;
-    color: #A7991E;
+    color: #807F7A;
     z-index: 7;
-    right: 175px;
-}
-
-.mission-container {
-  height: 100%;
-    overflow-y: scroll;
-    font-size: 14px;
-    margin-left: 15px;
-    margin-right: 15px;
+    right: 175px; 
 }
 
 .mission-modal h2{
-  color: #A7991E;
+  color: rgba(167, 153, 30, 0.8);
     font-size: 14px;
     margin-right: 20px;
     font-weight: bold;
@@ -1505,8 +1583,9 @@ nav .profile-link {
   margin-bottom: 25px;
 }
 
-.closing-statement{
-  margin-top: 20px;
+.close-modal-icon{
+  position: absolute;
+  left: 19px;
 }
 
 .Call-Action-modal {
@@ -1520,13 +1599,135 @@ nav .profile-link {
     border-radius: 8px;
     cursor: pointer;
     position: relative;
-    bottom: 0px;
+    bottom: 30px;
 }
 
 
 .Call-Action:hover {
   box-shadow: 0 5px 15px #A7991E;
   transform: scale(1.10);
+}
+
+
+@media screen and (max-width: 812px) {
+  .mission-modal {
+    margin: auto;
+    position: fixed;
+    top: 105px;
+    width: 80%;
+    max-width: 330px;
+    height: 413px;
+    background-color: #ffffff;
+    border: 2px solid rgba(128, 127, 122, 0.3);
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    overflow: scroll;
+    border-radius: 25px;
+    text-align: center;
+    color: #807F7A;
+    z-index: 7;
+    right: 210px;
+  }
+
+  .close-modal-icon{
+    position: absolute;
+    left: 19px;
+  }
+
+  .mission-modal h2 {
+    color: #A7991E;
+    font-size: 15px;
+    margin-right: 20px;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-bottom: 15px;
+  }
+
+  .closing-statement {
+    margin-top: -37px;
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .mission-modal {
+    margin: auto;
+    position: fixed;
+    top: 105px;
+    width: 80%;
+    max-width: 330px;
+    height: 413px;
+    background-color: #ffffff;
+    border: 2px solid rgba(128, 127, 122, 0.3);
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    overflow: scroll;
+    border-radius: 25px;
+    text-align: center;
+    color: #807F7A;
+    z-index: 7;
+    right: 115px;
+  }
+}
+
+ @media screen and (max-width: 430px) {
+    .mission-modal {
+      margin: auto;
+      position: fixed;
+      top: 105px;
+      width: 80%;
+      max-width: 330px;
+      height: 413px;
+      background-color: #ffffff;
+      border: 2px solid rgba(128, 127, 122, 0.3);
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      overflow: scroll;
+      border-radius: 25px;
+      text-align: center;
+      color: #807F7A;
+      z-index: 7;
+      right: 35px;
+    }
+  }
+
+@media screen and (max-width: 412px) {
+  .mission-modal {
+    margin: auto;
+    position: fixed;
+    top: 105px;
+    width: 80%;
+    max-width: 330px;
+    height: 413px;
+    background-color: #ffffff;
+    border: 2px solid rgba(128, 127, 122, 0.3);
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    overflow: scroll;
+    border-radius: 25px;
+    text-align: center;
+    color: #807F7A;
+    z-index: 7;
+    right: 22px;
+  }
+
+  .close-modal-icon{
+    position: absolute;
+    left: 14px;
+    color: #A7991E;
+  }
+
+  .mission-modal h2 {
+    color: #A7991E;
+    font-size: 15px;
+    margin-right: 20px;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-bottom: 15px;
+  }
+
+  .closing-statement {
+    margin-top: -37px;
+  }
 }
 
 }

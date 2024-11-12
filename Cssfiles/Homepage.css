@@ -768,11 +768,11 @@ display: none;
 textarea {
   width: 74%;
   padding: 10px;
-  border: 1px solid #A7991E;
+  border: 1px solid #807F7A;
   border-radius: 5px;
   resize: vertical;
   margin: 20px;
-  color: #A7991E;
+  color: #807F7A;
 }
 
 .modal-buttons {
@@ -1098,7 +1098,7 @@ transform: scale(1.10);
   font-weight: bold;
   position: absolute;
   top: 36px;
-  left: 360px;
+  left: 290px;
 }
 
 .templatewrapper {

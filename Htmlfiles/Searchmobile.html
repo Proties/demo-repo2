@@ -111,8 +111,9 @@
   </section>
 
 
-  <section class="mission-modal" id="donation-modal" style="display: block;">
-    <span class="close-icon">x</span>
+  <!-- Mission Modal -->
+  <section class="mission-modal" id="donation-modal" style="display: none;">
+    <span class="close-modal-icon">x</span>
     <h2>Supporting Nerstia is supporting a community where creativity thrives.
     </h2>
     <div class="mission-container">
@@ -125,13 +126,12 @@
           <button class="Call-Action-modal" id="donateBtn">Donate</button>
         
           <!-- Donation Input and Submit Button (Hidden by default) -->
-          <div class="donationForm" >
-
+          <div class="donationForm" style="display: none;">
             <form method="post" action="/donate" name="donationForm">
               
            
             <input type="number" name="donationAmount" class="donationAmount" placeholder="Enter amount" min="1" required />
-            <button class="Call-Action" id="donationSubmit">Submit</button>
+            <button class="Call-Action-modal" id="donationSubmit">Submit</button>
              </form>
           </div>
         </div>

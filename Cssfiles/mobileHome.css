@@ -569,11 +569,11 @@ display: none;
   /*mission modal*/
 .mission-modal{
   margin: auto;
-  position: fixed;
-    top: 0px;
+    position: fixed;
+    top: 105px;
     width: 80%;
     max-width: 330px;
-    height: 85vh;
+    height: 413px;
     background-color: #ffffff;
     border: 2px solid rgba(128, 127, 122, 0.3);
     padding: 10px;
@@ -605,8 +605,9 @@ display: none;
   margin-bottom: 25px;
 }
 
-.closing-statement{
-  margin-top: 20px;
+.close-icon{
+  position: absolute;
+  left: 19px;
 }
 
 .Call-Action-modal {
@@ -633,21 +634,21 @@ display: none;
 @media screen and (max-width: 812px) {
   .mission-modal {
     margin: auto;
-      position: fixed;
-      top: 27px;
-      width: 80%;
-      max-width: 330px;
-      height: 413px;
-      background-color: #ffffff;
-      border: 2px solid #A7991E;
-      padding: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      overflow: scroll;
-      border-radius: 25px;
-      text-align: center;
-      color: #A7991E;
-      z-index: 7;
-      right: 215px;
+    position: fixed;
+    top: 105px;
+    width: 80%;
+    max-width: 330px;
+    height: 413px;
+    background-color: #ffffff;
+    border: 2px solid rgba(128, 127, 122, 0.3);
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    overflow: scroll;
+    border-radius: 25px;
+    text-align: center;
+    color: #807F7A;
+    z-index: 7;
+    right: 210px;
   }
 
   .close-icon{
@@ -669,29 +670,72 @@ display: none;
   }
 }
 
-@media screen and (max-width: 412px) {
+@media screen and (max-width: 610px) {
   .mission-modal {
     margin: auto;
+    position: fixed;
+    top: 105px;
+    width: 80%;
+    max-width: 330px;
+    height: 413px;
+    background-color: #ffffff;
+    border: 2px solid rgba(128, 127, 122, 0.3);
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    overflow: scroll;
+    border-radius: 25px;
+    text-align: center;
+    color: #807F7A;
+    z-index: 7;
+    right: 115px;
+  }
+}
+
+ @media screen and (max-width: 430px) {
+    .mission-modal {
+      margin: auto;
       position: fixed;
-      top: 27px;
+      top: 105px;
       width: 80%;
       max-width: 330px;
       height: 413px;
       background-color: #ffffff;
-      border: 2px solid #A7991E;
+      border: 2px solid rgba(128, 127, 122, 0.3);
       padding: 10px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
       overflow: scroll;
       border-radius: 25px;
       text-align: center;
-      color: #A7991E;
+      color: #807F7A;
       z-index: 7;
-      right: 22px;
+      right: 35px;
+    }
   }
 
-  .close-icon{
+@media screen and (max-width: 412px) {
+  .mission-modal {
+    margin: auto;
+    position: fixed;
+    top: 105px;
+    width: 80%;
+    max-width: 330px;
+    height: 413px;
+    background-color: #ffffff;
+    border: 2px solid rgba(128, 127, 122, 0.3);
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    overflow: scroll;
+    border-radius: 25px;
+    text-align: center;
+    color: #807F7A;
+    z-index: 7;
+    right: 22px;
+  }
+
+  .close-icon {
     position: absolute;
-    left: 19px;
+    left: 14px;
+    color: #A7991E;
   }
 
   .mission-modal h2 {
@@ -867,10 +911,10 @@ overflow-y: scroll; /* Enables vertical scrolling */
 }
 
 .mission-section h2{
-color: #A7991E;
-font-size: 1.3em;
-margin: 6px;
-font-weight: bold;
+  color: rgba(167, 153, 30, 0.8);
+    font-size: 1.3em;
+    margin: 6px;
+    font-weight: bold;
 }
 
 .mission-statement{
@@ -905,7 +949,7 @@ font-weight: bold;
 margin: 40px;
 }
 
-.Call-Action {
+.Call-Action-modal {
 transition: 0.9s ease;
 background-color: #A7991E;
 color: white;
@@ -920,7 +964,7 @@ margin-left: auto;
 margin-right: auto;
 }
 
-.Call-Action:hover {
+.Call-Action-modal:hover {
 box-shadow: 0 5px 15px #A7991E;
 transform: scale(1.10);
 }
@@ -1339,11 +1383,11 @@ transform: scale(1.10);
 textarea {
 width: 74%;
 padding: 10px;
-border: 1px solid #A7991E;
+border: 1px solid #807F7A;
 border-radius: 5px;
 resize: vertical;
 margin: 20px;
-color: #A7991E;
+color: #807F7A;
 }
 
 .modal-buttons {
@@ -1389,10 +1433,6 @@ max-width: 1000px;
 @media screen and (max-width: 868px) {
 .modal-profile-button{
   transition: 0.9s ease-in-out;
-  
-
-
- 
   background-color: white;
   border: 2px solid #ddd;
   border-radius: 100%;
@@ -1409,9 +1449,7 @@ max-width: 1000px;
 @media screen and (max-width: 320px) {
   .modal-profile-button{
     transition: 0.9s ease-in-out;
-  
     position: absolute;
-  
     background-color: white;
     border: 2px solid #ddd;
     border-radius: 100%;
