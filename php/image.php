@@ -5,6 +5,7 @@ use Insta\Images\ImageFile;
 use Exception;
 class Image{
 	private int $id;
+	private int $userID;
 	private string $postLinkID;
 	private string $imageName;
 	private string $filename;
@@ -44,11 +45,15 @@ class Image{
 		$this->postID=0;
 		$this->size='300px';
 		$this->id=0;
+		$this->userID=0;
 
 
 	}
 	public function set_postLinkID(string $str){
         $this->postLinkID=$str;
+    }
+    public function set_userID(int $id){
+        $this->userID=$id;
     }
 	public function set_fileSize(int $str){
         $this->fileSize=$str;
@@ -170,6 +175,10 @@ class Image{
 	{
 		return $this->id;
 	}
+	public function get_userID():int
+	{
+		return $this->userID;
+	}
 	public function validate_extension(){
 		try{
 			$image=$this->get_imageName();
@@ -244,6 +253,7 @@ class Image{
         try{
            
             $ids=file_get_contents('php/ids.json');
+
             $ids_array=json_decode($ids,true);
             if($ids_array==null || !is_array($ids_array)){
                 throw new Exception('unique ids file is null');
@@ -251,9 +261,10 @@ class Image{
             if($ids_array[0]===''){
                 throw new Exception('not a valid id');
             }
+            $id=$ids_array[0];
             array_splice($ids_array,0,1);
             file_put_contents('php/ids.json', json_encode($ids_array));
-            
+            return $id;
         }catch(Execption $err){
             echo $err->getMessage();
             return $err;

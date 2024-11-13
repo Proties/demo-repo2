@@ -1,12 +1,26 @@
 <?php 
 $errorData = json_decode(file_get_contents('php://input'), true);
 $logArray=[];
-function readLogs(){
-	$logs;
-	$file=fopen('logjs.json','r+');
-	$logs=fread($file, filesize('logjs.json'));
-	fclose($file);
-	return $logs;
+/**
+ * Reads the contents of the log file.
+ *
+ * @return string The contents of the log file.
+ */
+function readLogs() {
+    $filePath = 'logjs.json';
+    
+    // Check if file exists and is readable
+    if (!file_exists($filePath) || !is_readable($filePath)) {
+        throw new Exception("Log file not found or not readable.");
+    }
+    
+    // Read file contents
+    $logs = file_get_contents($filePath);
+    
+    // Decode JSON string to PHP array/object
+    $logs = json_decode($logs, true);
+    
+    return $logs;
 }
 
 
