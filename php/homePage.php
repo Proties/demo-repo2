@@ -470,27 +470,30 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
     include_once('Htmlfiles/Homepage.html');
     return;
 }
+$action;
+if(isset($_POST['actions'])){
+    $action=$_POST['actions'];
+}
 
-$action=$_POST['actions'];
 switch($action){
-    case 'get_templates':
-        $data=[];
-        try{
+    // case 'get_templates':
+    //     $data=[];
+    //     try{
  
-            $tempdb=new TemplateDB($template);
-            $list=$tempdb->getTemplateList();
+    //         $tempdb=new TemplateDB($template);
+    //         $list=$tempdb->getTemplateList();
 
-            $data['templateList']=$list;
-            $data['status']='success';
-            $data['message']='its all right';
-            echo json_encode($data);
-        }catch(Exception $err){
-            $data['status']='failed';
-            $data['message']=$err->getMessage();
-            echo json_encode($data);
-        }
-        return;
-        break;
+    //         $data['templateList']=$list;
+    //         $data['status']='success';
+    //         $data['message']='its all right';
+    //         echo json_encode($data);
+    //     }catch(Exception $err){
+    //         $data['status']='failed';
+    //         $data['message']=$err->getMessage();
+    //         echo json_encode($data);
+    //     }
+    //     return;
+    //     break;
     case 'pick_template':
         $data=[];
         try{
