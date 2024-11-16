@@ -156,7 +156,7 @@ class PostDB extends Database{
         }catch(PDOExecption $err){
 
             echo $err->getMessage();
-            return $err;
+            throw $err;
         }
     }
  
