@@ -506,6 +506,17 @@ function eventListeners(){
         login.addEventListener('click',function(evt){
             document.getElementById('registerModal').style.display='none';
             document.getElementById('LoginModal').style.display='block';
+            const checkbox=document.getElementById('passwordLoginVisibility');
+        console.log(checkbox);
+        checkbox.addEventListener('change',function(evt){
+            console.log('password Visibility chnages');
+            if(document.getElementById('loginPassword').type=='text'){
+                document.getElementById('loginPassword').type='password';
+            }else{
+                document.getElementById('loginPassword').type='text';
+            }
+            
+        });
             });
 
         let close=document.getElementById('closeLoginModal');
