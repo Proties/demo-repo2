@@ -490,6 +490,17 @@ function eventListeners(){
  
     registerBtn.addEventListener('click',function(evt) {
         modal.style.display = "block";
+        const checkbox=document.getElementById('passwordVisibility');
+        console.log(checkbox);
+        checkbox.addEventListener('change',function(evt){
+            console.log('password Visibility chnages');
+            if(document.getElementById('registrationPassword').type=='text'){
+                document.getElementById('registrationPassword').type='password';
+            }else{
+                document.getElementById('registrationPassword').type='text';
+            }
+            
+        });
         let login =document.getElementById('openLoginModal');
 
         login.addEventListener('click',function(evt){

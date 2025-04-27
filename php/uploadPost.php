@@ -11,7 +11,10 @@ use Insta\Databases\Images\ImageDB;
 use Insta\Video\Video;
 use Insta\Database\Video\VideoDB;
 
-
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+ini_set('error_log', 'error.log');
 // use Insta\Pool\ProfilePool;
 
 
@@ -127,10 +130,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
                 $image->set_filename($file);
                 $image->set_filePath($user->userFolder->get_dir());
                 $image->set_imageName('image');
-                $imageUpload=$image->load_image();
-                if(is_array($imageUpload)){
-                    throw new Exception($imageUpload['errorMessage']);
-                }
+                
                 // if(is_image_created($user->userFolder->get_dir(),$image->get_filename())==false){
                 //     throw new Exception('image was not created');
                 // }
@@ -140,6 +140,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
                 $imageDB->write_image_post($postDB->post->get_postID());
                 $data['data']=['postID'=>$imageDB->image->get_postID(),'filename'=>$imageDB->image->get_filename(),
                 'filepath'=>$imageDB->image->get_filepath(),'postLink'=>$imageDB->image->get_postLink()];
+                $imageUpload=$image->load_image();
+                if(is_array($imageUpload)){
+                    throw new Exception($imageUpload['errorMessage']);
+                }
                 
             }
             if(isset($_FILES['video'])){
@@ -152,9 +156,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
                 $video->set_filepath($user->userFolder->get_dir());
                 $video->set_videoName('video');
                 $videoUpload=$video->load_video();
-                if(is_array($videoUpload)){
-                    throw new Exception($videoUpload['errorMessage']);
-                }
+                
                 // if(is_video_created($user->userFolder->get_dir(),$video->get_filename())==false){
                 //     throw new Exception('video could not be created');
                 // }
@@ -165,6 +167,9 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
                 $videoDB->write_video_post($postDB->post->get_postID());
                 $data['data']=['postID'=>$videoDB->video->get_postID(),'filename'=>$videoDB->video->get_filename(),
                 'filepath'=>$videoDB->video->get_filepath()];
+                if(is_array($videoUpload)){
+                    throw new Exception($videoUpload['errorMessage']);
+                }
 
             }
             $data['status']='success';
