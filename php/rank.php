@@ -57,46 +57,49 @@ public function commonPostsWithSharer(){
 public function chronoTwo(){
     $db=$this->db;
     try{
-
-        $query="
-                SELECT 
-                userID, 
-                username, 
-                postID,
-                postLink,
-                video_filename as videoFileName, 
-                video_filepath as videoFilePath, 
-                image_filename as imageFileName, 
-                image_filepath as imageFilePath
+        $query='
+           
+                        SELECT 
+            userID, 
+            username, 
+            postID,
+            postLink,
+            video_filename as videoFileName,
+            video_filepath as videoFilePath,
+            image_filename as imageFileName,
+            image_filepath as imageFilePath
+        FROM 
+            (
+            SELECT 
+                u.userID, 
+                u.username, 
+                p.postID, 
+                p.postLink,
+                v.filename AS video_filename, 
+                v.filepath AS video_filepath, 
+                i.filename AS image_filename, 
+                i.filepath AS image_filepath,
+                p.postDate AS dateMade,  -- Include dateMade column
+                ROW_NUMBER() OVER (PARTITION BY u.userID ORDER BY p.postID DESC) AS row_num
             FROM 
-                (
-                SELECT 
-                    u.userID, 
-                    u.username, 
-                    p.postID, 
-                    p.postLink,
-                    v.filename AS video_filename, 
-                    v.filepath AS video_filepath, 
-                    i.filename AS image_filename, 
-                    i.filepath AS image_filepath,
-                    ROW_NUMBER() OVER (PARTITION BY u.userID ORDER BY p.postID DESC) AS row_num
-                FROM 
-                    Posts p 
-                INNER JOIN 
-                    Users u ON p.userID = u.userID 
-                LEFT JOIN 
-                    VideoPost vp ON p.postID = vp.postID 
-                LEFT JOIN 
-                    Videos v ON vp.videoID = v.id 
-                LEFT JOIN 
-                    PostImages ip ON p.postID = ip.postID 
-                LEFT JOIN 
-                    Images i ON ip.imageID = i.imageID 
-                ) subquery
-            WHERE 
-                row_num <= 3;
+                Posts p 
+            INNER JOIN 
+                Users u ON p.userID = u.userID 
+            LEFT JOIN 
+                VideoPost vp ON p.postID = vp.postID 
+            LEFT JOIN 
+                Videos v ON vp.videoID = v.id 
+            LEFT JOIN 
+                PostImages ip ON p.postID = ip.postID 
+            LEFT JOIN 
+                Images i ON ip.imageID = i.imageID 
+            ) subquery
+        WHERE 
+            row_num <= 3
+        ORDER BY 
+            dateMade DESC;  -- Reference dateMade from subquery
 
-        ";
+        ';
         $stmt=$db->prepare($query);
         $stmt->execute();
         return $stmt->fetchall();

@@ -2,6 +2,7 @@
 namespace Insta\Images;
 use Insta\Images\BrowserSupportedFormats;
 use Insta\Images\ImageFile;
+
 use Exception;
 class Image{
 	private int $id;
@@ -25,6 +26,7 @@ class Image{
 	private string $size;
 	public BrowserSupportedFormats $browser;
 	public ImageFile $file;
+
 	private array $data;
 
 	public function __construct(){
