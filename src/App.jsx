@@ -1,4 +1,4 @@
-import './Css/App.css'
+import './css/App.css'
 import Home from './Pages/FYP'
 import Login from './Pages/LoginPage'
 import Signin from './Pages/SigninPage'
@@ -11,28 +11,34 @@ import TemplateA from './Pages/Templates/TemplateA'
 import TemplateB from './Pages/Templates/TemplateB'
 import {Routes, Route} from 'react-router-dom'
 import NavBar from './Components/Navbar'
+import ProtectedRoute from './Components/ProtectedRoute';
+import Layout from './Components/Layout'
 import Footer from './Components/Footer'
 
 function App() {
   return (
-      <MovieProvider>
+    <>
         <NavBar />
       <main className="main-content">
+        
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Signin" element={<Signin />} />
-          <Route path="/Profile" element={<Profile />} />
-          <Route path="/ProfileSetUp" element={<ProfileSetUp />} />
-          <Route path="/Search" element={<SearchPage />} />
-          <Route path="/TemplatePicker" element={<PickTemplate />} />
-          <Route path="/Payment" element={<Payment />} />
-          <Route path="/TemplateA" element={<TemplateA />} />
-          <Route path="/TemplateB" element={<TemplateB />} />          
+        <Route path="/" element={<Layout><Home /></Layout>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/profile" element={
+            <ProtectedRoute user={currentUser}>
+            <Profile />
+            </ProtectedRoute>}/>
+          <Route path="/profilesetup" element={<ProfileSetUp />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/templatepicker" element={<PickTemplate />} />
+          <Route path="/payment" element={<Payment />} />
+          <Route path="/templatea" element={<TemplateA />} />
+          <Route path="/templateb" element={<TemplateB />} />          
         </Routes>
       </main>
       <Footer />
-      </MovieProvider>
+      </>
     )
 }
 
