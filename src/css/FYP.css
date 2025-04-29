@@ -1,0 +1,55 @@
+/* src/Pages/FYP.css */
+
+.fyp-container {
+    padding: 2rem;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  
+  .fyp-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .fyp-header h1 {
+    font-size: 2.5rem;
+    margin: 0;
+  }
+  
+  .fyp-header p {
+    color: #666;
+    font-size: 1rem;
+  }
+  
+  .fyp-feed {
+    display: grid;
+    gap: 2rem;
+  }
+  
+  .fyp-post-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .fyp-post-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .fyp-post-info {
+    padding: 1rem;
+  }
+  
+  .fyp-post-info h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+  }
+  
+  .fyp-post-info p {
+    color: #444;
+    font-size: 0.95rem;
+  }
+  

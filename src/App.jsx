@@ -13,7 +13,7 @@ import { Routes, Route } from 'react-router-dom';
 import NavBar from './Components/Navbar';
 import ProtectedRoute from './Components/ProtectedRoute';
 import Layout from './Components/Layout';
-import Footer from './Components/Footer';
+// import Footer from './Components/Footer';
 import { useAuth } from './Context/AuthContext'; // 👈 import useAuth
 
 function App() {
@@ -40,7 +40,7 @@ function App() {
           <Route path="/templateb" element={<TemplateB />} />
         </Routes>
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
