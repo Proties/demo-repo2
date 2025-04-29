@@ -1,5 +1,5 @@
-import NavBar from './Components/Navbar'
-import Footer from './Components/Footer'
+import NavBar from './Navbar';
+import Footer from './Footer';
 
 const Layout = ({ children }) => (
   <>
@@ -8,3 +8,5 @@ const Layout = ({ children }) => (
     <Footer />
   </>
 );
+
+export default Layout;
