@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './SearchPage.css';
+import '../css/SearchPage.css';
 import { useNavigate } from 'react-router-dom';
 
 const SearchPage = () => {

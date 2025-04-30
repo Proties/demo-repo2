@@ -1,4 +1,3 @@
-// src/Pages/PaymentPage.jsx
 import '../css/PaymentPage.css';
 
 const PaymentPage = () => {

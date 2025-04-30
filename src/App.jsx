@@ -7,13 +7,11 @@ import ProfileSetUp from './Pages/ProfileSetup';
 import SearchPage from './Pages/SearchPage';
 import PickTemplate from './Pages/PickTemplate';
 import Payment from './Pages/PaymentPage';
-import TemplateA from './Pages/Templates/TemplateA';
-import TemplateB from './Pages/Templates/TemplateB';
+import TemplateA from './Pages/TemplateA';
+import TemplateB from './Pages/TemplateB';
 import { Routes, Route } from 'react-router-dom';
-import NavBar from './Components/Navbar';
 import ProtectedRoute from './Components/ProtectedRoute';
 import Layout from './Components/Layout';
-// import Footer from './Components/Footer';
 import { useAuth } from './Context/AuthContext'; // 👈 import useAuth
 
 function App() {
@@ -21,12 +19,10 @@ function App() {
 
   return (
     <>
-      <NavBar />
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Layout><Home /></Layout>} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signin" element={<Signin />} />
+          <Route path="/search" element={<Layout><SearchPage /></Layout>} />
           <Route path="/profile" element={
             <ProtectedRoute user={user}>
               <Profile />
@@ -38,9 +34,15 @@ function App() {
           <Route path="/payment" element={<Payment />} />
           <Route path="/templatea" element={<TemplateA />} />
           <Route path="/templateb" element={<TemplateB />} />
+
+          <Route element={<AuthLayout />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signin" element={<Signin />} />
+          </Route>
+          <Route path="*" element={<div>Page not found</div>} />
         </Routes>
       </main>
-      {/* <Footer /> */}
+
     </>
   );
 }

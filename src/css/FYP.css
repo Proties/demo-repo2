@@ -53,3 +53,9 @@
     font-size: 0.95rem;
   }
   
+  .fyp-body {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+  

@@ -1,4 +1,4 @@
-import './TemplateB.css';
+import '../css/TemplateB.css';
 
 const TemplateB = () => {
   return (

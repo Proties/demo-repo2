@@ -1,5 +1,9 @@
-// src/Pages/FYP.jsx
 import '../css/FYP.css';
+import SearchBar from '../Components/SearchBar';
+import MissionStatement from '../Components/MissionStatement';
+import PostFeedWrapper from '../Components/PostFeedWrapper';
+import PostCard from '../Components/PostCard';
+import "../css/PostFeedWrapper.css";
 
 const FYP = () => {
   // Dummy posts – you can replace these with real data later
@@ -10,25 +14,34 @@ const FYP = () => {
   ];
 
   return (
+
     <div className="fyp-container">
       <section className="fyp-header">
         <h1>For You</h1>
         <p>Curated posts from artists you may love</p>
+        <SearchBar />
       </section>
 
-      <section className="fyp-feed">
-        {posts.map(post => (
-          <div key={post.id} className="fyp-post-card">
-            <img src={post.image} alt="user post" className="fyp-post-image" />
-            <div className="fyp-post-info">
-              <h3>@{post.username}</h3>
-              <p>{post.content}</p>
-            </div>
-          </div>
-        ))}
-      </section>
+      <div className="fyp-body">
+        {/* Post Feed */}
+        <PostFeedWrapper>
+          {posts.map(post => (
+            <PostCard key={post.id} post={post} />
+          ))}
+        </PostFeedWrapper>
+
+        {/* Sidebar */}
+        <aside className="sidebar">
+          <MissionStatement />
+        </aside>
+      </div>
     </div>
   );
 };
 
 export default FYP;
+
+
+
+
+

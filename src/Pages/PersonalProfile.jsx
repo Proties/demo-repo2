@@ -1,5 +1,5 @@
 // src/Pages/PersonalProfile.jsx
-import './PersonalProfile.css';
+import '../css/PersonalProfile.css';
 
 const PersonalProfile = () => {
   return (

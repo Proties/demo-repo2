@@ -1,5 +1,5 @@
 // src/Pages/TemplatePicker.jsx
-import './TemplatePicker.css';
+import '../css/PickTemplate.css';
 import { useNavigate } from 'react-router-dom';
 
 const TemplatePicker = () => {

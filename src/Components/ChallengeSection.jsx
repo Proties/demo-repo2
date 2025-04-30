@@ -1,4 +1,4 @@
-import './ChallengeSection.css';
+import '../css/ChallengeSection.css';
 
 const challenges = [
   {
