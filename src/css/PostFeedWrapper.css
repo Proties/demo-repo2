@@ -1,0 +1,17 @@
+.post-feed-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    max-height: 100vh;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    width: 100%;
+  }
+  
+  .no-posts {
+    font-size: 1rem;
+    color: #777;
+    margin-top: 2rem;
+  }
+  

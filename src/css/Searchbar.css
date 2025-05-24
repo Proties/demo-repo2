@@ -1,0 +1,32 @@
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background-color: #ffffff;
+    border-radius: 50px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    max-width: 300px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 0.95rem;
+    padding: 0.5rem;
+    border-radius: 50px;
+    background: transparent;
+    color: #333;
+  }
+  
+  .search-input::placeholder {
+    color: #aaa;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .search-bar-container {
+      display: none;
+    }
+  }
+  

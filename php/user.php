@@ -9,29 +9,29 @@ use Insta\User\Pool\ServedPosts;
 use Insta\User\Pool\FollowingUsers;
 class Users implements Serializable{
     use validateUser;
-    private string $name;
-    private string $lastName;
-    private string $fullName;
-    private string $username;
-    private string $shortBio;
-    private string $longBio;
-    private string $profilePicture;
-    private string  $dateOfBirth;
-    private string $password;
-    private string $email;
-    private string $phone;
-    private string $date;
-    private string $gender;
+    private  $name;
+    private  $lastName;
+    private  $fullName;
+    private  $username;
+    private  $shortBio;
+    private  $longBio;
+    private  $profilePicture;
+    private   $dateOfBirth;
+    private  $password;
+    private  $email;
+    private  $phone;
+    private  $date;
+    private  $gender;
     private int $newPosts;
-    private string $followingStatus;
-    private string $occupation;
+    private  $followingStatus;
+    private  $occupation;
 
-    private string $time;
-    private string  $userProfileLink;
+    private  $time;
+    private   $userProfileLink;
     private bool $status;
     private int $id;
-    private int $followingNo;
-    private int $followerNo;
+    private  $followingNo;
+    private  $followerNo;
     private array $recentSearchResults;
 
 
@@ -86,12 +86,13 @@ class Users implements Serializable{
         
     }
     public function unserialize($value){
+
         $data=unserialize($value);
         $this->set_id($data['userID']);
-        $this->set_username($data['username']);
-        $this->set_fullName($data['fullName']);
+        // $this->set_username($data['username']);
+        $this->set_fullName($data['lastName'].' '.$data['firstName']);
         $this->set_lastName($data['lastName']);
-        $this->set_name($data['name']);
+        $this->set_name($data['firstName']);
         $this->set_shortBio($data['shortBio']);
         $this->set_longBio($data['longBio']);
         $this->set_profilePicture($data['profilePicture']);
@@ -100,8 +101,11 @@ class Users implements Serializable{
         $this->set_email($data['email']);
        
         $this->set_password($data['password']);
-        $this->set_gender($data['gender']);
-        $this->servedPosts->setPool($data['servedPosts']);
+        if($data['gender']==null){
+            $this->set_gender('male');
+        }
+        
+        // $this->servedPosts->setPool($data['servedPosts']);
 
 
    
@@ -126,13 +130,13 @@ class Users implements Serializable{
     public function set_username(string $nm){
         $this->username=$nm;
     }
-    public function set_gender(string $nm){
+    public function set_gender( $nm){
         $this->gender=$nm;
     }
-    public function set_occupation(string $nm){
+    public function set_occupation( $nm){
         $this->occupation=$nm;
     }
-    public function set_profilePicture(string $pic){
+    public function set_profilePicture( $pic){
         $this->profilePicture=$pic;
     }
     public function set_password(string $pas){
@@ -147,10 +151,10 @@ class Users implements Serializable{
     public function set_status(bool $s){
         $this->status=$s;
     }
-    public function set_longBio(string $s){
+    public function set_longBio( $s){
         $this->longBio=$s;
     }
-    public function set_shortBio(string $s){
+    public function set_shortBio( $s){
         $this->shortBio=$s;
     }
      public function set_email(string $s){
@@ -163,10 +167,10 @@ class Users implements Serializable{
     public function set_recentSearchResults(array $pl){
         $this->recentSearchResults=$pl;
     }
-    public function set_followingNo(int $no){
+    public function set_followingNo( $no){
         $this->followingNo=$no;
     }
-     public function set_followerNo(int $no){
+     public function set_followerNo( $no){
         $this->followerNo=$no;
     }
     public function get_data(){

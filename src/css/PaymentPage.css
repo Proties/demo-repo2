@@ -1,0 +1,89 @@
+/* src/Pages/Payment.css */
+
+.payment-container {
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .payment-container h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+  
+  .plans {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  .plan-card {
+    background-color: #f9f9f9;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 300px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+  }
+  
+  .plan-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .plan-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .plan-card p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #555;
+  }
+  
+  .plan-card ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+    color: #666;
+    text-align: left;
+  }
+  
+  .plan-card li {
+    margin-bottom: 0.5rem;
+    padding-left: 1rem;
+    position: relative;
+  }
+  
+  .plan-card li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: green;
+  }
+  
+  .plan-card button {
+    background-color: #222;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .plan-card button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+  }
+  
+  .plan-card button:hover:not(:disabled) {
+    background-color: #444;
+  }
+  

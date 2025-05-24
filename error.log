@@ -10,3 +10,274 @@ Stack trace:
 #2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(103): include_once('/Users/rotondwa...')
 #3 {main}
   thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 126
+[24-May-2025 17:18:41 Africa/Johannesburg] PHP Deprecated:  Insta\Posts\CollaboratorList::__construct(): Implicitly marking parameter $arr as nullable is deprecated, the explicit nullable type must be used instead in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/collaboratorList.php on line 6
+[24-May-2025 17:18:42 Africa/Johannesburg] PHP Warning:  Undefined array key "username" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 91
+[24-May-2025 17:18:42 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\Users\Users::set_username(): Argument #1 ($nm) must be of type string, null given, called in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 91 and defined in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:126
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(91): Insta\Users\Users->set_username(NULL)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(24): Insta\Users\Users->unserialize('a:14:{s:6:"user...')
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(103): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 126
+[24-May-2025 17:22:04 Africa/Johannesburg] PHP Warning:  Undefined array key "username" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 91
+[24-May-2025 17:22:04 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\Users\Users::set_username(): Argument #1 ($nm) must be of type string, null given, called in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 91 and defined in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:126
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(91): Insta\Users\Users->set_username(NULL)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(24): Insta\Users\Users->unserialize('a:14:{s:6:"user...')
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(103): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 126
+[24-May-2025 17:22:12 Africa/Johannesburg] PHP Warning:  Undefined array key "username" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 91
+[24-May-2025 17:22:12 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\Users\Users::set_username(): Argument #1 ($nm) must be of type string, null given, called in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 91 and defined in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:126
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(91): Insta\Users\Users->set_username(NULL)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(24): Insta\Users\Users->unserialize('a:14:{s:6:"user...')
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(103): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 126
+[24-May-2025 17:23:52 Africa/Johannesburg] PHP Warning:  Undefined array key "fullName" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 93
+[24-May-2025 17:23:52 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\Users\Users::set_fullName(): Argument #1 ($nm) must be of type string, null given, called in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 93 and defined in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:121
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(93): Insta\Users\Users->set_fullName(NULL)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(26): Insta\Users\Users->unserialize('a:14:{s:6:"user...')
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(103): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 121
+[24-May-2025 17:23:53 Africa/Johannesburg] PHP Warning:  Undefined array key "fullName" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 93
+[24-May-2025 17:23:53 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\Users\Users::set_fullName(): Argument #1 ($nm) must be of type string, null given, called in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 93 and defined in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:121
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(93): Insta\Users\Users->set_fullName(NULL)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(26): Insta\Users\Users->unserialize('a:14:{s:6:"user...')
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(145): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 121
+[24-May-2025 17:24:39 Africa/Johannesburg] PHP Warning:  Undefined array key "name" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 93
+[24-May-2025 17:24:39 Africa/Johannesburg] PHP Warning:  Undefined array key "name" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 95
+[24-May-2025 17:24:39 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\Users\Users::set_name(): Argument #1 ($nm) must be of type string, null given, called in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 95 and defined in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:115
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(95): Insta\Users\Users->set_name(NULL)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(26): Insta\Users\Users->unserialize('a:14:{s:6:"user...')
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(103): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 115
+[24-May-2025 17:24:40 Africa/Johannesburg] PHP Warning:  Undefined array key "name" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 93
+[24-May-2025 17:24:40 Africa/Johannesburg] PHP Warning:  Undefined array key "name" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 95
+[24-May-2025 17:24:40 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\Users\Users::set_name(): Argument #1 ($nm) must be of type string, null given, called in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 95 and defined in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:115
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(95): Insta\Users\Users->set_name(NULL)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(26): Insta\Users\Users->unserialize('a:14:{s:6:"user...')
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(145): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 115
+[24-May-2025 17:25:00 Africa/Johannesburg] PHP Warning:  Undefined array key "shortBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96
+[24-May-2025 17:25:00 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\Users\Users::set_shortBio(): Argument #1 ($s) must be of type string, null given, called in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96 and defined in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:154
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(96): Insta\Users\Users->set_shortBio(NULL)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(26): Insta\Users\Users->unserialize('a:14:{s:6:"user...')
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(103): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 154
+[24-May-2025 17:25:01 Africa/Johannesburg] PHP Warning:  Undefined array key "shortBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96
+[24-May-2025 17:25:01 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\Users\Users::set_shortBio(): Argument #1 ($s) must be of type string, null given, called in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96 and defined in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:154
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(96): Insta\Users\Users->set_shortBio(NULL)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(26): Insta\Users\Users->unserialize('a:14:{s:6:"user...')
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(145): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 154
+[24-May-2025 17:25:31 Africa/Johannesburg] PHP Warning:  Undefined array key "shortBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96
+[24-May-2025 17:25:31 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\Users\Users::set_shortBio(): Argument #1 ($s) must be of type string, null given, called in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96 and defined in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:154
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(96): Insta\Users\Users->set_shortBio(NULL)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(26): Insta\Users\Users->unserialize('a:14:{s:6:"user...')
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(103): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 154
+[24-May-2025 17:25:32 Africa/Johannesburg] PHP Warning:  Undefined array key "shortBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96
+[24-May-2025 17:25:32 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\Users\Users::set_shortBio(): Argument #1 ($s) must be of type string, null given, called in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96 and defined in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:154
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(96): Insta\Users\Users->set_shortBio(NULL)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(26): Insta\Users\Users->unserialize('a:14:{s:6:"user...')
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(145): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 154
+[24-May-2025 17:25:49 Africa/Johannesburg] PHP Warning:  Undefined array key "shortBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96
+[24-May-2025 17:25:49 Africa/Johannesburg] PHP Warning:  Undefined array key "longBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 97
+[24-May-2025 17:25:49 Africa/Johannesburg] PHP Warning:  Undefined array key "profilePicture" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 98
+[24-May-2025 17:25:49 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 99
+[24-May-2025 17:25:49 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\Users\Users::set_followingNo(): Argument #1 ($no) must be of type int, null given, called in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 99 and defined in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:167
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(99): Insta\Users\Users->set_followingNo(NULL)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(26): Insta\Users\Users->unserialize('a:14:{s:6:"user...')
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(103): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 167
+[24-May-2025 17:25:50 Africa/Johannesburg] PHP Warning:  Undefined array key "shortBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96
+[24-May-2025 17:25:50 Africa/Johannesburg] PHP Warning:  Undefined array key "longBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 97
+[24-May-2025 17:25:50 Africa/Johannesburg] PHP Warning:  Undefined array key "profilePicture" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 98
+[24-May-2025 17:25:50 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 99
+[24-May-2025 17:25:50 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\Users\Users::set_followingNo(): Argument #1 ($no) must be of type int, null given, called in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 99 and defined in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:167
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(99): Insta\Users\Users->set_followingNo(NULL)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(26): Insta\Users\Users->unserialize('a:14:{s:6:"user...')
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(145): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 167
+[24-May-2025 17:26:04 Africa/Johannesburg] PHP Warning:  Undefined array key "shortBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96
+[24-May-2025 17:26:04 Africa/Johannesburg] PHP Warning:  Undefined array key "longBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 97
+[24-May-2025 17:26:04 Africa/Johannesburg] PHP Warning:  Undefined array key "profilePicture" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 98
+[24-May-2025 17:26:04 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 99
+[24-May-2025 17:26:04 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Cannot assign null to property Insta\Users\Users::$followingNo of type int in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:168
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(99): Insta\Users\Users->set_followingNo(NULL)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(26): Insta\Users\Users->unserialize('a:14:{s:6:"user...')
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(103): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 168
+[24-May-2025 17:26:05 Africa/Johannesburg] PHP Warning:  Undefined array key "shortBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96
+[24-May-2025 17:26:05 Africa/Johannesburg] PHP Warning:  Undefined array key "longBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 97
+[24-May-2025 17:26:05 Africa/Johannesburg] PHP Warning:  Undefined array key "profilePicture" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 98
+[24-May-2025 17:26:05 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 99
+[24-May-2025 17:26:05 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Cannot assign null to property Insta\Users\Users::$followingNo of type int in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:168
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(99): Insta\Users\Users->set_followingNo(NULL)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(26): Insta\Users\Users->unserialize('a:14:{s:6:"user...')
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(145): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 168
+[24-May-2025 17:26:24 Africa/Johannesburg] PHP Warning:  Undefined array key "shortBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96
+[24-May-2025 17:26:24 Africa/Johannesburg] PHP Warning:  Undefined array key "longBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 97
+[24-May-2025 17:26:24 Africa/Johannesburg] PHP Warning:  Undefined array key "profilePicture" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 98
+[24-May-2025 17:26:24 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 99
+[24-May-2025 17:26:24 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 100
+[24-May-2025 17:26:24 Africa/Johannesburg] PHP Warning:  Undefined array key "gender" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 104
+[24-May-2025 17:26:24 Africa/Johannesburg] PHP Warning:  Undefined array key "servedPosts" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 105
+[24-May-2025 17:26:24 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\User\Pool\ServedPosts::setPool(): Argument #1 ($pool) must be of type array, null given, called in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 105 and defined in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/ViewPostPool.php:44
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(105): Insta\User\Pool\ServedPosts->setPool(NULL)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(26): Insta\Users\Users->unserialize('a:14:{s:6:"user...')
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(103): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/ViewPostPool.php on line 44
+[24-May-2025 17:26:25 Africa/Johannesburg] PHP Warning:  Undefined array key "shortBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96
+[24-May-2025 17:26:25 Africa/Johannesburg] PHP Warning:  Undefined array key "longBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 97
+[24-May-2025 17:26:25 Africa/Johannesburg] PHP Warning:  Undefined array key "profilePicture" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 98
+[24-May-2025 17:26:25 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 99
+[24-May-2025 17:26:25 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 100
+[24-May-2025 17:26:25 Africa/Johannesburg] PHP Warning:  Undefined array key "gender" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 104
+[24-May-2025 17:26:25 Africa/Johannesburg] PHP Warning:  Undefined array key "servedPosts" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 105
+[24-May-2025 17:26:25 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\User\Pool\ServedPosts::setPool(): Argument #1 ($pool) must be of type array, null given, called in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 105 and defined in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/ViewPostPool.php:44
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(105): Insta\User\Pool\ServedPosts->setPool(NULL)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(26): Insta\Users\Users->unserialize('a:14:{s:6:"user...')
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(145): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/ViewPostPool.php on line 44
+[24-May-2025 17:26:41 Africa/Johannesburg] PHP Warning:  Undefined array key "shortBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96
+[24-May-2025 17:26:41 Africa/Johannesburg] PHP Warning:  Undefined array key "longBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 97
+[24-May-2025 17:26:41 Africa/Johannesburg] PHP Warning:  Undefined array key "profilePicture" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 98
+[24-May-2025 17:26:41 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 99
+[24-May-2025 17:26:41 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 100
+[24-May-2025 17:26:41 Africa/Johannesburg] PHP Warning:  Undefined array key "gender" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 104
+[24-May-2025 17:26:41 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\Users\Users::get_gender(): Return value must be of type string, null returned in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:226
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(182): Insta\Users\Users->get_gender()
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(85): Insta\Users\Users->get_data()
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(463): Insta\Users\Users->serialize()
+#3 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(103): include_once('/Users/rotondwa...')
+#4 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 226
+[24-May-2025 17:26:42 Africa/Johannesburg] PHP Warning:  Undefined array key "shortBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96
+[24-May-2025 17:26:42 Africa/Johannesburg] PHP Warning:  Undefined array key "longBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 97
+[24-May-2025 17:26:42 Africa/Johannesburg] PHP Warning:  Undefined array key "profilePicture" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 98
+[24-May-2025 17:26:42 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 99
+[24-May-2025 17:26:42 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 100
+[24-May-2025 17:26:42 Africa/Johannesburg] PHP Warning:  Undefined array key "gender" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 104
+[24-May-2025 17:26:43 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\Users\Users::get_gender(): Return value must be of type string, null returned in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:226
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(182): Insta\Users\Users->get_gender()
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(85): Insta\Users\Users->get_data()
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(463): Insta\Users\Users->serialize()
+#3 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(145): include_once('/Users/rotondwa...')
+#4 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 226
+[24-May-2025 17:28:08 Africa/Johannesburg] PHP Warning:  Undefined array key "shortBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96
+[24-May-2025 17:28:08 Africa/Johannesburg] PHP Warning:  Undefined array key "longBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 97
+[24-May-2025 17:28:08 Africa/Johannesburg] PHP Warning:  Undefined array key "profilePicture" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 98
+[24-May-2025 17:28:08 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 99
+[24-May-2025 17:28:08 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 100
+[24-May-2025 17:28:08 Africa/Johannesburg] PHP Warning:  Undefined array key "gender" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 104
+[24-May-2025 17:28:08 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\Users\Users::get_shortBio(): Return value must be of type string, null returned in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:294
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(186): Insta\Users\Users->get_shortBio()
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(85): Insta\Users\Users->get_data()
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(463): Insta\Users\Users->serialize()
+#3 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(103): include_once('/Users/rotondwa...')
+#4 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 294
+[24-May-2025 17:28:09 Africa/Johannesburg] PHP Warning:  Undefined array key "shortBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96
+[24-May-2025 17:28:09 Africa/Johannesburg] PHP Warning:  Undefined array key "longBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 97
+[24-May-2025 17:28:09 Africa/Johannesburg] PHP Warning:  Undefined array key "profilePicture" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 98
+[24-May-2025 17:28:09 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 99
+[24-May-2025 17:28:09 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 100
+[24-May-2025 17:28:09 Africa/Johannesburg] PHP Warning:  Undefined array key "gender" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 104
+[24-May-2025 17:28:10 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\Users\Users::get_shortBio(): Return value must be of type string, null returned in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:294
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(186): Insta\Users\Users->get_shortBio()
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(85): Insta\Users\Users->get_data()
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(463): Insta\Users\Users->serialize()
+#3 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(145): include_once('/Users/rotondwa...')
+#4 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 294
+[24-May-2025 17:29:31 Africa/Johannesburg] PHP Warning:  Undefined array key "shortBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96
+[24-May-2025 17:29:31 Africa/Johannesburg] PHP Warning:  Undefined array key "longBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 97
+[24-May-2025 17:29:31 Africa/Johannesburg] PHP Warning:  Undefined array key "profilePicture" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 98
+[24-May-2025 17:29:31 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 99
+[24-May-2025 17:29:31 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 100
+[24-May-2025 17:29:31 Africa/Johannesburg] PHP Warning:  Undefined array key "gender" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 104
+[24-May-2025 17:29:31 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\Users\Users::get_shortBio(): Return value must be of type string, null returned in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:294
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(186): Insta\Users\Users->get_shortBio()
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(85): Insta\Users\Users->get_data()
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(463): Insta\Users\Users->serialize()
+#3 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(103): include_once('/Users/rotondwa...')
+#4 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 294
+[24-May-2025 17:29:32 Africa/Johannesburg] PHP Warning:  Undefined array key "shortBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96
+[24-May-2025 17:29:32 Africa/Johannesburg] PHP Warning:  Undefined array key "longBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 97
+[24-May-2025 17:29:32 Africa/Johannesburg] PHP Warning:  Undefined array key "profilePicture" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 98
+[24-May-2025 17:29:32 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 99
+[24-May-2025 17:29:32 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 100
+[24-May-2025 17:29:32 Africa/Johannesburg] PHP Warning:  Undefined array key "gender" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 104
+[24-May-2025 17:29:33 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\Users\Users::get_shortBio(): Return value must be of type string, null returned in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:294
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(186): Insta\Users\Users->get_shortBio()
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(85): Insta\Users\Users->get_data()
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(463): Insta\Users\Users->serialize()
+#3 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(145): include_once('/Users/rotondwa...')
+#4 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 294
+[24-May-2025 17:29:56 Africa/Johannesburg] PHP Warning:  Undefined array key "shortBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96
+[24-May-2025 17:29:56 Africa/Johannesburg] PHP Warning:  Undefined array key "longBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 97
+[24-May-2025 17:29:56 Africa/Johannesburg] PHP Warning:  Undefined array key "profilePicture" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 98
+[24-May-2025 17:29:56 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 99
+[24-May-2025 17:29:56 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 100
+[24-May-2025 17:29:56 Africa/Johannesburg] PHP Warning:  Undefined array key "gender" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 104
+[24-May-2025 17:29:58 Africa/Johannesburg] PHP Warning:  Undefined array key "shortBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96
+[24-May-2025 17:29:58 Africa/Johannesburg] PHP Warning:  Undefined array key "longBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 97
+[24-May-2025 17:29:59 Africa/Johannesburg] PHP Warning:  Undefined array key "profilePicture" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 98
+[24-May-2025 17:29:59 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 99
+[24-May-2025 17:29:59 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 100
+[24-May-2025 17:29:59 Africa/Johannesburg] PHP Warning:  Undefined array key "gender" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 104
+[24-May-2025 17:31:33 Africa/Johannesburg] PHP Warning:  Undefined array key "shortBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96
+[24-May-2025 17:31:33 Africa/Johannesburg] PHP Warning:  Undefined array key "longBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 97
+[24-May-2025 17:31:33 Africa/Johannesburg] PHP Warning:  Undefined array key "profilePicture" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 98
+[24-May-2025 17:31:33 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 99
+[24-May-2025 17:31:33 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 100
+[24-May-2025 17:31:33 Africa/Johannesburg] PHP Warning:  Undefined array key "gender" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 104
+[24-May-2025 17:31:37 Africa/Johannesburg] PHP Warning:  Undefined array key "shortBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 96
+[24-May-2025 17:31:37 Africa/Johannesburg] PHP Warning:  Undefined array key "longBio" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 97
+[24-May-2025 17:31:37 Africa/Johannesburg] PHP Warning:  Undefined array key "profilePicture" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 98
+[24-May-2025 17:31:37 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 99
+[24-May-2025 17:31:37 Africa/Johannesburg] PHP Warning:  Undefined array key "followerNo" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 100
+[24-May-2025 17:31:37 Africa/Johannesburg] PHP Warning:  Undefined array key "gender" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 104

@@ -1,0 +1,48 @@
+.challenge-section {
+    background-color: #f9f9fc;
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 300px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+  }
+  
+  .challenge-section h3 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .challenge-card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #e1e1e1;
+    transition: transform 0.2s ease;
+  }
+  
+  .challenge-card:hover {
+    transform: scale(1.02);
+    border-color: #c2c2ff;
+  }
+  
+  .challenge-card h4 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    color: #5c67f2;
+  }
+  
+  .challenge-card p {
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .challenge-section {
+      max-width: 100%;
+      margin-top: 1rem;
+    }
+  }
+  

@@ -21,6 +21,8 @@ $mainUser=new Users();
 
 $follow=new Follower();
 if(isset($_SESSION['userObject'])){
+
+    // return;
     $mainUser->unserialize($_SESSION['userObject']);
     $follow->set_current_userID($mainUser->get_id());
     $followeDB=new FollowerDB($follow);
@@ -458,7 +460,7 @@ try{
     
    
    
-    $_SESSION['userObject']=$mainUser->serialize();
+    // $_SESSION['userObject']=$mainUser->serialize();
     setcookie('users',json_encode($newData) , time() + (86 * 100), '/');
 }catch(Exception $err){
     $data['status']='failed';
@@ -476,24 +478,7 @@ if(isset($_POST['actions'])){
 }
 
 switch($action){
-    // case 'get_templates':
-    //     $data=[];
-    //     try{
- 
-    //         $tempdb=new TemplateDB($template);
-    //         $list=$tempdb->getTemplateList();
-
-    //         $data['templateList']=$list;
-    //         $data['status']='success';
-    //         $data['message']='its all right';
-    //         echo json_encode($data);
-    //     }catch(Exception $err){
-    //         $data['status']='failed';
-    //         $data['message']=$err->getMessage();
-    //         echo json_encode($data);
-    //     }
-    //     return;
-    //     break;
+   
     case 'pick_template':
         $data=[];
         try{

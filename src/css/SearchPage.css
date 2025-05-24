@@ -1,0 +1,26 @@
+.search-page {
+    padding: 1.5rem;
+    background-color: #fff;
+    min-height: 100vh;
+  }
+  
+  .search-page h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .search-results {
+    color: #777;
+    font-size: 0.95rem;
+  }
+  

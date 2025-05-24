@@ -1,0 +1,70 @@
+.postcard {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    max-width: 600px;
+    width: 100%;
+  }
+  
+  .postcard-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 0.8rem;
+    object-fit: cover;
+  }
+  
+  .username {
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0;
+  }
+  
+  .timestamp {
+    font-size: 0.8rem;
+    color: #888;
+  }
+  
+  .postcard-media {
+    margin-bottom: 0.8rem;
+  }
+  
+  .media {
+    width: 100%;
+    border-radius: 0.8rem;
+    object-fit: cover;
+  }
+  
+  .caption {
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+    color: #333;
+  }
+  
+  .postcard-actions {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.4rem;
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s;
+  }
+  
+  .icon-button:hover {
+    transform: scale(1.1);
+  }
+  
