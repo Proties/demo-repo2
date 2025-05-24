@@ -1,3 +1,12 @@
 [16-Nov-2024 22:15:09 Africa/Johannesburg] PHP Warning:  mkdir(): File exists in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/userFile.php on line 50
 [28-Apr-2025 10:48:57 Africa/Johannesburg] PHP Deprecated:  Insta\Posts\CollaboratorList::__construct(): Implicitly marking parameter $arr as nullable is deprecated, the explicit nullable type must be used instead in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/collaboratorList.php on line 6
 [28-Apr-2025 10:54:24 Africa/Johannesburg] PHP Deprecated:  Insta\Posts\CollaboratorList::__construct(): Implicitly marking parameter $arr as nullable is deprecated, the explicit nullable type must be used instead in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/collaboratorList.php on line 6
+[24-May-2025 17:17:34 Africa/Johannesburg] PHP Deprecated:  Insta\Posts\CollaboratorList::__construct(): Implicitly marking parameter $arr as nullable is deprecated, the explicit nullable type must be used instead in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/collaboratorList.php on line 6
+[24-May-2025 17:17:35 Africa/Johannesburg] PHP Warning:  Undefined array key "username" in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 91
+[24-May-2025 17:17:35 Africa/Johannesburg] PHP Fatal error:  Uncaught TypeError: Insta\Users\Users::set_username(): Argument #1 ($nm) must be of type string, null given, called in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 91 and defined in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php:126
+Stack trace:
+#0 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php(91): Insta\Users\Users->set_username(NULL)
+#1 /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/homePage.php(24): Insta\Users\Users->unserialize('a:14:{s:6:"user...')
+#2 /Users/rotondwanemutavhani/Desktop/testApp/kjo/index.php(103): include_once('/Users/rotondwa...')
+#3 {main}
+  thrown in /Users/rotondwanemutavhani/Desktop/testApp/kjo/php/user.php on line 126

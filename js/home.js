@@ -506,6 +506,7 @@ function eventListeners(){
         login.addEventListener('click',function(evt){
             document.getElementById('registerModal').style.display='none';
             document.getElementById('LoginModal').style.display='block';
+<<<<<<< HEAD
             const checkbox=document.getElementById('passwordLoginVisibility');
         console.log(checkbox);
         checkbox.addEventListener('change',function(evt){
@@ -517,6 +518,8 @@ function eventListeners(){
             }
             
         });
+=======
+>>>>>>> 04b2173806b89c7a6ea90bfe2dbffa603cae651a
             });
 
         let close=document.getElementById('closeLoginModal');
